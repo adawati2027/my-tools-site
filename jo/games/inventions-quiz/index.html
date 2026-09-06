@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كويز الاختراعات والاكتشافات — مين اخترع؟ | Adawati</title>
+<meta name="description" content="اختبر معلوماتك بأشهر الاختراعات والاكتشافات: مين اخترع وشو ومتى. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ أصحابك. مجاني وبدون تسجيل.">
+<meta name="keywords" content="كويز اختراعات, تحدي اكتشافات, مين اخترع, اختبار معلومات اختراعات, Inventions trivia quiz Arabic">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/jo/games/inventions-quiz/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/jo/games/inventions-quiz/">
+<link rel="alternate" hreflang="ar-JO" href="https://adawati.space/jo/games/inventions-quiz/">
+<meta property="og:title" content="كويز الاختراعات والاكتشافات | Adawati">
+<meta property="og:description" content="اختبر معلوماتك بأشهر الاختراعات والاكتشافات بـ12 سؤال ممتع في كل مرة.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/jo/games/inventions-quiz/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"أدوات الأردن","item":"https://adawati.space/jo/"},
+  {"@type":"ListItem","position":3,"name":"كويز الاختراعات والاكتشافات","item":"https://adawati.space/jo/games/inventions-quiz/"}
+]},
+{"@type":"WebApplication","name":"كويز الاختراعات والاكتشافات","url":"https://adawati.space/jo/games/inventions-quiz/","description":"اختبر معلوماتك بأشهر الاختراعات والاكتشافات: مين اخترع وشو ومتى، مع إمكانية تحدي أصحابك.","applicationCategory":"GameApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}}
+]}
+</script>
+<link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/">أدوات الأردن</a>
+    <a href="index.html">عالمي</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="jo/">→ العودة لأدوات الأردن</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#fefce8;">💡</div>
+    <h1 class="card-title">كويز الاختراعات والاكتشافات</h1>
+    <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div class="divider"></div>
+
+    <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="creatorNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ تحدي</button>
+      </div>
+    </div>
+
+    <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
+      <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <input id="joinerNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">قبول التحدي ✅</button>
+      </div>
+    </div>
+
+    <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div style="font-weight:700;">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+    </div>
+
+    <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:8px;">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+      <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
+        <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
+        <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
+        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ اللعب 🚀</button>
+      </div>
+    </div>
+
+    <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+    </div>
+
+    <div id="quizArea">
+      <div id="questionText" style="font-size:17px;font-weight:700;margin-bottom:16px;"></div>
+      <div id="optionsArea" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="resultArea" style="display:none;text-align:center;">
+      <div style="font-size:48px;margin-bottom:8px;" id="resultEmoji"></div>
+      <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
+      <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">📤 شارك نتيجتك</button>
+        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">🔄 جرّب مرة ثانية</button>
+      </div>
+
+      <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">📤 شارك التحدي مع أصحابك</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+        </div>
+      </div>
+
+      <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">🏆 لوحة الترتيب</div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;">الاسم</th><th style="padding:6px;text-align:right;">النتيجة</th></tr></thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>أدوات الأردن الأخرى:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="jo/games/science-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔬 كويز العلوم والتكنولوجيا</a>
+      <a href="jo/games/islamic-history-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">☪️ كويز التاريخ الإسلامي</a>
+      <a href="jo/games/general-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌐 كويز المعلومات العامة</a>
+      <a href="jo/games/geography-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌍 كويز الجغرافيا العالمية</a>
+      <a href="jo/games/math-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧮 كويز الرياضيات</a>
+      <a href="jo/games/makeup-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💄 كويز المكياج</a>
+      <a href="jo/games/cooking-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🍳 كويز الطبخ</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/world-sports-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏆 كويز الرياضة العالمية</a>
+      <a href="jo/games/world-football-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚽ كويز كرة القدم العالمية</a>
+      <a href="jo/games/songs-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎵 كويز الأغاني</a>
+      <a href="jo/games/wordle/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🟩 كلمة اليوم</a>
+      <a href="jo/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب اليوم</a>
+      <a href="jo/students/scholarships-loans/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 منح وقروض الجامعة</a>
+      <a href="jo/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇯🇴 كل أدوات الأردن</a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script>
+const QUESTIONS = [
+  {q:'مين حصل على أول براءة اختراع للتلفون سنة 1876؟', opts:['ألكسندر غراهام بيل','توماس إديسون','نيكولا تسلا','غولييلمو ماركوني'], correct:0},
+  {q:'مين أول إنسان وصل الفضاء بالتاريخ؟', opts:['يوري غاغارين','نيل أرمسترونغ','أليكسي ليونوف','باز ألدرين'], correct:0},
+  {q:'في أي سنة كانت أول رحلة فضائية بشرية (يوري غاغارين)؟', opts:['1961','1957','1969','1965'], correct:0},
+  {q:'مين اخترع الديناميت؟', opts:['ألفريد نوبل','توماس إديسون','رودولف ديزل','جيمس واط'], correct:0},
+  {q:'مين يُنسب له اختراع أول مصباح كهربائي متوهج عملي وناجح تجارياً سنة 1879؟', opts:['توماس إديسون','جوزيف سوان','نيكولا تسلا','مايكل فاراداي'], correct:0},
+  {q:'مين اخترع مصباح كهربائي أضاء أول مبنى عام بالكامل بإنجلترا (مسرح السفوي) سنة 1881؟', opts:['جوزيف سوان','توماس إديسون','ألساندرو فولتا','همفري ديفي'], correct:0},
+  {q:'الأخوان رايت عملوا أول رحلة طيران ناجحة بطائرة تعمل بمحرك سنة 1903، وين صار هيك بالضبط؟', opts:['كيتي هوك بولاية كارولاينا الشمالية','شيكاغو','باريس','لندن'], correct:0},
+  {q:'مين اكتشف البنسلين سنة 1928؟', opts:['ألكسندر فليمنغ','لويس باستور','إدوارد جينر','روبرت كوخ'], correct:0},
+  {q:'مين اخترع شبكة الويب العالمية (World Wide Web)؟', opts:['تيم بيرنرز-لي','بيل غيتس','ستيف جوبز','فينت سيرف'], correct:0},
+  {q:'في أي سنة اخترع تيم بيرنرز-لي شبكة الويب العالمية؟', opts:['1989','1969','1995','2000'], correct:0},
+  {q:'أي دولة أطلقت أول قمر صناعي بالتاريخ (سبوتنيك 1)؟', opts:['الاتحاد السوفييتي','أمريكا','الصين','بريطانيا'], correct:0},
+  {q:'في أي سنة أُطلق القمر الصناعي سبوتنيك 1؟', opts:['1957','1961','1969','1950'], correct:0},
+  {q:'ماري كوري اكتشفت مع زوجها بيير عنصرين كيميائيين جديدين، شو اسم أحدهما؟', opts:['الراديوم','الحديد','الذهب','اليورانيوم'], correct:0},
+  {q:'ماري كوري فازت بجائزتي نوبل بمجالين علميين مختلفين، شو هما؟', opts:['الفيزياء والكيمياء','الفيزياء والطب','الكيمياء والطب','السلام والفيزياء'], correct:0},
+  {q:'مين اكتشف تركيب الحمض النووي (DNA) على شكل حلزون مزدوج سنة 1953؟', opts:['جيمس واتسون وفرنسيس كريك','غريغور مندل','تشارلز داروين','لويس باستور'], correct:0},
+  {q:'مين اخترع المطبعة بالحروف المتحركة اللي غيّرت أوروبا؟', opts:['يوهانس غوتنبرغ','ليوناردو دافنشي','غاليليو غاليلي','يوهانس كيبلر'], correct:0},
+  {q:'بأي سنة تقريباً اخترع غوتنبرغ المطبعة؟', opts:['1450','1350','1550','1650'], correct:0},
+  {q:'مين اخترع أول سيارة عملية بالتاريخ (بنز باتنت موتورفاغن)؟', opts:['كارل بنز','هنري فورد','رودولف ديزل','غوتليب دايملر'], correct:0},
+  {q:'بأي سنة سجّل كارل بنز براءة اختراع سيارته؟', opts:['1886','1900','1920','1870'], correct:0},
+  {q:'مين اخترع الترانزستور سنة 1947؟', opts:['جون باردين ووالتر براتين وويليام شوكلي','توماس إديسون','نيكولا تسلا','ألان تورينغ'], correct:0},
+  {q:'بأي مختبر تم اختراع الترانزستور؟', opts:['مختبرات بيل','آي بي إم','مايكروسوفت','آبل'], correct:0},
+  {q:'مين اخترع المصعد الآمن اللي ما بيقع لو انقطع حبله؟', opts:['إليشا أوتيس','توماس إديسون','ألكسندر غراهام بيل','جورج ويستنغهاوس'], correct:0},
+  {q:'مين اخترع منطاد الهواء الساخن (بالون الهواء الساخن)؟', opts:['الأخوان مونتغولفييه','الأخوان رايت','لويس بليريو','فرديناند فون زيبلين'], correct:0},
+  {q:'بأي سنة كانت أول رحلة طيران بشرية بمنطاد هواء ساخن؟', opts:['1783','1803','1903','1750'], correct:0},
+  {q:'مين اخترع أول لقاح بالتاريخ (لقاح الجدري)؟', opts:['إدوارد جينر','لويس باستور','ألكسندر فليمنغ','روبرت كوخ'], correct:0},
+  {q:'بأي سنة اخترع إدوارد جينر لقاح الجدري؟', opts:['1796','1850','1900','1700'], correct:0},
+  {q:'مين اكتشف نظرية الجراثيم وطوّر عملية البسترة؟', opts:['لويس باستور','إدوارد جينر','ألكسندر فليمنغ','غريغور مندل'], correct:0},
+  {q:'لقاح داء الكَلَب (السعار) طوّره نفس العالم اللي اخترع البسترة، مين هو؟', opts:['لويس باستور','ألكسندر فليمنغ','روبرت كوخ','إدوارد جينر'], correct:0},
+  {q:'مين وضع الجدول الدوري للعناصر الكيميائية؟', opts:['ديمتري مندلييف','ألبرت أينشتاين','إسحاق نيوتن','نيلز بور'], correct:0},
+  {q:'بأي سنة قدّم مندلييف الجدول الدوري؟', opts:['1869','1900','1950','1800'], correct:0},
+  {q:'مين يُنسب له اختراع الراديو (التلغراف اللاسلكي) وفاز بجائزة نوبل سنة 1909؟', opts:['غولييلمو ماركوني','نيكولا تسلا','ألكسندر غراهام بيل','هاينريش هرتز'], correct:0},
+  {q:'غولييلمو ماركوني تقاسم جائزة نوبل بالفيزياء سنة 1909 مع مين؟', opts:['فرديناند براون','نيكولا تسلا','ألبرت أينشتاين','هاينريش هرتز'], correct:0},
+  {q:'مين اخترع الفونوغراف (أول جهاز لتسجيل وتشغيل الصوت) سنة 1877؟', opts:['توماس إديسون','ألكسندر غراهام بيل','غولييلمو ماركوني','نيكولا تسلا'], correct:0},
+  {q:'مين اخترع طريقة التصوير الفوتوغرافي الناجحة الأولى (الداغيروتايب) سنة 1839؟', opts:['لوي داغير','نيسيفور نيبس','جورج إيستمان','توماس إديسون'], correct:0},
+  {q:'مين ساعد لوي داغير بالخطوات الأولى للتصوير الفوتوغرافي قبل ما يتوفى سنة 1833؟', opts:['نيسيفور نيبس','جورج إيستمان','ماكس بلانك','لويس باستور'], correct:0},
+  {q:'مين اكتشف الأشعة السينية (إكس) سنة 1895؟', opts:['فيلهلم رونتغن','ماري كوري','ألبرت أينشتاين','إرنست رذرفورد'], correct:0},
+  {q:'مين فاز بأول جائزة نوبل بالفيزياء بالتاريخ سنة 1901؟', opts:['فيلهلم رونتغن','ماري كوري','ألبرت أينشتاين','نيلز بور'], correct:0},
+  {q:'مين اكتشف الحث الكهرومغناطيسي سنة 1831؟', opts:['مايكل فاراداي','ألساندرو فولتا','جيمس ماكسويل','أندريه أمبير'], correct:0},
+  {q:'مين اخترع أول بطارية كهربائية (العمود الفولتي) سنة 1799؟', opts:['ألساندرو فولتا','مايكل فاراداي','توماس إديسون','بنجامين فرانكلين'], correct:0},
+  {q:'وحدة قياس الجهد الكهربائي (الفولت) سميت تيمناً بمين؟', opts:['ألساندرو فولتا','مايكل فاراداي','جيمس واط','أندريه أمبير'], correct:0},
+  {q:'مين اكتشف عملية تقسية المطاط (الفلكنة)؟', opts:['تشارلز غودير','جون دنلوب','هنري فورد','توماس إديسون'], correct:0},
+  {q:'مين طوّر السحّاب (الزيبر) الحديث بشكله المعروف اليوم سنة 1917؟', opts:['غيديون سندباك','ويتكومب جادسون','إلياس هاو','إسحاق سنغر'], correct:0},
+  {q:'مين اخترع القلم الجاف (البيك) الحديث وسجّل براءته سنة 1938؟', opts:['لازلو بيرو','توماس إديسون','صمويل مورس','ألفريد نوبل'], correct:0},
+  {q:'مين اخترع آلة حلج القطن (فصل بذور القطن عن الألياف) سنة 1793؟', opts:['إيلاي ويتني','إلياس هاو','هنري فورد','توماس إديسون'], correct:0},
+  {q:'مين اخترع التلغراف الكهربائي وشيفرة مورس؟', opts:['صمويل مورس','ألكسندر غراهام بيل','غولييلمو ماركوني','توماس إديسون'], correct:0},
+  {q:'مين اخترعت أول غسالة صحون ناجحة وسجّلت براءتها سنة 1886؟', opts:['جوزفين كوكرين','ماري كوري','أدا لوفليس','هيدي لامار'], correct:0},
+  {q:'مين يُنسب له اختراع فرن الميكروويف بعد شغله بأجهزة الرادار؟', opts:['بيرسي سبنسر','نيكولا تسلا','توماس إديسون','ألبرت أينشتاين'], correct:0},
+  {q:'مين اخترع نظام برايل للقراءة والكتابة لضعاف البصر؟', opts:['لويس برايل','هيلين كيلر','لويس باستور','فيكتور هوغو'], correct:0},
+  {q:'لويس برايل بلّش يطوّر نظامه وعمره بس...؟', opts:['15 سنة','25 سنة','40 سنة','10 سنوات'], correct:0},
+  {q:'مين اخترع شريط الفيلكرو اللاصق بعد ما لاحظ نبات الأرقطيون العالق بملابسه؟', opts:['جورج دي ميسترال','تشارلز غودير','ألفريد نوبل','لويس باستور'], correct:0},
+  {q:'مين اخترع محرك الديزل؟', opts:['رودولف ديزل','كارل بنز','هنري فورد','غوتليب دايملر'], correct:0},
+  {q:'بأي سنة تم أول اختبار ناجح لمحرك الديزل؟', opts:['1897','1885','1910','1920'], correct:0},
+  {q:'مين طوّر أول هليكوبتر ناجحة عملياً سنة 1939؟', opts:['إيغور سيكورسكي','الأخوان رايت','هنري فورد','تشارلز ليندبرغ'], correct:0},
+  {q:'مين كان أول إنسان مشى على سطح القمر سنة 1969؟', opts:['نيل أرمسترونغ','باز ألدرين','مايكل كولينز','يوري غاغارين'], correct:0},
+  {q:'مين رافق نيل أرمسترونغ وكان ثاني إنسان يمشي على سطح القمر؟', opts:['باز ألدرين','مايكل كولينز','يوري غاغارين','أليكسي ليونوف'], correct:0},
+  {q:'مين بقي بمركبة أبولو 11 يدور حول القمر ولم ينزل على سطحه؟', opts:['مايكل كولينز','باز ألدرين','نيل أرمسترونغ','يوري غاغارين'], correct:0},
+  {q:'بأي سنة صار أول هبوط بشري على سطح القمر؟', opts:['1969','1961','1957','1975'], correct:0},
+  {q:'مين أول إنسان عمل مشي فضائي (خرج من مركبته بالفضاء) سنة 1965؟', opts:['أليكسي ليونوف','يوري غاغارين','نيل أرمسترونغ','فالنتينا تيريشكوفا'], correct:0},
+  {q:'مين اخترع فأرة الحاسوب (الماوس)؟', opts:['دوغلاس إنجلبارت','بيل غيتس','ستيف جوبز','تيم بيرنرز-لي'], correct:0},
+  {q:'مين أرسل أول رسالة بريد إلكتروني بالتاريخ سنة 1971؟', opts:['راي توملينسون','بيل غيتس','تيم بيرنرز-لي','ستيف جوبز'], correct:0},
+  {q:'مين اكتشف الأنسولين كعلاج لمرض السكري سنة 1921؟', opts:['فريدريك بانتينغ وتشارلز بيست','ألكسندر فليمنغ','لويس باستور','روبرت كوخ'], correct:0},
+  {q:'بأي جامعة تم اكتشاف الأنسولين؟', opts:['جامعة تورنتو','جامعة هارفارد','جامعة أكسفورد','جامعة كامبريدج'], correct:0},
+  {q:'مين طوّر عملية صناعة الورق اللي انتشرت بالعالم بالصين تقريباً سنة 105 ميلادي؟', opts:['تساي لون','كونفوشيوس','جنكيز خان','يوهانس غوتنبرغ'], correct:0},
+  {q:'البارود اكتُشف لأول مرة بأي دولة؟', opts:['الصين','الهند','فارس','مصر'], correct:0},
+  {q:'البارود اكتُشف بالصين تقريباً بأي قرن؟', opts:['القرن التاسع الميلادي','القرن الأول الميلادي','القرن الخامس عشر','القرن السادس عشر'], correct:0},
+  {q:'مين وضع قوانين الحركة والجاذبية الكونية؟', opts:['إسحاق نيوتن','ألبرت أينشتاين','غاليليو غاليلي','يوهانس كيبلر'], correct:0},
+  {q:'إسحاق نيوتن يتقاسم الفضل بتطوير علم التفاضل والتكامل مع عالم ألماني، مين هو؟', opts:['غوتفريد لايبنتز','يوهانس كيبلر','غاليليو غاليلي','ليونارد أويلر'], correct:0},
+  {q:'مين نشر كتاب "أصل الأنواع" وطوّر نظرية الانتخاب الطبيعي سنة 1859؟', opts:['تشارلز داروين','غريغور مندل','ألفريد راسل والاس','لويس باستور'], correct:0},
+  {q:'مين طوّر نفس فكرة الانتخاب الطبيعي بشكل مستقل بنفس فترة داروين تقريباً؟', opts:['ألفريد راسل والاس','غريغور مندل','توماس هكسلي','تشارلز لايل'], correct:0},
+  {q:'مين اشتهر بنظرية النسبية؟', opts:['ألبرت أينشتاين','إسحاق نيوتن','ماكس بلانك','نيلز بور'], correct:0},
+  {q:'ألبرت أينشتاين فاز بجائزة نوبل بالفيزياء... على شو بالضبط؟', opts:['تفسيره للتأثير الكهروضوئي','نظرية النسبية العامة','نظرية النسبية الخاصة','اكتشاف الإلكترون'], correct:0},
+  {q:'مين اكتشف نواة الذرة عن طريق تجربة صفيحة الذهب سنة 1911؟', opts:['إرنست رذرفورد','نيلز بور','ألبرت أينشتاين','ماري كوري'], correct:0},
+  {q:'مين اكتشف النيوترون سنة 1932؟', opts:['جيمس تشادويك','إرنست رذرفورد','نيلز بور','جي جي طومسون'], correct:0},
+  {q:'مين اكتشف الإلكترون سنة 1897؟', opts:['جي جي طومسون','إرنست رذرفورد','جيمس تشادويك','ماكس بلانك'], correct:0},
+  {q:'مين اخترع ماكينة الخياطة بالغرزة المقفلة وسجّل براءتها سنة 1846؟', opts:['إلياس هاو','إسحاق سنغر','غيديون سندباك','إيلاي ويتني'], correct:0},
+  {q:'مين اخترع السلك الشائك اللي انتشر استخدامه بتحديد المزارع؟', opts:['جوزيف غليدن','إيلاي ويتني','صمويل مورس','هنري فورد'], correct:0},
+  {q:'مين اكتشف الدورة الدموية بجسم الإنسان ونشر بحثه سنة 1628؟', opts:['ويليام هارفي','لويس باستور','إدوارد جينر','أندرياس فيزاليوس'], correct:0},
+  {q:'شو اسم أول حاسوب إلكتروني عام الغرض بالتاريخ اللي اكتمل سنة 1945؟', opts:['إينياك (ENIAC)','آبل 1','آي بي إم','يونيفاك'], correct:0},
+  {q:'مين تُعتبر رائدة بمجال البرمجة وساهمت بتطوير أول مترجم برمجي (compiler)؟', opts:['غريس هوبر','أدا لوفليس','ماري كوري','هيدي لامار'], correct:0},
+  {q:'مين بنى أول ليزر عامل بالتاريخ سنة 1960؟', opts:['ثيودور ميمان','ألبرت أينشتاين','نيكولا تسلا','توماس إديسون'], correct:0},
+  {q:'نظام تحديد المواقع (GPS) طورته أي جهة؟', opts:['وزارة الدفاع الأمريكية','وكالة ناسا','الاتحاد الأوروبي','الجيش السوفييتي'], correct:0},
+  {q:'بأي سنة وصل نظام GPS لكامل قدرته التشغيلية للاستخدام المدني والعسكري؟', opts:['1995','1973','1957','2000'], correct:0},
+  {q:'مين يُنسب له اختراع أول جهاز صراف آلي (ATM) بالتاريخ سنة 1967؟', opts:['جون شيبرد-بارون','بيل غيتس','ستيف جوبز','ألان تورينغ'], correct:0},
+  {q:'أول جهاز صراف آلي بالتاريخ تركّب بأي مدينة؟', opts:['لندن (إنفيلد)','نيويورك','باريس','طوكيو'], correct:0},
+  {q:'مين اخترع أول كاميرا شعبية سهلة الاستخدام (كوداك) ونشر التصوير للناس العاديين سنة 1888؟', opts:['جورج إيستمان','لوي داغير','نيسيفور نيبس','توماس إديسون'], correct:0},
+  {q:'مين طوّر نظام التيار الكهربائي المتردد (AC) اللي بنعتمد عليه اليوم بالكهرباء؟', opts:['نيكولا تسلا','توماس إديسون','ألساندرو فولتا','مايكل فاراداي'], correct:0},
+  {q:'مين قدّم أول عرض عام للتلفزيون الميكانيكي سنة 1925؟', opts:['جون لوجي بيرد','فيلو فارنزورث','فلاديمير زوريكين','غولييلمو ماركوني'], correct:0},
+  {q:'مين يُنسب له اختراع أول نظام تلفزيون إلكتروني ناجح سنة 1927؟', opts:['فيلو فارنزورث','جون لوجي بيرد','فلاديمير زوريكين','توماس إديسون'], correct:0},
+  {q:'مين طوّر أول دواء مضاد للبكتيريا يعمل بشكل منهجي بالجسم (برونتوسيل) بالثلاثينات؟', opts:['غيرهارد دوماك','ألكسندر فليمنغ','لويس باستور','روبرت كوخ'], correct:0},
+  {q:'مين طوّر أول لقاح ناجح لشلل الأطفال وأعلن عن نجاحه سنة 1955؟', opts:['جوناس سالك','ألكسندر فليمنغ','إدوارد جينر','لويس باستور'], correct:0},
+  {q:'مين اخترع البارومتر الزئبقي لقياس الضغط الجوي؟', opts:['إيفانجيليستا توريتشيلي','غاليليو غاليلي','روبرت بويل','بليز باسكال'], correct:0},
+  {q:'مين اخترع الترمومتر الزئبقي وسلّم الحرارة اللي سمي على اسمه (فهرنهايت)؟', opts:['دانيال غابرييل فهرنهايت','أندرس سيلسيوس','إيفانجيليستا توريتشيلي','روبرت بويل'], correct:0},
+  {q:'مين قدّم أول براءة اختراع معروفة للتلسكوب سنة 1608؟', opts:['هانس ليبرشاي','غاليليو غاليلي','إسحاق نيوتن','يوهانس كيبلر'], correct:0},
+  {q:'مين استخدم التلسكوب لأول مرة بشكل مكثف لعمل اكتشافات فلكية كبيرة سنة 1609؟', opts:['غاليليو غاليلي','هانس ليبرشاي','يوهانس كيبلر','نيكولاس كوبرنيكوس'], correct:0},
+  {q:'مين أول من لاحظ ووصف الكائنات المجهرية (البكتيريا) سنة 1676 باستخدام مجهر بسيط طوّره بنفسه؟', opts:['أنتوني فان ليفينهوك','روبرت هوك','لويس باستور','ألكسندر فليمنغ'], correct:0},
+  {q:'مين نشر كتاب "مايكروغرافيا" سنة 1665 اللي وثّق فيه رسومات مفصّلة شافها بالمجهر؟', opts:['روبرت هوك','أنتوني فان ليفينهوك','إسحاق نيوتن','غاليليو غاليلي'], correct:0},
+  {q:'مين طوّر محرك بخاري محسّن بمكثّف منفصل خلال 1763-1775 وساهم بتسريع الثورة الصناعية؟', opts:['جيمس واط','توماس نيوكومن','رودولف ديزل','جورج ستيفنسون'], correct:0},
+  {q:'مين صنع أول محرك بخاري ناجح تجارياً قبل جيمس واط بحوالي نص قرن (سنة 1712)؟', opts:['توماس نيوكومن','جيمس واط','رودولف ديزل','كارل بنز'], correct:0},
+  {q:'أربانت (ARPANET)، الشبكة اللي كانت أساس الإنترنت، مولتها أي جهة أمريكية سنة 1969؟', opts:['وكالة أبحاث الدفاع المتقدمة (DARPA)','ناسا','آي بي إم','وزارة التجارة الأمريكية'], correct:0},
+  {q:'مين بنى أول نظام تبريد عملي بالضغط البخاري (أساس الثلاجات الحديثة) سنة 1856؟', opts:['جيمس هاريسون','فريدريك وولف','توماس إديسون','رودولف ديزل'], correct:0},
+  {q:'مين اقترح نظرية "انجراف القارات" سنة 1912؟', opts:['ألفريد فيغنر','تشارلز داروين','إسحاق نيوتن','ألبرت أينشتاين'], correct:0},
+  {q:'مين يُعتبر مؤسس علم الوراثة الحديث بفضل تجاربه على نبات البازلاء؟', opts:['غريغور مندل','تشارلز داروين','جيمس واتسون','فرنسيس كريك'], correct:0},
+  {q:'بأي سنة أعلنت منظمة الصحة العالمية القضاء نهائياً على مرض الجدري بفضل حملات التطعيم؟', opts:['1980','1960','2000','1950'], correct:0},
+];
+
+const QUIZ_CONFIG = {
+  gameId: 'inventions-quiz',
+  shareTitle: 'كويز الاختراعات والاكتشافات \ud83d\udca1',
+  challengeText: 'تحداك بكويز الاختراعات، جاهز تنافسني؟',
+  resultText: function(score, total, pct) {
+    return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز الاختراعات \ud83d\udca1 جرب تتحداني!';
+  },
+  resultMessages: [
+    {min:90, emoji:'\ud83e\uddd1\u200d\ud83d\udd2c', msg:'مخترع محترف! معلوماتك رهيبة.'},
+    {min:70, emoji:'\ud83d\udca1', msg:'معلوماتك بالاختراعات ممتازة!'},
+    {min:50, emoji:'\ud83d\udc4d', msg:'مش بطال، بس فيه مجال تتحسن.'},
+    {min:0,  emoji:'\ud83d\udcda', msg:'وقتها لازم تقرأ أكتر عن الاختراعات!'}
+  ]
+};
+</script>
+<script src="jo/games/quiz-engine.js"></script>
+</body></html>
