@@ -54,15 +54,19 @@ Copy `om/salary-calculator/index.html` as the reference. Must include: `<base hr
 
 Project: **`adawati-challenges`** (Firebase console, Spark/free plan), owned by the same Google account as Analytics/Search Console/AdSense (all already correctly configured for `adawati.space` — verified, don't redo that audit).
 
-Currently wired into `jo/games/jordan-quiz/index.html` only (the "شو بتعرف عن الأردن؟" quiz — 129 questions... wait, quiz questions ≠ wordle words, see below). Firebase JS SDK loaded via compat build from `gstatic.com` CDN (not npm). Config object is inline in the page `<script>` — safe to be public (Firebase web API keys aren't secrets; access is controlled by Firestore security rules).
+**Shared engine (built):** `jo/games/quiz-engine.js` holds all Firebase/challenge/leaderboard/UI logic. Each game's `index.html` just defines `const QUESTIONS = [...]` and `const QUIZ_CONFIG = {gameId, shareTitle, challengeText, resultText(score,total,pct), resultMessages:[{min,emoji,msg}]}` before loading the engine script — don't copy-paste engine logic into a page again. Firebase JS SDK loaded via compat build from `gstatic.com` CDN (not npm). Config object is inline — safe to be public (Firebase web API keys aren't secrets; access is controlled by Firestore security rules).
+
+**Group-challenge model (current, changed from the original 1-on-1 design):** single-player mode has been removed entirely — visiting a game page with no `?challenge=` param shows only the "ابدأ تحدي" box, `#quizArea` stays `display:none` until a challenge is actually started. `MIN_PLAYERS = 2`, `MAX_PLAYERS = 20` (constants in quiz-engine.js) — the creator sees a live count of who has accepted (`acceptCountLabel`/`accepterNameSpan`/`creatorStartBtn` elements) and the "ابدأ اللعب" button stays disabled until at least 1 joiner has accepted; `joinChallenge()` and `showChallengeJoinIntro()` both block joining once `MAX_PLAYERS` is reached. Any number of joiners (not just one) can accept via the same link — the `accepts`/`players` collections already support N participants, the leaderboard renders all of them.
+
+**Category selector (opt-in per game):** `QUIZ_CONFIG.categories` (array of `{key,label}`) turns on a category-picker UI (`#categorySelectArea`, rendered by `initCategorySelector()`) shown to the creator before they start a challenge; `pickQuestions()` filters `QUESTIONS` by `q.cat === selectedCategory` when set (special key `'mix'` = no filter). Currently only `songs-quiz` uses this (`ar` / `foreign` / `mix`, split at a hardcoded index boundary in the source questions since the original batch was written Arabic-then-foreign) — other games don't set `categories` and behave as before.
 
 **Firestore collections** (`challenges/{challengeId}`):
-- `challenges` — doc has `creatorName`, `questions` (locked array for this challenge), `game`, `createdAt`.
+- `challenges` — doc has `creatorName`, `questions` (locked array for this challenge, already category-filtered if applicable), `game`, `createdAt`.
 - `challenges/{id}/players/{autoId}` — `name`, `score`, `total`, `timeMs`, `submittedAt`. Leaderboard sort: `orderBy('score','desc').orderBy('timeMs','asc')` — **requires a composite index**, already created (players: score desc, timeMs asc, scope Collection).
-- `challenges/{id}/accepts/{autoId}` — `name`, `acceptedAt`. Written when the joiner clicks "قبول التحدي"; the creator listens on this via `onSnapshot` to know when to unlock their own "ابدأ اللعب" button.
-- `challenges/{id}/starts/{autoId}` — `startedAt`. Written when the creator clicks "ابدأ اللعب"; the joiner listens on this via `onSnapshot` and starts playing at the same moment (full sync — was explicitly requested after the first version let the joiner start immediately on accept, which felt unfair).
+- `challenges/{id}/accepts/{autoId}` — `name`, `acceptedAt`. Written when a joiner clicks "قبول التحدي"; the creator listens on this via `onSnapshot` (shows a live count + names of everyone who's joined, not just the first).
+- `challenges/{id}/starts/{autoId}` — `startedAt`. Written when the creator clicks "ابدأ اللعب"; every joiner listens on this via `onSnapshot` and starts playing at the same moment (full sync).
 
-Security rules: public `read: true` everywhere, `create` allowed with field validation, **`update`/`delete` always `false`** (deliberate — prevents score tampering; means replay-prevention is done client-side via `localStorage` keyed by challenge ID instead, see `getPlayedRecord`/`savePlayedRecord` in the quiz JS).
+Security rules: public `read: true` everywhere, `create` allowed with field validation, **`update`/`delete` always `false`** (deliberate — prevents score tampering; means replay-prevention is done client-side via `localStorage` keyed by challenge ID instead, see `getPlayedRecord`/`savePlayedRecord` in the quiz JS). No server-side dedup of a single person playing twice from two browsers/devices — discussed with the user, accepted as a known limitation rather than building real auth for it.
 
 ### Editing Firestore Rules via the console (gotcha)
 When typing into the Rules Monaco editor via browser automation, **it auto-inserts a matching closing brace for every `{` you type**, so appending a new `match {...}` block via keystrokes reliably produces one extra stray `}`. Fix: click Publish, read the exact line number from the "Unexpected '}'" error, delete that one line, Publish again. This has happened every single time rules were edited this way — expect it, don't be surprised by it.
@@ -70,28 +74,40 @@ When typing into the Rules Monaco editor via browser automation, **it auto-inser
 ### Adding a new game to the challenge system
 The Firestore doc already has a `game` field for exactly this. To add a challenge mode to a different game (planned — see below), reuse the same `challenges`/`players`/`accepts`/`starts` collections with a different `game` value; don't create parallel collections per game.
 
-## Planned but not started: 14-game arcade expansion
+## 14-game arcade expansion — 11/14 built
 
-User wants 14 total trivia/game categories under `/jo/games/`, each with **≥300 questions, 12 random per playthrough**, matching the Jordan quiz's format and challenge system. List (Jordan quiz is the only one built so far, at 238 questions as of the last count — check current `QUESTIONS.length` in `jo/games/jordan-quiz/index.html`, it may have grown further):
+User wants 14 total trivia/game categories under `/jo/games/`, matching the Jordan quiz's format and challenge system. Original spec was ≥300 questions/game, but in practice each category's real, WebSearch-verified fact pool runs out well before 300 — smaller well-verified batches (60-160 range) have been explicitly accepted as fine rather than padding with unverified filler. Status (question counts as of last count, check current `QUESTIONS.length` in each page since counts may have grown):
 
-1. 🇯🇴 شو بتعرف عن الأردن؟ (`jo/games/jordan-quiz/`) — **built**, in progress toward 300.
-2. رياضة عالمية (world sports)
-3. كرة قدم عالمية (world football)
-4. أغاني — **by song TITLE only, guess the singer.** User originally wanted lyrics; **reproducing song lyrics is a hard copyright line, refused** — agreed alternative is title-only.
-5. طبخ (ingredients → dish name)
-6. أدوات المكياج (makeup tools)
-7. الرياضيات (math trivia — facts/history, not live-generated arithmetic problems, since the user's "300 static questions, 12 random" spec applies uniformly)
-8. معلومات عامة (general knowledge)
-9. ثقافي (cultural)
-10. 🌍 جغرافيا عالمية (world geography — my suggestion, user approved)
-11. ☪️ تاريخ إسلامي (Islamic history — my suggestion, approved)
-12. 🔬 علوم وتكنولوجيا (science & tech — my suggestion, approved)
-13. 🦁 حيوانات وطبيعة (animals & nature — my suggestion, approved)
-14. 💡 اختراعات واكتشافات (inventions — my suggestion, approved)
+1. 🇯🇴 شو بتعرف عن الأردن؟ (`jordan-quiz/`) — **built**, 301 questions.
+2. 🏆 رياضة عالمية (`world-sports-quiz/`) — **built**, 156 questions.
+3. ⚽ كرة قدم عالمية (`world-football-quiz/`) — **built**, 62 questions.
+4. 🎵 أغاني (`songs-quiz/`) — **built**, 179 questions. By song TITLE only, guess the singer (lyrics are a copyright line, refused — title-only was the agreed alternative). Only game using the category-selector feature: عربي/أجنبي/مكس.
+5. 🍳 طبخ (`cooking-quiz/`) — **built**, 66 questions.
+6. 💄 أدوات المكياج (`makeup-quiz/`) — **built**, 69 questions.
+7. 🧮 الرياضيات (`math-quiz/`) — **built**, 117 questions. Trivia about math (history/facts/famous mathematicians), not live-generated arithmetic problems.
+8. 🌐 معلومات عامة (`general-quiz/`) — **built**, 82 questions.
+9. 🌍 جغرافيا عالمية (`geography-quiz/`) — **built**, 148 questions.
+10. ☪️ تاريخ إسلامي (`islamic-history-quiz/`) — **built**, 85 questions. Extra caution applied: mainstream-consensus facts only, no sectarian/succession disputes, cross-referenced against encyclopedic sources.
+11. 🔬 علوم وتكنولوجيا (`science-quiz/`) — **built**, 128 questions.
+12. 🦁 حيوانات وطبيعة — **not built yet**, research in progress (fork resumed after hitting the account's weekly API limit — see below).
+13. 💡 اختراعات واكتشافات — **not built yet**, research in progress (same batch).
+14. 🎭 ثقافي — **not built yet**, research in progress (same batch).
 
-**Architecture note (not yet done):** rather than copy-pasting the ~700-line quiz page 14 times, build one shared quiz engine (challenge/leaderboard/Firebase code + UI shell) that takes a per-category question-bank file as data. Proposed to the user, not yet built — do this before starting game #2 rather than duplicating the Jordan quiz's file.
+**Architecture (done):** shared `jo/games/quiz-engine.js` — see the Firebase section above. New games only need a page shell + `QUESTIONS`/`QUIZ_CONFIG`.
 
-**Verification workload:** 14 × 300 ≈ 4,200 questions needing real fact-checking per the verification policy above. Build one category at a time; a background `fork` agent doing WebSearch-verified question generation for one category at a time has worked well (got 132/200 verified Jordan questions in one pass, honestly reported which topics it couldn't verify and dropped rather than guess).
+**Per-game build checklist** (the repeatable pattern used for games 5-11, all done via Node scripts in the scratchpad rather than hand-editing):
+1. `mkdir jo/games/<slug>-quiz` and copy the most recently built game's `index.html` as a template (Node script: read file, `.split(oldSlug).join(newSlug)` for all URL/breadcrumb occurrences, replace title/meta description/keywords/og:description/card-icon emoji+bg color/h1/JSON-LD WebApplication description/challengeText).
+2. Inject the verified question batch: replace the `const QUESTIONS = [...]` block (serialize with a single-quote-escaping helper, matching existing quoting convention) and the `const QUIZ_CONFIG = {...}` block (gameId, shareTitle, challengeText, resultText fn, resultMessages tiers).
+3. Sync cross-links across **every** game page (not just the new one) — there's a reusable script for this pattern: build a `games` array of `{slug,label}`, for each page find its "أدوات الأردن الأخرى" links block and insert any missing `<a href="jo/games/OTHER/">` entries. Keep this script around and just append to its array for each new game rather than rewriting it.
+4. Add a card to `jo/index.html` in **two** places: the legacy un-tabbed "🎮 ألعاب" section and the tabbed `data-cat="challenges"` grid.
+5. Add the URL to `build-sitemap.js`'s `countryTools` array, run `node build-sitemap.js`.
+6. Validate before pushing: `node --check` the engine, parse every page's inline `<script>` via `new Function(body)`, parse the JSON-LD via `JSON.parse`, and check the QUESTIONS array for 0 duplicates / 0 malformed entries (opts.length===4, correct in 0-3).
+7. `node push-to-github.js "..."` — always pushes the full tree, so batch several games into one push rather than pushing after every single file when doing several in a row (GitHub's rate limit gets hit fast otherwise, see below).
+
+**Verification workload & rate limits:** background `fork` agents doing WebSearch-verified question generation, one category per fork, run well in parallel (9 were launched at once for games 6-14 in one session). Real constraints hit in practice:
+- **WebSearch has a per-session budget** (200 calls) — once exhausted, forks fall back to WebFetch against specific pages (Wikipedia etc.), which still works but is slower per fact and is why later categories in a batch return fewer questions than earlier ones.
+- **The account has an API rate limit that can trigger mid-fork** — first a short session-scoped one (resets within hours, a fixed daily clock time in Asia/Muscat), then (if enough forks run) a **weekly** one (resets a fixed day/time in Asia/Muscat) — a failed fork just needs `SendMessage` to its agentId telling it to resume; it picks up from where it left off. Don't loop retrying immediately — check the error message for the actual reset time/day and wait for it.
+- A fork that returns 0 questions because WebSearch was exhausted **before any query ran** isn't a dead end — resuming it after telling it to fall back to WebFetch (like other forks in the batch did) works (this happened to the ثقافي fork).
 
 ## Known content/UX bugs already fixed this project (don't reintroduce)
 
@@ -99,6 +115,7 @@ User wants 14 total trivia/game categories under `/jo/games/`, each with **≥30
 - Zakat calculator: the "your gold is above nisab by X grams" info line was worded in a way users mistook for the zakat amount owed (it's just a weight-threshold note, unrelated to the actual JOD zakat figure computed separately). Reworded to remove the misleading number entirely.
 - Wordle-style daily word game (`jo/games/wordle/`): the on-screen keyboard was missing the letter **ذ**, silently making any word containing it (e.g. "نافذة") impossible to guess. Fixed by adding it to `KEY_ROWS`. If adding more words to `WORDS`, validate every letter exists in `KEY_ROWS` first (script pattern used: build a `Set` from `KEY_ROWS.flat()`, check every char of every word is in it) — the keyboard still has **no key for أ/إ/آ** (only bare `ا` and the hamza forms `ء ئ ؤ`), so words must avoid those combined glyphs.
 - The word-of-the-day mechanism was already correctly implemented before I was asked to add it (`dayIndex()` — deterministic by UTC date, same word for all visitors each calendar day) — don't rebuild it, just keep `WORDS` long enough that the cycle-repeat period stays reasonable (currently 129 words ≈ 4+ months before repeating).
+- Cross-country navigation bug: visiting a shared/generic tool page (e.g. `bmi-calculator.html`) from a country hub (`/jo/`, `/om/`, etc.) used to force English and make the "Back to Home" links (both the floating prompt and the static per-page link) always point to the generic `/index.html` instead of back to the country hub. Root cause: `detectDefaultLang()` in `i18n.js` discarded country context on root-level pages. Fixed by having it check `sessionStorage.getItem('adawati_country')` (already set by `initCountryDetect()`) before falling back to English, and by adding `getHomeHref()`/`fixBackLink()` helpers that make both back-link mechanisms country-aware. No changes needed to the hundreds of individual tool pages — the fix works by rewriting `href` via JS on load.
 
 ## Style/tone conventions
 
