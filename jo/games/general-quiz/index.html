@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كويز المعلومات العامة — تريفيا عامة | Adawati</title>
+<meta name="description" content="اختبر معلوماتك العامة: عجائب الدنيا، أرقام قياسية، جغرافيا ومعالم عالمية. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ أصحابك. مجاني وبدون تسجيل.">
+<meta name="keywords" content="كويز معلومات عامة, تحدي معلومات, تريفيا عامة, اختبار ثقافة عامة, General knowledge trivia quiz Arabic">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/jo/games/general-quiz/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/jo/games/general-quiz/">
+<link rel="alternate" hreflang="ar-JO" href="https://adawati.space/jo/games/general-quiz/">
+<meta property="og:title" content="كويز المعلومات العامة | Adawati">
+<meta property="og:description" content="اختبر معلوماتك العامة بـ12 سؤال ممتع في كل مرة.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/jo/games/general-quiz/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"أدوات الأردن","item":"https://adawati.space/jo/"},
+  {"@type":"ListItem","position":3,"name":"كويز المعلومات العامة","item":"https://adawati.space/jo/games/general-quiz/"}
+]},
+{"@type":"WebApplication","name":"كويز المعلومات العامة","url":"https://adawati.space/jo/games/general-quiz/","description":"اختبر معلوماتك العامة: عجائب الدنيا، أرقام قياسية، جغرافيا ومعالم عالمية، مع إمكانية تحدي أصحابك.","applicationCategory":"GameApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}}
+]}
+</script>
+<link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/">أدوات الأردن</a>
+    <a href="index.html">عالمي</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="jo/">→ العودة لأدوات الأردن</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#f0f9ff;">🌐</div>
+    <h1 class="card-title">كويز المعلومات العامة</h1>
+    <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div class="divider"></div>
+
+    <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="creatorNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ تحدي</button>
+      </div>
+    </div>
+
+    <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
+      <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <input id="joinerNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">قبول التحدي ✅</button>
+      </div>
+    </div>
+
+    <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div style="font-weight:700;">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+    </div>
+
+    <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:8px;">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+      <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
+        <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
+        <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
+        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ اللعب 🚀</button>
+      </div>
+    </div>
+
+    <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+    </div>
+
+    <div id="quizArea">
+      <div id="questionText" style="font-size:17px;font-weight:700;margin-bottom:16px;"></div>
+      <div id="optionsArea" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="resultArea" style="display:none;text-align:center;">
+      <div style="font-size:48px;margin-bottom:8px;" id="resultEmoji"></div>
+      <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
+      <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">📤 شارك نتيجتك</button>
+        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">🔄 جرّب مرة ثانية</button>
+      </div>
+
+      <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">📤 شارك التحدي مع أصحابك</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+        </div>
+      </div>
+
+      <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">🏆 لوحة الترتيب</div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;">الاسم</th><th style="padding:6px;text-align:right;">النتيجة</th></tr></thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>أدوات الأردن الأخرى:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="jo/games/science-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔬 كويز العلوم والتكنولوجيا</a>
+      <a href="jo/games/geography-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌍 كويز الجغرافيا العالمية</a>
+      <a href="jo/games/islamic-history-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">☪️ كويز التاريخ الإسلامي</a>
+      <a href="jo/games/math-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧮 كويز الرياضيات</a>
+      <a href="jo/games/makeup-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💄 كويز المكياج</a>
+      <a href="jo/games/cooking-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🍳 كويز الطبخ</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/world-sports-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏆 كويز الرياضة العالمية</a>
+      <a href="jo/games/world-football-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚽ كويز كرة القدم العالمية</a>
+      <a href="jo/games/songs-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎵 كويز الأغاني</a>
+      <a href="jo/games/wordle/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🟩 كلمة اليوم</a>
+      <a href="jo/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب اليوم</a>
+      <a href="jo/students/scholarships-loans/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 منح وقروض الجامعة</a>
+      <a href="jo/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇯🇴 كل أدوات الأردن</a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script>
+const QUESTIONS = [
+  {q:'كم عدد طوابق برج خليفة (أطول برج بالعالم)؟', opts:['163','120','200','90'], correct:0},
+  {q:'شو أطول برج بالعالم؟', opts:['برج خليفة','إمباير ستيت','برج إيفل','برج طوكيو سكاي تري'], correct:0},
+  {q:'أطول نهر بالعالم حسب أغلب المصادر؟', opts:['نهر النيل','نهر الأمازون','نهر اليانغتسي','نهر المسيسبي'], correct:0},
+  {q:'طول نهر النيل تقريباً؟', opts:['6650 كم','3000 كم','10000 كم','4500 كم'], correct:0},
+  {q:'نهر الأمازون (ثاني أطول نهر بالعالم) موجود بأي قارة؟', opts:['أمريكا الجنوبية','أفريقيا','آسيا','أمريكا الشمالية'], correct:0},
+  {q:'شو أكبر صحراء بالعالم من ناحية المساحة (بيصنفوها صحراء قطبية باردة)؟', opts:['صحراء أنتاركتيكا','الصحراء الكبرى','صحراء أستراليا','الربع الخالي'], correct:0},
+  {q:'شو أكبر صحراء حارة بالعالم؟', opts:['الصحراء الكبرى','صحراء كلاهاري','صحراء ثار','الربع الخالي'], correct:0},
+  {q:'أصغر دولة بالعالم من ناحية المساحة؟', opts:['الفاتيكان','موناكو','سان مارينو','ليختنشتاين'], correct:0},
+  {q:'مساحة دولة الفاتيكان (أصغر دولة بالعالم) تقريباً؟', opts:['0.49 كم²','10 كم²','100 كم²','2 كم²'], correct:0},
+  {q:'كم عدد عظام جسم الإنسان البالغ؟', opts:['206','150','300','180'], correct:0},
+  {q:'الطفل بيولد بعدد عظام أكتر من البالغ، كم تقريباً؟', opts:['270','206','150','320'], correct:0},
+  {q:'أكبر دولة بالعالم من ناحية المساحة؟', opts:['روسيا','كندا','الصين','أمريكا'], correct:0},
+  {q:'ثاني أكبر دولة بالعالم من ناحية المساحة؟', opts:['كندا','الصين','أمريكا','البرازيل'], correct:0},
+  {q:'أعلى جبل بالعالم؟', opts:['إيفرست','كي 2','كليمنجارو','إلبروس'], correct:0},
+  {q:'ارتفاع قمة إيفرست تقريباً؟', opts:['8849 متر','7000 متر','10000 متر','6000 متر'], correct:0},
+  {q:'أكبر محيط بالعالم من ناحية المساحة؟', opts:['المحيط الهادئ','المحيط الأطلسي','المحيط الهندي','المحيط المتجمد الشمالي'], correct:0},
+  {q:'خندق ماريانا (أعمق نقطة بالمحيطات) موجود بأي محيط؟', opts:['المحيط الهادئ','المحيط الأطلسي','المحيط الهندي','المحيط المتجمد الشمالي'], correct:0},
+  {q:'عمق أعمق نقطة بالمحيطات بالعالم (تشالنجر ديب بخندق ماريانا) تقريباً؟', opts:['10935 متر','5000 متر','8000 متر','15000 متر'], correct:0},
+  {q:'أكبر جزيرة بالعالم (غير قارية)؟', opts:['غرينلاند','مدغشقر','بورنيو','سومطرة'], correct:0},
+  {q:'طول سور الصين العظيم حسب آخر مسح رسمي (2012)؟', opts:['21196 كم','5000 كم','10000 كم','3000 كم'], correct:0},
+  {q:'كم عدد القارات المعروفة بالتصنيف الشائع؟', opts:['7','5','6','8'], correct:0},
+  {q:'أكبر قارة بالعالم من ناحية المساحة؟', opts:['آسيا','أفريقيا','أمريكا الشمالية','أوروبا'], correct:0},
+  {q:'أصغر قارة بالعالم من ناحية المساحة؟', opts:['أستراليا','أوروبا','أنتاركتيكا','أمريكا الجنوبية'], correct:0},
+  {q:'كم عدد الدول الأعضاء بالأمم المتحدة حالياً؟', opts:['193','180','220','150'], correct:0},
+  {q:'أي موقع أردني كان من ضمن عجائب الدنيا السبع الجديدة (تصويت 2007)؟', opts:['البتراء','جرش','العقبة','وادي رم'], correct:0},
+  {q:'أي إنجاز معماري صيني كان من ضمن عجائب الدنيا السبع الجديدة (تصويت 2007)؟', opts:['سور الصين العظيم','برج شنغهاي','المدينة المحرمة','سد الممرات الثلاث'], correct:0},
+  {q:'أي هرم مصري يعتبر الوحيد الباقي من عجائب الدنيا السبع القديمة؟', opts:['هرم خوفو (الهرم الأكبر بالجيزة)','هرم زوسر','هرم منقرع','هرم خفرع'], correct:0},
+  {q:'الهرم الأكبر بالجيزة اتبنى تقريباً بأي فترة؟', opts:['حوالي 2600 قبل الميلاد','حوالي 1000 قبل الميلاد','حوالي 500 قبل الميلاد','بعد الميلاد بـ 500 سنة'], correct:0},
+  {q:'شو أكثر مكان جفافاً بالعالم (باستثناء المناطق القطبية)؟', opts:['صحراء أتاكاما','الصحراء الكبرى','الربع الخالي','صحراء موهافي'], correct:0},
+  {q:'بيانو قياسي فيه كم مفتاح؟', opts:['88','100','76','52'], correct:0},
+  {q:'رقعة الشطرنج فيها كم مربع؟', opts:['64','100','49','81'], correct:0},
+  {q:'كل لاعب شطرنج بيبلش اللعبة بكم قطعة؟', opts:['16','12','20','8'], correct:0},
+  {q:'قناة السويس بتوصل بين أي بحرين؟', opts:['المتوسط والأحمر','الأحمر والعربي','المتوسط والأسود','الخليج والعربي'], correct:0},
+  {q:'قناة السويس افتتحت رسمياً بأي سنة؟', opts:['1869','1900','1950','1820'], correct:0},
+  {q:'طول قناة السويس تقريباً؟', opts:['193 كم','50 كم','500 كم','1000 كم'], correct:0},
+  {q:'قناة بنما بتوصل بين أي محيطين؟', opts:['الأطلسي والهادئ','الهندي والهادئ','الأطلسي والهندي','المتجمد والهادئ'], correct:0},
+  {q:'قناة بنما افتتحت رسمياً بأي سنة؟', opts:['1914','1869','1950','1930'], correct:0},
+  {q:'أول جائزة نوبل انمنحت بأي سنة؟', opts:['1901','1850','1920','1945'], correct:0},
+  {q:'جائزة نوبل الأصلية (حسب وصية ألفريد نوبل) كانت بكم مجال؟', opts:['5 مجالات','3 مجالات','6 مجالات','10 مجالات'], correct:0},
+  {q:'أي مجال بجوائز نوبل انضاف لاحقاً ومش من ضمن الوصية الأصلية؟', opts:['الاقتصاد','الطب','الأدب','السلام'], correct:0},
+  {q:'برج إيفل بفرنسا اتبنى بمناسبة أي حدث؟', opts:['معرض باريس العالمي 1889 وذكرى الثورة الفرنسية','نهاية الحرب العالمية الأولى','تتويج ملك فرنسا','الألعاب الأولمبية'], correct:0},
+  {q:'ارتفاع برج إيفل تقريباً؟', opts:['330 متر','200 متر','450 متر','600 متر'], correct:0},
+  {q:'تمثال الحرية بأمريكا كان هدية من أي دولة؟', opts:['فرنسا','بريطانيا','إسبانيا','إيطاليا'], correct:0},
+  {q:'تمثال الحرية افتتح رسمياً بأي سنة؟', opts:['1886','1900','1850','1776'], correct:0},
+  {q:'أكثر متحف بالعالم زيارة؟', opts:['متحف اللوفر بباريس','المتحف البريطاني بلندن','متحف المتروبوليتان بنيويورك','متاحف الفاتيكان'], correct:0},
+  {q:'لوحة الموناليزا الشهيرة معروضة بأي متحف؟', opts:['متحف اللوفر','المتحف البريطاني','متحف أوفيزي','متحف برادو'], correct:0},
+  {q:'أطول شلال بالعالم (شلال أنجل) موجود بأي دولة؟', opts:['فنزويلا','البرازيل','كولومبيا','الأرجنتين'], correct:0},
+  {q:'ارتفاع شلال أنجل (أطول شلال بالعالم) تقريباً؟', opts:['979 متر','200 متر','500 متر','1500 متر'], correct:0},
+  {q:'أكبر نظام شعاب مرجانية بالعالم (الحاجز المرجاني العظيم) موجود قبالة سواحل أي دولة؟', opts:['أستراليا','إندونيسيا','الفلبين','المكسيك'], correct:0},
+  {q:'أكثر دولة بالعالم سكاناً حالياً؟', opts:['الهند','الصين','أمريكا','إندونيسيا'], correct:0},
+  {q:'ثاني أكثر دولة بالعالم سكاناً؟', opts:['الصين','أمريكا','إندونيسيا','باكستان'], correct:0},
+  {q:'أكثر لغة بالعالم متحدثين (مجموع الناطقين بها كلغة أولى وثانية)؟', opts:['الإنجليزية','الماندرين الصينية','الإسبانية','الهندية'], correct:0},
+  {q:'ثاني أكثر لغة بالعالم من ناحية عدد المتحدثين؟', opts:['الماندرين الصينية','الإسبانية','الهندية','العربية'], correct:0},
+  {q:'أكبر عضو بجسم الإنسان من ناحية الوزن والمساحة؟', opts:['الجلد','الكبد','الرئة','الأمعاء'], correct:0},
+  {q:'أكبر عضو داخلي (غدة) بجسم الإنسان؟', opts:['الكبد','الكلية','الطحال','المعدة'], correct:0},
+  {q:'وزن كبد الإنسان البالغ تقريباً؟', opts:['1.5 كغم','500 غرام','5 كغم','200 غرام'], correct:0},
+  {q:'أقدم جامعة لسا شغالة لليوم بالعالم (حسب يونسكو وغينس) موجودة بأي مدينة؟', opts:['فاس بالمغرب','القاهرة بمصر','بغداد بالعراق','دمشق بسوريا'], correct:0},
+  {q:'الحواس الخمس التقليدية للإنسان هي البصر والسمع والشم واللمس و...؟', opts:['التذوق','التوازن','الإحساس بالحرارة','الجوع'], correct:0},
+  {q:'كم عدد المناطق الزمنية الرسمية المستخدمة حول العالم (فروق التوقيت العالمي UTC)؟', opts:['27','12','24','15'], correct:0},
+  {q:'أقصى فرق ممكن بالتوقيت بين نقطتين بالعالم بنفس اللحظة؟', opts:['26 ساعة','12 ساعة','24 ساعة','18 ساعة'], correct:0},
+  {q:'أول إنسان مشى على سطح القمر؟', opts:['نيل أرمسترونغ','باز ألدرين','يوري غاغارين','مايكل كولينز'], correct:0},
+  {q:'مهمة أبولو 11 هبطت على القمر بأي سنة؟', opts:['1969','1975','1959','1980'], correct:0},
+  {q:'أول دولة بالعالم منحت المرأة حق التصويت على المستوى الوطني؟', opts:['نيوزيلندا','بريطانيا','أمريكا','فرنسا'], correct:0},
+  {q:'نيوزيلندا منحت المرأة حق التصويت بأي سنة؟', opts:['1893','1920','1945','1900'], correct:0},
+  {q:'سفينة تيتانيك غرقت بأي سنة؟', opts:['1912','1920','1900','1935'], correct:0},
+  {q:'تيتانيك غرقت بأي محيط؟', opts:['المحيط الأطلسي الشمالي','المحيط الهادئ','المحيط الهندي','البحر المتوسط'], correct:0},
+  {q:'سقوط جدار برلين صار بأي سنة؟', opts:['1989','1991','1975','2000'], correct:0},
+  {q:'كم عدد كواكب المجموعة الشمسية حالياً (بعد استبعاد بلوتو من قائمة الكواكب)؟', opts:['8','9','7','10'], correct:0},
+  {q:'عاصمة أستراليا هي؟', opts:['كانبيرا','سيدني','ملبورن','بيرث'], correct:0},
+  {q:'عاصمة البرازيل هي؟', opts:['برازيليا','ريو دي جانيرو','ساو باولو','سالفادور'], correct:0},
+  {q:'عاصمة سويسرا هي؟', opts:['برن','زيورخ','جنيف','بازل'], correct:0},
+  {q:'عاصمة تركيا هي؟', opts:['أنقرة','إسطنبول','إزمير','بورصة'], correct:0},
+  {q:'عملة اليابان الرسمية هي؟', opts:['الين الياباني','الوون','اليوان','الروبية'], correct:0},
+  {q:'عملة الهند الرسمية هي؟', opts:['الروبية الهندية','الين','الرينغيت','البات'], correct:0},
+  {q:'عملة روسيا الرسمية هي؟', opts:['الروبل الروسي','الين','الفرنك','الدولار'], correct:0},
+  {q:'عملة سويسرا الرسمية هي؟', opts:['الفرنك السويسري','اليورو','المارك','الجنيه'], correct:0},
+  {q:'عملة كوريا الجنوبية الرسمية هي؟', opts:['الوون الكوري','الين','اليوان','الروبية'], correct:0},
+  {q:'عملة البرازيل الرسمية هي؟', opts:['الريال البرازيلي','البيزو','الدولار','الغيلدر'], correct:0},
+  {q:'عملة إندونيسيا الرسمية هي؟', opts:['الروبية الإندونيسية','الرينغيت','الين','البات'], correct:0},
+  {q:'أكبر بحيرة (مسطح مائي داخلي) بالعالم من ناحية المساحة؟', opts:['بحر قزوين','بحيرة سوبيريور','بحيرة فيكتوريا','بحيرة بايكال'], correct:0},
+  {q:'مساحة بحر قزوين (أكبر بحيرة بالعالم) تقريباً؟', opts:['389 ألف كم²','50 ألف كم²','700 ألف كم²','150 ألف كم²'], correct:0},
+  {q:'الحاجز المرجاني العظيم بأستراليا بيمتد لمسافة تقريبية قد ايش؟', opts:['2300 كم','500 كم','5000 كم','1000 كم'], correct:0},
+];
+
+const QUIZ_CONFIG = {
+  gameId: 'general-quiz',
+  shareTitle: 'كويز المعلومات العامة \ud83c\udf10',
+  challengeText: 'تحداك بكويز المعلومات العامة، جاهز تنافسني؟',
+  resultText: function(score, total, pct) {
+    return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز المعلومات العامة \ud83c\udf10 جرب تتحداني!';
+  },
+  resultMessages: [
+    {min:90, emoji:'\ud83c\udf1f', msg:'موسوعة بشرية! معلوماتك رهيبة.'},
+    {min:70, emoji:'\ud83c\udf10', msg:'معلوماتك العامة ممتازة!'},
+    {min:50, emoji:'\ud83d\udc4d', msg:'مش بطال، بس فيه مجال تتحسن.'},
+    {min:0,  emoji:'\ud83d\udcda', msg:'وقتها لازم تقرأ أكتر!'}
+  ]
+};
+</script>
+<script src="jo/games/quiz-engine.js"></script>
+</body></html>

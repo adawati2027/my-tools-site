@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كويز الطبخ — أكلات وحقائق طبخ | Adawati</title>
+<meta name="description" content="اختبر معلوماتك بالطبخ: أصل الأكلات، حقائق طبخ، وأساطير مطبخ لازم تعرف الحقيقة وراها. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ أصحابك. مجاني وبدون تسجيل.">
+<meta name="keywords" content="كويز طبخ, تحدي طبخ, حقائق عن الاكل, اختبار معلومات طبخ, cooking trivia quiz Arabic">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/jo/games/cooking-quiz/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/jo/games/cooking-quiz/">
+<link rel="alternate" hreflang="ar-JO" href="https://adawati.space/jo/games/cooking-quiz/">
+<meta property="og:title" content="كويز الطبخ | Adawati">
+<meta property="og:description" content="اختبر معلوماتك بالطبخ وحقائق الأكل بـ12 سؤال ممتع في كل مرة.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/jo/games/cooking-quiz/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"أدوات الأردن","item":"https://adawati.space/jo/"},
+  {"@type":"ListItem","position":3,"name":"كويز الطبخ","item":"https://adawati.space/jo/games/cooking-quiz/"}
+]},
+{"@type":"WebApplication","name":"كويز الطبخ","url":"https://adawati.space/jo/games/cooking-quiz/","description":"اختبر معلوماتك بالطبخ: أصل الأكلات، حقائق طبخ، وأساطير مطبخ لازم تعرف الحقيقة وراها، مع إمكانية تحدي أصحابك.","applicationCategory":"GameApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}}
+]}
+</script>
+<link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/">أدوات الأردن</a>
+    <a href="index.html">عالمي</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="jo/">→ العودة لأدوات الأردن</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#fff7ed;">🍳</div>
+    <h1 class="card-title">حقائق ومعلومات عن الطبخ</h1>
+    <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div class="divider"></div>
+
+    <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="creatorNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ تحدي</button>
+      </div>
+    </div>
+
+    <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
+      <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <input id="joinerNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">قبول التحدي ✅</button>
+      </div>
+    </div>
+
+    <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div style="font-weight:700;">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+    </div>
+
+    <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:8px;">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+      <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
+        <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
+        <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
+        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ اللعب 🚀</button>
+      </div>
+    </div>
+
+    <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+    </div>
+
+    <div id="quizArea">
+      <div id="questionText" style="font-size:17px;font-weight:700;margin-bottom:16px;"></div>
+      <div id="optionsArea" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="resultArea" style="display:none;text-align:center;">
+      <div style="font-size:48px;margin-bottom:8px;" id="resultEmoji"></div>
+      <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
+      <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">📤 شارك نتيجتك</button>
+        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">🔄 جرّب مرة ثانية</button>
+      </div>
+
+      <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">📤 شارك التحدي مع أصحابك</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+        </div>
+      </div>
+
+      <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">🏆 لوحة الترتيب</div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;">الاسم</th><th style="padding:6px;text-align:right;">النتيجة</th></tr></thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>أدوات الأردن الأخرى:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="jo/games/science-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔬 كويز العلوم والتكنولوجيا</a>
+      <a href="jo/games/geography-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌍 كويز الجغرافيا العالمية</a>
+      <a href="jo/games/islamic-history-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">☪️ كويز التاريخ الإسلامي</a>
+      <a href="jo/games/general-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌐 كويز المعلومات العامة</a>
+      <a href="jo/games/math-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧮 كويز الرياضيات</a>
+      <a href="jo/games/makeup-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💄 كويز المكياج</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/world-sports-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏆 كويز الرياضة العالمية</a>
+      <a href="jo/games/world-football-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚽ كويز كرة القدم العالمية</a>
+      <a href="jo/games/songs-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎵 كويز الأغاني</a>
+      <a href="jo/games/wordle/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🟩 كلمة اليوم</a>
+      <a href="jo/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب اليوم</a>
+      <a href="jo/students/scholarships-loans/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 منح وقروض الجامعة</a>
+      <a href="jo/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇯🇴 كل أدوات الأردن</a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script>
+const QUESTIONS = [
+  {q:'الخل البلسمي التقليدي (Balsamic) منشأه من أي بلد؟', opts:['إيطاليا','فرنسا','إسبانيا','اليونان'], correct:0},
+  {q:'الخل البلسمي التقليدي المحمي بالقانون بيتصنع بس بمنطقتين بإيطاليا، شو اسمهم؟', opts:['مودينا وريجيو إميليا','روما ونابولي','ميلانو وتورينو','فينيسيا وفلورنسا'], correct:0},
+  {q:'قانونياً، المشروب الفوّار ما بينسمى "شمبانيا" إلا إذا انصنع بمنطقة؟', opts:['شمبانيا بفرنسا','تسكانيا بإيطاليا','ريوخا بإسبانيا','بافاريا بألمانيا'], correct:0},
+  {q:'مين اكتشف مادة الغلوتامات أحادية الصوديوم (MSG) وطعم الأومامي، وبأي بلد؟', opts:['كيكوناي إيكيدا - اليابان','لوي باستور - فرنسا','جون كيلوغ - أمريكا','ألكسندر فليمنغ - بريطانيا'], correct:0},
+  {q:'بأي سنة اكتشف العالم الياباني كيكوناي إيكيدا طعم الأومامي؟', opts:['1908','1950','1889','1975'], correct:0},
+  {q:'شركة "أجينوموتو" اليابانية الشهيرة بإنتاج MSG تأسست سنة؟', opts:['1909','1930','1960','1889'], correct:0},
+  {q:'مين الشيف الفرنسي اللي لقبته الصحافة "ملك الطهاة وطاهي الملوك"؟', opts:['أوغست إسكوفييه','غوردن رامزي','جوليا تشايلد','بول بوكوز'], correct:0},
+  {q:'أوغست إسكوفييه اشتهر بتقنينه لعدد من الصلصات الأساسية بالمطبخ الفرنسي، كم عددها؟', opts:['خمسة','ثلاثة','سبعة','عشرة'], correct:0},
+  {q:'البطاطا أصلها من وين؟', opts:['جبال الأنديز (بيرو وبوليفيا)','الصين','إيرلندا','مصر'], correct:0},
+  {q:'أول دليل أثري على استئناس البطاطا لقي قرب أي بحيرة بأمريكا الجنوبية؟', opts:['بحيرة تيتيكاكا','بحيرة فيكتوريا','البحيرات العظمى','بحيرة بايكال'], correct:0},
+  {q:'الفلفل الحار (الشطة) أصله من وين أصلاً، قبل ما ينتشر عالعالم؟', opts:['القارة الأمريكية','جنوب شرق آسيا','الهند','أفريقيا'], correct:0},
+  {q:'الفلفل الحار وصل لآسيا والهند لأول مرة عن طريق مين؟', opts:['التجار البرتغاليون والإسبان','تجار الحرير الصينيون','الإمبراطورية العثمانية','الفينيقيون'], correct:0},
+  {q:'أكتر بلد فيه تنوع بأصناف الفلفل الحار المزروعة بالعالم؟', opts:['بيرو','الهند','تايلاند','المكسيك'], correct:0},
+  {q:'نبتة البن (القهوة) أصلها من وين؟', opts:['إثيوبيا','اليمن','البرازيل','كولومبيا'], correct:0},
+  {q:'أول مكان توثّق فيه شرب القهوة كمشروب كان مع متصوفة أي بلد بالقرن الخامس عشر؟', opts:['اليمن','إثيوبيا','تركيا','مصر'], correct:0},
+  {q:'الشاي أصله من وين؟', opts:['الصين','الهند','سريلانكا','اليابان'], correct:0},
+  {q:'أقدم دليل أثري على شرب الشاي لقي بضريح إمبراطور صيني، يرجع لأي عصر؟', opts:['أسرة هان (قبل حوالي 2200 سنة)','العصر الحجري','الإمبراطورية الرومانية','العصور الوسطى الأوروبية'], correct:0},
+  {q:'شجرة الكاكاو انزرعت لأول مرة بأمريكا الجنوبية، بالتحديد بأي بلد حالي؟', opts:['الإكوادور','البرازيل','بيرو','كولومبيا'], correct:0},
+  {q:'أي حضارات قديمة اعتبرت الكاكاو "هدية من الآلهة" واستخدموه كمشروب؟', opts:['المايا والأزتيك','الفراعنة','الرومان','الفايكنج'], correct:0},
+  {q:'الذرة (الحبوب الصفرا) انزرعت لأول مرة من نبات بري اسمه "تيوسينتي" بأي بلد؟', opts:['المكسيك','الصين','بيرو','الهند'], correct:0},
+  {q:'الفانيليا أصلها من وين، ومين أول شعب استأنسها وزرعها؟', opts:['المكسيك - شعب التوتوناك','الهند - شعب التاميل','مدغشقر - السكان الأصليين','إندونيسيا - شعب الجاوا'], correct:0},
+  {q:'بخلاف الشائع، بسكويت الحظ (Fortune Cookie) مش أصله صيني، أصله فعلياً من؟', opts:['مهاجرين يابانيين بأمريكا','كوريا','فيتنام','تايوان'], correct:0},
+  {q:'منسف الأردن بيتحضر بصلصة أساسها "الجميد"، وهو شو بالضبط؟', opts:['لبن مجفف ومخمر','جبنة بيضاء','زبدة مذابة','دبس رمان'], correct:0},
+  {q:'مدينة أردنية مشهورة بإنتاج أجود أنواع الجميد لصناعة المنسف؟', opts:['الكرك','إربد','العقبة','معان'], correct:0},
+  {q:'بأي سنة اعترفت اليونسكو بالمنسف وتقاليده كتراث ثقافي غير مادي للأردن؟', opts:['2022','2010','2015','2005'], correct:0},
+  {q:'الكنافة النابلسية بتتميز بنوع جبنة معين، شو اسمها؟', opts:['الجبنة النابلسية','الجبنة الرومي','جبنة العكاوي','جبنة الموزاريلا'], correct:0},
+  {q:'أي مدينة فلسطينية معروفة تاريخياً بلقب "عاصمة الكنافة"؟', opts:['نابلس','الخليل','رام الله','بيت لحم'], correct:0},
+  {q:'لحم الكوبي الياباني الأصيل لازم يجي من أبقار مرباة بمحافظة يابانية اسمها؟', opts:['هيوغو','طوكيو','أوساكا','كيوتو'], correct:0},
+  {q:'لحم الكوبي هو نوع من لحم الواغيو، من سلالة أبقار تُدعى؟', opts:['تاجيما','أنغوس','هيرفورد','واغيو الأبيض'], correct:0},
+  {q:'جبنة البارميزان الأصلية (Parmigiano-Reggiano) المحمية بالقانون بتنصنع بس بمناطق معينة بإيطاليا، من أبرزها؟', opts:['بارما وريجيو إميليا','روما ونابولي','صقلية وسردينيا','البندقية وفيرونا'], correct:0},
+  {q:'التيكيلا بتتصنع أساساً من نبات؟', opts:['الأغاف الأزرق','قصب السكر','الذرة','العنب'], correct:0},
+  {q:'قانونياً، التيكيلا الحقيقية لازم تُصنع بولاية مكسيكية أساسية اسمها؟', opts:['خاليسكو','مكسيكو سيتي','يوكاتان','باها كاليفورنيا'], correct:0},
+  {q:'على عكس الشائع، مشروب البوربون مش لازم يتصنع بولاية كنتاكي تحديداً، القانون بيشترط بس إنه يتصنع؟', opts:['بأي مكان بالولايات المتحدة','بولاية تينيسي فقط','بأمريكا الشمالية عموماً','بولاية كنتاكي حصراً'], correct:0},
+  {q:'حسب قانون البوربون الأمريكي، أقل نسبة ذرة لازم تكون بخليط الحبوب؟', opts:['51%','25%','75%','10%'], correct:0},
+  {q:'دليل ميشلان الشهير بتقييم المطاعم أصله من شركة متخصصة أصلاً بشو؟', opts:['إطارات السيارات','الفنادق','السيارات','الطيران'], correct:0},
+  {q:'أعلى تقييم ممكن يحصل عليه مطعم بدليل ميشلان هو؟', opts:['3 نجوم','5 نجوم','10 نجوم','نجمة وحدة'], correct:0},
+  {q:'دليل ميشلان تأسس سنة؟', opts:['1900','1950','1975','1920'], correct:0},
+  {q:'سلطة السيزر مش سميت نسبة ليوليوس قيصر، أصل تسميتها من مين؟', opts:['الشيف سيزر كارديني','الإمبراطور الروماني','ملكة إيطاليا','مطعم إيطالي بميلانو'], correct:0},
+  {q:'سلطة السيزر اخترعت أول مرة بمدينة؟', opts:['تيخوانا بالمكسيك','روما بإيطاليا','نيويورك بأمريكا','باريس بفرنسا'], correct:0},
+  {q:'سلطة السيزر اخترعت تقريباً بسنة؟', opts:['1924','1850','1960','1900'], correct:0},
+  {q:'كلمة "ساندويتش" اتسمت نسبة لشخصية إنجليزية تاريخية، شو لقبه؟', opts:['إيرل ساندويتش','ملك إنجلترا','جنرال بريطاني','تاجر إسكتلندي'], correct:0},
+  {q:'العسل ممكن يضل صالح للأكل لفترة غير محدودة إذا انخزن صح، والسبب العلمي الرئيسي؟', opts:['نسبة الماء فيه واطئة جداً','فيه مواد حافظة صناعية','بيتجمد بسرعة','غني بالفيتامين سي'], correct:0},
+  {q:'خرافة شائعة بتقول إنه لقوا عسل صالح للأكل بمقابر فرعونية قديمة، هل هاي القصة مؤكدة علمياً؟', opts:['لأ، ما في دليل موثق، والعينات المزعومة طلعت مواد تانية','أيوة، مؤكدة ومثبتة أثرياً','مؤكدة بس بمقبرة توت عنخ آمون بس','مؤكدة بمقابر رومانية مش فرعونية'], correct:0},
+  {q:'الزعفران من أغلى التوابل بالعالم، والسبب الرئيسي لغلاه هو؟', opts:['بيتقطف يدوياً وبكميات قليلة جداً من كل زهرة','صعوبة زراعته بأي مكان','ندرة النبتة عالمياً','تكلفة تعبئته وتغليفه فقط'], correct:0},
+  {q:'تقريباً كم زهرة زعفران لازم عشان تطلع غرام وحد من الزعفران المجفف؟', opts:['حوالي 150 زهرة','5 زهرات','1000 زهرة','20 زهرة'], correct:0},
+  {q:'فلفل "كارولاينا ريبر" كان الأحر بالعالم حسب غينيس من 2013 لـ2023، بس تجاوزه فلفل تاني من نفس المربي، شو اسمه؟', opts:['Pepper X','Ghost Pepper','Trinidad Scorpion','Habanero'], correct:0},
+  {q:'درجة حرارة فلفل الكارولاينا ريبر تقريباً بمقياس سكوفيل (SHU)؟', opts:['حوالي 1.6 مليون وحدة','حوالي 100 ألف وحدة','حوالي 10 آلاف وحدة','حوالي 500 ألف وحدة'], correct:0},
+  {q:'كلمة "كاتشب" أصلها اللغوي بيرجع لكلمة صينية/جنوب شرق آسيوية كانت تعني؟', opts:['صلصة سمك مخلل','معجون طماطم','خل التفاح','صلصة صويا حلوة'], correct:0},
+  {q:'أكتر رواية موثقة تاريخياً لأصل المايونيز بتحكي إنه اخترع بجزيرة إسبانية اسمها؟', opts:['مينورقة','مايوركا','إيبيزا','تينيريفي'], correct:0},
+  {q:'صلصة الوسترشير الإنجليزية الشهيرة أصلها من مدينة؟', opts:['ووستر بإنجلترا','لندن','مانشستر','ليفربول'], correct:0},
+  {q:'صلصة الوسترشير اخترعها صيدلانيان إنجليز، بأي قرن؟', opts:['القرن التاسع عشر','القرن السادس عشر','القرن العشرين','القرن الثامن عشر'], correct:0},
+  {q:'كم عدد الطعوم الأساسية اللي العلم بيعترف فيها حالياً؟', opts:['خمسة','أربعة','ستة','ثلاثة'], correct:0},
+  {q:'الطعم الخامس اللي أضافه العلم بعد الحلو والحامض والمالح والمر اسمه؟', opts:['الأومامي','الحار','القابض','الدسم'], correct:0},
+  {q:'الغلوتين مكوّن أساساً من بروتينين، شو اسمهم؟', opts:['الغلوتينين والغليادين','الكازين واللاكتوز','الكولاجين والإيلاستين','الأميلوز والأميلوبكتين'], correct:0},
+  {q:'الغلوتين موجود طبيعياً بالقمح، وكمان بأي حبوب تانية؟', opts:['الشعير والجاودار (الرأي)','الأرز والذرة','الكينوا فقط','الحمص والعدس'], correct:0},
+  {q:'حسب القصة الشعبية المشهورة، بيتزا مارغريتا سميت نسبة لملكة إيطالية سنة 1889، وألوان طبقاتها (طماطم وموزاريلا وريحان) ترمز لـ؟', opts:['علم إيطاليا','فصول السنة','أضواء المرور','ألوان الكنيسة'], correct:0},
+  {q:'بيتزا مارغريتا حسب القصة الشعبية حضّرها طاهي نابولي اسمه؟', opts:['رافاييلي إسبوزيتو','ماركو بولو','ليوناردو دافنشي','دانتي أليغييري'], correct:0},
+  {q:'الكرواسون بشكله الأصلي (الكيبفرل) طلع أول مرة من النمسا مش فرنسا، وفرنسا بس طورته لاحقاً بعجينة؟', opts:['عجينة مورّقة بالزبدة','عجينة بالزيت','عجينة بدون خميرة','عجينة بالحليب فقط'], correct:0},
+  {q:'الكيبفرل (أصل الكرواسون) موثّق بالنمسا من قرن؟', opts:['القرن الثالث عشر على الأقل','القرن العشرين','القرن السادس عشر','القرن التاسع عشر فقط'], correct:0},
+  {q:'الكيمتشي الكوري بيتحضر أساساً من تخليل وتخمير أي خضار؟', opts:['الملفوف الصيني (نابا) أو الفجل الكوري','الخيار والجزر','الباذنجان والفلفل','البصل والثوم فقط'], correct:0},
+  {q:'أكلة "الباد تاي" الشهيرة أصلها من؟', opts:['تايلاند','فيتنام','الصين','ماليزيا'], correct:0},
+  {q:'أهم مكوّن بيعرّف طبق السوشي الياباني علمياً مش السمك النيء، وإنما؟', opts:['الأرز المتبل بالخل','نوع السمك','ورق النوري','صلصة الصويا'], correct:0},
+  {q:'طبق السمك النيء المقطع بدون أرز، واللي بيتلخبط أحياناً مع السوشي، اسمه؟', opts:['الساشيمي','التيمبورا','الياكيتوري','الأودون'], correct:0},
+  {q:'تفاعل "ميلارد" (Maillard) المسؤول عن تحمير اللحم المشوي والخبز بيصير بين مادتين، شو هم؟', opts:['الأحماض الأمينية والسكريات المختزلة','الملح والزيت','الماء والدقيق','الخميرة والسكر فقط'], correct:0},
+  {q:'تفاعل ميلارد (التحمير) بصير عادة بمدى حرارة معين تقريباً؟', opts:['140-165 درجة مئوية','30-40 درجة مئوية','300-400 درجة مئوية','0-10 درجة مئوية'], correct:0},
+  {q:'الكراملة (تحمير السكر) بتختلف عن تفاعل ميلارد لأنها؟', opts:['بتصير بالسكر لحاله بدون أحماض أمينية','بتحتاج بروتين فقط بدون سكر','بتصير بدرجة حرارة الغرفة','نفس التفاعل بالضبط'], correct:0},
+];
+
+const QUIZ_CONFIG = {
+  gameId: 'cooking-quiz',
+  shareTitle: 'كويز الطبخ 🍳',
+  challengeText: 'تحداك بكويز الطبخ، جاهز تنافسني؟',
+  resultText: function(score, total, pct) {
+    return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز الطبخ \ud83c\udf73 جرب تتحداني!';
+  },
+  resultMessages: [
+    {min:90, emoji:'\ud83d\udc68\u200d\ud83c\udf73', msg:'شيف محترف! معلوماتك بالطبخ رهيبة.'},
+    {min:70, emoji:'\ud83c\udf73', msg:'معلوماتك بالطبخ ممتازة!'},
+    {min:50, emoji:'\ud83d\udc4d', msg:'مش بطال، بس فيه مجال تتحسن.'},
+    {min:0,  emoji:'\ud83c\udf7d\ufe0f', msg:'وقتها لازم تجرب تطبخ أكتر!'}
+  ]
+};
+</script>
+<script src="jo/games/quiz-engine.js"></script>
+</body></html>

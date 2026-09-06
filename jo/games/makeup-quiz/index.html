@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كويز المكياج — أدوات وحقائق مكياج | Adawati</title>
+<meta name="description" content="اختبر معلوماتك بالمكياج: أدوات، تقنيات، ومصطلحات مكياج لازم كل وحدة تعرفها. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ صاحباتك. مجاني وبدون تسجيل.">
+<meta name="keywords" content="كويز مكياج, تحدي مكياج, ادوات مكياج, اختبار معلومات مكياج, Makeup trivia quiz Arabic">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/jo/games/makeup-quiz/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/jo/games/makeup-quiz/">
+<link rel="alternate" hreflang="ar-JO" href="https://adawati.space/jo/games/makeup-quiz/">
+<meta property="og:title" content="كويز المكياج | Adawati">
+<meta property="og:description" content="اختبر معلوماتك بأدوات وتقنيات المكياج بـ12 سؤال ممتع في كل مرة.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/jo/games/makeup-quiz/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"أدوات الأردن","item":"https://adawati.space/jo/"},
+  {"@type":"ListItem","position":3,"name":"كويز المكياج","item":"https://adawati.space/jo/games/makeup-quiz/"}
+]},
+{"@type":"WebApplication","name":"كويز المكياج","url":"https://adawati.space/jo/games/makeup-quiz/","description":"اختبر معلوماتك بأدوات وتقنيات ومصطلحات المكياج، مع إمكانية تحدي صاحباتك.","applicationCategory":"GameApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}}
+]}
+</script>
+<link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/">أدوات الأردن</a>
+    <a href="index.html">عالمي</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="jo/">→ العودة لأدوات الأردن</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#fdf2f8;">💄</div>
+    <h1 class="card-title">حقائق ومعلومات عن المكياج</h1>
+    <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div class="divider"></div>
+
+    <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="creatorNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ تحدي</button>
+      </div>
+    </div>
+
+    <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
+      <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <input id="joinerNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">قبول التحدي ✅</button>
+      </div>
+    </div>
+
+    <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div style="font-weight:700;">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+    </div>
+
+    <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:8px;">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+      <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
+        <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
+        <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
+        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ اللعب 🚀</button>
+      </div>
+    </div>
+
+    <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+    </div>
+
+    <div id="quizArea">
+      <div id="questionText" style="font-size:17px;font-weight:700;margin-bottom:16px;"></div>
+      <div id="optionsArea" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="resultArea" style="display:none;text-align:center;">
+      <div style="font-size:48px;margin-bottom:8px;" id="resultEmoji"></div>
+      <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
+      <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">📤 شارك نتيجتك</button>
+        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">🔄 جرّب مرة ثانية</button>
+      </div>
+
+      <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">📤 شارك التحدي مع أصحابك</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+        </div>
+      </div>
+
+      <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">🏆 لوحة الترتيب</div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;">الاسم</th><th style="padding:6px;text-align:right;">النتيجة</th></tr></thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>أدوات الأردن الأخرى:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="jo/games/science-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔬 كويز العلوم والتكنولوجيا</a>
+      <a href="jo/games/geography-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌍 كويز الجغرافيا العالمية</a>
+      <a href="jo/games/islamic-history-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">☪️ كويز التاريخ الإسلامي</a>
+      <a href="jo/games/general-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌐 كويز المعلومات العامة</a>
+      <a href="jo/games/math-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧮 كويز الرياضيات</a>
+      <a href="jo/games/cooking-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🍳 كويز الطبخ</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/world-sports-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏆 كويز الرياضة العالمية</a>
+      <a href="jo/games/world-football-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚽ كويز كرة القدم العالمية</a>
+      <a href="jo/games/songs-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎵 كويز الأغاني</a>
+      <a href="jo/games/wordle/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🟩 كلمة اليوم</a>
+      <a href="jo/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب اليوم</a>
+      <a href="jo/students/scholarships-loans/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 منح وقروض الجامعة</a>
+      <a href="jo/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇯🇴 كل أدوات الأردن</a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script>
+const QUESTIONS = [
+  {q:'أداة إسفنجية بيضاوية تُستخدم لدمج كريم الأساس على البشرة؟', opts:['إسفنجة المكياج (Beauty Blender)','فرشاة الكونتور','ملقط الحواجب','مجعد الرموش'], correct:0},
+  {q:'أي منتج يُوضع قبل كريم الأساس عشان يثبّت المكياج ويسوي البشرة أنعم؟', opts:['البرايمر','الكونسيلر','البرونزر','الهايلايتر'], correct:0},
+  {q:'ما الفرق الأساسي بين الكونسيلر وكريم الأساس؟', opts:['الكونسيلر أغمق من كريم الأساس دايماً','الكونسيلر تغطيته أعلى ويُستخدم لتغطية عيوب محددة زي الهالات والبثور','كريم الأساس يُستخدم بعد الكونسيلر دائماً','لا فرق بينهم'], correct:1},
+  {q:'البودرة السائبة (Setting powder) توضع بعد أي خطوة عادة؟', opts:['بعد الكونسيلر مباشرة لتثبيته','قبل البرايمر','بعد الروج','قبل كريم الأساس'], correct:0},
+  {q:'رذاذ التثبيت (Setting spray) يُستخدم لـ؟', opts:['إطالة عمر المكياج ومنعه من الانتقال طول اليوم','إزالة المكياج','تفتيح لون البشرة','تكثيف الرموش'], correct:0},
+  {q:'الكونتور (Contour) يُستخدم لـ؟', opts:['إبراز ظلال الوجه وتحديد ملامحه','تفتيح مناطق معينة وإبرازها للأمام','تلوين الشفاه','تكثيف الحواجب'], correct:0},
+  {q:'الهايلايتر (Highlighter) يُستخدم لـ؟', opts:['عكس الضوء وإبراز مناطق معينة للأمام','إخفاء الهالات السود','تحديد الحواجب','إطالة الرموش'], correct:0},
+  {q:'الفرق بين البرونزر (Bronzer) والكونتور؟', opts:['البرونزر لتحديد الملامح والكونتور للدفء العام','البرونزر يعطي دفء عام يشبه أثر الشمس والكونتور لتحديد الملامح بالظل','لا فرق بينهم','البرونزر يُستخدم فقط على الشفاه'], correct:1},
+  {q:'أي فرشاة مخروطية الشكل تُستخدم عادة لوضع البودرة أو البرونزر على مساحات واسعة؟', opts:['فرشاة الكابوكي (Kabuki)','فرشاة الآيلاينر الزاوية','فرشاة تحديد الشفاه','فرشاة الحواجب الصغيرة'], correct:0},
+  {q:'الفرشاة المروحية (Fan brush) تُستخدم غالباً لـ؟', opts:['وضع الهايلايتر بشكل خفيف أو إزالة الفائض من البودرة','رسم خط العين','تحديد الحواجب بدقة','وضع أحمر الخدود بكثافة'], correct:0},
+  {q:'مِجعد الرموش (Eyelash curler) وظيفته؟', opts:['تقويس الرموش للأعلى قبل وضع المسكرا','تنظيف الرموش من بقايا المسكرا','فرد الحواجب','تكثيف الرموش الاصطناعية'], correct:0},
+  {q:'فرشاة السبولي (Spoolie brush) تُستخدم لـ؟', opts:['تمشيط الحواجب والرموش وتوزيع المنتج بالتساوي','رسم الآيلاينر','وضع أحمر الخدود','تحديد الشفاه'], correct:0},
+  {q:'مثبت الحواجب (Brow gel) وظيفته الأساسية؟', opts:['تثبيت شعر الحواجب بمكانه طول اليوم','تلوين الشفاه','إزالة المكياج','تكثيف الرموش'], correct:0},
+  {q:'الفرق بين كريم BB وكريم CC؟', opts:['لا فرق بينهم إطلاقاً','CC يركز على تصحيح وتوحيد لون البشرة وBB على الترطيب والتغطية الخفيفة','BB يُستخدم فقط للرجال','CC لا يحتوي على واقي شمس أبداً'], correct:1},
+  {q:'مصحح اللون الأخضر (Green corrector) يُستخدم لتحييد أي لون بالبشرة؟', opts:['الاحمرار','الاصفرار','الهالات الزرقاء','البقع الداكنة جداً'], correct:0},
+  {q:'مصحح اللون البنفسجي (Purple/Lavender corrector) يُستخدم لتحييد؟', opts:['الاحمرار','الاصفرار أو البهتان بالبشرة','الهالات الزرقاء','الاسمرار الزائد'], correct:1},
+  {q:'مصحح اللون البرتقالي/الخوخي يُستخدم غالباً لتغطية؟', opts:['الهالات الداكنة تحت العين','احمرار حب الشباب','لمعان البشرة الدهنية','تساقط الرموش'], correct:0},
+  {q:'قلم تحديد الشفاه (Lip liner) يُستخدم لـ؟', opts:['تحديد شكل الشفاه ومنع الروج من الانتشار خارج حدودها','تلميع الشفاه فقط','إزالة أحمر الشفاه','ترطيب الشفاه فقط'], correct:0},
+  {q:'الفرق بين المسكرا المقاومة للماء (Waterproof) والعادية؟', opts:['لا فرق فعلي بالأداء','المقاومة للماء تدوم مع الماء والعرق لكن إزالتها أصعب','العادية أغلى ثمناً دائماً','المقاومة للماء تُستخدم فقط للرموش الصناعية'], correct:1},
+  {q:'أي خطوة تجي عادة مباشرة بعد البرايمر بترتيب المكياج الشائع؟', opts:['كريم الأساس','البودرة السائبة','الروج','الماسكرا'], correct:0},
+  {q:'الكونتور يوضع عادة قبل أم بعد كريم الأساس؟', opts:['قبل كريم الأساس','بعد كريم الأساس','قبل البرايمر','لا علاقة بينهم بالترتيب'], correct:1},
+  {q:'الهايلايتر آخر إشي يوضع عادة بخطوات مكياج البشرة، ليه؟', opts:['عشان يعكس الضوء فوق باقي المنتجات ويبان بشكل واضح','عشان يمتص الزيوت الزايدة','عشان يثبت البرايمر','ماله علاقة بالترتيب'], correct:0},
+  {q:'تقنية "الباكينج" (Baking) بالمكياج تعتمد على؟', opts:['ترك طبقة سميكة من البودرة كم دقيقة قبل مسحها لتثبيت أقوى','تسخين أدوات المكياج قبل الاستخدام','غلي فرش المكياج لتعقيمها','وضع المكياج بالفرن للتجفيف'], correct:0},
+  {q:'تقنية "الستروبينج" (Strobing) تركز على؟', opts:['إبراز الإضاءة الطبيعية بالوجه بدون كونتور قوي','تغميق كامل الوجه','رسم خطوط سوداء حول العين فقط','إزالة المكياج بالكامل'], correct:0},
+  {q:'مصطلح "Cut Crease" بمكياج العيون يعني؟', opts:['رسم خط حاد وواضح عند تجعيد الجفن يفصل بين لونين متباينين','قص الرموش الصناعية لتصغيرها','وضع كونسيلر تحت العين فقط','رسم حاجب مستقيم بدون انحناء'], correct:0},
+  {q:'الفرق بين ظلال العيون بلمسة "مطفية" (Matte) و"لامعة" (Shimmer)؟', opts:['لا فرق سوى بالسعر','المطفية بدون بريق واللامعة فيها جزيئات عاكسة تلمع بالضوء','المطفية فقط للمناسبات الرسمية','اللامعة تدوم وقت أطول دائماً'], correct:1},
+  {q:'برايمر ظلال العيون (Eyeshadow primer) وظيفته؟', opts:['يخلي لون الظلال يبان أوضح ويدوم اطول ولا ينثني بثنية الجفن','يزيل ظلال العيون القديمة','يكثف الرموش','يرسم شكل الحاجب'], correct:0},
+  {q:'الرموش الصناعية الشريطية (Strip lashes) تختلف عن الفردية (Individual lashes) بأنها؟', opts:['توضع دفعة وحدة كشريط متصل بدل ما تُلصق حبة حبة','لا يوجد فرق إطلاقاً','الفردية أرخص دائماً من الشريطية','الشريطية تُستخدم فقط بدون غراء'], correct:0},
+  {q:'أحمر الشفاه المطفي (Matte lipstick) مقارنة بالملمّع (Glossy)؟', opts:['المطفي بدون بريق وتغطيته أقوى غالباً لكنه أكثر تجفيفاً للشفاه','الملمع دايماً أغمق لوناً','لا فرق فعلي غير الاسم','المطفي يُستخدم فقط بمناسبات الصباح'], correct:0},
+  {q:'ملقط الحواجب المائل (Slant tweezers) يُفضّل استخدامه لـ؟', opts:['نتف شعر الحواجب بدقة وتحديد شكله','فرد الرموش الصناعية','قص أطراف الشعر','تنظيف الأذن'], correct:0},
+  {q:'اسفنجة المكياج (Beauty Blender) يُفضل استخدامها وهي؟', opts:['جافة تماماً دايماً','مبللة بالماء قليلاً لدمج أفضل وتغطية أخف','مجمدة بالثلاجة قبل الاستخدام مباشرة','مغموسة بالكريم مباشرة بدون ماء'], correct:1},
+  {q:'لماذا يُنصح بغسل فرش المكياج بشكل دوري؟', opts:['لإزالة تراكم البكتيريا والزيوت والمنتج القديم','عشان تتغير رائحتها فقط','عشان تصير أخف وزناً','ما في داعي لغسلها إطلاقاً'], correct:0},
+  {q:'الفرشاة المسطحة (Flat shader brush) بمكياج العيون تُستخدم لـ؟', opts:['توزيع لون أساسي من ظلال العيون على كامل الجفن','رسم الحاجب فقط','تنعيم أحمر الخدود','تحديد خط الشفاه'], correct:0},
+  {q:'فرشاة التجعيد (Crease brush) تُستخدم لـ؟', opts:['دمج وتظليل اللون بخط تجعيد الجفن لعمق أكثر','وضع الهايلايتر على عظمة الخد','تحديد الشفة السفلى','تمشيط الحواجب'], correct:0},
+  {q:'فرشاة التمويه/الدمج (Blending brush) بمكياج العيون مهمتها؟', opts:['دمج الألوان مع بعض بدون خطوط واضحة للحصول على انتقال ناعم','رسم خط عين حاد','وضع كريم الأساس','تحديد الحاجب بدقة عالية'], correct:0},
+  {q:'المرآة المكبّرة (Magnifying mirror) تُستخدم غالباً لـ؟', opts:['التفاصيل الدقيقة زي رسم الآيلاينر أو تحديد الحواجب','وضع كريم الأساس على كامل الوجه','تسخين أدوات المكياج','تنظيف الفرش'], correct:0},
+  {q:'الماء الميسيلر (Micellar water) يُستخدم بشكل شائع لـ؟', opts:['إزالة المكياج وتنظيف البشرة بلطف بدون شطف','تثبيت المكياج طول اليوم','تكثيف الرموش','تلوين الشفاه'], correct:0},
+  {q:'مزيل المكياج الزيتي (Oil-based makeup remover) يكون فعّال أكثر عادة بإزالة؟', opts:['المكياج المقاوم للماء وأحمر الشفاه طويل الأمد','البودرة الخفيفة فقط','العطور','كريم الحماية من الشمس فقط'], correct:0},
+  {q:'"التنظيف المزدوج" (Double cleansing) بروتين يعتمد على؟', opts:['استخدام منظف زيتي أولاً ثم منظف مائي بعده','غسل الوجه مرتين بنفس المنظف بس','استخدام الصابون العادي مرتين','تنظيف الوجه صباحاً ومساءً فقط'], correct:0},
+  {q:'بعجلة الألوان، اللون المقابل (المكمّل) للأحمر هو؟', opts:['الأخضر','الأصفر','البنفسجي','البرتقالي'], correct:0},
+  {q:'اللون المقابل (المكمّل) للأصفر بعجلة الألوان هو؟', opts:['البنفسجي','الأزرق','الأحمر','الأخضر'], correct:0},
+  {q:'اللون المقابل (المكمّل) للأزرق بعجلة الألوان هو؟', opts:['البرتقالي','الأحمر','الأصفر','الأخضر'], correct:0},
+  {q:'سبب استخدام الألوان المتقابلة (المكملة) بتصحيح لون البشرة؟', opts:['لأن اللون المقابل يحيّد أو يخفف اللون غير المرغوب','لأنها الألوان الوحيدة المسموح مزجها','لأنها أرخص من الألوان الأخرى','ما في سبب علمي وراء هالفكرة'], correct:0},
+  {q:'الفرق بين تغطية كريم الأساس "خفيفة" (Sheer) و"كاملة" (Full coverage)؟', opts:['الخفيفة تسمح ببروز البشرة الطبيعية أكثر والكاملة تغطي العيوب بقوة أكبر','لا فرق فعلي بالنتيجة النهائية','الخفيفة فقط للبشرة الدهنية','الكاملة تُستخدم فقط ليلاً'], correct:0},
+  {q:'"اللمسة النهائية" المطفية (Matte finish) لكريم الأساس تعني؟', opts:['البشرة تبان بدون لمعان، ملمس ناعم غير عاكس','البشرة تلمع بشكل قوي','البشرة تصير أغمق لوناً','البشرة تصير أفتح لوناً'], correct:0},
+  {q:'"اللمسة النهائية" المشرقة (Dewy/Glowy finish) لكريم الأساس تعطي مظهر؟', opts:['بشرة تبان رطبة ومتوهجة بلمعان طبيعي خفيف','بشرة جافة تماماً بدون أي لمعان','بشرة أغمق من لونها الطبيعي','بشرة بلون واحد فقط أبيض'], correct:0},
+  {q:'البودرة الشفافة (Translucent powder) ميزتها إنها؟', opts:['تثبت المكياج بدون ما تغيّر لون البشرة','تضيف لون غامق جداً للبشرة','تُستخدم فقط كأحمر خدود','تزيل المكياج بالكامل'], correct:0},
+  {q:'أحمر الخدود الكريمي (Cream blush) مقارنة بالبودرة (Powder blush)؟', opts:['الكريمي أفضل فوق كريم أساس مطفي جداً','الكريمي يعطي مظهر أكثر رطوبة ويندمج بسهولة بالأصابع','البودرة تُستخدم فقط للمناسبات الرسمية','لا فرق إطلاقاً بينهم'], correct:1},
+  {q:'القلم الأسمر (Brow pencil) مقارنة بالبودرة (Brow powder) لتعبئة الحواجب؟', opts:['القلم يعطي خطوط دقيقة تشبه الشعر والبودرة تعطي مظهر أكثر نعومة','القلم يُستخدم فقط على الرموش','البودرة لا تدوم أكثر من ساعة','لا فرق بينهم إطلاقاً'], correct:0},
+  {q:'عند اختيار لون كريم الأساس المناسب، أدق منطقة لاختبار اللون عليها هي؟', opts:['خط الفك (Jawline)','راحة اليد','الرقبة من الخلف','باطن الذراع'], correct:0},
+  {q:'كريم الأساس العصوي (Stick foundation) ميزته الأساسية؟', opts:['سهل النقل وتغطيته عادة أعلى','لا يمكن دمجه مع فرشاة أو إسفنجة','يُستخدم فقط للشفاه','يزيل المكياج بدل ما يضيفه'], correct:0},
+  {q:'كريم الأساس المعدني (Mineral foundation) يتميز عادة بأنه؟', opts:['مكوّن من مساحيق معدنية طبيعية وأخف على البشرة الحساسة عادة','يُصنع فقط من الماء','يحتوي على أعلى نسبة تغطية دائماً بلا استثناء','يُستخدم فقط في مكياج العيون'], correct:0},
+  {q:'"مكياج الإيربراش" (Airbrush makeup) يعتمد على؟', opts:['رش كريم الأساس بجهاز خاص بدلاً من فرشاة أو إسفنجة','تسخين المكياج بالهواء الساخن قبل الاستخدام','نفخ البودرة بالفم مباشرة على الوجه','يُستخدم فقط لتلوين الشعر'], correct:0},
+  {q:'تقنية "لامينيشن الحواجب" (Brow lamination) تهدف إلى؟', opts:['تثبيت اتجاه شعر الحاجب بشكل منظم لفترة تدوم أسابيع','صبغ الحاجب بلون دائم','إزالة شعر الحاجب نهائياً','تكثيف الرموش'], correct:0},
+  {q:'"الميكروبليدنج" (Microblading) هي تقنية؟', opts:['شبه دائمة لرسم شعيرات دقيقة تشبه شعر الحاجب','دائمة لا تزول أبداً بأي حال','تُستخدم لتكثيف الرموش فقط','تعتمد على المكياج العادي القابل للإزالة بالماء فقط'], correct:0},
+  {q:'نقاط النبض (Pulse points) بالمعصم والرقبة يُنصح غالباً بوضع العطر عليها لأن؟', opts:['درجة حرارتها أعلى شوي مما يساعد انتشار رائحة العطر','لأنها أبعد نقطة عن الأنف','لأنها المنطقة الوحيدة الآمنة لوضع أي منتج تجميلي','لا سبب علمي لهالعادة'], correct:0},
+  {q:'مصطلح "الجلاس سكين" (Glass skin) يشير إلى؟', opts:['مظهر بشرة صافية تلمع كأنها زجاج بفضل ترطيب عالي وتغطية خفيفة','نوع فرشاة زجاجية للمكياج','لون ظلال عيون شفاف فقط','تقنية لإزالة المكياج بالكامل'], correct:0},
+  {q:'"مكياج بدون مكياج" (No-makeup makeup) هو أسلوب يعتمد على؟', opts:['منتجات خفيفة وتغطية طبيعية تبرز الملامح بدون مظهر ثقيل','عدم استخدام أي منتج إطلاقاً','استخدام أغمق درجات كريم الأساس فقط','مكياج مخصص للتصوير فقط'], correct:0},
+  {q:'الغراء المخصص للرموش الصناعية (Lash glue) يُفضّل ترك الوقت الكافي له قبل اللصق حتى؟', opts:['يصير لزج بدل سائل عشان يلصق بشكل أفضل','يجف تماماً قبل اللصق','يبرد بالثلاجة','يتحول للون أبيض دائم'], correct:0},
+  {q:'لصقات تحت العين (Under eye patches) تُستخدم غالباً أثناء المكياج لـ؟', opts:['حماية منطقة تحت العين من سقوط بقايا الظلال أثناء التطبيق','تلوين الجفن مباشرة','تثبيت الرموش الصناعية','إزالة المكياج فوراً'], correct:0},
+  {q:'فرشاة تحديد الشفاه (Lip brush) تفيد في؟', opts:['توزيع أحمر الشفاه بدقة أكبر وتحديد حواف أنظف','رسم الحاجب فقط','تنظيف الفرش الأخرى','وضع كريم الأساس على الوجه بالكامل'], correct:0},
+  {q:'لوح خلط المكياج (Mixing palette) يُستخدم غالباً لـ؟', opts:['مزج درجتين من كريم الأساس أو ألوان للحصول على درجة مخصصة','تخزين الفرش فقط','تسخين المكياج','إزالة الزيوت من البشرة'], correct:0},
+  {q:'مِجعد الرموش الكهربائي (Heated lash curler) وظيفته؟', opts:['تقويس الرموش بمساعدة حرارة خفيفة لنتيجة أطول','صبغ الرموش بلون دائم','إزالة الرموش الصناعية بسهولة','تنظيف فرشاة المسكرا'], correct:0},
+  {q:'رذاذ تثبيت المكياج بلمسة "مطفية" (Matte setting spray) الأنسب لأصحاب؟', opts:['البشرة الدهنية أو تقليل اللمعان طول اليوم','البشرة الجافة جداً فقط','من يبي مظهر لامع ومتوهج','إزالة المكياج بسهولة'], correct:0},
+  {q:'الفرق بين "الروج السائل" (Liquid lipstick) والروج التقليدي؟', opts:['السائل يجف بطبقة مطفية ثابتة وتغطية عالية عادة','لا فرق فعلي بينهم','السائل يُستخدم فقط للعيون','التقليدي دائماً أغلى ثمناً'], correct:0},
+  {q:'"برايمر تصغير المسام" (Pore-minimizing primer) يعمل على؟', opts:['ملء المسام الظاهرة مؤقتاً لسطح أنعم قبل كريم الأساس','إغلاق المسام نهائياً وبشكل دائم','تكبير المسام لتهوية أفضل للبشرة','إزالة الرؤوس السوداء نهائياً'], correct:0},
+  {q:'مزيل طلاء الأظافر الذي يحتوي على أسيتون (Acetone) يكون فعّال أكثر بشكل خاص لإزالة؟', opts:['طلاء الأظافر الجل أو المقاوم للاهتراء','كريم الأساس عن الوجه','أحمر الشفاه','ظلال العيون'], correct:0},
+  {q:'طبقة "الأساس" (Base coat) بمناكير الأظافر توضع قبل الطلاء الملون بهدف؟', opts:['حماية الظفر من تلون الطلاء وتحسين ثبات المناكير','تلميع الظفر بعد الطلاء','إزالة الطلاء القديم','تجفيف الطلاء بشكل أسرع فقط'], correct:0},
+  {q:'طبقة "التلميع النهائي" (Top coat) بالمناكير وظيفتها؟', opts:['حماية لون الطلاء من التقشر وإضافة لمعان وثبات أطول','تغيير لون الطلاء بالكامل','إزالة الطلاء بسهولة','ترطيب الجلد حول الظفر فقط'], correct:0},
+];
+
+const QUIZ_CONFIG = {
+  gameId: 'makeup-quiz',
+  shareTitle: 'كويز المكياج \ud83d\udc84',
+  challengeText: 'تحداك بكويز المكياج، جاهزة تنافسيني؟',
+  resultText: function(score, total, pct) {
+    return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز المكياج \ud83d\udc84 جربي تتحديني!';
+  },
+  resultMessages: [
+    {min:90, emoji:'\ud83d\udc51', msg:'خبيرة مكياج! معلوماتك رهيبة.'},
+    {min:70, emoji:'\ud83d\udc84', msg:'معلوماتك بالمكياج ممتازة!'},
+    {min:50, emoji:'\ud83d\udc4d', msg:'مش بطالة، بس فيه مجال تتحسني.'},
+    {min:0,  emoji:'\ud83d\udc85', msg:'وقتها لازم تتعلمي أكتر عن المكياج!'}
+  ]
+};
+</script>
+<script src="jo/games/quiz-engine.js"></script>
+</body></html>

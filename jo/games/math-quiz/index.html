@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كويز الرياضيات — حقائق وتاريخ الرياضيات | Adawati</title>
+<meta name="description" content="اختبر معلوماتك بتاريخ وحقائق الرياضيات: علماء، نظريات، وأرقام مشهورة. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ أصحابك. مجاني وبدون تسجيل.">
+<meta name="keywords" content="كويز رياضيات, تحدي رياضيات, تاريخ الرياضيات, اختبار معلومات رياضيات, Math trivia quiz Arabic">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/jo/games/math-quiz/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/jo/games/math-quiz/">
+<link rel="alternate" hreflang="ar-JO" href="https://adawati.space/jo/games/math-quiz/">
+<meta property="og:title" content="كويز الرياضيات | Adawati">
+<meta property="og:description" content="اختبر معلوماتك بتاريخ وحقائق الرياضيات بـ12 سؤال ممتع في كل مرة.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/jo/games/math-quiz/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"أدوات الأردن","item":"https://adawati.space/jo/"},
+  {"@type":"ListItem","position":3,"name":"كويز الرياضيات","item":"https://adawati.space/jo/games/math-quiz/"}
+]},
+{"@type":"WebApplication","name":"كويز الرياضيات","url":"https://adawati.space/jo/games/math-quiz/","description":"اختبر معلوماتك بتاريخ وحقائق الرياضيات: علماء، نظريات، وأرقام مشهورة، مع إمكانية تحدي أصحابك.","applicationCategory":"GameApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}}
+]}
+</script>
+<link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/">أدوات الأردن</a>
+    <a href="index.html">عالمي</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="jo/">→ العودة لأدوات الأردن</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#eff6ff;">🧮</div>
+    <h1 class="card-title">حقائق وتاريخ الرياضيات</h1>
+    <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div class="divider"></div>
+
+    <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="creatorNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ تحدي</button>
+      </div>
+    </div>
+
+    <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
+      <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <input id="joinerNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">قبول التحدي ✅</button>
+      </div>
+    </div>
+
+    <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div style="font-weight:700;">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+    </div>
+
+    <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:8px;">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+      <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
+        <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
+        <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
+        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ اللعب 🚀</button>
+      </div>
+    </div>
+
+    <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+    </div>
+
+    <div id="quizArea">
+      <div id="questionText" style="font-size:17px;font-weight:700;margin-bottom:16px;"></div>
+      <div id="optionsArea" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="resultArea" style="display:none;text-align:center;">
+      <div style="font-size:48px;margin-bottom:8px;" id="resultEmoji"></div>
+      <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
+      <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">📤 شارك نتيجتك</button>
+        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">🔄 جرّب مرة ثانية</button>
+      </div>
+
+      <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">📤 شارك التحدي مع أصحابك</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+        </div>
+      </div>
+
+      <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">🏆 لوحة الترتيب</div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;">الاسم</th><th style="padding:6px;text-align:right;">النتيجة</th></tr></thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>أدوات الأردن الأخرى:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="jo/games/science-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔬 كويز العلوم والتكنولوجيا</a>
+      <a href="jo/games/geography-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌍 كويز الجغرافيا العالمية</a>
+      <a href="jo/games/islamic-history-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">☪️ كويز التاريخ الإسلامي</a>
+      <a href="jo/games/general-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌐 كويز المعلومات العامة</a>
+      <a href="jo/games/makeup-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💄 كويز المكياج</a>
+      <a href="jo/games/cooking-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🍳 كويز الطبخ</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/world-sports-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏆 كويز الرياضة العالمية</a>
+      <a href="jo/games/world-football-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚽ كويز كرة القدم العالمية</a>
+      <a href="jo/games/songs-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎵 كويز الأغاني</a>
+      <a href="jo/games/wordle/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🟩 كلمة اليوم</a>
+      <a href="jo/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب اليوم</a>
+      <a href="jo/students/scholarships-loans/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 منح وقروض الجامعة</a>
+      <a href="jo/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇯🇴 كل أدوات الأردن</a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script>
+const QUESTIONS = [
+  {q:'كم عدد "مسائل الألفية" (Millennium Prize Problems) اللي وضعها معهد كلاي؟', opts:['خمسة','سبعة','عشرة','ثلاثة'], correct:1},
+  {q:'أي مسألة من مسائل الألفية السبع هي الوحيدة اللي انحلت لحد الآن؟', opts:['حدسية بوانكاريه','فرضية ريمان','مسألة P مقابل NP','معادلات نافييه-ستوكس'], correct:0},
+  {q:'مين حل حدسية بوانكاريه ورفض جائزة المليون دولار المرتبطة فيها؟', opts:['أندرو وايلز','غريغوري بيرلمان','تيرينس تاو','غروثنديك'], correct:1},
+  {q:'كم سنة استغرقت "مبرهنة فيرما الأخيرة" لين ما تم إثباتها بعد ما طرحها فيرما؟', opts:['حوالي 100 سنة','حوالي 200 سنة','حوالي 358 سنة','حوالي 500 سنة'], correct:2},
+  {q:'مين العالم اللي أثبت مبرهنة فيرما الأخيرة سنة 1994؟', opts:['أندرو وايلز','ديفيد هيلبرت','كورت غودل','بيير دو فيرما'], correct:0},
+  {q:'شو الشرط العمري للفوز بميدالية فيلدز (أرفع جائزة بالرياضيات)؟', opts:['تحت 30 سنة','تحت 35 سنة','تحت 40 سنة','تحت 50 سنة'], correct:2},
+  {q:'كل قد ايش بتتوزع ميدالية فيلدز؟', opts:['كل سنة','كل سنتين','كل 4 سنين','كل 10 سنين'], correct:2},
+  {q:'كم عدد المجسمات الأفلاطونية (Platonic solids) المنتظمة الموجودة بالهندسة؟', opts:['ثلاثة','أربعة','خمسة','ستة'], correct:2},
+  {q:'شو اسم المجسم الأفلاطوني اللي كل وجوهه مربعات؟', opts:['رباعي الأوجه','المكعب','ثماني الأوجه','عشروني الأوجه'], correct:1},
+  {q:'كم وجه عند "ثماني الأوجه المنتظم" (octahedron)؟', opts:['6','8','12','20'], correct:1},
+  {q:'مين اخترع مكعب روبيك، وشو جنسيته؟', opts:['أمريكي','ياباني','مجري (هنغاري)','ألماني'], correct:2},
+  {q:'بأي سنة اخترع إرنو روبيك مكعبه الشهير؟', opts:['1964','1974','1984','1994'], correct:1},
+  {q:'تقريباً كم عدد الأوضاع الممكنة لمكعب روبيك 3×3؟', opts:['43 مليون','43 مليار','43 تريليون','43 كوينتليون'], correct:3},
+  {q:'"مسألة القمح ورقعة الشطرنج": إذا حطينا حبة على أول مربع وضاعفنا العدد بكل مربع، كم حبة تقريباً بآخر مربع (رقم 64) لحاله؟', opts:['حوالي 9 كوينتليون حبة','حوالي 9 مليون حبة','حوالي 9 مليار حبة','حوالي 9 تريليون حبة'], correct:0},
+  {q:'مين يُعتبر "مؤسس علم الجبر" ومنه أخذ اسم "الجبر" (Algebra)؟', opts:['ابن الهيثم','الخوارزمي','الفارابي','ابن سينا'], correct:1},
+  {q:'كلمة "Algorithm" (خوارزمية) بالإنجليزي مشتقة من اسم مين؟', opts:['إقليدس','فيثاغورس','الخوارزمي','أرخميدس'], correct:2},
+  {q:'كتاب "الجبر والمقابلة" (Al-Jabr) اللي منه جت كلمة Algebra، مين مؤلفه؟', opts:['الخوارزمي','ابن سينا','الرازي','البيروني'], correct:0},
+  {q:'الخوارزمي كان من أصل:', opts:['فارسي','يوناني','هندي','صيني'], correct:0},
+  {q:'مين العالم الهندي اللي وضع أول قواعد رياضية منظّمة للتعامل مع رقم الصفر (زي الجمع والطرح فيه)؟', opts:['آريابهاتا','براهماغوبتا','رامانوجان','بهاسكارا'], correct:1},
+  {q:'براهماغوبتا كان من أي قرن؟', opts:['القرن الثالث الميلادي','القرن السابع الميلادي','القرن الثاني عشر الميلادي','القرن السادس عشر الميلادي'], correct:1},
+  {q:'مين وضع "متتالية فيبوناتشي" اللي كل رقم فيها = مجموع الرقمين قبله؟', opts:['فيبوناتشي (ليوناردو البيزاني)','باسكال','أويلر','ديكارت'], correct:0},
+  {q:'فيبوناتشي كان من أي دولة؟', opts:['إيطاليا','فرنسا','ألمانيا','إسبانيا'], correct:0},
+  {q:'إيش أول 5 أرقام بمتتالية فيبوناتشي؟', opts:['1، 1، 2، 3، 5','1، 2، 4، 8، 16','1، 3، 6، 10، 15','2، 4، 6، 8، 10'], correct:0},
+  {q:'فيبوناتشي طرح متتالية أرقامه الشهيرة أصلاً من خلال مسألة عن تكاثر أي حيوان؟', opts:['الأرانب','النحل','الفئران','الأسماك'], correct:0},
+  {q:'فيبوناتشي معروف كمان بأنه ساعد بنشر أي نظام أرقام بأوروبا؟', opts:['الأرقام الرومانية','الأرقام الهندية-العربية','الأرقام الصينية','النظام الثنائي'], correct:1},
+  {q:'القيمة التقريبية لـ"النسبة الذهبية" (φ) هي؟', opts:['1.414','1.618','2.718','3.141'], correct:1},
+  {q:'مين اخترع اللوغاريتمات (Logarithms) بالرياضيات؟', opts:['جون نيبير','إسحاق نيوتن','بليز باسكال','ليبنتز'], correct:0},
+  {q:'جون نيبير (مخترع اللوغاريتمات) كان من أي بلد؟', opts:['اسكتلندا','هولندا','السويد','النمسا'], correct:0},
+  {q:'مين يُنسب له تطوير أول خوارزمية برمجية منشورة بالتاريخ (لآلة باباج التحليلية)؟', opts:['آدا لوفليس','آلان تورينغ','تشارلز باباج','غريس هوبر'], correct:0},
+  {q:'آدا لوفليس كانت ابنة أي شاعر إنجليزي مشهور؟', opts:['اللورد بايرون','شكسبير','وردزورث','كيتس'], correct:0},
+  {q:'كم عدد كتب "الأصول" (Elements) لإقليدس؟', opts:['5 كتب','8 كتب','13 كتاب','20 كتاب'], correct:2},
+  {q:'إقليدس معروف تاريخياً بلقب "أبو ___"', opts:['الجبر','الهندسة','التفاضل والتكامل','الإحصاء'], correct:1},
+  {q:'"مبرهنة فيثاغورس" بتنص إنه بالمثلث القائم: مربع الوتر = ؟', opts:['مجموع الضلعين الآخرين','مجموع مربعي الضلعين الآخرين','حاصل ضرب الضلعين الآخرين','نصف مجموع الضلعين الآخرين'], correct:1},
+  {q:'كم عدد الأضلاع لشكل "المسدس" (hexagon)؟', opts:['5','6','7','8'], correct:1},
+  {q:'كم عدد الأضلاع لشكل "الثماني" (octagon)؟', opts:['6','7','8','9'], correct:2},
+  {q:'مجموع زوايا أي مثلث بالهندسة المستوية يساوي؟', opts:['90 درجة','180 درجة','270 درجة','360 درجة'], correct:1},
+  {q:'مجموع الزوايا الداخلية لأي شكل رباعي (زي المربع أو المستطيل) يساوي؟', opts:['180 درجة','270 درجة','360 درجة','400 درجة'], correct:2},
+  {q:'شو اسم العدد اللي ما بينقسم إلا على نفسه وعلى الواحد؟', opts:['عدد أولي','عدد زوجي','عدد تام','عدد نسبي'], correct:0},
+  {q:'إقليدس أثبت إنه عدد الأعداد الأولية:', opts:['محدود','لا نهائي','دايماً زوجي','أقل من مليون'], correct:1},
+  {q:'شو اسم الوحدة التخيلية بالرياضيات اللي تربيعها يساوي -1؟', opts:['e','π','i','φ'], correct:2},
+  {q:'"متطابقة أويلر" الشهيرة (e^(iπ) + 1 = 0) بتجمع كم ثابت رياضي أساسي بمعادلة وحدة؟', opts:['3','4','5','6'], correct:2},
+  {q:'متطابقة أويلر انتخبت بأكتر من استطلاع كـ"أجمل معادلة بالرياضيات"، سميت نسبة لمين؟', opts:['ليونارد أويلر','كارل غاوس','إسحاق نيوتن','رينيه ديكارت'], correct:0},
+  {q:'ثابت أويلر e تقريباً يساوي؟', opts:['1.414','2.718','3.141','1.618'], correct:1},
+  {q:'يوم "پاي" العالمي (Pi Day) بيُحتفل فيه بأي تاريخ؟', opts:['14 آذار/مارس','22 تموز/يوليو','3 كانون الثاني/يناير','1 نيسان/أبريل'], correct:0},
+  {q:'ليش تحديداً تاريخ 14 آذار (3/14) اختير كيوم للـ π؟', opts:['لأنه يطابق أول 3 أرقام مهمة من π (3.14)','لأنه تاريخ ميلاد أرخميدس','لأنه أول يوم بالربيع','مافي سبب رياضي، بس تاريخ رمزي'], correct:0},
+  {q:'رقم π (باي) هو ثابت رياضي يمثل نسبة محيط الدائرة إلى:', opts:['نصف قطرها','قطرها','مساحتها','ثلث قطرها'], correct:1},
+  {q:'π (باي) هو عدد:', opts:['نسبي (rational) بينتهي بعد فاصلة قليلة','غير نسبي (irrational) وغير منتهي','عدد صحيح','عدد سالب'], correct:1},
+  {q:'مين اخترع نظام الإحداثيات الديكارتي (المحاور x وy) اللي منستخدمه بالرسم البياني؟', opts:['رينيه ديكارت','بليز باسكال','بيير دو فيرما','ليبنتز'], correct:0},
+  {q:'"مثلث باسكال" بالرياضيات، كل رقم فيه هو ناتج جمع أي أرقام؟', opts:['الرقمين اللي فوقه مباشرة','كل الأرقام بالصف اللي قبله','الرقم اللي جنبه بس','رقم عشوائي'], correct:0},
+  {q:'بليز باسكال (صاحب مثلث باسكال) كان من أي جنسية؟', opts:['فرنسي','إيطالي','ألماني','إنجليزي'], correct:0},
+  {q:'"مبرهنة فيثاغورس" منسوبة لعالم إغريقي، شو أشهر صيغتها الرياضية؟', opts:['a² + b² = c²','a + b = c','a × b = c²','a² - b² = c'], correct:0},
+  {q:'مين طوّر التفاضل والتكامل (Calculus) بشكل مستقل بنفس الفترة تقريباً، وصار بينهم خلاف تاريخي حول الأسبقية؟', opts:['نيوتن وليبنتز','أويلر وغاوس','ديكارت وباسكال','فيثاغورس وإقليدس'], correct:0},
+  {q:'إسحاق نيوتن كان من أي بلد؟', opts:['إنجلترا','ألمانيا','فرنسا','إيطاليا'], correct:0},
+  {q:'غوتفريد ليبنتز، شريك نيوتن بجدل اختراع التفاضل والتكامل، كان من أي بلد؟', opts:['ألمانيا','هولندا','بلجيكا','النمسا'], correct:0},
+  {q:'كارل فريدريش غاوس، أحد أعظم علماء الرياضيات بالتاريخ، كان من أي جنسية؟', opts:['ألماني','فرنسي','روسي','بريطاني'], correct:0},
+  {q:'سريفاسا رامانوجان، العبقري الرياضي اللي كان معظم علمه ذاتي التعلم، كان من أي دولة؟', opts:['الهند','باكستان','مصر','إيران'], correct:0},
+  {q:'مين العالم البريطاني اللي اكتشف موهبة رامانوجان وصار يتعاون معه بجامعة كامبريدج؟', opts:['ج. هـ. هاردي (G. H. Hardy)','إسحاق نيوتن','آلان تورينغ','بول ديراك'], correct:0},
+  {q:'أرخميدس اشتهر بوضع تقريب دقيق لقيمة أي ثابت رياضي؟', opts:['π (باي)','e','النسبة الذهبية','الوحدة التخيلية i'], correct:0},
+  {q:'أرخميدس كان من أي حضارة/مدينة؟', opts:['سرقوسة اليونانية (صقلية)','الإسكندرية المصرية','بابل','أثينا'], correct:0},
+  {q:'شو اسم الخط اللي له وجه واحد بس وحافة واحدة بس، لو عملت شريط وفتلته نص لفة ولزقت طرفيه؟', opts:['شريط موبيوس','مثلث باسكال','قطع مكافئ','حلقة تورس'], correct:0},
+  {q:'"العدد التام" (Perfect number) هو عدد يساوي مجموع قواسمه (غير نفسه). شو أصغر عدد تام؟', opts:['4','6','8','10'], correct:1},
+  {q:'أصغر ثلاثة أعداد تامة هي 6، 28، و؟', opts:['96','496','128','512'], correct:1},
+  {q:'كم درجة الزاوية القائمة؟', opts:['45 درجة','60 درجة','90 درجة','180 درجة'], correct:2},
+  {q:'شو اسم المثلث اللي كل أضلاعه متساوية بالطول؟', opts:['متساوي الأضلاع','متساوي الساقين','قائم الزاوية','مختلف الأضلاع'], correct:0},
+  {q:'شو اسم المثلث اللي فيه زاوية واحدة أكبر من 90 درجة؟', opts:['حاد الزوايا','منفرج الزاوية','قائم الزاوية','متساوي الأضلاع'], correct:1},
+  {q:'كم عدد الأوجه لمكعب عادي (مكعب سداسي)؟', opts:['4','6','8','12'], correct:1},
+  {q:'مين اخترع نظام الأعداد الثنائي (Binary system) اللي مبني عليه الحاسوب الحديث؟', opts:['غوتفريد ليبنتز','آلان تورينغ','جورج بول','تشارلز باباج'], correct:0},
+  {q:'شو اسم العالم اللي طوّر "الجبر البولياني" (Boolean algebra) المستخدم بمنطق الحاسوب؟', opts:['جورج بول','ليبنتز','فون نيومان','شانون'], correct:0},
+  {q:'آلان تورينغ، اللي بيُعتبر أب علوم الحاسوب النظرية، كان من أي جنسية؟', opts:['بريطاني','أمريكي','ألماني','فرنسي'], correct:0},
+  {q:'شو اسم مبرهنة إقليدس اللي بتثبت إنه ما في أكبر عدد أولي (يعني الأعداد الأولية لا نهائية)؟', opts:['برهان إقليدس على لانهائية الأعداد الأولية','مبرهنة فيثاغورس','فرضية غولدباخ','مبرهنة فيرما الصغرى'], correct:0},
+  {q:'"فرضية غولدباخ" (لسا غير مثبتة رسمياً لحد الآن) بتقول إنه كل عدد زوجي أكبر من 2 ممكن يُكتب كـ:', opts:['مجموع عددين أوليين','حاصل ضرب عددين أوليين','فرق عددين أوليين','مربع عدد أولي'], correct:0},
+  {q:'شو اسم أصغر عدد أولي؟', opts:['0','1','2','3'], correct:2},
+  {q:'هل الرقم 1 يُعتبر عدد أولي بالتعريف الرياضي المتفق عليه؟', opts:['لأ، مش عدد أولي','آه، هو أصغر عدد أولي','بس ببعض الدول بيعتبروه أولي','بيعتمد على النظام العددي'], correct:0},
+  {q:'شو اسم الشكل الهندسي ثلاثي الأبعاد اللي كل مقطع منه دائرة، وقاعدته دائرية وله رأس واحد؟', opts:['المخروط','الأسطوانة','الكرة','الهرم'], correct:0},
+  {q:'شو اسم الشكل ثلاثي الأبعاد اللي كل نقطة على سطحه بنفس المسافة عن المركز؟', opts:['المكعب','الكرة','المخروط','الهرم'], correct:1},
+  {q:'قانون حساب مساحة الدائرة هو؟', opts:['π × نق','π × نق²','2 × π × نق','π × قطر'], correct:1},
+  {q:'قانون حساب محيط الدائرة هو؟', opts:['π × نق²','2 × π × نق','π + نق','نق²'], correct:1},
+  {q:'"جورج كانتور" اشتهر بتأسيس أي فرع من فروع الرياضيات المتعلق باللانهاية؟', opts:['نظرية المجموعات (Set theory)','نظرية الأعداد','الجبر الخطي','الهندسة التحليلية'], correct:0},
+  {q:'إيمي نويثر، عالمة الرياضيات الألمانية المؤثرة بالجبر المجرد، اشتهرت كمان بمبرهنة مهمة بربطها الرياضيات بأي مجال فيزيائي؟', opts:['قوانين الحفظ بالفيزياء (نظرية نويثر)','الميكانيكا الكمية','النسبية العامة لوحدها بدون علاقة رياضية','الديناميكا الحرارية'], correct:0},
+  {q:'شو بيسمى العدد اللي ما ينفع يُكتب كنسبة بين عددين صحيحين (زي π أو الجذر التربيعي لـ2)؟', opts:['عدد نسبي','عدد غير نسبي (لا كسري)','عدد صحيح','عدد طبيعي'], correct:1},
+  {q:'الجذر التربيعي للعدد 2 تقريباً يساوي؟', opts:['1.414','1.618','2.236','1.732'], correct:0},
+  {q:'شو اسم الرسم البياني اللي بيمثل بيانات على شكل قطاعات دائرية؟', opts:['مخطط الأعمدة','المخطط الدائري (Pie chart)','المخطط الخطي','المدرج التكراري'], correct:1},
+  {q:'شو الفرق بين "المتوسط الحسابي" و"الوسيط" بالإحصاء؟', opts:['المتوسط = مجموع القيم÷عددها، والوسيط = القيمة الوسطى بعد الترتيب','هما نفس الشي تماماً','المتوسط دايماً أكبر من الوسيط','الوسيط بس للأعداد الزوجية'], correct:0},
+  {q:'شو اسم علم الرياضيات اللي بيدرس الأشكال اللي بتضل نفسها لما تتمدد أو تنلوي بدون ما تتقطع (زي كوب القهوة والدونات)؟', opts:['الطوبولوجيا (Topology)','الجبر المجرد','التحليل العددي','نظرية الألعاب'], correct:0},
+  {q:'"نظرية الألعاب" (Game theory) بالرياضيات، مين من العلماء التاليين ساهم بتأسيسها بشكل أساسي؟', opts:['جون فون نيومان','ألبرت أينشتاين','ماكس بلانك','نيلز بور'], correct:0},
+  {q:'جون ناش، الرياضي اللي انبنى عنه فيلم "A Beautiful Mind"، اشتهر بمساهماته بأي مجال رياضي؟', opts:['نظرية الألعاب (Game theory)','الهندسة التحليلية','نظرية الأعداد','الإحصاء'], correct:0},
+  {q:'شو اسم أول حاسبة ميكانيكية اخترعها بليز باسكال بمنتصف القرن السابع عشر؟', opts:['باسكالين (Pascaline)','ليبنتز ويل','أنالتيكال إنجن','دفتر نابير'], correct:0},
+  {q:'"عجلة ليبنتز" أو الآلة الحاسبة اللي طوّرها ليبنتز كانت أول آلة قادرة تعمل بشكل ميكانيكي على العمليات الأربع الأساسية، وهاي العمليات هي؟', opts:['جمع وطرح وضرب وقسمة','جمع وطرح بس','ضرب وقسمة بس','تربيع وجذر تربيعي'], correct:0},
+  {q:'شو اسم عملية إيجاد "أكبر قاسم مشترك" بين عددين، اللي وصفها إقليدس بكتابه بخوارزمية شهيرة؟', opts:['خوارزمية إقليدس','خوارزمية غاوس','خوارزمية أويلر','خوارزمية فيثاغورس'], correct:0},
+  {q:'شو اسم "القطوع المخروطية" اللي بتتشكل من تقاطع مستوي مع مخروط، ومنها الدائرة والقطع الناقص والقطع المكافئ و؟', opts:['القطع الزائد (Hyperbola)','المربع','المثلث','شبه المنحرف'], correct:0},
+  {q:'شو اسم "لغز الأبراج بهانوي" (Tower of Hanoi) اللي بيُستخدم كتمرين شهير بالرياضيات وعلوم الحاسوب؟', opts:['لعبة نقل أقراص بين ثلاث أعمدة حسب قواعد معينة','لعبة حل معادلات تفاضلية','لعبة ترتيب أرقام أولية','لعبة رسم أشكال هندسية'], correct:0},
+  {q:'شو الحد الأدنى من الحركات المطلوبة لحل "أبراج هانوي" لو عندك n قرص؟', opts:['n²','2n','2^n - 1','n!'], correct:2},
+  {q:'شو اسم المتتالية اللي فيها كل حد بيساوي حاصل ضرب كل الأعداد الصحيحة الموجبة لغاية رقمه (زي 5! = 1×2×3×4×5)؟', opts:['المضروب (Factorial)','التوافيق','التباديل','المتسلسلة الهندسية'], correct:0},
+  {q:'قيمة 5! (خمسة مضروب) تساوي؟', opts:['20','60','100','120'], correct:3},
+  {q:'شو اسم الشكل الرباعي اللي كل أضلاعه متساوية الطول، وزواياه مش شرط تكون قائمة؟', opts:['المعين (Rhombus)','المربع','المستطيل','شبه المنحرف'], correct:0},
+  {q:'شو اسم الشكل الرباعي اللي فيه ضلعين متوازيين بس، والباقي مش شرط؟', opts:['متوازي الأضلاع','شبه المنحرف (Trapezoid)','المعين','المستطيل'], correct:1},
+  {q:'"عدد أويلر" e بيظهر بشكل طبيعي بحساب أي نوع من النمو؟', opts:['النمو الأسي/المركب (زي الفوائد المركبة)','النمو الخطي البسيط','التناقص الثابت','لا شي من هذول'], correct:0},
+  {q:'شو اسم فرع الرياضيات اللي بيدرس احتمالية وقوع الأحداث؟', opts:['نظرية الاحتمالات','الجبر الخطي','التحليل العقدي','نظرية الأعداد'], correct:0},
+  {q:'إذا رميت قطعة نقود عادلة (مش مغشوشة)، شو احتمال إنه تطلع صورة؟', opts:['25%','33%','50%','75%'], correct:2},
+  {q:'برنارد ريمان اشتهر بطرح "فرضية ريمان" اللي لسا غير محلولة، وهي مرتبطة بتوزيع أي نوع من الأعداد؟', opts:['الأعداد الأولية','الأعداد الزوجية','الأعداد التامة','الأعداد النسبية'], correct:0},
+  {q:'"مسألة الألوان الأربعة" (Four Color Theorem) بتقول إنه أي خريطة مستوية ممكن تلوينها بأقل عدد ألوان بدون ما تلاقي منطقتين متجاورتين بنفس اللون، وهاد العدد هو؟', opts:['3 ألوان','4 ألوان','5 ألوان','6 ألوان'], correct:1},
+  {q:'مسألة الألوان الأربعة كانت أول مبرهنة رياضية كبيرة اتبرهنت بمساعدة أي شي؟', opts:['الحاسوب','التلسكوب','المجهر','الآلة الحاسبة اليدوية'], correct:0},
+  {q:'شو اسم فرع الرياضيات اللي بيدرس التغير اللحظي والمساحات تحت المنحنيات (زي المشتقة والتكامل)؟', opts:['التفاضل والتكامل (Calculus)','الجبر الخطي','نظرية الأعداد','الهندسة التحليلية'], correct:0},
+  {q:'شو اسم أصغر وحدة قياس بالنظام الثنائي (0 أو 1) المستخدم بالحواسيب؟', opts:['بايت','بت (Bit)','نيبل','وورد'], correct:1},
+  {q:'كم بت (bit) بالبايت الواحد بالحوسبة التقليدية؟', opts:['4','8','16','32'], correct:1},
+  {q:'شو اسم النظرية اللي بتقول إنه بأي مجموعة من الأعداد الصحيحة أكبر من عدد معين، لازم يكون في نمط متكرر (Pigeonhole principle) بالعربي بتسمى؟', opts:['مبدأ برج الحمام','مبدأ التكامل','مبدأ الاستقراء الرياضي','مبدأ التناظر'], correct:0},
+  {q:'"الاستقراء الرياضي" (Mathematical induction) هو أسلوب إثبات بيعتمد على إثبات صحة القضية عند حالة أساس، وبعدين إثبات إنها صحيحة عند n تستلزم صحتها عند؟', opts:['n - 1','n + 1','2n','n²'], correct:1},
+  {q:'شو اسم الدالة الرياضية اللي بتوصف علاقة كل مدخل بمخرج واحد بالضبط؟', opts:['الدالة (Function)','المتباينة','المعادلة التربيعية','المصفوفة'], correct:0},
+  {q:'شو اسم الجدول المستطيل من الأرقام المرتبة بصفوف وأعمدة، بيُستخدم بحل أنظمة المعادلات الخطية؟', opts:['المصفوفة (Matrix)','المتجه','المضلع','المتتالية'], correct:0},
+  {q:'شو اسم فرع الرياضيات اللي بيدرس المتجهات والمصفوفات والفضاءات الخطية؟', opts:['الجبر الخطي (Linear algebra)','التحليل العقدي','نظرية الأعداد','الطوبولوجيا'], correct:0},
+  {q:'شو اسم النسبة المئوية اللي بتساوي 1 من كل 100؟', opts:['نسبة مئوية (Percent)','كسر عشري','جذر تربيعي','لوغاريتم'], correct:0},
+  {q:'شو ناتج جمع أول 100 عدد صحيح موجب (من 1 إلى 100)؟', opts:['5000','5050','10000','4950'], correct:1},
+  {q:'شو اسم القانون اللي بيسهّل حساب مجموع متسلسلة حسابية (n × (الحد الأول + الحد الأخير) ÷ 2)؟', opts:['قانون مجموع المتسلسلة الحسابية','قانون فيثاغورس','قانون الجذر التربيعي','قانون التوزيع'], correct:0},
+  {q:'كم عدد الأوجه المثلثة عند "رباعي الأوجه المنتظم" (Tetrahedron)؟', opts:['3','4','5','6'], correct:1},
+  {q:'كم عدد الأوجه عند "عشروني الأوجه المنتظم" (Icosahedron)؟', opts:['12','16','20','30'], correct:2},
+  {q:'كم عدد الأوجه عند "اثني عشري الأوجه المنتظم" (Dodecahedron)؟', opts:['10','12','16','20'], correct:1},
+  {q:'شو شكل وجوه "اثني عشري الأوجه المنتظم" (Dodecahedron)؟', opts:['مثلثات','مربعات','خماسيات (بنتاغون)','سداسيات'], correct:2},
+];
+
+const QUIZ_CONFIG = {
+  gameId: 'math-quiz',
+  shareTitle: 'كويز الرياضيات \ud83e\uddee',
+  challengeText: 'تحداك بكويز الرياضيات، جاهز تنافسني؟',
+  resultText: function(score, total, pct) {
+    return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز الرياضيات \ud83e\uddee جرب تتحداني!';
+  },
+  resultMessages: [
+    {min:90, emoji:'\ud83e\udd47', msg:'عبقري رياضيات! نتيجة رهيبة.'},
+    {min:70, emoji:'\ud83e\uddee', msg:'معلوماتك بالرياضيات ممتازة!'},
+    {min:50, emoji:'\ud83d\udc4d', msg:'مش بطال، بس فيه مجال تتحسن.'},
+    {min:0,  emoji:'\ud83d\udcda', msg:'وقتها لازم تراجع شوي رياضيات!'}
+  ]
+};
+</script>
+<script src="jo/games/quiz-engine.js"></script>
+</body></html>

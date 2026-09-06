@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كويز العلوم والتكنولوجيا — فيزياء وكيمياء وفضاء | Adawati</title>
+<meta name="description" content="اختبر معلوماتك بالعلوم والتكنولوجيا: فيزياء، كيمياء، أحياء، فضاء وتاريخ التقنية. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ أصحابك. مجاني وبدون تسجيل.">
+<meta name="keywords" content="كويز علوم, تحدي علوم وتكنولوجيا, اسئلة فيزياء وكيمياء, اختبار معلومات علمية, Science and technology trivia quiz Arabic">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/jo/games/science-quiz/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/jo/games/science-quiz/">
+<link rel="alternate" hreflang="ar-JO" href="https://adawati.space/jo/games/science-quiz/">
+<meta property="og:title" content="كويز العلوم والتكنولوجيا | Adawati">
+<meta property="og:description" content="اختبر معلوماتك بالعلوم والتكنولوجيا بـ12 سؤال ممتع في كل مرة.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/jo/games/science-quiz/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"أدوات الأردن","item":"https://adawati.space/jo/"},
+  {"@type":"ListItem","position":3,"name":"كويز العلوم والتكنولوجيا","item":"https://adawati.space/jo/games/science-quiz/"}
+]},
+{"@type":"WebApplication","name":"كويز العلوم والتكنولوجيا","url":"https://adawati.space/jo/games/science-quiz/","description":"اختبر معلوماتك بالعلوم والتكنولوجيا: فيزياء، كيمياء، أحياء، فضاء وتاريخ التقنية، مع إمكانية تحدي أصحابك.","applicationCategory":"GameApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}}
+]}
+</script>
+<link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/">أدوات الأردن</a>
+    <a href="index.html">عالمي</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="jo/">→ العودة لأدوات الأردن</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#eef2ff;">🔬</div>
+    <h1 class="card-title">كويز العلوم والتكنولوجيا</h1>
+    <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div class="divider"></div>
+
+    <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="creatorNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ تحدي</button>
+      </div>
+    </div>
+
+    <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
+      <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <input id="joinerNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">قبول التحدي ✅</button>
+      </div>
+    </div>
+
+    <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div style="font-weight:700;">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+    </div>
+
+    <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:8px;">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+      <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
+        <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
+        <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
+        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ اللعب 🚀</button>
+      </div>
+    </div>
+
+    <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+    </div>
+
+    <div id="quizArea">
+      <div id="questionText" style="font-size:17px;font-weight:700;margin-bottom:16px;"></div>
+      <div id="optionsArea" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="resultArea" style="display:none;text-align:center;">
+      <div style="font-size:48px;margin-bottom:8px;" id="resultEmoji"></div>
+      <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
+      <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">📤 شارك نتيجتك</button>
+        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">🔄 جرّب مرة ثانية</button>
+      </div>
+
+      <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">📤 شارك التحدي مع أصحابك</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+        </div>
+      </div>
+
+      <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">🏆 لوحة الترتيب</div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;">الاسم</th><th style="padding:6px;text-align:right;">النتيجة</th></tr></thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>أدوات الأردن الأخرى:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="jo/games/islamic-history-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">☪️ كويز التاريخ الإسلامي</a>
+      <a href="jo/games/general-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌐 كويز المعلومات العامة</a>
+      <a href="jo/games/geography-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌍 كويز الجغرافيا العالمية</a>
+      <a href="jo/games/math-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧮 كويز الرياضيات</a>
+      <a href="jo/games/makeup-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💄 كويز المكياج</a>
+      <a href="jo/games/cooking-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🍳 كويز الطبخ</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/world-sports-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏆 كويز الرياضة العالمية</a>
+      <a href="jo/games/world-football-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚽ كويز كرة القدم العالمية</a>
+      <a href="jo/games/songs-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎵 كويز الأغاني</a>
+      <a href="jo/games/wordle/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🟩 كلمة اليوم</a>
+      <a href="jo/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب اليوم</a>
+      <a href="jo/students/scholarships-loans/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 منح وقروض الجامعة</a>
+      <a href="jo/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇯🇴 كل أدوات الأردن</a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script>
+const QUESTIONS = [
+  {q:'شو سرعة الضوء تقريباً بالفراغ؟', opts:['299,792 كم/ثانية','150,000 كم/ثانية','1,000,000 كم/ثانية','50,000 كم/ثانية'], correct:0},
+  {q:'مين اللي صاغ نظرية النسبية؟', opts:['نيوتن','أينشتاين','غاليليو','دارون'], correct:1},
+  {q:'بأي سنة نشر أينشتاين النسبية الخاصة؟', opts:['1905','1915','1889','1927'], correct:0},
+  {q:'بأي سنة نشر أينشتاين النسبية العامة (بصيغتها النهائية)؟', opts:['1916','1905','1930','1895'], correct:0},
+  {q:'مين حط قوانين الحركة والجاذبية الكونية بكتابه الشهير Principia؟', opts:['إسحاق نيوتن','ألبرت أينشتاين','نيكولا تسلا','غاليليو غاليلي'], correct:0},
+  {q:'بأي سنة نشر نيوتن كتابه Principia Mathematica؟', opts:['1687','1750','1600','1800'], correct:0},
+  {q:'كم درجة الصفر المطلق بالسيلزيوس؟', opts:['-273.15','-100','-500','0'], correct:0},
+  {q:'شو أكتر غاز موجود بالغلاف الجوي للأرض؟', opts:['النيتروجين','الأكسجين','ثاني أكسيد الكربون','الأرغون'], correct:0},
+  {q:'كم نسبة الأكسجين تقريباً بالهواء اللي بنتنفسه؟', opts:['21%','78%','50%','5%'], correct:0},
+  {q:'مين صمم أول جدول دوري للعناصر معترف فيه عالمياً؟', opts:['ديمتري مندليف','ماري كوري','ألبرت أينشتاين','نيلز بور'], correct:0},
+  {q:'بأي سنة صمم مندليف الجدول الدوري؟', opts:['1869','1900','1750','1950'], correct:0},
+  {q:'كم عنصر كيميائي معروف حالياً بالجدول الدوري؟', opts:['118','92','150','200'], correct:0},
+  {q:'شو الرمز الكيميائي للذهب؟', opts:['Au','Ag','Go','Gd'], correct:0},
+  {q:'شو الرمز الكيميائي للفضة؟', opts:['Ag','Si','Fe','Sv'], correct:0},
+  {q:'شو الرمز الكيميائي للحديد؟', opts:['Fe','Ir','Hd','Fr'], correct:0},
+  {q:'شو الرمز الكيميائي للصوديوم؟', opts:['Na','So','Sd','Nu'], correct:0},
+  {q:'شو الرمز الكيميائي للبوتاسيوم؟', opts:['K','P','Po','Bo'], correct:0},
+  {q:'شو التركيب الكيميائي للماء؟', opts:['H2O','CO2','O2','H2O2'], correct:0},
+  {q:'شو أكتر عنصر منتشر بالكون؟', opts:['الهيدروجين','الأكسجين','الكربون','الحديد'], correct:0},
+  {q:'كم حالة أساسية للمادة (صلبة وسائلة وغازية بالإضافة لواحدة)؟', opts:['البلازما','الكريستال','الضباب','الغاز المضغوط'], correct:0},
+  {q:'مين اكتشف تركيب الحمض النووي DNA على شكل حلزون مزدوج؟', opts:['واطسون وكريك','داروين ومندل','باستور وفليمنغ','كوري وبيكريل'], correct:0},
+  {q:'بأي سنة اكتشف واطسون وكريك تركيب الـDNA؟', opts:['1953','1900','1975','1990'], correct:0},
+  {q:'كم عدد الكروموسومات بالخلية البشرية العادية؟', opts:['46','23','92','44'], correct:0},
+  {q:'كم زوج كروموسومات عند الإنسان؟', opts:['23 زوج','46 زوج','20 زوج','30 زوج'], correct:0},
+  {q:'كم عدد عظام جسم الإنسان البالغ تقريباً؟', opts:['206','150','300','100'], correct:0},
+  {q:'شو أطول وأكبر عظمة بجسم الإنسان؟', opts:['عظمة الفخذ (الفخذ)','عظمة الترقوة','عظمة الحوض','عظمة الساعد'], correct:0},
+  {q:'شو أصغر عظمة بجسم الإنسان؟', opts:['الركاب (بالأذن الوسطى)','عظمة الإصبع الصغير','فقرة بالعمود الفقري','عظمة الأنف'], correct:0},
+  {q:'كم حجرة (غرفة) بقلب الإنسان؟', opts:['4','2','6','3'], correct:0},
+  {q:'شو الغاز اللي بتمتصه النباتات بعملية البناء الضوئي؟', opts:['ثاني أكسيد الكربون','الأكسجين','النيتروجين','الميثان'], correct:0},
+  {q:'شو الغاز اللي بتطلقه النباتات كناتج عن البناء الضوئي؟', opts:['الأكسجين','ثاني أكسيد الكربون','النيتروجين','الهيدروجين'], correct:0},
+  {q:'مين اللي طور نظرية الانتخاب الطبيعي والتطور؟', opts:['تشارلز داروين','غريغور مندل','لويس باستور','ألبرت أينشتاين'], correct:0},
+  {q:'بأي سنة نشر داروين كتابه "أصل الأنواع"؟', opts:['1859','1900','1800','1950'], correct:0},
+  {q:'شو أول كوكب صناعي (قمر صناعي) أُطلق للفضاء؟', opts:['سبوتنيك 1','فوييجر 1','هابل','أبولو 11'], correct:0},
+  {q:'أي دولة أطلقت أول قمر صناعي "سبوتنيك 1"؟', opts:['الاتحاد السوفييتي','أمريكا','الصين','ألمانيا'], correct:0},
+  {q:'بأي سنة أُطلق سبوتنيك 1؟', opts:['1957','1969','1945','1980'], correct:0},
+  {q:'مين أول إنسان مشى على سطح القمر؟', opts:['نيل أرمسترونغ','يوري غاغارين','باز ألدرن','جون غلين'], correct:0},
+  {q:'بأي سنة هبط أول إنسان على سطح القمر؟', opts:['1969','1957','1975','1980'], correct:0},
+  {q:'شو اسم المركبة الفضائية اللي وصلت أول بعثة بشرية للقمر؟', opts:['أبولو 11','فوييجر 1','سبوتنيك','سويوز'], correct:0},
+  {q:'مين أول امرأة تسافر للفضاء؟', opts:['فالنتينا تريشكوفا','ساندرا بولوك','مي جميسون','بيغي ويتسون'], correct:0},
+  {q:'بأي سنة سافرت فالنتينا تريشكوفا للفضاء كأول امرأة؟', opts:['1963','1957','1975','1990'], correct:0},
+  {q:'بأي سنة أُطلق تلسكوب هابل الفضائي؟', opts:['1990','1969','2000','1980'], correct:0},
+  {q:'بأي سنة أُطلقت أول وحدة من محطة الفضاء الدولية؟', opts:['1998','1990','2005','1985'], correct:0},
+  {q:'شو أكبر كوكب بالمجموعة الشمسية؟', opts:['المشتري','زحل','الأرض','نبتون'], correct:0},
+  {q:'شو أصغر كوكب بالمجموعة الشمسية؟', opts:['عطارد','الزهرة','المريخ','بلوتو'], correct:0},
+  {q:'شو أقرب كوكب للشمس؟', opts:['عطارد','الزهرة','الأرض','المريخ'], correct:0},
+  {q:'شو الكوكب المعروف بـ"الكوكب الأحمر"؟', opts:['المريخ','المشتري','زحل','عطارد'], correct:0},
+  {q:'كم عدد الكواكب المعترف فيها رسمياً بالمجموعة الشمسية حالياً؟', opts:['8','9','10','7'], correct:0},
+  {q:'شو اسم المجرة اللي فيها كوكب الأرض؟', opts:['درب التبانة','المرأة المسلسلة','النجم القطبي','مجرة الدوامة'], correct:0},
+  {q:'مين اخترع الهاتف وسجّل براءة اختراعه؟', opts:['ألكسندر غراهام بيل','توماس إديسون','نيكولا تسلا','غولييلمو ماركوني'], correct:0},
+  {q:'بأي سنة سجّل غراهام بيل براءة اختراع الهاتف؟', opts:['1876','1900','1850','1920'], correct:0},
+  {q:'توماس إديسون اشتهر باختراع/تطوير شو بالإضافة للمصباح الكهربائي؟', opts:['الفونوغراف (جهاز تسجيل الصوت)','الهاتف','الراديو','التلفاز'], correct:0},
+  {q:'نيكولا تسلا اشتهر بمساهمته بتطوير أي نوع من التيار الكهربائي؟', opts:['التيار المتردد (AC)','التيار المستمر (DC)','الطاقة الشمسية','طاقة الرياح'], correct:0},
+  {q:'مين اكتشف البنسلين (أول مضاد حيوي)؟', opts:['ألكسندر فليمنغ','لويس باستور','ماري كوري','غريغور مندل'], correct:0},
+  {q:'بأي سنة اكتشف فليمنغ البنسلين؟', opts:['1928','1900','1950','1880'], correct:0},
+  {q:'ماري كوري اشتهرت باكتشاف عنصرين كيميائيين، شو همّ؟', opts:['البولونيوم والراديوم','الحديد والنحاس','الذهب والفضة','الكربون والأكسجين'], correct:0},
+  {q:'شو الشي المميز بجوائز نوبل اللي حصلت عليها ماري كوري؟', opts:['أول شخص يفوز بنوبل مرتين بمجالين علميين مختلفين','أول شخص يرفض جائزة نوبل','أصغر فائزة بجائزة نوبل بالتاريخ','فازت بجائزة نوبل بالأدب والعلوم'], correct:0},
+  {q:'مين طوّر علم الوراثة الحديث من خلال تجاربه على نبات البازلاء؟', opts:['غريغور مندل','تشارلز داروين','لويس باستور','واطسون'], correct:0},
+  {q:'مين مؤسس شركة مايكروسوفت؟', opts:['بيل غيتس وبول ألن','ستيف جوبز وستيف وزنياك','لاري بيدج وسيرجي برين','مارك زوكربيرغ'], correct:0},
+  {q:'بأي سنة تأسست شركة مايكروسوفت؟', opts:['1975','1998','1985','1960'], correct:0},
+  {q:'مين مؤسسي شركة أبل؟', opts:['ستيف جوبز وستيف وزنياك ورونالد واين','بيل غيتس وبول ألن','لاري بيدج وسيرجي برين','إيلون ماسك'], correct:0},
+  {q:'بأي سنة تأسست شركة أبل؟', opts:['1976','1990','1960','2000'], correct:0},
+  {q:'مين مؤسسي شركة جوجل؟', opts:['لاري بيدج وسيرجي برين','بيل غيتس وبول ألن','مارك زوكربيرغ','ستيف جوبز'], correct:0},
+  {q:'بأي سنة تأسست شركة جوجل رسمياً؟', opts:['1998','1990','2004','1985'], correct:0},
+  {q:'مين مؤسس فيسبوك؟', opts:['مارك زوكربيرغ','لاري بيدج','بيل غيتس','ستيف جوبز'], correct:0},
+  {q:'بأي سنة أُطلق فيسبوك؟', opts:['2004','1998','2010','1995'], correct:0},
+  {q:'مين اخترع الويب (World Wide Web)؟', opts:['تيم بيرنرز-لي','بيل غيتس','فينت سيرف','ستيف جوبز'], correct:0},
+  {q:'بأي سنة اخترع تيم بيرنرز-لي الويب؟', opts:['1989','1969','2000','1975'], correct:0},
+  {q:'شو الفرق الأساسي بين "الإنترنت" و"الويب"؟', opts:['الإنترنت شبكة بنية تحتية، والويب طبقة محتوى ومواقع تشتغل فوقها','هم نفس الشي بالضبط','الويب أقدم من الإنترنت','الإنترنت خاص بالهواتف بس'], correct:0},
+  {q:'بأي سنة صدر أول آيفون؟', opts:['2007','2001','2010','1998'], correct:0},
+  {q:'شو أول كمبيوتر إلكتروني قابل للبرمجة للأغراض العامة بالتاريخ؟', opts:['ENIAC','آبل 1','IBM PC','كومودور 64'], correct:0},
+  {q:'بأي سنة اكتمل بناء كمبيوتر ENIAC؟', opts:['1945','1970','1990','1930'], correct:0},
+  {q:'مين مكتشف الجاذبية ووضع قانون الجاذبية الكونية؟', opts:['إسحاق نيوتن','ألبرت أينشتاين','غاليليو غاليلي','كوبرنيكوس'], correct:0},
+  {q:'مين اكتشف أن الأرض تدور حول الشمس (النموذج الشمسي المركزي) ونشره بشكل علمي؟', opts:['نيكولاس كوبرنيكوس','غاليليو غاليلي','إسحاق نيوتن','بطليموس'], correct:0},
+  {q:'مين أول من استخدم التلسكوب لرصد السماء ودعم فكرة دوران الأرض حول الشمس؟', opts:['غاليليو غاليلي','نيوتن','كوبرنيكوس','كبلر'], correct:0},
+  {q:'شو معادلة أينشتاين الشهيرة اللي بتربط الكتلة بالطاقة؟', opts:['E=mc²','F=ma','E=hf','PV=nRT'], correct:0},
+  {q:'مين مكتشف الجاذبية بالقصة الشهيرة المرتبطة بسقوط تفاحة؟', opts:['إسحاق نيوتن','ألبرت أينشتاين','غاليليو','أرخميدس'], correct:0},
+  {q:'شو أصغر وحدة بنائية بالكائن الحي؟', opts:['الخلية','الذرة','الجزيء','النواة'], correct:0},
+  {q:'شو الجزء المسؤول عن حمل المعلومات الوراثية بالخلية؟', opts:['الحمض النووي DNA','الميتوكوندريا','الريبوسوم','جدار الخلية'], correct:0},
+  {q:'كم فصيلة دم رئيسية موجودة عند الإنسان (النظام الأساسي ABO)؟', opts:['4 (A، B، AB، O)','2','6','8'], correct:0},
+  {q:'شو الغاز اللي بيشكل معظم فقاعات الهواء اللي بنتنفسها للبقاء على قيد الحياة؟', opts:['الأكسجين','النيتروجين','ثاني أكسيد الكربون','الهيليوم'], correct:0},
+  {q:'شو اسم العملية اللي بتحول فيها النباتات ضوء الشمس لطاقة كيميائية؟', opts:['البناء الضوئي (التمثيل الضوئي)','التنفس الخلوي','التبخر','التخمر'], correct:0},
+  {q:'شو أشهر مساهمة للويكيميائي لويس باستور بالعلم؟', opts:['نظرية الجراثيم وعملية البسترة','اكتشاف الجاذبية','اختراع الهاتف','اكتشاف الكهرباء'], correct:0},
+  {q:'شو اسم العملية اللي سميت على اسم لويس باستور وبنستخدمها لتعقيم الحليب؟', opts:['البسترة','التخمير','التقطير','الأكسدة'], correct:0},
+  {q:'مين مخترع نظرية الجراثيم اللي غيّرت الطب الحديث؟', opts:['لويس باستور','ألكسندر فليمنغ','ماري كوري','غريغور مندل'], correct:0},
+  {q:'شو تسمية أصغر جزء من العنصر الكيميائي بحيث يحافظ على خصائصه؟', opts:['الذرة','الجزيء','الخلية','الأيون'], correct:0},
+  {q:'شو الجسيمات الثلاثة الأساسية المكوّنة للذرة؟', opts:['البروتون والنيوترون والإلكترون','الذرة والجزيء والأيون','الحمض والقاعدة والملح','الكتلة والطاقة والحجم'], correct:0},
+  {q:'شو شحنة البروتون كهربائياً؟', opts:['موجبة','سالبة','متعادلة','متغيرة'], correct:0},
+  {q:'شو شحنة الإلكترون كهربائياً؟', opts:['سالبة','موجبة','متعادلة','متغيرة'], correct:0},
+  {q:'أي جسيم بالذرة ما إله شحنة كهربائية (متعادل)؟', opts:['النيوترون','البروتون','الإلكترون','الأيون'], correct:0},
+  {q:'شو اسم النظرية العلمية اللي بتفسر أصل الكون وتوسّعه من نقطة شديدة الكثافة والحرارة؟', opts:['نظرية الانفجار العظيم (Big Bang)','نظرية النسبية','نظرية التطور','نظرية الأوتار'], correct:0},
+  {q:'مين مخترع أول لقاح ناجح بالتاريخ (لمرض الجدري)؟', opts:['إدوارد جينر','لويس باستور','ألكسندر فليمنغ','روبرت كوخ'], correct:0},
+  {q:'الجدول الدوري بيرتب العناصر الكيميائية حسب شو بشكل أساسي؟', opts:['العدد الذري (عدد البروتونات)','لون العنصر','تاريخ اكتشافه','وزنه فقط بدون ترتيب علمي'], correct:0},
+  {q:'مقياس pH بيتراوح عادة بين شو؟', opts:['0 و14','1 و100','-10 و10','0 و1000'], correct:0},
+  {q:'شو قيمة pH المحلول المتعادل متل الماء النقي؟', opts:['7','0','14','1'], correct:0},
+  {q:'الألماس والغرافيت (الفحم) مصنوعين أساساً من نفس العنصر، شو هو؟', opts:['الكربون','الحديد','السيليكون','الهيدروجين'], correct:0},
+  {q:'كم فصيلة دم رئيسية بنظام ABO؟', opts:['4','2','3','6'], correct:0},
+  {q:'أي فصيلة دم بتعتبر "المتبرع العام" (تقدر تتبرع لأي فصيلة تانية)؟', opts:['O سالب','AB موجب','A موجب','B سالب'], correct:0},
+  {q:'أي فصيلة دم بتعتبر "المستقبل العام" (تقدر تستقبل من أي فصيلة)؟', opts:['AB موجب','O سالب','A سالب','B موجب'], correct:0},
+  {q:'مين اللي بعت أول إيميل عبر شبكة (ARPANET)؟', opts:['راي توملينسون','بيل غيتس','تيم بيرنرز-لي','فينت سيرف'], correct:0},
+  {q:'بأي عقد تقريباً أُرسل أول إيميل بالتاريخ؟', opts:['السبعينات (1971)','الثمانينات','التسعينات','الستينات'], correct:0},
+  {q:'مين طوّر أول لقاح بالتاريخ (ضد مرض الجدري)؟', opts:['إدوارد جينر','لويس باستور','ألكسندر فليمنغ','روبرت كوخ'], correct:0},
+  {q:'بأي سنة طوّر إدوارد جينر أول لقاح؟', opts:['1798','1900','1850','1750'], correct:0},
+  {q:'شو الحيوان اللي استخدمه جينر لتطوير لقاح الجدري (لقاح البقر)؟', opts:['البقر','الخنزير','الفار','القرد'], correct:0},
+  {q:'شو الرمز الكيميائي للأكسجين؟', opts:['O','Ox','Og','Xy'], correct:0},
+  {q:'شو الرمز الكيميائي للكربون؟', opts:['C','Cb','Ca','Cr'], correct:0},
+  {q:'شو الرمز الكيميائي للهيدروجين؟', opts:['H','Hy','He','Hi'], correct:0},
+  {q:'شو الرمز الكيميائي للنحاس؟', opts:['Cu','Cp','Nu','Nh'], correct:0},
+  {q:'شو الرمز الكيميائي للنيتروجين؟', opts:['N','Ni','Nt','No'], correct:0},
+  {q:'شو الرمز الكيميائي للكالسيوم؟', opts:['Ca','Cl','Co','Cm'], correct:0},
+  {q:'شو الوحدة الأساسية لقياس القوة بالنظام الدولي؟', opts:['نيوتن','جول','واط','باسكال'], correct:0},
+  {q:'شو الوحدة الأساسية لقياس الطاقة بالنظام الدولي؟', opts:['جول','نيوتن','واط','أمبير'], correct:0},
+  {q:'شو الوحدة الأساسية لقياس القدرة الكهربائية؟', opts:['واط','فولت','أمبير','أوم'], correct:0},
+  {q:'شو الوحدة الأساسية لقياس التيار الكهربائي؟', opts:['أمبير','فولت','واط','أوم'], correct:0},
+  {q:'شو اسم العالم اللي اشتق منه اسم وحدة قياس القوة "نيوتن"؟', opts:['إسحاق نيوتن','مايكل فاراداي','جيمس واط','أندريه أمبير'], correct:0},
+  {q:'من أي غاز مكوّن الهواء اللي بنشمه بشكل رئيسي (النسبة الأكبر)؟', opts:['النيتروجين (حوالي 78%)','الأكسجين (حوالي 78%)','ثاني أكسيد الكربون','الهيليوم'], correct:0},
+  {q:'شو اسم القوة اللي بتشد الأجسام نحو مركز الأرض؟', opts:['الجاذبية','الطاقة الحركية','الاحتكاك','الكهرباء الساكنة'], correct:0},
+  {q:'شو تسمية العلم اللي بيدرس الوراثة وانتقال الصفات؟', opts:['علم الوراثة (الجينات)','علم التشريح','علم الأحياء الدقيقة','علم البيئة'], correct:0},
+  {q:'شو اسم الوحدة الوظيفية للوراثة اللي بتحمل صفة معينة على الـDNA؟', opts:['الجين','الكروموسوم','الخلية','الحمض الأميني'], correct:0},
+  {q:'شو اسم العملية اللي بتحول فيها الخلايا الغذاء لطاقة باستخدام الأكسجين؟', opts:['التنفس الخلوي','البناء الضوئي','التخمر','الانقسام الخلوي'], correct:0},
+  {q:'شو تسمية جزيء الطاقة الأساسي اللي بتستخدمه الخلايا؟', opts:['ATP','DNA','RNA','ADP فقط'], correct:0},
+  {q:'شو اسم الطبقة الجوية اللي بتحمي الأرض من الأشعة فوق البنفسجية الضارة؟', opts:['طبقة الأوزون','طبقة التروبوسفير','الغلاف المغناطيسي','طبقة الأيونوسفير'], correct:0},
+  {q:'مين اخترع المصباح الكهربائي القابل للاستخدام التجاري (طوّره وسوّقه على نطاق واسع)؟', opts:['توماس إديسون','نيكولا تسلا','ألكسندر بيل','مايكل فاراداي'], correct:0},
+  {q:'شو تسمية العملية اللي بيتحول فيها الماء من سائل لبخار؟', opts:['التبخر','التكاثف','الانصهار','التجمد'], correct:0},
+  {q:'شو تسمية العملية اللي بيتحول فيها البخار (الغاز) لسائل؟', opts:['التكاثف','التبخر','التسامي','الانصهار'], correct:0},
+  {q:'شو تسمية العملية اللي بيتحول فيها الجليد (الصلب) مباشرة لبخار (غاز) بدون ما يصير سائل؟', opts:['التسامي','التبخر','الانصهار','التكاثف'], correct:0},
+  {q:'شو اسم عالم الفيزياء اللي وضع قوانين الحركة الثلاثة الشهيرة؟', opts:['إسحاق نيوتن','ألبرت أينشتاين','جيمس ماكسويل','مايكل فاراداي'], correct:0},
+  {q:'شو تسمية الجسيم دون الذري اللي بيدور حول نواة الذرة؟', opts:['الإلكترون','البروتون','النيوترون','الفوتون'], correct:0},
+  {q:'شو تسمية مركز الذرة اللي بيحتوي على البروتونات والنيوترونات؟', opts:['النواة','المدار','الغلاف','الجزيء'], correct:0},
+];
+
+const QUIZ_CONFIG = {
+  gameId: 'science-quiz',
+  shareTitle: 'كويز العلوم والتكنولوجيا \ud83d\udd2c',
+  challengeText: 'تحداك بكويز العلوم، جاهز تنافسني؟',
+  resultText: function(score, total, pct) {
+    return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز العلوم \ud83d\udd2c جرب تتحداني!';
+  },
+  resultMessages: [
+    {min:90, emoji:'\ud83e\uddd1\u200d\ud83d\udd2c', msg:'عالم محترف! معلوماتك رهيبة.'},
+    {min:70, emoji:'\ud83d\udd2c', msg:'معلوماتك العلمية ممتازة!'},
+    {min:50, emoji:'\ud83d\udc4d', msg:'مش بطال، بس فيه مجال تتحسن.'},
+    {min:0,  emoji:'\ud83d\udcda', msg:'وقتها لازم تراجع شوي علوم!'}
+  ]
+};
+</script>
+<script src="jo/games/quiz-engine.js"></script>
+</body></html>

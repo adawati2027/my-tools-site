@@ -19,8 +19,28 @@ let challengeMode = false;
 let challengeSubmitted = false;
 let playerName = '';
 let quizStartTime = 0;
+let selectedCategory = 'mix';
 const MIN_PLAYERS = 2;
 const MAX_PLAYERS = 20;
+
+function initCategorySelector() {
+  const area = document.getElementById('categorySelectArea');
+  if (!area || !QUIZ_CONFIG.categories) return;
+  area.style.display = 'flex';
+  area.innerHTML = QUIZ_CONFIG.categories.map(function(c) {
+    return '<button type="button" class="cat-select-btn" data-cat="' + c.key + '" style="padding:8px 14px;border-radius:8px;border:2px solid var(--border);background:' + (c.key === selectedCategory ? 'var(--primary)' : 'var(--surface)') + ';color:' + (c.key === selectedCategory ? '#fff' : 'var(--text)') + ';font-size:13px;font-weight:700;cursor:pointer;">' + escapeHtml(c.label) + '</button>';
+  }).join('');
+  area.querySelectorAll('.cat-select-btn').forEach(function(btn) {
+    btn.onclick = function() {
+      selectedCategory = btn.getAttribute('data-cat');
+      area.querySelectorAll('.cat-select-btn').forEach(function(b) {
+        const active = b.getAttribute('data-cat') === selectedCategory;
+        b.style.background = active ? 'var(--primary)' : 'var(--surface)';
+        b.style.color = active ? '#fff' : 'var(--text)';
+      });
+    };
+  });
+}
 
 function getChallengeIdFromUrl() {
   return new URLSearchParams(location.search).get('challenge');
@@ -292,7 +312,10 @@ function shuffle(arr) {
 }
 
 function pickQuestions() {
-  const selected = shuffle(QUESTIONS).slice(0, QUESTIONS_PER_GAME);
+  const pool = (QUIZ_CONFIG.categories && selectedCategory !== 'mix')
+    ? QUESTIONS.filter(function(q) { return q.cat === selectedCategory; })
+    : QUESTIONS;
+  const selected = shuffle(pool).slice(0, QUESTIONS_PER_GAME);
   activeQuestions = selected.map(function(q) {
     const order = shuffle(q.opts.map(function(_, i) { return i; }));
     return {
@@ -379,4 +402,6 @@ if (urlChallengeId) {
   document.getElementById('challengeStartArea').style.display = 'none';
   document.getElementById('challengeJoinArea').style.display = 'block';
   showChallengeJoinIntro(urlChallengeId);
+} else {
+  initCategorySelector();
 }

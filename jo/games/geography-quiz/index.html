@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كويز الجغرافيا العالمية — عواصم ومعالم | Adawati</title>
+<meta name="description" content="اختبر معلوماتك بالجغرافيا العالمية: عواصم، دول، أنهار وجبال ومعالم طبيعية. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ أصحابك. مجاني وبدون تسجيل.">
+<meta name="keywords" content="كويز جغرافيا, تحدي جغرافيا, عواصم دول, اختبار معلومات جغرافية, World geography trivia quiz Arabic">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/jo/games/geography-quiz/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/jo/games/geography-quiz/">
+<link rel="alternate" hreflang="ar-JO" href="https://adawati.space/jo/games/geography-quiz/">
+<meta property="og:title" content="كويز الجغرافيا العالمية | Adawati">
+<meta property="og:description" content="اختبر معلوماتك بالجغرافيا العالمية بـ12 سؤال ممتع في كل مرة.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/jo/games/geography-quiz/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"أدوات الأردن","item":"https://adawati.space/jo/"},
+  {"@type":"ListItem","position":3,"name":"كويز الجغرافيا العالمية","item":"https://adawati.space/jo/games/geography-quiz/"}
+]},
+{"@type":"WebApplication","name":"كويز الجغرافيا العالمية","url":"https://adawati.space/jo/games/geography-quiz/","description":"اختبر معلوماتك بالجغرافيا العالمية: عواصم، دول، أنهار وجبال ومعالم طبيعية، مع إمكانية تحدي أصحابك.","applicationCategory":"GameApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}}
+]}
+</script>
+<link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/">أدوات الأردن</a>
+    <a href="index.html">عالمي</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="jo/">→ العودة لأدوات الأردن</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#ecfdf5;">🌍</div>
+    <h1 class="card-title">كويز الجغرافيا العالمية</h1>
+    <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div class="divider"></div>
+
+    <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="creatorNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ تحدي</button>
+      </div>
+    </div>
+
+    <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
+      <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <input id="joinerNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">قبول التحدي ✅</button>
+      </div>
+    </div>
+
+    <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div style="font-weight:700;">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+    </div>
+
+    <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:8px;">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+      <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
+        <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
+        <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
+        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ اللعب 🚀</button>
+      </div>
+    </div>
+
+    <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+    </div>
+
+    <div id="quizArea">
+      <div id="questionText" style="font-size:17px;font-weight:700;margin-bottom:16px;"></div>
+      <div id="optionsArea" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="resultArea" style="display:none;text-align:center;">
+      <div style="font-size:48px;margin-bottom:8px;" id="resultEmoji"></div>
+      <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
+      <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">📤 شارك نتيجتك</button>
+        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">🔄 جرّب مرة ثانية</button>
+      </div>
+
+      <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">📤 شارك التحدي مع أصحابك</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+        </div>
+      </div>
+
+      <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">🏆 لوحة الترتيب</div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;">الاسم</th><th style="padding:6px;text-align:right;">النتيجة</th></tr></thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>أدوات الأردن الأخرى:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="jo/games/science-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔬 كويز العلوم والتكنولوجيا</a>
+      <a href="jo/games/general-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌐 كويز المعلومات العامة</a>
+      <a href="jo/games/islamic-history-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">☪️ كويز التاريخ الإسلامي</a>
+      <a href="jo/games/math-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧮 كويز الرياضيات</a>
+      <a href="jo/games/makeup-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💄 كويز المكياج</a>
+      <a href="jo/games/cooking-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🍳 كويز الطبخ</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/world-sports-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏆 كويز الرياضة العالمية</a>
+      <a href="jo/games/world-football-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚽ كويز كرة القدم العالمية</a>
+      <a href="jo/games/songs-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎵 كويز الأغاني</a>
+      <a href="jo/games/wordle/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🟩 كلمة اليوم</a>
+      <a href="jo/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب اليوم</a>
+      <a href="jo/students/scholarships-loans/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 منح وقروض الجامعة</a>
+      <a href="jo/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇯🇴 كل أدوات الأردن</a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script>
+const QUESTIONS = [
+  {q:'شو عاصمة فرنسا؟', opts:['باريس','ليون','مارسيليا','نيس'], correct:0},
+  {q:'شو عاصمة ألمانيا؟', opts:['ميونخ','برلين','هامبورغ','فرانكفورت'], correct:1},
+  {q:'شو عاصمة إيطاليا؟', opts:['ميلانو','فينيسيا','روما','نابولي'], correct:2},
+  {q:'شو عاصمة إسبانيا؟', opts:['برشلونة','مدريد','إشبيلية','فالنسيا'], correct:1},
+  {q:'شو عاصمة البرتغال؟', opts:['لشبونة','بورتو','فارو','برага'], correct:0},
+  {q:'شو عاصمة بريطانيا؟', opts:['مانشستر','ليفربول','لندن','برمنغهام'], correct:2},
+  {q:'شو عاصمة إيرلندا؟', opts:['دبلن','بلفاست','كورك','غالواي'], correct:0},
+  {q:'شو عاصمة هولندا؟', opts:['روتردام','أمستردام','لاهاي','أوترخت'], correct:1},
+  {q:'شو عاصمة بلجيكا؟', opts:['أنتويرب','بروكسل','غنت','بروج'], correct:1},
+  {q:'شو عاصمة سويسرا؟', opts:['زيورخ','جنيف','برن','بازل'], correct:2},
+  {q:'شو عاصمة النمسا؟', opts:['سالزبورغ','فيينا','غراتس','إنسبروك'], correct:1},
+  {q:'شو عاصمة اليونان؟', opts:['أثينا','سالونيك','باتراس','هيراكليون'], correct:0},
+  {q:'شو عاصمة السويد؟', opts:['غوتنبرغ','مالمو','ستوكهولم','أوبسالا'], correct:2},
+  {q:'شو عاصمة النرويج؟', opts:['أوسلو','بيرغن','ترومسو','ستافنغر'], correct:0},
+  {q:'شو عاصمة الدنمارك؟', opts:['أورهوس','كوبنهاغن','أودنسه','آلبورغ'], correct:1},
+  {q:'شو عاصمة فنلندا؟', opts:['هلسنكي','تامبيري','توركو','إسبو'], correct:0},
+  {q:'شو عاصمة بولندا؟', opts:['كراكوف','وارسو','فروتسواف','غدانسك'], correct:1},
+  {q:'شو عاصمة روسيا؟', opts:['موسكو','سانت بطرسبرغ','نوفوسيبيرسك','كازان'], correct:0},
+  {q:'شو عاصمة أوكرانيا؟', opts:['خاركيف','كييف','أوديسا','لفيف'], correct:1},
+  {q:'شو عاصمة تركيا؟', opts:['إسطنبول','أنقرة','إزمير','أنطاليا'], correct:1},
+  {q:'شو عاصمة مصر؟', opts:['الإسكندرية','الجيزة','القاهرة','الأقصر'], correct:2},
+  {q:'شو عاصمة الأردن؟', opts:['إربد','الزرقاء','العقبة','عمّان'], correct:3},
+  {q:'شو عاصمة السعودية؟', opts:['جدة','مكة المكرمة','الرياض','الدمام'], correct:2},
+  {q:'شو عاصمة الإمارات؟', opts:['دبي','أبوظبي','الشارقة','عجمان'], correct:1},
+  {q:'شو عاصمة العراق؟', opts:['البصرة','بغداد','الموصل','النجف'], correct:1},
+  {q:'شو عاصمة سوريا؟', opts:['حلب','دمشق','حمص','اللاذقية'], correct:1},
+  {q:'شو عاصمة لبنان؟', opts:['طرابلس','بيروت','صيدا','زحلة'], correct:1},
+  {q:'شو عاصمة الكويت؟', opts:['الأحمدي','مدينة الكويت','الجهراء','حولي'], correct:1},
+  {q:'شو عاصمة قطر؟', opts:['الدوحة','الوكرة','الريان','الخور'], correct:0},
+  {q:'شو عاصمة البحرين؟', opts:['المحرق','المنامة','الرفاع','مدينة عيسى'], correct:1},
+  {q:'شو عاصمة عمان؟', opts:['صلالة','مسقط','نزوى','صحار'], correct:1},
+  {q:'شو عاصمة اليمن؟', opts:['عدن','صنعاء','تعز','الحديدة'], correct:1},
+  {q:'شو عاصمة المغرب؟', opts:['الدار البيضاء','مراكش','الرباط','فاس'], correct:2},
+  {q:'شو عاصمة الجزائر؟', opts:['وهران','الجزائر العاصمة','قسنطينة','عنابة'], correct:1},
+  {q:'شو عاصمة تونس؟', opts:['صفاقس','تونس العاصمة','سوسة','القيروان'], correct:1},
+  {q:'شو عاصمة ليبيا؟', opts:['بنغازي','طرابلس','مصراتة','سبها'], correct:1},
+  {q:'شو عاصمة السودان؟', opts:['أم درمان','الخرطوم','بورتسودان','كسلا'], correct:1},
+  {q:'شو عاصمة إيران؟', opts:['أصفهان','طهران','شيراز','مشهد'], correct:1},
+  {q:'شو عاصمة باكستان؟', opts:['كراتشي','إسلام آباد','لاهور','بيشاور'], correct:1},
+  {q:'شو عاصمة الهند؟', opts:['مومباي','نيودلهي','بنغالورو','كولكاتا'], correct:1},
+  {q:'شو عاصمة الصين؟', opts:['شنغهاي','بكين','هونغ كونغ','قوانغتشو'], correct:1},
+  {q:'شو عاصمة اليابان؟', opts:['أوساكا','طوكيو','كيوتو','يوكوهاما'], correct:1},
+  {q:'شو عاصمة كوريا الجنوبية؟', opts:['بوسان','سيول','إنتشون','دايغو'], correct:1},
+  {q:'شو عاصمة كوريا الشمالية؟', opts:['بيونغ يانغ','هامهونغ','ونسان','تشونغجين'], correct:0},
+  {q:'شو عاصمة فيتنام؟', opts:['هوشي منه','هانوي','دا نانغ','هوى'], correct:1},
+  {q:'شو عاصمة تايلاند؟', opts:['بانكوك','شيانغ ماي','بوكيت','باتايا'], correct:0},
+  {q:'شو عاصمة ماليزيا؟', opts:['كوالالمبور','جورج تاون','جوهور بارو','كوتشينغ'], correct:0},
+  {q:'شو عاصمة الفلبين؟', opts:['سيبو','مانيلا','دافاو','كيزون سيتي'], correct:1},
+  {q:'شو عاصمة أستراليا؟', opts:['سيدني','ملبورن','كانبيرا','بريزبن'], correct:2},
+  {q:'شو عاصمة نيوزيلندا؟', opts:['أوكلاند','ويلينغتون','كرايستشيرش','هاميلتون'], correct:1},
+  {q:'شو عاصمة كندا؟', opts:['تورنتو','مونتريال','أوتاوا','فانكوفر'], correct:2},
+  {q:'شو عاصمة الولايات المتحدة؟', opts:['نيويورك','لوس أنجلوس','واشنطن العاصمة','شيكاغو'], correct:2},
+  {q:'شو عاصمة المكسيك؟', opts:['غوادالاخارا','مكسيكو سيتي','كانكون','مونتيري'], correct:1},
+  {q:'شو عاصمة البرازيل؟', opts:['ريو دي جانيرو','ساو باولو','برازيليا','سلفادور'], correct:2},
+  {q:'شو عاصمة الأرجنتين؟', opts:['بوينس آيرس','قرطبة','روساريو','مندوزا'], correct:0},
+  {q:'شو عاصمة تشيلي؟', opts:['فالبارايسو','سانتياغو','كونسيبسيون','أنتوفاغاستا'], correct:1},
+  {q:'شو عاصمة بيرو؟', opts:['كوسكو','ليما','أريكيبا','تروخيو'], correct:1},
+  {q:'شو عاصمة كولومبيا؟', opts:['ميديلين','بوغوتا','كالي','كارتاخينا'], correct:1},
+  {q:'شو عاصمة فنزويلا؟', opts:['ماراكايبو','كاراكاس','فالنسيا','باركيسيميتو'], correct:1},
+  {q:'شو عاصمة كوبا؟', opts:['هافانا','سانتياغو دي كوبا','كاماغوي','هولغين'], correct:0},
+  {q:'شو عاصمة نيجيريا؟', opts:['لاغوس','أبوجا','كانو','إيبادان'], correct:1},
+  {q:'شو عاصمة كينيا؟', opts:['مومباسا','نيروبي','كيسومو','ناكورو'], correct:1},
+  {q:'شو عاصمة إثيوبيا؟', opts:['أديس أبابا','ديري داوا','غوندار','مكيلي'], correct:0},
+  {q:'شو عاصمة غانا؟', opts:['كوماسي','أكرا','تامالي','سيكوندي'], correct:1},
+  {q:'شو عاصمة السنغال؟', opts:['داكار','توبا','كاولاك','زيغينشور'], correct:0},
+  {q:'وين تقع برج إيفل؟', opts:['لندن','باريس','روما','برلين'], correct:1},
+  {q:'وين يقع سور الصين العظيم؟', opts:['اليابان','كوريا الجنوبية','الصين','فيتنام'], correct:2},
+  {q:'وين تقع أهرامات الجيزة؟', opts:['السعودية','الأردن','مصر','المغرب'], correct:2},
+  {q:'وين يقع تاج محل؟', opts:['باكستان','الهند','بنغلاديش','سريلانكا'], correct:1},
+  {q:'وين يقع الكولوسيوم؟', opts:['أثينا','روما','مدريد','لشبونة'], correct:1},
+  {q:'وين يقع تمثال الحرية؟', opts:['لوس أنجلوس','شيكاغو','نيويورك','بوسطن'], correct:2},
+  {q:'وين يقع تمثال المسيح الفادي المشهور فوق التلة؟', opts:['بوينس آيرس','ريو دي جانيرو','ليما','بوغوتا'], correct:1},
+  {q:'وين تقع ساعة بيغ بن؟', opts:['لندن','مانشستر','دبلن','إدنبرة'], correct:0},
+  {q:'وين تقع دار أوبرا سيدني؟', opts:['ملبورن','بيرث','سيدني','بريزبن'], correct:2},
+  {q:'وين تقع مدينة ماتشو بيتشو الأثرية؟', opts:['بوليفيا','بيرو','الإكوادور','تشيلي'], correct:1},
+  {q:'وين تقع مدينة البتراء الأثرية؟', opts:['لبنان','سوريا','الأردن','مصر'], correct:2},
+  {q:'وين يقع أطول برج بالعالم برج خليفة؟', opts:['أبوظبي','الدوحة','دبي','الرياض'], correct:2},
+  {q:'وين يقع برج بيزا المائل؟', opts:['روما','فلورنسا','بيزا','ميلانو'], correct:2},
+  {q:'وين يقع جبل فوجي؟', opts:['كوريا الجنوبية','اليابان','الصين','تايوان'], correct:1},
+  {q:'شلالات نياغرا موجودة على الحدود بين شو دولتين؟', opts:['أمريكا والمكسيك','أمريكا وكندا','كندا وروسيا','أمريكا وكوبا'], correct:1},
+  {q:'وين يقع جسر البوابة الذهبية؟', opts:['نيويورك','لوس أنجلوس','سان فرانسيسكو','سياتل'], correct:2},
+  {q:'نهر النيل بيمر بشو دولة عربية مشهورة فيها؟', opts:['المغرب','مصر','الجزائر','تونس'], correct:1},
+  {q:'نهر الأمازون بيمر بأكبر جزء منه بشو دولة؟', opts:['كولومبيا','الإكوادور','البرازيل','بيرو'], correct:2},
+  {q:'نهر التايمز بيمر بشو مدينة؟', opts:['مانشستر','لندن','ليفربول','برمنغهام'], correct:1},
+  {q:'نهر السين بيمر بشو مدينة؟', opts:['ليون','مارسيليا','باريس','نيس'], correct:2},
+  {q:'نهر الدانوب بيمر بعاصمة النمسا فيينا وبعاصمة هنغاريا كمان، شو اسمها؟', opts:['براتيسلافا','بودابست','بلغراد','بوخارست'], correct:1},
+  {q:'كم قارة موجودة بالعالم؟', opts:['خمسة','ستة','سبعة','ثمانية'], correct:2},
+  {q:'شو أكبر قارة بالعالم من حيث المساحة وعدد السكان؟', opts:['أفريقيا','آسيا','أوروبا','أمريكا الشمالية'], correct:1},
+  {q:'شو أصغر قارة بالعالم من حيث المساحة؟', opts:['أوروبا','أنتاركتيكا','أستراليا','أمريكا الجنوبية'], correct:2},
+  {q:'شو أبرد قارة بالعالم؟', opts:['أوروبا','أنتاركتيكا','آسيا','أمريكا الشمالية'], correct:1},
+  {q:'شو أصغر دولة بالعالم من حيث المساحة؟', opts:['موناكو','سان مارينو','الفاتيكان','ليختنشتاين'], correct:2},
+  {q:'شو أكبر دولة بالعالم من حيث المساحة؟', opts:['كندا','الصين','روسيا','الولايات المتحدة'], correct:2},
+  {q:'كم عدد الدول اللي بتشكل القارة الأفريقية تقريباً؟', opts:['حوالي 30 دولة','حوالي 40 دولة','حوالي 54 دولة','حوالي 70 دولة'], correct:2},
+  {q:'شو أعلى جبل بالعالم فوق سطح البحر؟', opts:['كي2','إيفرست','كليمنجارو','مونت بلانك'], correct:1},
+  {q:'جبل إيفرست موجود بسلسلة جبال شو اسمها؟', opts:['جبال الألب','جبال الأنديز','جبال الهيمالايا','جبال الأطلس'], correct:2},
+  {q:'شو أعمق نقطة معروفة بالمحيطات بالعالم؟', opts:['خندق بورتوريكو','خندق ماريانا','خندق تونغا','خندق اليابان'], correct:1},
+  {q:'شو أكبر بحيرة بالعالم من حيث المساحة؟', opts:['بحيرة سوبيريور','بحيرة فيكتوريا','بحر قزوين','بحيرة بايكال'], correct:2},
+  {q:'شو أخفض نقطة على سطح اليابسة بالعالم؟', opts:['البحر الميت','بحر قزوين','منخفض قطارة','بحيرة أسال'], correct:0},
+  {q:'البحر الميت موجود بين الأردن وشو دولة كمان؟', opts:['سوريا','لبنان','فلسطين','مصر'], correct:2},
+  {q:'شو أكبر صحراء حارة بالعالم؟', opts:['صحراء غوبي','الصحراء الكبرى','صحراء كالاهاري','الربع الخالي'], correct:1},
+  {q:'صحراء غوبي موجودة بشو قارة؟', opts:['أفريقيا','آسيا','أستراليا','أمريكا الجنوبية'], correct:1},
+  {q:'مضيق جبل طارق بيفصل بين أوروبا وشو قارة؟', opts:['آسيا','أفريقيا','أمريكا الشمالية','ما بيفصل قارات'], correct:1},
+  {q:'مضيق البوسفور بيفصل بين الجزء الأوروبي والآسيوي من شو مدينة؟', opts:['أنقرة','إزمير','إسطنبول','أنطاليا'], correct:2},
+  {q:'شو اسم سلسلة الجبال الموجودة بجنوب أمريكا الجنوبية وبتُعتبر أطول سلسلة جبال بالعالم؟', opts:['جبال الأنديز','جبال الروكي','جبال الألب','جبال الأطلس'], correct:0},
+  {q:'جبال الأطلس موجودة بشو منطقة؟', opts:['شرق أفريقيا','شمال أفريقيا','جنوب أفريقيا','غرب آسيا'], correct:1},
+  {q:'كم عدد المحيطات المعترف فيها رسمياً بالعالم؟', opts:['ثلاثة','أربعة','خمسة','ستة'], correct:2},
+  {q:'شو أكبر محيط بالعالم من حيث المساحة؟', opts:['المحيط الأطلسي','المحيط الهندي','المحيط الهادئ','المحيط المتجمد الشمالي'], correct:2},
+  {q:'البحر الأحمر بيفصل بين شبه الجزيرة العربية وشو قارة؟', opts:['آسيا','أفريقيا','أوروبا','أستراليا'], correct:1},
+  {q:'البحر المتوسط بيلامس شواطئ كم قارة؟', opts:['قارة وحدة','قارتين','ثلاث قارات','أربع قارات'], correct:2},
+  {q:'شو اللغة الرسمية باليابان؟', opts:['الصينية','الكورية','اليابانية','الإنجليزية'], correct:2},
+  {q:'شو اللغة الرسمية بالبرازيل؟', opts:['الإسبانية','البرتغالية','الفرنسية','الإيطالية'], correct:1},
+  {q:'شو اللغة الرسمية بمعظم دول أمريكا الجنوبية عدا البرازيل؟', opts:['الإسبانية','الفرنسية','الإيطالية','الألمانية'], correct:0},
+  {q:'أي دولة بيتكلم فيها الناس الفرنسية والألمانية والإيطالية كلغات رسمية بنفس الوقت؟', opts:['بلجيكا','سويسرا','النمسا','لوكسمبورغ'], correct:1},
+  {q:'شو اللغة الرسمية بمصر والأردن والسعودية؟', opts:['الفارسية','التركية','العربية','الأردية'], correct:2},
+  {q:'أي دولة أوروبية معروفة إنها مكونة من آلاف الجزر وعاصمتها ستوكهولم... لأ هاي السويد، شو اسم الدولة اللي عاصمتها هلسنكي؟', opts:['السويد','فنلندا','النرويج','الدنمارك'], correct:1},
+  {q:'شو اسم أكبر جزيرة بالعالم؟', opts:['مدغشقر','بورنيو','غرينلاند','نيو غينيا'], correct:2},
+  {q:'جزيرة مدغشقر موجودة قبالة سواحل شو قارة؟', opts:['آسيا','أفريقيا','أستراليا','أمريكا الجنوبية'], correct:1},
+  {q:'شو اسم الدولة الوحيدة اللي بتحتل قارة كاملة؟', opts:['كندا','الصين','أستراليا','البرازيل'], correct:2},
+  {q:'أي دولة بتشترك بحدود مع أكبر عدد من الدول بالعالم (تشترك مع 14 دولة)؟', opts:['الصين','روسيا','البرازيل','الهند'], correct:1},
+  {q:'شو الدولة الآسيوية اللي عاصمتها بانكوك ومعروفة بمعابدها البوذية؟', opts:['فيتنام','ميانمار','تايلاند','كمبوديا'], correct:2},
+  {q:'شو اسم الدولة اللي فيها مدينة البندقية (فينيسيا) المبنية على قنوات مائية؟', opts:['اليونان','إسبانيا','إيطاليا','كرواتيا'], correct:2},
+  {q:'شو اسم الدولة الاسكندنافية المعروفة بالفيوردات (المضايق البحرية) بشكل كبير؟', opts:['السويد','الدنمارك','فنلندا','النرويج'], correct:3},
+  {q:'شو عاصمة جنوب أفريقيا الإدارية اللي فيها معظم الوزارات؟', opts:['كيب تاون','جوهانسبرغ','بريتوريا','ديربان'], correct:2},
+  {q:'مدينة البندقية الإيطالية معروفة بأنها مبنية فوق شو؟', opts:['جبل','صحراء','قنوات مائية','غابة'], correct:2},
+  {q:'شو اسم القناة المائية اللي بتربط البحر الأحمر بالبحر المتوسط وموجودة بمصر؟', opts:['قناة بنما','قناة السويس','قناة كورنث','قناة كيل'], correct:1},
+  {q:'شو اسم القناة اللي بتربط المحيط الأطلسي بالمحيط الهادئ وموجودة بأمريكا الوسطى؟', opts:['قناة السويس','قناة بنما','قناة كورنث','قناة كيل'], correct:1},
+  {q:'قناة السويس بتقصر الطريق البحري بين أوروبا وشو منطقة بدون الدوران حوالين أفريقيا؟', opts:['أمريكا الجنوبية','آسيا وأستراليا','أمريكا الشمالية','القطب الجنوبي'], correct:1},
+  {q:'شو اسم أكبر شعاب مرجانية بالعالم وموجودة قبالة سواحل أستراليا؟', opts:['الحاجز المرجاني العظيم','شعاب المالديف','شعاب البحر الأحمر','شعاب بليز'], correct:0},
+  {q:'شو اسم غابة الأمازون المطيرة الموجودة بشكل رئيسي بشو دولة؟', opts:['كولومبيا','بيرو','البرازيل','فنزويلا'], correct:2},
+  {q:'جبل كليمنجارو أعلى جبل بأفريقيا موجود بشو دولة؟', opts:['كينيا','تنزانيا','أوغندا','إثيوبيا'], correct:1},
+  {q:'شو اسم أكبر جزيرة بالبحر المتوسط؟', opts:['قبرص','كريت','صقلية','سردينيا'], correct:2},
+  {q:'شو اسم الدولة الجزيرة الواقعة جنوب الهند بالمحيط الهندي ومعروفة بالشاي والفيلة؟', opts:['بنغلاديش','سريلانكا','المالديف','ميانمار'], correct:1},
+  {q:'شو اسم الدولة المكوّنة من أكثر من 17 ألف جزيرة بجنوب شرق آسيا؟', opts:['الفلبين','ماليزيا','إندونيسيا','فيتنام'], correct:2},
+  {q:'شو اسم البحيرات الخمس الكبرى الموجودة على الحدود بين أمريكا وكندا؟', opts:['البحيرات الاسكندنافية','البحيرات العظمى','بحيرات الألب','البحيرات الأفريقية'], correct:1},
+  {q:'شو اسم جبال الهيمالايا اللي بتحتوي أعلى القمم بالعالم بتمتد بين شو دولتين رئيسيتين معروفتين فيها؟', opts:['الصين والهند','روسيا والصين','باكستان وأفغانستان','إيران والعراق'], correct:0},
+  {q:'شو اسم الدولة الإفريقية المعروفة سابقاً باسم "روديسيا الجنوبية"؟', opts:['زامبيا','زيمبابوي','ملاوي','موزمبيق'], correct:1},
+  {q:'شو اسم الدولة الأوروبية المعروفة بطواحين الهواء والقنوات والزهور خصوصاً التوليب؟', opts:['بلجيكا','هولندا','الدنمارك','ألمانيا'], correct:1},
+  {q:'شو اسم جبل الألب الأعلى قمة فيه وموجود على الحدود بين فرنسا وإيطاليا؟', opts:['ماترهورن','مونت بلانك','آيغر','يونغفراو'], correct:1},
+  {q:'شو أكثر دولة بالعالم من حيث عدد السكان حالياً؟', opts:['الصين','الهند','الولايات المتحدة','إندونيسيا'], correct:1},
+  {q:'شو النهر اللي بيُعتبر تقليدياً أطول نهر بالعالم؟', opts:['نهر الأمازون','نهر النيل','نهر اليانغتسي','نهر المسيسبي'], correct:1},
+  {q:'شو أكثر منطقة حضرية (تجمع سكاني) بالعالم من حيث عدد السكان؟', opts:['دلهي','شنغهاي','طوكيو','القاهرة'], correct:2},
+  {q:'كم عدد الدول الأعضاء بالأمم المتحدة تقريباً؟', opts:['170 دولة','193 دولة','210 دول','150 دولة'], correct:1},
+  {q:'شو تُعتبر أجف صحراء (غير قطبية) بالعالم؟', opts:['صحراء ناميب','صحراء أتاكاما','الصحراء الكبرى','صحراء كالاهاري'], correct:1},
+  {q:'صحراء أتاكاما الجافة جداً موجودة بشكل رئيسي بشو دولة؟', opts:['بيرو','الأرجنتين','تشيلي','بوليفيا'], correct:2},
+  {q:'شو أعلى شلال بالعالم بشكل عام حسب المعروف؟', opts:['شلالات نياغرا','شلالات فيكتوريا','شلال آنجل','شلالات إيغواسو'], correct:2},
+  {q:'شلال آنجل، أعلى شلال بالعالم، موجود بشو دولة؟', opts:['البرازيل','كولومبيا','فنزويلا','الإكوادور'], correct:2},
+  {q:'شلالات فيكتوريا الشهيرة موجودة على الحدود بين زامبيا وشو دولة؟', opts:['زيمبابوي','بوتسوانا','موزمبيق','ملاوي'], correct:0},
+  {q:'شلالات إيغواسو الشهيرة موجودة على الحدود بين الأرجنتين وشو دولة؟', opts:['أوروغواي','البرازيل','باراغواي','تشيلي'], correct:1},
+];
+
+const QUIZ_CONFIG = {
+  gameId: 'geography-quiz',
+  shareTitle: 'كويز الجغرافيا العالمية \ud83c\udf0d',
+  challengeText: 'تحداك بكويز الجغرافيا، جاهز تنافسني؟',
+  resultText: function(score, total, pct) {
+    return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز الجغرافيا \ud83c\udf0d جرب تتحداني!';
+  },
+  resultMessages: [
+    {min:90, emoji:'\ud83e\udded', msg:'رحّالة محترف! معلوماتك الجغرافية رهيبة.'},
+    {min:70, emoji:'\ud83c\udf0d', msg:'معلوماتك الجغرافية ممتازة!'},
+    {min:50, emoji:'\ud83d\udc4d', msg:'مش بطال، بس فيه مجال تتحسن.'},
+    {min:0,  emoji:'\ud83d\uddfa\ufe0f', msg:'وقتها لازم تراجع الخريطة!'}
+  ]
+};
+</script>
+<script src="jo/games/quiz-engine.js"></script>
+</body></html>
