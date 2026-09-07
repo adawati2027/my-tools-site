@@ -695,6 +695,12 @@ function restart() {
 // itself still applies site-wide once any page registers it (default root scope), but
 // nothing did that for a game-page-first visit. Register it here too so it doesn't
 // depend on the visitor having loaded some other page first.
+// Game pages don't load i18n.js, so they never picked up the site-wide dark-mode
+// preference either — a visitor who turned dark mode on elsewhere on the site got
+// forced back to light mode on every game page. No toggle button here (that's a
+// bigger UX addition left for later), just honoring whatever they already chose.
+try { if (localStorage.getItem('dark') === '1') document.documentElement.classList.add('dark'); } catch (e) {}
+
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js', {updateViaCache:'none'}).catch(function(){});
   if (!document.querySelector('link[rel="manifest"]')) {
