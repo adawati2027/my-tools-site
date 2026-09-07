@@ -688,6 +688,22 @@ function restart() {
   location.href = location.origin + location.pathname;
 }
 
+// Game pages don't load i18n.js (see the translation-system note above), so they
+// never got initPWA()'s service-worker registration / manifest link either — meaning
+// a visitor whose *first ever* site visit is a shared challenge link (a common entry
+// point for this feature) got no offline support or install prompt. The service worker
+// itself still applies site-wide once any page registers it (default root scope), but
+// nothing did that for a game-page-first visit. Register it here too so it doesn't
+// depend on the visitor having loaded some other page first.
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js', {updateViaCache:'none'}).catch(function(){});
+  if (!document.querySelector('link[rel="manifest"]')) {
+    const l = document.createElement('link');
+    l.rel = 'manifest'; l.href = '/manifest.json';
+    document.head.appendChild(l);
+  }
+}
+
 applyQuizTranslations();
 const urlChallengeId = getChallengeIdFromUrl();
 document.getElementById('quizArea').style.display = 'none';
