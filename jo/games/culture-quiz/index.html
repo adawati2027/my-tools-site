@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كويز الثقافة العامة — أدب وفن وسينما | Adawati</title>
+<meta name="description" content="اختبر معلوماتك الثقافية: أدب، فن، سينما، ومعالم عالمية عربية وعالمية. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ أصحابك. مجاني وبدون تسجيل.">
+<meta name="keywords" content="كويز ثقافة, تحدي ثقافي, اسئلة عن الادب والفن, اختبار معلومات ثقافية, Culture trivia quiz Arabic">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/jo/games/culture-quiz/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/jo/games/culture-quiz/">
+<link rel="alternate" hreflang="ar-JO" href="https://adawati.space/jo/games/culture-quiz/">
+<meta property="og:title" content="كويز الثقافة العامة | Adawati">
+<meta property="og:description" content="اختبر معلوماتك الثقافية بـ12 سؤال ممتع في كل مرة.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/jo/games/culture-quiz/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"أدوات الأردن","item":"https://adawati.space/jo/"},
+  {"@type":"ListItem","position":3,"name":"كويز الثقافة العامة","item":"https://adawati.space/jo/games/culture-quiz/"}
+]},
+{"@type":"WebApplication","name":"كويز الثقافة العامة","url":"https://adawati.space/jo/games/culture-quiz/","description":"اختبر معلوماتك الثقافية: أدب، فن، سينما، ومعالم عالمية عربية وعالمية، مع إمكانية تحدي أصحابك.","applicationCategory":"GameApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}}
+]}
+</script>
+<link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/">أدوات الأردن</a>
+    <a href="index.html">عالمي</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="jo/">→ العودة لأدوات الأردن</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#fdf2f8;">🎭</div>
+    <h1 class="card-title">كويز الثقافة العامة</h1>
+    <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div class="divider"></div>
+
+    <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="creatorNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ تحدي</button>
+      </div>
+    </div>
+
+    <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
+      <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <input id="joinerNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">قبول التحدي ✅</button>
+      </div>
+    </div>
+
+    <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div style="font-weight:700;">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+    </div>
+
+    <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:8px;">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+      <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
+        <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
+        <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
+        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ اللعب 🚀</button>
+      </div>
+    </div>
+
+    <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+      </div>
+    </div>
+
+    <div id="quizArea">
+      <div id="questionText" style="font-size:17px;font-weight:700;margin-bottom:16px;"></div>
+      <div id="optionsArea" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="resultArea" style="display:none;text-align:center;">
+      <div style="font-size:48px;margin-bottom:8px;" id="resultEmoji"></div>
+      <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
+      <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">📤 شارك نتيجتك</button>
+        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">🔄 جرّب مرة ثانية</button>
+      </div>
+
+      <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">📤 شارك التحدي مع أصحابك</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
+          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+        </div>
+      </div>
+
+      <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;">🏆 لوحة الترتيب</div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;">الاسم</th><th style="padding:6px;text-align:right;">النتيجة</th></tr></thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>أدوات الأردن الأخرى:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="jo/games/animals-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🦁 كويز الحيوانات والطبيعة</a>
+      <a href="jo/games/inventions-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💡 كويز الاختراعات والاكتشافات</a>
+      <a href="jo/games/science-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔬 كويز العلوم والتكنولوجيا</a>
+      <a href="jo/games/islamic-history-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">☪️ كويز التاريخ الإسلامي</a>
+      <a href="jo/games/general-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌐 كويز المعلومات العامة</a>
+      <a href="jo/games/geography-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌍 كويز الجغرافيا العالمية</a>
+      <a href="jo/games/math-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧮 كويز الرياضيات</a>
+      <a href="jo/games/makeup-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💄 كويز المكياج</a>
+      <a href="jo/games/cooking-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🍳 كويز الطبخ</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/world-sports-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏆 كويز الرياضة العالمية</a>
+      <a href="jo/games/world-football-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚽ كويز كرة القدم العالمية</a>
+      <a href="jo/games/songs-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎵 كويز الأغاني</a>
+      <a href="jo/games/wordle/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🟩 كلمة اليوم</a>
+      <a href="jo/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب اليوم</a>
+      <a href="jo/students/scholarships-loans/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 منح وقروض الجامعة</a>
+      <a href="jo/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇯🇴 كل أدوات الأردن</a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script>
+const QUESTIONS = [
+  {q:'من الروائي الأمريكي الذي فاز بجائزة نوبل للآداب عام 1954؟', opts:['وليام فوكنر','ت.س. إليوت','جون شتاينبك','إرنست همنغواي'], correct:3},
+  {q:'الروائي جون شتاينبك فاز بجائزة نوبل للآداب في أي عام؟', opts:['1954','1962','1970','1949'], correct:1},
+  {q:'من فاز بجائزة نوبل للآداب عام 1949؟', opts:['وليام فوكنر','إرنست همنغواي','ألبير كامو','صموئيل بيكيت'], correct:0},
+  {q:'الكاتب الفرنسي ألبير كامو فاز بجائزة نوبل للآداب في أي عام؟', opts:['1957','1964','1947','1971'], correct:0},
+  {q:'الشاعر التشيلي بابلو نيرودا الحائز على نوبل للآداب 1971 من أي بلد؟', opts:['الأرجنتين','تشيلي','المكسيك','البيرو'], correct:1},
+  {q:'الكاتب الأيرلندي صموئيل بيكيت فاز بجائزة نوبل للآداب عام 1969، ما جنسيته؟', opts:['بريطاني','أيرلندي','اسكتلندي','ويلزي'], correct:1},
+  {q:'الكاتب الألماني توماس مان فاز بجائزة نوبل للآداب في أي عام؟', opts:['1929','1938','1946','1907'], correct:0},
+  {q:'نجيب محفوظ أول كاتب عربي يفوز بجائزة نوبل للآداب - في أي عام كان ذلك؟', opts:['1985','1988','1990','1994'], correct:1},
+  {q:'في أي حي بالقاهرة وُلد نجيب محفوظ؟', opts:['الزمالك','حي الجمالية','مصر الجديدة','شبرا'], correct:1},
+  {q:'ما اسم الثلاثية الروائية الشهيرة لنجيب محفوظ؟', opts:['ثلاثية القاهرة','ثلاثية الإسكندرية','ثلاثية النيل','ثلاثية دمشق'], correct:0},
+  {q:'رواية "أولاد حارتنا" لنجيب محفوظ أثارت جدلاً كبيراً وكانت في وقت ما...', opts:['ممنوعة النشر في مصر لسنوات','أول رواية عربية تُترجم للإنجليزية','مصدر لفيلم أمريكي','كتبها بالفرنسية'], correct:0},
+  {q:'متى توفي الأديب المصري نجيب محفوظ؟', opts:['2001','2006','2010','1998'], correct:1},
+  {q:'الأديب نجيب محفوظ تعرض لمحاولة اغتيال عام 1994، كيف أُصيب؟', opts:['بطلق ناري','بطعنة في الرقبة','بانفجار سيارة','لم يُصب بأذى'], correct:1},
+  {q:'الشاعر محمود درويش وُلد في أي قرية؟', opts:['قرية البروة بالجليل','قرية بيت لحم','قرية صفد','قرية الناصرة'], correct:0},
+  {q:'متى توفي الشاعر الفلسطيني محمود درويش؟', opts:['2004','2008','2011','2000'], correct:1},
+  {q:'من كتب وثيقة إعلان الاستقلال الفلسطيني عام 1988؟', opts:['محمود درويش','نزار قباني','أدونيس','سميح القاسم'], correct:0},
+  {q:'ما اسم أحد أشهر دواوين الشاعر محمود درويش؟', opts:['أوراق الزيتون','ديوان الحماسة','نهج البردة','ليلى والمجنون'], correct:0},
+  {q:'أين توفي الشاعر محمود درويش؟', opts:['رام الله','عمّان','هيوستن بالولايات المتحدة','باريس'], correct:2},
+  {q:'من رسم لوحة الموناليزا الشهيرة؟', opts:['ميكيلانجيلو','رافائيل','ليوناردو دافنشي','بوتيتشيلي'], correct:2},
+  {q:'أين تُعرض لوحة الموناليزا حالياً؟', opts:['متحف اللوفر بباريس','متحف الأوفيزي بفلورنسا','المتحف البريطاني بلندن','متحف برادو بمدريد'], correct:0},
+  {q:'في أي فترة زمنية تقريباً رسم دافنشي لوحة الموناليزا؟', opts:['أوائل القرن الخامس عشر','أوائل القرن السادس عشر (1503-1506)','أواخر القرن السابع عشر','أوائل القرن الثامن عشر'], correct:1},
+  {q:'من سرق لوحة الموناليزا من متحف اللوفر عام 1911؟', opts:['لص مجهول لم يُعرف قط','فينشنزو بيروجا، موظف سابق في اللوفر','عصابة دولية للآثار','أحد حراس المتحف الحاليين'], correct:1},
+  {q:'ما أشهر كتاب للأديب جبران خليل جبران؟', opts:['النبي','الأجنحة المتكسرة','دمعة وابتسامة','العواصف'], correct:0},
+  {q:'جبران خليل جبران من أي بلد؟', opts:['سوريا','لبنان','مصر','فلسطين'], correct:1},
+  {q:'بأي لغتين كتب جبران خليل جبران أعماله؟', opts:['العربية والفرنسية','العربية والإنجليزية فقط','الإنجليزية فقط','الفرنسية والإنجليزية'], correct:1},
+  {q:'إضافة لكونه كاتباً، ماذا كان جبران خليل جبران أيضاً؟', opts:['موسيقياً','فناناً تشكيلياً ورساماً','معمارياً','ممثلاً مسرحياً'], correct:1},
+  {q:'في أي قرية لبنانية وُلد جبران خليل جبران؟', opts:['بشري','زحلة','جونية','طرابلس'], correct:0},
+  {q:'من رسم لوحة "الليلة المرصعة بالنجوم" (The Starry Night)؟', opts:['كلود مونيه','فنسنت فان جوخ','بول سيزان','إدوارد مانيه'], correct:1},
+  {q:'أين تُعرض لوحة "الليلة المرصعة بالنجوم" حالياً؟', opts:['متحف اللوفر بباريس','متحف الفن الحديث MoMA بنيويورك','المتحف الوطني بلندن','متحف فان جوخ بأمستردام'], correct:1},
+  {q:'في أي سنة رسم فان جوخ لوحة "الليلة المرصعة بالنجوم"؟', opts:['1889','1895','1875','1901'], correct:0},
+  {q:'من رسم لوحة "الصرخة" (The Scream) الشهيرة؟', opts:['بابلو بيكاسو','سلفادور دالي','إدفارد مونك','فاسيلي كاندينسكي'], correct:2},
+  {q:'ما جنسية الرسام إدفارد مونك، رسام لوحة "الصرخة"؟', opts:['سويدي','نرويجي','دنماركي','فنلندي'], correct:1},
+  {q:'في أي متحف بأوسلو تُعرض نسخ من لوحة "الصرخة"؟', opts:['المتحف الوطني للنرويج','متحف اللوفر','متحف غوغنهايم','متحف الإرميتاج'], correct:0},
+  {q:'من هي الشخصية التي تروي الحكايات في "ألف ليلة وليلة" لتنجو بحياتها؟', opts:['شهرزاد','بلقيس','زبيدة','دنيازاد'], correct:0},
+  {q:'ما اسم الملك في قصة إطار "ألف ليلة وليلة"؟', opts:['هارون الرشيد','شهريار','قمر الزمان','علاء الدين'], correct:1},
+  {q:'من أضاف قصتي "علاء الدين" و"علي بابا" إلى مجموعة ألف ليلة وليلة؟', opts:['المترجم الفرنسي أنطوان غالان','الكاتب الإنجليزي ريتشارد بيرتون','لم تُضف، كانت أصلية بالمجموعة','الرحالة ابن بطوطة'], correct:0},
+  {q:'أصل حكايات "ألف ليلة وليلة" يعود بشكل أساسي إلى أي كتاب فارسي قديم؟', opts:['شاهنامه','هزار أفسان (الألف حكاية)','كليلة ودمنة','ديوان حافظ'], correct:1},
+  {q:'من كاتب رواية "دون كيخوته"؟', opts:['ميغيل دي سرفانتس','لوبي دي فيغا','فيديريكو غارثيا لوركا','خوسيه ساراماغو'], correct:0},
+  {q:'ما جنسية الكاتب ميغيل دي سرفانتس، مؤلف دون كيخوته؟', opts:['إيطالي','برتغالي','إسباني','فرنسي'], correct:2},
+  {q:'من هو مرافق دون كيخوته الشهير في الرواية؟', opts:['سانشو بانزا','روثينانتي','دولثينيا','كاردينيو'], correct:0},
+  {q:'رواية دون كيخوته غالباً ما تُوصف تاريخياً بأنها...', opts:['أول رواية حديثة في الأدب الغربي','أول رواية عربية مترجمة','أول رواية بوليسية','أول رواية خيال علمي'], correct:0},
+  {q:'أين وُلد الكاتب المسرحي وليام شكسبير؟', opts:['لندن','ستراتفورد أبون آفون','مانشستر','أكسفورد'], correct:1},
+  {q:'كم مسرحية كتب وليام شكسبير تقريباً؟', opts:['حوالي 20','حوالي 39','حوالي 60','حوالي 10'], correct:1},
+  {q:'ما اسم المسرح اللندني الشهير المرتبط بأعمال شكسبير؟', opts:['مسرح الغلوب','مسرح الأوبرا الملكي','مسرح ويست إند','مسرح كوفنت غاردن'], correct:0},
+  {q:'كم سونيتة (قصيدة) شعرية كتب شكسبير تقريباً؟', opts:['154','54','254','54000'], correct:0},
+  {q:'من كاتب رواية "مئة عام من العزلة"؟', opts:['ماريو بارغاس يوسا','خورخي لويس بورخيس','غابرييل غارثيا ماركيز','إيزابيل الليندي'], correct:2},
+  {q:'الكاتب غابرييل غارثيا ماركيز من أي بلد؟', opts:['المكسيك','كولومبيا','الأرجنتين','البيرو'], correct:1},
+  {q:'في أي عام فاز غابرييل غارثيا ماركيز بجائزة نوبل للآداب؟', opts:['1982','1990','1975','1998'], correct:0},
+  {q:'بأي أسلوب أدبي اشتهر غابرييل غارثيا ماركيز؟', opts:['الواقعية السحرية','التيار الوعي','الواقعية القذرة','ما بعد الحداثة'], correct:0},
+  {q:'من كاتب رواية "1984"؟', opts:['ألدوس هكسلي','جورج أورويل','راي برادبري','هربرت جورج ويلز'], correct:1},
+  {q:'ما جنسية جورج أورويل، مؤلف رواية 1984؟', opts:['أمريكي','بريطاني','أيرلندي','كندي'], correct:1},
+  {q:'ما اسم الزعيم الذي تُراقب باسمه الدولة مواطنيها في رواية 1984؟', opts:['الأخ الأكبر','القائد الأعلى','الحاكم الأوحد','الأب الروحي'], correct:0},
+  {q:'ما اسم اللغة المصطنعة المصممة للسيطرة على التفكير في رواية 1984؟', opts:['نيوسبيك','دوبلثينك','أولدسبيك','لينغوا'], correct:0},
+  {q:'من نحت تمثال "داوود" الشهير؟', opts:['دوناتيلو','مايكل أنجلو','لورينزو غيبرتي','بيرنيني'], correct:1},
+  {q:'من أي مادة صُنع تمثال داوود لمايكل أنجلو؟', opts:['البرونز','الرخام','الغرانيت','الخشب المطلي بالذهب'], correct:1},
+  {q:'أين يُعرض تمثال داوود الأصلي لمايكل أنجلو حالياً؟', opts:['متحف الفاتيكان','معرض الأكاديميا بفلورنسا','متحف اللوفر','متحف الأوفيزي'], correct:1},
+  {q:'أي شخصية دينية/توراتية يمثلها تمثال داوود لمايكل أنجلو؟', opts:['النبي موسى','النبي داود','النبي إبراهيم','الملك سليمان'], correct:1},
+  {q:'من نحت تمثال "المفكر" (The Thinker) الشهير؟', opts:['أوغست رودان','قسطنطين برانكوزي','ألبرتو جياكوميتي','هنري مور'], correct:0},
+  {q:'ما جنسية النحات أوغست رودان، صاحب تمثال المفكر؟', opts:['بلجيكي','فرنسي','إيطالي','سويسري'], correct:1},
+  {q:'من أي مادة صُنع تمثال "المفكر" لرودان؟', opts:['البرونز','الرخام','الطين المحروق','الحجر الجيري'], correct:0},
+  {q:'ما جنسية الفنان بابلو بيكاسو؟', opts:['إيطالي','إسباني','برتغالي','فرنسي'], correct:1},
+  {q:'أي حركة فنية شارك بابلو بيكاسو في تأسيسها؟', opts:['السريالية','الانطباعية','التكعيبية','التعبيرية'], correct:2},
+  {q:'ما اسم لوحة بيكاسو الشهيرة التي تصور قصف مدينة غيرنيكا؟', opts:['غيرنيكا','عذارى أفينيون','الحرب والسلام','الفتاة أمام المرآة'], correct:0},
+  {q:'من هو الفنان الآخر الذي أسس حركة التكعيبية مع بيكاسو؟', opts:['هنري ماتيس','جورج براك','مارك شاغال','خوان ميرو'], correct:1},
+  {q:'في أي مدينة يقع برج إيفل؟', opts:['مرسيليا','باريس','ليون','ستراسبورغ'], correct:1},
+  {q:'لأي مناسبة بُني برج إيفل عام 1889؟', opts:['معرض باريس الدولي (الذكرى المئوية للثورة الفرنسية)','افتتاح قناة السويس','تتويج ملك فرنسا','بطولة كأس العالم'], correct:0},
+  {q:'كم يبلغ ارتفاع برج إيفل تقريباً؟', opts:['150 متراً','230 متراً','330 متراً','450 متراً'], correct:2},
+  {q:'من صمم دار أوبرا سيدني الشهيرة؟', opts:['المعماري الدنماركي يورن أوتزون','المعماري الأمريكي فرانك لويد رايت','المعماري البريطاني نورمان فوستر','المعماري الإسباني سانتياغو كالاترافا'], correct:0},
+  {q:'في أي سنة اكتمل بناء دار أوبرا سيدني؟', opts:['1965','1973','1980','1990'], correct:1},
+  {q:'دار أوبرا سيدني مدرجة كموقع تراث عالمي لليونسكو منذ أي سنة؟', opts:['1990','1998','2007','2015'], correct:2},
+  {q:'من بنى تاج محل الشهير؟', opts:['الإمبراطور المغولي أكبر','الإمبراطور المغولي شاه جهان','السلطان العثماني سليمان القانوني','الملك الفارسي داريوش'], correct:1},
+  {q:'لماذا بُني تاج محل؟', opts:['كقصر ملكي للحكم','كضريح لزوجة الإمبراطور شاه جهان','كمعبد ديني عام','كمكتبة إمبراطورية'], correct:1},
+  {q:'في أي مدينة هندية يقع تاج محل؟', opts:['دلهي','مومباي','أغرا','جايبور'], correct:2},
+  {q:'من أي مادة بُني تاج محل بشكل أساسي؟', opts:['الحجر الرملي الأحمر فقط','الرخام الأبيض','الجرانيت الأسود','الطوب المطلي'], correct:1},
+  {q:'كم عامل تقريباً شارك في بناء تاج محل بحسب التقديرات التاريخية؟', opts:['أكثر من 20 ألف عامل','حوالي 500 عامل','حوالي ألفي عامل','أكثر من 200 ألف عامل'], correct:0},
+  {q:'في أي بلد يُقام مهرجان "كان" السينمائي الشهير؟', opts:['إيطاليا','فرنسا','إسبانيا','سويسرا'], correct:1},
+  {q:'ما اسم أعلى جائزة يمنحها مهرجان كان السينمائي؟', opts:['الأسد الذهبي','السعفة الذهبية','الدب الذهبي','النخلة الفضية'], correct:1},
+  {q:'الشاعر نزار قباني من أي بلد؟', opts:['العراق','سوريا','لبنان','مصر'], correct:1},
+  {q:'بأي لقب اشتهر الشاعر نزار قباني؟', opts:['شاعر الياسمين وشاعر المرأة','شاعر النيل','أمير الشعراء','شاعر القطرين'], correct:0},
+  {q:'إضافة للشعر، ما المهنة الأخرى التي عمل بها نزار قباني؟', opts:['طبيب','دبلوماسي (سفير)','محامٍ','مهندس'], correct:1},
+  {q:'متى توفي الشاعر نزار قباني؟', opts:['1988','1998','2005','1975'], correct:1},
+  {q:'ما اسم أول ديوان شعري نشره نزار قباني عام 1944؟', opts:['قالت لي السمراء','خبز وحشيش وقمر','الرسم بالكلمات','هوامش على دفتر النكسة'], correct:0},
+  {q:'ما جنسية الفنان والعالم ليوناردو دافنشي؟', opts:['إسباني','إيطالي','فرنسي','ألماني'], correct:1},
+  {q:'ما اسم لوحة دافنشي الشهيرة التي تصور العشاء الأخير للمسيح مع تلاميذه؟', opts:['العشاء الأخير','معمودية المسيح','مريم العذراء في الصخور','السيدة ذات السمّور'], correct:0},
+  {q:'كم عدد اللوحات المؤكد نسبتها لدافنشي تقريباً حسب المؤرخين؟', opts:['أقل من 25 لوحة','حوالي 100 لوحة','أكثر من 300 لوحة','حوالي 50 لوحة'], correct:0},
+  {q:'من كاتب رواية "الحرب والسلام" الملحمية؟', opts:['فيودور دوستويفسكي','ليو تولستوي','أنطون تشيخوف','ألكسندر بوشكين'], correct:1},
+  {q:'ما جنسية الكاتب ليو تولستوي، مؤلف الحرب والسلام؟', opts:['بولندي','روسي','أوكراني','تشيكي'], correct:1},
+  {q:'أحداث رواية "الحرب والسلام" تدور في حقبة أي حروب تاريخية؟', opts:['الحروب النابليونية','الحرب العالمية الأولى','الحرب الأهلية الروسية','حروب القرم'], correct:0},
+  {q:'من كاتب رواية "البؤساء"؟', opts:['ألكسندر دوماس','فيكتور هوغو','غوستاف فلوبير','إميل زولا'], correct:1},
+  {q:'ما جنسية الكاتب فيكتور هوغو، مؤلف رواية البؤساء؟', opts:['بلجيكي','فرنسي','سويسري','إيطالي'], correct:1},
+  {q:'ما اسم الشخصية الرئيسية في رواية "البؤساء"؟', opts:['جان فالجان','كوازيمودو','إدموند دانتيس','رودولف'], correct:0},
+  {q:'ما اسم الشاعر اليوناني القديم الذي يُنسب له ملحمتا الإلياذة والأوديسة؟', opts:['هوميروس','سوفوكليس','هيسيود','أفلاطون'], correct:0},
+  {q:'ملحمة "الإلياذة" لهوميروس تتمحور حول أحداث أي حرب أسطورية؟', opts:['حرب طروادة','حرب البيلوبونيز','حرب الآلهة','حرب الفرس واليونان'], correct:0},
+  {q:'ملحمة "الأوديسة" تحكي رحلة عودة أي بطل يوناني إلى بلاده بعد حرب طروادة؟', opts:['أخيل','أوديسيوس (يوليسيس)','هرقل','أجاممنون'], correct:1},
+  {q:'بأي لغة كُتبت ملحمتا الإلياذة والأوديسة أصلاً؟', opts:['اللاتينية','اليونانية القديمة','الفارسية القديمة','السنسكريتية'], correct:1},
+  {q:'في أي مدينة ألمانية يُقام مهرجان "أوكتوبرفست" الشهير سنوياً؟', opts:['برلين','ميونخ','هامبورغ','فرانكفورت'], correct:1},
+  {q:'أول مهرجان أوكتوبرفست عام 1810 أُقيم احتفالاً بأي مناسبة؟', opts:['زفاف ولي عهد بافاريا','عيد ميلاد ملك ألمانيا','انتصار عسكري','تأسيس مدينة ميونخ'], correct:0},
+  {q:'كم يوماً يستمر مهرجان أوكتوبرفست عادةً في وقتنا الحالي؟', opts:['3 أيام','7 أيام','16 يوماً','30 يوماً'], correct:2},
+  {q:'من كاتب رواية "الجريمة والعقاب"؟', opts:['ليو تولستوي','فيودور دوستويفسكي','إيفان تورجينيف','نيكولاي غوغول'], correct:1},
+  {q:'ما جنسية الكاتب فيودور دوستويفسكي؟', opts:['بولندي','روسي','أوكراني','مجري'], correct:1},
+  {q:'في أي مدينة روسية تدور أحداث رواية "الجريمة والعقاب"؟', opts:['موسكو','سان بطرسبرغ','كييف','مينسك'], correct:1},
+  {q:'من كاتبة رواية "كبرياء وتحامل" (Pride and Prejudice)؟', opts:['شارلوت برونتي','فرجينيا وولف','جين أوستن','إيميلي برونتي'], correct:2},
+  {q:'ما جنسية الكاتبة جين أوستن، مؤلفة كبرياء وتحامل؟', opts:['إنجليزية','أيرلندية','اسكتلندية','فرنسية'], correct:0},
+  {q:'في أي سنة نُشرت رواية "كبرياء وتحامل" لأول مرة؟', opts:['1798','1813','1850','1901'], correct:1},
+  {q:'بأي لقب اشتهرت الكاتبة البريطانية أغاثا كريستي؟', opts:['ملكة الجريمة (Queen of Crime)','سيدة الغموض الذهبية','أم الرواية البوليسية الحديثة فقط','الكاتبة الحديدية'], correct:0},
+  {q:'ما اسم المحقق البلجيكي الشهير الذي ابتكرته أغاثا كريستي؟', opts:['شارلوك هولمز','هيركول بوارو','فيليب مارلو','جول مايغريه'], correct:1},
+  {q:'ما اسم المحققة العجوز التي ابتكرتها أغاثا كريستي؟', opts:['الآنسة ماربل','السيدة فليتشر','العمة أغاثا','الليدي مولي'], correct:0},
+  {q:'ما اسم مسرحية أغاثا كريستي التي تُعتبر الأطول عرضاً باستمرار في تاريخ المسرح؟', opts:['مصيدة الفئران (The Mousetrap)','الشهود من أجل الادعاء','عشرة زنوج صغار','موعد مع الموت'], correct:0},
+  {q:'حجر رشيد الأثري ساعد العلماء في فك رموز أي كتابة قديمة؟', opts:['الكتابة المسمارية','الهيروغليفية المصرية','الخط الفينيقي','الكتابة الصينية القديمة'], correct:1},
+  {q:'أين يُعرض حجر رشيد الأصلي حالياً؟', opts:['المتحف المصري بالقاهرة','المتحف البريطاني بلندن','متحف اللوفر بباريس','متحف برلين'], correct:1},
+  {q:'بأي كتابات/لغات نُقش حجر رشيد الثلاث؟', opts:['الهيروغليفية والديموطيقية واليونانية القديمة','العربية والفارسية والتركية','اللاتينية واليونانية والقبطية فقط','المسمارية والهيروغليفية والآرامية'], correct:0},
+  {q:'بالقرب من أي مدينة مصرية اكتُشف حجر رشيد عام 1799؟', opts:['الإسكندرية','رشيد (على دلتا النيل)','أسوان','الأقصر'], correct:1},
+  {q:'سور الصين العظيم يقع في أي بلد؟', opts:['اليابان','الصين','منغوليا','كوريا الجنوبية'], correct:1},
+  {q:'لماذا بُني سور الصين العظيم في الأساس؟', opts:['للحماية من غزوات القبائل الرحّالة','كطريق تجاري رئيسي فقط','كسور ديني حول المعابد','لفصل المدن عن بعضها إدارياً'], correct:0},
+  {q:'هل صحيح أن سور الصين العظيم مرئي بالعين المجردة من سطح القمر؟', opts:['نعم، هذه حقيقة مؤكدة','لا، هذه معلومة خاطئة شائعة (خرافة)','فقط في الليل','فقط بمنظار بسيط'], correct:1},
+  {q:'كم يبلغ طول سور الصين العظيم الإجمالي تقريباً بحسب المسح الرسمي؟', opts:['حوالي 5 آلاف كم','حوالي 8 آلاف كم','أكثر من 21 ألف كم','حوالي 12 ألف كم'], correct:2},
+  {q:'مدينة ماتشو بيتشو الأثرية تقع في أي بلد؟', opts:['المكسيك','بيرو','بوليفيا','الإكوادور'], correct:1},
+  {q:'أي حضارة قديمة بنت مدينة ماتشو بيتشو؟', opts:['حضارة المايا','حضارة الأزتيك','حضارة الإنكا','حضارة الأولمك'], correct:2},
+  {q:'من أعاد اكتشاف ماتشو بيتشو ولفت أنظار العالم الخارجي إليها عام 1911؟', opts:['المؤرخ الأمريكي هايرام بينغهام','عالم الآثار الفرنسي جان شامبليون','الرحالة الإسباني فرانسيسكو بيزارو','عالم الآثار البريطاني هوارد كارتر'], correct:0},
+  {q:'على أي ارتفاع تقريباً تقع مدينة ماتشو بيتشو الأثرية؟', opts:['حوالي 500 متر','حوالي 1200 متر','حوالي 2430 متر','حوالي 4500 متر'], correct:2},
+  {q:'ما جنسية الممثل الكوميدي تشارلي شابلن، نجم أفلام السينما الصامتة؟', opts:['أمريكي','إنجليزي','فرنسي','إيطالي'], correct:1},
+  {q:'ما اسم الشخصية الشهيرة التي جسدها تشارلي شابلن في أفلامه الصامتة؟', opts:['المتشرد (The Tramp)','البطل الخارق','الأرستقراطي','رجل الأعمال'], correct:0},
+  {q:'ما أول فيلم ناطق أخرجه ومثّله تشارلي شابلن؟', opts:['المتشرد الصغير','أضواء المدينة','الديكتاتور العظيم','حمى الذهب'], correct:2},
+  {q:'من ابتكر شخصية "ميكي ماوس" الشهيرة؟', opts:['والت ديزني','تيكس أفيري','تشاك جونز','ويليام هانا'], correct:0},
+  {q:'ما أول فيلم رسوم متحركة طويل ملون وناطق أنتجته استوديوهات ديزني؟', opts:['سنو وايت والأقزام السبعة','سندريلا','بينوكيو','بامبي'], correct:0},
+  {q:'والت ديزني يحمل الرقم القياسي لأكثر عدد جوائز أوسكار فاز بها فرد واحد - كم جائزة فاز بها تقريباً؟', opts:['12 جائزة','22 جائزة','35 جائزة','8 جوائز'], correct:1},
+  {q:'في أي سنة افتتح والت ديزني أول متنزه "ديزني لاند"؟', opts:['1948','1955','1965','1971'], correct:1},
+  {q:'أي ثلاثة أفلام تتشارك الرقم القياسي لأكثر عدد جوائز أوسكار (11 جائزة لكل فيلم)؟', opts:['بن هور، تايتانيك، سيد الخواتم: عودة الملك','العراب، افاتار، تايتانيك','بن هور، افاتار، البطل','سيد الخواتم، حرب النجوم، تايتانيك'], correct:0},
+  {q:'أي فيلم من بين الأفلام الحائزة على 11 أوسكار هو الوحيد الذي فاز بكل جائزة رُشح لها دون خسارة أي منها؟', opts:['تايتانيك','بن هور','سيد الخواتم: عودة الملك','العراب'], correct:2},
+  {q:'من مؤلف سلسلة روايات "سيد الخواتم" الشهيرة؟', opts:['ج. ر. ر. تولكين','سي. إس. لويس','جورج آر. آر. مارتن','تيري براتشيت'], correct:0},
+  {q:'ما جنسية الكاتب ج. ر. ر. تولكين؟', opts:['أمريكي','إنجليزي','أيرلندي','ويلزي'], correct:1},
+  {q:'ماذا كانت مهنة تولكين الأكاديمية إضافة للكتابة؟', opts:['أستاذ جامعي بجامعة أكسفورد','طبيب','محامٍ','مهندس معماري'], correct:0},
+  {q:'ما لقب تولكين الشائع في عالم الأدب بسبب تأثيره الكبير على أدب الخيال؟', opts:['أبو أدب الفانتازيا الحديث','ملك الرواية البوليسية','رائد الواقعية السحرية','أب الرواية العلمية'], correct:0},
+  {q:'ما اسم الجزء الأول من ثلاثية "سيد الخواتم"؟', opts:['رفقة الخاتم','برجا الخاتم الاثنان','عودة الملك','الهوبيت'], correct:0},
+  {q:'في أي مدينة يقع المتحف البريطاني الشهير؟', opts:['مانشستر','لندن','إدنبرة','ليفربول'], correct:1},
+  {q:'هل الدخول إلى المتحف البريطاني مجاني؟', opts:['نعم، الدخول العام مجاني','لا، يحتاج تذكرة مدفوعة دائماً','مجاني لسكان بريطانيا فقط','مجاني يوم واحد بالأسبوع فقط'], correct:0},
+  {q:'في أي سنة تأسس المتحف البريطاني؟', opts:['1753','1820','1901','1699'], correct:0},
+  {q:'ما اسم القطعة الأثرية المصرية الشهيرة المعروضة بالمتحف البريطاني والتي ساعدت في فك رموز الهيروغليفية؟', opts:['قناع توت عنخ آمون','حجر رشيد','مسلة كليوباترا','تمثال أبو الهول الصغير'], correct:1},
+];
+
+const QUIZ_CONFIG = {
+  gameId: 'culture-quiz',
+  shareTitle: 'كويز الثقافة العامة \ud83c\udfad',
+  challengeText: 'تحداك بكويز الثقافة، جاهز تنافسني؟',
+  resultText: function(score, total, pct) {
+    return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز الثقافة \ud83c\udfad جرب تتحداني!';
+  },
+  resultMessages: [
+    {min:90, emoji:'\ud83c\udf93', msg:'موسوعة ثقافية! معلوماتك رهيبة.'},
+    {min:70, emoji:'\ud83c\udfad', msg:'معلوماتك الثقافية ممتازة!'},
+    {min:50, emoji:'\ud83d\udc4d', msg:'مش بطال، بس فيه مجال تتحسن.'},
+    {min:0,  emoji:'\ud83d\udcda', msg:'وقتها لازم تقرأ أكتر!'}
+  ]
+};
+</script>
+<script src="jo/games/quiz-engine.js"></script>
+</body></html>
