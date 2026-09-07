@@ -45,7 +45,15 @@
 </div></nav>
 
 <main><div class="tool-page">
-  <div class="page-header"><a href="jo/" data-i18n="back">← العودة للرئيسية</a></div>
+  <div class="page-header"><a href="jo/" id="wordleBackLink">← العودة للرئيسية</a></div>
+  <script>
+  (function(){
+    var m = {OM:'om/',SA:'sa/',JO:'jo/',AE:'ae/',US:'us/',GB:'uk/'};
+    var c = sessionStorage.getItem('adawati_country');
+    var href = (c && m[c]) ? m[c] : 'index.html';
+    document.getElementById('wordleBackLink').setAttribute('href', href);
+  })();
+  </script>
 
   <div class="card" style="text-align:center;">
     <div class="card-icon" style="background:#f0fdf4;margin:0 auto;">🟩</div>
