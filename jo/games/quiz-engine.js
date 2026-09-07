@@ -602,7 +602,12 @@ function getQuestionImageEl() {
     el.id = 'questionImage';
     el.alt = '';
     el.loading = 'lazy';
-    el.style.cssText = 'display:none;max-width:220px;max-height:140px;margin:0 auto 12px;object-fit:contain;';
+    // Explicit width/height (not just CSS max-width/max-height) are required —
+    // many Commons SVGs carry no intrinsic size, and Safari/iOS renders such an
+    // <img> at 0x0 when it only has CSS-based sizing to lay out from.
+    el.width = 220;
+    el.height = 140;
+    el.style.cssText = 'display:none;width:220px;height:140px;max-width:100%;margin:0 auto 12px;object-fit:contain;';
     const questionText = document.getElementById('questionText');
     questionText.parentNode.insertBefore(el, questionText);
   }
