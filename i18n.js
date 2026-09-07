@@ -2259,6 +2259,43 @@ function initHomePrompt() {
   _homePromptTimer = setTimeout(showHomePrompt, 15000);
 }
 
+/* ── Bottom Navigation (mobile app shell) ── */
+function initBottomNav() {
+  if (document.getElementById('bottomNav')) return;
+  var lang = localStorage.getItem('lang') || 'en';
+  var t = T[lang] || T.en;
+  var home = getHomeHref();
+  var favLabel = (t.fav_title || '⭐ Favorites').replace('⭐ ', '').replace('⭐', '');
+  var nav = document.createElement('nav');
+  nav.id = 'bottomNav';
+  nav.className = 'bottom-nav';
+  nav.innerHTML =
+    '<div class="bottom-nav-inner">' +
+      '<a class="bottom-nav-item" href="' + home + '"><span class="bn-icon">🏠</span>' + (t.nav_home || 'Home') + '</a>' +
+      '<a class="bottom-nav-item" href="' + home + '#toolsGrid"><span class="bn-icon">🧰</span>' + (t.section_tools || 'Tools') + '</a>' +
+      '<a class="bottom-nav-item" href="' + home + '#favSection"><span class="bn-icon">⭐</span>' + favLabel + '</a>' +
+    '</div>';
+  document.body.appendChild(nav);
+  document.body.classList.add('has-bottom-nav');
+}
+
+/* ── Offline banner ── */
+function initOfflineBanner() {
+  var lang = localStorage.getItem('lang') || 'en';
+  var msg = lang === 'ar'
+    ? '📡 أنت غير متصل بالإنترنت — بعض المزايا الحية قد لا تعمل، لكن الحاسبات الأساسية تعمل بدون نت.'
+    : '📡 You\'re offline — live features may be unavailable, but core calculators still work without internet.';
+  var banner = document.getElementById('offlineBanner');
+  if (!banner) {
+    banner = document.createElement('div');
+    banner.id = 'offlineBanner';
+    banner.className = 'offline-banner';
+    document.body.insertBefore(banner, document.body.firstChild);
+  }
+  banner.textContent = msg;
+  banner.style.display = navigator.onLine ? 'none' : 'block';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   initDarkMode();
   setLang(detectDefaultLang());
@@ -2269,6 +2306,8 @@ document.addEventListener('DOMContentLoaded', function() {
   autoTrackRecent();
   initHomePrompt();
   fixBackLink();
+  initBottomNav();
+  initOfflineBanner();
   if (document.getElementById('toolsGrid')) {
     renderFavSection();
     renderRecentSection();
@@ -2276,3 +2315,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initCountryDetect();
   }
 });
+
+window.addEventListener('online', initOfflineBanner);
+window.addEventListener('offline', initOfflineBanner);

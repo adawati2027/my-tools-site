@@ -710,6 +710,26 @@ if ('serviceWorker' in navigator) {
   }
 }
 
+// Same mobile bottom nav as the rest of the site (i18n.js's initBottomNav()) —
+// duplicated here for the same reason as the SW/dark-mode snippets above: game
+// pages don't load i18n.js. Style classes (.bottom-nav etc.) already exist in
+// the shared style.css, loaded by every game page.
+(function initGameBottomNav() {
+  if (document.getElementById('bottomNav')) return;
+  const home = qGetHomeHref();
+  const nav = document.createElement('nav');
+  nav.id = 'bottomNav';
+  nav.className = 'bottom-nav';
+  nav.innerHTML =
+    '<div class="bottom-nav-inner">' +
+      '<a class="bottom-nav-item" href="' + home + '"><span class="bn-icon">🏠</span>' + (quizLang === 'en' ? 'Home' : 'الرئيسية') + '</a>' +
+      '<a class="bottom-nav-item" href="' + home + '#toolsGrid"><span class="bn-icon">🧰</span>' + (quizLang === 'en' ? 'Tools' : 'الأدوات') + '</a>' +
+      '<a class="bottom-nav-item" href="' + home + '#favSection"><span class="bn-icon">⭐</span>' + (quizLang === 'en' ? 'Favorites' : 'المفضلة') + '</a>' +
+    '</div>';
+  document.body.appendChild(nav);
+  document.body.classList.add('has-bottom-nav');
+})();
+
 applyQuizTranslations();
 const urlChallengeId = getChallengeIdFromUrl();
 document.getElementById('quizArea').style.display = 'none';

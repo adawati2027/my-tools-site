@@ -1345,3 +1345,60 @@ html.dark .copy-btn { background: var(--surface-2); border-color: var(--border);
   .related-link { min-width: 120px; font-size: 12px; }
   .pwa-banner { inset-inline-end: 12px; bottom: 12px; max-width: calc(100vw - 24px); }
 }
+
+/* ══════════════════════════════════════════
+   Bottom Navigation (mobile app shell)
+══════════════════════════════════════════ */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  z-index: 8000;
+  background: var(--surface);
+  border-top: 1.5px solid var(--border);
+  padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+}
+.bottom-nav-inner {
+  display: flex;
+  justify-content: space-around;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 16px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  min-width: 64px;
+}
+.bottom-nav-item .bn-icon { font-size: 20px; line-height: 1; }
+.bottom-nav-item:active, .bottom-nav-item:hover { background: var(--surface-2); color: var(--primary); }
+
+.offline-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: #b45309;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  padding: 8px 16px;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .bottom-nav { display: block; }
+  body.has-bottom-nav { padding-bottom: 68px; }
+}
