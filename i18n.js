@@ -170,7 +170,7 @@ cty_global:'العالمي', cty_om:'عمان', cty_ae:'الإمارات', cty_s
     dd_card_title:'الفرق بين تاريخين', dd_card_desc:'احسب عدد الأيام والأسابيع والأشهر بين أي تاريخين',
     fc_card_title:'محوّل الملفات', fc_card_desc:'حوّل Word وExcel وCSV في متصفحك',
     ic_card_title:'ضغط الصور', ic_card_desc:'قلّل حجم صورتك بدون رفعها لأي خادم',
-    fav_title:'⭐ المفضلة', recent_title:'✨ قد تهمك',
+    fav_title:'⭐ المفضلة', recent_title:'✨ قد تهمك', add_fav:'أضف للمفضلة', remove_fav:'إزالة من المفضلة', bottom_nav_favorites:'المفضلة',
     badge_count:'40+ أداة', badge_count_lbl:'أداة',
     dark_on:'🌙', dark_off:'☀️',
     related_tools:'أدوات مرتبطة:', popular_title:'الأكثر استخدامًا', country_recommended:'موصى به لـ',
@@ -357,7 +357,7 @@ cty_global:'Global', cty_om:'Oman', cty_ae:'UAE', cty_sa:'Saudi Arabia', cty_us:
     dd_card_title:'Date Difference', dd_card_desc:'Count days, weeks and months between any two dates',
     fc_card_title:'File Converter', fc_card_desc:'Convert Word, Excel & CSV in your browser',
     ic_card_title:'Image Compressor', ic_card_desc:'Reduce image size without uploading to any server',
-    fav_title:'⭐ Favorites', recent_title:'✨ You Might Like',
+    fav_title:'⭐ Favorites', recent_title:'✨ You Might Like', add_fav:'Add to Favorites', remove_fav:'Remove from Favorites', bottom_nav_favorites:'Favorites',
     badge_count:'40+ Tools', badge_count_lbl:'Tools',
     dark_on:'🌙', dark_off:'☀️',
     related_tools:'Related Tools:', popular_title:'Most Used', country_recommended:'Recommended for',
@@ -538,7 +538,7 @@ cty_global:'Mondial', cty_om:'Oman', cty_ae:'Émirats arabes unis', cty_sa:'Arab
     dd_card_title:'Différence entre dates', dd_card_desc:'Comptez les jours, semaines et mois entre deux dates',
     fc_card_title:'Convertisseur de fichiers', fc_card_desc:'Convertissez Word, Excel et CSV dans votre navigateur',
     ic_card_title:'Compresseur d\'images', ic_card_desc:'Réduisez la taille de votre image sans envoi au serveur',
-    fav_title:'⭐ Favoris', recent_title:'✨ Vous aimerez peut-être',
+    fav_title:'⭐ Favoris', recent_title:'✨ Vous aimerez peut-être', add_fav:'Ajouter aux favoris', remove_fav:'Retirer des favoris', bottom_nav_favorites:'Favoris',
     badge_count:'40+ Outils', badge_count_lbl:'Outils',
     dark_on:'🌙', dark_off:'☀️',
     related_tools:'Outils associés:', popular_title:'Les plus utilisés', country_recommended:'Recommandé pour',
@@ -712,7 +712,7 @@ cty_global:'Global', cty_om:'Omán', cty_ae:'Emiratos Árabes Unidos', cty_sa:'A
     dd_card_title:'Diferencia entre fechas', dd_card_desc:'Cuenta días, semanas y meses entre dos fechas',
     fc_card_title:'Conversor de archivos', fc_card_desc:'Convierte Word, Excel y CSV en tu navegador',
     ic_card_title:'Compresor de imágenes', ic_card_desc:'Reduce el tamaño sin subir al servidor',
-    fav_title:'⭐ Favoritos', recent_title:'✨ Puede que te interese',
+    fav_title:'⭐ Favoritos', recent_title:'✨ Puede que te interese', add_fav:'Añadir a favoritos', remove_fav:'Quitar de favoritos', bottom_nav_favorites:'Favoritos',
     badge_count:'40+ Herramientas', badge_count_lbl:'Herramientas',
     dark_on:'🌙', dark_off:'☀️',
     related_tools:'Herramientas relacionadas:', popular_title:'Más usados', country_recommended:'Recomendado para',
@@ -886,7 +886,7 @@ cty_global:'Global', cty_om:'Oman', cty_ae:'Vereinigte Arabische Emirate', cty_s
     dd_card_title:'Datumsdifferenz', dd_card_desc:'Tage, Wochen und Monate zwischen zwei Daten zählen',
     fc_card_title:'Datei-Konverter', fc_card_desc:'Word, Excel und CSV im Browser konvertieren',
     ic_card_title:'Bildkompressor', ic_card_desc:'Bildgröße ohne Server-Upload reduzieren',
-    fav_title:'⭐ Favoriten', recent_title:'✨ Das könnte Sie interessieren',
+    fav_title:'⭐ Favoriten', recent_title:'✨ Das könnte Sie interessieren', add_fav:'Zu Favoriten hinzufügen', remove_fav:'Aus Favoriten entfernen', bottom_nav_favorites:'Favoriten',
     badge_count:'40+ Tools', badge_count_lbl:'Tools',
     dark_on:'🌙', dark_off:'☀️',
     related_tools:'Verwandte Tools:', popular_title:'Am häufigsten genutzt', country_recommended:'Empfohlen für',
@@ -1060,7 +1060,7 @@ cty_global:'Глобально', cty_om:'Оман', cty_ae:'ОАЭ', cty_sa:'С�
     dd_card_title:'Разница между датами', dd_card_desc:'Считайте дни, недели и месяцы между датами',
     fc_card_title:'Конвертер файлов', fc_card_desc:'Конвертируйте Word, Excel и CSV в браузере',
     ic_card_title:'Компрессор изображений', ic_card_desc:'Уменьшите размер без загрузки на сервер',
-    fav_title:'⭐ Избранное', recent_title:'✨ Вам может понравиться',
+    fav_title:'⭐ Избранное', recent_title:'✨ Вам может понравиться', add_fav:'Добавить в избранное', remove_fav:'Удалить из избранного', bottom_nav_favorites:'Избранное',
     badge_count:'40+ инструментов', badge_count_lbl:'инструментов',
     dark_on:'🌙', dark_off:'☀️',
     related_tools:'Связанные инструменты:', popular_title:'Самые популярные', country_recommended:'Рекомендуется для',
@@ -1144,6 +1144,10 @@ function setLang(lang) {
   document.querySelectorAll('[data-i18n-html]').forEach(el => {
     const k = el.getAttribute('data-i18n-html');
     if (t[k] !== undefined) el.innerHTML = t[k];
+  });
+  document.querySelectorAll('.fav-star[data-id]').forEach(el => {
+    const id = el.getAttribute('data-id');
+    el.title = isFav(id) ? (t.remove_fav || 'Remove from Favorites') : (t.add_fav || 'Add to Favorites');
   });
   const cl = document.getElementById('currentLang');
   if (cl) cl.textContent = LABELS[lang] || lang.toUpperCase();
@@ -1953,6 +1957,8 @@ function renderRecentSection() {
 
 function injectStarBtns() {
   if (!document.getElementById('toolsGrid')) return;
+  var lang = localStorage.getItem('lang') || 'en';
+  var t = T[lang] || T.en;
   document.querySelectorAll('#toolsGrid .tool-card, #favGrid .tool-card, #recentGrid .tool-card').forEach(function(card) {
     if (card.querySelector('.fav-star')) return;
     const href = card.getAttribute('href') || '';
@@ -1962,7 +1968,7 @@ function injectStarBtns() {
     star.className = 'fav-star' + (isFav(id) ? ' fav-active' : '');
     star.setAttribute('data-id', id);
     star.textContent = isFav(id) ? '⭐' : '☆';
-    star.title = isFav(id) ? 'إزالة من المفضلة' : 'إضافة للمفضلة';
+    star.title = isFav(id) ? (t.remove_fav || 'Remove from Favorites') : (t.add_fav || 'Add to Favorites');
     star.onclick = function(e) { e.preventDefault(); e.stopPropagation(); toggleFav(id); };
     card.style.position = 'relative';
     card.appendChild(star);
@@ -2259,24 +2265,63 @@ function initHomePrompt() {
   _homePromptTimer = setTimeout(showHomePrompt, 15000);
 }
 
-/* ── Bottom Navigation (mobile app shell) ── */
-function initBottomNav() {
-  if (document.getElementById('bottomNav')) return;
+/* ── Favorite-star button on individual tool pages ──
+   injectStarBtns() only adds stars to cards on a hub page's #toolsGrid —
+   there was previously no way to favorite a tool while actually looking at
+   it, which meant most visitors would never populate their favorites list
+   at all (user-reported: opening a tool page showed no way to add it, and
+   the bottom-nav Favorites link therefore always led to an empty, hidden
+   section). Reuses the exact same isFav()/toggleFav() and .fav-star class
+   the hub-grid stars use, so both stay in sync automatically. */
+function injectPageFavStar() {
+  var page = _getPageSlug();
+  if (!TOOL_META[page]) return;
+  var header = document.querySelector('.page-header');
+  if (!header || header.querySelector('.fav-star')) return;
   var lang = localStorage.getItem('lang') || 'en';
   var t = T[lang] || T.en;
+  var star = document.createElement('button');
+  star.className = 'fav-star' + (isFav(page) ? ' fav-active' : '');
+  star.setAttribute('data-id', page);
+  star.title = isFav(page) ? (t.remove_fav || 'Remove from Favorites') : (t.add_fav || 'Add to Favorites');
+  star.innerHTML = '<span class="fav-star-icon">' + (isFav(page) ? '⭐' : '☆') + '</span>';
+  star.onclick = function() {
+    toggleFav(page);
+    var lang2 = localStorage.getItem('lang') || 'en';
+    var t2 = T[lang2] || T.en;
+    star.title = isFav(page) ? (t2.remove_fav || 'Remove from Favorites') : (t2.add_fav || 'Add to Favorites');
+  };
+  header.appendChild(star);
+}
+
+/* ── Bottom Navigation (mobile app shell) ── */
+function initBottomNav() {
   var home = getHomeHref();
-  var favLabel = (t.fav_title || '⭐ Favorites').replace('⭐ ', '').replace('⭐', '');
-  var nav = document.createElement('nav');
-  nav.id = 'bottomNav';
-  nav.className = 'bottom-nav';
-  nav.innerHTML =
-    '<div class="bottom-nav-inner">' +
-      '<a class="bottom-nav-item" href="' + home + '"><span class="bn-icon">🏠</span>' + (t.nav_home || 'Home') + '</a>' +
-      '<a class="bottom-nav-item" href="' + home + '#toolsGrid"><span class="bn-icon">🧰</span>' + (t.section_tools || 'Tools') + '</a>' +
-      '<a class="bottom-nav-item" href="' + home + '#favSection"><span class="bn-icon">⭐</span>' + favLabel + '</a>' +
-    '</div>';
-  document.body.appendChild(nav);
-  document.body.classList.add('has-bottom-nav');
+  var nav = document.getElementById('bottomNav');
+  if (!nav) {
+    nav = document.createElement('nav');
+    nav.id = 'bottomNav';
+    nav.className = 'bottom-nav';
+    // Label spans use data-i18n so applyTranslations() (called on every
+    // setLang(), not just on first load) keeps them in sync — a prior version
+    // baked the text in once here, so switching language after page load left
+    // this nav showing the auto-detected default language forever.
+    nav.innerHTML =
+      '<div class="bottom-nav-inner">' +
+        '<a class="bottom-nav-item" href="' + home + '"><span class="bn-icon">🏠</span><span data-i18n="nav_home">Home</span></a>' +
+        '<a class="bottom-nav-item" href="' + home + '#toolsGrid"><span class="bn-icon">🧰</span><span data-i18n="section_tools">Tools</span></a>' +
+        '<a class="bottom-nav-item" href="' + home + '#favSection"><span class="bn-icon">⭐</span><span data-i18n="bottom_nav_favorites">Favorites</span></a>' +
+      '</div>';
+    document.body.appendChild(nav);
+    document.body.classList.add('has-bottom-nav');
+  } else {
+    // Home href is country-dependent and can only be known after country
+    // detection runs, which happens after this first fires — refresh it.
+    var links = nav.querySelectorAll('a.bottom-nav-item');
+    if (links[0]) links[0].setAttribute('href', home);
+    if (links[1]) links[1].setAttribute('href', home + '#toolsGrid');
+    if (links[2]) links[2].setAttribute('href', home + '#favSection');
+  }
 }
 
 /* ── Offline banner ── */
@@ -2305,6 +2350,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initPWA();
   autoTrackRecent();
   initHomePrompt();
+  injectPageFavStar();
   fixBackLink();
   initBottomNav();
   initOfflineBanner();

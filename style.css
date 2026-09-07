@@ -460,7 +460,7 @@ main { flex: 1; }
   padding: 44px 24px 72px;
 }
 
-.page-header { margin-bottom: 24px; }
+.page-header { margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 
 .page-header a {
   display: inline-flex;
@@ -1283,6 +1283,16 @@ html.dark .copy-btn { background: var(--surface-2); border-color: var(--border);
 }
 .fav-star:hover, .fav-star.fav-active { opacity: 1; transform: scale(1.2); }
 .fav-star.fav-active { color: #f59e0b; }
+
+.page-header .fav-star {
+  position: static;
+  font-size: 20px;
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 10px;
+  background: var(--surface, #fff);
+  padding: 6px 10px;
+}
+html.dark .page-header .fav-star { background: var(--surface); border-color: #30363d; }
 
 .related-link:hover {
   border-color: var(--primary);
