@@ -533,6 +533,7 @@ function pickQuestions() {
     const order = shuffle(q.opts.map(function(_, i) { return i; }));
     return {
       q: q.q,
+      img: q.img,
       opts: order.map(function(i) { return q.opts[i]; }),
       correct: order.indexOf(q.correct)
     };
@@ -594,6 +595,20 @@ function handleTimeout() {
   }, 900);
 }
 
+function getQuestionImageEl() {
+  let el = document.getElementById('questionImage');
+  if (!el) {
+    el = document.createElement('img');
+    el.id = 'questionImage';
+    el.alt = '';
+    el.loading = 'lazy';
+    el.style.cssText = 'display:none;max-width:220px;max-height:140px;margin:0 auto 12px;object-fit:contain;';
+    const questionText = document.getElementById('questionText');
+    questionText.parentNode.insertBefore(el, questionText);
+  }
+  return el;
+}
+
 function loadQuestion() {
   answered = false;
   clearQuestionTimer();
@@ -601,6 +616,14 @@ function loadQuestion() {
   document.getElementById('progressLabel').textContent = qt('question_progress')(currentQ + 1, activeQuestions.length);
   document.getElementById('questionText').textContent = q.q;
   document.getElementById('questionText').setAttribute('dir', 'rtl');
+  const imgEl = getQuestionImageEl();
+  if (q.img) {
+    imgEl.src = q.img;
+    imgEl.style.display = 'block';
+  } else {
+    imgEl.removeAttribute('src');
+    imgEl.style.display = 'none';
+  }
   const optionsArea = document.getElementById('optionsArea');
   optionsArea.innerHTML = '';
   q.opts.forEach(function(opt, i) {
