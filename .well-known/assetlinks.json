@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "space.adawati.app",
+      "sha256_cert_fingerprints": [
+        "FB:E3:9E:9C:68:AE:48:92:B2:79:28:80:5C:E3:BD:F6:2E:93:E8:F2:E3:05:85:31:3D:0D:89:2C:E0:55:7C:6D"
+      ]
+    }
+  }
+]
