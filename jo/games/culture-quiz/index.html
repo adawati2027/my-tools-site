@@ -45,51 +45,52 @@
 
   <div class="card">
     <div class="card-icon" style="background:#fdf2f8;">🎭</div>
-    <h1 class="card-title">كويز الثقافة العامة</h1>
+    <h1 class="card-title" data-en="Culture Quiz">كويز الثقافة العامة</h1>
     <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div id="quizArabicNote" style="font-size:12px;color:var(--text-muted);margin-top:2px;"></div>
     <div class="divider"></div>
 
     <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
-      <div style="font-weight:700;margin-bottom:6px;">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
-      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="font-weight:700;margin-bottom:6px;" data-qt="challenge_start_title">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;" data-qt="challenge_start_subtitle">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <input id="creatorNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
-        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ تحدي</button>
+        <input id="creatorNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_challenge_btn">ابدأ تحدي</button>
       </div>
     </div>
 
     <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
       <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
       <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
-        <input id="joinerNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
-        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">قبول التحدي ✅</button>
+        <input id="joinerNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="accept_btn">قبول التحدي ✅</button>
       </div>
     </div>
 
     <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
-      <div style="font-weight:700;">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+      <div style="font-weight:700;" data-qt="joiner_waiting">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
     </div>
 
     <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
-      <div style="font-weight:700;margin-bottom:8px;">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="font-weight:700;margin-bottom:8px;" data-qt="challenge_ready">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
-        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
-        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
       </div>
       <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
         <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
         <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
-        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ اللعب 🚀</button>
+        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_playing_btn">ابدأ اللعب 🚀</button>
       </div>
     </div>
 
     <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
-      <div style="font-weight:700;margin-bottom:6px;font-size:13px;">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;" data-qt="active_link_label">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
-        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
-        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
       </div>
     </div>
 
@@ -103,23 +104,23 @@
       <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
       <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">📤 شارك نتيجتك</button>
-        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">🔄 جرّب مرة ثانية</button>
+        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="share_result_btn">📤 شارك نتيجتك</button>
+        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="try_again_btn">🔄 جرّب مرة ثانية</button>
       </div>
 
       <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
-        <div style="font-weight:700;margin-bottom:8px;">📤 شارك التحدي مع أصحابك</div>
+        <div style="font-weight:700;margin-bottom:8px;" data-qt="share_challenge_title">📤 شارك التحدي مع أصحابك</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
-          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
-          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
         </div>
       </div>
 
       <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
-        <div style="font-weight:700;margin-bottom:8px;">🏆 لوحة الترتيب</div>
+        <div style="font-weight:700;margin-bottom:8px;" data-qt="leaderboard_title">🏆 لوحة الترتيب</div>
         <table style="width:100%;border-collapse:collapse;font-size:14px;">
-          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;">الاسم</th><th style="padding:6px;text-align:right;">النتيجة</th></tr></thead>
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;" data-qt="leaderboard_name">الاسم</th><th style="padding:6px;text-align:right;" data-qt="leaderboard_score">النتيجة</th></tr></thead>
           <tbody id="leaderboardBody"></tbody>
         </table>
       </div>
@@ -127,7 +128,7 @@
   </div>
 
   <div style="margin-top:16px;text-align:center;">
-    <strong>أدوات الأردن الأخرى:</strong>
+    <strong data-qt="other_games">أدوات الأردن الأخرى:</strong>
     <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
       <a href="jo/games/animals-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🦁 كويز الحيوانات والطبيعة</a>
       <a href="jo/games/inventions-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💡 كويز الاختراعات والاكتشافات</a>
@@ -299,6 +300,79 @@ const QUESTIONS = [
   {q:'هل الدخول إلى المتحف البريطاني مجاني؟', opts:['نعم، الدخول العام مجاني','لا، يحتاج تذكرة مدفوعة دائماً','مجاني لسكان بريطانيا فقط','مجاني يوم واحد بالأسبوع فقط'], correct:0},
   {q:'في أي سنة تأسس المتحف البريطاني؟', opts:['1753','1820','1901','1699'], correct:0},
   {q:'ما اسم القطعة الأثرية المصرية الشهيرة المعروضة بالمتحف البريطاني والتي ساعدت في فك رموز الهيروغليفية؟', opts:['قناع توت عنخ آمون','حجر رشيد','مسلة كليوباترا','تمثال أبو الهول الصغير'], correct:1},
+  {q:'ما جنسية الفنان سلفادور دالي؟', opts:['إيطالي','إسباني','برتغالي','فرنسي'], correct:1},
+  {q:'أي حركة فنية ارتبط بها سلفادور دالي بشكل أساسي؟', opts:['الانطباعية','السريالية','التكعيبية','الواقعية'], correct:1},
+  {q:'ما اسم لوحة دالي الشهيرة التي تصور ساعات ذائبة؟', opts:['استمرارية الذاكرة (The Persistence of Memory)','الحلم','وجه الحرب','متحف دالي'], correct:0},
+  {q:'ما جنسية الرسام رامبرانت؟', opts:['بلجيكي','هولندي','ألماني','دنماركي'], correct:1},
+  {q:'ما اسم لوحة رامبرانت الشهيرة المعروفة باسم "الحرس الليلي" (The Night Watch)؟', opts:['الدرس التشريحي','الحرس الليلي','العروس اليهودية','الفيلسوف المتأمل'], correct:1},
+  {q:'أين تُعرض لوحة "الحرس الليلي" لرامبرانت حالياً؟', opts:['متحف اللوفر','متحف الريكس (Rijksmuseum) بأمستردام','المتحف البريطاني','متحف برادو'], correct:1},
+  {q:'مايكل أنجلو رسم سقف أي مبنى شهير بالفاتيكان؟', opts:['كنيسة القديس بطرس','كنيسة سيستين (Sistine Chapel)','قصر الفاتيكان','بازيليكا القديس بولس'], correct:1},
+  {q:'كم استغرق مايكل أنجلو من الوقت تقريباً لرسم سقف كنيسة سيستين؟', opts:['سنة واحدة','حوالي 4 سنوات','10 سنوات','20 سنة'], correct:1},
+  {q:'أي بابا كلّف مايكل أنجلو برسم سقف كنيسة سيستين؟', opts:['البابا يوليوس الثاني','البابا لاون العاشر','البابا بولس الثالث','البابا إنوسنت العاشر'], correct:0},
+  {q:'ما جنسية الفنانة فريدا كاهلو؟', opts:['إسبانية','مكسيكية','برازيلية','أرجنتينية'], correct:1},
+  {q:'اشتهرت الفنانة فريدا كاهلو بشكل خاص برسم ماذا؟', opts:['المناظر الطبيعية فقط','صور شخصية (بورتريهات ذاتية)','الرسم التجريدي','اللوحات الدينية'], correct:1},
+  {q:'من هو زوج الفنانة فريدا كاهلو، وهو رسام مكسيكي شهير أيضاً؟', opts:['دييغو ريفيرا','خوسيه كليمنتي أوروزكو','دافيد سيكيروس','رافائيل كورونيل'], correct:0},
+  {q:'الكولوسيوم (المدرج الروماني) يقع في أي مدينة؟', opts:['ميلانو','روما','نابولي','البندقية'], correct:1},
+  {q:'في أي سنة تقريباً اكتمل بناء الكولوسيوم؟', opts:['80 ميلادي','200 ميلادي','30 قبل الميلاد','500 ميلادي'], correct:0},
+  {q:'ما الاستخدام الأساسي للكولوسيوم في العصر الروماني؟', opts:['سوق تجاري','مبارزات المصارعين والعروض العامة','مقر للحكومة الرومانية','معبد ديني'], correct:1},
+  {q:'مدينة البتراء الأثرية الوردية تقع في أي بلد؟', opts:['مصر','الأردن','سوريا','السعودية'], correct:1},
+  {q:'أي حضارة قديمة بنت مدينة البتراء؟', opts:['الأنباط','الفينيقيون','الآشوريون','الفراعنة'], correct:0},
+  {q:'لماذا تُلقّب مدينة البتراء بـ"المدينة الوردية"؟', opts:['بسبب لون الحجر الرملي المنحوتة منه','بسبب كثرة الورود فيها','بسبب لون غروب الشمس هناك','هذا لقب حديث لأغراض سياحية فقط'], correct:0},
+  {q:'الهرم الأكبر بالجيزة بُني كمقبرة لأي فرعون؟', opts:['رمسيس الثاني','خوفو (خوفو)','توت عنخ آمون','أخناتون'], correct:1},
+  {q:'كم استغرق بناء الهرم الأكبر بالجيزة تقريباً بحسب التقديرات؟', opts:['حوالي 5 سنوات','حوالي 26 سنة','حوالي 100 سنة','حوالي 300 سنة'], correct:1},
+  {q:'الهرم الأكبر بالجيزة هو الوحيد الباقي من أصل السبع عجائب القديمة - ما وضعه اليوم؟', opts:['بقي شبه سليم حتى الآن','انهار بالكامل','نُقل لمتحف','تحت الماء'], correct:0},
+  {q:'كاتدرائية نوتردام في باريس، بدأ بناؤها في أي قرن؟', opts:['العاشر','الثاني عشر','السادس عشر','الثامن عشر'], correct:1},
+  {q:'ما الطراز المعماري لكاتدرائية نوتردام دو باري؟', opts:['القوطي الفرنسي (Gothic)','الباروك','الروماني','النيوكلاسيكي'], correct:0},
+  {q:'في حريق نوتردام عام 2019، ماذا كان أكبر جزء تضرر بالكامل؟', opts:['الأبراج الأمامية بالكامل','السقف والبرج المركزي (الفلش)','الواجهة الرئيسية','النوافذ الزجاجية الملونة بالكامل'], correct:1},
+  {q:'قصر الحمراء الشهير يقع في أي مدينة إسبانية؟', opts:['مدريد','برشلونة','غرناطة','إشبيلية'], correct:2},
+  {q:'أي أسرة حاكمة إسلامية بنت قصر الحمراء؟', opts:['الأسرة الأموية','الأسرة النصرية (بني الأحمر)','الأسرة الموحدية','الأسرة المرابطية'], correct:1},
+  {q:'معبد أنكور وات الشهير يقع في أي بلد؟', opts:['تايلاند','فيتنام','كمبوديا','لاوس'], correct:2},
+  {q:'معبد أنكور وات بُني في الأصل كمعبد لأي ديانة، قبل ما يتحول لاحقاً؟', opts:['الهندوسية، ثم تحول لمعبد بوذي','الإسلام، ثم تحول لمعبد هندوسي','المسيحية، ثم تحول لمعبد بوذي','البوذية منذ البداية ولم يتغير'], correct:0},
+  {q:'من كاتب رواية "المسخ" (التحول) الشهيرة عن رجل يستيقظ متحولاً لحشرة؟', opts:['فرانز كافكا','هيرمان هسه','توماس مان','ستيفان زفايغ'], correct:0},
+  {q:'الكاتب فرانز كافكا طلب من صديقه أن يحرق أعماله بعد وفاته - ماذا فعل صديقه ماكس برود؟', opts:['نفّذ الوصية وأحرقها','تجاهل الوصية ونشرها','باعها لمكتبة','فقدها بالخطأ'], correct:1},
+  {q:'الكاتب إدغار آلان بو يُعتبر من رواد أي نوع أدبي؟', opts:['الرواية التاريخية','القصة البوليسية (الغموض)','أدب الرحلات','المسرح الكوميدي'], correct:1},
+  {q:'ما اسم أشهر قصيدة لإدغار آلان بو عن طائر الغراب؟', opts:['الغراب (The Raven)','الناقوس','آنابيل لي','الحفرة والبندول'], correct:0},
+  {q:'ما الاسم الحقيقي للكاتب الأمريكي مارك توين؟', opts:['صموئيل لانغهورن كليمنس','هنري ديفيد ثورو','ناثانيال هوثورن','والت ويتمان'], correct:0},
+  {q:'ما اسم رواية مارك توين الشهيرة عن صبي يدعى توم يعيش مغامرات على النهر؟', opts:['مغامرات توم سوير','النبي الصغير','مزرعة الحيوانات','الرجل العجوز والبحر'], correct:0},
+  {q:'الأديب طه حسين المصري لُقّب بأي لقب؟', opts:['أمير الشعراء','عميد الأدب العربي','شيخ المؤرخين','رائد القصة العربية'], correct:1},
+  {q:'ما السبب وراء فقدان طه حسين بصره في طفولته؟', opts:['حادث سيارة','خطأ طبي أثناء علاج التهاب بالعين','مرض وراثي','إصابة حرب'], correct:1},
+  {q:'ما اسم السيرة الذاتية الشهيرة التي كتبها طه حسين؟', opts:['الأيام','حديث الأربعاء','في الشعر الجاهلي','دعاء الكروان'], correct:0},
+  {q:'الكاتب غسان كنفاني من أي جنسية؟', opts:['لبناني','فلسطيني','سوري','عراقي'], correct:1},
+  {q:'ما اسم رواية غسان كنفاني الأشهر "رجال في الشمس"؟', opts:['قصة عن هجرة عمال فلسطينيين بحثاً عن عمل','رواية تاريخية عن الأندلس','قصة رومانسية','رواية بوليسية'], correct:0},
+  {q:'المخرج ألفريد هيتشكوك يُلقّب بأي لقب في السينما؟', opts:['ملك الكوميديا','سيد التشويق (Master of Suspense)','رائد الخيال العلمي','أبو السينما الصامتة'], correct:1},
+  {q:'ما فيلم ألفريد هيتشكوك الشهير الذي يحتوي على مشهد قتل بالحمام في فندق صغير؟', opts:['نافذة خلفية','دوار','سايكو (Psycho)','الطيور'], correct:2},
+  {q:'المخرج ستيفن سبيلبرغ أخرج فيلماً شهيراً عن سمكة قرش، ما اسمه؟', opts:['الفك المفترس (Jaws)','النمر الأبيض','العمق الأزرق','الشعاب المرجانية'], correct:0},
+  {q:'ستيفن سبيلبرغ أخرج أيضاً فيلماً شهيراً عن حديقة ديناصورات، ما اسمه؟', opts:['حديقة الديناصورات','الحديقة الجوراسية (Jurassic Park)','عالم الديناصورات','أرض ما قبل التاريخ'], correct:1},
+  {q:'متحف "برادو" الشهير يقع في أي مدينة؟', opts:['برشلونة','مدريد','لشبونة','روما'], correct:1},
+  {q:'متحف برادو يشتهر بشكل خاص بمجموعته من لوحات أي مدرسة فنية؟', opts:['المدرسة الفرنسية','المدرسة الإسبانية','المدرسة الهولندية','المدرسة الألمانية'], correct:1},
+  {q:'متحف "أوفيزي" الشهير يقع في أي مدينة إيطالية؟', opts:['روما','ميلانو','فلورنسا','البندقية'], correct:2},
+  {q:'متحف "الإرميتاج" الشهير يقع في أي مدينة؟', opts:['موسكو','سان بطرسبرغ','كييف','مينسك'], correct:1},
+  {q:'من أسس متحف الإرميتاج؟', opts:['بطرس الأكبر','كاثرين العظيمة','لينين','نيقولا الثاني'], correct:1},
+  {q:'جوائز "توني" (Tony Awards) الشهيرة تُمنح تكريماً لأي مجال فني؟', opts:['السينما','مسرح برودواي','الموسيقى الكلاسيكية','الرسم'], correct:1},
+  {q:'في أي عقد تأسست جوائز توني المسرحية؟', opts:['الثلاثينيات','الأربعينيات','الستينيات','الثمانينيات'], correct:1},
+  {q:'الشاعر أدونيس من أي جنسية؟', opts:['لبناني','سوري','عراقي','مصري'], correct:1},
+  {q:'الشاعر أدونيس اعتُبر مرشحاً متكرراً لأي جائزة عالمية مرموقة؟', opts:['جائزة نوبل للآداب','جائزة بوليتزر','جائزة بوكر','جائزة غونكور'], correct:0},
+  {q:'الكاتب السوداني الطيب صالح اشتهر برواية عنوانها؟', opts:['موسم الهجرة إلى الشمال','دنقلا','بندر شاه','عرس الزين'], correct:0},
+  {q:'صناعة السينما الهندية الشهيرة "بوليوود" تتمركز في أي مدينة؟', opts:['نيودلهي','مومباي','بنغالور','كولكاتا'], correct:1},
+  {q:'من حيث عدد الأفلام المنتجة سنوياً، كيف تقارن صناعة السينما الهندية بهوليوود؟', opts:['الهند تنتج أقل بكثير من هوليوود','الهند تنتج أكثر من هوليوود بكثير','متساويتان تقريباً','هوليوود لا تنتج أفلاماً كل سنة'], correct:1},
+  {q:'قبل أن يصبح متحف اللوفر متحفاً، ماذا كان في الأصل؟', opts:['قلعة/حصن دفاعي ثم قصر ملكي','مصنعاً كبيراً','محطة قطار','مستشفى عسكري'], correct:0},
+  {q:'في أي سنة افتُتح متحف اللوفر للجمهور لأول مرة؟', opts:['1750','1793','1850','1900'], correct:1},
+  {q:'متحف اللوفر يُعتبر عالمياً...', opts:['أكثر متحف زيارة في العالم','ثالث أكثر متحف زيارة فقط','متحف صغير نسبياً مقارنة بغيره','مغلق حالياً للترميم'], correct:0},
+  {q:'تمثال "فينوس دي ميلو" الشهير يمثل أي إلهة إغريقية؟', opts:['أثينا','أفروديت (فينوس)','هيرا','أرتميس'], correct:1},
+  {q:'أين يُعرض تمثال فينوس دي ميلو حالياً؟', opts:['متحف اللوفر بباريس','المتحف البريطاني بلندن','متحف الأكروبول بأثينا','متحف الفاتيكان'], correct:0},
+  {q:'ما أشهر ما يميز تمثال فينوس دي ميلو من الناحية الجسدية؟', opts:['رأسه مفقود','ذراعاه مفقودتان','بدون قاعدة','مصنوع من الذهب'], correct:1},
+  {q:'الكاتبة توني موريسون فازت بجائزة نوبل للآداب في أي عام؟', opts:['1983','1993','2003','1973'], correct:1},
+  {q:'توني موريسون كانت أول امرأة من أي خلفية عرقية تفوز بجائزة نوبل للآداب؟', opts:['أول امرأة سوداء (من أصل أفريقي) بأي جنسية','أول امرأة آسيوية','أول امرأة من أمريكا اللاتينية','أول امرأة عربية'], correct:0},
+  {q:'الشاعر الهندي رابندرانات طاغور فاز بجائزة نوبل للآداب في أي عام؟', opts:['1901','1913','1925','1935'], correct:1},
+  {q:'رابندرانات طاغور كان أول فائز بنوبل للآداب من أي خلفية؟', opts:['أول فائز من أوروبا الشرقية','أول فائز غير أوروبي','أول فائز من أفريقيا','أول فائز من أمريكا الجنوبية'], correct:1},
+  {q:'الرسام كلود مونيه يُعتبر مؤسس أي حركة فنية؟', opts:['السريالية','الانطباعية (Impressionism)','التكعيبية','الفن التجريدي'], correct:1},
+  {q:'اسم حركة "الانطباعية" الفنية مُستوحى من عنوان أي لوحة لمونيه؟', opts:['"انطباع: شروق الشمس" (Impression, Sunrise)','"زنابق الماء"','"كاتدرائية روان"','"محطة سان لازار"'], correct:0},
+  {q:'قضى الرسام كلود مونيه سنواته الأخيرة يرسم سلسلة لوحات مشهورة عن ماذا؟', opts:['زنابق الماء (Water Lilies)','الجبال','الحيوانات البرية','المدن الكبرى'], correct:0},
+  {q:'الفنان أندي وارهول يرتبط بشكل أساسي بأي حركة فنية؟', opts:['فن البوب (Pop Art)','الانطباعية','الباروك','الفن القوطي'], correct:0},
+  {q:'ما اسم سلسلة لوحات أندي وارهول الشهيرة التي تصور علب حساء؟', opts:['علب حساء كامبل (Campbell\'s Soup Cans)','زجاجات كوكاكولا','صناديق بريلو','دولارات أمريكية'], correct:0},
+  {q:'ما جنسية الرسام فنسنت فان جوخ؟', opts:['بلجيكي','هولندي','فرنسي','ألماني'], correct:1},
+  {q:'فان جوخ اشتهر بحادثة قطع جزء من أي عضو من جسده؟', opts:['إصبعه','أذنه','أنفه','شفته'], correct:1},
+  {q:'خلال حياته، كان فان جوخ فناناً...', opts:['ناجحاً تجارياً وباع لوحات كثيرة','فاشلاً تجارياً وباع القليل جداً من لوحاته','ثرياً منذ ولادته','لم يعرض أياً من أعماله'], correct:1},
 ];
 
 const QUIZ_CONFIG = {
@@ -308,6 +382,17 @@ const QUIZ_CONFIG = {
   resultText: function(score, total, pct) {
     return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز الثقافة \ud83c\udfad جرب تتحداني!';
   },
+    shareTitleEn: 'Culture Quiz 🎭',
+  challengeTextEn: 'I challenge you to the culture quiz — ready to compete?',
+  resultTextEn: function(score, total, pct) {
+    return 'I scored ' + score + '/' + total + ' (' + pct + '%) on the culture quiz 🎭 Try to beat me!';
+  },
+  resultMessagesEn: [
+    {min:90, emoji:'🎓', msg:'A cultural encyclopedia! Amazing knowledge.'},
+    {min:70, emoji:'🎭', msg:'Your cultural knowledge is excellent!'},
+    {min:50, emoji:'👍', msg:'Not bad, but there\'s room to improve.'},
+    {min:0, emoji:'📚', msg:'Time to read more!'},
+  ],
   resultMessages: [
     {min:90, emoji:'\ud83c\udf93', msg:'موسوعة ثقافية! معلوماتك رهيبة.'},
     {min:70, emoji:'\ud83c\udfad', msg:'معلوماتك الثقافية ممتازة!'},

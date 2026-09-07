@@ -45,51 +45,52 @@
 
   <div class="card">
     <div class="card-icon" style="background:#fff7ed;">🍳</div>
-    <h1 class="card-title">حقائق ومعلومات عن الطبخ</h1>
+    <h1 class="card-title" data-en="Cooking Facts & Trivia">حقائق ومعلومات عن الطبخ</h1>
     <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div id="quizArabicNote" style="font-size:12px;color:var(--text-muted);margin-top:2px;"></div>
     <div class="divider"></div>
 
     <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
-      <div style="font-weight:700;margin-bottom:6px;">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
-      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="font-weight:700;margin-bottom:6px;" data-qt="challenge_start_title">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;" data-qt="challenge_start_subtitle">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <input id="creatorNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
-        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ تحدي</button>
+        <input id="creatorNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_challenge_btn">ابدأ تحدي</button>
       </div>
     </div>
 
     <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
       <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
       <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
-        <input id="joinerNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
-        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">قبول التحدي ✅</button>
+        <input id="joinerNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="accept_btn">قبول التحدي ✅</button>
       </div>
     </div>
 
     <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
-      <div style="font-weight:700;">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+      <div style="font-weight:700;" data-qt="joiner_waiting">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
     </div>
 
     <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
-      <div style="font-weight:700;margin-bottom:8px;">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="font-weight:700;margin-bottom:8px;" data-qt="challenge_ready">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
-        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
-        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
       </div>
       <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
         <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
         <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
-        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ اللعب 🚀</button>
+        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_playing_btn">ابدأ اللعب 🚀</button>
       </div>
     </div>
 
     <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
-      <div style="font-weight:700;margin-bottom:6px;font-size:13px;">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;" data-qt="active_link_label">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
-        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
-        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
       </div>
     </div>
 
@@ -103,23 +104,23 @@
       <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
       <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">📤 شارك نتيجتك</button>
-        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">🔄 جرّب مرة ثانية</button>
+        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="share_result_btn">📤 شارك نتيجتك</button>
+        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="try_again_btn">🔄 جرّب مرة ثانية</button>
       </div>
 
       <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
-        <div style="font-weight:700;margin-bottom:8px;">📤 شارك التحدي مع أصحابك</div>
+        <div style="font-weight:700;margin-bottom:8px;" data-qt="share_challenge_title">📤 شارك التحدي مع أصحابك</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
-          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
-          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
         </div>
       </div>
 
       <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
-        <div style="font-weight:700;margin-bottom:8px;">🏆 لوحة الترتيب</div>
+        <div style="font-weight:700;margin-bottom:8px;" data-qt="leaderboard_title">🏆 لوحة الترتيب</div>
         <table style="width:100%;border-collapse:collapse;font-size:14px;">
-          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;">الاسم</th><th style="padding:6px;text-align:right;">النتيجة</th></tr></thead>
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;" data-qt="leaderboard_name">الاسم</th><th style="padding:6px;text-align:right;" data-qt="leaderboard_score">النتيجة</th></tr></thead>
           <tbody id="leaderboardBody"></tbody>
         </table>
       </div>
@@ -127,7 +128,7 @@
   </div>
 
   <div style="margin-top:16px;text-align:center;">
-    <strong>أدوات الأردن الأخرى:</strong>
+    <strong data-qt="other_games">أدوات الأردن الأخرى:</strong>
     <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
       <a href="jo/games/culture-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎭 كويز الثقافة العامة</a>
       <a href="jo/games/animals-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🦁 كويز الحيوانات والطبيعة</a>
@@ -286,6 +287,17 @@ const QUIZ_CONFIG = {
   resultText: function(score, total, pct) {
     return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز الطبخ \ud83c\udf73 جرب تتحداني!';
   },
+    shareTitleEn: 'Cooking Facts & Trivia 🍳',
+  challengeTextEn: 'I challenge you to the cooking quiz — ready to compete?',
+  resultTextEn: function(score, total, pct) {
+    return 'I scored ' + score + '/' + total + ' (' + pct + '%) on the cooking quiz 🍳 Try to beat me!';
+  },
+  resultMessagesEn: [
+    {min:90, emoji:'👨‍🍳', msg:'A professional chef! Amazing cooking knowledge.'},
+    {min:70, emoji:'🍳', msg:'Your cooking knowledge is excellent!'},
+    {min:50, emoji:'👍', msg:'Not bad, but there\'s room to improve.'},
+    {min:0, emoji:'🍽️', msg:'Time to try cooking more!'},
+  ],
   resultMessages: [
     {min:90, emoji:'\ud83d\udc68\u200d\ud83c\udf73', msg:'شيف محترف! معلوماتك بالطبخ رهيبة.'},
     {min:70, emoji:'\ud83c\udf73', msg:'معلوماتك بالطبخ ممتازة!'},

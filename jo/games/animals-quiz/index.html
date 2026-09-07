@@ -45,51 +45,52 @@
 
   <div class="card">
     <div class="card-icon" style="background:#f0fdf4;">🦁</div>
-    <h1 class="card-title">كويز الحيوانات والطبيعة</h1>
+    <h1 class="card-title" data-en="Animals & Nature Quiz">كويز الحيوانات والطبيعة</h1>
     <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div id="quizArabicNote" style="font-size:12px;color:var(--text-muted);margin-top:2px;"></div>
     <div class="divider"></div>
 
     <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
-      <div style="font-weight:700;margin-bottom:6px;">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
-      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="font-weight:700;margin-bottom:6px;" data-qt="challenge_start_title">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;" data-qt="challenge_start_subtitle">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <input id="creatorNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
-        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ تحدي</button>
+        <input id="creatorNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_challenge_btn">ابدأ تحدي</button>
       </div>
     </div>
 
     <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
       <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
       <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
-        <input id="joinerNameInput" placeholder="اسمك" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
-        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">قبول التحدي ✅</button>
+        <input id="joinerNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="accept_btn">قبول التحدي ✅</button>
       </div>
     </div>
 
     <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
-      <div style="font-weight:700;">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+      <div style="font-weight:700;" data-qt="joiner_waiting">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
     </div>
 
     <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
-      <div style="font-weight:700;margin-bottom:8px;">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="font-weight:700;margin-bottom:8px;" data-qt="challenge_ready">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
-        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
-        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
       </div>
       <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
         <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
         <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
-        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">ابدأ اللعب 🚀</button>
+        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_playing_btn">ابدأ اللعب 🚀</button>
       </div>
     </div>
 
     <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
-      <div style="font-weight:700;margin-bottom:6px;font-size:13px;">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;" data-qt="active_link_label">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
-        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
-        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
       </div>
     </div>
 
@@ -103,23 +104,23 @@
       <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
       <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">📤 شارك نتيجتك</button>
-        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">🔄 جرّب مرة ثانية</button>
+        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="share_result_btn">📤 شارك نتيجتك</button>
+        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="try_again_btn">🔄 جرّب مرة ثانية</button>
       </div>
 
       <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
-        <div style="font-weight:700;margin-bottom:8px;">📤 شارك التحدي مع أصحابك</div>
+        <div style="font-weight:700;margin-bottom:8px;" data-qt="share_challenge_title">📤 شارك التحدي مع أصحابك</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
-          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">📤 مشاركة</button>
-          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;">نسخ الرابط</button>
+          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
         </div>
       </div>
 
       <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
-        <div style="font-weight:700;margin-bottom:8px;">🏆 لوحة الترتيب</div>
+        <div style="font-weight:700;margin-bottom:8px;" data-qt="leaderboard_title">🏆 لوحة الترتيب</div>
         <table style="width:100%;border-collapse:collapse;font-size:14px;">
-          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;">الاسم</th><th style="padding:6px;text-align:right;">النتيجة</th></tr></thead>
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;" data-qt="leaderboard_name">الاسم</th><th style="padding:6px;text-align:right;" data-qt="leaderboard_score">النتيجة</th></tr></thead>
           <tbody id="leaderboardBody"></tbody>
         </table>
       </div>
@@ -127,7 +128,7 @@
   </div>
 
   <div style="margin-top:16px;text-align:center;">
-    <strong>أدوات الأردن الأخرى:</strong>
+    <strong data-qt="other_games">أدوات الأردن الأخرى:</strong>
     <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
       <a href="jo/games/culture-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎭 كويز الثقافة العامة</a>
       <a href="jo/games/inventions-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💡 كويز الاختراعات والاكتشافات</a>
@@ -290,6 +291,111 @@ const QUESTIONS = [
   {q:'الدلافين بتعيش عادة بمجموعات اجتماعية (قطعان) تتكون من؟', opts:['حتى عشرات الأفراد بعلاقات اجتماعية مرنة (fission-fusion)','فرد واحد لحاله دايماً','آلاف الأفراد ثابتين للأبد','لا تشكل مجموعات إطلاقاً'], correct:0},
   {q:'ثعبان الماء الكهربائي يولّد الكهرباء عن طريق خلايا عضلية متخصصة اسمها؟', opts:['الخلايا الكهربائية (Electrocytes)','خلايا الدم الحمراء','خلايا عصبية عادية','خلايا جلدية'], correct:0},
   {q:'خيط العنكبوت استُخدم عملياً بصناعة أشياء زي؟', opts:['خيوط تصويب بالمجاهر والتلسكوبات','إطارات سيارات','زجاج مقاوم للرصاص','وقود صواريخ'], correct:0},
+  {q:'قطيع الأسود (البرايد) بالمتوسط بيتكون من كم أسد؟', opts:['حوالي 15 أسد','3 أسود بس','أكتر من 50 أسد','أسدين بس'], correct:0},
+  {q:'بقطيع الأسود، مين اللي بيصطاد بشكل رئيسي؟', opts:['الإناث (اللبوات) بمجموعات منسقة','الذكور البالغين لحالهم','الأشبال الصغيرة','ما حد يصطاد، ياكلوا جيف بس'], correct:0},
+  {q:'لبدة الأسد (الشعر حوالين رقبته) بتبدأ تتكون بشكل كامل تقريباً بعمر؟', opts:['حوالي 4 سنين','شهر وحدة بعد الولادة','10 سنين','ما بتكتمل أبداً'], correct:0},
+  {q:'قوة عضة اللبوة عند أنيابها تقدر توصل تقريباً؟', opts:['حوالي 1594 نيوتن','50 نيوتن بس','10000 نيوتن','ما إلها قوة عضة مميزة'], correct:0},
+  {q:'الأسد مصنَّف حالياً على قائمة IUCN الحمراء كنوع؟', opts:['معرَّض للخطر (Vulnerable)','منقرض بالكامل','غير مهدد إطلاقاً','نادر جداً لدرجة ما بينحسب'], correct:0},
+  {q:'النمر (Tiger) بيقدر يعوم ويعبر أنهار عرضها يوصل لـ؟', opts:['حوالي 8 كم','بس نص متر','ما بيقدر يعوم إطلاقاً','100 متر بس'], correct:0},
+  {q:'خطوط جلد النمر (مش بس فروه) هي؟', opts:['فريدة لكل نمر، زي البصمة','متطابقة تماماً بين كل النمور','بيضاء بالكامل تحت الفرو','غير موجودة، بس بالفرو'], correct:0},
+  {q:'النمر البري فقد من نطاقه التاريخي (المساحة اللي كان يعيش فيها) نسبة تقارب؟', opts:['أكتر من 93%','10% بس','النمر ما فقد أي جزء من نطاقه','النمر توسّع بمساحته'], correct:0},
+  {q:'النمر مصنَّف حالياً على قائمة IUCN الحمراء كنوع؟', opts:['مهدد بالانقراض (Endangered)','آمن تماماً','منقرض بالبرية','نادر بس مش مهدد'], correct:0},
+  {q:'الحرباء تقدر تطلق لسانها لمسافة أطول من طول جسمها بمرتين، بسرعة تصل لـ؟', opts:['أقل من ثانية (0.07 ثانية تقريباً)','دقيقة كاملة','عشر ثواني','خمس دقايق'], correct:0},
+  {q:'أصغر أنواع الحرباء المكتشفة (Brookesia nana) طولها تقريباً؟', opts:['22 ملم بس','متر كامل','نص متر','20 سم'], correct:0},
+  {q:'أكتر من نص أنواع الحرباء بالعالم (حوالي 200 نوع) موجودة أساساً بـ؟', opts:['مدغشقر وأفريقيا جنوب الصحراء','أمريكا الجنوبية','أستراليا','القطب الشمالي'], correct:0},
+  {q:'الكوالا (اللي بينادوها غلط "دب الكوالا") هي فعلياً؟', opts:['جراب (marsupial)، مش دب إطلاقاً','نوع من الدببة الصغيرة','قرد صغير','نوع من السناجب'], correct:0},
+  {q:'الكوالا تنام بالمتوسط تقريباً كم ساعة باليوم؟', opts:['حوالي 20 ساعة','3 ساعات بس','8 ساعات زي الإنسان','لا تنام إطلاقاً'], correct:0},
+  {q:'الكوالا بتقدر تاكل أوراق شجر الأوكالبتوس السامة لأنها؟', opts:['عندها إنزيمات بالكبد تعادل السموم','مناعتها ضد كل أنواع السموم','بتاكل كمية قليلة جداً بس','الأوراق مش سامة أصلاً للكوالا وللحيوانات الثانية'], correct:0},
+  {q:'فترة حمل الكوالا (لحد ما يولد الجراء) قصيرة جداً وتقارب؟', opts:['33-35 يوم بس','9 شهور زي الإنسان','سنة كاملة','5 دقايق'], correct:0},
+  {q:'الزرافة تنام بالمتوسط كم ساعة باليوم بس؟', opts:['أقل من ساعتين','16 ساعة زي الأسد','ما تنام إطلاقاً','12 ساعة'], correct:1},
+  {q:'الكنغر (الكانغارو) الأحمر بيقدر يوصل بالقفز لسرعات قصيرة تصل لـ؟', opts:['حوالي 70 كم/س','10 كم/س بس','300 كم/س','ما بيتحرك أسرع من المشي'], correct:0},
+  {q:'دراسات حديثة اكتشفت إن ذيل الكنغر بيشتغل فعلياً كـ؟', opts:['رجل ثالثة تساعد بالدفع للقدام','مروحة تبريد بس','عضو للتوازن بس، بلا قوة دفع','مخزن دهون بس'], correct:0},
+  {q:'الكنغر الأحمر أكبر جراب (marsupial) حي بالعالم، والذكور الكبار ممكن يوصلوا وزنهم لـ؟', opts:['حوالي 90 كغم','5 كغم بس','500 كغم','20 طن'], correct:0},
+  {q:'الاسم الجماعي لمجموعة الكناغر بالإنجليزي هو؟', opts:['Mob (حشد)','Pride','Herd بس','Flock'], correct:0},
+  {q:'الباندا العملاقة تاكل يومياً من الخيزران (البامبو) كمية تقارب؟', opts:['9-14 كغم','نص كيلو بس','100 كغم','لا تاكل خيزران إطلاقاً'], correct:0},
+  {q:'رغم إن الباندا مصنَّفة علمياً كآكلة لحوم (carnivoran)، فعلياً هي؟', opts:['نظامها الغذائي 99% خيزران (نباتي تقريباً بالكامل)','تاكل لحوم بس فعلياً','لا تاكل نبات إطلاقاً','آكلة حشرات بشكل أساسي'], correct:0},
+  {q:'"الإبهام" المميز اللي بتستخدمه الباندا لمسك الخيزران هو فعلياً؟', opts:['عظمة معصم معدَّلة (sesamoid bone)، مش إصبع حقيقي','إصبع سادس حقيقي','مخلب طويل بس','جزء من الأنف'], correct:0},
+  {q:'صغير الباندا العملاقة عند الولادة وزنه صغير جداً مقارنة بأمه، ويعتبر نسبياً؟', opts:['أصغر مولود بالنسبة لوزن أمه بين كل الثدييات المشيمية','أكبر مولود نسبياً بين الثدييات','بنفس وزن أمه تقريباً','أصلاً بيولد بلا وزن يُذكر'], correct:0},
+  {q:'فرس النهر (الهيبوبوتام) أقرب أقاربه الأحياء هم؟', opts:['الحيتان والدلافين','الخيول','الفيلة','الخنازير'], correct:0},
+  {q:'الإفراز الأحمر اللي بيطلع من جلد فرس النهر ("عرق الدم" المشهور) هو فعلياً؟', opts:['صبغات حامضية بتشتغل كواقي شمس ومضاد بكتيريا، مش دم ولا عرق حقيقي','دم حقيقي بيطلع من مسامه','عرق عادي بس لونه أحمر','طلاء طبيعي بلا وظيفة'], correct:0},
+  {q:'جلد فرس النهر سماكته تقريباً؟', opts:['6 سم بمعظم الجسم','ملم واحد بس','متر كامل','رقيق جداً زي ورق'], correct:0},
+  {q:'قرن وحيد القرن (الرينو) مصنوع فعلياً من؟', opts:['الكيراتين، نفس مادة الشعر والأظافر','عظم حقيقي','عاج زي ناب الفيل','معدن طبيعي'], correct:0},
+  {q:'عدد أنواع وحيد القرن الحية حالياً بالعالم؟', opts:['5 أنواع','نوع واحد بس','20 نوع','نوعين'], correct:0},
+  {q:'أكتر أنواع وحيد القرن تعرّضاً للانقراض حالياً هو؟', opts:['وحيد القرن الجاوي (أقل من 60 فرد)','وحيد القرن الأبيض','وحيد القرن الهندي','كل الأنواع بنفس درجة الخطر'], correct:0},
+  {q:'التمساح ما يقدر يطلّع لسانه برا فمه لأنه؟', opts:['محبوس بغشاء بيحدد حركته','ما إله لسان أصلاً','لسانه قصير جداً بس بيطلّعه أحياناً','عضلاته ضعيفة'], correct:0},
+  {q:'التمساح يقدر يستبدل كل سنة من أسنانه الـ80 لحد؟', opts:['50 مرة خلال حياته','مرة وحدة بس','ما بيستبدلهم إطلاقاً','مرتين بس'], correct:0},
+  {q:'أكبر نوع تمساح حي بالعالم هو؟', opts:['تمساح المياه المالحة','تمساح النيل','تمساح المسيسيبي (الأليغيتور)','تمساح الأنهار الأمريكي'], correct:0},
+  {q:'الفرق الأساسي بشكل الخطم بين التمساح والأليغيتور هو؟', opts:['خطم التمساح أطول وعلى شكل V، والأليغيتور أعرض وعلى شكل U','ما في فرق إطلاقاً','التمساح بلا خطم','الأليغيتور خطمه أطول'], correct:0},
+  {q:'ضفادع السهام السامة (Poison dart frogs) بتحصل على سمّها من وين؟', opts:['من غذائها (حشرات ونمل ومفصليات سامة)، مش بتنتجه بنفسها','بتصنّعه بجسمها بشكل ذاتي بالكامل','من الماء اللي تعيش فيه بس','من أشعة الشمس'], correct:0},
+  {q:'أخطر أنواع ضفادع السهام السامة (الضفدع الذهبي السام) عنده سم يكفي نظرياً يقتل؟', opts:['10-20 شخص بالغ','شخص واحد بالكاد','ما يقدر يأذي إنسان إطلاقاً','1000 شخص'], correct:0},
+  {q:'الألوان الزاهية الفاقعة عند ضفادع السهام السامة وظيفتها الأساسية إنها؟', opts:['تحذير للمفترسات إنها سامة وغير صالحة للأكل','تمويه بالغابة','جذب الشريك بس','تنظيم حرارة الجسم'], correct:0},
+  {q:'ضفادع السهام السامة اللي بتتربى بالأسر (بعيد عن غذائها الطبيعي) بتفقد سميتها، وهاد بيأكد إن؟', opts:['السم مصدره الغذاء مش الضفدع نفسه','السم بيزيد بالأسر','الأسر ما بيأثر على السمية إطلاقاً','السمية وراثية بحتة'], correct:0},
+  {q:'أسرع خفقان جناح موثق عند طائر الطنان (الهمنغبيرد) يوصل لـ؟', opts:['99 خفقة بالثانية','خفقتين بالثانية بس','خفقة وحدة كل ثانيتين','لا يخفق جناحيه إطلاقاً'], correct:0},
+  {q:'معدل نبض قلب طائر الطنان يقدر يوصل لـ؟', opts:['1260 نبضة بالدقيقة','60 نبضة بالدقيقة زي الإنسان','10 نبضات بالدقيقة','300 نبضة باليوم'], correct:0},
+  {q:'أصغر طائر بالعالم (طائر الطنان النحلي) طوله وحجمه يقارب؟', opts:['6 سم ووزن حوالي غرامين','30 سم','متر كامل','لا يوجد طائر بهذا الصغر'], correct:0},
+  {q:'طائر الطنان يقدر يدخل بحالة سبات مؤقت (torpor) بالليل عشان؟', opts:['يخفّض معدل الأيض لحوالي 1/15 من الطبيعي ويوفّر طاقة','يزيد نشاطه','يطول عمره فقط','يغيّر لون ريشه'], correct:0},
+  {q:'طائر الطنان الروفوس (Rufous) بيهاجر سنوياً مسافة تقارب؟', opts:['حوالي 6300 كم بين ألاسكا والمكسيك','100 كم بس محلياً','لا يهاجر إطلاقاً','1 مليون كم'], correct:0},
+  {q:'البومة تقدر تدوّر راسها لدرجة تصل لـ؟', opts:['270 درجة تقريباً، مش 360 درجة كاملة','360 درجة كاملة فعلاً','90 درجة بس','ما تقدر تدوّر راسها إطلاقاً'], correct:0},
+  {q:'البومة مضطرة تدوّر راسها كامل عشان تغيّر اتجاه نظرها لأن؟', opts:['عيونها ثابتة بمكانها وما تتحرك بمقلة العين مثل باقي الطيور','عيونها بدون جفون','رقبتها فيها 100 فقرة','ما يوجد سبب علمي مؤكد'], correct:0},
+  {q:'أذنا البومة غير متماثلتين (واحدة أعلى من الثانية) عشان؟', opts:['تحدد مصدر الصوت بدقة عالية جداً بالظلام','تقلل الوزن بس','تحسّن الطيران','ما إلها وظيفة مؤكدة'], correct:0},
+  {q:'ريش جناح البومة له حواف مسنّنة خاصة وظيفتها؟', opts:['تخفيف صوت الطيران ليصير شبه صامت','زيادة السرعة القصوى بس','تلوين الريش','تسهيل السباحة'], correct:0},
+  {q:'مثل شائع إن كل أنواع البطاريق تعيش بالقطب الجنوبي (أنتاركتيكا)، هل هاد صحيح؟', opts:['لأ، فيه نوع (بطريق غالاباغوس) يعيش قريب من خط الاستواء','أيوا، كل الأنواع بالقطب الجنوبي بس','البطاريق ما تعيش بأي مكان بارد','البطاريق كلها منقرضة الآن'], correct:0},
+  {q:'أسرع نوع بطريق تحت الماء (بطريق الجنتو) يقدر يوصل لسرعة؟', opts:['36 كم/س تقريباً','5 كم/س بس','200 كم/س','لا يسبح إطلاقاً'], correct:0},
+  {q:'أعمق غطسة موثقة لبطريق الإمبراطور تقارب؟', opts:['550 متر','5 أمتار بس','5000 متر','لا يغطس تحت الماء'], correct:0},
+  {q:'بطاريق الإمبراطور بتتلاصق ببعضها بمجموعات كبيرة بالبرد الشديد وبتتناوب المواقع عشان؟', opts:['كل فرد ياخذ دوره بالمنتصف الدافي','تتنافس على الطعام','تتزاوج بس','تحمي نفسها من الحيتان'], correct:0},
+  {q:'أجنحة البطريق تطورت عبر الزمن لتصير؟', opts:['زعانف للسباحة، وما عاد فيها فايدة للطيران بالهوا','أقوى بالطيران من أي طائر ثاني','بلا أي فايدة إطلاقاً','أرجل إضافية'], correct:0},
+  {q:'الأوركا (الحوت القاتل) هي فعلياً من فصيلة؟', opts:['الدلافين المحيطية، مش حيتان حقيقية','الحيتان الحقيقية بس','أسماك القرش','عائلة منفصلة تماماً عن الدلافين والحيتان'], correct:0},
+  {q:'الأوركا تعتبر مفترس قمة (apex predator) بمعنى إنها؟', opts:['ما إلها أي مفترس طبيعي بالبيئة البحرية','بتتعرض لهجوم من القروش دايماً','بتصطاد بس ما بتاكل لحوم','مهددة من كل الحيوانات البحرية'], correct:0},
+  {q:'مجموعات الأوركا (البودات) المقيمة بتعيش بنظام اجتماعي يقوده؟', opts:['الأنثى الكبرى (نظام أمومي matriarchal)','الذكر الأقوى بس','لا يوجد قيادة إطلاقاً','الصغار الأكبر عمراً'], correct:0},
+  {q:'دماغ الأوركا يعتبر من الأثقل بين الثدييات البحرية، وفيه؟', opts:['مادة رمادية وخلايا عصبية قشرية أكتر من أي ثديي، حتى الإنسان','أقل من دماغ الإنسان بمرات كثيرة','بدون مادة رمادية إطلاقاً','أصغر دماغ نسبياً بين الحيتان'], correct:0},
+  {q:'أنثى الأوركا البرية عمرها المتوسط يقارب؟', opts:['50-80 سنة','5-10 سنين بس','200 سنة','سنة وحدة'], correct:0},
+  {q:'القرش الحوتي (Whale shark) يعتبر؟', opts:['أكبر نوع سمكة حية بالعالم حالياً','أصغر نوع سمكة بالعالم','ثديي وليس سمكة','منقرض حالياً'], correct:0},
+  {q:'القرش الحوتي رغم ضخامته يتغذى بطريقة "ترشيح" ويقدر يعالج من الماء كمية تقارب؟', opts:['أكتر من 6000 لتر بالساعة','لتر واحد باليوم','لا يشرب ماء إطلاقاً','مليون لتر بالثانية'], correct:0},
+  {q:'القرش الحوتي رغم حجمه الهائل يعتبر تجاه الإنسان؟', opts:['وديع وما يشكل خطر حقيقي على الإنسان','من أخطر أنواع القروش على الإطلاق','مفترس نشط للبشر','عدواني جداً دايماً'], correct:0},
+  {q:'كل قرش حوتي عنده نمط بقع مميز على جلده، وهاد بيستخدم لـ؟', opts:['التعرف على كل فرد بشكل فردي، زي البصمة','التمويه بس','التواصل مع أفراد ثانيين','تنظيم الحرارة'], correct:0},
+  {q:'العمر المتوقع للقرش الحوتي يقدَّر بين؟', opts:['80-130 سنة','5-10 سنين بس','1000 سنة','سنة وحدة بس'], correct:0},
+  {q:'جنس صغير السلاحف البحرية (ذكر أو أنثى) بيتحدد حسب؟', opts:['درجة حرارة الرمل اللي بتحضن فيه البيضة','جينات الأب فقط','لون البيضة','حجم البيضة'], correct:0},
+  {q:'السلاحف البحرية تقدر تلاقي طريقها بالمحيط عبر مسافات شاسعة باستخدام؟', opts:['استشعار المجال المغناطيسي للأرض','حاسة الشم بس','النجوم بس بالليل','لا يوجد تفسير علمي مؤكد'], correct:0},
+  {q:'أكبر نوع سلحفاة بحرية حية هو؟', opts:['السلحفاة الجلدية (Leatherback)','السلحفاة الخضراء','سلحفاة منقار الصقر','سلحفاة ريدلي'], correct:0},
+  {q:'إناث السلاحف البحرية غالباً بترجع تحط بيضها على؟', opts:['نفس الشاطئ اللي فقست فيه هي بالأصل','أي شاطئ عشوائي بكل مرة','بالبحر مباشرة بدون شاطئ','مكان واحد ثابت لكل الأنواع'], correct:0},
+  {q:'عدد أنواع السلاحف البحرية الحية بالعالم؟', opts:['7 أنواع','نوع واحد بس','50 نوع','نوعين بس'], correct:0},
+  {q:'فرس البحر (Seahorse) بيتميز إن الحمل عنده يصير عند؟', opts:['الذكر، عن طريق كيس حمل خاص فيه','الأنثى زي أغلب الأسماك','الاتنين مع بعض بنفس الوقت','لا يوجد حمل، البيض بيطلع لحاله'], correct:0},
+  {q:'فرس البحر يعتبر من؟', opts:['أبطأ الأسماك بالسباحة بالعالم','أسرع الأسماك بالعالم','أقوى الأسماك سباحة','لا يقدر يسبح إطلاقاً'], correct:0},
+  {q:'فرس البحر ما عنده معدة حقيقية، وهاد بيخليه؟', opts:['مضطر ياكل بشكل شبه مستمر عشان يعيش','يقدر يصوم شهور طويلة','ياكل مرة وحدة باليوم بس','لا يحتاج غذاء إطلاقاً'], correct:0},
+  {q:'فرس البحر بيصطاد فريسته الصغيرة عن طريق؟', opts:['تدوير خطمه بسرعة ومص الفريسة (pivot feeding)','عض قوي بأسنان حادة','ملاحقة سريعة جداً','شبكة يصنعها'], correct:0},
+  {q:'الخفافيش تشكّل تقريباً كم بالمية من كل أنواع الثدييات بالعالم؟', opts:['حوالي 20%','1% بس','80%','أقل من 0.01%'], correct:0},
+  {q:'الخفافيش هي الثدييات الوحيدة القادرة على؟', opts:['الطيران الحقيقي والمستمر (مش انزلاق بس)','السباحة','التسلق','التمويه الكامل'], correct:0},
+  {q:'الخفافيش تستخدم تحديد الموقع بالصدى (echolocation) عن طريق؟', opts:['إصدار أصوات فوق سمعية وتحليل صداها المرتد','الرؤية الليلية القوية بس','حاسة الشم فقط','أشعة تحت حمراء تصدرها من عيونها'], correct:0},
+  {q:'أصغر نوع خفاش بالعالم (خفاش الخنزير الطنان) طوله؟', opts:['29-33 ملم بس','متر كامل','30 سم','لا يوجد خفافيش بهذا الصغر'], correct:0},
+  {q:'القنفذ (Hedgehog) عنده مناعة طبيعية جزئية ضد؟', opts:['بعض أنواع سم الأفاعي','كل أنواع السموم بدون استثناء','الجفاف بس','النار'], correct:0},
+  {q:'رغم إن شوك القنفذ بيشبه شوك النيص (Porcupine)، فعلياً الاتنين؟', opts:['مش أقارب قريبين، من فصائل مختلفة تماماً','نفس النوع بالضبط','أقارب مباشرين جداً','القنفذ نوع من النيص'], correct:0},
+  {q:'القنفذ لما يشم رائحة جديدة بيسوي سلوك غريب اسمه "التزيين الذاتي" (self-anointing) وفيه بيسوي؟', opts:['رغوة من لعابه ويحطها على شوكه','يحفر حفرة ويختبئ فيها','يغيّر لون جلده','يصرخ بصوت عالي'], correct:0},
+  {q:'بالسبات الشتوي، حرارة جسم القنفذ بتنزل من 30-35 درجة لـ؟', opts:['2-5 درجات مئوية بس','0 درجة تماماً','تبقى ثابتة بدون تغيير','ترتفع أكتر بدل ما تنزل'], correct:0},
+  {q:'طائر الألباتروس الهائم (Wandering albatross) عنده أطول جناحين بين كل الطيور الحية، وبيوصل باعهم لـ؟', opts:['حوالي 3.7 متر','متر واحد بس','10 أمتار','20 سم'], correct:0},
+  {q:'الألباتروس يقدر يطير ساعات طويلة بدون ما يرفرف بجناحيه عن طريق تقنية اسمها؟', opts:['الانزلاق الديناميكي (dynamic soaring)','الطيران العمودي بس','السباحة بالهوا','لا يقدر يطير بدون رفرفة إطلاقاً'], correct:0},
+  {q:'الألباتروس الهائم بيرتبط بشريك واحد "لمدى الحياة" (يتزاوج لمرة واحدة تقريباً)، وهاد سلوك يسمى؟', opts:['الزواج الأحادي مدى الحياة (mate for life)','تعدد الشركاء المستمر','لا يوجد ارتباط إطلاقاً','يتغير الشريك كل سنة'], correct:0},
+  {q:'ناب النرويل (وحيد القرن البحري / Narwhal) هو فعلياً؟', opts:['ناب/سنّ طويل، مش قرن حقيقي','قرن عظمي حقيقي زي وحيد القرن البري','ريشة متصلبة','جزء من الأذن'], correct:0},
+  {q:'ناب النرويل عادة بيظهر بشكل أساسي عند؟', opts:['الذكور، بينما الإناث نادراً ما يظهر عندها','الإناث فقط','الاتنين بنفس النسبة تماماً','لا يظهر عند أي منهم'], correct:0},
+  {q:'النرويل يقدر يغطس لأعماق كبيرة جداً، ووصلت أعمق غطسة موثقة لحوالي؟', opts:['2370 متر','10 أمتار بس','20000 متر','لا يغطس عميق إطلاقاً'], correct:0},
+  {q:'لقب "وحيد قرن البحر" اللي بينادوا فيه النرويل جاي من؟', opts:['اعتقاد أوروبي قديم بالعصور الوسطى إن نابه هو قرن حيوان اليونيكورن الأسطوري','شكله يشبه حيوان اليونيكورن فعلياً','لون جلده أبيض زي اليونيكورن','لا يوجد سبب تاريخي معروف'], correct:0},
+  {q:'أكبر فطر (فطريات) معروف بالعالم بيغطي مساحة تقارب؟', opts:['أكتر من 8.8 كم² بولاية أوريغون الأمريكية','متر مربع واحد بس','حديقة منزلية صغيرة','لا يوجد فطر بهذا الحجم'], correct:0},
+  {q:'عمر أكبر فطر معروف بالعالم (بأوريغون) يقدَّر بحوالي؟', opts:['2500 سنة','10 سنين بس','100 مليون سنة','سنة وحدة'], correct:0},
+  {q:'فطر الأرميلاريا (العسل) الضخم بينتشر تحت الأرض عن طريق تراكيب شبيهة بالجذور اسمها؟', opts:['ريزومورفات (rhizomorphs)','جذور حقيقية زي الأشجار','خيوط عنكبوت','أنابيب دم'], correct:0},
+  {q:'سمكة المهرج (كلاون فيش) بتعيش وسط شقائق النعمان السامة بدون ما تتأذى لأن؟', opts:['مخاطها بيقلّد مخاط الشقائق فيمنع لسعها','جلدها مقاوم للسم بشكل طبيعي كامل','ما تلمس الشقائق إطلاقاً','الشقائق مش سامة أصلاً'], correct:0},
+  {q:'سمكة المهرج تقدر تغيّر جنسها من ذكر لأنثى، وهاد النوع من التغيير بيسمى؟', opts:['خنوثة تسلسلية بروتاندرية (protandrous)','لا يصير تغيير جنس إطلاقاً عند الأسماك','تغيير عشوائي بدون نظام','بس بالأسر مش بالطبيعة'], correct:0},
+  {q:'بمجموعة سمك المهرج، الأنثى المسيطرة بتكون؟', opts:['أكبر فرد بالمجموعة وعلى قمة الهرم الاجتماعي','أصغر فرد دايماً','غير موجودة بالأساس','بلا أي دور اجتماعي'], correct:0},
+  {q:'أقوى نظرية علمية حالياً لتفسير خطوط الحمار الوحشي (الزيبرا) هي إنها؟', opts:['تصد الحشرات الماصة للدم (زي ذباب الخيل) عن الهبوط عليه','تمويه كامل بس','تنظم حرارة الجسم بشكل أساسي','لا يوجد أي تفسير علمي'], correct:0},
+  {q:'نمط خطوط كل حمار وحشي فردي هو؟', opts:['فريد ومميز له، زي البصمة، وقابل للتوريث','متطابق تماماً عند كل الأفراد','عشوائي وبيتغير كل سنة','غير موجود أصلاً، وهم بصري بس'], correct:0},
+  {q:'رغم محاولات ترويضه عبر التاريخ، الحمار الوحشي؟', opts:['ما انترّض بشكل كامل زي الحصان أو الحمار العادي','انترّض بالكامل زي الحصان','أسهل حيوان بالترويض','ما حد جرّب يروّضه إطلاقاً'], correct:0},
+  {q:'عدد أنواع الحمار الوحشي الحية بالعالم؟', opts:['3 أنواع','نوع واحد بس','10 أنواع','نوعين'], correct:0},
+  {q:'السلحفاة العملاقة (Giant tortoise) تعتبر من أطول الحيوانات عمراً، وبالمتوسط بتعيش؟', opts:['100 سنة أو أكتر','10 سنين بس','بضعة أشهر','5 سنين'], correct:0},
+  {q:'أكبر فرد سلحفاة عملاقة موثق (أدوايتا) عاش تقريباً؟', opts:['255 سنة','20 سنة بس','1000 سنة','5 سنين'], correct:0},
+  {q:'السلحفاة "لونسم جورج" اشتهرت عالمياً لأنها كانت؟', opts:['آخر فرد معروف من نوعها الفرعي (سلحفاة جزيرة بينتا) قبل موتها 2012','أصغر سلحفاة بالعالم','أول سلحفاة تطير','سلحفاة اصطناعية آلية'], correct:0},
+  {q:'السلاحف العملاقة الحية حالياً موجودة أساساً بجزر؟', opts:['غالاباغوس وجزيرة ألدابرا','جزر هاواي','أيسلندا','اليابان'], correct:0},
+  {q:'الخيزران (البامبو) يعتبر أحد أسرع النباتات نمواً بالعالم، وبعض الأنواع تقدر تنمو خلال 24 ساعة لغاية؟', opts:['حوالي 91-120 سم','ملم واحد بس','5 مم','لا تنمو إطلاقاً بيوم واحد'], correct:0},
+  {q:'الخيزران من الناحية العلمية يصنَّف كـ؟', opts:['نوع من العشب (Grass)، مش شجرة حقيقية','شجرة حقيقية 100%','نبات صحراوي','نوع من الطحالب'], correct:0},
+  {q:'بعض أنواع الخيزران بتزهر بفترات نادرة جداً تصل أحياناً لـ؟', opts:['120 سنة بين كل إزهار وبعدها بتموت النبتة','كل يوم','مرة كل أسبوع','لا تزهر إطلاقاً أبداً'], correct:0},
+  {q:'الخيزران استُخدم تاريخياً حتى بإنشاء جسور معلّقة بالصين ترجع لحوالي؟', opts:['سنة 960 ميلادي','السنة الحالية بس','قبل الديناصورات','لا يوجد استخدام تاريخي موثق'], correct:0},
 ];
 
 const QUIZ_CONFIG = {
@@ -299,6 +405,17 @@ const QUIZ_CONFIG = {
   resultText: function(score, total, pct) {
     return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز الحيوانات \ud83e\udd81 جرب تتحداني!';
   },
+    shareTitleEn: 'Animals & Nature Quiz 🦁',
+  challengeTextEn: 'I challenge you to the animals quiz — ready to compete?',
+  resultTextEn: function(score, total, pct) {
+    return 'I scored ' + score + '/' + total + ' (' + pct + '%) on the animals quiz 🦁 Try to beat me!';
+  },
+  resultMessagesEn: [
+    {min:90, emoji:'🐯', msg:'An animal expert! Amazing knowledge.'},
+    {min:70, emoji:'🦁', msg:'Your animal knowledge is excellent!'},
+    {min:50, emoji:'👍', msg:'Not bad, but there\'s room to improve.'},
+    {min:0, emoji:'📚', msg:'Time to read more about animals!'},
+  ],
   resultMessages: [
     {min:90, emoji:'\ud83d\udc2f', msg:'خبير حيوانات! معلوماتك رهيبة.'},
     {min:70, emoji:'\ud83e\udd81', msg:'معلوماتك بالحيوانات ممتازة!'},

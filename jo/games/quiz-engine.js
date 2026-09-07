@@ -8,6 +8,146 @@ firebase.initializeApp({
 });
 const db = firebase.firestore();
 
+// Quiz-page UI language: independent of i18n.js (which would force Arabic on
+// any /jo/ path via its path-based cmap check) so a visitor arriving from an
+// English country hub (ae/us/uk) sees English chrome. Question/answer content
+// stays Arabic-only regardless — no translated question banks exist yet.
+const quizLang = (function() {
+  try { return localStorage.getItem('lang') === 'en' ? 'en' : 'ar'; } catch (e) { return 'ar'; }
+})();
+
+const QT = {
+  ar: {
+    enter_name: 'اكتب اسمك الأول 🙂',
+    creating: 'جاري الإنشاء...',
+    create_error: 'صار خطأ بإنشاء التحدي، جرب مرة ثانية.',
+    start_challenge_btn: 'ابدأ تحدي',
+    of_word: ' من ',
+    players_joined_suffix: ' لاعب انضموا',
+    your_friend: 'صاحبك',
+    and_others: function(n) { return ' و' + n + ' غيرهم'; },
+    joining: 'جاري الانضمام...',
+    challenge_full: function(max) { return 'للأسف التحدي مكتمل، وصل للحد الأقصى (' + max + ' لاعب).'; },
+    accept_btn: 'قبول التحدي ✅',
+    generic_error: 'صار خطأ، تأكد من اتصالك وجرب تاني.',
+    not_found: 'هذا التحدي غير موجود أو انتهى، جرب رابط جديد.',
+    challenge_full_join: function(max) { return 'التحدي مكتمل! وصل للحد الأقصى (' + max + ' لاعب). اطلب من صاحبك يعمل تحدي جديد.'; },
+    already_playing: function(name) { return '🏆 ' + name + ' وأصحابه بلشوا يلعبوا! اكتب اسمك وانضم دغري.'; },
+    challenge_intro: function(name, count, max) { return '🏆 ' + name + ' تحداك! جاهز تنافسه؟ (' + count + '/' + max + ' انضموا)'; },
+    load_error: 'صار خطأ بتحميل التحدي، تأكد من اتصالك وجرب تاني.',
+    copied: '✅ تم النسخ',
+    result_copied: 'تم نسخ نتيجتك! الصقها بأي مكان بدك تشاركها فيه.',
+    loading: 'جاري التحميل...',
+    no_one_yet: 'لسا محدا لعب',
+    leaderboard_error: 'تعذر تحميل لوحة الترتيب حالياً',
+    leaderboard_share_header: '\n\n🏆 ترتيب التحدي:\n',
+    question_progress: function(cur, total) { return 'سؤال ' + cur + ' من ' + total; },
+    time_left: function(s) { return '⏱️ ' + s + ' ثانية'; },
+    time_up: '⏱️ خلص الوقت!',
+    score_label: function(score, total, pct) { return score + ' من ' + total + ' (' + pct + '%)'; },
+    arabic_note: '(الأسئلة بالعربي)',
+    challenge_start_title: '🏆 تحدَّ أصحابك بنفس الأسئلة!',
+    challenge_start_subtitle: 'لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.',
+    challenge_start_subtitle_songs: 'لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اختار نوع الأغاني، اكتب اسمك، ابدأ التحدي، وشارك الرابط.',
+    name_placeholder: 'اسمك',
+    joiner_waiting: '⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.',
+    challenge_ready: '⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.',
+    share_btn: '📤 مشاركة',
+    copy_link_btn: 'نسخ الرابط',
+    start_playing_btn: 'ابدأ اللعب 🚀',
+    active_link_label: '🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:',
+    share_result_btn: '📤 شارك نتيجتك',
+    try_again_btn: '🔄 جرّب مرة ثانية',
+    share_challenge_title: '📤 شارك التحدي مع أصحابك',
+    leaderboard_title: '🏆 لوحة الترتيب',
+    leaderboard_name: 'الاسم',
+    leaderboard_score: 'النتيجة',
+    other_games: 'أدوات الأردن الأخرى:'
+  },
+  en: {
+    enter_name: 'Enter your name first 🙂',
+    creating: 'Creating...',
+    create_error: 'Something went wrong creating the challenge — try again.',
+    start_challenge_btn: 'Start Challenge',
+    of_word: ' of ',
+    players_joined_suffix: ' players joined',
+    your_friend: 'your friend',
+    and_others: function(n) { return ' and ' + n + ' others'; },
+    joining: 'Joining...',
+    challenge_full: function(max) { return 'Sorry, this challenge is full (' + max + ' players max).'; },
+    accept_btn: 'Accept Challenge ✅',
+    generic_error: 'Something went wrong — check your connection and try again.',
+    not_found: "This challenge doesn't exist or has expired — try a new link.",
+    challenge_full_join: function(max) { return 'This challenge is full! It reached the max of ' + max + ' players. Ask your friend to create a new one.'; },
+    already_playing: function(name) { return '🏆 ' + name + ' and friends already started playing! Enter your name and jump right in.'; },
+    challenge_intro: function(name, count, max) { return '🏆 ' + name + ' challenged you! Ready to compete? (' + count + '/' + max + ' joined)'; },
+    load_error: 'Something went wrong loading the challenge — check your connection and try again.',
+    copied: '✅ Copied',
+    result_copied: 'Your result was copied! Paste it anywhere you want to share it.',
+    loading: 'Loading...',
+    no_one_yet: 'No one has played yet',
+    leaderboard_error: "Couldn't load the leaderboard right now",
+    leaderboard_share_header: '\n\n🏆 Challenge Leaderboard:\n',
+    question_progress: function(cur, total) { return 'Question ' + cur + ' of ' + total; },
+    time_left: function(s) { return '⏱️ ' + s + 's'; },
+    time_up: "⏱️ Time's up!",
+    score_label: function(score, total, pct) { return score + ' of ' + total + ' (' + pct + '%)'; },
+    arabic_note: '(questions are in Arabic)',
+    challenge_start_title: '🏆 Challenge your friends with the same questions!',
+    challenge_start_subtitle: 'You need at least one friend to join (2 to 20 people) — enter your name, start the challenge, and share the link.',
+    challenge_start_subtitle_songs: 'You need at least one friend to join (2 to 20 people) — pick the song category, enter your name, start the challenge, and share the link.',
+    name_placeholder: 'Your name',
+    joiner_waiting: "⏳ You're in! Waiting for your friend to start playing... you'll begin together.",
+    challenge_ready: "⏳ Challenge ready! Send the link to your friend — once they accept, you'll be able to start playing too.",
+    share_btn: '📤 Share',
+    copy_link_btn: 'Copy Link',
+    start_playing_btn: 'Start Playing 🚀',
+    active_link_label: '🔗 Challenge link — share it with your friend before or during the game:',
+    share_result_btn: '📤 Share Your Result',
+    try_again_btn: '🔄 Try Again',
+    share_challenge_title: '📤 Share the Challenge with Your Friends',
+    leaderboard_title: '🏆 Leaderboard',
+    leaderboard_name: 'Name',
+    leaderboard_score: 'Score',
+    other_games: 'More trivia games:'
+  }
+};
+function qt(key) { return QT[quizLang][key]; }
+
+function qGetHomeHref() {
+  try {
+    var country = sessionStorage.getItem('adawati_country');
+    var countryHubMap = { OM: 'om/', SA: 'sa/', JO: 'jo/', AE: 'ae/', US: 'us/', GB: 'uk/' };
+    if (country && countryHubMap[country]) return countryHubMap[country];
+  } catch (e) {}
+  return 'index.html';
+}
+
+function applyQuizTranslations() {
+  document.querySelectorAll('[data-qt]').forEach(function(el) {
+    var key = el.getAttribute('data-qt');
+    var val = QT[quizLang][key];
+    if (typeof val === 'string') el.textContent = val;
+  });
+  if (quizLang === 'en') {
+    document.querySelectorAll('[data-en]').forEach(function(el) {
+      el.textContent = el.getAttribute('data-en');
+    });
+  }
+  document.querySelectorAll('[data-qt-placeholder]').forEach(function(el) {
+    var key = el.getAttribute('data-qt-placeholder');
+    var val = QT[quizLang][key];
+    if (typeof val === 'string') el.setAttribute('placeholder', val);
+  });
+  var backLink = document.querySelector('.page-header a');
+  if (backLink) {
+    backLink.setAttribute('href', qGetHomeHref());
+    backLink.textContent = quizLang === 'en' ? '← Back to Home' : '← العودة للرئيسية';
+  }
+  var arNote = document.getElementById('quizArabicNote');
+  if (arNote) arNote.textContent = quizLang === 'en' ? qt('arabic_note') : '';
+}
+
 let currentQ = 0;
 let score = 0;
 let answered = false;
@@ -28,7 +168,8 @@ function initCategorySelector() {
   if (!area || !QUIZ_CONFIG.categories) return;
   area.style.display = 'flex';
   area.innerHTML = QUIZ_CONFIG.categories.map(function(c) {
-    return '<button type="button" class="cat-select-btn" data-cat="' + c.key + '" style="padding:8px 14px;border-radius:8px;border:2px solid var(--border);background:' + (c.key === selectedCategory ? 'var(--primary)' : 'var(--surface)') + ';color:' + (c.key === selectedCategory ? '#fff' : 'var(--text)') + ';font-size:13px;font-weight:700;cursor:pointer;">' + escapeHtml(c.label) + '</button>';
+    var label = (quizLang === 'en' && c.labelEn) ? c.labelEn : c.label;
+    return '<button type="button" class="cat-select-btn" data-cat="' + c.key + '" style="padding:8px 14px;border-radius:8px;border:2px solid var(--border);background:' + (c.key === selectedCategory ? 'var(--primary)' : 'var(--surface)') + ';color:' + (c.key === selectedCategory ? '#fff' : 'var(--text)') + ';font-size:13px;font-weight:700;cursor:pointer;">' + escapeHtml(label) + '</button>';
   }).join('');
   area.querySelectorAll('.cat-select-btn').forEach(function(btn) {
     btn.onclick = function() {
@@ -54,10 +195,10 @@ function escapeHtml(s) {
 
 async function createChallenge() {
   const name = document.getElementById('creatorNameInput').value.trim();
-  if (!name) { alert('اكتب اسمك الأول 🙂'); return; }
+  if (!name) { alert(qt('enter_name')); return; }
   const btn = document.querySelector('#challengeStartArea button');
   document.getElementById('creatorNameInput').disabled = true;
-  btn.disabled = true; btn.textContent = 'جاري الإنشاء...';
+  btn.disabled = true; btn.textContent = qt('creating');
   try {
     pickQuestions();
     const ref = await db.collection('challenges').add({
@@ -78,9 +219,9 @@ async function createChallenge() {
     document.getElementById('challengeWaitingArea').style.display = 'block';
     listenForAcceptance();
   } catch (e) {
-    alert('صار خطأ بإنشاء التحدي، جرب مرة ثانية.');
+    alert(qt('create_error'));
     document.getElementById('creatorNameInput').disabled = false;
-    btn.disabled = false; btn.textContent = 'ابدأ تحدي';
+    btn.disabled = false; btn.textContent = qt('start_challenge_btn');
   }
 }
 
@@ -91,13 +232,13 @@ function listenForAcceptance() {
   acceptsUnsub = db.collection('challenges').doc(challengeId).collection('accepts')
     .onSnapshot(function(snap) {
       if (!snap.empty) {
-        const names = snap.docs.map(function(d) { return d.data().name || 'صاحبك'; });
+        const names = snap.docs.map(function(d) { return d.data().name || qt('your_friend'); });
         const totalPlayers = names.length + 1; // +1 for the creator
-        const shown = names.slice(0, 3).map(escapeHtml).join('، ');
-        const extra = names.length > 3 ? ' و' + (names.length - 3) + ' غيرهم' : '';
+        const shown = names.slice(0, 3).map(escapeHtml).join(quizLang === 'en' ? ', ' : '، ');
+        const extra = names.length > 3 ? qt('and_others')(names.length - 3) : '';
         document.getElementById('accepterNameSpan').textContent = shown + extra;
         const countLabel = document.getElementById('acceptCountLabel');
-        if (countLabel) countLabel.textContent = totalPlayers + ' من ' + MAX_PLAYERS + ' لاعب انضموا';
+        if (countLabel) countLabel.textContent = totalPlayers + qt('of_word') + MAX_PLAYERS + qt('players_joined_suffix');
         document.getElementById('challengeAcceptedBox').style.display = 'block';
         const startBtn = document.getElementById('creatorStartBtn');
         if (startBtn) startBtn.disabled = totalPlayers < MIN_PLAYERS;
@@ -153,7 +294,7 @@ async function showChallengeJoinIntro(id) {
   try {
     const doc = await db.collection('challenges').doc(id).get();
     if (!doc.exists) {
-      document.getElementById('challengeJoinMsg').textContent = 'هذا التحدي غير موجود أو انتهى، جرب رابط جديد.';
+      document.getElementById('challengeJoinMsg').textContent = qt('not_found');
       document.getElementById('challengeJoinForm').style.display = 'none';
       return;
     }
@@ -175,7 +316,7 @@ async function showChallengeJoinIntro(id) {
     const acceptsSnap = await db.collection('challenges').doc(id).collection('accepts').get();
     const joinedCount = acceptsSnap.size + 1; // +1 for the creator
     if (joinedCount >= MAX_PLAYERS) {
-      document.getElementById('challengeJoinMsg').textContent = 'التحدي مكتمل! وصل للحد الأقصى (' + MAX_PLAYERS + ' لاعب). اطلب من صاحبك يعمل تحدي جديد.';
+      document.getElementById('challengeJoinMsg').textContent = qt('challenge_full_join')(MAX_PLAYERS);
       document.getElementById('challengeJoinForm').style.display = 'none';
       return;
     }
@@ -187,21 +328,21 @@ async function showChallengeJoinIntro(id) {
     } catch (e) { /* if this check fails, show the normal pre-start message below */ }
 
     document.getElementById('challengeJoinMsg').textContent = alreadyStarted
-      ? ('🏆 ' + escapeHtml(data.creatorName) + ' وأصحابه بلشوا يلعبوا! اكتب اسمك وانضم دغري.')
-      : ('🏆 ' + escapeHtml(data.creatorName) + ' تحداك! جاهز تنافسه؟ (' + joinedCount + '/' + MAX_PLAYERS + ' انضموا)');
+      ? qt('already_playing')(escapeHtml(data.creatorName))
+      : qt('challenge_intro')(escapeHtml(data.creatorName), joinedCount, MAX_PLAYERS);
   } catch (e) {
-    document.getElementById('challengeJoinMsg').textContent = 'صار خطأ بتحميل التحدي، تأكد من اتصالك وجرب تاني.';
+    document.getElementById('challengeJoinMsg').textContent = qt('load_error');
     document.getElementById('challengeJoinForm').style.display = 'none';
   }
 }
 
 async function joinChallenge() {
   const name = document.getElementById('joinerNameInput').value.trim();
-  if (!name) { alert('اكتب اسمك الأول 🙂'); return; }
+  if (!name) { alert(qt('enter_name')); return; }
   const btn = document.querySelector('#challengeJoinForm button');
   if (btn.disabled) return;
   document.getElementById('joinerNameInput').disabled = true;
-  btn.disabled = true; btn.textContent = 'جاري الانضمام...';
+  btn.disabled = true; btn.textContent = qt('joining');
 
   try {
     try {
@@ -216,9 +357,9 @@ async function joinChallenge() {
       });
     } catch (e) {
       if (e.message === 'CHALLENGE_FULL') {
-        alert('للأسف التحدي مكتمل، وصل للحد الأقصى (' + MAX_PLAYERS + ' لاعب).');
+        alert(qt('challenge_full')(MAX_PLAYERS));
         document.getElementById('joinerNameInput').disabled = false;
-        btn.disabled = false; btn.textContent = 'قبول التحدي ✅';
+        btn.disabled = false; btn.textContent = qt('accept_btn');
         return;
       }
       /* transaction failed for another reason (e.g. old challenge doc predating acceptedCount): non-critical, still let them play */
@@ -246,9 +387,9 @@ async function joinChallenge() {
     document.getElementById('joinerWaitingArea').style.display = 'block';
     listenForStart();
   } catch (e) {
-    alert('صار خطأ، تأكد من اتصالك وجرب تاني.');
+    alert(qt('generic_error'));
     document.getElementById('joinerNameInput').disabled = false;
-    btn.disabled = false; btn.textContent = 'قبول التحدي ✅';
+    btn.disabled = false; btn.textContent = qt('accept_btn');
   }
 }
 
@@ -272,7 +413,7 @@ let latestLeaderboard = [];
 
 function renderLeaderboard() {
   document.getElementById('leaderboardArea').style.display = 'block';
-  document.getElementById('leaderboardBody').innerHTML = '<tr><td colspan="3" style="padding:8px;text-align:center;color:var(--text-muted);">جاري التحميل...</td></tr>';
+  document.getElementById('leaderboardBody').innerHTML = '<tr><td colspan="3" style="padding:8px;text-align:center;color:var(--text-muted);">' + qt('loading') + '</td></tr>';
   if (leaderboardUnsub) { leaderboardUnsub(); leaderboardUnsub = null; }
   leaderboardUnsub = db.collection('challenges').doc(challengeId).collection('players')
     .orderBy('score', 'desc').orderBy('timeMs', 'asc')
@@ -287,10 +428,10 @@ function renderLeaderboard() {
         board.push({ name: d.name, score: d.score, total: d.total });
         rank++;
       });
-      document.getElementById('leaderboardBody').innerHTML = rows.join('') || '<tr><td colspan="3" style="padding:8px;text-align:center;">لسا محدا لعب</td></tr>';
+      document.getElementById('leaderboardBody').innerHTML = rows.join('') || '<tr><td colspan="3" style="padding:8px;text-align:center;">' + qt('no_one_yet') + '</td></tr>';
       latestLeaderboard = board;
     }, function() {
-      document.getElementById('leaderboardBody').innerHTML = '<tr><td colspan="3" style="padding:8px;text-align:center;">تعذر تحميل لوحة الترتيب حالياً</td></tr>';
+      document.getElementById('leaderboardBody').innerHTML = '<tr><td colspan="3" style="padding:8px;text-align:center;">' + qt('leaderboard_error') + '</td></tr>';
     });
   document.getElementById('challengeShareArea').style.display = 'block';
   document.getElementById('challengeShareLink').value = location.origin + location.pathname + '?challenge=' + challengeId;
@@ -306,23 +447,37 @@ function buildLeaderboardShareText() {
   const lines = latestLeaderboard.slice(0, 5).map(function(p, i) {
     return (medals[i] || (i + 1) + '.') + ' ' + p.name + ': ' + p.score + '/' + p.total;
   });
-  return '\n\n🏆 ترتيب التحدي:\n' + lines.join('\n');
+  return qt('leaderboard_share_header') + lines.join('\n');
+}
+
+function qShareTitle() {
+  return (quizLang === 'en' && QUIZ_CONFIG.shareTitleEn) ? QUIZ_CONFIG.shareTitleEn : QUIZ_CONFIG.shareTitle;
+}
+function qChallengeText() {
+  return (quizLang === 'en' && QUIZ_CONFIG.challengeTextEn) ? QUIZ_CONFIG.challengeTextEn : QUIZ_CONFIG.challengeText;
+}
+function qResultText(score, total, pct) {
+  const fn = (quizLang === 'en' && QUIZ_CONFIG.resultTextEn) ? QUIZ_CONFIG.resultTextEn : QUIZ_CONFIG.resultText;
+  return fn(score, total, pct);
+}
+function qResultMessages() {
+  return (quizLang === 'en' && QUIZ_CONFIG.resultMessagesEn) ? QUIZ_CONFIG.resultMessagesEn : QUIZ_CONFIG.resultMessages;
 }
 
 function shareResult() {
   const pct = Math.round((score / activeQuestions.length) * 100);
-  let text = QUIZ_CONFIG.resultText(score, activeQuestions.length, pct);
+  let text = qResultText(score, activeQuestions.length, pct);
   if (challengeMode && challengeId) text += buildLeaderboardShareText();
   const url = (challengeMode && challengeId)
     ? (location.origin + location.pathname + '?challenge=' + challengeId)
     : (location.origin + location.pathname);
   if (navigator.share) {
-    navigator.share({ title: QUIZ_CONFIG.shareTitle, text: text, url: url }).catch(function() {});
+    navigator.share({ title: qShareTitle(), text: text, url: url }).catch(function() {});
     return;
   }
   const full = text + ' ' + url;
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(full).then(function() { alert('تم نسخ نتيجتك! الصقها بأي مكان بدك تشاركها فيه.'); }).catch(function() { alert(full); });
+    navigator.clipboard.writeText(full).then(function() { alert(qt('result_copied')); }).catch(function() { alert(full); });
   } else {
     alert(full);
   }
@@ -331,7 +486,7 @@ function shareResult() {
 function shareOrCopy(inputId, btnId) {
   const url = document.getElementById(inputId).value;
   if (navigator.share) {
-    navigator.share({ title: QUIZ_CONFIG.shareTitle, text: QUIZ_CONFIG.challengeText, url: url }).catch(function() {});
+    navigator.share({ title: qShareTitle(), text: qChallengeText(), url: url }).catch(function() {});
   } else {
     copyLinkGeneric(inputId, btnId);
   }
@@ -344,7 +499,7 @@ function copyLinkGeneric(inputId, btnId) {
   const btn = document.getElementById(btnId);
   const done = function() {
     const old = btn.textContent;
-    btn.textContent = '✅ تم النسخ';
+    btn.textContent = qt('copied');
     setTimeout(function(){ btn.textContent = old; }, 1500);
   };
   if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -407,18 +562,18 @@ function startQuestionTimer() {
   clearQuestionTimer();
   let remaining = QUESTION_SECONDS;
   const el = getTimerEl();
-  el.textContent = '⏱️ ' + remaining + ' ثانية';
+  el.textContent = qt('time_left')(remaining);
   el.style.color = 'var(--text-muted)';
   timerInterval = setInterval(function() {
     remaining--;
     if (remaining <= 0) {
       clearQuestionTimer();
-      el.textContent = '⏱️ خلص الوقت!';
+      el.textContent = qt('time_up');
       el.style.color = '#dc2626';
       handleTimeout();
       return;
     }
-    el.textContent = '⏱️ ' + remaining + ' ثانية';
+    el.textContent = qt('time_left')(remaining);
     el.style.color = remaining <= 3 ? '#dc2626' : 'var(--text-muted)';
   }, 1000);
 }
@@ -443,8 +598,9 @@ function loadQuestion() {
   answered = false;
   clearQuestionTimer();
   const q = activeQuestions[currentQ];
-  document.getElementById('progressLabel').textContent = 'سؤال ' + (currentQ + 1) + ' من ' + activeQuestions.length;
+  document.getElementById('progressLabel').textContent = qt('question_progress')(currentQ + 1, activeQuestions.length);
   document.getElementById('questionText').textContent = q.q;
+  document.getElementById('questionText').setAttribute('dir', 'rtl');
   const optionsArea = document.getElementById('optionsArea');
   optionsArea.innerHTML = '';
   q.opts.forEach(function(opt, i) {
@@ -481,9 +637,10 @@ function showResult() {
   document.getElementById('challengeActiveLink').style.display = 'none';
   document.getElementById('resultArea').style.display = 'block';
   const pct = Math.round((score / activeQuestions.length) * 100);
-  const rm = QUIZ_CONFIG.resultMessages.find(function(r) { return pct >= r.min; }) || QUIZ_CONFIG.resultMessages[QUIZ_CONFIG.resultMessages.length - 1];
+  const rmList = qResultMessages();
+  const rm = rmList.find(function(r) { return pct >= r.min; }) || rmList[rmList.length - 1];
   document.getElementById('resultEmoji').textContent = rm.emoji;
-  document.getElementById('resultScore').textContent = score + ' من ' + activeQuestions.length + ' (' + pct + '%)';
+  document.getElementById('resultScore').textContent = qt('score_label')(score, activeQuestions.length, pct);
   document.getElementById('resultMessage').textContent = rm.msg;
 
   if (challengeMode && challengeId) {
@@ -512,6 +669,7 @@ function restart() {
   loadQuestion();
 }
 
+applyQuizTranslations();
 const urlChallengeId = getChallengeIdFromUrl();
 document.getElementById('quizArea').style.display = 'none';
 if (urlChallengeId) {
