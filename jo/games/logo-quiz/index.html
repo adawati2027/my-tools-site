@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خمّن الشعار — كويز الشعارات والعلامات التجارية | Adawati</title>
+<meta name="description" content="اختبر معلوماتك بالشعارات: شركات عالمية، سيارات، ومطاعم مشهورة. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ أصحابك. مجاني وبدون تسجيل.">
+<meta name="keywords" content="كويز شعارات, تحدي لوغو, خمن الشعار, اسئلة عن العلامات التجارية, Logo quiz Arabic brands cars">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/jo/games/logo-quiz/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/jo/games/logo-quiz/">
+<link rel="alternate" hreflang="ar-JO" href="https://adawati.space/jo/games/logo-quiz/">
+<meta property="og:title" content="خمّن الشعار | Adawati">
+<meta property="og:description" content="اختبر معلوماتك بشعارات الشركات والسيارات والمطاعم العالمية بـ12 سؤال ممتع في كل مرة.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/jo/games/logo-quiz/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"أدوات الأردن","item":"https://adawati.space/jo/"},
+  {"@type":"ListItem","position":3,"name":"خمّن الشعار","item":"https://adawati.space/jo/games/logo-quiz/"}
+]},
+{"@type":"WebApplication","name":"خمّن الشعار","url":"https://adawati.space/jo/games/logo-quiz/","description":"اختبر معلوماتك بشعارات الشركات والسيارات والمطاعم العالمية، مع إمكانية تحدي أصحابك.","applicationCategory":"GameApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}}
+]}
+</script>
+<link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/">أدوات الأردن</a>
+    <a href="index.html">عالمي</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="jo/" data-i18n="back">← العودة للرئيسية</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#eef2ff;">🏢</div>
+    <h1 class="card-title" data-en="Guess the Logo">خمّن الشعار</h1>
+    <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div id="quizArabicNote" style="font-size:12px;color:var(--text-muted);margin-top:2px;"></div>
+    <div class="divider"></div>
+
+    <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;" data-qt="challenge_start_title">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;" data-qt="challenge_start_subtitle">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="creatorNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="createChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_challenge_btn">ابدأ تحدي</button>
+      </div>
+    </div>
+
+    <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
+      <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <input id="joinerNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;border:1px solid var(--border);border-radius:8px;">
+        <button onclick="joinChallenge()" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="accept_btn">قبول التحدي ✅</button>
+      </div>
+    </div>
+
+    <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div style="font-weight:700;" data-qt="joiner_waiting">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+    </div>
+
+    <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:8px;" data-qt="challenge_ready">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareWaitingLinkBtn" onclick="shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" onclick="copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
+      </div>
+      <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
+        <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
+        <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
+        <button id="creatorStartBtn" onclick="creatorStartPlaying()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_playing_btn">ابدأ اللعب 🚀</button>
+      </div>
+    </div>
+
+    <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;" data-qt="active_link_label">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareActiveLinkBtn" onclick="shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" onclick="copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn')" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
+      </div>
+    </div>
+
+    <div id="quizArea">
+      <div id="questionText" style="font-size:17px;font-weight:700;margin-bottom:16px;"></div>
+      <div id="optionsArea" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="resultArea" style="display:none;text-align:center;">
+      <div style="font-size:48px;margin-bottom:8px;" id="resultEmoji"></div>
+      <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
+      <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="share_result_btn">📤 شارك نتيجتك</button>
+        <button onclick="restart()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="try_again_btn">🔄 جرّب مرة ثانية</button>
+      </div>
+
+      <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;" data-qt="share_challenge_title">📤 شارك التحدي مع أصحابك</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+          <button id="shareLinkBtn" onclick="shareOrCopy('challengeShareLink','shareLinkBtn')" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+          <button id="copyLinkBtn" onclick="copyChallengeLink()" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
+        </div>
+      </div>
+
+      <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;" data-qt="leaderboard_title">🏆 لوحة الترتيب</div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;" data-qt="leaderboard_name">الاسم</th><th style="padding:6px;text-align:right;" data-qt="leaderboard_score">النتيجة</th></tr></thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong data-qt="other_games">أدوات الأردن الأخرى:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="jo/games/culture-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎭 كويز الثقافة العامة</a>
+      <a href="jo/games/animals-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🦁 كويز الحيوانات والطبيعة</a>
+      <a href="jo/games/inventions-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💡 كويز الاختراعات والاكتشافات</a>
+      <a href="jo/games/science-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔬 كويز العلوم والتكنولوجيا</a>
+      <a href="jo/games/islamic-history-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">☪️ كويز التاريخ الإسلامي</a>
+      <a href="jo/games/general-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌐 كويز المعلومات العامة</a>
+      <a href="jo/games/geography-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌍 كويز الجغرافيا العالمية</a>
+      <a href="jo/games/math-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧮 كويز الرياضيات</a>
+      <a href="jo/games/makeup-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💄 كويز المكياج</a>
+      <a href="jo/games/cooking-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🍳 كويز الطبخ</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/world-sports-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏆 كويز الرياضة العالمية</a>
+      <a href="jo/games/world-football-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚽ كويز كرة القدم العالمية</a>
+      <a href="jo/games/songs-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎵 كويز الأغاني</a>
+      <a href="jo/games/wordle/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🟩 كلمة اليوم</a>
+      <a href="jo/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب اليوم</a>
+      <a href="jo/students/scholarships-loans/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 منح وقروض الجامعة</a>
+      <a href="jo/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇯🇴 كل أدوات الأردن</a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script>
+const QUESTIONS = [
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Apple%20logo%20black.svg', opts:['Meta','Colgate-Palmolive','Apple','Johnson & Johnson'], correct:2},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Google%202026%20logo.svg', opts:['L\'Oréal','YouTube','Twitter','Google'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Microsoft%20logo%20(2012).svg', opts:['Netflix','Microsoft','IBM','Meta'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Amazon%202024.svg', opts:['Reebok','IKEA','Visa','Amazon'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Samsung%20wordmark.svg', opts:['TikTok','Under Armour','Samsung','Apple'], correct:2},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Meta%20Platforms%20Inc.%20logo.svg', opts:['LinkedIn','Shell','Nike','Meta'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Netflix%202014%20logo.svg', opts:['LinkedIn','Netflix','Adidas','Lenovo'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Sony%20Group%20logo.svg', opts:['Meta','Intel','Sony','Spotify'], correct:2},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/IBM%20logo.svg', opts:['Chevron','Microsoft','Instagram','IBM'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Intel%20logo%202023.svg', opts:['Samsung','Intel','Rolex','Apple'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/NVIDIA%20logo.svg', opts:['Colgate-Palmolive','Nvidia','FedEx','eBay'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Adobe%20Corporate%20wordmark.svg', opts:['Chevron','Coca-Cola','Nvidia','Adobe'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Oracle%20logo.svg', opts:['Costco','Apple','Netflix','Oracle'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Dell%20logo%202016.svg', opts:['Procter & Gamble','Costco','HP','Dell'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/HP%20logo%202025.svg', opts:['Mastercard','Google','DHL','HP'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Lenovo%20logo%20(2015%20onwards)%202.svg', opts:['Sony','Uber','Adidas','Lenovo'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Cisco%20logo%20blue%202016.svg', opts:['Cisco','WhatsApp','Airbnb','ExxonMobil'], correct:0},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Spotify%20logo%20with%20text.svg', opts:['Under Armour','ExxonMobil','Spotify','Starbucks'], correct:2},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Uber%20logo%202018.svg', opts:['Uber','Nvidia','Visa','Oracle'], correct:0},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Airbnb%20Logo%20B%C3%A9lo.svg', opts:['WhatsApp','Mastercard','Nestlé','Airbnb'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Visa%20Inc.%20logo%20(2021%E2%80%93present).svg', opts:['Instagram','Visa','Target','Reebok'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Mastercard%202019%20logo.svg', opts:['Target','Spotify','Instagram','Mastercard'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/EBay%20logo.svg', opts:['eBay','Sony','Shell','Lenovo'], correct:0},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/LinkedIn%202021.svg', opts:['Lenovo','LinkedIn','Intel','Lowe\'s'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/X%20logo%202023.svg', opts:['Shell','eBay','DHL','Twitter'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Tiktok%20logo%20text.svg', opts:['Microsoft','TikTok','PepsiCo','Nike'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/WhatsApp%20Logo%20green.svg', opts:['Coca-Cola','Spotify','Louis Vuitton','WhatsApp'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/YouTube%202024.svg', opts:['Lenovo','Target','YouTube','Johnson & Johnson'], correct:2},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Instagram%20logo%202022.svg', opts:['Nestlé','Home Depot','Shell','Instagram'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Snap%20Inc.%20logo.svg', opts:['PepsiCo','H&M','Netflix','Snapchat'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Logo%20NIKE.svg', opts:['Twitter','Nestlé','ExxonMobil','Nike'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Adidas%202022%20logo.svg', opts:['Lenovo','Adidas','Nike','UPS'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Under%20armour%20logo.svg', opts:['Spotify','Under Armour','Chevron','Procter & Gamble'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Reebok%20red%20logo.svg', opts:['Home Depot','Reebok','Johnson & Johnson','Under Armour'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/H%26M-Logo.svg', opts:['Chevron','H&M','IKEA','Meta'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Louis%20Vuitton%20logo.svg', opts:['Oracle','L\'Oréal','Costco','Louis Vuitton'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/1960s%20Gucci%20Logo.svg', opts:['PepsiCo','Gucci','Dell','Twitter'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Logo%20da%20Rolex.png', opts:['Cisco','Rolex','Snapchat','Procter & Gamble'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Ikea%20logo.svg', opts:['IKEA','TikTok','L\'Oréal','Reebok'], correct:0},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Walmart%20logo%20(2025).svg', opts:['Nike','Home Depot','Visa','Walmart'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Target%20logo.svg', opts:['Target','Cisco','Dell','Oracle'], correct:0},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Costco%20Wholesale%20logo%202010-10-26.svg', opts:['Costco','LinkedIn','Spotify','Starbucks'], correct:0},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/TheHomeDepot.svg', opts:['Google','Home Depot','TikTok','Nike'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Lowes%20Companies%20Logo.svg', opts:['L\'Oréal','Lowe\'s','Colgate-Palmolive','Visa'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Starbucks%20coffee%20wordmark.png', opts:['Sony','Unilever','Gucci','Starbucks'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/The%20Coca-Cola%20Company%20(2020).svg', opts:['Coca-Cola','Airbnb','Lenovo','Adobe'], correct:0},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/PepsiCo%20(2025%2C%20wordmark).svg', opts:['L\'Oréal','Intel','PepsiCo','Adidas'], correct:2},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Nestl%C3%A9%20textlogo.svg', opts:['Twitter','Unilever','Nestlé','TikTok'], correct:2},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Unilever%20text%20logo.svg', opts:['Meta','Unilever','Airbnb','Twitter'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/L\'Or%C3%A9al%20logo.svg', opts:['Samsung','Amazon','L\'Oréal','Walmart'], correct:2},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Procter%20%26%20Gamble%20logo.svg', opts:['Louis Vuitton','Unilever','Lowe\'s','Procter & Gamble'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Colgate-Palmolive%20(2025).svg', opts:['Reebok','Samsung','Colgate-Palmolive','Snapchat'], correct:2},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/JNJ%20Logo%20New.svg', opts:['Spotify','Johnson & Johnson','YouTube','Shell'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/FedEx%20Corporation%20-%202016%20Logo.svg', opts:['Twitter','FedEx','Procter & Gamble','Gucci'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/United%20Parcel%20Service%20logo%202014.svg', opts:['ExxonMobil','Lowe\'s','Oracle','UPS'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/DHL%20Logo.svg', opts:['Snapchat','Louis Vuitton','DHL','L\'Oréal'], correct:2},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Shell%20wordmark%202019.svg', opts:['PepsiCo','Louis Vuitton','Nestlé','Shell'], correct:3},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Exxon%20Mobil%20Logo.svg', opts:['ExxonMobil','Amazon','Google','Apple'], correct:0},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Bp%20textlogo.svg', opts:['Adidas','BP','PepsiCo','Uber'], correct:1},
+  {q:'شو اسم هالعلامة التجارية؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Chevron%20Logo.svg', opts:['Lowe\'s','Chevron','L\'Oréal','HP'], correct:1},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Toyota.svg', opts:['BMW','Suzuki','Toyota','Mercedes-Benz'], correct:2},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Honda%20logo.svg', opts:['Honda','Peugeot','Cadillac','Audi'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Ford%20logo%20flat.svg', opts:['Tesla','Ford','Citroën','Porsche'], correct:1},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Logo%20BMW%20Group%202021.svg', opts:['Jeep','BMW','Honda','Suzuki'], correct:1},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Mercedes-Benz%20Logo%202010.svg', opts:['Honda','Mitsubishi','Mercedes-Benz','Peugeot'], correct:2},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Volkswagen%20logo%202019.svg', opts:['Toyota','Volkswagen','Ferrari','Lexus'], correct:1},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Audi-Logo%202016.svg', opts:['Audi','Mini','Volvo','Jeep'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Chevrolet%20simple%20logo.svg', opts:['Chevrolet','Peugeot','Jeep','Kia'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Nissan%20brand%20wordmark.svg', opts:['Nissan','Mazda','Maserati','BMW'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Hyundai%20Motor%20Company%20logo.svg', opts:['Subaru','Volvo','Hyundai','Toyota'], correct:2},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/KIA%20logo3.svg', opts:['Maserati','Kia','Fiat','Jeep'], correct:1},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Mazda%20logo%202024%20(vertical).svg', opts:['Mazda','Land Rover','Kia','Maserati'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Subaru%20logo%20(transparent).svg', opts:['Subaru','Audi','Jeep','Škoda'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Volvo-Iron-Mark-Black.svg', opts:['Volvo','Volkswagen','Mercedes-Benz','Jeep'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Newporschecrest.jpg', opts:['Porsche','Chevrolet','Volkswagen','Cadillac'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Ferrari%20wordmark.svg', opts:['Land Rover','Ford','Maserati','Ferrari'], correct:3},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Lamborghini%20-%20logo%20wordmark%2Bpayoff%20(Italy%2C%201963-).svg', opts:['Volvo','Lamborghini','Land Rover','Chrysler'], correct:1},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Land%20Rover%20logo%20ico.gif', opts:['Ferrari','BMW','Land Rover','Lexus'], correct:2},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Jeep%20wordmark.svg', opts:['Audi','Subaru','Lamborghini','Jeep'], correct:3},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Tesla%20Motors.svg', opts:['Tesla','Alfa Romeo','Porsche','BMW'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/2021%20Renault%20Group%20logo.svg', opts:['Renault','Opel','Cadillac','Mazda'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Peugeot%20textlogo21.png', opts:['Hyundai','Maserati','Peugeot','Fiat'], correct:2},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/FIAT%20logo%20coloured.svg', opts:['Fiat','Tesla','Mercedes-Benz','Lamborghini'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Mitsubishi%20motors%20new%20logo.svg', opts:['Renault','Ford','Mini','Mitsubishi'], correct:3},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Suzuki%20logo%202025.svg', opts:['Suzuki','Maserati','Volvo','Chevrolet'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Chrysler%20brand%20logo%202026.svg', opts:['Chrysler','Ferrari','Fiat','Škoda'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Cadillac%20emblem.jpg', opts:['Chrysler','Ferrari','Volvo','Cadillac'], correct:3},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Lexus.svg', opts:['Škoda','Mini','Lexus','Audi'], correct:2},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Rolls-Royce%20Motor%20Cars%20logo.svg', opts:['Maserati','Rolls-Royce','Land Rover','Mazda'], correct:1},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Maserati%20logo%202.svg', opts:['Maserati','Tesla','Mazda','BMW'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/MINI%20logo.svg', opts:['Mini','Lexus','Hyundai','Lamborghini'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/%C5%A0koda%20nieuw.png', opts:['Škoda','Audi','Subaru','Fiat'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/ALFA%20ROMEO%20badge%20on%20a%20car%20(cropped).jpg', opts:['Land Rover','Tesla','Škoda','Alfa Romeo'], correct:3},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Citroen%202022.svg', opts:['Citroën','Mini','BMW','Lexus'], correct:0},
+  {q:'شو اسم هالسيارة؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Opel%20logo%202023.svg', opts:['Tesla','Opel','Mini','Renault'], correct:1},
+  {q:'شو اسم هالمطعم؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/McDonald\'s%20with%20slogan%202020.svg', opts:['Pizza Hut','Burger King','McDonald\'s','Chick-fil-A'], correct:2},
+  {q:'شو اسم هالمطعم؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Burger%20King%202020.svg', opts:['Burger King','Wendy\'s','Dunkin\'','Hardee\'s'], correct:0},
+  {q:'شو اسم هالمطعم؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/KFC%202026%20(wordmark).svg', opts:['Papa John\'s','KFC','Domino\'s','Baskin-Robbins'], correct:1},
+  {q:'شو اسم هالمطعم؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Domino\'s%202025.svg', opts:['Domino\'s','Chick-fil-A','Krispy Kreme','Baskin-Robbins'], correct:0},
+  {q:'شو اسم هالمطعم؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Pizza%20Hut%202025.svg', opts:['Dunkin\'','Wendy\'s','Pizza Hut','Domino\'s'], correct:2},
+  {q:'شو اسم هالمطعم؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Subway%202016%20logo.svg', opts:['Burger King','KFC','Subway','Pizza Hut'], correct:2},
+  {q:'شو اسم هالمطعم؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Wendy\'s%20logo%202012.svg', opts:['Wendy\'s','Pizza Hut','Subway','Burger King'], correct:0},
+  {q:'شو اسم هالمطعم؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/1984TacoBellSign.svg', opts:['Taco Bell','KFC','Chick-fil-A','Dunkin\''], correct:0},
+  {q:'شو اسم هالمطعم؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Dunkin%27%202022.svg', opts:['Hardee\'s','Wendy\'s','Subway','Dunkin\''], correct:3},
+  {q:'شو اسم هالمطعم؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Baskin-Robbins%20logo%202022.svg', opts:['Chick-fil-A','Baskin-Robbins','Hardee\'s','Krispy Kreme'], correct:1},
+  {q:'شو اسم هالمطعم؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Papa%20Johns%20logo.svg', opts:['Chick-fil-A','Papa John\'s','KFC','Hardee\'s'], correct:1},
+  {q:'شو اسم هالمطعم؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Chick-fil-A%20Logo.svg', opts:['Wendy\'s','Subway','Hardee\'s','Chick-fil-A'], correct:3},
+  {q:'شو اسم هالمطعم؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Hardee%20brand%20logo.svg', opts:['Pizza Hut','Dunkin\'','Subway','Hardee\'s'], correct:3},
+  {q:'شو اسم هالمطعم؟', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Logo.KrispyKreme.svg', opts:['Krispy Kreme','Domino\'s','Pizza Hut','Papa John\'s'], correct:0},
+];
+
+const QUIZ_CONFIG = {
+  gameId: 'logo-quiz',
+  shareTitle: 'خمّن الشعار؟ 🏢',
+  challengeText: 'تحداك بكويز الشعارات، جاهز تنافسني؟',
+  resultText: function(score, total, pct) {
+    return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز خمّن الشعار 🏢 جرب تتحداني!';
+  },
+  resultMessages: [
+    {min:90, emoji:'🏆', msg:'خبير علامات تجارية! نتيجة رهيبة.'},
+    {min:70, emoji:'🏢', msg:'معلوماتك بالشعارات ممتازة!'},
+    {min:50, emoji:'👍', msg:'مش بطال، بس فيه مجال تتحسن.'},
+    {min:0,  emoji:'👀', msg:'وقتها لازم تركز أكتر بالشعارات حواليك!'}
+  ],
+  shareTitleEn: 'Guess the Logo 🏢',
+  challengeTextEn: 'I challenge you to the logo quiz — ready to compete?',
+  resultTextEn: function(score, total, pct) {
+    return 'I scored ' + score + '/' + total + ' (' + pct + '%) on the logo quiz 🏢 Try to beat me!';
+  },
+  resultMessagesEn: [
+    {min:90, emoji:'🏆', msg:'A true brand expert! Amazing score.'},
+    {min:70, emoji:'🏢', msg:'Your logo knowledge is excellent!'},
+    {min:50, emoji:'👍', msg:'Not bad, but there\'s room to improve.'},
+    {min:0,  emoji:'👀', msg:'Time to pay more attention to the logos around you!'}
+  ]
+};
+</script>
+<script src="jo/games/quiz-engine.js"></script>
+</body></html>

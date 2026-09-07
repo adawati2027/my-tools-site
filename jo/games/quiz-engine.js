@@ -680,16 +680,7 @@ function showResult() {
 }
 
 function restart() {
-  if (leaderboardUnsub) { leaderboardUnsub(); leaderboardUnsub = null; }
-  if (startUnsub) { startUnsub(); startUnsub = null; }
-  if (!challengeMode) pickQuestions();
-  currentQ = 0;
-  score = 0;
-  quizStartTime = Date.now();
-  document.getElementById('quizArea').style.display = 'block';
-  document.getElementById('resultArea').style.display = 'none';
-  if (challengeMode && challengeId) showActiveChallengeLink();
-  loadQuestion();
+  location.href = location.origin + location.pathname;
 }
 
 applyQuizTranslations();
