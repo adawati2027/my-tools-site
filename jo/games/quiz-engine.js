@@ -62,7 +62,12 @@ const QT = {
     leaderboard_title: '🏆 لوحة الترتيب',
     leaderboard_name: 'الاسم',
     leaderboard_score: 'النتيجة',
-    other_games: 'أدوات الأردن الأخرى:'
+    other_games: 'أدوات الأردن الأخرى:',
+    nav_jordan: 'أدوات الأردن',
+    nav_global: 'عالمي',
+    nav_about: 'من نحن',
+    nav_contact: 'تواصل',
+    all_jordan_tools: '🇯🇴 كل أدوات الأردن'
   },
   en: {
     enter_name: 'Enter your name first 🙂',
@@ -109,7 +114,12 @@ const QT = {
     leaderboard_title: '🏆 Leaderboard',
     leaderboard_name: 'Name',
     leaderboard_score: 'Score',
-    other_games: 'More trivia games:'
+    other_games: 'More trivia games:',
+    nav_jordan: 'Jordan Tools',
+    nav_global: 'Global',
+    nav_about: 'About',
+    nav_contact: 'Contact',
+    all_jordan_tools: '🇯🇴 All Jordan Tools'
   }
 };
 function qt(key) { return QT[quizLang][key]; }
