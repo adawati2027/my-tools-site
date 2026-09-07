@@ -84,7 +84,7 @@ User wants 14 total trivia/game categories under `/jo/games/`, matching the Jord
 4. 🎵 أغاني (`songs-quiz/`) — **built**, 315 questions (70 عربي / 245 أجنبي). By song TITLE only, guess the singer (lyrics are a copyright line, refused — title-only was the agreed alternative). Only game using the category-selector feature: عربي/أجنبي/مكس.
 5. 🍳 طبخ (`cooking-quiz/`) — **built**, 116 questions.
 6. 💄 أدوات المكياج (`makeup-quiz/`) — **built**, 161 questions.
-7. 🧮 الرياضيات (`math-quiz/`) — **built**, 117 questions. Trivia about math (history/facts/famous mathematicians), not live-generated arithmetic problems.
+7. 🧮 الرياضيات (`math-quiz/`) — **built**, 204 questions. Trivia about math (history/facts/famous mathematicians), not live-generated arithmetic problems.
 8. 🌐 معلومات عامة (`general-quiz/`) — **built**, 82 questions.
 9. 🌍 جغرافيا عالمية (`geography-quiz/`) — **built**, 148 questions.
 10. ☪️ تاريخ إسلامي (`islamic-history-quiz/`) — **built**, 85 questions. Extra caution applied: mainstream-consensus facts only, no sectarian/succession disputes, cross-referenced against encyclopedic sources.
