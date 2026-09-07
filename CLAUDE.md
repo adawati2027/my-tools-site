@@ -86,7 +86,7 @@ User wants 14 total trivia/game categories under `/jo/games/`, matching the Jord
 6. 💄 أدوات المكياج (`makeup-quiz/`) — **built**, 161 questions.
 7. 🧮 الرياضيات (`math-quiz/`) — **built**, 204 questions. Trivia about math (history/facts/famous mathematicians), not live-generated arithmetic problems.
 8. 🌐 معلومات عامة (`general-quiz/`) — **built**, 82 questions.
-9. 🌍 جغرافيا عالمية (`geography-quiz/`) — **built**, 148 questions.
+9. 🌍 جغرافيا عالمية (`geography-quiz/`) — **built**, 251 questions.
 10. ☪️ تاريخ إسلامي (`islamic-history-quiz/`) — **built**, 85 questions. Extra caution applied: mainstream-consensus facts only, no sectarian/succession disputes, cross-referenced against encyclopedic sources.
 11. 🔬 علوم وتكنولوجيا (`science-quiz/`) — **built**, 128 questions.
 12. 🦁 حيوانات وطبيعة (`animals-quiz/`) — **built**, 129 questions. ~25 of these are myth-busting questions that actively check and reject commonly-circulated false animal facts (ostrich head-burying, goldfish memory, etc.) rather than just repeating popular trivia.
