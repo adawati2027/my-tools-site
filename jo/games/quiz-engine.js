@@ -293,20 +293,33 @@ async function creatorStartPlaying() {
 
 let startUnsub = null;
 
+function beginJoinerPlay() {
+  if (startUnsub) { startUnsub(); startUnsub = null; }
+  document.getElementById('joinerWaitingArea').style.display = 'none';
+  currentQ = 0; score = 0; quizStartTime = Date.now();
+  document.getElementById('quizArea').style.display = 'block';
+  showActiveChallengeLink();
+  loadQuestion();
+}
+
 function listenForStart() {
   if (startUnsub) startUnsub();
   startUnsub = db.collection('challenges').doc(challengeId).collection('starts')
     .onSnapshot(function(snap) {
-      if (!snap.empty) {
-        if (startUnsub) { startUnsub(); startUnsub = null; }
-        document.getElementById('joinerWaitingArea').style.display = 'none';
-        currentQ = 0; score = 0; quizStartTime = Date.now();
-        document.getElementById('quizArea').style.display = 'block';
-        showActiveChallengeLink();
-        loadQuestion();
-      }
+      if (!snap.empty) beginJoinerPlay();
     }, function() { /* listener error: nothing to do, joiner stays in waiting state */ });
 }
+
+// Mobile browsers throttle background tabs' WebSocket delivery, so a joiner
+// who locks their phone while waiting can miss the live onSnapshot update for
+// many seconds after the creator actually starts — re-check with a direct
+// fetch the moment the tab becomes visible again, as a fallback.
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState !== 'visible' || !startUnsub || !challengeId) return;
+  db.collection('challenges').doc(challengeId).collection('starts').limit(1).get()
+    .then(function(snap) { if (!snap.empty) beginJoinerPlay(); })
+    .catch(function() {});
+});
 
 function challengeStorageKey(id) {
   return 'adawati_quiz_played_' + id;
