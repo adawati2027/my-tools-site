@@ -170,6 +170,7 @@ let challengeSubmitted = false;
 let playerName = '';
 let quizStartTime = 0;
 let selectedCategory = 'mix';
+let selectedDifficulty = 'mix';
 const MIN_PLAYERS = 2;
 const MAX_PLAYERS = 20;
 
@@ -186,6 +187,26 @@ function initCategorySelector() {
       selectedCategory = btn.getAttribute('data-cat');
       area.querySelectorAll('.cat-select-btn').forEach(function(b) {
         const active = b.getAttribute('data-cat') === selectedCategory;
+        b.style.background = active ? 'var(--primary)' : 'var(--surface)';
+        b.style.color = active ? '#fff' : 'var(--text)';
+      });
+    };
+  });
+}
+
+function initDifficultySelector() {
+  const area = document.getElementById('difficultySelectArea');
+  if (!area || !QUIZ_CONFIG.difficulties) return;
+  area.style.display = 'flex';
+  area.innerHTML = QUIZ_CONFIG.difficulties.map(function(d) {
+    var label = (quizLang === 'en' && d.labelEn) ? d.labelEn : d.label;
+    return '<button type="button" class="diff-select-btn" data-diff="' + d.key + '" style="padding:8px 14px;border-radius:8px;border:2px solid var(--border);background:' + (d.key === selectedDifficulty ? 'var(--primary)' : 'var(--surface)') + ';color:' + (d.key === selectedDifficulty ? '#fff' : 'var(--text)') + ';font-size:13px;font-weight:700;cursor:pointer;">' + escapeHtml(label) + '</button>';
+  }).join('');
+  area.querySelectorAll('.diff-select-btn').forEach(function(btn) {
+    btn.onclick = function() {
+      selectedDifficulty = btn.getAttribute('data-diff');
+      area.querySelectorAll('.diff-select-btn').forEach(function(b) {
+        const active = b.getAttribute('data-diff') === selectedDifficulty;
         b.style.background = active ? 'var(--primary)' : 'var(--surface)';
         b.style.color = active ? '#fff' : 'var(--text)';
       });
@@ -535,9 +556,13 @@ function shuffle(arr) {
 }
 
 function pickQuestions() {
-  const pool = (QUIZ_CONFIG.categories && selectedCategory !== 'mix')
-    ? QUESTIONS.filter(function(q) { return q.cat === selectedCategory; })
-    : QUESTIONS;
+  let pool = QUESTIONS;
+  if (QUIZ_CONFIG.categories && selectedCategory !== 'mix') {
+    pool = pool.filter(function(q) { return q.cat === selectedCategory; });
+  }
+  if (QUIZ_CONFIG.difficulties && selectedDifficulty !== 'mix') {
+    pool = pool.filter(function(q) { return q.difficulty === selectedDifficulty; });
+  }
   const selected = shuffle(pool).slice(0, QUESTIONS_PER_GAME);
   activeQuestions = selected.map(function(q) {
     const order = shuffle(q.opts.map(function(_, i) { return i; }));
@@ -749,4 +774,5 @@ if (urlChallengeId) {
   showChallengeJoinIntro(urlChallengeId);
 } else {
   initCategorySelector();
+  initDifficultySelector();
 }

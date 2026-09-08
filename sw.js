@@ -1,4 +1,4 @@
-const CACHE = 'adawati-v58';
+const CACHE = 'adawati-v59';
 const BASE = '';
 const STATIC = [
   BASE + '/',
@@ -88,9 +88,10 @@ self.addEventListener('install', e => {
         // and games added after this list was last hand-edited) get offline support
         // without needing a matching manual entry here.
         fetch(BASE + '/sitemap.xml').then(r => r.text()).then(xml => {
+          const LANG_PREFIXES = ['/jo/', '/ar/', '/fr/', '/es/', '/de/', '/ru/'];
           const paths = Array.from(xml.matchAll(/<loc>(.*?)<\/loc>/g))
             .map(m => { try { return new URL(m[1]).pathname; } catch (err) { return null; } })
-            .filter(p => p && p.startsWith(BASE + '/jo/'));
+            .filter(p => p && LANG_PREFIXES.some(prefix => p.startsWith(BASE + prefix)));
           return Promise.all(paths.map(p => c.add(p).catch(() => {})));
         }).catch(() => {})
       )
