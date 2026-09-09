@@ -1400,6 +1400,19 @@ function openAuthModal() {
     errBox.id = 'authErrBox';
     errBox.style.cssText = 'font-size:13px;color:#ef4444;margin-bottom:12px;display:none;';
 
+    // Google first, pill-shaped, above the email fields — matches the
+    // reference layout the user asked to follow (primary OAuth button up
+    // top, email as the secondary path below a divider), not the original
+    // "email form first, Google buried at the bottom" order.
+    const googleBtn = document.createElement('button');
+    googleBtn.style.cssText = 'width:100%;padding:13px;background:#fff;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;color:#334155;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px;';
+    googleBtn.innerHTML = '<svg width="19" height="19" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.5 5.1 29.5 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.3-.1-2.5-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 16 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34.5 5.1 29.5 3 24 3 16.3 3 9.7 7.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 45c5.4 0 10.3-1.8 14.1-5l-6.5-5.5c-2.1 1.5-4.8 2.4-7.6 2.4-5.2 0-9.7-3.3-11.3-8l-6.5 5C9.6 40.5 16.3 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.5 5.5C41.4 36.4 44 30.8 44 24c0-1.3-.1-2.5-.4-3.5z"/></svg><span>' + (t.auth_google_btn || 'Sign in with Google') + '</span>';
+    googleBtn.onclick = () => signInGoogle(lang);
+
+    const divider = document.createElement('div');
+    divider.style.cssText = 'display:flex;align-items:center;gap:10px;font-size:12px;color:#94a3b8;margin-bottom:18px;';
+    divider.innerHTML = '<span style="flex:1;height:1px;background:#e2e8f0;"></span><span>' + (t.auth_or || 'or') + '</span><span style="flex:1;height:1px;background:#e2e8f0;"></span>';
+
     const fields = [];
     if (isSignup) {
       const lbl1 = document.createElement('label');
@@ -1407,7 +1420,7 @@ function openAuthModal() {
       lbl1.textContent = t.signup_name || 'Name';
       const inp1 = document.createElement('input');
       inp1.id = 'su_name'; inp1.type = 'text'; inp1.maxLength = 60;
-      inp1.style.cssText = 'width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:15px;font-family:inherit;margin-bottom:14px;box-sizing:border-box;';
+      inp1.style.cssText = 'width:100%;padding:11px 16px;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-family:inherit;margin-bottom:14px;box-sizing:border-box;';
       fields.push(lbl1, inp1);
     }
     const lbl2 = document.createElement('label');
@@ -1415,18 +1428,18 @@ function openAuthModal() {
     lbl2.textContent = t.signup_email || 'Email';
     const inp2 = document.createElement('input');
     inp2.id = 'su_email'; inp2.type = 'email'; inp2.dir = 'ltr'; inp2.maxLength = 120;
-    inp2.style.cssText = 'width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:15px;font-family:inherit;margin-bottom:14px;box-sizing:border-box;';
+    inp2.style.cssText = 'width:100%;padding:11px 16px;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-family:inherit;margin-bottom:14px;box-sizing:border-box;';
     const lbl3 = document.createElement('label');
     lbl3.style.cssText = 'display:block;font-size:13px;font-weight:700;margin-bottom:6px;';
     lbl3.textContent = t.auth_password || 'Password';
     const inp3 = document.createElement('input');
     inp3.id = 'su_pass'; inp3.type = 'password'; inp3.dir = 'ltr'; inp3.maxLength = 100;
-    inp3.style.cssText = 'width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:15px;font-family:inherit;margin-bottom:20px;box-sizing:border-box;';
+    inp3.style.cssText = 'width:100%;padding:11px 16px;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-family:inherit;margin-bottom:20px;box-sizing:border-box;';
     fields.push(lbl2, inp2, lbl3, inp3);
 
     const submitBtn = document.createElement('button');
     submitBtn.id = 'authSubmitBtn';
-    submitBtn.style.cssText = 'width:100%;padding:12px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:10px;';
+    submitBtn.style.cssText = 'width:100%;padding:13px;background:#2563eb;color:#fff;border:none;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:10px;';
     submitBtn.textContent = isSignup ? (t.signup_submit || 'Create Account') : (t.auth_signin_title || 'Sign In');
     submitBtn.onclick = () => submitAuthForm(_authMode, lang);
 
@@ -1435,19 +1448,7 @@ function openAuthModal() {
     switchLink.textContent = isSignup ? (t.auth_switch_to_login || 'Already have an account? Sign in') : (t.auth_switch_to_signup || "Don't have an account? Sign up");
     switchLink.onclick = () => { _authMode = isSignup ? 'signin' : 'signup'; openAuthModal(); };
 
-    const extras = [];
-    {
-      const divider = document.createElement('div');
-      divider.style.cssText = 'text-align:center;font-size:12px;color:#94a3b8;margin:2px 0;';
-      divider.textContent = t.auth_or || 'or';
-      const googleBtn = document.createElement('button');
-      googleBtn.style.cssText = 'width:100%;padding:11px;background:#fff;border:1.5px solid #e2e8f0;border-radius:8px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;color:#334155;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px;';
-      googleBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.5 5.1 29.5 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.3-.1-2.5-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 16 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34.5 5.1 29.5 3 24 3 16.3 3 9.7 7.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 45c5.4 0 10.3-1.8 14.1-5l-6.5-5.5c-2.1 1.5-4.8 2.4-7.6 2.4-5.2 0-9.7-3.3-11.3-8l-6.5 5C9.6 40.5 16.3 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.5 5.5C41.4 36.4 44 30.8 44 24c0-1.3-.1-2.5-.4-3.5z"/></svg><span>' + (t.auth_google_btn || 'Sign in with Google') + '</span>';
-      googleBtn.onclick = () => signInGoogle(lang);
-      extras.push(divider, googleBtn);
-    }
-
-    box.append(header, note, errBox, ...fields, submitBtn, ...extras, switchLink);
+    box.append(header, note, errBox, googleBtn, divider, ...fields, submitBtn, switchLink);
   }
 
   modal.appendChild(box);
