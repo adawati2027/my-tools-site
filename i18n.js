@@ -1435,7 +1435,23 @@ function openAuthModal() {
     switchLink.textContent = isSignup ? (t.auth_switch_to_login || 'Already have an account? Sign in') : (t.auth_switch_to_signup || "Don't have an account? Sign up");
     switchLink.onclick = () => { _authMode = isSignup ? 'signin' : 'signup'; openAuthModal(); };
 
-    box.append(header, note, errBox, ...fields, submitBtn, switchLink);
+    const extras = [];
+    // Google's OAuth popup is blocked inside an embedded WebView
+    // (disallowed_useragent) — the Capacitor app needs the native
+    // @capacitor-firebase/authentication plugin instead (separate,
+    // not-yet-shipped phase), so don't offer a button guaranteed to fail.
+    if (!window.Capacitor) {
+      const divider = document.createElement('div');
+      divider.style.cssText = 'text-align:center;font-size:12px;color:#94a3b8;margin:2px 0;';
+      divider.textContent = t.auth_or || 'or';
+      const googleBtn = document.createElement('button');
+      googleBtn.style.cssText = 'width:100%;padding:11px;background:#fff;border:1.5px solid #e2e8f0;border-radius:8px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;color:#334155;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px;';
+      googleBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.5 5.1 29.5 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.3-.1-2.5-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 16 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34.5 5.1 29.5 3 24 3 16.3 3 9.7 7.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 45c5.4 0 10.3-1.8 14.1-5l-6.5-5.5c-2.1 1.5-4.8 2.4-7.6 2.4-5.2 0-9.7-3.3-11.3-8l-6.5 5C9.6 40.5 16.3 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.5 5.5C41.4 36.4 44 30.8 44 24c0-1.3-.1-2.5-.4-3.5z"/></svg><span>' + (t.auth_google_btn || 'Sign in with Google') + '</span>';
+      googleBtn.onclick = () => signInGoogle(lang);
+      extras.push(divider, googleBtn);
+    }
+
+    box.append(header, note, errBox, ...fields, submitBtn, ...extras, switchLink);
   }
 
   modal.appendChild(box);
@@ -1495,6 +1511,26 @@ function submitAuthForm(mode, lang) {
     else if (code === 'auth/wrong-password' || code === 'auth/user-not-found' || code === 'auth/invalid-credential') showErr(t.auth_error_wrong_password || 'Wrong email or password');
     else if (code === 'auth/weak-password') showErr(t.auth_error_weak_password || 'Password must be at least 6 characters');
     else showErr(t.generic_error || 'Something went wrong — try again');
+  });
+}
+
+function signInGoogle(lang) {
+  const t = T[lang] || T.ar;
+  const errBox = document.getElementById('authErrBox');
+  const showErr = function(msg) { if (errBox) { errBox.textContent = msg; errBox.style.display = 'block'; } };
+  loadFirebaseAuth().then(function(fb) {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return fb.auth.signInWithPopup(provider);
+  }).then(function(cred) {
+    return onAuthSuccessSync(cred.user).then(function() {
+      const modal = document.getElementById('signupModal');
+      if (modal) modal.remove();
+      updateAuthBtn();
+      showToast((t.signup_welcome || 'Welcome') + ', ' + (cred.user.displayName || cred.user.email).split(' ')[0] + '!', 'success');
+    });
+  }).catch(function(err) {
+    if (err && err.code === 'auth/popup-closed-by-user') return;
+    showErr(t.generic_error || 'Something went wrong — try again');
   });
 }
 
