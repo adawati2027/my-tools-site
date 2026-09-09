@@ -1406,7 +1406,18 @@ function loadFirebaseAuth() {
       .then(function() { return (typeof firebase.firestore === 'function') ? null : loadScript('https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js'); })
       .then(function() {
         if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
-        resolve({ auth: firebase.auth(), db: firebase.firestore() });
+        const authInst = firebase.auth();
+        // Explicit LOCAL persistence, awaited before the auth object is ever
+        // used — without this, signInWithRedirect() on some mobile/embedded
+        // browsers completes the OAuth exchange server-side (confirmed via a
+        // live redirect-chain trace: Google returns a real auth code) but
+        // getRedirectResult() on the landing page still resolves to a null
+        // user with no error, because the SDK's pending-redirect marker
+        // wasn't durably persisted before the page navigated away. Relying
+        // on the SDK's unstated default persistence is what was broken.
+        return authInst.setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(function() {
+          resolve({ auth: authInst, db: firebase.firestore() });
+        });
       })
       .catch(reject);
   });
