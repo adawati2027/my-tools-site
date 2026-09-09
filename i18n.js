@@ -1436,11 +1436,7 @@ function openAuthModal() {
     switchLink.onclick = () => { _authMode = isSignup ? 'signin' : 'signup'; openAuthModal(); };
 
     const extras = [];
-    // Google's OAuth popup is blocked inside an embedded WebView
-    // (disallowed_useragent) — the Capacitor app needs the native
-    // @capacitor-firebase/authentication plugin instead (separate,
-    // not-yet-shipped phase), so don't offer a button guaranteed to fail.
-    if (!window.Capacitor) {
+    {
       const divider = document.createElement('div');
       divider.style.cssText = 'text-align:center;font-size:12px;color:#94a3b8;margin:2px 0;';
       divider.textContent = t.auth_or || 'or';
@@ -1518,17 +1514,41 @@ function signInGoogle(lang) {
   const t = T[lang] || T.ar;
   const errBox = document.getElementById('authErrBox');
   const showErr = function(msg) { if (errBox) { errBox.textContent = msg; errBox.style.display = 'block'; } };
-  loadFirebaseAuth().then(function(fb) {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    return fb.auth.signInWithPopup(provider);
-  }).then(function(cred) {
-    return onAuthSuccessSync(cred.user).then(function() {
+  const finishSignIn = function(user) {
+    return onAuthSuccessSync(user).then(function() {
       const modal = document.getElementById('signupModal');
       if (modal) modal.remove();
       updateAuthBtn();
-      showToast((t.signup_welcome || 'Welcome') + ', ' + (cred.user.displayName || cred.user.email).split(' ')[0] + '!', 'success');
+      showToast((t.signup_welcome || 'Welcome') + ', ' + (user.displayName || user.email).split(' ')[0] + '!', 'success');
     });
-  }).catch(function(err) {
+  };
+  // Google's OAuth popup is blocked inside an embedded WebView
+  // (disallowed_useragent) — inside the Capacitor app, use the native
+  // @capacitor-firebase/authentication plugin instead (it drives the
+  // native Google account picker, bypassing the WebView entirely), then
+  // sync the resulting credential into the JS SDK so firebase.auth() stays
+  // consistent with the web-only email/password path.
+  const nativeAuth = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.FirebaseAuthentication;
+  if (nativeAuth) {
+    loadFirebaseAuth().then(function(fb) {
+      return nativeAuth.signInWithGoogle().then(function(result) {
+        const idToken = result && result.credential && result.credential.idToken;
+        if (!idToken) throw { code: 'auth/no-id-token' };
+        const credential = firebase.auth.GoogleAuthProvider.credential(idToken);
+        return fb.auth.signInWithCredential(credential);
+      });
+    }).then(function(cred) { return finishSignIn(cred.user); })
+    .catch(function(err) {
+      if (err && (err.code === 'auth/no-id-token' || String(err.message || '').indexOf('cancel') !== -1)) return;
+      showErr(t.generic_error || 'Something went wrong — try again');
+    });
+    return;
+  }
+  loadFirebaseAuth().then(function(fb) {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return fb.auth.signInWithPopup(provider);
+  }).then(function(cred) { return finishSignIn(cred.user); })
+  .catch(function(err) {
     if (err && err.code === 'auth/popup-closed-by-user') return;
     showErr(t.generic_error || 'Something went wrong — try again');
   });
