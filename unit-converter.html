@@ -251,5 +251,5 @@ function convertLength(){var v=parseFloat(document.getElementById('len-val').val
 function convertWeight(){var v=parseFloat(document.getElementById('wgt-val').value),f=document.getElementById('wgt-from').value,t=document.getElementById('wgt-to').value,box=document.getElementById('wgt-result');if(isNaN(v)){box.classList.remove('show');return;}document.getElementById('wgt-out').textContent=+(v*WGT[f]/WGT[t]).toFixed(4);box.classList.add('show');}
 function convertTemp(){var v=parseFloat(document.getElementById('tmp-val').value),f=document.getElementById('tmp-from').value,t=document.getElementById('tmp-to').value,box=document.getElementById('tmp-result');if(isNaN(v)){box.classList.remove('show');return;}var c=f==='c'?v:f==='f'?(v-32)*5/9:v-273.15;var out=t==='c'?c:t==='f'?c*9/5+32:c+273.15;document.getElementById('tmp-out').textContent=+out.toFixed(4);box.classList.add('show');}
 </script>
-<script src="i18n.js?v=33" defer></script>
+<script src="i18n.js?v=42" defer></script>
 </body></html>
