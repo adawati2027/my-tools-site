@@ -1,3 +1,14 @@
+(function() {
+  try {
+    var capApp = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App;
+    if (capApp) {
+      capApp.addListener('appUrlOpen', function(data) {
+        if (data && data.url && data.url !== location.href) location.href = data.url;
+      });
+    }
+  } catch (e) {}
+})();
+
 const T = {
   ar: {
     nav_home:'الرئيسية', nav_about:'من نحن', nav_contact:'تواصل معنا',
