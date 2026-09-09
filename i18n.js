@@ -78,6 +78,10 @@ cty_global:'العالمي', cty_om:'عمان', cty_ae:'الإمارات', cty_s
     signup_btn:'تسجيل', signup_title:'إنشاء حساب مجاني', signup_name:'الاسم', signup_email:'البريد الإلكتروني',
     signup_submit:'إنشاء الحساب', signup_welcome:'مرحباً', signup_logout:'خروج',
     signup_note:'اختياري — احفظ إعداداتك على هذا الجهاز',
+    auth_password:'كلمة السر', auth_google_btn:'الدخول عبر Google', auth_switch_to_login:'عندك حساب؟ سجل دخول',
+    auth_switch_to_signup:'ما عندك حساب؟ أنشئ واحد', auth_or:'أو',
+    auth_error_weak_password:'كلمة السر لازم تكون 6 أحرف عالأقل', auth_error_wrong_password:'البريد الإلكتروني أو كلمة السر غلط',
+    auth_error_email_in_use:'هاد البريد الإلكتروني مستخدم قبل', auth_syncing:'جاري مزامنة المفضلة...', auth_signin_title:'تسجيل الدخول',
     hero_label:'أدوات مجانية وسريعة للاستخدام اليومي',
     badge_langs:'6 لغات', stat_tools:'أداة مجانية', stat_games:'🎮 ألعاب', stat_langs:'لغات مدعومة',
     stat_private:'معالجة محلية', stat_available:'متاح دائماً',
@@ -319,6 +323,10 @@ cty_global:'Global', cty_om:'Oman', cty_ae:'UAE', cty_sa:'Saudi Arabia', cty_us:
     signup_btn:'Sign Up', signup_title:'Create Free Account', signup_name:'Name', signup_email:'Email',
     signup_submit:'Create Account', signup_welcome:'Welcome', signup_logout:'Sign Out',
     signup_note:'Optional — save your preferences on this device',
+    auth_password:'Password', auth_google_btn:'Sign in with Google', auth_switch_to_login:'Already have an account? Sign in',
+    auth_switch_to_signup:"Don't have an account? Sign up", auth_or:'or',
+    auth_error_weak_password:'Password must be at least 6 characters', auth_error_wrong_password:'Wrong email or password',
+    auth_error_email_in_use:'This email is already in use', auth_syncing:'Syncing your favorites...', auth_signin_title:'Sign In',
     hero_label:'Free tools for your daily use',
     badge_langs:'6 Languages', stat_tools:'Free Tools', stat_games:'🎮 Games', stat_langs:'Languages',
     stat_private:'Local Processing', stat_available:'Always Available',
@@ -501,6 +509,10 @@ cty_global:'Mondial', cty_om:'Oman', cty_ae:'Émirats arabes unis', cty_sa:'Arab
     signup_btn:'S\'inscrire', signup_title:'Créer un compte gratuit', signup_name:'Nom', signup_email:'E-mail',
     signup_submit:'Créer le compte', signup_welcome:'Bienvenue', signup_logout:'Déconnexion',
     signup_note:'Facultatif — enregistrez vos préférences sur cet appareil',
+    auth_password:'Mot de passe', auth_google_btn:'Se connecter avec Google', auth_switch_to_login:'Vous avez déjà un compte ? Connectez-vous',
+    auth_switch_to_signup:"Pas de compte ? Inscrivez-vous", auth_or:'ou',
+    auth_error_weak_password:'Le mot de passe doit contenir au moins 6 caractères', auth_error_wrong_password:'E-mail ou mot de passe incorrect',
+    auth_error_email_in_use:'Cet e-mail est déjà utilisé', auth_syncing:'Synchronisation de vos favoris...', auth_signin_title:'Connexion',
     hero_label:'Outils gratuits pour votre usage quotidien',
     badge_langs:'6 Langues', stat_tools:'Outils gratuits', stat_games:'🎮 Jeux', stat_langs:'Langues',
     stat_private:'Traitement local', stat_available:'Toujours disponible',
@@ -675,6 +687,10 @@ cty_global:'Global', cty_om:'Omán', cty_ae:'Emiratos Árabes Unidos', cty_sa:'A
     signup_btn:'Registrarse', signup_title:'Crear cuenta gratis', signup_name:'Nombre', signup_email:'Correo electrónico',
     signup_submit:'Crear cuenta', signup_welcome:'Bienvenido', signup_logout:'Cerrar sesión',
     signup_note:'Opcional — guarda tus preferencias en este dispositivo',
+    auth_password:'Contraseña', auth_google_btn:'Iniciar sesión con Google', auth_switch_to_login:'¿Ya tienes cuenta? Inicia sesión',
+    auth_switch_to_signup:'¿No tienes cuenta? Regístrate', auth_or:'o',
+    auth_error_weak_password:'La contraseña debe tener al menos 6 caracteres', auth_error_wrong_password:'Correo o contraseña incorrectos',
+    auth_error_email_in_use:'Este correo ya está en uso', auth_syncing:'Sincronizando tus favoritos...', auth_signin_title:'Iniciar sesión',
     hero_label:'Herramientas gratuitas para tu uso diario',
     badge_langs:'6 Idiomas', stat_tools:'Herramientas', stat_games:'🎮 Juegos', stat_langs:'Idiomas',
     stat_private:'Procesamiento local', stat_available:'Siempre disponible',
@@ -849,6 +865,10 @@ cty_global:'Global', cty_om:'Oman', cty_ae:'Vereinigte Arabische Emirate', cty_s
     signup_btn:'Registrieren', signup_title:'Kostenloses Konto erstellen', signup_name:'Name', signup_email:'E-Mail',
     signup_submit:'Konto erstellen', signup_welcome:'Willkommen', signup_logout:'Abmelden',
     signup_note:'Optional — Einstellungen auf diesem Gerät speichern',
+    auth_password:'Passwort', auth_google_btn:'Mit Google anmelden', auth_switch_to_login:'Schon ein Konto? Anmelden',
+    auth_switch_to_signup:'Kein Konto? Registrieren', auth_or:'oder',
+    auth_error_weak_password:'Das Passwort muss mindestens 6 Zeichen lang sein', auth_error_wrong_password:'Falsche E-Mail oder falsches Passwort',
+    auth_error_email_in_use:'Diese E-Mail wird bereits verwendet', auth_syncing:'Favoriten werden synchronisiert...', auth_signin_title:'Anmelden',
     hero_label:'Kostenlose Tools für den täglichen Gebrauch',
     badge_langs:'6 Sprachen', stat_tools:'Kostenlose Tools', stat_games:'🎮 Spiele', stat_langs:'Sprachen',
     stat_private:'Lokale Verarbeitung', stat_available:'Immer verfügbar',
@@ -1023,6 +1043,10 @@ cty_global:'Глобально', cty_om:'Оман', cty_ae:'ОАЭ', cty_sa:'С�
     signup_btn:'Регистрация', signup_title:'Создать бесплатный аккаунт', signup_name:'Имя', signup_email:'Электронная почта',
     signup_submit:'Создать аккаунт', signup_welcome:'Добро пожаловать', signup_logout:'Выйти',
     signup_note:'Необязательно — сохраняйте настройки на этом устройстве',
+    auth_password:'Пароль', auth_google_btn:'Войти через Google', auth_switch_to_login:'Уже есть аккаунт? Войти',
+    auth_switch_to_signup:'Нет аккаунта? Зарегистрироваться', auth_or:'или',
+    auth_error_weak_password:'Пароль должен содержать не менее 6 символов', auth_error_wrong_password:'Неверный email или пароль',
+    auth_error_email_in_use:'Этот email уже используется', auth_syncing:'Синхронизация избранного...', auth_signin_title:'Вход',
     hero_label:'Бесплатные инструменты для ежедневного использования',
     badge_langs:'6 Языков', stat_tools:'Бесплатных инструментов', stat_games:'🎮 Игры', stat_langs:'Языков',
     stat_private:'Локальная обработка', stat_available:'Всегда доступен',
@@ -1169,7 +1193,7 @@ function setLang(lang) {
   document.querySelectorAll('.nav-brand, .footer-brand').forEach(function(el) {
     el.textContent = brandName;
   });
-  updateSignupBtn();
+  updateAuthBtn();
   // Re-render country section cards with the new language
   const cc = sessionStorage.getItem('adawati_country');
   if (cc && typeof COUNTRY_DATA !== 'undefined' && COUNTRY_DATA[cc] && document.getElementById('countrySection')) {
@@ -1204,29 +1228,128 @@ document.addEventListener('click', function(e) {
   }
 });
 
-function updateSignupBtn() {
-  const btn = document.getElementById('signupNavBtn');
+/* ── Auth (Firebase, lazy-loaded — see loadFirebaseAuth) ── */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAO8ZKfiaKlqTIw8xUfEp5xHFy0ilBztKQ",
+  authDomain: "adawati-challenges.firebaseapp.com",
+  projectId: "adawati-challenges",
+  storageBucket: "adawati-challenges.firebasestorage.app",
+  messagingSenderId: "360902823980",
+  appId: "1:360902823980:web:bd85f87de77dcfc315c189"
+};
+let _fbAuthReady = null;
+function loadFirebaseAuth() {
+  if (_fbAuthReady) return _fbAuthReady;
+  _fbAuthReady = new Promise(function(resolve, reject) {
+    function loadScript(src) {
+      return new Promise(function(res, rej) {
+        const s = document.createElement('script');
+        s.src = src; s.onload = res; s.onerror = rej;
+        document.head.appendChild(s);
+      });
+    }
+    Promise.resolve()
+      .then(function() { return (typeof firebase === 'undefined') ? loadScript('https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js') : null; })
+      .then(function() { return (typeof firebase.auth === 'function') ? null : loadScript('https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js'); })
+      .then(function() { return (typeof firebase.firestore === 'function') ? null : loadScript('https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js'); })
+      .then(function() {
+        if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+        resolve({ auth: firebase.auth(), db: firebase.firestore() });
+      })
+      .catch(reject);
+  });
+  return _fbAuthReady;
+}
+
+function mergeArraysUnion(a, b) {
+  return Array.from(new Set([].concat(a || [], b || [])));
+}
+
+function onAuthSuccessSync(user) {
+  try { localStorage.setItem('adawati_uid', user.uid); } catch (e) {}
+  return loadFirebaseAuth().then(function(fb) {
+    const ref = fb.db.collection('users').doc(user.uid);
+    return ref.get().then(function(snap) {
+      const localFavs = getFavs(), localRecent = getRecent();
+      let mergedFavs = localFavs, mergedRecent = localRecent.slice(0, 6);
+      if (snap.exists) {
+        const cloud = snap.data() || {};
+        mergedFavs = mergeArraysUnion(localFavs, cloud.favorites);
+        mergedRecent = mergeArraysUnion(cloud.recent, localRecent).slice(0, 6);
+      }
+      saveFavs(mergedFavs);
+      localStorage.setItem('adawati_recent', JSON.stringify(mergedRecent));
+      return ref.set({ favorites: mergedFavs, recent: mergedRecent, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true })
+        .then(function() {
+          if (document.getElementById('toolsGrid')) { renderFavSection(); renderRecentSection(); injectStarBtns(); }
+        });
+    });
+  }).catch(function() { /* offline, or Firestore rules for users/{uid} not deployed yet — local stays authoritative */ });
+}
+
+function syncFavsToCloud() {
+  if (typeof firebase === 'undefined' || !firebase.auth || !firebase.auth().currentUser || !navigator.onLine) return;
+  firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid)
+    .set({ favorites: getFavs(), updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true })
+    .catch(function() {});
+}
+function syncRecentToCloud() {
+  if (typeof firebase === 'undefined' || !firebase.auth || !firebase.auth().currentUser || !navigator.onLine) return;
+  firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid)
+    .set({ recent: getRecent(), updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true })
+    .catch(function() {});
+}
+
+function restoreSessionIfAny() {
+  let hasUid = false;
+  try { hasUid = !!localStorage.getItem('adawati_uid'); } catch (e) {}
+  if (!hasUid) return;
+  loadFirebaseAuth().then(function(fb) {
+    fb.auth.onAuthStateChanged(function(user) {
+      if (user) { onAuthSuccessSync(user); updateAuthBtn(); }
+    });
+  }).catch(function() {});
+}
+
+function getCurrentAuthUser() {
+  return (typeof firebase !== 'undefined' && firebase.auth) ? firebase.auth().currentUser : null;
+}
+
+function injectAuthBtn() {
+  const nav = document.querySelector('.nav-links');
+  if (!nav || document.getElementById('authNavBtn')) return;
+  const btn = document.createElement('button');
+  btn.id = 'authNavBtn';
+  btn.style.cssText = 'background:none;border:none;font-family:inherit;font-size:14px;cursor:pointer;color:inherit;padding:6px 4px;';
+  btn.onclick = openAuthModal;
+  const darkBtn = document.getElementById('darkToggleBtn');
+  const langSwitcher = nav.querySelector('.lang-switcher');
+  if (darkBtn) nav.insertBefore(btn, darkBtn);
+  else if (langSwitcher) nav.insertBefore(btn, langSwitcher);
+  else nav.appendChild(btn);
+  updateAuthBtn();
+}
+
+function updateAuthBtn() {
+  const btn = document.getElementById('authNavBtn');
   if (!btn) return;
   const lang = localStorage.getItem('lang') || 'en';
   const t = T[lang] || T.ar;
-  const user = getUser();
+  const user = getCurrentAuthUser();
   if (user) {
-    btn.textContent = '👤 ' + user.name.split(' ')[0];
-    btn.onclick = openSignup;
+    const label = (user.displayName || user.email || '').split(' ')[0].split('@')[0];
+    btn.textContent = '👤 ' + label;
   } else {
     btn.textContent = t.signup_btn || 'Sign Up';
-    btn.onclick = openSignup;
   }
 }
 
-function getUser() {
-  try { return JSON.parse(localStorage.getItem('adawati_user')); } catch { return null; }
-}
+let _authMode = 'signup';
 
-function openSignup() {
+function openAuthModal() {
   const lang = localStorage.getItem('lang') || 'en';
   const t = T[lang] || T.ar;
-  const user = getUser();
+  const user = getCurrentAuthUser();
   const existing = document.getElementById('signupModal');
   if (existing) existing.remove();
 
@@ -1244,10 +1367,10 @@ function openSignup() {
     avatar.textContent = '👤';
     const greeting = document.createElement('div');
     greeting.style.cssText = 'font-size:20px;font-weight:700;margin-bottom:4px;';
-    greeting.textContent = (t.signup_welcome || 'Welcome') + ', ' + user.name + '!';
+    greeting.textContent = (t.signup_welcome || 'Welcome') + ', ' + (user.displayName || user.email) + '!';
     const emailEl = document.createElement('div');
     emailEl.style.cssText = 'font-size:14px;color:#64748b;margin-bottom:24px;';
-    emailEl.textContent = user.email;
+    emailEl.textContent = user.email || '';
     const logoutBtn = document.createElement('button');
     logoutBtn.style.cssText = 'width:100%;padding:12px;background:#ef4444;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;';
     logoutBtn.textContent = t.signup_logout || 'Sign Out';
@@ -1259,11 +1382,12 @@ function openSignup() {
     box.append(avatar, greeting, emailEl, logoutBtn, closeBtn);
   } else {
     box.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    const isSignup = _authMode === 'signup';
     const header = document.createElement('div');
     header.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;';
     const title = document.createElement('div');
     title.style.cssText = 'font-size:19px;font-weight:700;';
-    title.textContent = t.signup_title || 'Create Account';
+    title.textContent = isSignup ? (t.signup_title || 'Create Account') : (t.auth_signin_title || 'Sign In');
     const xBtn = document.createElement('button');
     xBtn.style.cssText = 'background:none;border:none;font-size:20px;cursor:pointer;color:#94a3b8;';
     xBtn.textContent = '✕';
@@ -1271,32 +1395,55 @@ function openSignup() {
     header.append(title, xBtn);
     const note = document.createElement('div');
     note.style.cssText = 'font-size:13px;color:#64748b;margin-bottom:20px;';
-    note.textContent = t.signup_note || '';
-    const lbl1 = document.createElement('label');
-    lbl1.style.cssText = 'display:block;font-size:13px;font-weight:700;margin-bottom:6px;';
-    lbl1.textContent = t.signup_name || 'Name';
-    const inp1 = document.createElement('input');
-    inp1.id = 'su_name'; inp1.type = 'text'; inp1.maxLength = 60;
-    inp1.style.cssText = 'width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:15px;font-family:inherit;margin-bottom:14px;box-sizing:border-box;';
+    note.textContent = isSignup ? (t.signup_note || '') : '';
+    const errBox = document.createElement('div');
+    errBox.id = 'authErrBox';
+    errBox.style.cssText = 'font-size:13px;color:#ef4444;margin-bottom:12px;display:none;';
+
+    const fields = [];
+    if (isSignup) {
+      const lbl1 = document.createElement('label');
+      lbl1.style.cssText = 'display:block;font-size:13px;font-weight:700;margin-bottom:6px;';
+      lbl1.textContent = t.signup_name || 'Name';
+      const inp1 = document.createElement('input');
+      inp1.id = 'su_name'; inp1.type = 'text'; inp1.maxLength = 60;
+      inp1.style.cssText = 'width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:15px;font-family:inherit;margin-bottom:14px;box-sizing:border-box;';
+      fields.push(lbl1, inp1);
+    }
     const lbl2 = document.createElement('label');
     lbl2.style.cssText = 'display:block;font-size:13px;font-weight:700;margin-bottom:6px;';
     lbl2.textContent = t.signup_email || 'Email';
     const inp2 = document.createElement('input');
     inp2.id = 'su_email'; inp2.type = 'email'; inp2.dir = 'ltr'; inp2.maxLength = 120;
-    inp2.style.cssText = 'width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:15px;font-family:inherit;margin-bottom:20px;box-sizing:border-box;';
+    inp2.style.cssText = 'width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:15px;font-family:inherit;margin-bottom:14px;box-sizing:border-box;';
+    const lbl3 = document.createElement('label');
+    lbl3.style.cssText = 'display:block;font-size:13px;font-weight:700;margin-bottom:6px;';
+    lbl3.textContent = t.auth_password || 'Password';
+    const inp3 = document.createElement('input');
+    inp3.id = 'su_pass'; inp3.type = 'password'; inp3.dir = 'ltr'; inp3.maxLength = 100;
+    inp3.style.cssText = 'width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:15px;font-family:inherit;margin-bottom:20px;box-sizing:border-box;';
+    fields.push(lbl2, inp2, lbl3, inp3);
+
     const submitBtn = document.createElement('button');
-    submitBtn.style.cssText = 'width:100%;padding:12px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;';
-    submitBtn.textContent = t.signup_submit || 'Create Account';
-    submitBtn.onclick = () => submitSignup(lang);
-    box.append(header, note, lbl1, inp1, lbl2, inp2, submitBtn);
+    submitBtn.id = 'authSubmitBtn';
+    submitBtn.style.cssText = 'width:100%;padding:12px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:10px;';
+    submitBtn.textContent = isSignup ? (t.signup_submit || 'Create Account') : (t.auth_signin_title || 'Sign In');
+    submitBtn.onclick = () => submitAuthForm(_authMode, lang);
+
+    const switchLink = document.createElement('div');
+    switchLink.style.cssText = 'text-align:center;font-size:13px;color:#2563eb;cursor:pointer;';
+    switchLink.textContent = isSignup ? (t.auth_switch_to_login || 'Already have an account? Sign in') : (t.auth_switch_to_signup || "Don't have an account? Sign up");
+    switchLink.onclick = () => { _authMode = isSignup ? 'signin' : 'signup'; openAuthModal(); };
+
+    box.append(header, note, errBox, ...fields, submitBtn, switchLink);
   }
 
   modal.appendChild(box);
 
   modal.addEventListener('click', function(e) { if (e.target === modal) modal.remove(); });
   document.body.appendChild(modal);
-  const nameInput = document.getElementById('su_name');
-  if (nameInput) nameInput.focus();
+  const firstInput = document.getElementById('su_name') || document.getElementById('su_email');
+  if (firstInput) firstInput.focus();
 }
 
 function showToast(msg, type) {
@@ -1311,23 +1458,53 @@ function showToast(msg, type) {
   setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.4s'; setTimeout(() => toast.remove(), 400); }, 2800);
 }
 
-function submitSignup(lang) {
-  const name = (document.getElementById('su_name').value || '').trim();
-  const email = (document.getElementById('su_email').value || '').trim();
+function submitAuthForm(mode, lang) {
   const t = T[lang] || T.ar;
-  if (!name || !email) { showToast(t.contact_error || 'Please fill in all fields', 'error'); return; }
+  const errBox = document.getElementById('authErrBox');
+  const showErr = function(msg) { if (errBox) { errBox.textContent = msg; errBox.style.display = 'block'; } };
+  const email = (document.getElementById('su_email').value || '').trim();
+  const pass = (document.getElementById('su_pass').value || '');
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-  if (!emailRe.test(email)) { showToast(t.contact_email_invalid || 'Invalid email address', 'error'); return; }
-  localStorage.setItem('adawati_user', JSON.stringify({ name: name.slice(0,60), email: email.slice(0,120) }));
-  document.getElementById('signupModal').remove();
-  updateSignupBtn();
-  showToast((t.signup_welcome || 'Welcome') + ', ' + name.split(' ')[0] + '!', 'success');
+  if (!emailRe.test(email)) { showErr(t.contact_email_invalid || 'Invalid email address'); return; }
+  if (pass.length < 6) { showErr(t.auth_error_weak_password || 'Password must be at least 6 characters'); return; }
+  let name = '';
+  if (mode === 'signup') {
+    name = (document.getElementById('su_name').value || '').trim();
+    if (!name) { showErr(t.contact_error || 'Please fill in all fields'); return; }
+  }
+  const btn = document.getElementById('authSubmitBtn');
+  if (btn) { btn.disabled = true; btn.textContent = t.auth_syncing || 'Working...'; }
+  loadFirebaseAuth().then(function(fb) {
+    const action = mode === 'signup'
+      ? fb.auth.createUserWithEmailAndPassword(email, pass).then(function(cred) {
+          return cred.user.updateProfile({ displayName: name.slice(0, 60) }).then(function() { return cred.user; });
+        })
+      : fb.auth.signInWithEmailAndPassword(email, pass).then(function(cred) { return cred.user; });
+    return action;
+  }).then(function(user) {
+    return onAuthSuccessSync(user).then(function() {
+      const modal = document.getElementById('signupModal');
+      if (modal) modal.remove();
+      updateAuthBtn();
+      showToast((t.signup_welcome || 'Welcome') + ', ' + (user.displayName || user.email).split(' ')[0] + '!', 'success');
+    });
+  }).catch(function(err) {
+    if (btn) { btn.disabled = false; btn.textContent = mode === 'signup' ? (t.signup_submit || 'Create Account') : (t.auth_signin_title || 'Sign In'); }
+    const code = err && err.code;
+    if (code === 'auth/email-already-in-use') showErr(t.auth_error_email_in_use || 'This email is already in use');
+    else if (code === 'auth/wrong-password' || code === 'auth/user-not-found' || code === 'auth/invalid-credential') showErr(t.auth_error_wrong_password || 'Wrong email or password');
+    else if (code === 'auth/weak-password') showErr(t.auth_error_weak_password || 'Password must be at least 6 characters');
+    else showErr(t.generic_error || 'Something went wrong — try again');
+  });
 }
 
 function logoutUser() {
-  localStorage.removeItem('adawati_user');
-  document.getElementById('signupModal').remove();
-  updateSignupBtn();
+  loadFirebaseAuth().then(function(fb) { return fb.auth.signOut(); }).finally(function() {
+    try { localStorage.removeItem('adawati_uid'); } catch (e) {}
+    const modal = document.getElementById('signupModal');
+    if (modal) modal.remove();
+    updateAuthBtn();
+  });
 }
 
 /* ── PAGE_META: dynamic <title> + meta description per language ── */
@@ -1899,6 +2076,7 @@ function toggleFav(id) {
   const idx = favs.indexOf(id);
   if (idx > -1) favs.splice(idx, 1); else favs.push(id);
   saveFavs(favs);
+  syncFavsToCloud();
   renderFavSection();
   document.querySelectorAll('.fav-star[data-id="' + id + '"]').forEach(function(s) {
     s.textContent = isFav(id) ? '⭐' : '☆';
@@ -1912,6 +2090,7 @@ function trackRecent(id) {
   var list = getRecent().filter(function(x) { return x !== id; });
   list.unshift(id);
   localStorage.setItem('adawati_recent', JSON.stringify(list.slice(0, 6)));
+  syncRecentToCloud();
 }
 
 function buildMiniCard(id, t, base) {
@@ -2355,8 +2534,10 @@ function initOfflineBanner() {
 document.addEventListener('DOMContentLoaded', function() {
   initDarkMode();
   setLang(detectDefaultLang());
-  updateSignupBtn();
+  updateAuthBtn();
   injectDarkToggle();
+  injectAuthBtn();
+  restoreSessionIfAny();
   injectRelatedTools();
   initPWA();
   autoTrackRecent();
