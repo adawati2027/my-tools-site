@@ -90,6 +90,16 @@
 .faq-item.open .faq-a{display:block;}
 .faq-arrow{transition:transform .2s;font-size:12px;flex-shrink:0;}
 .faq-item.open .faq-arrow{transform:rotate(180deg);}
+.curr-combo{position:relative;}
+.curr-combo-input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  font-family:inherit;font-size:14px;background:var(--surface);color:var(--text);box-sizing:border-box;}
+.curr-combo-input:focus{outline:none;border-color:var(--primary);}
+.curr-combo-list{position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:20;max-height:220px;overflow-y:auto;
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  box-shadow:0 8px 24px rgba(0,0,0,.15);display:none;}
+.curr-combo-item{padding:9px 12px;font-size:13px;cursor:pointer;}
+.curr-combo-item:hover{background:var(--primary-light);}
+.curr-combo-empty{padding:9px 12px;font-size:13px;color:var(--text-muted);}
 </style>
 </head>
 <body>
@@ -123,14 +133,22 @@
     <div class="cur-row" style="margin-top:12px;">
       <div>
         <label id="fromLbl">From</label>
-        <select id="fromCurr" onchange="onFromChange()"></select>
+        <div class="curr-combo">
+          <input type="text" class="curr-combo-input" id="fromCurrSearch" autocomplete="off" placeholder="🔍">
+          <select id="fromCurr" onchange="onFromChange()" style="display:none;"></select>
+          <div class="curr-combo-list" id="fromCurrList"></div>
+        </div>
       </div>
       <div style="display:flex;align-items:flex-end;padding-bottom:2px;flex:0;">
         <button class="swap-btn" onclick="swapCurrencies()" title="Swap">⇄</button>
       </div>
       <div>
         <label id="toLbl">To</label>
-        <select id="toCurr" onchange="convert()"></select>
+        <div class="curr-combo">
+          <input type="text" class="curr-combo-input" id="toCurrSearch" autocomplete="off" placeholder="🔍">
+          <select id="toCurr" onchange="convert()" style="display:none;"></select>
+          <div class="curr-combo-list" id="toCurrList"></div>
+        </div>
       </div>
     </div>
 
@@ -338,6 +356,35 @@ const CURRENCIES = {
 const QUICK = ['USD','EUR','GBP','SAR','AED','OMR','EGP','JPY','CNY','INR'];
 const TABLE_CODES = ['USD','EUR','GBP','SAR','AED','KWD','EGP','INR','JPY','CNY','TRY','CAD','AUD'];
 
+const COUNTRY_CURRENCY = {
+  OM:'OMR', AE:'AED', SA:'SAR', JO:'JOD', KW:'KWD', QA:'QAR', BH:'BHD',
+  US:'USD', GB:'GBP', IN:'INR', PK:'PKR', BD:'BDT', EG:'EGP', TR:'TRY',
+  MY:'MYR', ID:'IDR', TH:'THB', JP:'JPY', CN:'CNY', KR:'KRW',
+  CA:'CAD', AU:'AUD', CH:'CHF', SE:'SEK', NO:'NOK', DK:'DKK', PL:'PLN',
+  RU:'RUB', BR:'BRL', MX:'MXN', ZA:'ZAR',
+  DE:'EUR', FR:'EUR', ES:'EUR', IT:'EUR', NL:'EUR', BE:'EUR', PT:'EUR',
+  IE:'EUR', AT:'EUR', FI:'EUR', GR:'EUR'
+};
+
+async function detectCountryCode() {
+  try {
+    const cc = sessionStorage.getItem('adawati_country');
+    if (cc) return cc;
+  } catch(e) {}
+  try {
+    const ctrl = new AbortController();
+    const tmr = setTimeout(() => ctrl.abort(), 2500);
+    const r = await fetch('https://api.country.is/', {signal: ctrl.signal});
+    clearTimeout(tmr);
+    const d = await r.json();
+    if (d && d.country) {
+      try { sessionStorage.setItem('adawati_country', d.country); } catch(e) {}
+      return d.country;
+    }
+  } catch(e) {}
+  return null;
+}
+
 const FALLBACK = {
   USD:1,EUR:0.92,GBP:0.79,SAR:3.75,AED:3.67,KWD:0.307,QAR:3.64,BHD:0.377,
   OMR:0.385,EGP:48.5,JOD:0.71,TRY:32.1,INR:83.2,PKR:278,BDT:110,MYR:4.7,
@@ -512,7 +559,51 @@ function ageText(ts) {
 }
 
 /* ── Selects ── */
-function populateSelects() {
+let fromCombo, toCombo;
+
+function initCombo(selectId, searchId, listId, onSelect) {
+  const select = document.getElementById(selectId);
+  const input  = document.getElementById(searchId);
+  const list   = document.getElementById(listId);
+  function labelFor(code) { return code ? code + ' — ' + (CURRENCIES[code]||'') : ''; }
+  function renderList(filter) {
+    const f = (filter||'').trim().toUpperCase();
+    const codes = Object.keys(CURRENCIES).filter(code =>
+      !f || code.indexOf(f) !== -1 || (CURRENCIES[code]||'').toUpperCase().indexOf(f) !== -1
+    );
+    list.innerHTML = '';
+    if (!codes.length) { list.innerHTML = '<div class="curr-combo-empty">—</div>'; return; }
+    codes.forEach(code => {
+      const item = document.createElement('div');
+      item.className = 'curr-combo-item';
+      item.textContent = labelFor(code);
+      item.onmousedown = function(e) {
+        e.preventDefault();
+        select.value = code;
+        input.value = labelFor(code);
+        list.style.display = 'none';
+        onSelect(code);
+      };
+      list.appendChild(item);
+    });
+  }
+  input.addEventListener('focus', function() { input.select(); renderList(''); list.style.display = 'block'; });
+  input.addEventListener('input', function() { renderList(input.value); list.style.display = 'block'; });
+  input.addEventListener('blur', function() {
+    setTimeout(function() { list.style.display = 'none'; input.value = labelFor(select.value); }, 150);
+  });
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { list.style.display = 'none'; input.blur(); }
+  });
+  return { sync: function() { input.value = labelFor(select.value); } };
+}
+
+function syncCombos() {
+  if (fromCombo) fromCombo.sync();
+  if (toCombo) toCombo.sync();
+}
+
+async function populateSelects() {
   const from = document.getElementById('fromCurr');
   const to   = document.getElementById('toCurr');
   let fH='', tH='';
@@ -521,7 +612,11 @@ function populateSelects() {
     fH += opt; tH += opt;
   });
   from.innerHTML = fH; to.innerHTML = tH;
-  from.value = 'USD'; to.value = 'SAR';
+  const cc = await detectCountryCode();
+  const localCcy = cc && COUNTRY_CURRENCY[cc];
+  from.value = (localCcy && CURRENCIES[localCcy] && localCcy !== 'USD') ? localCcy : 'EUR';
+  to.value   = 'USD';
+  syncCombos();
 }
 
 function buildQuickRow() {
@@ -529,10 +624,11 @@ function buildQuickRow() {
   wrap.innerHTML = '';
   QUICK.forEach(code => {
     const btn = document.createElement('button');
-    btn.className = 'quick-btn' + (code==='SAR'?' active':'');
+    btn.className = 'quick-btn' + (code===document.getElementById('toCurr').value?' active':'');
     btn.textContent = code;
     btn.onclick = () => {
       document.getElementById('toCurr').value = code;
+      syncCombos();
       wrap.querySelectorAll('.quick-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
       convert();
@@ -581,6 +677,7 @@ function swapCurrencies() {
   const f = document.getElementById('fromCurr');
   const t = document.getElementById('toCurr');
   [f.value, t.value] = [t.value, f.value];
+  syncCombos();
   convert();
 }
 
@@ -736,7 +833,7 @@ function updateText() {
 }
 
 /* ── Init ── */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   var _orig = window.setLang;
   window.setLang = function(lang) {
     if (_orig) _orig(lang);
@@ -746,7 +843,9 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   curLang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
   if (!CUR_T[curLang]) curLang = 'en';
-  populateSelects();
+  fromCombo = initCombo('fromCurr','fromCurrSearch','fromCurrList', () => onFromChange());
+  toCombo   = initCombo('toCurr','toCurrSearch','toCurrList', () => convert());
+  await populateSelects();
   buildQuickRow();
   updateText();
   fetchRates();
