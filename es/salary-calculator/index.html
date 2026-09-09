@@ -122,6 +122,7 @@
         </div>
       </div>
       <div id="salBreakdown" style="margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2.2;"></div>
+      <button id="salExportBtn" onclick="exportSalaryResult()" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);"></button>
     </div>
   </div>
 
@@ -292,7 +293,7 @@ const SAL_T = {
     lbl_basic:'الراتب الأساسي', lbl_housing:'بدل السكن', lbl_transport:'بدل النقل', lbl_other:'بدلات أخرى',
     lbl_gross:'الإجمالي قبل الخصم', lbl_spf_from:'خصم SPF (8% من الأساسي)', lbl_net:'الراتب الصافي',
     lbl_net_est:'الراتب الصافي التقديري (ر.ع)',
-    curr:'ر.ع'
+    curr:'ر.ع', export_btn:'📸 صدّر النتيجة كصورة', export_title:'حاسبة الراتب — عُمان'
   },
   en: {
     sub: 'Calculate your net salary under Oman\'s Social Protection Fund (SPF)',
@@ -318,7 +319,7 @@ const SAL_T = {
     lbl_basic:'Basic salary', lbl_housing:'Housing allowance', lbl_transport:'Transport allowance', lbl_other:'Other allowances',
     lbl_gross:'Gross salary', lbl_spf_from:'SPF deduction (8% of basic)', lbl_net:'Net salary',
     lbl_net_est:'Estimated Net Salary (OMR)',
-    curr:'OMR'
+    curr:'OMR', export_btn:'📸 Export Result as Image', export_title:'Salary Calculator — Oman'
   }
 };
 
@@ -339,6 +340,7 @@ function updateSalaryText() {
   setH('spfInfoBody', t.info_body);
   set('spfDisclaimer', t.disclaimer);
   set('netSalLabel', t.lbl_net_est || 'الراتب الصافي التقديري (ر.ع)');
+  set('salExportBtn', t.export_btn);
   setH('faqItems', t.faq.map(function(f, i) {
     return '<details style="margin-top:' + (i===0?'12':'8') + 'px;border:1px solid var(--border);border-radius:8px;padding:12px;">' +
       '<summary style="font-weight:700;cursor:pointer;font-size:14px;">' + f.q + '</summary>' +
@@ -395,6 +397,27 @@ function calculate() {
     t.lbl_net + ': <strong style="color:#16a34a;">' + net.toFixed(3) + ' ' + c + '</strong>';
 
   document.getElementById('salResult').style.display = 'block';
+}
+
+function exportSalaryResult() {
+  const t = getSAL();
+  const c = t.curr;
+  const basic = parseFloat(document.getElementById('basicSalary').value) || 0;
+  const housing = parseFloat(document.getElementById('housingAllowance').value) || 0;
+  const transport = parseFloat(document.getElementById('transportAllowance').value) || 0;
+  const other = parseFloat(document.getElementById('otherAllowance').value) || 0;
+  const gross = basic + housing + transport + other;
+  const spfDeduction = nationality === 'omani' ? basic * SPF_RATE : 0;
+  const net = gross - spfDeduction;
+  const rows = [];
+  rows.push({ label: t.lbl_basic, value: basic.toFixed(3) + ' ' + c });
+  if (housing > 0) rows.push({ label: t.lbl_housing, value: housing.toFixed(3) + ' ' + c });
+  if (transport > 0) rows.push({ label: t.lbl_transport, value: transport.toFixed(3) + ' ' + c });
+  if (other > 0) rows.push({ label: t.lbl_other, value: other.toFixed(3) + ' ' + c });
+  rows.push({ label: t.lbl_gross, value: gross.toFixed(3) + ' ' + c });
+  if (nationality === 'omani') rows.push({ label: t.lbl_spf_from, value: '−' + spfDeduction.toFixed(3) + ' ' + c });
+  rows.push({ label: t.lbl_net, value: net.toFixed(3) + ' ' + c, highlight: true });
+  if (typeof exportResultImage === 'function') exportResultImage(t.export_title, rows);
 }
 
 var _origSalSetLang;

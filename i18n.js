@@ -2270,6 +2270,116 @@ const RELATED_MAP = {
   'percentage-calculator': [['vat-calculator','🧾','vat_card_title'],['loan-calculator','🧮','loan_card_title'],['discount-calculator','💯','discount_card_title']],
 };
 
+/* ── Branded result-image export/share ──
+   Renders a shareable, designed image (portrait, WhatsApp-friendly) of a
+   calculator's result via plain Canvas 2D — no image/screenshot library
+   needed, works everywhere, and Arabic RTL renders correctly via
+   ctx.direction. Individual calculator pages call this with their own
+   already-computed rows; it does not read the DOM itself, since every
+   calculator's result markup is different. */
+function exportResultImage(titleText, rows) {
+  const lang = localStorage.getItem('lang') || 'en';
+  const isRtl = lang === 'ar';
+  const W = 1080, H = 1350;
+  const canvas = document.createElement('canvas');
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#2563eb');
+  bg.addColorStop(1, '#7c3aed');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.direction = isRtl ? 'rtl' : 'ltr';
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#fff';
+  ctx.font = '700 52px Tahoma, Arial, sans-serif';
+  ctx.fillText('⚡ ' + (isRtl ? 'أدواتي' : 'Adawati'), W / 2, 110);
+  ctx.font = '700 40px Tahoma, Arial, sans-serif';
+  wrapText(titleText, W / 2, 185, W - 160, 48);
+
+  const cardX = 60, cardY = 260, cardW = W - 120, cardH = H - 260 - 170;
+  roundRect(cardX, cardY, cardW, cardH, 32);
+  ctx.fillStyle = '#ffffff';
+  ctx.shadowColor = 'rgba(0,0,0,0.15)';
+  ctx.shadowBlur = 30;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+
+  let rowY = cardY + 100;
+  const rowMaxY = cardY + cardH - 40;
+  rows.forEach(function(r, i) {
+    const big = !!r.highlight;
+    ctx.textAlign = isRtl ? 'right' : 'left';
+    ctx.fillStyle = '#64748b';
+    ctx.font = '500 32px Tahoma, Arial, sans-serif';
+    ctx.fillText(r.label, isRtl ? cardX + cardW - 50 : cardX + 50, rowY);
+    ctx.textAlign = isRtl ? 'left' : 'right';
+    ctx.fillStyle = big ? '#2563eb' : '#0f172a';
+    ctx.font = (big ? '800 46px' : '700 36px') + ' Tahoma, Arial, sans-serif';
+    ctx.fillText(r.value, isRtl ? cardX + 50 : cardX + cardW - 50, rowY);
+    rowY += big ? 78 : 66;
+    if (i < rows.length - 1 && rowY < rowMaxY) {
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(cardX + 30, rowY - 28);
+      ctx.lineTo(cardX + cardW - 30, rowY - 28);
+      ctx.stroke();
+    }
+  });
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#fff';
+  ctx.font = '600 28px Tahoma, Arial, sans-serif';
+  ctx.fillText('adawati.space', W / 2, H - 55);
+
+  function wrapText(text, cx, y, maxWidth, lineHeight) {
+    const words = text.split(' ');
+    let line = '';
+    const lines = [];
+    for (let i = 0; i < words.length; i++) {
+      const test = line ? line + ' ' + words[i] : words[i];
+      if (ctx.measureText(test).width > maxWidth && line) {
+        lines.push(line);
+        line = words[i];
+      } else {
+        line = test;
+      }
+    }
+    if (line) lines.push(line);
+    lines.forEach(function(l, i) { ctx.fillText(l, cx, y + i * lineHeight); });
+  }
+
+  canvas.toBlob(function(blob) {
+    if (!blob) return;
+    const file = new File([blob], 'adawati-result.png', { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: titleText }).catch(function() {});
+    } else {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'adawati-result.png';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(function() { URL.revokeObjectURL(url); }, 4000);
+    }
+  }, 'image/png');
+}
+
 function injectShareBtn() {
   const page = _getPageSlug();
   if (!page || page === 'index') return;
