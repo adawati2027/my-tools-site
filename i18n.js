@@ -1856,35 +1856,54 @@ function renderFAQ(lang) {
 }
 
 function _getPageSlug() {
+  // Nested pages under /jo/, /om/, etc. all end in .../<tool-name>/index.html
+  // — the last path segment is always literally "index", so this used to
+  // return the single string "index" for every one of them (a shared id,
+  // making them all silently collide as "the same favorite"). Fall through
+  // to the parent folder name whenever the last segment is index/empty.
   var parts = location.pathname.split('/').filter(function(s) { return s.length > 0; });
-  var last = parts[parts.length - 1] || '';
-  return last.replace('.html', '') || (parts[parts.length - 2] || 'index');
+  var last = (parts[parts.length - 1] || '').replace('.html', '');
+  if (!last || last === 'index') return parts[parts.length - 2] || 'index';
+  return last;
 }
 
 function detectDefaultLang() {
   var urlLangs = ['ar', 'fr', 'es', 'de', 'ru'];
   var pathParts = location.pathname.split('/').filter(function(s) { return s.length > 0; });
-  // 1. Explicit language code in URL path — /ar/tool/, /fr/tool/ etc.
+  // 1. Explicit language code in URL path — /ar/tool/, /fr/tool/ etc. Always
+  //    wins: this is an unambiguous navigation signal (a direct link, a
+  //    translated search result) and must not be overridden by a stale
+  //    preference from a previous, differently-languaged visit.
   for (var i = 0; i < pathParts.length; i++) {
     if (urlLangs.indexOf(pathParts[i]) !== -1) {
       try { localStorage.setItem('lang', pathParts[i]); } catch(e) {}
       return pathParts[i];
     }
   }
-  // 2. Country-specific pages — /om/ → ar, /sa/ → ar, /ae/ /us/ /uk/ → en
+  // 2. A user's own explicit choice (setLang() via the dropdown) always
+  //    writes localStorage.lang — but this function used to never read it
+  //    back, so switching language only ever affected the current page view
+  //    and silently reverted on every subsequent navigation (user-reported:
+  //    "changing the language disappears"). Respect it before falling back
+  //    to any country-based guess.
+  try {
+    var savedLang = localStorage.getItem('lang');
+    if (savedLang && T[savedLang]) return savedLang;
+  } catch(e) {}
+  // 3. Country-specific pages — /om/ → ar, /sa/ → ar, /ae/ /us/ /uk/ → en
   var cmap = {om:'ar', sa:'ar', jo:'ar', ae:'en', us:'en', uk:'en'};
   for (var j = 0; j < pathParts.length; j++) {
     if (cmap[pathParts[j]] !== undefined) return cmap[pathParts[j]];
   }
-  // 3. Root pages (no language in URL): check this session's detected country
-  //    (set by initCountryDetect() when the user visited a country hub like /jo/)
-  //    rather than blindly forcing English and discarding that context.
+  // 4. Root pages (no language in URL, no saved preference yet): check this
+  //    session's detected country (set by initCountryDetect() when the user
+  //    visited a country hub like /jo/) rather than blindly forcing English.
   try {
     var sessCountry = sessionStorage.getItem('adawati_country');
     var countryLangMap = {OM:'ar', SA:'ar', JO:'ar', AE:'en', US:'en', GB:'en'};
     if (sessCountry && countryLangMap[sessCountry]) return countryLangMap[sessCountry];
   } catch(e) {}
-  // No session country detected: default to English.
+  // No saved preference and no session country detected: default to English.
   //    Arabic/French/Spanish users should use /ar/ /fr/ /es/ subdirectories.
   return 'en';
 }
@@ -2015,7 +2034,7 @@ function injectShareBtn() {
   const t = T[lang] || T.ar;
   const btn = document.createElement('button');
   btn.id = 'shareResultBtn';
-  btn.style.cssText = 'display:block;width:100%;margin-top:16px;padding:11px;background:var(--surface-2);border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--text);';
+  btn.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:16px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);';
   btn.textContent = '📤 ' + (t.share_btn || 'Share');
   btn.onclick = function() {
     const shareData = { title: document.title, url: location.href };
@@ -2117,18 +2136,51 @@ function trackRecent(id) {
   syncRecentToCloud();
 }
 
+function captureFavMeta(id) {
+  // TOOL_META only covers the ~30 original root-level tools — every /jo/,
+  // /om/, /ae/... country-vertical page (100+, and growing) is missing from
+  // it, so favoriting one used to render nothing in the favorites section
+  // (buildMiniCard returned null). Capture title+url from the live page
+  // itself so any page can be favorited, not just the ones in the registry.
+  try {
+    var meta = JSON.parse(localStorage.getItem('adawati_fav_meta') || '{}');
+    var h1 = document.querySelector('h1');
+    var title = (h1 && h1.textContent.trim()) || document.title.split('|')[0].split('—')[0].trim() || id;
+    meta[id] = { title: title, url: location.pathname };
+    localStorage.setItem('adawati_fav_meta', JSON.stringify(meta));
+  } catch (e) {}
+}
+
 function buildMiniCard(id, t, base) {
   const meta = TOOL_META[id];
-  if (!meta) return null;
+  if (meta) {
+    const a = document.createElement('a');
+    a.href = base + '/' + id + '.html';
+    a.className = 'tool-card';
+    a.style.position = 'relative';
+    a.innerHTML =
+      '<div class="tool-icon-wrap" style="background:' + meta.bg + ';">' + meta.icon + '</div>' +
+      '<div class="tool-card-title" data-i18n="' + meta.titleKey + '">' + (t[meta.titleKey] || id) + '</div>' +
+      '<div class="tool-card-desc" data-i18n="' + meta.descKey + '">' + (t[meta.descKey] || '') + '</div>' +
+      '<div class="tool-card-arrow" data-i18n="start">' + (t.start || '→') + '</div>';
+    return a;
+  }
+  // Fallback for pages outside TOOL_META: use metadata captured when the
+  // page itself was visited/favorited (see captureFavMeta). Not available
+  // if this favorite arrived via cross-device sync and this device never
+  // visited that page locally — an accepted limitation, not a crash.
+  var favMeta;
+  try { favMeta = JSON.parse(localStorage.getItem('adawati_fav_meta') || '{}')[id]; } catch (e) {}
+  if (!favMeta) return null;
   const a = document.createElement('a');
-  a.href = base + '/' + id + '.html';
+  a.href = favMeta.url;
   a.className = 'tool-card';
   a.style.position = 'relative';
   a.innerHTML =
-    '<div class="tool-icon-wrap" style="background:' + meta.bg + ';">' + meta.icon + '</div>' +
-    '<div class="tool-card-title" data-i18n="' + meta.titleKey + '">' + (t[meta.titleKey] || id) + '</div>' +
-    '<div class="tool-card-desc" data-i18n="' + meta.descKey + '">' + (t[meta.descKey] || '') + '</div>' +
-    '<div class="tool-card-arrow" data-i18n="start">' + (t.start || '→') + '</div>';
+    '<div class="tool-icon-wrap" style="background:#f0f9ff;">🔧</div>' +
+    '<div class="tool-card-title">' + favMeta.title + '</div>' +
+    '<div class="tool-card-desc"></div>' +
+    '<div class="tool-card-arrow">' + (t.start || '→') + '</div>';
   return a;
 }
 
@@ -2489,9 +2541,15 @@ function initHomePrompt() {
    the hub-grid stars use, so both stay in sync automatically. */
 function injectPageFavStar() {
   var page = _getPageSlug();
-  if (!TOOL_META[page]) return;
+  if (!page || page === 'index') return;
   var header = document.querySelector('.page-header');
   if (!header || header.querySelector('.fav-star')) return;
+  // Proactively cache this page's title/url so it renders correctly in the
+  // favorites section later even if TOOL_META doesn't know about it (see
+  // captureFavMeta / buildMiniCard) — capture on every visit, not just when
+  // the star is actually clicked, so cross-page favoriting from the hub
+  // grid still resolves once the user has viewed the page at least once.
+  if (!TOOL_META[page]) captureFavMeta(page);
   var lang = localStorage.getItem('lang') || 'en';
   var t = T[lang] || T.en;
   var star = document.createElement('button');
@@ -2500,6 +2558,7 @@ function injectPageFavStar() {
   star.title = isFav(page) ? (t.remove_fav || 'Remove from Favorites') : (t.add_fav || 'Add to Favorites');
   star.innerHTML = '<span class="fav-star-icon">' + (isFav(page) ? '⭐' : '☆') + '</span>';
   star.onclick = function() {
+    if (!TOOL_META[page]) captureFavMeta(page);
     toggleFav(page);
     var lang2 = localStorage.getItem('lang') || 'en';
     var t2 = T[lang2] || T.en;
