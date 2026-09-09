@@ -1,4 +1,4 @@
-const CACHE = 'adawati-v59';
+const CACHE = 'adawati-v60';
 const BASE = '';
 const STATIC = [
   BASE + '/',
@@ -113,6 +113,14 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
+  // Firebase Auth/Firestore + Google Sign-In: let the browser handle these natively.
+  // Auth/Firestore calls are POSTs — Cache.put() throws on non-GET, and these must
+  // never be served stale anyway.
+  if (url.hostname === 'www.gstatic.com' || url.hostname === 'identitytoolkit.googleapis.com'
+      || url.hostname === 'securetoken.googleapis.com' || url.hostname === 'firestore.googleapis.com'
+      || url.hostname === 'accounts.google.com' || url.hostname === 'apis.google.com') {
+    return;
+  }
   // Network-first for live currency APIs
   if (url.hostname === 'open.er-api.com' || url.hostname === 'api.frankfurter.app' || url.hostname === 'api.exchangerate-api.com' || url.hostname === 'api.country.is') {
     e.respondWith(fetch(e.request).catch(() => new Response('{}', { headers: { 'Content-Type': 'application/json' } })));
