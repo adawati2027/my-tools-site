@@ -1713,21 +1713,34 @@ function signInGoogle(lang) {
     });
     return;
   }
-  // Mobile browsers (mainly iOS Safari) routinely fail signInWithPopup: the
-  // SDK's own async loading eats the "user gesture" window Safari requires
-  // before it'll allow window.open, and its cross-site storage/ITP rules
-  // block the hidden auth-relay iframe popup mode depends on — Firebase's
-  // own docs recommend signInWithRedirect for mobile web for this reason.
-  const useRedirect = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  // Popup is the primary path on every platform, including mobile web —
+  // live-tested: signInWithRedirect (tried first, matching Firebase's own
+  // generic mobile-web guidance) reproducibly failed here even with
+  // explicit setPersistence(LOCAL) — the OAuth exchange completes
+  // server-side (confirmed via a full redirect-chain trace: Google returns
+  // a real auth code and the final hop lands back on the app) but
+  // getRedirectResult() on the returning page still resolves to a null
+  // user with no thrown error, both before and after the persistence fix.
+  // Root cause not fully isolated (likely an interaction between this
+  // Firebase compat SDK version and the authDomain iframe relay across a
+  // hard page reload) — rather than keep chasing it blind, popup is used
+  // everywhere since it's proven to complete reliably end-to-end
+  // (verified with a real account, session persists across reload).
+  // signInWithRedirect is kept ONLY as a last-resort fallback for the
+  // narrow case where the popup is actually blocked by the browser.
   loadFirebaseAuth().then(function(fb) {
     const provider = new firebase.auth.GoogleAuthProvider();
-    if (useRedirect) {
-      try { localStorage.setItem('adawati_google_redirect_pending', '1'); } catch (e) {}
-      return fb.auth.signInWithRedirect(provider);
-    }
     return fb.auth.signInWithPopup(provider).then(function(cred) { return finishSignIn(cred.user); });
   }).catch(function(err) {
     if (err && err.code === 'auth/popup-closed-by-user') return;
+    if (err && (err.code === 'auth/popup-blocked' || err.code === 'auth/operation-not-supported-in-this-environment')) {
+      loadFirebaseAuth().then(function(fb) {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        try { localStorage.setItem('adawati_google_redirect_pending', '1'); } catch (e) {}
+        return fb.auth.signInWithRedirect(provider);
+      }).catch(function() { showErr(t.generic_error || 'Something went wrong — try again'); });
+      return;
+    }
     showErr(t.generic_error || 'Something went wrong — try again');
   });
 }
@@ -1740,11 +1753,18 @@ function checkGoogleRedirectResult() {
   loadFirebaseAuth().then(function(fb) {
     return fb.auth.getRedirectResult();
   }).then(function(result) {
-    if (!result || !result.user) return;
+    const lang = localStorage.getItem('lang') || 'en';
+    const t = T[lang] || T.ar;
+    if (!result || !result.user) {
+      // A pending flag was set right before navigating away, so this branch
+      // means the redirect round-trip didn't hand back a usable result —
+      // tell the visitor rather than leaving them wondering if anything
+      // happened (this used to fail completely silently).
+      showToast(t.generic_error || 'Something went wrong — try again', 'error');
+      return;
+    }
     return onAuthSuccessSync(result.user).then(function() {
       updateAuthBtn();
-      const lang = localStorage.getItem('lang') || 'en';
-      const t = T[lang] || T.ar;
       showToast((t.signup_welcome || 'Welcome') + ', ' + (result.user.displayName || result.user.email).split(' ')[0] + '!', 'success');
     });
   }).catch(function() {
