@@ -1358,7 +1358,12 @@ function openAuthModal() {
   modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
 
   const box = document.createElement('div');
-  box.style.cssText = 'background:#fff;border-radius:16px;padding:32px 28px;max-width:380px;width:100%;box-shadow:0 20px 40px rgba(0,0,0,0.15);';
+  // color-scheme:light is required here, not just background:#fff — without
+  // it, a phone set to system dark mode makes the browser auto-dark-style
+  // native <input> elements (dark fill, washed-out text) even though this
+  // box's own background stays explicitly white, since color-scheme is what
+  // actually governs default form-control rendering, not the parent bg.
+  box.style.cssText = 'background:#fff;color:#0f172a;color-scheme:light;border-radius:16px;padding:32px 28px;max-width:380px;width:100%;box-shadow:0 20px 40px rgba(0,0,0,0.15);';
 
   if (user) {
     box.style.textAlign = 'center';
@@ -1420,7 +1425,7 @@ function openAuthModal() {
       lbl1.textContent = t.signup_name || 'Name';
       const inp1 = document.createElement('input');
       inp1.id = 'su_name'; inp1.type = 'text'; inp1.maxLength = 60;
-      inp1.style.cssText = 'width:100%;padding:11px 16px;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-family:inherit;margin-bottom:14px;box-sizing:border-box;';
+      inp1.style.cssText = 'width:100%;padding:11px 16px;background:#fff;color:#0f172a;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-family:inherit;margin-bottom:14px;box-sizing:border-box;';
       fields.push(lbl1, inp1);
     }
     const lbl2 = document.createElement('label');
@@ -1428,13 +1433,13 @@ function openAuthModal() {
     lbl2.textContent = t.signup_email || 'Email';
     const inp2 = document.createElement('input');
     inp2.id = 'su_email'; inp2.type = 'email'; inp2.dir = 'ltr'; inp2.maxLength = 120;
-    inp2.style.cssText = 'width:100%;padding:11px 16px;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-family:inherit;margin-bottom:14px;box-sizing:border-box;';
+    inp2.style.cssText = 'width:100%;padding:11px 16px;background:#fff;color:#0f172a;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-family:inherit;margin-bottom:14px;box-sizing:border-box;';
     const lbl3 = document.createElement('label');
     lbl3.style.cssText = 'display:block;font-size:13px;font-weight:700;margin-bottom:6px;';
     lbl3.textContent = t.auth_password || 'Password';
     const inp3 = document.createElement('input');
     inp3.id = 'su_pass'; inp3.type = 'password'; inp3.dir = 'ltr'; inp3.maxLength = 100;
-    inp3.style.cssText = 'width:100%;padding:11px 16px;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-family:inherit;margin-bottom:20px;box-sizing:border-box;';
+    inp3.style.cssText = 'width:100%;padding:11px 16px;background:#fff;color:#0f172a;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-family:inherit;margin-bottom:20px;box-sizing:border-box;';
     fields.push(lbl2, inp2, lbl3, inp3);
 
     const submitBtn = document.createElement('button');
@@ -1545,13 +1550,44 @@ function signInGoogle(lang) {
     });
     return;
   }
+  // Mobile browsers (mainly iOS Safari) routinely fail signInWithPopup: the
+  // SDK's own async loading eats the "user gesture" window Safari requires
+  // before it'll allow window.open, and its cross-site storage/ITP rules
+  // block the hidden auth-relay iframe popup mode depends on — Firebase's
+  // own docs recommend signInWithRedirect for mobile web for this reason.
+  const useRedirect = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
   loadFirebaseAuth().then(function(fb) {
     const provider = new firebase.auth.GoogleAuthProvider();
-    return fb.auth.signInWithPopup(provider);
-  }).then(function(cred) { return finishSignIn(cred.user); })
-  .catch(function(err) {
+    if (useRedirect) {
+      try { localStorage.setItem('adawati_google_redirect_pending', '1'); } catch (e) {}
+      return fb.auth.signInWithRedirect(provider);
+    }
+    return fb.auth.signInWithPopup(provider).then(function(cred) { return finishSignIn(cred.user); });
+  }).catch(function(err) {
     if (err && err.code === 'auth/popup-closed-by-user') return;
     showErr(t.generic_error || 'Something went wrong — try again');
+  });
+}
+
+function checkGoogleRedirectResult() {
+  let pending = false;
+  try { pending = localStorage.getItem('adawati_google_redirect_pending') === '1'; } catch (e) {}
+  if (!pending) return;
+  try { localStorage.removeItem('adawati_google_redirect_pending'); } catch (e) {}
+  loadFirebaseAuth().then(function(fb) {
+    return fb.auth.getRedirectResult();
+  }).then(function(result) {
+    if (!result || !result.user) return;
+    return onAuthSuccessSync(result.user).then(function() {
+      updateAuthBtn();
+      const lang = localStorage.getItem('lang') || 'en';
+      const t = T[lang] || T.ar;
+      showToast((t.signup_welcome || 'Welcome') + ', ' + (result.user.displayName || result.user.email).split(' ')[0] + '!', 'success');
+    });
+  }).catch(function() {
+    const lang = localStorage.getItem('lang') || 'en';
+    const t = T[lang] || T.ar;
+    showToast(t.generic_error || 'Something went wrong — try again', 'error');
   });
 }
 
@@ -2678,6 +2714,7 @@ document.addEventListener('DOMContentLoaded', function() {
   injectDarkToggle();
   injectAuthBtn();
   restoreSessionIfAny();
+  checkGoogleRedirectResult();
   injectShareBtn();
   injectRelatedTools();
   initPWA();
