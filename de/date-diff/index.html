@@ -130,6 +130,7 @@
         </div>
       </div>
       <div id="ddNote" style="margin-top:12px;padding:12px 14px;background:var(--surface-2);border-radius:8px;font-size:14px;line-height:1.8;"></div>
+      <button onclick="exportDateDiffResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
   </div>
 
@@ -433,6 +434,20 @@ function calculate() {
     (negative ? '<br><span style="color:#dc2626;">' + t.note_swap + '</span>' : '');
 
   document.getElementById('ddResult').style.display = 'block';
+}
+
+function exportDateDiffResult() {
+  const total = document.getElementById('totalDaysDisplay').textContent;
+  if (!total) return;
+  const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
+  const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
+  const rows = [
+    { label: document.querySelector('#ddResult .stat-lbl[data-i18n="dd_years_lbl"]').textContent, value: document.getElementById('yearsDisplay').textContent },
+    { label: document.querySelector('#ddResult .stat-lbl[data-i18n="dd_months_lbl"]').textContent, value: document.getElementById('monthsDisplay').textContent },
+    { label: document.querySelector('#ddResult .stat-lbl[data-i18n="dd_days_lbl"]').textContent, value: document.getElementById('daysDisplay').textContent },
+    { label: document.querySelector('#ddResult .result-label').textContent, value: total, highlight: true }
+  ];
+  if (typeof exportResultImage === 'function') exportResultImage(t.dd_card_title || 'Date Difference Calculator', rows);
 }
 
 function showUpcoming() {

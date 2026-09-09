@@ -162,6 +162,7 @@
     </div>
 
     <div id="midmarketNote" style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:6px;"></div>
+    <button onclick="exportCurrencyResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
 
     <!-- Status bar -->
     <div class="rate-meta">
@@ -671,6 +672,16 @@ function convert() {
   document.getElementById('resultVal').textContent = fmtNum(result) + ' ' + to;
   document.getElementById('rateLabel').textContent = `1 ${from} = ${fmtRate(rate1)} ${to}`;
   buildRateTable();
+}
+
+function exportCurrencyResult() {
+  const val = document.getElementById('resultVal').textContent;
+  const lbl = document.getElementById('rateLabel').textContent;
+  if (!val || val === '—') return;
+  const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
+  const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
+  const rows = [{ label: lbl, value: val, highlight: true }];
+  if (typeof exportResultImage === 'function') exportResultImage(t.currency_card_title || 'Currency Converter', rows);
 }
 
 function swapCurrencies() {

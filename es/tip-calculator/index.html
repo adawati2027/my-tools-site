@@ -93,6 +93,7 @@
         <div class="result-value" id="perPerson"></div>
         <div class="result-label" data-i18n="tip_per_person">Per person</div>
       </div>
+      <button onclick="exportTipResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
   </div>
 
@@ -195,6 +196,19 @@ function calcTip() {
   document.getElementById('totalAmt').textContent = total.toFixed(2);
   document.getElementById('perPerson').textContent = (total / people).toFixed(2);
   document.getElementById('results').style.display = 'block';
+}
+
+function exportTipResult() {
+  const per = document.getElementById('perPerson').textContent;
+  if (!per) return;
+  const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
+  const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
+  const rows = [
+    { label: t.tip_amount || 'Tip amount', value: document.getElementById('tipAmt').textContent },
+    { label: t.tip_total || 'Total', value: document.getElementById('totalAmt').textContent },
+    { label: t.tip_per_person || 'Per person', value: per, highlight: true }
+  ];
+  if (typeof exportResultImage === 'function') exportResultImage(t.tip_title || 'Tip Calculator', rows);
 }
 </script>
 <script src="i18n.js?v=42" defer></script>

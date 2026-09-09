@@ -84,6 +84,7 @@
       <label for="p2" data-i18n="percent_label2">% of the number</label>
       <input type="number" id="p2" placeholder="200" oninput="calcPercent()">
       <div id="result1" class="result-box success"><div class="result-value" id="percentResult"></div></div>
+      <button onclick="exportDiscountResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
     <div class="section" id="section-discount">
       <label for="d1" data-i18n="discount_label1">Original price</label>
@@ -91,6 +92,7 @@
       <label for="d2" data-i18n="discount_label2">Discount %</label>
       <input type="number" id="d2" placeholder="20" oninput="calcDiscount()">
       <div id="result2" class="result-box success"><div class="result-value" id="discountResult"></div><div class="result-label" id="discountSub"></div></div>
+      <button onclick="exportDiscountResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
   </div>
 
@@ -190,6 +192,27 @@ function calcDiscount() {
   document.getElementById('discountResult').textContent=final.toFixed(2).replace(/\.?0+$/,'');
   document.getElementById('discountSub').textContent=`- ${saved.toFixed(2).replace(/\.?0+$/,'')}`;
   box.classList.add('show');
+}
+
+function exportDiscountResult() {
+  const activeTab = document.querySelector('.tab.active');
+  const which = activeTab ? activeTab.getAttribute('data-tab') : 'percent';
+  const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
+  const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
+  let rows;
+  if (which === 'discount') {
+    const val = document.getElementById('discountResult').textContent;
+    if (!val) return;
+    rows = [
+      { label: (t.discount_label1 || 'Original price') + ' → ' + (t.discount_label2 || 'Discount %'), value: document.getElementById('d1').value + ' / ' + document.getElementById('d2').value + '%' },
+      { label: t.discount_label1 || 'Price after discount', value: val, highlight: true }
+    ];
+  } else {
+    const val = document.getElementById('percentResult').textContent;
+    if (!val) return;
+    rows = [{ label: (t.percent_label1 || 'Percentage') + ' ' + (t.percent_label2 || ''), value: val, highlight: true }];
+  }
+  if (typeof exportResultImage === 'function') exportResultImage(t.discount_title || 'Percentage & Discount Calculator', rows);
 }
 </script>
 <script src="i18n.js?v=42" defer></script>

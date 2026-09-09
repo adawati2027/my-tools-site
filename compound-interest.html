@@ -153,6 +153,7 @@
           <span><span style="display:inline-block;width:10px;height:10px;background:#16a34a;border-radius:2px;margin-left:4px;"></span>Interest</span>
         </div>
       </div>
+      <button onclick="exportCompoundResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:16px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
   </div>
 
@@ -356,6 +357,20 @@ function calculate() {
 
   document.getElementById('ciResult').style.display = 'block';
   document.getElementById('tableCard').style.display = 'block';
+}
+
+function exportCompoundResult() {
+  const final = document.getElementById('finalAmount').textContent;
+  if (!final) return;
+  const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
+  const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
+  const rows = [
+    { label: t.ci_capital_lbl || 'Original principal', value: document.getElementById('principalDisplay').textContent },
+    { label: t.ci_additions_lbl || 'Total contributions', value: document.getElementById('totalContrib').textContent },
+    { label: t.ci_interest_lbl || 'Total interest', value: document.getElementById('interestEarned').textContent },
+    { label: t.ci_result_lbl || 'Final amount', value: final, highlight: true }
+  ];
+  if (typeof exportResultImage === 'function') exportResultImage(t.ci_card_title || 'Compound Interest Calculator', rows);
 }
 </script>
 <script src="i18n.js?v=42" defer></script>

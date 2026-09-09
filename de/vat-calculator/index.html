@@ -111,6 +111,7 @@
         </div>
       </div>
       <div id="vatBreakdown" style="margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2;"></div>
+      <button onclick="exportVatResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
   </div>
 
@@ -363,6 +364,19 @@ function calculate() {
     breakdown.innerHTML += '<br><em style="font-size:12px;color:#64748b;">⚠️ VAT has not been applied in this country yet.</em>';
   }
   document.getElementById('vatResult').style.display = 'block';
+}
+
+function exportVatResult() {
+  const total = document.getElementById('totalDisplay').textContent;
+  if (!total) return;
+  const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
+  const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
+  const rows = [
+    { label: t.vat_rate_lbl || 'Tax rate', value: document.getElementById('rateDisplay').textContent },
+    { label: t.vat_tax_lbl || 'Tax amount', value: document.getElementById('taxDisplay').textContent },
+    { label: document.getElementById('totalLabel').textContent, value: total, highlight: true }
+  ];
+  if (typeof exportResultImage === 'function') exportResultImage(t.vat_card_title || 'VAT Calculator', rows);
 }
 
 var VAT_UI={
