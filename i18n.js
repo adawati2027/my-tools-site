@@ -2280,7 +2280,14 @@ const RELATED_MAP = {
 function exportResultImage(titleText, rows) {
   const lang = localStorage.getItem('lang') || 'en';
   const isRtl = lang === 'ar';
-  const W = 1080, H = 1350;
+  const W = 1080;
+  // Height follows row count instead of a fixed value — a 3-row result
+  // (e.g. a simple percentage calc) shouldn't render with a huge empty
+  // card, and a long breakdown (e.g. a loan amortization summary)
+  // shouldn't get clipped.
+  const rowsHeight = rows.reduce((sum, r) => sum + (r.highlight ? 78 : 66), 0);
+  const H = Math.min(Math.max(260 + (rowsHeight + 140) + 170, 900), 1920);
+  const cardH = H - 260 - 170;
   const canvas = document.createElement('canvas');
   canvas.width = W; canvas.height = H;
   const ctx = canvas.getContext('2d');
@@ -2309,7 +2316,7 @@ function exportResultImage(titleText, rows) {
   ctx.font = '700 40px Tahoma, Arial, sans-serif';
   wrapText(titleText, W / 2, 185, W - 160, 48);
 
-  const cardX = 60, cardY = 260, cardW = W - 120, cardH = H - 260 - 170;
+  const cardX = 60, cardY = 260, cardW = W - 120;
   roundRect(cardX, cardY, cardW, cardH, 32);
   ctx.fillStyle = '#ffffff';
   ctx.shadowColor = 'rgba(0,0,0,0.15)';
