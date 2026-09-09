@@ -2367,6 +2367,19 @@ function exportResultImage(titleText, rows) {
   ctx.fill();
   ctx.shadowBlur = 0;
 
+  // A row's label/value can be pure Latin (a currency code, "1 EUR = 1.16
+  // USD", an English abbreviation) even while the card itself is in Arabic
+  // — rendering those with ctx.direction still set to 'rtl' bidi-reorders
+  // the whole string ("1 EUR = 1.16 USD" becomes "EUR = 1.16 USD 1"), the
+  // same class of bug fixed elsewhere in this file for untranslated static
+  // text. ctx.textAlign stays anchored to the fixed x position regardless;
+  // only ctx.direction (which governs internal character/word reordering)
+  // needs to match the string's own script, not the card's overall layout.
+  function fillRowText(str, x) {
+    ctx.direction = /[؀-ۿ]/.test(str) ? 'rtl' : 'ltr';
+    ctx.fillText(str, x, rowY);
+  }
+
   let rowY = cardY + 100;
   const rowMaxY = cardY + cardH - 40;
   rows.forEach(function(r, i) {
@@ -2374,11 +2387,11 @@ function exportResultImage(titleText, rows) {
     ctx.textAlign = isRtl ? 'right' : 'left';
     ctx.fillStyle = '#64748b';
     ctx.font = '500 32px Tahoma, Arial, sans-serif';
-    ctx.fillText(r.label, isRtl ? cardX + cardW - 50 : cardX + 50, rowY);
+    fillRowText(r.label, isRtl ? cardX + cardW - 50 : cardX + 50);
     ctx.textAlign = isRtl ? 'left' : 'right';
     ctx.fillStyle = big ? '#2563eb' : '#0f172a';
     ctx.font = (big ? '800 46px' : '700 36px') + ' Tahoma, Arial, sans-serif';
-    ctx.fillText(r.value, isRtl ? cardX + 50 : cardX + cardW - 50, rowY);
+    fillRowText(r.value, isRtl ? cardX + 50 : cardX + cardW - 50);
     rowY += big ? 78 : 66;
     if (i < rows.length - 1 && rowY < rowMaxY) {
       ctx.strokeStyle = '#e2e8f0';
