@@ -112,7 +112,7 @@ cty_global:'العالمي', cty_om:'عمان', cty_ae:'الإمارات', cty_s
     sw_lap:'دورة', sw_reset:'إعادة', timer_min:'دقائق', timer_sec:'ثواني', timer_done:'⏰ انتهى الوقت!',
     cat_all:'الكل', cat_health:'💪 الصحة', cat_money:'💰 المال', cat_productivity:'⚙️ الإنتاجية', cat_quick:'⚡ سريعة',
     search_placeholder:'ابحث عن أداة...', search_no_results:'لم يُعثر على أداة بهذا الاسم',
-    related_title:'أدوات ذات صلة',
+    related_title:'أدوات ذات صلة', share_btn:'مشاركة', share_result_copied:'✅ تم نسخ الرابط',
     pwa_title:'ثبّت التطبيق', pwa_sub:'أضف أدواتي للشاشة الرئيسية للوصول السريع بدون إنترنت', pwa_install:'تثبيت', pwa_later:'لاحقاً',
     cat_oman:'🌍 عمان', cat_games:'🎮 ألعاب', cat_education:'🧒 تعليم',
     guess_card_title:'لعبة تخمين الرقم', guess_card_desc:'خمّن الرقم السري في أقل عدد من المحاولات',
@@ -357,7 +357,7 @@ cty_global:'Global', cty_om:'Oman', cty_ae:'UAE', cty_sa:'Saudi Arabia', cty_us:
     sw_lap:'Lap', sw_reset:'Reset', timer_min:'Minutes', timer_sec:'Seconds', timer_done:'⏰ Time\'s up!',
     cat_all:'All', cat_health:'💪 Health', cat_money:'💰 Money', cat_productivity:'⚙️ Productivity', cat_quick:'⚡ Quick',
     search_placeholder:'Search tools...', search_no_results:'No tools found with that name',
-    related_title:'Related Tools',
+    related_title:'Related Tools', share_btn:'Share', share_result_copied:'✅ Link copied',
     pwa_title:'Install App', pwa_sub:'Add Adawati to your home screen for quick offline access', pwa_install:'Install', pwa_later:'Later',
     cat_oman:'🌍 Oman', cat_games:'🎮 Games', cat_education:'🧒 Kids',
     guess_card_title:'Number Guessing Game', guess_card_desc:'Guess the secret number in as few tries as possible',
@@ -542,7 +542,7 @@ cty_global:'Mondial', cty_om:'Oman', cty_ae:'Émirats arabes unis', cty_sa:'Arab
     sw_tab:'Chronomètre', timer_tab:'Minuteur', sw_start:'Démarrer', sw_pause:'Pause',
     sw_lap:'Tour', sw_reset:'Réinitialiser', timer_min:'Minutes', timer_sec:'Secondes', timer_done:'⏰ Temps écoulé!',
     cat_all:'Tous', cat_health:'💪 Santé', cat_money:'💰 Argent', cat_productivity:'⚙️ Productivité', cat_quick:'⚡ Rapides',
-    search_placeholder:'Rechercher un outil...', search_no_results:'Aucun outil trouvé', related_title:'Outils similaires',
+    search_placeholder:'Rechercher un outil...', search_no_results:'Aucun outil trouvé', related_title:'Outils similaires', share_btn:'Partager', share_result_copied:'✅ Lien copié',
     pwa_title:'Installer l\'app', pwa_sub:'Ajoutez Adawati à votre écran d\'accueil', pwa_install:'Installer', pwa_later:'Plus tard',
     cat_oman:'🌍 Oman', cat_games:'🎮 Jeux', cat_education:'🧒 Enfants',
     guess_card_title:'Jeu de devinette de nombre', guess_card_desc:'Devinez le nombre secret en un minimum d\'essais',
@@ -720,7 +720,7 @@ cty_global:'Global', cty_om:'Omán', cty_ae:'Emiratos Árabes Unidos', cty_sa:'A
     sw_tab:'Cronómetro', timer_tab:'Temporizador', sw_start:'Iniciar', sw_pause:'Pausar',
     sw_lap:'Vuelta', sw_reset:'Reiniciar', timer_min:'Minutos', timer_sec:'Segundos', timer_done:'⏰ ¡Tiempo terminado!',
     cat_all:'Todos', cat_health:'💪 Salud', cat_money:'💰 Dinero', cat_productivity:'⚙️ Productividad', cat_quick:'⚡ Rápidas',
-    search_placeholder:'Buscar herramienta...', search_no_results:'No se encontraron herramientas', related_title:'Herramientas relacionadas',
+    search_placeholder:'Buscar herramienta...', search_no_results:'No se encontraron herramientas', related_title:'Herramientas relacionadas', share_btn:'Compartir', share_result_copied:'✅ Enlace copiado',
     pwa_title:'Instalar app', pwa_sub:'Añade Adawati a tu pantalla de inicio', pwa_install:'Instalar', pwa_later:'Después',
     cat_oman:'🌍 Omán', cat_games:'🎮 Juegos', cat_education:'🧒 Educación',
     guess_card_title:'Juego de adivinar número', guess_card_desc:'Adivina el número secreto en el menor número de intentos',
@@ -898,7 +898,7 @@ cty_global:'Global', cty_om:'Oman', cty_ae:'Vereinigte Arabische Emirate', cty_s
     sw_tab:'Stoppuhr', timer_tab:'Timer', sw_start:'Starten', sw_pause:'Pause',
     sw_lap:'Runde', sw_reset:'Zurücksetzen', timer_min:'Minuten', timer_sec:'Sekunden', timer_done:'⏰ Zeit abgelaufen!',
     cat_all:'Alle', cat_health:'💪 Gesundheit', cat_money:'💰 Geld', cat_productivity:'⚙️ Produktivität', cat_quick:'⚡ Schnell',
-    search_placeholder:'Werkzeug suchen...', search_no_results:'Kein Werkzeug gefunden', related_title:'Ähnliche Werkzeuge',
+    search_placeholder:'Werkzeug suchen...', search_no_results:'Kein Werkzeug gefunden', related_title:'Ähnliche Werkzeuge', share_btn:'Teilen', share_result_copied:'✅ Link kopiert',
     pwa_title:'App installieren', pwa_sub:'Adawati zum Startbildschirm hinzufügen', pwa_install:'Installieren', pwa_later:'Später',
     cat_oman:'🌍 Oman', cat_games:'🎮 Spiele', cat_education:'🧒 Kinder',
     guess_card_title:'Zahlen-Ratespiel', guess_card_desc:'Errate die geheime Zahl in so wenig Versuchen wie möglich',
@@ -1076,7 +1076,7 @@ cty_global:'Глобально', cty_om:'Оман', cty_ae:'ОАЭ', cty_sa:'С�
     sw_tab:'Секундомер', timer_tab:'Таймер', sw_start:'Старт', sw_pause:'Пауза',
     sw_lap:'Круг', sw_reset:'Сброс', timer_min:'Минуты', timer_sec:'Секунды', timer_done:'⏰ Время вышло!',
     cat_all:'Все', cat_health:'💪 Здоровье', cat_money:'💰 Деньги', cat_productivity:'⚙️ Продуктивность', cat_quick:'⚡ Быстрые',
-    search_placeholder:'Поиск инструментов...', search_no_results:'Инструменты не найдены', related_title:'Похожие инструменты',
+    search_placeholder:'Поиск инструментов...', search_no_results:'Инструменты не найдены', related_title:'Похожие инструменты', share_btn:'Поделиться', share_result_copied:'✅ Ссылка скопирована',
     pwa_title:'Установить приложение', pwa_sub:'Добавьте Adawati на главный экран', pwa_install:'Установить', pwa_later:'Позже',
     cat_oman:'🌍 Оман', cat_games:'🎮 Игры', cat_education:'🧒 Обучение',
     guess_card_title:'Игра «Угадай число»', guess_card_desc:'Угадайте секретное число за наименьшее количество попыток',
@@ -2006,6 +2006,30 @@ const RELATED_MAP = {
   'percentage-calculator': [['vat-calculator','🧾','vat_card_title'],['loan-calculator','🧮','loan_card_title'],['discount-calculator','💯','discount_card_title']],
 };
 
+function injectShareBtn() {
+  const page = _getPageSlug();
+  if (!page || page === 'index') return;
+  const card = document.querySelector('.card');
+  if (!card || document.getElementById('shareResultBtn')) return;
+  const lang = localStorage.getItem('lang') || 'en';
+  const t = T[lang] || T.ar;
+  const btn = document.createElement('button');
+  btn.id = 'shareResultBtn';
+  btn.style.cssText = 'display:block;width:100%;margin-top:16px;padding:11px;background:var(--surface-2);border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--text);';
+  btn.textContent = '📤 ' + (t.share_btn || 'Share');
+  btn.onclick = function() {
+    const shareData = { title: document.title, url: location.href };
+    if (navigator.share) {
+      navigator.share(shareData).catch(function() {});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(location.href).then(function() {
+        showToast(t.share_result_copied || '✅ Link copied', 'success');
+      }).catch(function() {});
+    }
+  };
+  card.appendChild(btn);
+}
+
 function injectRelatedTools() {
   const page = _getPageSlug();
   const related = RELATED_MAP[page];
@@ -2538,6 +2562,7 @@ document.addEventListener('DOMContentLoaded', function() {
   injectDarkToggle();
   injectAuthBtn();
   restoreSessionIfAny();
+  injectShareBtn();
   injectRelatedTools();
   initPWA();
   autoTrackRecent();
