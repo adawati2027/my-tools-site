@@ -579,12 +579,13 @@ function pickQuestions() {
   const selected = shuffle(pool).slice(0, QUESTIONS_PER_GAME);
   activeQuestions = selected.map(function(q) {
     const order = shuffle(q.opts.map(function(_, i) { return i; }));
-    return {
+    const item = {
       q: q.q,
-      img: q.img,
       opts: order.map(function(i) { return q.opts[i]; }),
       correct: order.indexOf(q.correct)
     };
+    if (q.img) item.img = q.img;
+    return item;
   });
 }
 

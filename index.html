@@ -164,6 +164,8 @@
       <input type="text" id="toolSearch" data-i18n-ph="search_placeholder" placeholder="Search for a tool..." oninput="filterTools()" autocomplete="off" spellcheck="false">
     </div>
 
+    <div id="smartAnswer" class="result-box success" style="display:none;margin-bottom:16px;"></div>
+
     <div class="cat-tabs" id="catTabs">
       <button class="cat-tab active" data-cat="all" onclick="setCat('all')" data-i18n="cat_all">All</button>
       <button class="cat-tab" data-cat="money" onclick="setCat('money')" data-i18n="cat_money">💰 Money</button>
@@ -234,6 +236,45 @@
           <div class="tool-card-desc" data-i18n="tip_card_desc">Calculate tip and split the bill among friends</div>
           <div class="tool-card-arrow" data-i18n="start">Start →</div>
         </a>
+      </div>
+    </div>
+
+    <!-- Tool Bundles -->
+    <div id="bundlesSection" style="margin-bottom:28px;">
+      <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">🧩 Not Sure Where to Start? Pick Your Situation</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button type="button" class="bundle-btn" data-bundle="car" onclick="toggleBundle('car')" style="display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;">🚗 Buying a Car</button>
+        <button type="button" class="bundle-btn" data-bundle="travel" onclick="toggleBundle('travel')" style="display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;">✈️ Traveling</button>
+        <button type="button" class="bundle-btn" data-bundle="job" onclick="toggleBundle('job')" style="display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;">💼 Starting a Job</button>
+        <button type="button" class="bundle-btn" data-bundle="student" onclick="toggleBundle('student')" style="display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;">🎓 Student</button>
+      </div>
+
+      <div id="bundle-car" class="bundle-grid tools-grid" style="display:none;margin-top:14px;">
+        <a href="loan-calculator.html" class="tool-card"><div class="tool-icon-wrap" style="background:#faf5ff;">🧮</div><div class="tool-card-title">Loan Calculator</div><div class="tool-card-desc">Calculate your monthly car payment</div><div class="tool-card-arrow">Start →</div></a>
+        <a href="percentage-calculator.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fef2f2;">💯</div><div class="tool-card-title">Percentage &amp; Discount</div><div class="tool-card-desc">Work out any dealer discount</div><div class="tool-card-arrow">Start →</div></a>
+        <a href="currency-converter.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fefce8;">💱</div><div class="tool-card-title">Currency Converter</div><div class="tool-card-desc">Compare prices in your currency</div><div class="tool-card-arrow">Start →</div></a>
+        <a href="compound-interest.html" class="tool-card"><div class="tool-icon-wrap" style="background:#f0fdf4;">📈</div><div class="tool-card-title">Compound Interest</div><div class="tool-card-desc">See total interest over the loan term</div><div class="tool-card-arrow">Start →</div></a>
+      </div>
+
+      <div id="bundle-travel" class="bundle-grid tools-grid" style="display:none;margin-top:14px;">
+        <a href="currency-converter.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fefce8;">💱</div><div class="tool-card-title">Currency Converter</div><div class="tool-card-desc">Convert to your destination's currency</div><div class="tool-card-arrow">Start →</div></a>
+        <a href="timezone-converter.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fff7ed;">🕐</div><div class="tool-card-title">Timezone Converter</div><div class="tool-card-desc">Find the time at your destination</div><div class="tool-card-arrow">Start →</div></a>
+        <a href="unit-converter.html" class="tool-card"><div class="tool-icon-wrap" style="background:#f0f9ff;">🔄</div><div class="tool-card-title">Unit Converter</div><div class="tool-card-desc">Distance, weight and temperature</div><div class="tool-card-arrow">Start →</div></a>
+        <a href="tip-calculator.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fdf4ff;">🤝</div><div class="tool-card-title">Tip Calculator</div><div class="tool-card-desc">Know how much to tip abroad</div><div class="tool-card-arrow">Start →</div></a>
+      </div>
+
+      <div id="bundle-job" class="bundle-grid tools-grid" style="display:none;margin-top:14px;">
+        <a href="salary-calculator.html" class="tool-card"><div class="tool-icon-wrap" style="background:#f0fdf4;">💼</div><div class="tool-card-title">Salary Calculator</div><div class="tool-card-desc">Work out your net take-home pay</div><div class="tool-card-arrow">Start →</div></a>
+        <a href="end-of-service.html" class="tool-card"><div class="tool-icon-wrap" style="background:#f0f9ff;">📋</div><div class="tool-card-title">End of Service</div><div class="tool-card-desc">Know your future gratuity payout</div><div class="tool-card-arrow">Start →</div></a>
+        <a href="percentage-calculator.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fef2f2;">💯</div><div class="tool-card-title">Percentage Calculator</div><div class="tool-card-desc">Compare raises and offers</div><div class="tool-card-arrow">Start →</div></a>
+        <a href="date-diff.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fff7ed;">📆</div><div class="tool-card-title">Date Difference</div><div class="tool-card-desc">Count days until your start date</div><div class="tool-card-arrow">Start →</div></a>
+      </div>
+
+      <div id="bundle-student" class="bundle-grid tools-grid" style="display:none;margin-top:14px;">
+        <a href="percentage-calculator.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fef2f2;">💯</div><div class="tool-card-title">Percentage Calculator</div><div class="tool-card-desc">Work out exam and grade percentages</div><div class="tool-card-arrow">Start →</div></a>
+        <a href="age-calculator.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fff7ed;">📅</div><div class="tool-card-title">Age Calculator</div><div class="tool-card-desc">Exact age for forms and applications</div><div class="tool-card-arrow">Start →</div></a>
+        <a href="word-counter.html" class="tool-card"><div class="tool-icon-wrap" style="background:#f0fdf4;">📝</div><div class="tool-card-title">Word Counter</div><div class="tool-card-desc">Check essay and assignment length</div><div class="tool-card-arrow">Start →</div></a>
+        <a href="stopwatch.html" class="tool-card"><div class="tool-icon-wrap" style="background:#f0f9ff;">⏱️</div><div class="tool-card-title">Stopwatch</div><div class="tool-card-desc">Time your study sessions</div><div class="tool-card-arrow">Start →</div></a>
       </div>
     </div>
 
@@ -618,8 +659,159 @@ function setCat(cat) {
   document.querySelectorAll('.cat-tab[data-cat]').forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
   filterTools();
 }
+// Smart Search: detect a computable intent in the query and show an inline answer
+// (percentage/discount math, simple unit conversion, live currency conversion)
+// above the normal tool-filtering results, instead of just filtering tool cards.
+const SMART_CURRENCY_ALIASES = {
+  omr:'OMR', rial:'OMR', omani:'OMR',
+  usd:'USD', dollar:'USD', dollars:'USD',
+  eur:'EUR', euro:'EUR', euros:'EUR',
+  gbp:'GBP', pound:'GBP', pounds:'GBP', sterling:'GBP',
+  aed:'AED', dirham:'AED', dirhams:'AED',
+  sar:'SAR', riyal:'SAR', saudi:'SAR',
+  inr:'INR', rupee:'INR', rupees:'INR', indian:'INR',
+  pkr:'PKR', pakistani:'PKR',
+  egp:'EGP', egyptian:'EGP',
+  jod:'JOD', jordanian:'JOD', dinar:'JOD',
+  bdt:'BDT', bangladeshi:'BDT', taka:'BDT',
+  php:'PHP', peso:'PHP', pesos:'PHP', filipino:'PHP',
+  kwd:'KWD', kuwaiti:'KWD', qar:'QAR', qatari:'QAR', bhd:'BHD', bahraini:'BHD',
+  cad:'CAD', aud:'AUD', jpy:'JPY', yen:'JPY', cny:'CNY', yuan:'CNY', try:'TRY', lira:'TRY', rub:'RUB'
+};
+let _smartRatesCache = null, _smartRatesPromise = null;
+function getSmartRates() {
+  if (_smartRatesCache) return Promise.resolve(_smartRatesCache);
+  if (_smartRatesPromise) return _smartRatesPromise;
+  _smartRatesPromise = fetch('https://open.er-api.com/v6/latest/USD')
+    .then(r => r.json()).then(d => { _smartRatesCache = d.rates; return d.rates; })
+    .catch(() => null);
+  return _smartRatesPromise;
+}
+function smartRound(n) { return Math.round(n * 100) / 100; }
+
+function tryPercentageIntent(q) {
+  let m = q.match(/^(\d+(?:\.\d+)?)\s*%\s*of\s*(\d+(?:\.\d+)?)$/i);
+  if (m) {
+    const pct = parseFloat(m[1]), base = parseFloat(m[2]);
+    return { label: pct + '% of ' + base, value: smartRound(base * pct / 100) };
+  }
+  m = q.match(/^discount\s+(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)\s*%$/i) ||
+      q.match(/^(\d+(?:\.\d+)?)\s*(?:-|off)\s*(\d+(?:\.\d+)?)\s*%$/i);
+  if (m) {
+    const base = parseFloat(m[1]), pct = parseFloat(m[2]);
+    const discount = smartRound(base * pct / 100);
+    return { label: base + ' − ' + pct + '%', value: smartRound(base - discount), extra: '(save ' + discount + ')' };
+  }
+  m = q.match(/^(\d+(?:\.\d+)?)\s*\+\s*(\d+(?:\.\d+)?)\s*%$/);
+  if (m) {
+    const base = parseFloat(m[1]), pct = parseFloat(m[2]);
+    return { label: base + ' + ' + pct + '%', value: smartRound(base + base * pct / 100) };
+  }
+  m = q.match(/^(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)\s*%$/);
+  if (m) {
+    const base = parseFloat(m[1]), pct = parseFloat(m[2]);
+    return { label: pct + '% of ' + base, value: smartRound(base * pct / 100) };
+  }
+  return null;
+}
+
+const UNIT_CONVERSIONS = {
+  km_mi: v => v * 0.621371, mi_km: v => v / 0.621371,
+  kg_lb: v => v * 2.20462, lb_kg: v => v / 2.20462,
+  m_ft: v => v * 3.28084, ft_m: v => v / 3.28084,
+  c_f: v => v * 9 / 5 + 32, f_c: v => (v - 32) * 5 / 9
+};
+const UNIT_ALIASES = {
+  km:'km', kilometer:'km', kilometers:'km', kilometre:'km', kilometres:'km',
+  mi:'mi', mile:'mi', miles:'mi',
+  kg:'kg', kilogram:'kg', kilograms:'kg', kilo:'kg', kilos:'kg',
+  lb:'lb', lbs:'lb', pound:'lb', pounds:'lb',
+  m:'m', meter:'m', meters:'m', metre:'m', metres:'m',
+  ft:'ft', feet:'ft', foot:'ft',
+  c:'c', celsius:'c',
+  f:'f', fahrenheit:'f'
+};
+function tryUnitIntent(q) {
+  const m = q.match(/^(\d+(?:\.\d+)?)\s*([a-zA-Z]+)\s*(?:to|in|→)\s*([a-zA-Z]+)$/i);
+  if (!m) return null;
+  const val = parseFloat(m[1]);
+  const from = UNIT_ALIASES[m[2].toLowerCase()], to = UNIT_ALIASES[m[3].toLowerCase()];
+  if (!from || !to || from === to) return null;
+  const fn = UNIT_CONVERSIONS[from + '_' + to];
+  if (!fn) return null;
+  return { label: val + ' ' + from, value: smartRound(fn(val)), unit: to };
+}
+
+function tryCurrencyIntent(q) {
+  const m = q.match(/^(\d+(?:\.\d+)?)\s*([a-zA-Z]+)\s*(?:to|in|→)\s*([a-zA-Z]+)$/i);
+  if (!m) return null;
+  const val = parseFloat(m[1]);
+  const from = SMART_CURRENCY_ALIASES[m[2].toLowerCase()], to = SMART_CURRENCY_ALIASES[m[3].toLowerCase()];
+  if (!from || !to || from === to) return null;
+  return { val, from, to };
+}
+
+function renderSmartAnswer(html) {
+  const box = document.getElementById('smartAnswer');
+  if (!box) return;
+  box.innerHTML = html;
+  box.style.display = 'block';
+}
+function hideSmartAnswer() {
+  const box = document.getElementById('smartAnswer');
+  if (box) box.style.display = 'none';
+}
+
+function trySmartSearch(q) {
+  if (!q) { hideSmartAnswer(); return; }
+  const pct = tryPercentageIntent(q);
+  if (pct) {
+    renderSmartAnswer('🧮 <strong>' + pct.label + ' = ' + pct.value + '</strong>' +
+      (pct.extra ? ' <span style="opacity:.7;">' + pct.extra + '</span>' : '') +
+      ' &nbsp;<a href="percentage-calculator.html" style="text-decoration:underline;">Open Percentage Calculator →</a>');
+    return;
+  }
+  const unit = tryUnitIntent(q);
+  if (unit) {
+    renderSmartAnswer('🔄 <strong>' + unit.label + ' = ' + unit.value + ' ' + unit.unit + '</strong>' +
+      ' &nbsp;<a href="unit-converter.html" style="text-decoration:underline;">Open Unit Converter →</a>');
+    return;
+  }
+  const cur = tryCurrencyIntent(q);
+  if (cur) {
+    renderSmartAnswer('💱 Converting ' + cur.val + ' ' + cur.from + ' → ' + cur.to + '...');
+    getSmartRates().then(rates => {
+      if (!rates || !rates[cur.from] || !rates[cur.to]) {
+        renderSmartAnswer('💱 <a href="currency-converter.html" style="text-decoration:underline;">Open Currency Converter →</a>');
+        return;
+      }
+      const result = smartRound((cur.val / rates[cur.from]) * rates[cur.to]);
+      renderSmartAnswer('💱 <strong>' + cur.val + ' ' + cur.from + ' = ' + result + ' ' + cur.to + '</strong>' +
+        ' &nbsp;<a href="currency-converter.html" style="text-decoration:underline;">Open Currency Converter →</a>');
+    });
+    return;
+  }
+  hideSmartAnswer();
+}
+
+function toggleBundle(id) {
+  const grid = document.getElementById('bundle-' + id);
+  const btn = document.querySelector('.bundle-btn[data-bundle="' + id + '"]');
+  if (!grid || !btn) return;
+  const opening = grid.style.display === 'none';
+  document.querySelectorAll('.bundle-grid').forEach(g => { g.style.display = 'none'; });
+  document.querySelectorAll('.bundle-btn').forEach(b => {
+    b.style.background = 'var(--surface)'; b.style.color = 'var(--text)'; b.style.borderColor = 'var(--border)';
+  });
+  if (opening) {
+    grid.style.display = '';
+    btn.style.background = 'var(--primary)'; btn.style.color = '#fff'; btn.style.borderColor = 'var(--primary)';
+  }
+}
+
 function filterTools() {
   const q = (document.getElementById('toolSearch').value || '').toLowerCase().trim();
+  trySmartSearch(q);
   const cards = document.querySelectorAll('#toolsGrid .tool-card');
   let visible = 0;
   cards.forEach(card => {
@@ -648,6 +840,8 @@ function filterTools() {
   const isAll = activeCat === 'all' && !q;
   const pop = document.getElementById('popularSection');
   if (pop) pop.style.display = isAll ? '' : 'none';
+  const bundles = document.getElementById('bundlesSection');
+  if (bundles) bundles.style.display = isAll ? '' : 'none';
   const country = document.getElementById('countrySection');
   if (country) {
     const hasCards = document.querySelectorAll('#countryGrid .tool-card').length > 0;
