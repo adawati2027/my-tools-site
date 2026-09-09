@@ -1515,6 +1515,18 @@ function openAuthModal() {
   const user = getCurrentAuthUser();
   const existing = document.getElementById('signupModal');
   if (existing) existing.remove();
+  // Kick off the Firebase SDK fetch now, while the modal is just opening —
+  // not lazily inside the Google button's own click handler. On a cold
+  // load, loadFirebaseAuth() has to fetch 3 external scripts over the
+  // network before signInWithPopup() can even be called; that delay is
+  // enough for iOS Safari's popup blocker to decide the window.open() call
+  // is no longer "synchronous with the user gesture" and silently kill the
+  // popup — which is exactly what a generic "Something went wrong" report
+  // right after tapping Google on a phone looks like. Preloading here means
+  // loadFirebaseAuth() is normally already resolved/cached by the time the
+  // user actually taps the Google button, so signInWithPopup() fires within
+  // the same click's activation window instead of after a network round trip.
+  loadFirebaseAuth().catch(function() {});
 
   const modal = document.createElement('div');
   modal.id = 'signupModal';
