@@ -121,6 +121,7 @@
         </div>
       </div>
       <div id="eosBreakdown" style="margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2.2;"></div>
+      <button onclick="exportEOSResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
   </div>
 
@@ -436,6 +437,19 @@ function calculate() {
     oldNote + omaniWarn + reasonNote;
 
   document.getElementById('eosResult').style.display = 'block';
+}
+
+function exportEOSResult() {
+  const gratuity = document.getElementById('gratuityDisplay').textContent;
+  if (!gratuity) return;
+  const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
+  const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
+  const rows = [
+    { label: t.eos_years_lbl || 'Years of Service', value: document.getElementById('yearsDisplay').textContent },
+    { label: t.eos_months_lbl || 'Extra Months', value: document.getElementById('monthsDisplay').textContent },
+    { label: t.eos_result_lbl || 'Gratuity', value: gratuity, highlight: true }
+  ];
+  if (typeof exportResultImage === 'function') exportResultImage(t.eos_title || 'End of Service Calculator', rows);
 }
 
 var _origEosSetLang;

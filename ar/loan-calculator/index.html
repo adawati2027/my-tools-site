@@ -126,6 +126,7 @@
         <div class="stat-box"><div class="stat-val" id="totalPaid" style="font-size:17px;"></div><div class="stat-lbl" id="lbl-total">Total Paid</div></div>
         <div class="stat-box"><div class="stat-val" id="totalInterest" style="font-size:17px;color:#ef4444;"></div><div class="stat-lbl" id="lbl-interest">Total Interest</div></div>
       </div>
+      <button onclick="exportLoanResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
     <div style="margin-top:16px;padding:10px 14px;background:#fef9c3;border-radius:8px;font-size:13px;color:#854d0e;">
       ⚠️ <span id="loan-disclaimer">Figures are estimates for informational purposes only. Consult your bank for exact numbers.</span>
@@ -506,6 +507,18 @@ function calcLoan(){
   resultDiv.style.display='block';
   buildAmortTable(amount,r,monthly,months);
   amortSec.style.display='block';
+}
+
+function exportLoanResult(){
+  var monthly=document.getElementById('monthlyPayment').textContent;
+  if(!monthly)return;
+  var t=D();
+  var rows=[
+    {label:document.getElementById('lbl-total').textContent,value:document.getElementById('totalPaid').textContent},
+    {label:document.getElementById('lbl-interest').textContent,value:document.getElementById('totalInterest').textContent},
+    {label:document.getElementById('lbl-monthly').textContent,value:monthly,highlight:true}
+  ];
+  if(typeof exportResultImage==='function')exportResultImage(t.main_title,rows);
 }
 
 function buildAmortTable(amount,r,monthly,months){

@@ -122,6 +122,7 @@
       </div>
       <div id="extraInfo" style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
       <div id="hijriBox" style="display:none;margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2;"></div>
+      <button onclick="exportAgeResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
   </div>
 
@@ -477,6 +478,21 @@ function calcAge(){
     +t.hijri_today+'<strong>'+hToday.day+' '+t.hmonths[hToday.month-1]+' '+hToday.year+t.hijri_he+'</strong>';
   hijriBox.style.display='block';
   document.getElementById('result').style.display='block';
+}
+
+function exportAgeResult(){
+  var main=document.getElementById('ageMain').textContent;
+  if(!main)return;
+  var t=D();
+  var rows=[
+    {label:document.getElementById('lbl-years').textContent,value:document.getElementById('stat-years').textContent},
+    {label:document.getElementById('lbl-months').textContent,value:document.getElementById('stat-months').textContent},
+    {label:document.getElementById('lbl-days').textContent,value:document.getElementById('stat-days').textContent},
+    {label:document.getElementById('lbl-totaldays').textContent,value:document.getElementById('totalDays').textContent},
+    {label:document.getElementById('lbl-next').textContent,value:document.getElementById('daysToNext').textContent},
+    {label:document.getElementById('ageSub').textContent,value:main,highlight:true}
+  ];
+  if(typeof exportResultImage==='function')exportResultImage(t.title,rows);
 }
 
 function updateAgeContent(){

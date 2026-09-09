@@ -103,6 +103,7 @@
         <div class="result-value" id="res1val"></div>
         <div class="result-label" id="res1lbl"></div>
       </div>
+      <button onclick="exportPercentageResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
 
     <!-- Tab 2: X is what % of Y -->
@@ -122,6 +123,7 @@
         <div class="result-value" id="res2val"></div>
         <div class="result-label" id="res2lbl"></div>
       </div>
+      <button onclick="exportPercentageResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
 
     <!-- Tab 3: % change from X to Y -->
@@ -141,6 +143,7 @@
         <div class="result-value" id="res3val"></div>
         <div class="result-label" id="res3lbl"></div>
       </div>
+      <button onclick="exportPercentageResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
   </div>
 
@@ -284,6 +287,17 @@ function calc3() {
     : (t.pct_decrease || 'انخفاض من') + ' ' + fmt(a) + ' → ' + fmt(b);
   res.style.display='block';
   res.className = 'result-box show ' + (isIncrease ? 'success' : 'warning');
+}
+
+function exportPercentageResult() {
+  const activeTab = document.querySelector('.tab.active');
+  const idx = activeTab ? activeTab.id.replace('tab', '') : '1';
+  const val = (document.getElementById('res' + idx + 'val') || {}).textContent;
+  const lbl = (document.getElementById('res' + idx + 'lbl') || {}).textContent;
+  if (!val) return;
+  const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
+  const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
+  if (typeof exportResultImage === 'function') exportResultImage(t.pct_card_title || 'Percentage Calculator', [{ label: lbl, value: val, highlight: true }]);
 }
 
 function quickFill(pct) {

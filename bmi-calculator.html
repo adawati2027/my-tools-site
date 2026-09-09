@@ -115,6 +115,7 @@
       <div class="result-value" id="bmiValue"></div>
       <div class="result-label" id="category"></div>
     </div>
+    <button onclick="exportBMIResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     <div style="margin-top:16px;padding:10px 14px;background:#fef9c3;border-radius:8px;font-size:13px;color:#854d0e;">
       ⚠️ <span id="bmi-disclaimer">Result is for informational purposes only. Consult your doctor for a proper health assessment.</span>
     </div>
@@ -538,6 +539,15 @@ function calculateBMI(){
   document.getElementById('bmiValue').textContent=bmi.toFixed(1);
   document.getElementById('category').textContent=category;
   resultDiv.className='result-box show '+cls;
+}
+
+function exportBMIResult(){
+  var val=document.getElementById('bmiValue').textContent;
+  var cat=document.getElementById('category').textContent;
+  if(!val||val==='⚠️')return;
+  var t=D();
+  var rows=[{label:'BMI',value:val,highlight:true},{label:t.th_cat,value:cat}];
+  if(typeof exportResultImage==='function')exportResultImage(t.main_title,rows);
 }
 
 function toggleFaq(btn){
