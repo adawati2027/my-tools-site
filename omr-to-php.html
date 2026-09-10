@@ -147,10 +147,10 @@ async function fetchRate() {
     if (d.rates && d.rates.PHP) {
       liveRate = d.rates.PHP;
       document.getElementById('rateNum').textContent = liveRate.toFixed(2);
-      document.getElementById('rateTs').textContent = `Updated: ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}`;
+      document.getElementById('rateTs').textContent = `🟢 Live rate — Updated ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}`;
       buildGrid(); fromOMR();
     }
-  } catch(e) { document.getElementById('rateTs').textContent='Rate shown is approximate'; buildGrid(); fromOMR(); }
+  } catch(e) { document.getElementById('rateTs').textContent='⚠️ Rate shown is approximate — check the live converter above'; buildGrid(); fromOMR(); }
 }
 function fromOMR(){const v=parseFloat(document.getElementById('omrInput').value)||0;document.getElementById('phpInput').value=(v*liveRate).toFixed(0);}
 function fromPHP(){const v=parseFloat(document.getElementById('phpInput').value)||0;document.getElementById('omrInput').value=(v/liveRate).toFixed(3);}
