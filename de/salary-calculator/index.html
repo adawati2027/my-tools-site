@@ -223,6 +223,14 @@
         <summary style="font-weight:700;cursor:pointer;font-size:14px;">What is the difference between PASI and SPF in Oman?</summary>
         <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">PASI (Public Authority for Social Insurance) was the old name of the supervising body. It was merged into the new Social Protection Fund (SPF) which now consolidates all social protection branches in Oman.</p>
       </details>
+      <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+        <summary style="font-weight:700;cursor:pointer;font-size:14px;">What is the employer SPF contribution rate in Oman?</summary>
+        <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">For Omani employees, the employer contributes a combined 14.5% of the contributory wage across active SPF branches (11% for old age/disability/death, with the remaining ~3.5% spread across work injuries, employment security, and maternity/sick leave branches). The employee contributes 8% (7.5% old age/disability/death + 0.5% employment security). Combined total = 22.5% of contributory wage. Rates can change — verify current figures at spf.gov.om.</p>
+      </details>
+      <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+        <summary style="font-weight:700;cursor:pointer;font-size:14px;">How is overtime calculated in Oman?</summary>
+        <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Under the Oman Labour Law, overtime on regular weekdays is paid at 125% of the normal hourly rate. Work on weekly rest days or public holidays is paid at 150%. The overtime base is calculated from basic salary only.</p>
+      </details>
     </div>
   </div>
 
@@ -280,14 +288,16 @@ const SAL_T = {
     info_body: '<p>The Social Protection Fund (SPF) is the new system consolidating all social insurance branches in the Sultanate of Oman.</p><p><strong>Omani employee contribution (total 8%):</strong></p><ul style="padding-inline-start:18px;margin-top:4px;"><li>7.5% — Old Age, Disability &amp; Death branch</li><li>0.5% — Employment Security branch</li></ul><p style="margin-top:8px;"><strong>Employer contribution (total 14.5%):</strong></p><ul style="padding-inline-start:18px;margin-top:4px;"><li>Not deducted from employee salary — paid by the employer</li></ul><ul style="padding-inline-start:18px;margin-top:8px;"><li>Applies to Omani nationals only — expatriates have a separate savings system</li><li>يُحسب الخصم وفق الأجر الخاضع للاشتراك حسب قواعد SPF (سقف 3,000 ر.ع للفرع الأساسي) — هذه الحاسبة تستخدم الراتب الأساسي كمدخل مبسط للحساب الاسترشادي</li></ul>',
     disclaimer: '⚠️ النتائج استرشادية — للحسابات الرسمية راجع spf.gov.om | آخر تحديث: سبتمبر 2026',
     faq: [
-      {q:'What is the difference between basic and gross salary?', a:'Basic salary is the fixed amount specified in the employment contract. Gross = Basic + all allowances (housing, transport, etc.).'},
-      {q:'Is SPF deducted from allowances?', a:'يُحسب الخصم وفق الأجر الخاضع للاشتراك حسب قواعد SPF (سقف 3,000 ر.ع للفرع الأساسي). هذه الحاسبة تستخدم الراتب الأساسي كمدخل مبسط — وقد تختلف النتيجة الفعلية. راجع spf.gov.om.'},
-      {q:'What is the minimum wage in Oman?', a:'وفق المرسوم الرسمي الأخير، الحد الأدنى للمواطن العماني 325 ريال عماني شهرياً. تحقق دائماً من الموقع الرسمي لوزارة العمل للقيمة المعمول بها.'},
-      {q:'How do I estimate my SPF deduction?', a:'This calculator uses basic salary for a simplified 8% estimate. The official calculation depends on the contributory wage per SPF rules. Estimate: deduction ≈ Basic × 8% (cap OMR 3,000 for basic branch).'},
-      {q:'Does SPF deduction apply to expatriates?', a:'لا، خصم الـ8% لا يُطبَّق على الوافدين. الوافدون لديهم نظام ادخار منفصل تُسهم فيه جهة العمل. راتب الوافد الصافي = الإجمالي بدون أي خصم SPF.'},
-      {q:'What does the SPF social protection system cover?', a:'SPF covers several insurance branches including: old age, disability and death; employment security; work injuries and occupational diseases; sick and emergency leave; and maternity leave. For updated details visit spf.gov.om.'},
-      {q:'Is there income tax on salaries in Oman?', a:'As of 2026, no personal income tax applies to salaries in Oman. However, the Personal Income Tax (PIT) law was issued in 2025 and will begin applying from 2028 under specific conditions. Currently, the only deduction for Omani employees is SPF at 8%.'},
-      {q:'What is the difference between PASI and SPF in Oman?', a:'PASI (الهيئة العامة للتأمينات الاجتماعية) هو الاسم القديم للجهة المشرفة على التأمين الاجتماعي. تم دمجها ضمن صندوق الحماية الاجتماعية (SPF) الجديد الذي يجمع الآن جميع فروع الحماية الاجتماعية في عُمان.'}
+      {q:'ما الفرق بين الراتب الأساسي والراتب الإجمالي؟', a:'الراتب الأساسي هو المبلغ الثابت المحدد في عقد العمل. الراتب الإجمالي = الراتب الأساسي + جميع البدلات (السكن، النقل، إلخ). خصم SPF يُحسب على الراتب الأساسي فقط.'},
+      {q:'هل يُخصم SPF من البدلات؟', a:'يُحسب الخصم وفق الأجر الخاضع للاشتراك حسب قواعد SPF (سقف 3,000 ر.ع للفرع الأساسي). هذه الحاسبة تستخدم الراتب الأساسي كمدخل مبسط — وقد تختلف النتيجة الفعلية. راجع spf.gov.om.'},
+      {q:'ما هو الحد الأدنى للأجور في عُمان؟', a:'وفق المرسوم الرسمي الأخير، الحد الأدنى للمواطن العماني 325 ريال عماني شهرياً. تحقق دائماً من الموقع الرسمي لوزارة العمل للقيمة المعمول بها.'},
+      {q:'كيف أقدّر خصم SPF الخاص بي؟', a:'تستخدم هذه الحاسبة الراتب الأساسي لتقدير مبسط بنسبة 8%. الحساب الرسمي يعتمد على الأجر الخاضع للاشتراك وفق قواعد SPF. التقدير: الخصم ≈ الأساسي × 8% (بحد أقصى 3,000 ر.ع للفرع الأساسي).'},
+      {q:'هل يُطبَّق خصم SPF على الوافدين؟', a:'لا، خصم الـ8% لا يُطبَّق على الوافدين. الوافدون لديهم نظام ادخار منفصل تُسهم فيه جهة العمل. راتب الوافد الصافي = الإجمالي بدون أي خصم SPF.'},
+      {q:'ماذا يغطي نظام الحماية الاجتماعية SPF؟', a:'يغطي SPF عدة فروع تأمينية منها: الشيخوخة والعجز والوفاة؛ أمان التشغيل؛ إصابات العمل والأمراض المهنية؛ الإجازات المرضية والطارئة؛ وإجازة الأمومة. للتفاصيل المحدّثة راجع spf.gov.om.'},
+      {q:'هل يوجد ضريبة دخل على الرواتب في عُمان؟', a:'حتى عام 2026، لا تُطبَّق ضريبة دخل شخصية على الرواتب في عُمان. صدر قانون ضريبة الدخل الشخصي عام 2025 وسيبدأ تطبيقه من 2028 وفق شروط محددة. حالياً، الخصم الوحيد من راتب الموظف العماني هو اشتراك SPF بنسبة 8%.'},
+      {q:'ما الفرق بين PASI و SPF في عُمان؟', a:'PASI (الهيئة العامة للتأمينات الاجتماعية) هو الاسم القديم للجهة المشرفة على التأمين الاجتماعي. تم دمجها ضمن صندوق الحماية الاجتماعية (SPF) الجديد الذي يجمع الآن جميع فروع الحماية الاجتماعية في عُمان.'},
+      {q:'ما هي نسبة مساهمة صاحب العمل في SPF بعُمان؟', a:'بالنسبة للموظفين العمانيين، يساهم صاحب العمل بنسبة إجمالية 14.5% من الأجر الخاضع للاشتراك (11% لفرع الشيخوخة والعجز والوفاة، والباقي ~3.5% موزّع على فروع إصابات العمل وأمان التشغيل والأمومة/المرض). الموظف يساهم بنسبة 8% (7.5% + 0.5%). المجموع الكلي = 22.5% من الأجر الخاضع للاشتراك. النسب قابلة للتغيير — تحقق من الأرقام الحالية على spf.gov.om.'},
+      {q:'كيف تُحسب ساعات العمل الإضافي في عُمان؟', a:'وفق قانون العمل العُماني، يُدفع العمل الإضافي في أيام الأسبوع العادية بنسبة 125% من الأجر بالساعة العادي. العمل في أيام الراحة الأسبوعية أو العطل الرسمية يُدفع بنسبة 150%. أساس حساب العمل الإضافي هو الراتب الأساسي فقط.'}
     ],
     rel_eos:'📋 حاسبة نهاية الخدمة', rel_vat:'🧾 حاسبة VAT', rel_loan:'🧮 حاسبة القسط',
     lbl_basic:'الراتب الأساسي', lbl_housing:'بدل السكن', lbl_transport:'بدل النقل', lbl_other:'بدلات أخرى',
@@ -313,7 +323,9 @@ const SAL_T = {
       {q:'Does the SPF deduction apply to expatriates?', a:'No, the 8% SPF deduction does not apply to expatriate employees. Expatriates have a separate employer-funded savings scheme. An expatriate\'s net salary equals the gross salary with no SPF deduction.'},
       {q:'What does SPF cover?', a:'SPF covers four branches: (1) Old age, disability and death — 7.5% employee + 11% employer; (2) Employment security/unemployment — 0.5% + 1%; (3) Savings and investment; (4) Health insurance.'},
       {q:'Is there income tax on salaries in Oman?', a:'As of 2026, Oman does not impose personal income tax on salaries. However, a Personal Income Tax law was enacted in 2025 and is scheduled to take effect from 2028, subject to the thresholds and conditions to be determined. Currently, the only mandatory deduction from an Omani employee\'s salary is the SPF contribution of 8%.'},
-      {q:'What is the difference between PASI and SPF in Oman?', a:'PASI (Public Authority for Social Insurance) was the former name of Oman\'s social insurance authority. It has been consolidated into the Social Protection Fund (SPF), which now covers all social protection branches under one unified system.'}
+      {q:'What is the difference between PASI and SPF in Oman?', a:'PASI (Public Authority for Social Insurance) was the former name of Oman\'s social insurance authority. It has been consolidated into the Social Protection Fund (SPF), which now covers all social protection branches under one unified system.'},
+      {q:'What is the employer SPF contribution rate in Oman?', a:'For Omani employees, the employer contributes a combined 14.5% of the contributory wage across active SPF branches (11% for old age/disability/death, with the remaining ~3.5% spread across work injuries, employment security, and maternity/sick leave branches). The employee contributes 8% (7.5% old age/disability/death + 0.5% employment security). Combined total = 22.5% of contributory wage. Rates can change — verify current figures at spf.gov.om.'},
+      {q:'How is overtime calculated in Oman?', a:'Under the Oman Labour Law, overtime on regular weekdays is paid at 125% of the normal hourly rate. Work on weekly rest days or public holidays is paid at 150%. The overtime base is calculated from basic salary only.'}
     ],
     rel_eos:'📋 End of Service Calculator', rel_vat:'🧾 VAT Calculator', rel_loan:'🧮 Loan Calculator',
     lbl_basic:'Basic salary', lbl_housing:'Housing allowance', lbl_transport:'Transport allowance', lbl_other:'Other allowances',
