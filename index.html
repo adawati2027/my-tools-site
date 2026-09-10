@@ -598,6 +598,11 @@
         <div class="tool-card-arrow" data-i18n="start">Start →</div>
       </a>
     </div>
+
+    <div id="crossSiteResults" style="display:none;margin-top:8px;">
+      <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;" id="crossSiteTitle">🔍 More across Adawati</div>
+      <div class="tools-grid" id="crossSiteGrid"></div>
+    </div>
   </div>
 </main>
 
@@ -816,20 +821,53 @@ function toggleBundle(id) {
   }
 }
 
+let crossSiteIndex = null, crossSiteIndexLoading = false;
+function loadCrossSiteIndex() {
+  if (crossSiteIndex || crossSiteIndexLoading) return;
+  crossSiteIndexLoading = true;
+  fetch('search-index.json').then(r => r.json()).then(data => {
+    crossSiteIndex = data;
+    const q = (document.getElementById('toolSearch').value || '').toLowerCase().trim();
+    if (q) renderCrossSiteResults(q);
+  }).catch(() => {});
+}
+function renderCrossSiteResults(q, localHrefs) {
+  const wrap = document.getElementById('crossSiteResults');
+  const grid = document.getElementById('crossSiteGrid');
+  if (!wrap || !grid) return;
+  if (!q || !crossSiteIndex) { wrap.style.display = 'none'; return; }
+  const qWords = q.split(/\s+/).filter(Boolean);
+  const seen = localHrefs || new Set();
+  const matches = crossSiteIndex.filter(e => {
+    if (seen.has(e.u) || e.u === 'https://adawati.space/') return false;
+    return e.s.includes(q) || qWords.every(w => e.s.includes(w));
+  }).slice(0, 6);
+  if (!matches.length) { wrap.style.display = 'none'; return; }
+  grid.innerHTML = matches.map(e =>
+    '<a href="' + e.u + '" class="tool-card"><div class="tool-icon-wrap" style="background:#f5f3ff;">🔗</div>' +
+    '<div class="tool-card-title">' + e.t.replace(/</g,'&lt;') + '</div>' +
+    '<div class="tool-card-arrow">Open →</div></a>'
+  ).join('');
+  wrap.style.display = '';
+}
+
 function filterTools() {
   const q = (document.getElementById('toolSearch').value || '').toLowerCase().trim();
   trySmartSearch(q);
+  if (q) loadCrossSiteIndex();
   const cards = document.querySelectorAll('#toolsGrid .tool-card');
   let visible = 0;
   const qWords = q.split(/\s+/).filter(Boolean);
+  const localHrefs = new Set();
   cards.forEach(card => {
     const catMatch = !!q || activeCat === 'all' || card.dataset.cat === activeCat;
     const haystack = ((card.dataset.search || '') + ' ' + card.textContent).toLowerCase();
     const searchMatch = !q || haystack.includes(q) || qWords.every(w => haystack.includes(w));
     const show = catMatch && searchMatch;
     card.style.display = show ? '' : 'none';
-    if (show) visible++;
+    if (show) { visible++; localHrefs.add(new URL(card.getAttribute('href'), location.href).href); }
   });
+  renderCrossSiteResults(q, localHrefs);
   if (q && visible === 0) {
     let noRes = document.getElementById('noResults');
     if (!noRes) {
