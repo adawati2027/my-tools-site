@@ -351,6 +351,18 @@ Found mismatches on 9 pages, fixed all 9:
 
 **Verification**: `JSON.parse` on every extracted JSON-LD block across all 9 files (0 errors) and `new Function()` on every inline `<script>` (0 errors) before pushing. Pushed via `node push-to-github.js` (hit the usual GitHub secondary rate limit near the end of the ~443-file batch — ~34 unrelated files failed to blob, but none of the 9 target files were among them, confirmed by checking the failure list). Verified all 9 live via `curl`, matching the exact new text against each page's own local source (not a generic string) to avoid false negatives from guessing wrong search text.
 
+## SEO — long-tail on-page content, started 2026-09-10
+
+Started the "richer on-page content per tool" backlog item (highest-traffic tools first, per GA4). Added one new content card to each of the two highest-traffic tools, in English (root file only — these render on all lang variants since `build-lang-pages.js` copies the root file's body wholesale into each lang variant and these cards are wrapped `lang="en" dir="ltr"`, same pattern as the existing "How Exchange Rates Work"/"SPF Explained" cards already on these pages):
+- `currency-converter.html`: **"Sending Money Abroad from Oman — What to Compare"** — targets remittance-related long-tail searches (relevant given the site's Oman-expat audience and the `eg/in/pk/bd/ph` nationality-landing pages). Generic guidance (spread vs. fee vs. speed, how to actually compare providers) — no new specific numeric claims, so didn't need the heavy source-verification the page's numeric FX facts already went through.
+- `salary-calculator.html`: **"Comparing Job Offers — Why Gross Salary Alone Is Misleading"** — targets "how to compare job offers Oman" style searches. Same reasoning: general career-finance advice (basic vs. allowances vs. net, why basic-vs-allowance split matters for SPF/end-of-service), not a new regulatory fact.
+
+**Verification**: `JSON.parse` on JSON-LD + `new Function()` on inline JS for both files (0 errors), `node build-lang-pages.js` re-run to propagate into all 5 lang variants each. Pushed via `node push-to-github.js` — `salary-calculator.html` itself failed to blob in the full-tree push (usual secondary rate-limit pattern, confirmed `currency-converter.html` was NOT in the failure list) and needed the targeted single-file push script; both then confirmed live via `curl` (had to poll — first check came back before CDN propagation finished).
+
+**GSC access — walked the user through the manual steps live** (creating a service account in Google Cloud Console, enabling the Search Console API, adding the service account as a user in Search Console) rather than attempting it myself — this requires the user's own Google account login, which isn't something this session can do. Once the user has a service account JSON key, hand it back here to wire up real query-data automation (the daily IndexNow routine is a template for how a scheduled cloud routine could pull this data too).
+
+**Still pending on this backlog item**: extend the same long-tail-content treatment to the Jordan tools (income-tax, package-customs, etc. — already got the FAQ-sync pass, but not yet a dedicated long-form content section), and to other high-traffic root tools beyond these first two.
+
 ## Style/tone conventions
 
 - All Jordan-vertical copy is in Jordanian-dialect Arabic (not MSA), casual and direct — match existing pages' voice, not formal Arabic.
