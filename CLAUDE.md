@@ -333,6 +333,24 @@ Started the "highest-traffic tools first" pass and found a real, concrete patter
 
 **Worth checking on other high-traffic tool pages next**: whether the same JSON-LD-richer-than-visible-content pattern exists elsewhere (a fast repeatable check: compare the count of `"@type":"Question"` in the page's JSON-LD against the count of `.faq-item`/`<details>` elements actually rendered) before assuming any given page's FAQ is already complete.
 
+## SEO — jo/ calculators FAQ audit + fixes, 2026-09-10
+
+Ran the same JSON-LD-vs-visible-FAQ audit (established above on currency-converter/salary-calculator) across every `jo/calculators/*` page plus `jo/index.html`:
+```bash
+for f in jo/index.html jo/calculators/*/index.html; do
+  jsonld=$(grep -o '"@type":"Question"' "$f" | wc -l)
+  visible=$(grep -o "<details" "$f" | wc -l)
+  echo "$f: jsonld_Q=$jsonld details=$visible"
+done
+```
+Found mismatches on 9 pages, fixed all 9:
+- **Schema present but fewer visible entries than schema** (added the missing `<details>` blocks, reusing the exact already-verified JSON-LD text): `income-tax` (+2), `package-customs` (+2), `tawjihi-average` (+1), `university-gpa` (+2).
+- **Zero FAQPage schema and zero/near-zero visible content at all** (wrote new schema + new visible `<details>` cards from scratch, using general financial-planning knowledge appropriate to each calculator's own inputs — not new regulatory/legal facts, so this didn't need the heavy source-verification the numeric calculations themselves already went through): `car-cost`, `rent-vs-buy`, `university-cost`, `wedding-cost` (all had 0 schema — `rent-vs-buy` had an existing plain info box converted into a proper FAQ card instead of adding a separate one), `zakat` (had 2 JSON-LD questions but 0 visible FAQ content — added a new FAQ card).
+- `social-security` audited and found already in sync (3/3) — no change.
+- `jo/index.html` audited: 0 JSON-LD / 0 details — left alone deliberately, it's a navigational hub page, not a specific tool, so FAQ schema isn't really appropriate there.
+
+**Verification**: `JSON.parse` on every extracted JSON-LD block across all 9 files (0 errors) and `new Function()` on every inline `<script>` (0 errors) before pushing. Pushed via `node push-to-github.js` (hit the usual GitHub secondary rate limit near the end of the ~443-file batch — ~34 unrelated files failed to blob, but none of the 9 target files were among them, confirmed by checking the failure list). Verified all 9 live via `curl`, matching the exact new text against each page's own local source (not a generic string) to avoid false negatives from guessing wrong search text.
+
 ## Style/tone conventions
 
 - All Jordan-vertical copy is in Jordanian-dialect Arabic (not MSA), casual and direct — match existing pages' voice, not formal Arabic.
