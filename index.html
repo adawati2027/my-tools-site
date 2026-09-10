@@ -255,6 +255,7 @@
         <a href="currency-converter.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fefce8;">💱</div><div class="tool-card-title">Currency Converter</div><div class="tool-card-desc">Compare prices in your currency</div><div class="tool-card-arrow">Start →</div></a>
         <a href="compound-interest.html" class="tool-card"><div class="tool-icon-wrap" style="background:#f0fdf4;">📈</div><div class="tool-card-title">Compound Interest</div><div class="tool-card-desc">See total interest over the loan term</div><div class="tool-card-arrow">Start →</div></a>
       </div>
+      <div id="bundle-car-more" style="display:none;margin-top:10px;"><a href="#toolsGrid" style="font-size:13px;font-weight:700;color:var(--primary);text-decoration:none;">See all tools →</a></div>
 
       <div id="bundle-travel" class="bundle-grid tools-grid" style="display:none;margin-top:14px;">
         <a href="currency-converter.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fefce8;">💱</div><div class="tool-card-title">Currency Converter</div><div class="tool-card-desc">Convert to your destination's currency</div><div class="tool-card-arrow">Start →</div></a>
@@ -262,6 +263,7 @@
         <a href="unit-converter.html" class="tool-card"><div class="tool-icon-wrap" style="background:#f0f9ff;">🔄</div><div class="tool-card-title">Unit Converter</div><div class="tool-card-desc">Distance, weight and temperature</div><div class="tool-card-arrow">Start →</div></a>
         <a href="tip-calculator.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fdf4ff;">🤝</div><div class="tool-card-title">Tip Calculator</div><div class="tool-card-desc">Know how much to tip abroad</div><div class="tool-card-arrow">Start →</div></a>
       </div>
+      <div id="bundle-travel-more" style="display:none;margin-top:10px;"><a href="#toolsGrid" style="font-size:13px;font-weight:700;color:var(--primary);text-decoration:none;">See all tools →</a></div>
 
       <div id="bundle-job" class="bundle-grid tools-grid" style="display:none;margin-top:14px;">
         <a href="salary-calculator.html" class="tool-card"><div class="tool-icon-wrap" style="background:#f0fdf4;">💼</div><div class="tool-card-title">Salary Calculator</div><div class="tool-card-desc">Work out your net take-home pay</div><div class="tool-card-arrow">Start →</div></a>
@@ -269,6 +271,7 @@
         <a href="percentage-calculator.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fef2f2;">💯</div><div class="tool-card-title">Percentage &amp; Discount</div><div class="tool-card-desc">Compare raises and offers</div><div class="tool-card-arrow">Start →</div></a>
         <a href="date-diff.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fff7ed;">📆</div><div class="tool-card-title">Date Difference</div><div class="tool-card-desc">Count days until your start date</div><div class="tool-card-arrow">Start →</div></a>
       </div>
+      <div id="bundle-job-more" style="display:none;margin-top:10px;"><a href="#toolsGrid" style="font-size:13px;font-weight:700;color:var(--primary);text-decoration:none;">See all tools →</a></div>
 
       <div id="bundle-student" class="bundle-grid tools-grid" style="display:none;margin-top:14px;">
         <a href="percentage-calculator.html" class="tool-card"><div class="tool-icon-wrap" style="background:#fef2f2;">💯</div><div class="tool-card-title">Percentage &amp; Discount</div><div class="tool-card-desc">Work out exam and grade percentages</div><div class="tool-card-arrow">Start →</div></a>
@@ -276,6 +279,7 @@
         <a href="word-counter.html" class="tool-card"><div class="tool-icon-wrap" style="background:#f0fdf4;">📝</div><div class="tool-card-title">Word Counter</div><div class="tool-card-desc">Check essay and assignment length</div><div class="tool-card-arrow">Start →</div></a>
         <a href="stopwatch.html" class="tool-card"><div class="tool-icon-wrap" style="background:#f0f9ff;">⏱️</div><div class="tool-card-title">Stopwatch</div><div class="tool-card-desc">Time your study sessions</div><div class="tool-card-arrow">Start →</div></a>
       </div>
+      <div id="bundle-student-more" style="display:none;margin-top:10px;"><a href="#toolsGrid" style="font-size:13px;font-weight:700;color:var(--primary);text-decoration:none;">See all tools →</a></div>
     </div>
 
     <!-- Favorites section -->
@@ -800,11 +804,14 @@ function toggleBundle(id) {
   if (!grid || !btn) return;
   const opening = grid.style.display === 'none';
   document.querySelectorAll('.bundle-grid').forEach(g => { g.style.display = 'none'; });
+  document.querySelectorAll('[id$="-more"]').forEach(m => { if (m.id.indexOf('bundle-') === 0) m.style.display = 'none'; });
   document.querySelectorAll('.bundle-btn').forEach(b => {
     b.style.background = 'var(--surface)'; b.style.color = 'var(--text)'; b.style.borderColor = 'var(--border)';
   });
   if (opening) {
     grid.style.display = '';
+    const more = document.getElementById('bundle-' + id + '-more');
+    if (more) more.style.display = '';
     btn.style.background = 'var(--primary)'; btn.style.color = '#fff'; btn.style.borderColor = 'var(--primary)';
   }
 }
@@ -814,9 +821,11 @@ function filterTools() {
   trySmartSearch(q);
   const cards = document.querySelectorAll('#toolsGrid .tool-card');
   let visible = 0;
+  const qWords = q.split(/\s+/).filter(Boolean);
   cards.forEach(card => {
     const catMatch = !!q || activeCat === 'all' || card.dataset.cat === activeCat;
-    const searchMatch = !q || (card.dataset.search || '').toLowerCase().includes(q) || card.textContent.toLowerCase().includes(q);
+    const haystack = ((card.dataset.search || '') + ' ' + card.textContent).toLowerCase();
+    const searchMatch = !q || haystack.includes(q) || qWords.every(w => haystack.includes(w));
     const show = catMatch && searchMatch;
     card.style.display = show ? '' : 'none';
     if (show) visible++;
@@ -827,11 +836,14 @@ function filterTools() {
       noRes = document.createElement('div');
       noRes.className = 'search-no-results';
       noRes.id = 'noResults';
-      const lang = localStorage.getItem('lang') || 'en';
-      const txt = (window.T && window.T[lang] && window.T[lang].search_no_results) || 'No tool found with that name';
-      noRes.innerHTML = '<div class="no-results-icon">🔍</div><div>' + txt + '</div>';
       document.getElementById('toolsGrid').insertAdjacentElement('afterend', noRes);
     }
+    const lang = localStorage.getItem('lang') || 'en';
+    const txt = (window.T && window.T[lang] && window.T[lang].search_no_results) || 'No tool found with that name';
+    const searchElsewhere = (window.T && window.T[lang] && window.T[lang].search_try_site) || 'Search all of Adawati for';
+    noRes.innerHTML = '<div class="no-results-icon">🔍</div><div>' + txt + '</div>' +
+      '<div style="margin-top:8px;"><a href="https://www.google.com/search?q=site:adawati.space+' + encodeURIComponent(q) +
+      '" target="_blank" rel="noopener" style="font-size:13px;color:var(--primary);text-decoration:underline;">' + searchElsewhere + ' "' + q.replace(/</g,'&lt;') + '" →</a></div>';
     noRes.style.display = 'block';
   } else {
     const noRes = document.getElementById('noResults');
