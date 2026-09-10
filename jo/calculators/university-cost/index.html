@@ -28,7 +28,11 @@
   {"@type":"ListItem","position":2,"name":"أدوات الأردن","item":"https://adawati.space/jo/"},
   {"@type":"ListItem","position":3,"name":"حاسبة تكلفة الجامعة","item":"https://adawati.space/jo/calculators/university-cost/"}
 ]},
-{"@type":"WebApplication","name":"حاسبة تكلفة الجامعة الكاملة","url":"https://adawati.space/jo/calculators/university-cost/","description":"احسب التكلفة الكاملة المتوقعة لدرجة جامعية حسب سعر الساعة المعتمدة وعدد الساعات ومصاريف المواصلات والسكن والكتب.","applicationCategory":"EducationApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}}
+{"@type":"WebApplication","name":"حاسبة تكلفة الجامعة الكاملة","url":"https://adawati.space/jo/calculators/university-cost/","description":"احسب التكلفة الكاملة المتوقعة لدرجة جامعية حسب سعر الساعة المعتمدة وعدد الساعات ومصاريف المواصلات والسكن والكتب.","applicationCategory":"EducationApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"كيف بعرف سعر الساعة المعتمدة لتخصصي؟","acceptedAnswer":{"@type":"Answer","text":"سعر الساعة المعتمدة يختلف كثيراً حسب الجامعة (حكومية أو خاصة) والتخصص (الطبي والهندسي عادة أغلى من الإنساني). راجع الموقع الرسمي لجامعتك أو دائرة القبول الموحد للرقم الدقيق."}},
+{"@type":"Question","name":"شو المصاريف اللي لازم أضيفها غير الرسوم الدراسية؟","acceptedAnswer":{"@type":"Answer","text":"المواصلات، السكن (إذا كانت الجامعة بمدينة ثانية)، الكتب والقرطاسية، ورسوم التسجيل الفصلية. هاي المصاريف مجتمعة ممكن تشكل جزء كبير من التكلفة الكلية بالإضافة للرسوم الدراسية نفسها."}}
+]}
 ]}
 </script>
 <link rel="stylesheet" href="../../../style.css">
@@ -72,6 +76,18 @@
         <div class="stat-box"><div class="stat-val" id="perYear"></div><div class="stat-lbl">تقريباً بالسنة</div></div>
       </div>
     </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;">❓ أسئلة شائعة</div>
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">كيف بعرف سعر الساعة المعتمدة لتخصصي؟</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">سعر الساعة المعتمدة يختلف كثيراً حسب الجامعة (حكومية أو خاصة) والتخصص (الطبي والهندسي عادة أغلى من الإنساني). راجع الموقع الرسمي لجامعتك أو دائرة القبول الموحد للرقم الدقيق.</p>
+    </details>
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">شو المصاريف اللي لازم أضيفها غير الرسوم الدراسية؟</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">المواصلات، السكن (إذا كانت الجامعة بمدينة ثانية)، الكتب والقرطاسية، ورسوم التسجيل الفصلية. هاي المصاريف مجتمعة ممكن تشكل جزء كبير من التكلفة الكلية بالإضافة للرسوم الدراسية نفسها.</p>
+    </details>
   </div>
 
   <div style="margin-top:16px;text-align:center;">
