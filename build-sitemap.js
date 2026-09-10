@@ -98,6 +98,18 @@ const countryTools = [
   `${BASE}/uk/weather/`,
   `${BASE}/uk/prayer-times/`,
 ];
+
+// 5-module expansion to all 6 countries (holidays, fuel-prices, car-cost,
+// wedding-cost, university-cost) — built 2026-09-10, previously jo/om-only.
+for (const code of ['om','sa','ae','us','uk']) {
+  countryTools.push(
+    `${BASE}/${code}/holidays/`,
+    `${BASE}/${code}/fuel-prices/`,
+    `${BASE}/${code}/calculators/car-cost/`,
+    `${BASE}/${code}/calculators/wedding-cost/`,
+    `${BASE}/${code}/calculators/university-cost/`,
+  );
+}
 for (const url of countryTools) {
   entries.push(urlEntry(url, '0.7', 'monthly'));
 }
