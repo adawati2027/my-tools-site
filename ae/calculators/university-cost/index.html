@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>UAE University Cost Calculator — Full Degree Cost | Adawati</title>
+<meta name="description" content="Calculate the full expected cost of a bachelor's degree in the UAE: credit-hour price, total credit hours, and other annual costs. Free, instant, no signup.">
+<meta name="keywords" content="UAE university cost calculator, credit hour price UAE, Dubai university tuition, Abu Dhabi university fees, private university UAE cost">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/ae/calculators/university-cost/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="en" href="https://adawati.space/ae/calculators/university-cost/">
+<meta property="og:title" content="UAE University Cost Calculator | Adawati">
+<meta property="og:description" content="Calculate your full UAE degree cost from credit-hour price to graduation.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/ae/calculators/university-cost/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"UAE Tools","item":"https://adawati.space/ae/"},
+  {"@type":"ListItem","position":3,"name":"University Cost Calculator","item":"https://adawati.space/ae/calculators/university-cost/"}
+]},
+{"@type":"WebApplication","name":"UAE University Cost Calculator","url":"https://adawati.space/ae/calculators/university-cost/","description":"Calculate the full expected cost of a bachelor's degree in the UAE using the credit-hour pricing model.","applicationCategory":"EducationApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"AED"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much does a credit hour cost at UAE universities?","acceptedAnswer":{"@type":"Answer","text":"Private university credit-hour rates in the UAE commonly range from about AED 800 to AED 2,900+ depending on the institution and program (business/humanities are usually cheaper than engineering or medicine). Total annual private undergraduate tuition often falls between AED 50,000 and AED 150,000+. Check your specific university's official fee schedule for the exact rate."}},
+{"@type":"Question","name":"What other costs should I add besides tuition?","acceptedAnswer":{"@type":"Answer","text":"Registration/admission fees, books and course materials, housing (especially in Dubai/Abu Dhabi if you're not living with family), transport, and health insurance (often mandatory for student visas). These can add a meaningful amount on top of tuition, especially for international students needing accommodation."}}
+]}
+]}
+</script>
+<link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="ae/" class="nav-brand">Adawati 🇦🇪</a>
+  <div class="nav-links">
+    <a href="ae/">UAE Tools</a>
+    <a href="index.html">Global</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="ae/">← Back to UAE Tools</a></div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:6px;">
+      <button onclick="toggleLang()" id="langBtn" style="font-size:12px;padding:5px 12px;border:1px solid var(--border);border-radius:99px;background:var(--surface-2);color:var(--text);cursor:pointer;">عربي</button>
+    </div>
+    <div class="card-icon" style="background:#eff6ff;">🎓</div>
+    <h1 class="card-title" id="t-h1">UAE University Cost Calculator 🇦🇪</h1>
+    <div class="card-subtitle" id="t-sub">How much will your degree cost from start to finish?</div>
+    <div class="divider"></div>
+    <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:14px;" id="t-intro">💡 Most UAE private universities price by credit hour, similar to Jordan. Rates vary a lot by university and major (business/humanities usually cheaper than engineering/medicine).</p>
+
+    <div class="row">
+      <div><label id="t-lblHourPrice">Credit-hour price (AED)</label><input type="number" id="hourPrice" placeholder="e.g. 1200" min="0" step="any" oninput="calc()"></div>
+      <div><label id="t-lblTotalHours">Total credit hours for your major</label><input type="number" id="totalHours" placeholder="e.g. 130" min="0" step="any" oninput="calc()"></div>
+    </div>
+    <div class="row" style="margin-top:10px;">
+      <div><label id="t-lblYears">Expected years to graduate</label><input type="number" id="years" placeholder="e.g. 4" value="4" min="0" step="any" oninput="calc()"></div>
+      <div><label id="t-lblOther">Other annual costs (housing + books + insurance) (AED)</label><input type="number" id="annualOther" placeholder="e.g. 15000" min="0" step="any" oninput="calc()"></div>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:6px;" id="t-note">Typical private-university range: AED 800-2,900+ per credit hour depending on institution and major.</p>
+
+    <div id="costResult" style="display:none;margin-top:20px;">
+      <div class="result-box show success" style="margin-top:0;">
+        <div class="result-value" id="totalCost"></div>
+        <div class="result-label" id="t-resultLbl">Total estimated cost for the whole degree</div>
+      </div>
+      <div class="stat-grid" style="margin-top:12px;">
+        <div class="stat-box"><div class="stat-val" id="tuitionOnly"></div><div class="stat-lbl" id="t-tuitionLbl">Tuition only</div></div>
+        <div class="stat-box"><div class="stat-val" id="otherTotal"></div><div class="stat-lbl" id="t-otherLbl">Other costs (whole course)</div></div>
+        <div class="stat-box"><div class="stat-val" id="perYear"></div><div class="stat-lbl" id="t-perYearLbl">Roughly per year</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;" id="t-faqTitle">❓ FAQ</div>
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;" id="t-faq1q">How much does a credit hour cost at UAE universities?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;" id="t-faq1a">Private university credit-hour rates commonly range from about AED 800 to AED 2,900+ depending on the institution and program (business/humanities are usually cheaper than engineering or medicine). Total annual private undergraduate tuition often falls between AED 50,000 and AED 150,000+. Check your specific university's official fee schedule for the exact rate.</p>
+    </details>
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;" id="t-faq2q">What other costs should I add besides tuition?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;" id="t-faq2a">Registration/admission fees, books and course materials, housing (especially in Dubai/Abu Dhabi if you're not living with family), transport, and health insurance (often mandatory for student visas). These can add a meaningful amount on top of tuition, especially for international students needing accommodation.</p>
+    </details>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;" id="t-sourceTitle">📌 Source & disclaimer</div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:6px;line-height:1.7;" id="t-sourceText">Figures are general market ranges gathered from published university fee schedules (e.g. RIT Dubai, Abu Dhabi University, American University in the Emirates) — every university sets its own rates. This is an estimate for planning purposes only — check the <a href="https://www.moe.gov.ae/" target="_blank" rel="noopener" style="color:var(--primary);">UAE Ministry of Education</a> or your specific university's admissions office for exact figures.</p>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong id="t-otherTools">Other UAE Tools:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="ae/vat-calculator/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧾 <span id="t-linkVat">VAT Calculator</span></a>
+      <a href="ae/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 <span id="t-linkGold">Gold Price</span></a>
+      <a href="ae/weather/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌤️ <span id="t-linkWeather">Weather</span></a>
+      <a href="ae/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇦🇪 <span id="t-linkAll">All UAE Tools</span></a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="ae/">UAE Tools</a></div>
+    <div class="footer-copy-simple">© 2026 Adawati</div>
+  </div>
+</footer>
+
+<script>
+const TXT = {
+  en: {
+    h1: 'UAE University Cost Calculator 🇦🇪', sub: 'How much will your degree cost from start to finish?',
+    intro: '💡 Most UAE private universities price by credit hour, similar to Jordan. Rates vary a lot by university and major (business/humanities usually cheaper than engineering/medicine).',
+    lblHourPrice: 'Credit-hour price (AED)', lblTotalHours: 'Total credit hours for your major', lblYears: 'Expected years to graduate', lblOther: 'Other annual costs (housing + books + insurance) (AED)',
+    note: 'Typical private-university range: AED 800-2,900+ per credit hour depending on institution and major.',
+    resultLbl: 'Total estimated cost for the whole degree', tuitionLbl: 'Tuition only', otherLbl: 'Other costs (whole course)', perYearLbl: 'Roughly per year',
+    faqTitle: '❓ FAQ',
+    faq1q: 'How much does a credit hour cost at UAE universities?',
+    faq1a: 'Private university credit-hour rates commonly range from about AED 800 to AED 2,900+ depending on the institution and program (business/humanities are usually cheaper than engineering or medicine). Total annual private undergraduate tuition often falls between AED 50,000 and AED 150,000+. Check your specific university\'s official fee schedule for the exact rate.',
+    faq2q: 'What other costs should I add besides tuition?',
+    faq2a: "Registration/admission fees, books and course materials, housing (especially in Dubai/Abu Dhabi if you're not living with family), transport, and health insurance (often mandatory for student visas). These can add a meaningful amount on top of tuition, especially for international students needing accommodation.",
+    sourceTitle: '📌 Source & disclaimer',
+    sourceText: 'Figures are general market ranges gathered from published university fee schedules (e.g. RIT Dubai, Abu Dhabi University, American University in the Emirates) — every university sets its own rates. This is an estimate for planning purposes only — check the <a href="https://www.moe.gov.ae/" target="_blank" rel="noopener" style="color:var(--primary);">UAE Ministry of Education</a> or your specific university\'s admissions office for exact figures.',
+    otherTools: 'Other UAE Tools:', linkVat: 'VAT Calculator', linkGold: 'Gold Price', linkWeather: 'Weather', linkAll: 'All UAE Tools',
+    curSuffix: ' AED', langBtn: 'عربي'
+  },
+  ar: {
+    h1: 'حاسبة تكلفة الجامعة في الإمارات 🇦🇪', sub: 'كم بتكلفك درجتك الجامعية من الألف للياء؟',
+    intro: '💡 معظم الجامعات الخاصة بالإمارات بتحسب بالساعة المعتمدة، متل الأردن تقريباً. الأسعار بتختلف كثير حسب الجامعة والتخصص (الإداري والإنساني عادة أرخص من الهندسة والطب).',
+    lblHourPrice: 'سعر الساعة المعتمدة (درهم)', lblTotalHours: 'عدد الساعات الكلية للتخصص', lblYears: 'المدة المتوقعة للتخرج (سنوات)', lblOther: 'مصاريف سنوية أخرى (سكن + كتب + تأمين) (درهم)',
+    note: 'المدى النموذجي بالجامعات الخاصة: 800-2,900+ درهم لكل ساعة معتمدة حسب الجامعة والتخصص.',
+    resultLbl: 'التكلفة الكاملة المتوقعة للدرجة', tuitionLbl: 'الرسوم الدراسية فقط', otherLbl: 'مصاريف أخرى (كل المدة)', perYearLbl: 'تقريباً بالسنة',
+    faqTitle: '❓ أسئلة شائعة',
+    faq1q: 'كم سعر الساعة المعتمدة بجامعات الإمارات؟',
+    faq1a: 'أسعار الساعة المعتمدة بالجامعات الخاصة عادة بين 800 و2,900+ درهم حسب الجامعة والتخصص (الإداري والإنساني أرخص عادة من الهندسة والطب). إجمالي الرسوم السنوية للبكالوريوس بالجامعات الخاصة عادة بين 50,000 و150,000+ درهم. راجع الجدول الرسمي لرسوم جامعتك للرقم الدقيق.',
+    faq2q: 'شو المصاريف اللي لازم أضيفها غير الرسوم الدراسية؟',
+    faq2a: 'رسوم التسجيل والقبول، الكتب والمواد الدراسية، السكن (خصوصاً بدبي/أبوظبي إذا ما كنت ساكن مع العائلة)، المواصلات، والتأمين الصحي (غالباً إلزامي لتأشيرة الطالب). هاي ممكن تضيف مبلغ كبير فوق الرسوم الدراسية، خصوصاً للطلاب اللي محتاجين سكن.',
+    sourceTitle: '📌 المصدر وإخلاء المسؤولية',
+    sourceText: 'الأرقام هي مدى عام مجمّع من جداول رسوم جامعات منشورة (مثل RIT Dubai وجامعة أبوظبي والجامعة الأمريكية بالإمارات) — كل جامعة بتحدد أسعارها الخاصة. هذا تقدير للتخطيط فقط — راجع <a href="https://www.moe.gov.ae/" target="_blank" rel="noopener" style="color:var(--primary);">وزارة التربية والتعليم الإماراتية</a> أو مكتب القبول بجامعتك للأرقام الدقيقة.',
+    otherTools: 'أدوات الإمارات الأخرى:', linkVat: 'حاسبة ضريبة القيمة المضافة', linkGold: 'سعر الذهب', linkWeather: 'الطقس', linkAll: 'كل أدوات الإمارات',
+    curSuffix: ' درهم', langBtn: 'English'
+  }
+};
+
+let curLang = 'en';
+
+function applyLang() {
+  const t = TXT[curLang];
+  document.documentElement.lang = curLang;
+  document.documentElement.dir = 'ltr';
+  document.getElementById('t-h1').textContent = t.h1;
+  document.getElementById('t-sub').textContent = t.sub;
+  document.getElementById('t-intro').textContent = t.intro;
+  document.getElementById('t-lblHourPrice').textContent = t.lblHourPrice;
+  document.getElementById('t-lblTotalHours').textContent = t.lblTotalHours;
+  document.getElementById('t-lblYears').textContent = t.lblYears;
+  document.getElementById('t-lblOther').textContent = t.lblOther;
+  document.getElementById('t-note').textContent = t.note;
+  document.getElementById('t-resultLbl').textContent = t.resultLbl;
+  document.getElementById('t-tuitionLbl').textContent = t.tuitionLbl;
+  document.getElementById('t-otherLbl').textContent = t.otherLbl;
+  document.getElementById('t-perYearLbl').textContent = t.perYearLbl;
+  document.getElementById('t-faqTitle').textContent = t.faqTitle;
+  document.getElementById('t-faq1q').textContent = t.faq1q;
+  document.getElementById('t-faq1a').textContent = t.faq1a;
+  document.getElementById('t-faq2q').textContent = t.faq2q;
+  document.getElementById('t-faq2a').textContent = t.faq2a;
+  document.getElementById('t-sourceTitle').textContent = t.sourceTitle;
+  document.getElementById('t-sourceText').innerHTML = t.sourceText;
+  document.getElementById('t-otherTools').textContent = t.otherTools;
+  document.getElementById('t-linkVat').textContent = t.linkVat;
+  document.getElementById('t-linkGold').textContent = t.linkGold;
+  document.getElementById('t-linkWeather').textContent = t.linkWeather;
+  document.getElementById('t-linkAll').textContent = t.linkAll;
+  document.getElementById('langBtn').textContent = t.langBtn;
+  calc();
+}
+
+function toggleLang() {
+  curLang = curLang === 'en' ? 'ar' : 'en';
+  applyLang();
+}
+
+function calc() {
+  const t = TXT[curLang];
+  const hourPrice = parseFloat(document.getElementById('hourPrice').value) || 0;
+  const totalHours = parseFloat(document.getElementById('totalHours').value) || 0;
+  const years = parseFloat(document.getElementById('years').value) || 0;
+  const annualOther = parseFloat(document.getElementById('annualOther').value) || 0;
+
+  if (!hourPrice || !totalHours) { document.getElementById('costResult').style.display = 'none'; return; }
+
+  const tuition = hourPrice * totalHours;
+  const otherTotal = annualOther * years;
+  const total = tuition + otherTotal;
+  const perYear = years > 0 ? total / years : total;
+
+  document.getElementById('tuitionOnly').textContent = tuition.toLocaleString() + t.curSuffix;
+  document.getElementById('otherTotal').textContent = otherTotal.toLocaleString() + t.curSuffix;
+  document.getElementById('perYear').textContent = perYear.toLocaleString(undefined,{maximumFractionDigits:0}) + t.curSuffix;
+  document.getElementById('totalCost').textContent = total.toLocaleString() + t.curSuffix;
+  document.getElementById('costResult').style.display = 'block';
+}
+
+applyLang();
+</script>
+<script src="i18n.js?v=42" defer></script>
+</body></html>

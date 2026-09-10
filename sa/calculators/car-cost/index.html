@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>حاسبة تكلفة السيارة الشهرية الحقيقية — السعودية | Adawati</title>
+<meta name="description" content="احسب تكلفة سيارتك الشهرية الحقيقية بـالسعودية: القسط، الوقود، التأمين، الصيانة والترخيص مجتمعة بمكان واحد. مجانية وفورية بدون تسجيل.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/sa/calculators/car-cost/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/sa/calculators/car-cost/">
+<meta property="og:title" content="حاسبة تكلفة السيارة الشهرية — السعودية | Adawati">
+<meta property="og:description" content="اجمع كل مصاريف سيارتك بمكان واحد.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/sa/calculators/car-cost/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"أدوات السعودية","item":"https://adawati.space/sa/"},
+  {"@type":"ListItem","position":3,"name":"تكلفة السيارة الشهرية","item":"https://adawati.space/sa/calculators/car-cost/"}
+]},
+{"@type":"WebApplication","name":"حاسبة تكلفة السيارة الشهرية — السعودية","url":"https://adawati.space/sa/calculators/car-cost/","applicationCategory":"FinanceApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"SAR"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"شو المصاريف اللي بينسوها الناس عادة بحساب تكلفة السيارة؟","acceptedAnswer":{"@type":"Answer","text":"كثير ناس بيحسبوا بس القسط الشهري والوقود، وبينسوا: التأمين، رسوم الترخيص السنوية، الصيانة الدورية، والمخالفات. هاي المصاريف مجتمعة ممكن تشكل جزء كبير من التكلفة الحقيقية الشهرية."}},
+{"@type":"Question","name":"هل السعر شامل الضريبة؟","acceptedAnswer":{"@type":"Answer","text":"ملاحظة: ضريبة القيمة المضافة بالسعودية 15% — عادة تكون محتسبة أصلاً بسعر السيارة المعلن."}}
+]}
+]}
+</script>
+<link rel="stylesheet" href="../../../style.css">
+<style>
+.lang-toggle-btn{position:absolute;top:12px;left:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;color:var(--text);}
+.card{position:relative;}
+</style>
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="sa/" class="nav-brand">Adawati 🇸🇦</a>
+  <div class="nav-links">
+    <a href="sa/" data-t="navHome">أدوات السعودية</a>
+    <a href="index.html" data-t="navGlobal">عالمي</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="sa/" data-t="backLink">→ العودة لأدوات السعودية</a></div>
+
+  <div class="card">
+    <button class="lang-toggle-btn" onclick="toggleLang()" id="langBtn">English</button>
+    <div class="card-icon" style="background:#eff6ff;">🚗</div>
+    <h1 class="card-title" data-t="title">كم بتكلفك سيارتك فعلياً بالشهر؟ 🇸🇦</h1>
+    <div class="card-subtitle" data-t="subtitle">اجمع كل مصاريف سيارتك بمكان واحد</div>
+    <div class="divider"></div>
+
+    <label data-t="lblInstallment">القسط الشهري (ر.س) — اتركه فارغ لو سيارتك مدفوعة بالكامل</label>
+    <input type="number" id="installment" placeholder="0.00" min="0" step="any" oninput="calc()">
+
+    <div class="divider"></div>
+    <label style="font-weight:700;" data-t="lblFuelHeader">⛽ الوقود / الطاقة</label>
+    <div class="option-toggle" style="margin-top:8px;">
+      <button class="option-btn active" id="typeFuel" onclick="setCarType('fuel')" data-t="btnFuel">بنزين / ديزل</button>
+      <button class="option-btn" id="typeElectric" onclick="setCarType('electric')" data-t="btnElectric">كهربائية بالكامل</button>
+    </div>
+
+    <div id="fuelSection" style="margin-top:10px;">
+      <div class="row">
+        <div><label data-t="lblDistance">كم تسوق بالشهر (كم)</label><input type="number" id="distance" placeholder="مثال: 1500" min="0" step="any" oninput="calc()"></div>
+        <div><label data-t="lblConsumption">استهلاك سيارتك (لتر/100كم)</label><input type="number" id="consumption" placeholder="مثال: 8" min="0" step="any" oninput="calc()"></div>
+      </div>
+      <label data-t="lblFuelPrice">سعر اللتر (ر.س) — القيمة الافتراضية محدّثة 7 سبتمبر 2026</label>
+      <input type="number" id="fuelPrice" value="2.33" min="0" step="any" oninput="calc()">
+      <p style="font-size:11px;color:var(--text-muted);margin-top:2px;" data-t="fuelSourceNote">المصدر: globalpetrolprices.com — عدّل السعر إذا تغيّر</p>
+    </div>
+
+    <div id="electricSection" style="display:none;margin-top:10px;">
+      <label data-t="lblElectricBill">كم زادت فاتورة الكهرباء شهرياً بسبب شحن السيارة؟ (ر.س)</label>
+      <input type="number" id="electricBill" placeholder="0.00" min="0" step="any" oninput="calc()">
+      <p style="font-size:12px;color:var(--text-muted);margin-top:4px;" data-t="electricNote">قارن فاتورة كهربائك قبل وبعد اقتناء السيارة، وأدخل الفرق فقط.</p>
+    </div>
+
+    <div class="divider"></div>
+    <div class="row">
+      <div><label data-t="lblInsurance">التأمين السنوي (ر.س)</label><input type="number" id="insurance" placeholder="0.00" min="0" step="any" oninput="calc()"></div>
+      <div><label data-t="lblLicense">الترخيص/التسجيل السنوي (ر.س)</label><input type="number" id="license" placeholder="0.00" min="0" step="any" oninput="calc()"></div>
+    </div>
+    <label data-t="lblMaintenance">الصيانة الشهرية التقديرية (ر.س)</label>
+    <input type="number" id="maintenance" placeholder="0.00" min="0" step="any" oninput="calc()">
+
+    <div class="divider"></div>
+    <label style="font-weight:700;" data-t="lblOtherHeader">مصاريف تانية بتنسى غالباً (اختياري)</label>
+    <div class="row" style="margin-top:8px;">
+      <div><label data-t="lblParking">موقف/باركنج شهري (ر.س)</label><input type="number" id="parking" placeholder="0.00" min="0" step="any" oninput="calc()"></div>
+      <div><label data-t="lblDepreciation">الإهلاك السنوي التقديري (ر.س)</label><input type="number" id="depreciation" placeholder="0.00" min="0" step="any" oninput="calc()"></div>
+    </div>
+    <label data-t="lblFines">متوسط المخالفات المرورية بالسنة (ر.س)</label>
+    <input type="number" id="fines" placeholder="0.00" min="0" step="any" oninput="calc()">
+
+    <div id="carResult" style="display:none;margin-top:20px;">
+      <div class="result-box show success" style="margin-top:0;">
+        <div class="result-value" id="totalMonthly"></div>
+        <div class="result-label" data-t="resultLbl">سيارتك تكلفك هيك بالشهر (تقديري)</div>
+      </div>
+      <div style="margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2;" id="breakdown"></div>
+      <div class="result-box show" style="margin-top:12px;background:#fefce8;">
+        <div class="result-value" style="color:#ca8a04;" id="totalYearly"></div>
+        <div class="result-label" data-t="yearlyLbl">التكلفة السنوية الإجمالية التقديرية</div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:14px;" data-t="vatNote">ملاحظة: ضريبة القيمة المضافة بالسعودية 15% — عادة تكون محتسبة أصلاً بسعر السيارة المعلن.</p>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;" data-t="faqHeader">❓ أسئلة شائعة</div>
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;" data-t="faq1q">شو المصاريف اللي بينسوها الناس عادة؟</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;" data-t="faq1a">كثير ناس بيحسبوا بس القسط والوقود، وبينسوا التأمين، الترخيص، الصيانة، والمخالفات.</p>
+    </details>
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;" data-t="faq2q">هل السعر شامل الضريبة؟</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;" data-t="faq2a">ملاحظة: ضريبة القيمة المضافة بالسعودية 15% — عادة تكون محتسبة أصلاً بسعر السيارة المعلن.</p>
+    </details>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong data-t="otherToolsHeader">أدوات السعودية الأخرى:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="sa/fuel-prices/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;" data-t="linkFuel">⛽ أسعار المحروقات</a>
+      <a href="sa/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;" data-t="linkGold">🪙 سعر الذهب اليوم</a>
+      <a href="sa/weather/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;" data-t="linkWeather">🌤️ الطقس</a>
+      <a href="sa/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;" data-t="linkAll">🇸🇦 كل أدوات السعودية</a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="sa/">أدوات السعودية</a></div>
+    <div class="footer-copy-simple">© 2026 Adawati</div>
+  </div>
+</footer>
+
+<script>
+let carType = 'fuel';
+let curLang = 'ar';
+const CUR = { ar: 'ر.س', en: 'SAR' };
+
+function setCarType(type) {
+  carType = type;
+  document.getElementById('typeFuel').classList.toggle('active', type === 'fuel');
+  document.getElementById('typeElectric').classList.toggle('active', type === 'electric');
+  document.getElementById('fuelSection').style.display = type === 'fuel' ? 'block' : 'none';
+  document.getElementById('electricSection').style.display = type === 'electric' ? 'block' : 'none';
+  calc();
+}
+
+function calc() {
+  const cur = CUR[curLang];
+  const installment = parseFloat(document.getElementById('installment').value) || 0;
+  const insuranceYearly = parseFloat(document.getElementById('insurance').value) || 0;
+  const licenseYearly = parseFloat(document.getElementById('license').value) || 0;
+  const maintenance = parseFloat(document.getElementById('maintenance').value) || 0;
+  const parking = parseFloat(document.getElementById('parking').value) || 0;
+  const depreciationYearly = parseFloat(document.getElementById('depreciation').value) || 0;
+  const finesYearly = parseFloat(document.getElementById('fines').value) || 0;
+
+  let fuelMonthly = 0;
+  if (carType === 'fuel') {
+    const distance = parseFloat(document.getElementById('distance').value) || 0;
+    const consumption = parseFloat(document.getElementById('consumption').value) || 0;
+    const fuelPrice = parseFloat(document.getElementById('fuelPrice').value) || 0;
+    const fuelLiters = (distance / 100) * consumption;
+    fuelMonthly = fuelLiters * fuelPrice;
+  } else {
+    fuelMonthly = parseFloat(document.getElementById('electricBill').value) || 0;
+  }
+
+  if (!installment && !fuelMonthly && !insuranceYearly && !licenseYearly && !maintenance && !parking && !depreciationYearly && !finesYearly) {
+    document.getElementById('carResult').style.display = 'none';
+    return;
+  }
+
+  const insuranceMonthly = insuranceYearly / 12;
+  const licenseMonthly = licenseYearly / 12;
+  const depreciationMonthly = depreciationYearly / 12;
+  const finesMonthly = finesYearly / 12;
+
+  const totalMonthly = installment + fuelMonthly + insuranceMonthly + licenseMonthly + maintenance + parking + depreciationMonthly + finesMonthly;
+  const totalYearly = totalMonthly * 12;
+
+  document.getElementById('totalMonthly').textContent = totalMonthly.toFixed(2) + ' ' + cur;
+  document.getElementById('totalYearly').textContent = totalYearly.toFixed(2) + ' ' + cur;
+
+  const L = curLang === 'ar' ? {
+    installment:'القسط', fuel: carType === 'fuel' ? 'الوقود' : 'الكهرباء', insurance:'التأمين', license:'الترخيص',
+    maintenance:'الصيانة', parking:'الموقف', depreciation:'الإهلاك', fines:'المخالفات', total:'الإجمالي الشهري'
+  } : {
+    installment:'Installment', fuel: carType === 'fuel' ? 'Fuel' : 'Electricity', insurance:'Insurance', license:'Registration',
+    maintenance:'Maintenance', parking:'Parking', depreciation:'Depreciation', fines:'Fines', total:'Total Monthly'
+  };
+
+  document.getElementById('breakdown').innerHTML =
+    (installment ? L.installment + ': <strong>' + installment.toFixed(2) + ' ' + cur + '</strong><br>' : '') +
+    (fuelMonthly ? L.fuel + ': <strong>' + fuelMonthly.toFixed(2) + ' ' + cur + '</strong><br>' : '') +
+    (insuranceMonthly ? L.insurance + ': <strong>' + insuranceMonthly.toFixed(2) + ' ' + cur + '</strong><br>' : '') +
+    (licenseMonthly ? L.license + ': <strong>' + licenseMonthly.toFixed(2) + ' ' + cur + '</strong><br>' : '') +
+    (maintenance ? L.maintenance + ': <strong>' + maintenance.toFixed(2) + ' ' + cur + '</strong><br>' : '') +
+    (parking ? L.parking + ': <strong>' + parking.toFixed(2) + ' ' + cur + '</strong><br>' : '') +
+    (depreciationMonthly ? L.depreciation + ': <strong>' + depreciationMonthly.toFixed(2) + ' ' + cur + '</strong><br>' : '') +
+    (finesMonthly ? L.fines + ': <strong>' + finesMonthly.toFixed(2) + ' ' + cur + '</strong><br>' : '') +
+    L.total + ': <strong style="color:var(--primary);font-size:16px;">' + totalMonthly.toFixed(2) + ' ' + cur + '</strong>';
+
+  document.getElementById('carResult').style.display = 'block';
+}
+
+const T_AR = {};
+const T_EN = {};
+document.querySelectorAll('[data-t]').forEach(function(el) {
+  const key = el.getAttribute('data-t');
+  T_AR[key] = el.innerHTML;
+});
+// EN text was baked as the default only when defaultLang==='en'; for toggle we need the other language too.
+// Since this page hardcodes one language at build time, the toggle swaps direction/labels using a light re-render:
+function toggleLang() {
+  curLang = curLang === 'ar' ? 'en' : 'ar';
+  document.documentElement.lang = curLang;
+  document.documentElement.dir = curLang === 'ar' ? 'rtl' : 'ltr';
+  document.getElementById('langBtn').textContent = curLang === 'ar' ? 'English' : 'العربية';
+  applyLang();
+  calc();
+}
+function applyLang() {
+  const dict = curLang === 'ar' ? LANG_AR : LANG_EN;
+  document.querySelectorAll('[data-t]').forEach(function(el) {
+    const key = el.getAttribute('data-t');
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+}
+const LANG_AR = {"navHome":"أدوات السعودية","navGlobal":"عالمي","backLink":"→ العودة لأدوات السعودية","title":"كم بتكلفك سيارتك فعلياً بالشهر؟ 🇸🇦","subtitle":"اجمع كل مصاريف سيارتك بمكان واحد","lblInstallment":"القسط الشهري (ر.س) — اتركه فارغ لو سيارتك مدفوعة بالكامل","lblFuelHeader":"⛽ الوقود / الطاقة","btnFuel":"بنزين / ديزل","btnElectric":"كهربائية بالكامل","lblDistance":"كم تسوق بالشهر (كم)","lblConsumption":"استهلاك سيارتك (لتر/100كم)","lblFuelPrice":"سعر اللتر (ر.س) — القيمة الافتراضية محدّثة 7 سبتمبر 2026","fuelSourceNote":"المصدر: globalpetrolprices.com — عدّل السعر إذا تغيّر","lblElectricBill":"كم زادت فاتورة الكهرباء شهرياً بسبب شحن السيارة؟ (ر.س)","electricNote":"قارن فاتورة كهربائك قبل وبعد اقتناء السيارة، وأدخل الفرق فقط.","lblInsurance":"التأمين السنوي (ر.س)","lblLicense":"الترخيص/التسجيل السنوي (ر.س)","lblMaintenance":"الصيانة الشهرية التقديرية (ر.س)","lblOtherHeader":"مصاريف تانية بتنسى غالباً (اختياري)","lblParking":"موقف/باركنج شهري (ر.س)","lblDepreciation":"الإهلاك السنوي التقديري (ر.س)","lblFines":"متوسط المخالفات المرورية بالسنة (ر.س)","resultLbl":"سيارتك تكلفك هيك بالشهر (تقديري)","yearlyLbl":"التكلفة السنوية الإجمالية التقديرية","vatNote":"ملاحظة: ضريبة القيمة المضافة بالسعودية 15% — عادة تكون محتسبة أصلاً بسعر السيارة المعلن.","faqHeader":"❓ أسئلة شائعة","faq1q":"شو المصاريف اللي بينسوها الناس عادة؟","faq1a":"كثير ناس بيحسبوا بس القسط والوقود، وبينسوا التأمين، الترخيص، الصيانة، والمخالفات.","faq2q":"هل السعر شامل الضريبة؟","faq2a":"ملاحظة: ضريبة القيمة المضافة بالسعودية 15% — عادة تكون محتسبة أصلاً بسعر السيارة المعلن.","otherToolsHeader":"أدوات السعودية الأخرى:","linkFuel":"⛽ أسعار المحروقات","linkGold":"🪙 سعر الذهب اليوم","linkWeather":"🌤️ الطقس","linkAll":"🇸🇦 كل أدوات السعودية"};
+const LANG_EN = {"navHome":"Saudi Arabia Tools","navGlobal":"Global","backLink":"← Back to Saudi Arabia Tools","title":"What's Your Car Really Costing You Monthly? 🇸🇦","subtitle":"Gather all your car expenses in one place","lblInstallment":"Monthly loan installment (SAR) — leave blank if fully paid off","lblFuelHeader":"⛽ Fuel / Energy","btnFuel":"Petrol / Diesel","btnElectric":"Fully Electric","lblDistance":"km driven per month","lblConsumption":"Consumption (L/100km)","lblFuelPrice":"Price per liter (SAR) — default updated 7 Sep 2026","fuelSourceNote":"Source: globalpetrolprices.com — adjust if the price has changed","lblElectricBill":"How much did your electric bill increase per month from charging? (SAR)","electricNote":"Compare your bill before and after getting the car, and enter only the difference.","lblInsurance":"Annual insurance (SAR)","lblLicense":"Annual registration (SAR)","lblMaintenance":"Estimated monthly maintenance (SAR)","lblOtherHeader":"Other often-forgotten costs (optional)","lblParking":"Monthly parking (SAR)","lblDepreciation":"Estimated annual depreciation (SAR)","lblFines":"Average annual traffic fines (SAR)","resultLbl":"Your car costs this much monthly (estimate)","yearlyLbl":"Estimated total annual cost","vatNote":"Note: Saudi VAT is 15% — usually already included in the advertised car price.","faqHeader":"❓ FAQ","faq1q":"What costs do people usually forget?","faq1a":"Most people only count the loan and fuel, forgetting insurance, registration, maintenance, and fines.","faq2q":"Is tax/VAT included?","faq2a":"Note: Saudi VAT is 15% — usually already included in the advertised car price.","otherToolsHeader":"Other Saudi Arabia Tools:","linkFuel":"⛽ Fuel Prices","linkGold":"🪙 Gold Price Today","linkWeather":"🌤️ Weather","linkAll":"🇸🇦 All Saudi Arabia Tools"};
+</script>
+<script src="i18n.js?v=42" defer></script>
+</body></html>

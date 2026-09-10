@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>US College Cost Calculator 2025-26 — Public vs Private | Adawati</title>
+<meta name="description" content="Calculate the full cost of a US college degree: tuition & fees, room & board, books, and other costs — for public in-state, public out-of-state, and private schools. Free, instant, no signup.">
+<meta name="keywords" content="US college cost calculator, cost of attendance, in-state vs out-of-state tuition, private college cost, College Board tuition 2025-26">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/us/calculators/university-cost/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="en" href="https://adawati.space/us/calculators/university-cost/">
+<meta property="og:title" content="US College Cost Calculator 2025-26 | Adawati">
+<meta property="og:description" content="Calculate your full college cost of attendance — tuition, room & board, and more.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/us/calculators/university-cost/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"US Tools","item":"https://adawati.space/us/"},
+  {"@type":"ListItem","position":3,"name":"College Cost Calculator","item":"https://adawati.space/us/calculators/university-cost/"}
+]},
+{"@type":"WebApplication","name":"US College Cost Calculator","url":"https://adawati.space/us/calculators/university-cost/","description":"Calculate the full cost of attendance for a US college degree: tuition & fees, room & board, books, and other costs.","applicationCategory":"EducationApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What's the average cost of college in the US for 2025-26?","acceptedAnswer":{"@type":"Answer","text":"Per College Board's 2025-26 Trends in College Pricing report: public 4-year in-state averages $11,950 tuition & fees ($29,910 total cost of attendance with room & board). Public 4-year out-of-state averages $31,880 tuition & fees ($49,080 total). Private nonprofit 4-year averages $45,000 tuition & fees ($62,570 total)."}},
+{"@type":"Question","name":"Why is out-of-state tuition so much higher than in-state?","acceptedAnswer":{"@type":"Answer","text":"Public universities are subsidized by state tax dollars for residents of that state. Out-of-state (and international) students don't pay those state taxes, so they're charged closer to the full cost of instruction — often nearly 3x the in-state rate."}}
+]}
+]}
+</script>
+<link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="us/" class="nav-brand">Adawati 🇺🇸</a>
+  <div class="nav-links">
+    <a href="us/">US Tools</a>
+    <a href="index.html">Global</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="us/">← Back to US Tools</a></div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:6px;">
+      <button onclick="toggleLang()" id="langBtn" style="font-size:12px;padding:5px 12px;border:1px solid var(--border);border-radius:99px;background:var(--surface-2);color:var(--text);cursor:pointer;">عربي</button>
+    </div>
+    <div class="card-icon" style="background:#eff6ff;">🎓</div>
+    <h1 class="card-title" id="t-h1">US College Cost Calculator 🇺🇸</h1>
+    <div class="card-subtitle" id="t-sub">What will your degree really cost — public or private?</div>
+    <div class="divider"></div>
+    <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:14px;" id="t-intro">💡 US colleges don't charge per credit-hour the way Jordan/Gulf universities do — the big decision is public (in-state or out-of-state) vs private, then add room & board, books and other costs on top.</p>
+
+    <label id="t-lblType">School type</label>
+    <select id="schoolType" onchange="calc()" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
+      <option value="instate" id="t-optInstate">Public, in-state — avg $11,950/year tuition</option>
+      <option value="outstate" id="t-optOutstate">Public, out-of-state — avg $31,880/year tuition</option>
+      <option value="private" id="t-optPrivate">Private nonprofit — avg $45,000/year tuition</option>
+    </select>
+
+    <div class="row" style="margin-top:10px;">
+      <div><label id="t-lblTuition">Tuition & fees ($/year)</label><input type="number" id="tuition" value="11950" min="0" step="any" oninput="calc()"></div>
+      <div><label id="t-lblYears">Years to graduate</label><input type="number" id="years" value="4" min="0" step="any" oninput="calc()"></div>
+    </div>
+    <div class="row" style="margin-top:10px;">
+      <div><label id="t-lblRoom">Room & board ($/year)</label><input type="number" id="roomBoard" value="13900" min="0" step="any" oninput="calc()"></div>
+      <div><label id="t-lblOther">Books, supplies & other ($/year)</label><input type="number" id="otherCosts" placeholder="e.g. 1600" value="1600" min="0" step="any" oninput="calc()"></div>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:6px;" id="t-note">Defaults are College Board 2025-26 national averages — edit them to match your specific school's published cost of attendance.</p>
+
+    <div id="costResult" style="display:none;margin-top:20px;">
+      <div class="result-box show success" style="margin-top:0;">
+        <div class="result-value" id="totalCost"></div>
+        <div class="result-label" id="t-resultLbl">Total estimated cost for the whole degree</div>
+      </div>
+      <div class="stat-grid" style="margin-top:12px;">
+        <div class="stat-box"><div class="stat-val" id="tuitionOnly"></div><div class="stat-lbl" id="t-tuitionLbl">Tuition & fees only</div></div>
+        <div class="stat-box"><div class="stat-val" id="otherTotal"></div><div class="stat-lbl" id="t-otherLbl">Room, board & other (whole course)</div></div>
+        <div class="stat-box"><div class="stat-val" id="perYear"></div><div class="stat-lbl" id="t-perYearLbl">Roughly per year</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;" id="t-faqTitle">❓ FAQ</div>
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;" id="t-faq1q">What's the average cost of college in the US for 2025-26?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;" id="t-faq1a">Per College Board's 2025-26 Trends in College Pricing report: public 4-year in-state averages $11,950 tuition & fees ($29,910 total cost of attendance with room & board). Public 4-year out-of-state averages $31,880 tuition & fees ($49,080 total). Private nonprofit 4-year averages $45,000 tuition & fees ($62,570 total).</p>
+    </details>
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;" id="t-faq2q">Why is out-of-state tuition so much higher?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;" id="t-faq2a">Public universities are subsidized by state tax dollars for residents of that state. Out-of-state and international students don't pay those state taxes, so they're charged closer to the full cost of instruction — often nearly 3x the in-state rate.</p>
+    </details>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;" id="t-sourceTitle">📌 Source & disclaimer</div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:6px;line-height:1.7;" id="t-sourceText">Default figures are College Board's 2025-26 Trends in College Pricing national averages. This is an estimate for planning purposes only — check <a href="https://research.collegeboard.org/trends/college-pricing" target="_blank" rel="noopener" style="color:var(--primary);">College Board Trends in College Pricing</a> or your specific school's net price calculator for exact figures.</p>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong id="t-otherTools">Other US Tools:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="us/tip-calculator/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💵 <span id="t-linkTip">Tip Calculator</span></a>
+      <a href="us/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 <span id="t-linkGold">Gold Price</span></a>
+      <a href="us/weather/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌤️ <span id="t-linkWeather">Weather</span></a>
+      <a href="us/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇺🇸 <span id="t-linkAll">All US Tools</span></a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="us/">US Tools</a></div>
+    <div class="footer-copy-simple">© 2026 Adawati</div>
+  </div>
+</footer>
+
+<script>
+const DEFAULT_TUITION = {instate: 11950, outstate: 31880, private: 45000};
+const DEFAULT_ROOM = {instate: 13900, outstate: 13900, private: 15920};
+
+const TXT = {
+  en: {
+    h1: 'US College Cost Calculator 🇺🇸', sub: 'What will your degree really cost — public or private?',
+    intro: "💡 US colleges don't charge per credit-hour the way Jordan/Gulf universities do — the big decision is public (in-state or out-of-state) vs private, then add room & board, books and other costs on top.",
+    lblType: 'School type', optInstate: 'Public, in-state — avg $11,950/year tuition', optOutstate: 'Public, out-of-state — avg $31,880/year tuition', optPrivate: 'Private nonprofit — avg $45,000/year tuition',
+    lblTuition: 'Tuition & fees ($/year)', lblYears: 'Years to graduate', lblRoom: 'Room & board ($/year)', lblOther: 'Books, supplies & other ($/year)',
+    note: "Defaults are College Board 2025-26 national averages — edit them to match your specific school's published cost of attendance.",
+    resultLbl: 'Total estimated cost for the whole degree', tuitionLbl: 'Tuition & fees only', otherLbl: 'Room, board & other (whole course)', perYearLbl: 'Roughly per year',
+    faqTitle: '❓ FAQ',
+    faq1q: "What's the average cost of college in the US for 2025-26?",
+    faq1a: "Per College Board's 2025-26 Trends in College Pricing report: public 4-year in-state averages $11,950 tuition & fees ($29,910 total cost of attendance with room & board). Public 4-year out-of-state averages $31,880 tuition & fees ($49,080 total). Private nonprofit 4-year averages $45,000 tuition & fees ($62,570 total).",
+    faq2q: 'Why is out-of-state tuition so much higher?',
+    faq2a: "Public universities are subsidized by state tax dollars for residents of that state. Out-of-state and international students don't pay those state taxes, so they're charged closer to the full cost of instruction — often nearly 3x the in-state rate.",
+    sourceTitle: '📌 Source & disclaimer',
+    sourceText: 'Default figures are College Board\'s 2025-26 Trends in College Pricing national averages. This is an estimate for planning purposes only — check <a href="https://research.collegeboard.org/trends/college-pricing" target="_blank" rel="noopener" style="color:var(--primary);">College Board Trends in College Pricing</a> or your specific school\'s net price calculator for exact figures.',
+    otherTools: 'Other US Tools:', linkTip: 'Tip Calculator', linkGold: 'Gold Price', linkWeather: 'Weather', linkAll: 'All US Tools',
+    curSuffix: '$', langBtn: 'عربي'
+  },
+  ar: {
+    h1: 'حاسبة تكلفة الجامعة الأمريكية 🇺🇸', sub: 'كم بتكلفك درجتك الجامعية فعلياً — حكومية أو خاصة؟',
+    intro: '💡 الجامعات الأمريكية ما بتحسب بالساعة المعتمدة متل الأردن والخليج — القرار الأساسي هو حكومية (بسعر الولاية أو خارجها) أو خاصة، وبعدين تضيف السكن والطعام والكتب ومصاريف ثانية فوقها.',
+    lblType: 'نوع الجامعة', optInstate: 'حكومية - بسعر الولاية — متوسط 11,950$/سنة', optOutstate: 'حكومية - خارج الولاية — متوسط 31,880$/سنة', optPrivate: 'خاصة (غير ربحية) — متوسط 45,000$/سنة',
+    lblTuition: 'الرسوم الدراسية ($/سنة)', lblYears: 'سنوات الدراسة المتوقعة', lblRoom: 'السكن والطعام ($/سنة)', lblOther: 'الكتب واللوازم ومصاريف أخرى ($/سنة)',
+    note: 'القيم الافتراضية هي متوسطات College Board لعام 2025-26 — عدّلها حسب تكلفة الجامعة المحددة اللي بتخطط تلتحق فيها.',
+    resultLbl: 'التكلفة الكاملة المتوقعة للدرجة', tuitionLbl: 'الرسوم الدراسية فقط', otherLbl: 'السكن والطعام ومصاريف أخرى (كل المدة)', perYearLbl: 'تقريباً بالسنة',
+    faqTitle: '❓ أسئلة شائعة',
+    faq1q: 'شو متوسط تكلفة الجامعة بأمريكا لعام 2025-26؟',
+    faq1a: 'حسب تقرير College Board لعام 2025-26: الجامعة الحكومية بسعر الولاية متوسطها 11,950$ رسوم دراسية (29,910$ بالكامل مع السكن والطعام). الجامعة الحكومية خارج الولاية متوسطها 31,880$ رسوم (49,080$ بالكامل). الجامعة الخاصة غير الربحية متوسطها 45,000$ رسوم (62,570$ بالكامل).',
+    faq2q: 'ليش رسوم خارج الولاية أعلى بكثير؟',
+    faq2a: 'الجامعات الحكومية مدعومة من ضرائب سكان الولاية نفسها. الطالب من خارج الولاية (أو الدولي) ما بيدفع هاي الضرائب، فبيدفع رسوم أقرب للتكلفة الحقيقية للتعليم — غالباً تقريباً 3 أضعاف سعر سكان الولاية.',
+    sourceTitle: '📌 المصدر وإخلاء المسؤولية',
+    sourceText: 'القيم الافتراضية هي متوسطات College Board الوطنية لعام 2025-26. هذا تقدير للتخطيط فقط — راجع <a href="https://research.collegeboard.org/trends/college-pricing" target="_blank" rel="noopener" style="color:var(--primary);">College Board Trends in College Pricing</a> أو حاسبة السعر الصافي الخاصة بجامعتك للأرقام الدقيقة.',
+    otherTools: 'أدوات أمريكا الأخرى:', linkTip: 'حاسبة البقشيش', linkGold: 'سعر الذهب', linkWeather: 'الطقس', linkAll: 'كل أدوات أمريكا',
+    curSuffix: '$', langBtn: 'English'
+  }
+};
+
+let curLang = 'en';
+
+function applyLang() {
+  const t = TXT[curLang];
+  document.documentElement.lang = curLang;
+  document.documentElement.dir = 'ltr';
+  document.getElementById('t-h1').textContent = t.h1;
+  document.getElementById('t-sub').textContent = t.sub;
+  document.getElementById('t-intro').textContent = t.intro;
+  document.getElementById('t-lblType').textContent = t.lblType;
+  document.getElementById('t-optInstate').textContent = t.optInstate;
+  document.getElementById('t-optOutstate').textContent = t.optOutstate;
+  document.getElementById('t-optPrivate').textContent = t.optPrivate;
+  document.getElementById('t-lblTuition').textContent = t.lblTuition;
+  document.getElementById('t-lblYears').textContent = t.lblYears;
+  document.getElementById('t-lblRoom').textContent = t.lblRoom;
+  document.getElementById('t-lblOther').textContent = t.lblOther;
+  document.getElementById('t-note').textContent = t.note;
+  document.getElementById('t-resultLbl').textContent = t.resultLbl;
+  document.getElementById('t-tuitionLbl').textContent = t.tuitionLbl;
+  document.getElementById('t-otherLbl').textContent = t.otherLbl;
+  document.getElementById('t-perYearLbl').textContent = t.perYearLbl;
+  document.getElementById('t-faqTitle').textContent = t.faqTitle;
+  document.getElementById('t-faq1q').textContent = t.faq1q;
+  document.getElementById('t-faq1a').textContent = t.faq1a;
+  document.getElementById('t-faq2q').textContent = t.faq2q;
+  document.getElementById('t-faq2a').textContent = t.faq2a;
+  document.getElementById('t-sourceTitle').textContent = t.sourceTitle;
+  document.getElementById('t-sourceText').innerHTML = t.sourceText;
+  document.getElementById('t-otherTools').textContent = t.otherTools;
+  document.getElementById('t-linkTip').textContent = t.linkTip;
+  document.getElementById('t-linkGold').textContent = t.linkGold;
+  document.getElementById('t-linkWeather').textContent = t.linkWeather;
+  document.getElementById('t-linkAll').textContent = t.linkAll;
+  document.getElementById('langBtn').textContent = t.langBtn;
+  calc();
+}
+
+function toggleLang() {
+  curLang = curLang === 'en' ? 'ar' : 'en';
+  applyLang();
+}
+
+function onTypeChange() {
+  const type = document.getElementById('schoolType').value;
+  document.getElementById('tuition').value = DEFAULT_TUITION[type];
+  document.getElementById('roomBoard').value = DEFAULT_ROOM[type];
+  calc();
+}
+document.getElementById('schoolType').addEventListener('change', onTypeChange);
+
+function calc() {
+  const t = TXT[curLang];
+  const tuition = parseFloat(document.getElementById('tuition').value) || 0;
+  const years = parseFloat(document.getElementById('years').value) || 0;
+  const roomBoard = parseFloat(document.getElementById('roomBoard').value) || 0;
+  const otherCosts = parseFloat(document.getElementById('otherCosts').value) || 0;
+
+  if (!years || !tuition) { document.getElementById('costResult').style.display = 'none'; return; }
+
+  const tuitionTotal = tuition * years;
+  const otherTotal = (roomBoard + otherCosts) * years;
+  const total = tuitionTotal + otherTotal;
+  const perYear = years > 0 ? total / years : total;
+
+  document.getElementById('tuitionOnly').textContent = t.curSuffix + tuitionTotal.toLocaleString();
+  document.getElementById('otherTotal').textContent = t.curSuffix + otherTotal.toLocaleString();
+  document.getElementById('perYear').textContent = t.curSuffix + perYear.toLocaleString(undefined,{maximumFractionDigits:0});
+  document.getElementById('totalCost').textContent = t.curSuffix + total.toLocaleString();
+  document.getElementById('costResult').style.display = 'block';
+}
+
+applyLang();
+</script>
+<script src="i18n.js?v=42" defer></script>
+</body></html>

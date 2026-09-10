@@ -38,8 +38,8 @@ for (const url of urls) {
   const filePath = path.join(SITE_DIR, urlToFile(url));
   if (!fs.existsSync(filePath)) continue;
   const html = fs.readFileSync(filePath, 'utf8');
-  const title = (html.match(/<title>([^<]*)<\/title>/) || [])[1] || '';
-  const desc = (html.match(/<meta name="description" content="([^"]*)"/) || [])[1] || '';
+  const title = (html.match(/<title[^>]*>([^<]*)<\/title>/) || [])[1] || '';
+  const desc = (html.match(/<meta name="description"[^>]*content="([^"]*)"/) || [])[1] || '';
   const keywords = (html.match(/<meta name="keywords" content="([^"]*)"/) || [])[1] || '';
   const h1 = (html.match(/<h1[^>]*>([^<]*)</) || [])[1] || '';
   if (!title) continue;
