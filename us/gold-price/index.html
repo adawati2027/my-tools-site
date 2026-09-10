@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>Gold Price Today in USA — 18K 21K 22K 24K | Adawati</title>
+<meta name="description" content="Today's gold price per gram in USD for 18K, 21K, 22K and 24K, updated live from the global gold spot price. Free, instant, no signup.">
+<meta name="keywords" content="gold price today USA, gold price per gram, 22K gold price, 24K gold price, gold rate USA">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/us/gold-price/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="en" href="https://adawati.space/us/gold-price/">
+<meta property="og:title" content="Gold Price Today in USA | Adawati">
+<meta property="og:description" content="Live gold price per gram for every karat, updated in real time.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/us/gold-price/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"USA Tools","item":"https://adawati.space/us/"},
+  {"@type":"ListItem","position":3,"name":"Gold Price Today","item":"https://adawati.space/us/gold-price/"}
+]},
+{"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Where does this page's gold price come from?","acceptedAnswer":{"@type":"Answer","text":"It's calculated from the live global gold spot price (per ounce), converted to USD and per gram, then 18K/21K/22K prices are derived from the 24K (pure gold) price using each karat's purity ratio."}},
+  {"@type":"Question","name":"Does this match jewellery shop prices exactly?","acceptedAnswer":{"@type":"Answer","text":"This is an approximate reference price reflecting only the live spot price, with no making charge or retailer margin included — actual shop prices may differ slightly."}}
+]}
+]}
+</script>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="us/" class="nav-brand">Adawati 🇺🇸</a>
+  <div class="nav-links">
+    <a href="us/">USA Tools</a>
+    <a href="index.html">Global</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="us/">← Back to USA Tools</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#fefce8;">🪙</div>
+    <h1 class="card-title">Gold Price Today in USA 🇺🇸</h1>
+    <div class="card-subtitle" id="updatedLabel">Loading...</div>
+    <div class="divider"></div>
+
+    <div id="loadingMsg" style="text-align:center;padding:20px;color:var(--text-muted);">⏳ Loading prices...</div>
+    <div id="pricesGrid" style="display:none;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;">
+      <div class="stat-box"><div class="stat-val" id="p24"></div><div class="stat-lbl">24K (Pure)</div></div>
+      <div class="stat-box" style="background:#fefce8;"><div class="stat-val" id="p22" style="color:#ca8a04;"></div><div class="stat-lbl">22K</div></div>
+      <div class="stat-box" style="background:#eff6ff;"><div class="stat-val" id="p21" style="color:#2563eb;"></div><div class="stat-lbl">21K</div></div>
+      <div class="stat-box" style="background:#f0fdf4;"><div class="stat-val" id="p18" style="color:#16a34a;"></div><div class="stat-lbl">18K</div></div>
+    </div>
+    <div id="errorMsg" style="display:none;text-align:center;padding:20px;color:#dc2626;">⚠️ Couldn't load prices. Try refreshing the page.</div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:12px;">💡 Prices in USD per gram, derived from the live global spot price — no making charge or shop margin included. Check with your jeweller for the actual price.</p>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;">🧮 Buying gold? Calculate the full cost</div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:6px;margin-bottom:10px;">Making charges vary a lot by shop and design — the value below is just an estimate, adjust it to what your jeweller quotes.</p>
+    <div class="row">
+      <div><label>How many grams?</label><input type="number" id="buyGrams" placeholder="0" min="0" step="any" oninput="calcPurchase()"></div>
+      <div><label>Karat</label>
+        <select id="buyKarat" onchange="calcPurchase()" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
+          <option value="24">24K (Pure)</option>
+          <option value="22">22K</option>
+          <option value="21" selected>21K</option>
+          <option value="18">18K</option>
+        </select>
+      </div>
+    </div>
+    <label>Making charge per gram (est. USD)</label>
+    <input type="number" id="makingFee" placeholder="e.g. 3" min="0" step="any" value="3" oninput="calcPurchase()">
+
+    <div id="purchaseResult" style="display:none;margin-top:16px;">
+      <div class="result-box show success" style="margin-top:0;">
+        <div class="result-value" id="purchaseTotal"></div>
+        <div class="result-label">Estimated total cost</div>
+      </div>
+      <div style="margin-top:10px;padding:12px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;line-height:2;" id="purchaseBreakdown"></div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>Other USA Tools:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="us/weather/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌤️ Weather</a>
+      <a href="us/prayer-times/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🕌 Prayer Times</a>
+      <a href="currency-converter.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💱 Currency Converter</a>
+      <a href="us/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇺🇸 All USA Tools</a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="us/">USA Tools</a></div>
+    <div class="footer-copy-simple">© 2026 Adawati</div>
+  </div>
+</footer>
+
+<script>
+let karatPrices = {24:0, 22:0, 21:0, 18:0};
+
+function fetchGoldPrice() {
+  document.getElementById('loadingMsg').style.display = 'block';
+  document.getElementById('pricesGrid').style.display = 'none';
+  document.getElementById('errorMsg').style.display = 'none';
+
+  fetch('https://xaus.com/api/v1/spot?currency=USD&unit=gram')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      const price24 = data.xau.price;
+      karatPrices = {24: price24, 22: price24 * (22/24), 21: price24 * (21/24), 18: price24 * (18/24)};
+
+      document.getElementById('p24').textContent = karatPrices[24].toFixed(2) + ' USD';
+      document.getElementById('p22').textContent = karatPrices[22].toFixed(2) + ' USD';
+      document.getElementById('p21').textContent = karatPrices[21].toFixed(2) + ' USD';
+      document.getElementById('p18').textContent = karatPrices[18].toFixed(2) + ' USD';
+
+      const now = new Date();
+      document.getElementById('updatedLabel').textContent = 'Last updated: ' + now.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+
+      document.getElementById('loadingMsg').style.display = 'none';
+      document.getElementById('pricesGrid').style.display = 'grid';
+      calcPurchase();
+    })
+    .catch(function() {
+      document.getElementById('loadingMsg').style.display = 'none';
+      document.getElementById('errorMsg').style.display = 'block';
+    });
+}
+
+function calcPurchase() {
+  const grams = parseFloat(document.getElementById('buyGrams').value) || 0;
+  const karat = parseFloat(document.getElementById('buyKarat').value) || 21;
+  const makingFee = parseFloat(document.getElementById('makingFee').value) || 0;
+  const result = document.getElementById('purchaseResult');
+
+  if (!grams || !karatPrices[karat]) { result.style.display = 'none'; return; }
+
+  const goldCost = grams * karatPrices[karat];
+  const feeCost = grams * makingFee;
+  const total = goldCost + feeCost;
+
+  document.getElementById('purchaseTotal').textContent = total.toFixed(2) + ' USD';
+  document.getElementById('purchaseBreakdown').innerHTML =
+    'Gold value (' + grams + 'g × ' + karatPrices[karat].toFixed(2) + '): <strong>' + goldCost.toFixed(2) + ' USD</strong><br>' +
+    'Making charge (' + grams + 'g × ' + makingFee.toFixed(2) + '): <strong>' + feeCost.toFixed(2) + ' USD</strong><br>' +
+    'Total: <strong style="color:var(--primary);font-size:15px;">' + total.toFixed(2) + ' USD</strong>';
+  result.style.display = 'block';
+}
+
+fetchGoldPrice();
+setInterval(fetchGoldPrice, 300000);
+</script>
+<script src="i18n.js?v=42" defer></script>
+</body></html>
