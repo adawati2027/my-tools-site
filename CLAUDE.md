@@ -385,6 +385,10 @@ The GSC access gap noted above is now closed. User walked through the manual Goo
 
 Validated (`JSON.parse` + `new Function()`, 0 errors) and `build-lang-pages.js` re-run (currency-converter is the only one of these 5 in its `TOOLS` list — the other 4 are `jo/`-specific pages with no lang-variant generation). Pushed via `node push-to-github.js`; `pk/index.html` and `ru/currency-converter/index.html` both failed to blob in the full-tree push (same secondary rate-limit pattern) and needed the targeted single-file push script. All 5 confirmed live via `curl`.
 
+## Growth — first "Best Tools" listicle page, 2026-09-10
+
+Per the user's earlier growth-strategy doc (10-point plan), built the first "Best Tools" listicle: `jo/students/best-tools/index.html` — "أفضل 4 أدوات للطلاب بالأردن 2026", aggregating the 4 already-built Jordan student tools (tawjihi-average, university-gpa, university-cost, scholarships-loans) with `ItemList`+`FAQPage` JSON-LD. Chose this specific cluster because GSC data (see above) already confirmed real search impressions on all 4 of these exact pages — reinforcing an existing content cluster rather than guessing at a new one. Cross-linked bidirectionally: added a "⭐ أفضل أدوات الطلاب" link to each of the 4 source pages' "أدوات الأردن الأخرى" block, and a card on `jo/index.html`'s legacy education section. Added to `build-sitemap.js`'s `countryTools` array. This is a reusable pattern — if more listicles are built later (e.g. "أفضل حاسبات مالية بعُمان"), follow the same shape: `ItemList` JSON-LD + cross-links back from every linked page, not just forward links from the listicle.
+
 ## Style/tone conventions
 
 - All Jordan-vertical copy is in Jordanian-dialect Arabic (not MSA), casual and direct — match existing pages' voice, not formal Arabic.
