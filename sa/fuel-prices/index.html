@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>أسعار المحروقات في السعودية — سبتمبر 2026 | Adawati</title>
+<meta name="description" content="أسعار الوقود في السعودية محدّثة، بالإضافة لحاسبة تكلفة الوقود لأي رحلة. مجانية وفورية.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/sa/fuel-prices/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/sa/fuel-prices/">
+<meta property="og:title" content="أسعار المحروقات في السعودية | Adawati">
+<meta property="og:description" content="أسعار الوقود محدّثة بالعملة المحلية.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/sa/fuel-prices/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"أدوات السعودية","item":"https://adawati.space/sa/"},
+  {"@type":"ListItem","position":3,"name":"أسعار المحروقات","item":"https://adawati.space/sa/fuel-prices/"}
+]},
+{"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"كم سعر الوقود اليوم في السعودية؟","acceptedAnswer":{"@type":"Answer","text":"بنزين 91: 2.18 ريال سعودي/لتر، بنزين 95: 2.33 ريال سعودي/لتر، ديزل: 1.79 ريال سعودي/لتر — سبتمبر 2026. أسعار موحّدة بكل مناطق السعودية (الرياض، جدة، الدمام، مكة، المدينة) تحت سقف سعري حكومي ساري منذ يوليو 2021"}},
+  {"@type":"Question","name":"من أين هذه الأسعار؟","acceptedAnswer":{"@type":"Answer","text":"تم التحقق منها عبر مصدرين مستقلين على الأقل (GlobalPetrolPrices.com، KSA Expats / Syarah)."}}
+]}
+]}
+</script>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="sa/" class="nav-brand">Adawati 🇸🇦</a>
+  <div class="nav-links">
+    <a href="sa/">أدوات السعودية</a>
+    <a href="index.html">عالمي</a>
+    <button onclick="toggleLang()" id="langToggle" style="background:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;cursor:pointer;color:var(--text);font-family:inherit;font-size:13px;">English</button>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="sa/" id="backLink">→ العودة لأدوات السعودية</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#fff7ed;">⛽</div>
+    <h1 class="card-title" id="pageTitle">...</h1>
+    <div class="card-subtitle" id="pageSubtitle">...</div>
+    <div class="divider"></div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;">
+      <div class="stat-box"><div class="stat-val" data-price="g91">2.18</div><div class="tool-card-desc" data-key="lbl_g91" style="font-size:12px;color:var(--text-muted);">بنزين 91 (SAR/لتر)</div></div>
+      <div class="stat-box" style="background:#fefce8;"><div class="stat-val" data-price="g95" style="color:#ca8a04;">2.33</div><div class="tool-card-desc" data-key="lbl_g95" style="font-size:12px;color:var(--text-muted);">بنزين 95 (SAR/لتر)</div></div>
+      <div class="stat-box" style="background:#eff6ff;"><div class="stat-val" data-price="diesel" style="color:#2563eb;">1.79</div><div class="tool-card-desc" data-key="lbl_diesel" style="font-size:12px;color:var(--text-muted);">ديزل (SAR/لتر)</div></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;" id="calcTitle">...</div>
+    <div class="row" style="margin-top:10px;">
+      <div><label id="distanceLbl">...</label><input type="number" id="distance" placeholder="0" min="0" step="any" oninput="calcTrip()"></div>
+      <div><label id="consumptionLbl">...</label><input type="number" id="consumption" placeholder="0" min="0" step="any" oninput="calcTrip()"></div>
+    </div>
+    <label id="fuelTypeLbl">...</label>
+    <select id="fuelType" onchange="calcTrip()" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
+      <option value="2.18" data-key="opt_g91">بنزين 91</option>
+      <option value="2.33" data-key="opt_g95">بنزين 95</option>
+      <option value="1.79" data-key="opt_diesel">ديزل</option>
+    </select>
+    <div id="tripResult" style="display:none;margin-top:16px;">
+      <div class="result-box show success" style="margin-top:0;"><div class="result-value" id="tripCost"></div><div class="result-label" id="tripCostLbl2"></div></div>
+      <div class="stat-grid" style="margin-top:12px;">
+        <div class="stat-box"><div class="stat-val" id="tripLiters"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;" id="infoTitle">...</div>
+    <div style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">
+      <p id="sourceNote">...</p>
+      <p style="margin-top:8px;"><strong id="sourceLbl">...</strong> <a href="https://www.globalpetrolprices.com/Saudi-Arabia/gasoline_prices/" target="_blank" rel="noopener" style="color:var(--primary);">GlobalPetrolPrices.com</a> · <a href="https://ksaexpats.com/saudi-arabia-fuel-prices/" target="_blank" rel="noopener" style="color:var(--primary);">KSA Expats / Syarah</a></p>
+      <p style="margin-top:8px;font-size:12px;" id="lastUpdateLbl">...</p>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong id="otherToolsLbl">...</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="sa/weather/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌤️ الطقس</a>
+      <a href="sa/prayer-times/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🕌 مواقيت الصلاة</a>
+      <a href="sa/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب</a>
+      <a href="sa/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇸🇦 كل أدوات السعودية</a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="sa/">أدوات السعودية</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+
+<script>
+
+const FT = {
+  ar: {
+    title: 'أسعار المحروقات في السعودية 🇸🇦',
+    subtitle: 'سبتمبر 2026 — أسعار رسمية منظّمة',
+    calcTitle: '🧮 حاسبة تكلفة الوقود لرحلتك',
+    distanceLbl: 'المسافة (كم)',
+    consumptionLbl: 'استهلاك السيارة (لتر/100كم)',
+    fuelTypeLbl: 'نوع الوقود',
+    tripCostLbl: 'تكلفة الرحلة التقديرية',
+    tripUnitsLbl: 'لتر وقود مطلوبة',
+    infoTitle: '📌 معلومات مهمة',
+    sourceNote: 'أسعار موحّدة بكل مناطق السعودية (الرياض، جدة، الدمام، مكة، المدينة) تحت سقف سعري حكومي ساري منذ يوليو 2021',
+    sourceLbl: 'المصادر:',
+    lastUpdateLbl: 'آخر تحديث: سبتمبر 2026',
+    otherTools: 'أدوات السعودية الأخرى:',
+    backToCountry: '→ العودة لأدوات السعودية',
+    grades: {g91: 'بنزين 91', g95: 'بنزين 95', diesel: 'ديزل'}
+  },
+  en: {
+    title: 'Saudi Arabia Fuel Prices 🇸🇦',
+    subtitle: 'September 2026 — officially regulated prices',
+    calcTitle: '🧮 Trip Fuel Cost Calculator',
+    distanceLbl: 'Distance (km)',
+    consumptionLbl: 'Car consumption (L/100km)',
+    fuelTypeLbl: 'Fuel Type',
+    tripCostLbl: 'Estimated Trip Cost',
+    tripUnitsLbl: 'litres needed',
+    infoTitle: '📌 Important Info',
+    sourceNote: 'Uniform price across all Saudi regions (Riyadh, Jeddah, Dammam, Makkah, Madinah) under a government price cap in place since July 2021',
+    sourceLbl: 'Sources:',
+    lastUpdateLbl: 'Last updated: September 2026',
+    otherTools: 'Other Saudi Arabia Tools:',
+    backToCountry: '← Back to Saudi Arabia Tools',
+    grades: {g91: 'Gasoline 91', g95: 'Gasoline 95', diesel: 'Diesel'}
+  }
+};
+let curLang = localStorage.getItem('lang') === 'en' ? 'en' : 'ar';
+
+function ft() { return FT[curLang]; }
+
+function applyLang() {
+  const t = ft();
+  document.documentElement.lang = curLang;
+  document.documentElement.dir = curLang === 'ar' ? 'rtl' : 'ltr';
+  document.getElementById('pageTitle').textContent = t.title;
+  document.getElementById('pageSubtitle').textContent = t.subtitle;
+  document.getElementById('calcTitle').textContent = t.calcTitle;
+  document.getElementById('distanceLbl').textContent = t.distanceLbl;
+  document.getElementById('consumptionLbl').textContent = t.consumptionLbl;
+  document.getElementById('fuelTypeLbl').textContent = t.fuelTypeLbl;
+  document.getElementById('infoTitle').textContent = t.infoTitle;
+  document.getElementById('sourceNote').textContent = t.sourceNote;
+  document.getElementById('sourceLbl').textContent = t.sourceLbl;
+  document.getElementById('lastUpdateLbl').textContent = t.lastUpdateLbl;
+  document.getElementById('otherToolsLbl').textContent = t.otherTools;
+  document.getElementById('backLink').textContent = t.backToCountry;
+  document.getElementById('langToggle').textContent = curLang === 'ar' ? 'English' : 'العربية';
+  document.querySelectorAll('[data-key]').forEach(function(el) {
+    const k = el.getAttribute('data-key');
+    if (k.indexOf('lbl_') === 0) { const gk = k.slice(4); if (t.grades[gk]) el.textContent = t.grades[gk] + ' (SAR/' + (curLang==='ar' ? 'لتر' : 'litre') + ')'; }
+    if (k.indexOf('opt_') === 0) { const gk = k.slice(4); if (t.grades[gk]) el.textContent = t.grades[gk]; }
+  });
+  calcTrip();
+}
+
+function toggleLang() {
+  curLang = curLang === 'ar' ? 'en' : 'ar';
+  try { localStorage.setItem('lang', curLang); } catch(e) {}
+  applyLang();
+}
+
+function calcTrip() {
+  const distance = parseFloat(document.getElementById('distance').value) || 0;
+  const consumption = parseFloat(document.getElementById('consumption').value) || 0;
+  const price = parseFloat(document.getElementById('fuelType').value);
+  const t = ft();
+  if (!distance || !consumption) { document.getElementById('tripResult').style.display = 'none'; return; }
+  let units, cost;
+  if (false) {
+    units = distance / consumption;
+    cost = units * price;
+  } else {
+    units = (distance / 100) * consumption;
+    cost = units * price;
+  }
+  document.getElementById('tripCost').textContent = cost.toFixed(2) + ' SAR';
+  document.getElementById('tripLiters').textContent = units.toFixed(2) + ' ' + t.tripUnitsLbl;
+  document.getElementById('tripResult').style.display = 'block';
+  document.getElementById('tripCostLbl2').textContent = t.tripCostLbl;
+}
+
+applyLang();
+
+</script>
+<script src="i18n.js?v=42" defer></script>
+</body></html>

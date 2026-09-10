@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>UK University Cost Calculator 2026-27 — Home & International Fees | Adawati</title>
+<meta name="description" content="Calculate the full cost of a UK university degree: home tuition fee cap (£9,790/year 2026-27), international fees, and living costs. Free, instant, no signup.">
+<meta name="keywords" content="UK university cost calculator, UK tuition fees 2026, university tuition cap England, international student fees UK, cost of studying in UK">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/uk/calculators/university-cost/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="en" href="https://adawati.space/uk/calculators/university-cost/">
+<meta property="og:title" content="UK University Cost Calculator 2026-27 | Adawati">
+<meta property="og:description" content="Calculate your full UK degree cost — tuition, living costs, and more.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/uk/calculators/university-cost/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"UK Tools","item":"https://adawati.space/uk/"},
+  {"@type":"ListItem","position":3,"name":"University Cost Calculator","item":"https://adawati.space/uk/calculators/university-cost/"}
+]},
+{"@type":"WebApplication","name":"UK University Cost Calculator","url":"https://adawati.space/uk/calculators/university-cost/","description":"Calculate the full cost of a UK university degree including tuition and living costs, for home and international students.","applicationCategory":"EducationApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is the UK tuition fee cap for home students in 2026-27?","acceptedAnswer":{"@type":"Answer","text":"The maximum tuition fee for home (UK) undergraduate students in England for the 2026-27 academic year is £9,790, up from £9,535 in 2025-26 — the first rise since 2017. It's expected to rise further to £10,050 in 2027-28, then track inflation. Most English universities charge the full cap; Scotland, Wales and Northern Ireland have separate (often lower or free) arrangements for their own home students."}},
+{"@type":"Question","name":"How much do international students pay at UK universities?","acceptedAnswer":{"@type":"Answer","text":"International undergraduate tuition varies widely, roughly £10,000 to £70,500+ per year depending on the university and course, with medicine and courses at prestigious universities at the top end. £15,000-£25,000/year is a reasonable typical range for most non-medical courses at most universities."}}
+]}
+]}
+</script>
+<link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="uk/" class="nav-brand">Adawati 🇬🇧</a>
+  <div class="nav-links">
+    <a href="uk/">UK Tools</a>
+    <a href="index.html">Global</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="uk/">← Back to UK Tools</a></div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:6px;">
+      <button onclick="toggleLang()" id="langBtn" style="font-size:12px;padding:5px 12px;border:1px solid var(--border);border-radius:99px;background:var(--surface-2);color:var(--text);cursor:pointer;">عربي</button>
+    </div>
+    <div class="card-icon" style="background:#eff6ff;">🎓</div>
+    <h1 class="card-title" id="t-h1">UK University Cost Calculator 🇬🇧</h1>
+    <div class="card-subtitle" id="t-sub">How much will your degree really cost?</div>
+    <div class="divider"></div>
+    <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:14px;" id="t-intro">💡 UK universities work very differently from Jordan/Gulf per-credit-hour systems — home students pay a single government-capped fee, international students pay a university-set fee. Pick your status below.</p>
+
+    <label id="t-lblStatus">Fee status</label>
+    <select id="feeStatus" onchange="calc()" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
+      <option value="home" id="t-optHome">Home (UK) student — £9,790/year cap (2026-27)</option>
+      <option value="intl" id="t-optIntl">International student</option>
+    </select>
+
+    <div id="intlFeeRow" style="display:none;margin-top:10px;">
+      <label id="t-lblIntlFee">Your university's international tuition fee (£/year)</label>
+      <input type="number" id="intlFee" placeholder="e.g. 18000" min="0" step="any" oninput="calc()">
+      <p style="font-size:12px;color:var(--text-muted);margin-top:4px;" id="t-intlNote">Typical range: £10,000-£70,500/year depending on university and course (medicine highest). Check your specific offer letter for the exact figure.</p>
+    </div>
+
+    <div class="row" style="margin-top:10px;">
+      <div><label id="t-lblYears">Course length (years)</label><input type="number" id="years" placeholder="e.g. 3" min="0" step="any" value="3" oninput="calc()"></div>
+      <div><label id="t-lblLiving">Living costs per year (£)</label><input type="number" id="living" placeholder="e.g. 10544" value="10544" min="0" step="any" oninput="calc()"></div>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:4px;" id="t-livingNote">Default is the 2026-27 maximum maintenance loan for home students living away from home outside London (£10,544/year) — a reasonable living-cost baseline. International students should budget more (roughly £14,000-£18,000/year, higher in London).</p>
+
+    <div id="costResult" style="display:none;margin-top:20px;">
+      <div class="result-box show success" style="margin-top:0;">
+        <div class="result-value" id="totalCost"></div>
+        <div class="result-label" id="t-resultLbl">Total estimated cost for the whole degree</div>
+      </div>
+      <div class="stat-grid" style="margin-top:12px;">
+        <div class="stat-box"><div class="stat-val" id="tuitionOnly"></div><div class="stat-lbl" id="t-tuitionLbl">Tuition only</div></div>
+        <div class="stat-box"><div class="stat-val" id="livingTotal"></div><div class="stat-lbl" id="t-livingLbl">Living costs (whole course)</div></div>
+        <div class="stat-box"><div class="stat-val" id="perYear"></div><div class="stat-lbl" id="t-perYearLbl">Roughly per year</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;" id="t-faqTitle">❓ FAQ</div>
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;" id="t-faq1q">What is the UK tuition fee cap for home students in 2026-27?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;" id="t-faq1a">The maximum tuition fee for home (UK) undergraduate students in England for 2026-27 is £9,790, up from £9,535 in 2025-26 — the first rise since 2017. It's expected to reach £10,050 in 2027-28, then track inflation. Scotland, Wales and Northern Ireland have separate arrangements for their own home students.</p>
+    </details>
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;" id="t-faq2q">How much do international students pay?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;" id="t-faq2a">International tuition varies widely — roughly £10,000 to £70,500+/year depending on university and course, with medicine and elite universities at the top end. £15,000-£25,000/year is typical for most non-medical courses.</p>
+    </details>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;" id="t-sourceTitle">📌 Source & disclaimer</div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:6px;line-height:1.7;" id="t-sourceText">The £9,790 home-fee cap for 2026-27 and the maintenance loan figures are based on UK government/Student Finance England announcements. This is an estimate for planning purposes only — check <a href="https://www.gov.uk/student-finance" target="_blank" rel="noopener" style="color:var(--primary);">gov.uk/student-finance</a> and your specific university offer for exact figures.</p>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong id="t-otherTools">Other UK Tools:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="uk/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 <span id="t-linkGold">Gold Price</span></a>
+      <a href="uk/weather/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌤️ <span id="t-linkWeather">Weather</span></a>
+      <a href="uk/prayer-times/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🕌 <span id="t-linkPrayer">Prayer Times</span></a>
+      <a href="uk/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇬🇧 <span id="t-linkAll">All UK Tools</span></a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="uk/">UK Tools</a></div>
+    <div class="footer-copy-simple">© 2026 Adawati</div>
+  </div>
+</footer>
+
+<script>
+const HOME_FEE = 9790;
+
+const TXT = {
+  en: {
+    h1: 'UK University Cost Calculator 🇬🇧', sub: 'How much will your degree really cost?',
+    intro: '💡 UK universities work very differently from Jordan/Gulf per-credit-hour systems — home students pay a single government-capped fee, international students pay a university-set fee. Pick your status below.',
+    lblStatus: 'Fee status', optHome: 'Home (UK) student — £9,790/year cap (2026-27)', optIntl: 'International student',
+    lblIntlFee: "Your university's international tuition fee (£/year)", intlNote: 'Typical range: £10,000-£70,500/year depending on university and course (medicine highest). Check your specific offer letter for the exact figure.',
+    lblYears: 'Course length (years)', lblLiving: 'Living costs per year (£)',
+    livingNote: 'Default is the 2026-27 maximum maintenance loan for home students living away from home outside London (£10,544/year) — a reasonable living-cost baseline. International students should budget more (roughly £14,000-£18,000/year, higher in London).',
+    resultLbl: 'Total estimated cost for the whole degree', tuitionLbl: 'Tuition only', livingLbl: 'Living costs (whole course)', perYearLbl: 'Roughly per year',
+    faqTitle: '❓ FAQ',
+    faq1q: 'What is the UK tuition fee cap for home students in 2026-27?',
+    faq1a: 'The maximum tuition fee for home (UK) undergraduate students in England for 2026-27 is £9,790, up from £9,535 in 2025-26 — the first rise since 2017. It\'s expected to reach £10,050 in 2027-28, then track inflation. Scotland, Wales and Northern Ireland have separate arrangements for their own home students.',
+    faq2q: 'How much do international students pay?',
+    faq2a: 'International tuition varies widely — roughly £10,000 to £70,500+/year depending on university and course, with medicine and elite universities at the top end. £15,000-£25,000/year is typical for most non-medical courses.',
+    sourceTitle: '📌 Source & disclaimer',
+    sourceText: 'The £9,790 home-fee cap for 2026-27 and the maintenance loan figures are based on UK government/Student Finance England announcements. This is an estimate for planning purposes only — check <a href="https://www.gov.uk/student-finance" target="_blank" rel="noopener" style="color:var(--primary);">gov.uk/student-finance</a> and your specific university offer for exact figures.',
+    otherTools: 'Other UK Tools:', linkGold: 'Gold Price', linkWeather: 'Weather', linkPrayer: 'Prayer Times', linkAll: 'All UK Tools',
+    curSuffix: ' £', langBtn: 'عربي'
+  },
+  ar: {
+    h1: 'حاسبة تكلفة الجامعة في بريطانيا 🇬🇧', sub: 'كم بتكلفك درجتك الجامعية فعلياً؟',
+    intro: '💡 الجامعات البريطانية تشتغل بطريقة مختلفة كلياً عن نظام الساعة المعتمدة بالأردن والخليج — الطالب المحلي بيدفع رسم موحّد يحدده الحكومة، والطالب الدولي بيدفع رسم تحدده الجامعة. اختر حالتك تحت.',
+    lblStatus: 'حالة الرسوم', optHome: 'طالب محلي (بريطاني) — سقف 9,790 جنيه إسترليني/سنة (2026-27)', optIntl: 'طالب دولي',
+    lblIntlFee: 'رسوم الجامعة للطلاب الدوليين (جنيه إسترليني/سنة)', intlNote: 'المدى النموذجي: 10,000-70,500 جنيه إسترليني/سنة حسب الجامعة والتخصص (الطب بالأعلى). راجع خطاب القبول للرقم الدقيق.',
+    lblYears: 'مدة الدراسة (سنوات)', lblLiving: 'تكاليف المعيشة بالسنة (جنيه إسترليني)',
+    livingNote: 'القيمة الافتراضية هي أقصى قرض معيشة 2026-27 للطلاب المحليين خارج لندن (10,544 جنيه إسترليني/سنة) — نقطة بداية معقولة. الطلاب الدوليون يحتاجون ميزانية أكبر (حوالي 14,000-18,000 جنيه إسترليني/سنة، أعلى بلندن).',
+    resultLbl: 'التكلفة الكاملة المتوقعة للدرجة', tuitionLbl: 'الرسوم الدراسية فقط', livingLbl: 'تكاليف المعيشة (كل المدة)', perYearLbl: 'تقريباً بالسنة',
+    faqTitle: '❓ أسئلة شائعة',
+    faq1q: 'شو سقف الرسوم البريطاني للطلاب المحليين 2026-27؟',
+    faq1a: 'أقصى رسم دراسي للطلاب المحليين (البريطانيين) بإنجلترا للعام 2026-27 هو 9,790 جنيه إسترليني، ارتفاعاً من 9,535 بالعام السابق — أول زيادة منذ 2017. متوقع يوصل 10,050 بـ2027-28، وبعدها يتبع التضخم. اسكتلندا وويلز وأيرلندا الشمالية عندهم ترتيبات مختلفة لطلابهم المحليين.',
+    faq2q: 'كم بيدفع الطالب الدولي؟',
+    faq2a: 'الرسوم الدولية بتختلف كثير — من 10,000 لحد 70,500+ جنيه إسترليني بالسنة حسب الجامعة والتخصص (الطب والجامعات الكبرى بالأعلى). 15,000-25,000 جنيه إسترليني بالسنة رقم نموذجي لمعظم التخصصات غير الطبية.',
+    sourceTitle: '📌 المصدر وإخلاء المسؤولية',
+    sourceText: 'سقف الرسوم 9,790 جنيه إسترليني للعام 2026-27 وأرقام قرض المعيشة مبنية على إعلانات الحكومة البريطانية/Student Finance England. هذا تقدير للتخطيط فقط — راجع <a href="https://www.gov.uk/student-finance" target="_blank" rel="noopener" style="color:var(--primary);">gov.uk/student-finance</a> وخطاب قبولك الجامعي للأرقام الدقيقة.',
+    otherTools: 'أدوات بريطانيا الأخرى:', linkGold: 'سعر الذهب', linkWeather: 'الطقس', linkPrayer: 'مواقيت الصلاة', linkAll: 'كل أدوات بريطانيا',
+    curSuffix: ' £', langBtn: 'English'
+  }
+};
+
+let curLang = 'en';
+
+function applyLang() {
+  const t = TXT[curLang];
+  document.documentElement.lang = curLang;
+  document.documentElement.dir = 'ltr';
+  document.getElementById('t-h1').textContent = t.h1;
+  document.getElementById('t-sub').textContent = t.sub;
+  document.getElementById('t-intro').textContent = t.intro;
+  document.getElementById('t-lblStatus').textContent = t.lblStatus;
+  document.getElementById('t-optHome').textContent = t.optHome;
+  document.getElementById('t-optIntl').textContent = t.optIntl;
+  document.getElementById('t-lblIntlFee').textContent = t.lblIntlFee;
+  document.getElementById('t-intlNote').textContent = t.intlNote;
+  document.getElementById('t-lblYears').textContent = t.lblYears;
+  document.getElementById('t-lblLiving').textContent = t.lblLiving;
+  document.getElementById('t-livingNote').textContent = t.livingNote;
+  document.getElementById('t-resultLbl').textContent = t.resultLbl;
+  document.getElementById('t-tuitionLbl').textContent = t.tuitionLbl;
+  document.getElementById('t-livingLbl').textContent = t.livingLbl;
+  document.getElementById('t-perYearLbl').textContent = t.perYearLbl;
+  document.getElementById('t-faqTitle').textContent = t.faqTitle;
+  document.getElementById('t-faq1q').textContent = t.faq1q;
+  document.getElementById('t-faq1a').textContent = t.faq1a;
+  document.getElementById('t-faq2q').textContent = t.faq2q;
+  document.getElementById('t-faq2a').textContent = t.faq2a;
+  document.getElementById('t-sourceTitle').textContent = t.sourceTitle;
+  document.getElementById('t-sourceText').innerHTML = t.sourceText;
+  document.getElementById('t-otherTools').textContent = t.otherTools;
+  document.getElementById('t-linkGold').textContent = t.linkGold;
+  document.getElementById('t-linkWeather').textContent = t.linkWeather;
+  document.getElementById('t-linkPrayer').textContent = t.linkPrayer;
+  document.getElementById('t-linkAll').textContent = t.linkAll;
+  document.getElementById('langBtn').textContent = t.langBtn;
+  calc();
+}
+
+function toggleLang() {
+  curLang = curLang === 'en' ? 'ar' : 'en';
+  applyLang();
+}
+
+function calc() {
+  const t = TXT[curLang];
+  const status = document.getElementById('feeStatus').value;
+  document.getElementById('intlFeeRow').style.display = status === 'intl' ? 'block' : 'none';
+  const years = parseFloat(document.getElementById('years').value) || 0;
+  const living = parseFloat(document.getElementById('living').value) || 0;
+  const annualFee = status === 'home' ? HOME_FEE : (parseFloat(document.getElementById('intlFee').value) || 0);
+
+  if (!years || !annualFee) { document.getElementById('costResult').style.display = 'none'; return; }
+
+  const tuition = annualFee * years;
+  const livingTotal = living * years;
+  const total = tuition + livingTotal;
+  const perYear = years > 0 ? total / years : total;
+
+  document.getElementById('tuitionOnly').textContent = tuition.toLocaleString() + t.curSuffix;
+  document.getElementById('livingTotal').textContent = livingTotal.toLocaleString() + t.curSuffix;
+  document.getElementById('perYear').textContent = perYear.toLocaleString(undefined,{maximumFractionDigits:0}) + t.curSuffix;
+  document.getElementById('totalCost').textContent = total.toLocaleString() + t.curSuffix;
+  document.getElementById('costResult').style.display = 'block';
+}
+
+applyLang();
+</script>
+<script src="i18n.js?v=42" defer></script>
+</body></html>
