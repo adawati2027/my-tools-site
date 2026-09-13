@@ -107,7 +107,7 @@
       <a href="about.html" data-i18n="nav_about">About</a>
       <a href="contact.html" data-i18n="nav_contact">Contact</a>
       <div class="lang-switcher" style="margin-inline-end:4px;">
-        <button class="lang-btn" onclick="toggleCtyMenu()" aria-label="Select country" style="background:var(--primary);color:#fff;border-radius:20px;padding:4px 12px;font-size:13px;">🌍 <span data-i18n="cty_global">Global</span></button>
+        <button class="lang-btn" id="ctyToggleBtn" aria-label="Select country" style="background:var(--primary);color:#fff;border-radius:20px;padding:4px 12px;font-size:13px;">🌍 <span data-i18n="cty_global">Global</span></button>
         <div class="lang-menu" id="ctyMenu">
           <a style="font-weight:700;color:var(--primary);">🌍 <span data-i18n="cty_global">Global</span> ✓</a>
           <a href="om/">🇴🇲 <span data-i18n="cty_om">Oman</span></a>
@@ -124,11 +124,11 @@
         </div>
       </div>
       <div class="lang-switcher">
-        <button class="lang-btn" onclick="toggleLangMenu()" aria-label="Select language">🌐 <span id="currentLang">EN</span> ▾</button>
+        <button class="lang-btn" id="langToggleBtn" aria-label="Select language">🌐 <span id="currentLang">EN</span> ▾</button>
         <div class="lang-menu" id="langMenu">
-          <a onclick="setLang('ar')">🇸🇦 العربية</a><a onclick="setLang('en')">🇬🇧 English</a>
-          <a onclick="setLang('fr')">🇫🇷 Français</a><a onclick="setLang('es')">🇪🇸 Español</a>
-          <a onclick="setLang('de')">🇩🇪 Deutsch</a><a onclick="setLang('ru')">🇷🇺 Русский</a>
+          <a data-lang="ar">🇸🇦 العربية</a><a data-lang="en">🇬🇧 English</a>
+          <a data-lang="fr">🇫🇷 Français</a><a data-lang="es">🇪🇸 Español</a>
+          <a data-lang="de">🇩🇪 Deutsch</a><a data-lang="ru">🇷🇺 Русский</a>
         </div>
       </div>
     </div>
@@ -171,14 +171,14 @@
     <div id="smartAnswer" class="result-box success" style="display:none;margin-bottom:16px;"></div>
 
     <div class="cat-tabs" id="catTabs">
-      <button class="cat-tab active" data-cat="all" onclick="setCat('all')" data-i18n="cat_all">All</button>
-      <button class="cat-tab" data-cat="money" onclick="setCat('money')" data-i18n="cat_money">💰 Money</button>
-      <button class="cat-tab" data-cat="health" onclick="setCat('health')" data-i18n="cat_health">💪 Health</button>
-      <button class="cat-tab" data-cat="productivity" onclick="setCat('productivity')" data-i18n="cat_productivity">⚙️ Productivity</button>
-      <button class="cat-tab" data-cat="quick" onclick="setCat('quick')" data-i18n="cat_quick">⚡ Quick</button>
-      <button class="cat-tab" data-cat="games" onclick="setCat('games')" data-i18n="cat_games">🎮 Games</button>
-      <button class="cat-tab" data-cat="challenges" data-i18n="cat_challenges" onclick="setCat('challenges')">🏆 Challenges</button>
-      <button class="cat-tab" data-cat="education" onclick="setCat('education')" data-i18n="cat_education">🧒 Kids</button>
+      <button class="cat-tab active" data-cat="all" data-i18n="cat_all">All</button>
+      <button class="cat-tab" data-cat="money" data-i18n="cat_money">💰 Money</button>
+      <button class="cat-tab" data-cat="health" data-i18n="cat_health">💪 Health</button>
+      <button class="cat-tab" data-cat="productivity" data-i18n="cat_productivity">⚙️ Productivity</button>
+      <button class="cat-tab" data-cat="quick" data-i18n="cat_quick">⚡ Quick</button>
+      <button class="cat-tab" data-cat="games" data-i18n="cat_games">🎮 Games</button>
+      <button class="cat-tab" data-cat="challenges" data-i18n="cat_challenges">🏆 Challenges</button>
+      <button class="cat-tab" data-cat="education" data-i18n="cat_education">🧒 Kids</button>
       <a href="om/" class="cat-tab" style="text-decoration:none;" title="Oman-specific tools">🇴🇲 Oman →</a>
     </div>
 
@@ -247,10 +247,10 @@
     <div id="bundlesSection" style="margin-bottom:28px;">
       <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">🧩 Not Sure Where to Start? Pick Your Situation</div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <button type="button" class="bundle-btn" data-bundle="car" onclick="toggleBundle('car')" style="display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;">🚗 Buying a Car</button>
-        <button type="button" class="bundle-btn" data-bundle="travel" onclick="toggleBundle('travel')" style="display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;">✈️ Traveling</button>
-        <button type="button" class="bundle-btn" data-bundle="job" onclick="toggleBundle('job')" style="display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;">💼 Starting a Job</button>
-        <button type="button" class="bundle-btn" data-bundle="student" onclick="toggleBundle('student')" style="display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;">🎓 Student</button>
+        <button type="button" class="bundle-btn" data-bundle="car" style="display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;">🚗 Buying a Car</button>
+        <button type="button" class="bundle-btn" data-bundle="travel" style="display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;">✈️ Traveling</button>
+        <button type="button" class="bundle-btn" data-bundle="job" style="display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;">💼 Starting a Job</button>
+        <button type="button" class="bundle-btn" data-bundle="student" style="display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;">🎓 Student</button>
       </div>
 
       <div id="bundle-car" class="bundle-grid tools-grid" style="display:none;margin-top:14px;">
@@ -913,6 +913,19 @@ function filterTools() {
 // Country/Lang menu toggles
 function toggleLangMenu(){var m=document.getElementById('langMenu');m.style.display=m.style.display==='block'?'none':'block';}
 function toggleCtyMenu(){var m=document.getElementById('ctyMenu');m.style.display=m.style.display==='block'?'none':'block';}
+
+// Wire up handlers that used to be inline onclick="" attributes (CSP-compatibility fix)
+document.getElementById('ctyToggleBtn')?.addEventListener('click', toggleCtyMenu);
+document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
+document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
+  a.addEventListener('click', function(){ setLang(a.dataset.lang); });
+});
+document.querySelectorAll('.cat-tab[data-cat]').forEach(function(btn){
+  btn.addEventListener('click', function(){ setCat(btn.dataset.cat); });
+});
+document.querySelectorAll('.bundle-btn[data-bundle]').forEach(function(btn){
+  btn.addEventListener('click', function(){ toggleBundle(btn.dataset.bundle); });
+});
 document.addEventListener('click',function(e){
   if(!e.target.closest('.lang-switcher')){
     var lm=document.getElementById('langMenu'); if(lm)lm.style.display='none';
