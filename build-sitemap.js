@@ -110,6 +110,11 @@ for (const code of ['om','sa','ae','us','uk']) {
     `${BASE}/${code}/calculators/university-cost/`,
   );
 }
+
+// Emergency numbers extended to all 6 countries — built 2026-09-13, previously jo-only.
+for (const code of ['om','sa','ae','us','uk']) {
+  countryTools.push(`${BASE}/${code}/emergency-numbers/`);
+}
 for (const url of countryTools) {
   entries.push(urlEntry(url, '0.7', 'monthly'));
 }
