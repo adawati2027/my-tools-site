@@ -562,6 +562,7 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 <script>
+document.addEventListener('DOMContentLoaded', function(){
 document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
 document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
   a.addEventListener('click', function(){ setLang(a.dataset.lang); });
@@ -570,6 +571,7 @@ document.getElementById('bmi-calc-btn')?.addEventListener('click', calculateBMI)
 document.getElementById('bmiExportBtn')?.addEventListener('click', exportBMIResult);
 document.querySelectorAll('.faq-q').forEach(function(btn){
   btn.addEventListener('click', function(){ toggleFaq(this); });
+});
 });
 </script>
 <script src="i18n.js?v=42" defer></script>

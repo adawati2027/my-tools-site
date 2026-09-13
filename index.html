@@ -914,17 +914,23 @@ function filterTools() {
 function toggleLangMenu(){var m=document.getElementById('langMenu');m.style.display=m.style.display==='block'?'none':'block';}
 function toggleCtyMenu(){var m=document.getElementById('ctyMenu');m.style.display=m.style.display==='block'?'none':'block';}
 
-// Wire up handlers that used to be inline onclick="" attributes (CSP-compatibility fix)
-document.getElementById('ctyToggleBtn')?.addEventListener('click', toggleCtyMenu);
-document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
-document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
-  a.addEventListener('click', function(){ setLang(a.dataset.lang); });
-});
-document.querySelectorAll('.cat-tab[data-cat]').forEach(function(btn){
-  btn.addEventListener('click', function(){ setCat(btn.dataset.cat); });
-});
-document.querySelectorAll('.bundle-btn[data-bundle]').forEach(function(btn){
-  btn.addEventListener('click', function(){ toggleBundle(btn.dataset.bundle); });
+// Wire up handlers that used to be inline onclick="" attributes (CSP-compatibility fix).
+// Deferred to DOMContentLoaded so this binds to i18n.js's final toggleLangMenu/setLang
+// definitions (i18n.js loads via <script defer>, which only finishes after this inline
+// script — binding immediately here would capture this file's own now-superseded
+// toggleLangMenu instead of i18n.js's real one).
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('ctyToggleBtn')?.addEventListener('click', toggleCtyMenu);
+  document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
+  document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
+    a.addEventListener('click', function(){ setLang(a.dataset.lang); });
+  });
+  document.querySelectorAll('.cat-tab[data-cat]').forEach(function(btn){
+    btn.addEventListener('click', function(){ setCat(btn.dataset.cat); });
+  });
+  document.querySelectorAll('.bundle-btn[data-bundle]').forEach(function(btn){
+    btn.addEventListener('click', function(){ toggleBundle(btn.dataset.bundle); });
+  });
 });
 document.addEventListener('click',function(e){
   if(!e.target.closest('.lang-switcher')){
