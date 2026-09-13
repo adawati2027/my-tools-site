@@ -50,6 +50,7 @@
 ]}
 </script>
 <link rel="stylesheet" href="style.css">
+<style>.quick-pct-item:hover{background:var(--primary-light) !important;}</style>
 </head>
 <body>
 <nav class="navbar"><div class="nav-container">
@@ -60,11 +61,11 @@
     <a href="contact.html" data-i18n="nav_contact">Contact</a>
     
     <div class="lang-switcher">
-      <button class="lang-btn" onclick="toggleLangMenu()">🌐 <span id="currentLang">EN</span> ▾</button>
+      <button class="lang-btn" id="langToggleBtn">🌐 <span id="currentLang">EN</span> ▾</button>
       <div class="lang-menu" id="langMenu">
-        <a onclick="setLang('ar')">🇸🇦 العربية</a><a onclick="setLang('en')">🇬🇧 English</a>
-        <a onclick="setLang('fr')">🇫🇷 Français</a><a onclick="setLang('es')">🇪🇸 Español</a>
-        <a onclick="setLang('de')">🇩🇪 Deutsch</a><a onclick="setLang('ru')">🇷🇺 Русский</a>
+        <a data-lang="ar">🇸🇦 العربية</a><a data-lang="en">🇬🇧 English</a>
+        <a data-lang="fr">🇫🇷 Français</a><a data-lang="es">🇪🇸 Español</a>
+        <a data-lang="de">🇩🇪 Deutsch</a><a data-lang="ru">🇷🇺 Русский</a>
       </div>
     </div>
   </div>
@@ -81,9 +82,9 @@
     <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;" data-i18n="pct_intro">Three types of percentage calculations in one tool: find X% of a number (e.g. 20% of 500), find what percentage one number is of another, and calculate percentage increase or decrease. Useful for discounts, VAT, statistics and financial comparisons.</p>
 
     <div class="tab-nav" style="display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;">
-      <button class="tab active" id="tab1" onclick="setTab(1)" data-i18n="pct_tab1">X% of a number</button>
-      <button class="tab" id="tab2" onclick="setTab(2)" data-i18n="pct_tab2">What percentage?</button>
-      <button class="tab" id="tab3" onclick="setTab(3)" data-i18n="pct_tab3">% change</button>
+      <button class="tab active" id="tab1" data-i18n="pct_tab1">X% of a number</button>
+      <button class="tab" id="tab2" data-i18n="pct_tab2">What percentage?</button>
+      <button class="tab" id="tab3" data-i18n="pct_tab3">% change</button>
     </div>
 
     <!-- Tab 1: X% of Y -->
@@ -103,7 +104,7 @@
         <div class="result-value" id="res1val"></div>
         <div class="result-label" id="res1lbl"></div>
       </div>
-      <button onclick="exportPercentageResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+      <button class="pctExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
 
     <!-- Tab 2: X is what % of Y -->
@@ -123,7 +124,7 @@
         <div class="result-value" id="res2val"></div>
         <div class="result-label" id="res2lbl"></div>
       </div>
-      <button onclick="exportPercentageResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+      <button class="pctExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
 
     <!-- Tab 3: % change from X to Y -->
@@ -143,7 +144,7 @@
         <div class="result-value" id="res3val"></div>
         <div class="result-label" id="res3lbl"></div>
       </div>
-      <button onclick="exportPercentageResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+      <button class="pctExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
   </div>
 
@@ -152,12 +153,12 @@
     <div class="card-title" style="font-size:15px;" data-i18n="pct_quick_ref_title">🧮 Quick Reference — Common Rates</div>
     <div style="overflow-x:auto;margin-top:12px;" data-i18n-html="pct_ref_table_html"><table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr style="background:var(--primary);color:#fff;"><th style="padding:9px 12px;text-align:start;">Calculation type</th><th style="padding:9px 12px;text-align:start;">Formula</th><th style="padding:9px 12px;text-align:start;">Example</th></tr></thead><tbody><tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:700;">X% of a number</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-family:monospace;">Number × percentage ÷ 100</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text-muted);">20% of 500 = <strong>100</strong></td></tr><tr style="background:var(--surface-2);"><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:700;">X is what % of Y?</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-family:monospace;">(X ÷ Y) × 100</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text-muted);">30 of 150 = <strong>20%</strong></td></tr><tr><td style="padding:8px 12px;font-weight:700;">% Change</td><td style="padding:8px 12px;font-family:monospace;">((New − Old) ÷ Old) × 100</td><td style="padding:8px 12px;color:var(--text-muted);">from 100 to 130 = <strong>+30%</strong></td></tr></tbody></table></div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;font-size:13px;text-align:center;">
-      <div onclick="quickFill(5)" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='var(--surface-2)'"><strong>5%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_vat5_lbl">VAT Oman/UAE</span></div>
-      <div onclick="quickFill(10)" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='var(--surface-2)'"><strong>10%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_tenth_lbl">One tenth</span></div>
-      <div onclick="quickFill(15)" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='var(--surface-2)'"><strong>15%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_vat15_lbl">VAT Saudi Arabia</span></div>
-      <div onclick="quickFill(20)" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='var(--surface-2)'"><strong>20%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_fifth_lbl">One fifth</span></div>
-      <div onclick="quickFill(25)" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='var(--surface-2)'"><strong>25%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_quarter_lbl">One quarter</span></div>
-      <div onclick="quickFill(50)" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='var(--surface-2)'"><strong>50%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_half_lbl">Half</span></div>
+      <div class="quick-pct-item" data-pct="5" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>5%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_vat5_lbl">VAT Oman/UAE</span></div>
+      <div class="quick-pct-item" data-pct="10" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>10%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_tenth_lbl">One tenth</span></div>
+      <div class="quick-pct-item" data-pct="15" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>15%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_vat15_lbl">VAT Saudi Arabia</span></div>
+      <div class="quick-pct-item" data-pct="20" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>20%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_fifth_lbl">One fifth</span></div>
+      <div class="quick-pct-item" data-pct="25" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>25%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_quarter_lbl">One quarter</span></div>
+      <div class="quick-pct-item" data-pct="50" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>50%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_half_lbl">Half</span></div>
     </div>
   </div>
 
@@ -315,6 +316,21 @@ function quickFill(pct) {
   document.getElementById('p1pct').value = pct;
   calc1();
 }
+</script>
+<script>
+document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
+document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
+  a.addEventListener('click', function(){ setLang(a.dataset.lang); });
+});
+document.getElementById('tab1')?.addEventListener('click', function(){ setTab(1); });
+document.getElementById('tab2')?.addEventListener('click', function(){ setTab(2); });
+document.getElementById('tab3')?.addEventListener('click', function(){ setTab(3); });
+document.querySelectorAll('.pctExportBtn').forEach(function(btn){
+  btn.addEventListener('click', exportPercentageResult);
+});
+document.querySelectorAll('.quick-pct-item[data-pct]').forEach(function(el){
+  el.addEventListener('click', function(){ quickFill(parseInt(el.dataset.pct, 10)); });
+});
 </script>
 <script src="i18n.js?v=42" defer></script>
 </body></html>

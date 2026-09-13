@@ -87,11 +87,11 @@
     <a href="contact.html" data-i18n="nav_contact">Contact</a>
     
     <div class="lang-switcher">
-      <button class="lang-btn" onclick="toggleLangMenu()">🌐 <span id="currentLang">EN</span> ▾</button>
+      <button class="lang-btn" id="langToggleBtn">🌐 <span id="currentLang">EN</span> ▾</button>
       <div class="lang-menu" id="langMenu">
-        <a onclick="setLang('ar')">🇸🇦 العربية</a><a onclick="setLang('en')">🇬🇧 English</a>
-        <a onclick="setLang('fr')">🇫🇷 Français</a><a onclick="setLang('es')">🇪🇸 Español</a>
-        <a onclick="setLang('de')">🇩🇪 Deutsch</a><a onclick="setLang('ru')">🇷🇺 Русский</a>
+        <a data-lang="ar">🇸🇦 العربية</a><a data-lang="en">🇬🇧 English</a>
+        <a data-lang="fr">🇫🇷 Français</a><a data-lang="es">🇪🇸 Español</a>
+        <a data-lang="de">🇩🇪 Deutsch</a><a data-lang="ru">🇷🇺 Русский</a>
       </div>
     </div>
   </div>
@@ -110,12 +110,12 @@
     <input type="number" id="weight" placeholder="e.g. 70" inputmode="decimal">
     <label for="height" id="lbl-height">Height (centimeters)</label>
     <input type="number" id="height" placeholder="e.g. 175" inputmode="decimal">
-    <button class="btn btn-primary" onclick="calculateBMI()" id="bmi-calc-btn">Calculate BMI</button>
+    <button class="btn btn-primary" id="bmi-calc-btn">Calculate BMI</button>
     <div id="result" class="result-box">
       <div class="result-value" id="bmiValue"></div>
       <div class="result-label" id="category"></div>
     </div>
-    <button onclick="exportBMIResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+    <button id="bmiExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     <div style="margin-top:16px;padding:10px 14px;background:#fef9c3;border-radius:8px;font-size:13px;color:#854d0e;">
       ⚠️ <span id="bmi-disclaimer">Result is for informational purposes only. Consult your doctor for a proper health assessment.</span>
     </div>
@@ -180,35 +180,35 @@
     <h2 id="sec-faq-title">Frequently Asked Questions about BMI</h2>
     <div id="faq-container">
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q">
           <span id="faq-q1">Is BMI accurate for everyone?</span>
           <span class="faq-arrow">▼</span>
         </button>
         <div class="faq-a" id="faq-a1">BMI is a useful general indicator for most adults, but may be less accurate for athletes (muscle weighs more than fat), pregnant women, children, and older adults. For a more accurate assessment, consult a doctor and consider additional measurements like waist circumference or body fat percentage.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q">
           <span id="faq-q2">What is the ideal BMI for adults?</span>
           <span class="faq-arrow">▼</span>
         </button>
         <div class="faq-a" id="faq-a2">According to WHO, a BMI between 18.5 and 24.9 is considered ideal for adults. Children and adolescents use separate growth charts that account for age and sex. Some research suggests the optimal range may vary by ethnicity and body composition.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q">
           <span id="faq-q3">How do I calculate BMI in pounds and inches?</span>
           <span class="faq-arrow">▼</span>
         </button>
         <div class="faq-a" id="faq-a3">If your weight is in pounds and height in inches, use: BMI = (weight in lbs ÷ height in inches²) × 703. Quick conversion: 1 kg = 2.205 lbs, 1 inch = 2.54 cm. This calculator uses metric units (kg and cm) only.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q">
           <span id="faq-q4">Does BMI differ between men and women?</span>
           <span class="faq-arrow">▼</span>
         </button>
         <div class="faq-a" id="faq-a4">The BMI formula is the same for both sexes, but body composition differs. Women typically have a higher fat percentage than men at the same BMI. Some doctors recommend supplementing BMI with waist circumference or waist-to-hip ratio for a more accurate assessment.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q">
           <span id="faq-q5">What are the health risks of high or low BMI?</span>
           <span class="faq-arrow">▼</span>
         </button>
@@ -559,6 +559,17 @@ window.onLangChange=function(lang){updateBMIContent();};
 
 document.addEventListener('DOMContentLoaded',function(){
   updateBMIContent();
+});
+</script>
+<script>
+document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
+document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
+  a.addEventListener('click', function(){ setLang(a.dataset.lang); });
+});
+document.getElementById('bmi-calc-btn')?.addEventListener('click', calculateBMI);
+document.getElementById('bmiExportBtn')?.addEventListener('click', exportBMIResult);
+document.querySelectorAll('.faq-q').forEach(function(btn){
+  btn.addEventListener('click', function(){ toggleFaq(this); });
 });
 </script>
 <script src="i18n.js?v=42" defer></script>
