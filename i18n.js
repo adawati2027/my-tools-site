@@ -2257,7 +2257,9 @@ function initPWA() {
   window.addEventListener('beforeinstallprompt', e => {
     e.preventDefault();
     _deferredInstall = e;
-    if (!localStorage.getItem('pwa_dismissed')) showPWABanner();
+    if (!localStorage.getItem('pwa_dismissed')) {
+      setTimeout(() => { if (_deferredInstall) showPWABanner(); }, 4000);
+    }
   });
 }
 

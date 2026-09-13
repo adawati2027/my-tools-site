@@ -1411,4 +1411,5 @@ html.dark .page-header .fav-star { background: var(--surface); border-color: #30
 @media (max-width: 768px) {
   .bottom-nav { display: block; }
   body.has-bottom-nav { padding-bottom: 68px; }
+  body.has-bottom-nav .pwa-banner { bottom: calc(68px + 12px + env(safe-area-inset-bottom)); }
 }
