@@ -2227,6 +2227,44 @@ function injectDarkToggle() {
   else nav.appendChild(btn);
 }
 
+/* ── Mobile nav collapse ──
+   Below 768px, .nav-links (About/Contact/auth/dark-toggle/country/language —
+   whatever a given page has injected into it) is hidden by CSS and shown only
+   via this hamburger toggle, instead of shrinking font/padding to force
+   everything onto one crowded row. Operates purely on the existing shared
+   .nav-links element so it needs no per-page markup changes. */
+function initMobileNavToggle() {
+  const container = document.querySelector('.nav-container');
+  const links = document.querySelector('.nav-links');
+  if (!container || !links || document.getElementById('navToggleBtn')) return;
+  const btn = document.createElement('button');
+  btn.id = 'navToggleBtn';
+  btn.className = 'nav-toggle';
+  btn.type = 'button';
+  btn.setAttribute('aria-label', 'Menu');
+  btn.setAttribute('aria-expanded', 'false');
+  btn.textContent = '☰';
+  container.insertBefore(btn, links);
+
+  function closeMenu() {
+    links.classList.remove('nav-open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.textContent = '☰';
+  }
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const open = links.classList.toggle('nav-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? '✕' : '☰';
+  });
+  document.addEventListener('click', function(e) {
+    if (links.classList.contains('nav-open') && !links.contains(e.target) && e.target !== btn) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && links.classList.contains('nav-open')) closeMenu();
+  });
+}
+
 /* ── PWA / Service Worker ── */
 let _deferredInstall = null;
 // Auto-reload when a new SW takes over, so stale HTML is never served to users
@@ -3040,6 +3078,7 @@ document.addEventListener('DOMContentLoaded', function() {
   updateAuthBtn();
   injectDarkToggle();
   injectAuthBtn();
+  initMobileNavToggle();
   restoreSessionIfAny();
   checkGoogleRedirectResult();
   injectShareBtn();
