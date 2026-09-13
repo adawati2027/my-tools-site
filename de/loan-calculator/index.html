@@ -91,11 +91,11 @@
     <a href="about.html" data-i18n="nav_about">About</a>
     <a href="contact.html" data-i18n="nav_contact">Contact</a>
     <div class="lang-switcher">
-      <button class="lang-btn" onclick="toggleLangMenu()">🌐 <span id="currentLang">EN</span> ▾</button>
+      <button class="lang-btn" id="langToggleBtn">🌐 <span id="currentLang">EN</span> ▾</button>
       <div class="lang-menu" id="langMenu">
-        <a onclick="setLang('ar')">🇸🇦 العربية</a><a onclick="setLang('en')">🇬🇧 English</a>
-        <a onclick="setLang('fr')">🇫🇷 Français</a><a onclick="setLang('es')">🇪🇸 Español</a>
-        <a onclick="setLang('de')">🇩🇪 Deutsch</a><a onclick="setLang('ru')">🇷🇺 Русский</a>
+        <a data-lang="ar">🇸🇦 العربية</a><a data-lang="en">🇬🇧 English</a>
+        <a data-lang="fr">🇫🇷 Français</a><a data-lang="es">🇪🇸 Español</a>
+        <a data-lang="de">🇩🇪 Deutsch</a><a data-lang="ru">🇷🇺 Русский</a>
       </div>
     </div>
   </div>
@@ -126,7 +126,7 @@
         <div class="stat-box"><div class="stat-val" id="totalPaid" style="font-size:17px;"></div><div class="stat-lbl" id="lbl-total">Total Paid</div></div>
         <div class="stat-box"><div class="stat-val" id="totalInterest" style="font-size:17px;color:#ef4444;"></div><div class="stat-lbl" id="lbl-interest">Total Interest</div></div>
       </div>
-      <button onclick="exportLoanResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+      <button id="loanExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
     <div style="margin-top:16px;padding:10px 14px;background:#fef9c3;border-radius:8px;font-size:13px;color:#854d0e;">
       ⚠️ <span id="loan-disclaimer">Figures are estimates for informational purposes only. Consult your bank for exact numbers.</span>
@@ -204,49 +204,49 @@
     <h2 id="sec-faq-title">Frequently Asked Questions about Loans</h2>
     <div id="faq-container">
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q">
           <span id="faq-q1">What is the difference between simple and compound interest?</span>
           <span class="faq-arrow">▼</span>
         </button>
         <div class="faq-a" id="faq-a1">Simple interest is calculated on the original principal only. Compound interest is calculated on the principal plus accumulated interest. Most personal and mortgage loans use amortization, which applies interest to the remaining balance each month.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q">
           <span id="faq-q2">How can I reduce total interest paid?</span>
           <span class="faq-arrow">▼</span>
         </button>
         <div class="faq-a" id="faq-a2">Three ways: (1) Shorten the loan term — lower total interest despite a higher monthly payment. (2) Make extra principal payments. (3) Get a lower interest rate by comparing bank offers.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q">
           <span id="faq-q3">Does the calculator include insurance and admin fees?</span>
           <span class="faq-arrow">▼</span>
         </button>
         <div class="faq-a" id="faq-a3">No, it calculates the base payment only. Banks may add life insurance premiums, administrative fees, and origination charges. Contact your bank for the full payment amount.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q">
           <span id="faq-q4">What is an amortization schedule?</span>
           <span class="faq-arrow">▼</span>
         </button>
         <div class="faq-a" id="faq-a4">An amortization schedule shows month-by-month how each payment is split between principal and interest, and tracks the remaining balance after each payment.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q">
           <span id="faq-q5">What is a healthy debt-to-income ratio?</span>
           <span class="faq-arrow">▼</span>
         </button>
         <div class="faq-a" id="faq-a5">Acceptable debt-to-income ratios vary by bank and individual circumstances — there is no universal rule. Consult your lender to find out the limit that applies to your situation.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q">
           <span id="faq-q6">Does early repayment save interest?</span>
           <span class="faq-arrow">▼</span>
         </button>
         <div class="faq-a" id="faq-a6">Yes. Every extra payment on the principal reduces the remaining balance and therefore interest in future months. Extra payments early in the loan term save significantly more than later. Check your contract for any early repayment penalty.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
+        <button class="faq-q">
           <span id="faq-q7">What is the difference between Islamic finance and a conventional loan?</span>
           <span class="faq-arrow">▼</span>
         </button>
@@ -622,6 +622,18 @@ window.onLangChange=function(lang){updateLoanContent();};
 
 document.addEventListener('DOMContentLoaded',function(){
   updateLoanContent();
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
+document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
+  a.addEventListener('click', function(){ setLang(a.dataset.lang); });
+});
+document.getElementById('loanExportBtn')?.addEventListener('click', exportLoanResult);
+document.querySelectorAll('.faq-q').forEach(function(btn){
+  btn.addEventListener('click', function(){ toggleFaq(this); });
+});
 });
 </script>
 <script src="i18n.js?v=42" defer></script>

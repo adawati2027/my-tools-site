@@ -57,11 +57,11 @@
     <a href="contact.html" data-i18n="nav_contact">Contact</a>
     
     <div class="lang-switcher">
-      <button class="lang-btn" onclick="toggleLangMenu()">🌐 <span id="currentLang">EN</span> ▾</button>
+      <button class="lang-btn" id="langToggleBtn">🌐 <span id="currentLang">EN</span> ▾</button>
       <div class="lang-menu" id="langMenu">
-        <a onclick="setLang('ar')">🇸🇦 العربية</a><a onclick="setLang('en')">🇬🇧 English</a>
-        <a onclick="setLang('fr')">🇫🇷 Français</a><a onclick="setLang('es')">🇪🇸 Español</a>
-        <a onclick="setLang('de')">🇩🇪 Deutsch</a><a onclick="setLang('ru')">🇷🇺 Русский</a>
+        <a data-lang="ar">🇸🇦 العربية</a><a data-lang="en">🇬🇧 English</a>
+        <a data-lang="fr">🇫🇷 Français</a><a data-lang="es">🇪🇸 Español</a>
+        <a data-lang="de">🇩🇪 Deutsch</a><a data-lang="ru">🇷🇺 Русский</a>
       </div>
     </div>
   </div>
@@ -88,8 +88,8 @@
 
     <label for="vatMode" data-i18n="vat_mode_lbl">Calculation type</label>
     <div class="option-toggle">
-      <button class="option-btn active" id="modeAdd" onclick="setMode('add')" data-i18n="vat_add_mode">Add tax</button>
-      <button class="option-btn" id="modeEx" onclick="setMode('extract')" data-i18n="vat_extract_mode">Extract tax</button>
+      <button class="option-btn active" id="modeAdd" data-mode="add" data-i18n="vat_add_mode">Add tax</button>
+      <button class="option-btn" id="modeEx" data-mode="extract" data-i18n="vat_extract_mode">Extract tax</button>
     </div>
 
     <label for="vatAmount" id="vatAmountLabel" data-i18n="vat_amount_before">Amount before tax</label>
@@ -111,7 +111,7 @@
         </div>
       </div>
       <div id="vatBreakdown" style="margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2;"></div>
-      <button onclick="exportVatResult()" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+      <button id="vatExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
   </div>
 
@@ -408,6 +408,18 @@ function updateVATContent(){
 }
 window.onLangChange=function(lang){updateVATContent();calculate();};
 document.addEventListener('DOMContentLoaded',function(){updateVATContent();setMode('add');});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
+document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
+  a.addEventListener('click', function(){ setLang(a.dataset.lang); });
+});
+document.querySelectorAll('.option-btn[data-mode]').forEach(function(btn){
+  btn.addEventListener('click', function(){ setMode(btn.dataset.mode); });
+});
+document.getElementById('vatExportBtn')?.addEventListener('click', exportVatResult);
+});
 </script>
 <script src="i18n.js?v=42" defer></script>
 </body></html>
