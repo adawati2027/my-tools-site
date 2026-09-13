@@ -127,26 +127,26 @@
     <div class="divider"></div>
     <p id="curIntro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Free currency converter with live exchange rates updated every 4 hours. Supports 32 major currencies including OMR, USD, EUR, GBP, SAR, AED, EGP, INR and more. Rates shown are mid-market reference rates — no bank markup.</p>
 
-    <label id="amtLbl">Amount</label>
+    <label id="amtLbl" for="amount">Amount</label>
     <input type="number" id="amount" value="1" min="0" oninput="convert()" style="font-size:20px;font-weight:700;">
 
     <div class="cur-row" style="margin-top:12px;">
       <div>
-        <label id="fromLbl">From</label>
+        <label id="fromLbl" for="fromCurrSearch">From</label>
         <div class="curr-combo">
-          <input type="text" class="curr-combo-input" id="fromCurrSearch" autocomplete="off" placeholder="🔍">
-          <select id="fromCurr" onchange="onFromChange()" style="display:none;"></select>
+          <input type="text" class="curr-combo-input" id="fromCurrSearch" autocomplete="off" placeholder="🔍" aria-label="Search currency to convert from">
+          <select id="fromCurr" onchange="onFromChange()" style="display:none;" aria-hidden="true" tabindex="-1"></select>
           <div class="curr-combo-list" id="fromCurrList"></div>
         </div>
       </div>
       <div style="display:flex;align-items:flex-end;padding-bottom:2px;flex:0;">
-        <button class="swap-btn" onclick="swapCurrencies()" title="Swap">⇄</button>
+        <button class="swap-btn" onclick="swapCurrencies()" title="Swap" aria-label="Swap currencies">⇄</button>
       </div>
       <div>
-        <label id="toLbl">To</label>
+        <label id="toLbl" for="toCurrSearch">To</label>
         <div class="curr-combo">
-          <input type="text" class="curr-combo-input" id="toCurrSearch" autocomplete="off" placeholder="🔍">
-          <select id="toCurr" onchange="convert()" style="display:none;"></select>
+          <input type="text" class="curr-combo-input" id="toCurrSearch" autocomplete="off" placeholder="🔍" aria-label="Search currency to convert to">
+          <select id="toCurr" onchange="convert()" style="display:none;" aria-hidden="true" tabindex="-1"></select>
           <div class="curr-combo-list" id="toCurrList"></div>
         </div>
       </div>
