@@ -652,13 +652,13 @@ function buildQuickRow() {
     const btn = document.createElement('button');
     btn.className = 'quick-btn' + (code===document.getElementById('toCurr').value?' active':'');
     btn.textContent = code;
-    btn.onclick = () => {
+    btn.addEventListener('click', () => {
       document.getElementById('toCurr').value = code;
       syncCombos();
       wrap.querySelectorAll('.quick-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
       convert();
-    };
+    });
     wrap.appendChild(btn);
   });
 }
@@ -841,7 +841,7 @@ function buildFAQ() {
     const div = document.createElement('div');
     div.className = 'faq-item';
     div.innerHTML = `<div class="faq-q">${item.q}<span class="faq-arrow">▾</span></div><div class="faq-a">${item.a}</div>`;
-    div.querySelector('.faq-q').onclick = () => div.classList.toggle('open');
+    div.querySelector('.faq-q').addEventListener('click', () => div.classList.toggle('open'));
     wrap.appendChild(div);
   });
 }
