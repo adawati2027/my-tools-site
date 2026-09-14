@@ -40,7 +40,7 @@
   <div class="nav-links">
     <a href="sa/" id="navHome">أدوات السعودية</a>
     <a href="index.html" id="navGlobal">عالمي</a>
-    <a href="#" onclick="toggleLang();return false;" id="langBtn" style="font-weight:700;">English</a>
+    <a href="#" id="langBtn" style="font-weight:700;">English</a>
   </div>
 </div></nav>
 
@@ -238,6 +238,11 @@ function toggleLang() {
 })();
 
 applyLang();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('langBtn')?.addEventListener('click', function(e){ e.preventDefault(); toggleLang(); });
+});
 </script>
 <script src="i18n.js?v=42" defer></script>
 </body></html>
