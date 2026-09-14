@@ -377,7 +377,9 @@ Started the "richer on-page content per tool" backlog item (highest-traffic tool
 
 **GSC access — walked the user through the manual steps live** (creating a service account in Google Cloud Console, enabling the Search Console API, adding the service account as a user in Search Console) rather than attempting it myself — this requires the user's own Google account login, which isn't something this session can do. Once the user has a service account JSON key, hand it back here to wire up real query-data automation (the daily IndexNow routine is a template for how a scheduled cloud routine could pull this data too).
 
-**Still pending on this backlog item**: extend the same long-tail-content treatment to the Jordan tools (income-tax, package-customs, etc. — already got the FAQ-sync pass, but not yet a dedicated long-form content section), and to other high-traffic root tools beyond these first two.
+**Extended to the Jordan tools 2026-09-14**: `jo/calculators/income-tax/index.html` got a "💡 نصائح عملية لتقليل ضريبة الدخل بطرق قانونية" card (documenting exemptions/marital-status brackets already verified elsewhere on the page — no new numeric claims); `jo/calculators/package-customs/index.html` got a "💡 نصائح لتجنب مفاجآت رسوم الجمارك" card (general shopping/customs-planning advice reusing the already-verified 16%/5 JOD/200 JOD figures). Same reasoning as the first two: general financial-planning guidance, not new regulatory facts, so no heavy source-verification needed. Both validated (`JSON.parse`+`new Function()`), pushed, and confirmed live via blob-sha + `curl`.
+
+**Still pending on this backlog item**: extend to other high-traffic root tools beyond currency-converter/salary-calculator/income-tax/package-customs — no specific next page chosen yet.
 
 ## Google Search Console API access — set up 2026-09-10, real data pulled
 
