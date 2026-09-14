@@ -1110,6 +1110,7 @@ input:checked + .slider:before { transform: translateX(20px); }
     left: 0;
     right: 0;
     flex-direction: column;
+    flex-wrap: nowrap;
     align-items: stretch;
     gap: 4px;
     background: var(--surface);
@@ -1118,6 +1119,7 @@ input:checked + .slider:before { transform: translateX(20px); }
     box-shadow: var(--shadow-xl);
     max-height: calc(100vh - 68px);
     overflow-y: auto;
+    overflow-x: hidden;
   }
   .nav-links.nav-open { display: flex; }
   .nav-links a { padding: 12px 14px; font-size: 15px; width: 100%; box-sizing: border-box; }
