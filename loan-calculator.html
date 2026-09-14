@@ -519,7 +519,13 @@ function exportLoanResult(){
   var monthly=document.getElementById('monthlyPayment').textContent;
   if(!monthly)return;
   var t=D();
+  var amount=document.getElementById('amount').value;
+  var rate=document.getElementById('rate').value;
+  var years=document.getElementById('years').value;
   var rows=[
+    {label:t.lbl_amount,value:fmt(parseFloat(amount)||0)},
+    {label:t.lbl_rate,value:rate+'%'},
+    {label:t.lbl_years,value:years},
     {label:document.getElementById('lbl-total').textContent,value:document.getElementById('totalPaid').textContent},
     {label:document.getElementById('lbl-interest').textContent,value:document.getElementById('totalInterest').textContent},
     {label:document.getElementById('lbl-monthly').textContent,value:monthly,highlight:true}

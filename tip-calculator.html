@@ -210,6 +210,9 @@ function exportTipResult() {
   const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
   const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
   const rows = [
+    { label: t.tip_bill || 'Total bill', value: document.getElementById('bill').value },
+    { label: t.tip_pct || 'Tip %', value: document.getElementById('tipPctLabel').textContent + '%' },
+    { label: t.tip_people || 'Number of people', value: document.getElementById('people').value },
     { label: t.tip_amount || 'Tip amount', value: document.getElementById('tipAmt').textContent },
     { label: t.tip_total || 'Total', value: document.getElementById('totalAmt').textContent },
     { label: t.tip_per_person || 'Per person', value: per, highlight: true }

@@ -315,7 +315,22 @@ function exportPercentageResult() {
   if (!val) return;
   const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
   const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
-  if (typeof exportResultImage === 'function') exportResultImage(t.pct_card_title || 'Percentage Calculator', [{ label: lbl, value: val, highlight: true }]);
+  const inputRows = {
+    '1': [
+      { label: t.pct_pct || 'Percentage %', value: document.getElementById('p1pct').value },
+      { label: t.pct_num || 'Number', value: document.getElementById('p1num').value }
+    ],
+    '2': [
+      { label: t.pct_first || 'First number', value: document.getElementById('p2a').value },
+      { label: t.pct_second || 'Second number', value: document.getElementById('p2b').value }
+    ],
+    '3': [
+      { label: t.pct_from_val || 'From value', value: document.getElementById('p3a').value },
+      { label: t.pct_to_val || 'To value', value: document.getElementById('p3b').value }
+    ]
+  };
+  const rows = (inputRows[idx] || []).concat([{ label: lbl, value: val, highlight: true }]);
+  if (typeof exportResultImage === 'function') exportResultImage(t.pct_card_title || 'Percentage Calculator', rows);
 }
 
 function quickFill(pct) {
