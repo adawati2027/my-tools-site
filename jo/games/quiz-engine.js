@@ -293,7 +293,6 @@ async function creatorStartPlaying() {
   document.getElementById('challengeWaitingArea').style.display = 'none';
   currentQ = 0; score = 0; quizStartTime = Date.now();
   document.getElementById('quizArea').style.display = 'block';
-  showActiveChallengeLink();
   loadQuestion();
   try {
     await db.collection('challenges').doc(challengeId).collection('starts').add({
@@ -309,7 +308,6 @@ function beginJoinerPlay() {
   document.getElementById('joinerWaitingArea').style.display = 'none';
   currentQ = 0; score = 0; quizStartTime = Date.now();
   document.getElementById('quizArea').style.display = 'block';
-  showActiveChallengeLink();
   loadQuestion();
 }
 
@@ -434,7 +432,6 @@ async function joinChallenge() {
     if (alreadyStarted) {
       currentQ = 0; score = 0; quizStartTime = Date.now();
       document.getElementById('quizArea').style.display = 'block';
-      showActiveChallengeLink();
       loadQuestion();
       return;
     }
