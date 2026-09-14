@@ -218,7 +218,11 @@ function exportDiscountResult() {
   } else {
     const val = document.getElementById('percentResult').textContent;
     if (!val) return;
-    rows = [{ label: (t.percent_label1 || 'Percentage') + ' ' + (t.percent_label2 || ''), value: val, highlight: true }];
+    rows = [
+      { label: t.pct_pct || 'Percentage %', value: document.getElementById('p1').value },
+      { label: t.pct_num || 'Number', value: document.getElementById('p2').value },
+      { label: (t.percent_label1 || 'Percentage') + ' ' + (t.percent_label2 || ''), value: val, highlight: true }
+    ];
   }
   if (typeof exportResultImage === 'function') exportResultImage(t.discount_title || 'Percentage & Discount Calculator', rows);
 }
