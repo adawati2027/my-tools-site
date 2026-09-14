@@ -9,15 +9,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/icon-192.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<title id="pageTitleTag">Public Holidays in UK 2026 | Adawati</title>
-<meta name="description" id="metaDescTag" content="Official public holidays in UK for 2026 (Islamic dates are estimates pending moon sighting): Eid, national holidays and more, with a countdown to the next holiday.">
-<meta name="keywords" content="public holidays UK 2026, العطل الرسمية بريطانيا 2026, Eid al-Fitr 2026, Eid al-Adha 2026">
+<title id="pageTitleTag">UK Bank Holidays 2026-2027 | Adawati</title>
+<meta name="description" id="metaDescTag" content="Official UK bank holidays for 2026 and 2027 (England & Wales), with a countdown to the next holiday.">
+<meta name="keywords" content="UK bank holidays 2026 2027, public holidays UK 2026 2027, العطل الرسمية بريطانيا 2026 2027">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://adawati.space/uk/holidays/">
 <link rel="alternate" hreflang="x-default" href="https://adawati.space/">
 <link rel="alternate" hreflang="en" href="https://adawati.space/uk/holidays/">
-<meta property="og:title" content="Public Holidays in UK 2026 | Adawati">
-<meta property="og:description" content="Official public holidays in UK for 2026 (Islamic dates are estimates pending moon sighting): Eid, national holidays and more, with a countdown to the next holiday.">
+<meta property="og:title" content="UK Bank Holidays 2026-2027 | Adawati">
+<meta property="og:description" content="Official UK bank holidays for 2026 and 2027, with a countdown to the next holiday.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adawati.space/uk/holidays/">
 <script type="application/ld+json">
@@ -105,7 +105,15 @@ const HOLIDAYS = [
   {nameAr:'عطلة الربيع', nameEn:'Spring Bank Holiday', start:'2026-05-25', end:'2026-05-25', type:'fixed'},
   {nameAr:'عطلة الصيف', nameEn:'Summer Bank Holiday', start:'2026-08-31', end:'2026-08-31', type:'fixed'},
   {nameAr:'عيد الميلاد المجيد', nameEn:'Christmas Day', start:'2026-12-25', end:'2026-12-25', type:'fixed'},
-  {nameAr:'يوم الملاكمة (بديل)', nameEn:'Boxing Day (substitute)', start:'2026-12-28', end:'2026-12-28', type:'fixed'}
+  {nameAr:'يوم الملاكمة (بديل)', nameEn:'Boxing Day (substitute)', start:'2026-12-28', end:'2026-12-28', type:'fixed'},
+  {nameAr:'رأس السنة الميلادية', nameEn:'New Year\'s Day', start:'2027-01-01', end:'2027-01-01', type:'fixed'},
+  {nameAr:'الجمعة العظيمة', nameEn:'Good Friday', start:'2027-03-26', end:'2027-03-26', type:'fixed'},
+  {nameAr:'اثنين الفصح', nameEn:'Easter Monday', start:'2027-03-29', end:'2027-03-29', type:'fixed'},
+  {nameAr:'عطلة أوائل مايو', nameEn:'Early May Bank Holiday', start:'2027-05-03', end:'2027-05-03', type:'fixed'},
+  {nameAr:'عطلة الربيع', nameEn:'Spring Bank Holiday', start:'2027-05-31', end:'2027-05-31', type:'fixed'},
+  {nameAr:'عطلة الصيف', nameEn:'Summer Bank Holiday', start:'2027-08-30', end:'2027-08-30', type:'fixed'},
+  {nameAr:'عيد الميلاد المجيد (بديل)', nameEn:'Christmas Day (substitute)', start:'2027-12-27', end:'2027-12-27', type:'fixed'},
+  {nameAr:'يوم الملاكمة (بديل)', nameEn:'Boxing Day (substitute)', start:'2027-12-28', end:'2027-12-28', type:'fixed'}
 ];
 
 let curLang = 'en';
@@ -158,8 +166,14 @@ function fmtDate(iso) {
 function buildTable() {
   const t = UI[curLang];
   const body = document.getElementById('holidaysTableBody');
+  let lastYear = null;
   let rowsHtml = '';
   HOLIDAYS.forEach(function(h, i) {
+    const year = h.start.slice(0, 4);
+    if (year !== lastYear) {
+      lastYear = year;
+      rowsHtml += '<tr><td colspan="3" style="padding:8px;background:#f3f4f6;font-weight:800;text-align:center;border:1px solid var(--border);">' + year + '</td></tr>';
+    }
     const name = curLang === 'ar' ? h.nameAr : h.nameEn;
     const dateStr = h.start === h.end ? fmtDate(h.start) : (fmtDate(h.start) + ' — ' + fmtDate(h.end));
     const badge = h.type === 'lunar' ? t.lunar : t.confirmed;

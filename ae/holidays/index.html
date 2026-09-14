@@ -9,15 +9,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/icon-192.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<title id="pageTitleTag">Public Holidays in UAE 2026 | Adawati</title>
-<meta name="description" id="metaDescTag" content="Official public holidays in UAE for 2026 (Islamic dates are estimates pending moon sighting): Eid, national holidays and more, with a countdown to the next holiday.">
-<meta name="keywords" content="public holidays UAE 2026, العطل الرسمية الإمارات 2026, Eid al-Fitr 2026, Eid al-Adha 2026">
+<title id="pageTitleTag">Public Holidays in UAE 2026-2027 | Adawati</title>
+<meta name="description" id="metaDescTag" content="Official public holidays in UAE for 2026 and 2027 (Islamic dates are estimates pending moon sighting): Eid, national holidays and more, with a countdown to the next holiday.">
+<meta name="keywords" content="public holidays UAE 2026 2027, العطل الرسمية الإمارات 2026 2027, Eid al-Fitr 2026, Eid al-Adha 2026">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://adawati.space/ae/holidays/">
 <link rel="alternate" hreflang="x-default" href="https://adawati.space/">
 <link rel="alternate" hreflang="en" href="https://adawati.space/ae/holidays/">
-<meta property="og:title" content="Public Holidays in UAE 2026 | Adawati">
-<meta property="og:description" content="Official public holidays in UAE for 2026 (Islamic dates are estimates pending moon sighting): Eid, national holidays and more, with a countdown to the next holiday.">
+<meta property="og:title" content="Public Holidays in UAE 2026-2027 | Adawati">
+<meta property="og:description" content="Official public holidays in UAE for 2026 and 2027, with a countdown to the next holiday.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adawati.space/ae/holidays/">
 <script type="application/ld+json">
@@ -74,6 +74,7 @@
       </table>
     </div>
     <p style="font-size:12px;color:var(--text-muted);margin-top:10px;line-height:1.7;" id="lunarNote">⚠️ Islamic-calendar dates (marked 🌙 estimated) depend on moon sighting and may shift by a day from the official announcement. Gregorian dates (☀️ confirmed) are fixed.</p>
+    <p style="font-size:13px;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius-sm);padding:10px 14px;margin-top:10px;line-height:1.7;" id="prelimNote"></p>
   </div>
 
   <div style="margin-top:16px;text-align:center;">
@@ -104,7 +105,14 @@ const HOLIDAYS = [
   {nameAr:'رأس السنة الهجرية', nameEn:'Islamic New Year', start:'2026-06-16', end:'2026-06-16', type:'lunar'},
   {nameAr:'المولد النبوي الشريف', nameEn:'Prophet Muhammad\'s Birthday', start:'2026-08-25', end:'2026-08-25', type:'lunar'},
   {nameAr:'يوم الشهيد', nameEn:'Commemoration Day', start:'2026-12-01', end:'2026-12-01', type:'fixed'},
-  {nameAr:'اليوم الوطني', nameEn:'National Day', start:'2026-12-02', end:'2026-12-03', type:'fixed'}
+  {nameAr:'اليوم الوطني', nameEn:'National Day', start:'2026-12-02', end:'2026-12-03', type:'fixed'},
+  {nameAr:'رأس السنة الميلادية', nameEn:'New Year\'s Day', start:'2027-01-01', end:'2027-01-01', type:'fixed'},
+  {nameAr:'عيد الفطر', nameEn:'Eid al-Fitr', start:'2027-03-09', end:'2027-03-12', type:'lunar'},
+  {nameAr:'يوم عرفة وعيد الأضحى', nameEn:'Arafat Day & Eid al-Adha', start:'2027-05-15', end:'2027-05-18', type:'lunar'},
+  {nameAr:'رأس السنة الهجرية', nameEn:'Islamic New Year', start:'2027-06-05', end:'2027-06-05', type:'lunar'},
+  {nameAr:'المولد النبوي الشريف', nameEn:'Prophet Muhammad\'s Birthday', start:'2027-08-14', end:'2027-08-14', type:'lunar'},
+  {nameAr:'يوم الشهيد', nameEn:'Commemoration Day', start:'2027-12-01', end:'2027-12-01', type:'fixed'},
+  {nameAr:'اليوم الوطني', nameEn:'National Day', start:'2027-12-02', end:'2027-12-03', type:'fixed'}
 ];
 
 let curLang = 'en';
@@ -120,6 +128,8 @@ const UI = {
     listTitle: '🗓️ القائمة الكاملة — 2026',
     thEvent: 'المناسبة', thDate: 'التاريخ', thType: 'النوع',
     lunarNote: '⚠️ التواريخ الهجرية (المعلّمة بـ 🌙 تقديري) تعتمد على ترائي الهلال وقد تختلف بيوم عن الإعلان الرسمي. التواريخ الميلادية (☀️ مؤكد) ثابتة.',
+    prelimYear: 'تواريخ الهجري تقديرية أولية جداً — بعيدة سنة كاملة وقابلة للتغيير',
+    prelimNote: '⚠️ أضفنا تواريخ 2027 المتوقعة أيضاً، لكن تواريخ الأعياد الهجرية بعيدة عن الآن بسنة كاملة تقريباً، فهي تقديرية جداً ومرشّحة للتغيير بيوم أو يومين حسب رؤية الهلال الفعلية وقتها.',
     otherTools: 'أدوات ' + COUNTRY_AR + ' الأخرى:',
     lblGold: 'سعر الذهب اليوم', lblWeather: 'الطقس', lblPrayer: 'مواقيت الصلاة', lblCurrency: 'محول العملات',
     lblAllTools: 'كل أدوات ' + COUNTRY_AR,
@@ -137,6 +147,8 @@ const UI = {
     listTitle: '🗓️ Full List — 2026',
     thEvent: 'Holiday', thDate: 'Date', thType: 'Type',
     lunarNote: "⚠️ Islamic-calendar dates (marked 🌙 estimated) depend on moon sighting and may shift by a day from the official announcement. Gregorian dates (☀️ confirmed) are fixed.",
+    prelimYear: 'Islamic dates are very preliminary — over a year away and subject to change',
+    prelimNote: '⚠️ We\'ve also added expected 2027 dates, but Islamic-calendar holidays are nearly a year away, so they are very rough estimates and may shift by a day or two once the actual moon sighting is confirmed closer to the date.',
     otherTools: 'Other ' + COUNTRY_EN + ' Tools:',
     lblGold: 'Gold Price Today', lblWeather: 'Weather', lblPrayer: 'Prayer Times', lblCurrency: 'Currency Converter',
     lblAllTools: 'All ' + COUNTRY_EN + ' Tools',
@@ -157,8 +169,15 @@ function fmtDate(iso) {
 function buildTable() {
   const t = UI[curLang];
   const body = document.getElementById('holidaysTableBody');
+  let lastYear = null;
   let rowsHtml = '';
   HOLIDAYS.forEach(function(h, i) {
+    const year = h.start.slice(0, 4);
+    if (year !== lastYear) {
+      lastYear = year;
+      const isPrelim = year !== '2026';
+      rowsHtml += '<tr><td colspan="3" style="padding:8px;background:#f3f4f6;font-weight:800;text-align:center;border:1px solid var(--border);">' + year + (isPrelim ? ' (' + t.prelimYear + ')' : '') + '</td></tr>';
+    }
     const name = curLang === 'ar' ? h.nameAr : h.nameEn;
     const dateStr = h.start === h.end ? fmtDate(h.start) : (fmtDate(h.start) + ' — ' + fmtDate(h.end));
     const badge = h.type === 'lunar' ? t.lunar : t.confirmed;
@@ -213,6 +232,7 @@ function applyLang() {
   document.getElementById('thDate').textContent = t.thDate;
   document.getElementById('thType').textContent = t.thType;
   document.getElementById('lunarNote').textContent = t.lunarNote;
+  document.getElementById('prelimNote').textContent = t.prelimNote;
   document.getElementById('otherToolsLabel').textContent = t.otherTools;
   document.getElementById('lblGold').textContent = t.lblGold;
   document.getElementById('lblWeather').textContent = t.lblWeather;
