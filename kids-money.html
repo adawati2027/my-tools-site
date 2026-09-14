@@ -63,9 +63,9 @@
     <div class="divider"></div>
 
     <div class="money-tabs">
-      <button class="money-tab active" onclick="setMode('coins')" id="tabCoins">🪙 Coins</button>
-      <button class="money-tab" onclick="setMode('notes')" id="tabNotes">💵 Notes</button>
-      <button class="money-tab" onclick="setMode('mixed')" id="tabMixed">🎲 Mixed</button>
+      <button class="money-tab active" data-mode="coins" id="tabCoins">🪙 Coins</button>
+      <button class="money-tab" data-mode="notes" id="tabNotes">💵 Notes</button>
+      <button class="money-tab" data-mode="mixed" id="tabMixed">🎲 Mixed</button>
     </div>
 
     <div id="gameArea">
@@ -213,7 +213,7 @@ function renderQ(){
         <div style="font-size:60px;">💰</div>
         <div style="font-size:22px;font-weight:900;color:#92400e;margin:10px 0;">${pct>=80?mt('master'):pct>=50?mt('great'):mt('keep')}</div>
         <div style="font-size:15px;color:var(--text-muted);">${mt('score')}: ${score} / ${TOTAL} (${pct}%)</div>
-        <button class="btn btn-primary" style="margin-top:16px;" onclick="startGame()">${mt('playAgain')}</button>
+        <button class="btn btn-primary quiz-restart-btn" style="margin-top:16px;">${mt('playAgain')}</button>
       </div>`;
     return;
   }
@@ -232,7 +232,7 @@ function renderQ(){
 
   const choices=makeChoices(q.total);
   document.getElementById('mChoices').innerHTML=choices.map(c=>
-    `<button class="money-choice" onclick="answerQ(this,${c},${q.total})">${formatVal(c)}</button>`
+    `<button class="money-choice" data-chosen="${c}" data-correct="${q.total}">${formatVal(c)}</button>`
   ).join('');
   document.getElementById('mFeedback').textContent='';
   answered=false;
@@ -293,6 +293,19 @@ document.addEventListener('DOMContentLoaded',()=>{
   window.onLangChange=function(lang){currentLang=lang;updateStaticText();renderQ();};
   updateStaticText();
   startGame();
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.money-tab[data-mode]').forEach(function(btn){
+    btn.addEventListener('click', function(){ setMode(btn.dataset.mode); });
+  });
+  document.getElementById('gameArea')?.addEventListener('click', function(e){
+    var restartBtn = e.target.closest('.quiz-restart-btn');
+    if (restartBtn) { startGame(); return; }
+    var choiceBtn = e.target.closest('.money-choice');
+    if (choiceBtn && choiceBtn.dataset.chosen !== undefined) { answerQ(choiceBtn, Number(choiceBtn.dataset.chosen), Number(choiceBtn.dataset.correct)); }
+  });
 });
 </script>
 <script src="i18n.js?v=42" defer></script>

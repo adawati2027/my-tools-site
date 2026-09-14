@@ -71,29 +71,29 @@
     <div class="divider"></div>
 
     <div class="alpha-tabs">
-      <button class="alpha-tab active" onclick="setMode('learn')" id="tabLearn">📖 Learn</button>
-      <button class="alpha-tab" onclick="setMode('quiz')" id="tabQuiz">🎯 Quiz</button>
-      <button class="alpha-tab" onclick="setMode('grid')" id="tabGrid">🔤 All Letters</button>
+      <button class="alpha-tab active" data-mode="learn" id="tabLearn">📖 Learn</button>
+      <button class="alpha-tab" data-mode="quiz" id="tabQuiz">🎯 Quiz</button>
+      <button class="alpha-tab" data-mode="grid" id="tabGrid">🔤 All Letters</button>
     </div>
 
     <div id="learnMode">
-      <div class="alpha-card" onclick="speakCurrent()">
+      <div class="alpha-card" id="alphaCard">
         <div class="alpha-letter" id="aLetter">A</div>
         <div class="alpha-emoji" id="aEmoji">🍎</div>
         <div class="alpha-word" id="aWord">Apple</div>
         <div class="alpha-sub" id="tapToHear">🔊 Tap to hear!</div>
       </div>
       <div class="alpha-nav">
-        <button onclick="prevLetter()">◀</button>
+        <button id="prevLetterBtn">◀</button>
         <div class="alpha-progress" id="aProgress">1 / 26</div>
-        <button onclick="nextLetter()">▶</button>
+        <button id="nextLetterBtn">▶</button>
       </div>
     </div>
 
     <div id="quizMode" style="display:none;">
       <div style="font-size:14px;font-weight:700;color:var(--text-muted);text-align:center;margin-bottom:8px;" id="qScore">Score: 0 / 26</div>
       <div style="font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;" id="quizQuestion">Which letter does this start with? 🔊 Tap image to hear!</div>
-      <div class="aq-emoji" id="qEmoji" onclick="speakQuizWord()">🍎</div>
+      <div class="aq-emoji" id="qEmoji">🍎</div>
       <div style="font-size:18px;font-weight:700;text-align:center;color:var(--text-muted);margin-bottom:10px;" id="qWord"></div>
       <div class="aq-choices" id="qChoices"></div>
       <div style="font-size:20px;font-weight:800;text-align:center;min-height:28px;" id="qFeedback"></div>
@@ -213,7 +213,7 @@ function renderQuiz(){
         <div style="font-size:60px;">🏆</div>
         <div style="font-size:22px;font-weight:900;color:var(--primary);margin:10px 0;">${pct>=80?abt('master'):pct>=50?abt('great'):abt('keep')}</div>
         <div style="font-size:15px;color:var(--text-muted);">${abt('score')}: ${qScore} / 26 (${pct}%)</div>
-        <button class="btn btn-primary" style="margin-top:16px;" onclick="startQuiz()">${abt('playAgain')}</button>
+        <button class="btn btn-primary quiz-restart-btn" style="margin-top:16px;">${abt('playAgain')}</button>
       </div>`;
     return;
   }
@@ -224,7 +224,7 @@ function renderQuiz(){
   document.getElementById('qEmoji').textContent=a.e;
   document.getElementById('qWord').textContent=a.w;
   document.getElementById('qChoices').innerHTML=choices.map(c=>
-    `<button class="aq-choice" onclick="answerQuiz(this,'${c.l}','${a.l}')">${c.l}</button>`
+    `<button class="aq-choice" data-chosen="${c.l}" data-correct="${a.l}">${c.l}</button>`
   ).join('');
   document.getElementById('qFeedback').textContent='';
   qAnswered=false;
@@ -240,7 +240,7 @@ function answerQuiz(btn,chosen,correct){
 
 function buildGrid(){
   document.getElementById('aGrid').innerHTML=ALPHA.map(a=>
-    `<div class="alpha-grid-item" onclick="speak('${a.l} is for ${a.w}')">
+    `<div class="alpha-grid-item" data-speak="${a.l} is for ${a.w}">
       <div class="gi-letter">${a.l}</div>
       <div class="gi-emoji">${a.e}</div>
       <div style="font-size:10px;color:var(--text-muted);">${a.w}</div>
@@ -275,6 +275,27 @@ document.addEventListener('DOMContentLoaded',()=>{
   window.onLangChange=function(lang){currentLang=lang;updateStaticText();if(mode==='quiz')renderQuiz();};
   updateStaticText();
   renderLearn();
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.alpha-tab[data-mode]').forEach(function(btn){
+    btn.addEventListener('click', function(){ setMode(btn.dataset.mode); });
+  });
+  document.getElementById('alphaCard')?.addEventListener('click', speakCurrent);
+  document.getElementById('prevLetterBtn')?.addEventListener('click', prevLetter);
+  document.getElementById('nextLetterBtn')?.addEventListener('click', nextLetter);
+  document.getElementById('qEmoji')?.addEventListener('click', speakQuizWord);
+  document.getElementById('quizMode')?.addEventListener('click', function(e){
+    var restartBtn = e.target.closest('.quiz-restart-btn');
+    if (restartBtn) { startQuiz(); return; }
+    var choiceBtn = e.target.closest('.aq-choice');
+    if (choiceBtn && choiceBtn.dataset.chosen !== undefined) { answerQuiz(choiceBtn, choiceBtn.dataset.chosen, choiceBtn.dataset.correct); }
+  });
+  document.getElementById('aGrid')?.addEventListener('click', function(e){
+    var item = e.target.closest('.alpha-grid-item');
+    if (item && item.dataset.speak !== undefined) { speak(item.dataset.speak); }
+  });
 });
 </script>
 <script src="i18n.js?v=42" defer></script>

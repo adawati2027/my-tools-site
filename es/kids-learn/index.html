@@ -86,11 +86,11 @@
   <div class="nav-links">
     <a href="index.html" data-i18n="nav_home">Home</a>
     <div class="lang-switcher">
-      <button class="lang-btn" onclick="toggleLangMenu()">🌐 <span id="currentLang">EN</span> ▾</button>
+      <button class="lang-btn" id="langToggleBtn">🌐 <span id="currentLang">EN</span> ▾</button>
       <div class="lang-menu" id="langMenu">
-        <a onclick="setLang('ar')">🇸🇦 العربية</a><a onclick="setLang('en')">🇬🇧 English</a>
-        <a onclick="setLang('fr')">🇫🇷 Français</a><a onclick="setLang('es')">🇪🇸 Español</a>
-        <a onclick="setLang('de')">🇩🇪 Deutsch</a><a onclick="setLang('ru')">🇷🇺 Русский</a>
+        <a data-lang="ar">🇸🇦 العربية</a><a data-lang="en">🇬🇧 English</a>
+        <a data-lang="fr">🇫🇷 Français</a><a data-lang="es">🇪🇸 Español</a>
+        <a data-lang="de">🇩🇪 Deutsch</a><a data-lang="ru">🇷🇺 Русский</a>
       </div>
     </div>
   </div>
@@ -106,23 +106,23 @@
 
     <!-- Mode selector -->
     <div class="mode-row">
-      <button class="mode-btn active" onclick="setMode('numbers')" id="modeNumbers">🔢 <span id="mNumLbl">أرقام</span></button>
-      <button class="mode-btn" onclick="setMode('colors')" id="modeColors">🎨 <span id="mColLbl">ألوان</span></button>
-      <button class="mode-btn" onclick="setMode('animals')" id="modeAnimals">🐾 <span id="mAnmLbl">حيوانات</span></button>
-      <button class="mode-btn" onclick="setMode('quiz')" id="modeQuiz">🎯 <span id="mQzLbl">تحدي</span></button>
+      <button class="mode-btn active" data-mode="numbers" id="modeNumbers">🔢 <span id="mNumLbl">أرقام</span></button>
+      <button class="mode-btn" data-mode="colors" id="modeColors">🎨 <span id="mColLbl">ألوان</span></button>
+      <button class="mode-btn" data-mode="animals" id="modeAnimals">🐾 <span id="mAnmLbl">حيوانات</span></button>
+      <button class="mode-btn" data-mode="quiz" id="modeQuiz">🎯 <span id="mQzLbl">تحدي</span></button>
     </div>
 
     <!-- Learn panel -->
     <div id="learnPanel">
-      <div class="learn-card" id="learnCard" onclick="speakCurrent()">
+      <div class="learn-card" id="learnCard">
         <div id="learnVisual" class="learn-emoji">🔢</div>
         <div class="learn-word" id="learnWord">واحد</div>
         <div class="tap-hint">🔊 <span id="tapHint">انقر لسماع الصوت</span></div>
       </div>
       <div class="nav-row">
-        <button class="nav-btn" onclick="navItem(-1)">›</button>
+        <button class="nav-btn" id="navPrevBtn">›</button>
         <div class="progress-dots" id="progDots"></div>
-        <button class="nav-btn" onclick="navItem(1)">‹</button>
+        <button class="nav-btn" id="navNextBtn">‹</button>
       </div>
     </div>
 
@@ -458,7 +458,7 @@ function renderQuiz(){
       <div class="quiz-done-icon">🎉</div>
       <div class="quiz-done-msg">${msg}</div>
       <div class="quiz-done-score">${kt('score')}: ${quizScore} ${kt('of')} ${QUIZ_TOTAL} ${stars}</div>
-      <button class="btn btn-primary" style="margin-top:16px" onclick="startQuiz()">${kt('play_again')}</button>
+      <button class="btn btn-primary quiz-restart-btn" style="margin-top:16px">${kt('play_again')}</button>
     </div>`;
     return;
   }
@@ -470,15 +470,15 @@ function renderQuiz(){
   if(q.type==='animal_name'){
     visual=`<div class="quiz-visual">${q.animal.emoji}</div>`;
     question=kt('q_animal');
-    choicesHtml=q.choices.map(c=>`<button class="quiz-choice" onclick="answerQuiz(this,'${c===q.animal?'y':'n'}')">${getName(c)}</button>`).join('');
+    choicesHtml=q.choices.map(c=>`<button class="quiz-choice" data-result="${c===q.animal?'y':'n'}">${getName(c)}</button>`).join('');
   } else if(q.type==='color_name'){
     visual=`<div class="quiz-color-q" style="background:${q.color.color};"></div>`;
     question=kt('q_color');
-    choicesHtml=q.choices.map(c=>`<button class="quiz-choice" onclick="answerQuiz(this,'${c===q.color?'y':'n'}')" style="color:${c.color==='#f8fafc'?'#64748b':c.color}">${getName(c)}</button>`).join('');
+    choicesHtml=q.choices.map(c=>`<button class="quiz-choice" data-result="${c===q.color?'y':'n'}" style="color:${c.color==='#f8fafc'?'#64748b':c.color}">${getName(c)}</button>`).join('');
   } else {
     visual=`<div class="quiz-visual" style="font-size:${q.num.n<=4?48:q.num.n<=7?38:30}px;">${q.num.emoji.repeat(q.num.n)}</div>`;
     question=kt('q_count');
-    choicesHtml=q.choices.map(c=>`<button class="quiz-choice" onclick="answerQuiz(this,'${c===q.num?'y':'n'}')">${c.n}</button>`).join('');
+    choicesHtml=q.choices.map(c=>`<button class="quiz-choice" data-result="${c===q.num?'y':'n'}">${c.n}</button>`).join('');
   }
 
   wrap.innerHTML=`
@@ -548,6 +548,26 @@ document.addEventListener('DOMContentLoaded',()=>{
       if(e.key==='ArrowLeft'||e.key==='ArrowUp') navItem(1);
       if(e.key===' '||e.key==='Enter'){e.preventDefault();speakCurrent();}
     }
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
+  document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
+    a.addEventListener('click', function(){ setLang(a.dataset.lang); });
+  });
+  document.querySelectorAll('.mode-btn[data-mode]').forEach(function(btn){
+    btn.addEventListener('click', function(){ setMode(btn.dataset.mode); });
+  });
+  document.getElementById('learnCard')?.addEventListener('click', speakCurrent);
+  document.getElementById('navPrevBtn')?.addEventListener('click', function(){ navItem(-1); });
+  document.getElementById('navNextBtn')?.addEventListener('click', function(){ navItem(1); });
+  document.getElementById('quizWrap')?.addEventListener('click', function(e){
+    var restartBtn = e.target.closest('.quiz-restart-btn');
+    if (restartBtn) { startQuiz(); return; }
+    var choiceBtn = e.target.closest('.quiz-choice');
+    if (choiceBtn && choiceBtn.dataset.result !== undefined) { answerQuiz(choiceBtn, choiceBtn.dataset.result); }
   });
 });
 </script>
