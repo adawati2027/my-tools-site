@@ -590,7 +590,7 @@ async function docxToPdf(){
 }
 
 /* ─── XLSX / XLS conversions ─── */
-async function loadXlsx(){ return loadScript('https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js'); }
+async function loadXlsx(){ return loadScript('vendor/xlsx-0.20.3.min.js'); }
 async function getXlsxWb(){
   if(xlsxWb) return xlsxWb;
   await loadXlsx();
