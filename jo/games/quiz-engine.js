@@ -516,6 +516,139 @@ function qResultMessages() {
   return (quizLang === 'en' && QUIZ_CONFIG.resultMessagesEn) ? QUIZ_CONFIG.resultMessagesEn : QUIZ_CONFIG.resultMessages;
 }
 
+// Rank/margin-based trash-talk captions for the shared result image — deliberately
+// separate from QUIZ_CONFIG.resultMessages (which is absolute-score-tier feedback
+// shown on the result screen itself); this is relative to the other real players
+// in the same challenge, since "you won" and "you won by a landslide" call for
+// different jokes than a fixed score threshold can express.
+const RESULT_CAPTIONS = {
+  ar: {
+    solo: 'لسا لحالك بالتحدي! شارك الرابط وخلي صحابك يتحدوك 🎮',
+    winBig: 'لقد انتصرت أيها الوحش 👹🏆',
+    winMid: 'فرق المستوى كثير كبير هون 😎🏆',
+    winClose: 'فزت... بس بالكاد! 😅🏆',
+    tie: 'تعادل بالنتيجة، بس فزت بالوقت! ⏱️🏆',
+    lastBig: 'لازمك تدريب أكتر 💪😂',
+    lastSoft: 'المرة الجاية بتصير أحسن 💪',
+    middle: 'مش أول... بس مش آخر واحد! 😄'
+  },
+  en: {
+    solo: "You're still on your own — share the link and let your friends take you on 🎮",
+    winBig: 'You crushed them, you absolute monster 👹🏆',
+    winMid: 'The skill gap is real here 😎🏆',
+    winClose: 'You won... but just barely! 😅🏆',
+    tie: 'Tied on score, but you won on time! ⏱️🏆',
+    lastBig: 'You need some serious training 💪😂',
+    lastSoft: 'Next round, you got this 💪',
+    middle: "Not first... but not last either! 😄"
+  }
+};
+
+function getResultCaption() {
+  const t = RESULT_CAPTIONS[quizLang] || RESULT_CAPTIONS.ar;
+  const total = activeQuestions.length;
+  const board = latestLeaderboard;
+  if (!board.length || board.length === 1) return t.solo;
+  let myIndex = board.findIndex(function(p) { return p.name === playerName; });
+  if (myIndex === -1) myIndex = 0;
+  const myRank = myIndex + 1;
+  const myScore = board[myIndex].score;
+  const n = board.length;
+  if (myRank === 1) {
+    const rival = board[1].score;
+    if (rival === myScore) return t.tie;
+    const gap = (myScore - rival) / total;
+    if (gap >= 0.34) return t.winBig;
+    if (gap >= 0.12) return t.winMid;
+    return t.winClose;
+  }
+  if (myRank === n) {
+    const leader = board[0].score;
+    const gap = (leader - myScore) / total;
+    return gap >= 0.34 ? t.lastBig : t.lastSoft;
+  }
+  return t.middle;
+}
+
+// Same visual language as i18n.js's exportResultImage() (brand gradient card,
+// bidi-aware per-string text direction) but self-contained here since jo/games/*
+// pages don't load i18n.js — see the "In-page English translation system" note
+// in CLAUDE.md for why that's a deliberate choice, not an oversight.
+function buildResultShareCanvas() {
+  const isRtl = quizLang !== 'en';
+  const W = 1080;
+  const board = latestLeaderboard.slice(0, 6);
+  const rowsH = board.length * 52;
+  const H = Math.min(Math.max(560 + rowsH + 220, 1200), 1920);
+  const canvas = document.createElement('canvas');
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#2563eb');
+  bg.addColorStop(1, '#7c3aed');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  function fillDirText(str, x, y) {
+    ctx.direction = /[؀-ۿ]/.test(str) ? 'rtl' : 'ltr';
+    ctx.fillText(str, x, y);
+  }
+  function wrapCentered(text, cx, y, maxWidth, lineHeight) {
+    const words = text.split(' ');
+    let line = '';
+    const lines = [];
+    for (let i = 0; i < words.length; i++) {
+      const test = line ? line + ' ' + words[i] : words[i];
+      if (ctx.measureText(test).width > maxWidth && line) { lines.push(line); line = words[i]; }
+      else line = test;
+    }
+    if (line) lines.push(line);
+    lines.forEach(function(l, i) { fillDirText(l, cx, y + i * lineHeight); });
+    return y + (lines.length - 1) * lineHeight;
+  }
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#fff';
+  ctx.font = '700 40px Tahoma, Arial, sans-serif';
+  fillDirText('⚡ ' + (isRtl ? 'أدواتي' : 'Adawati'), W / 2, 90);
+
+  ctx.font = '700 32px Tahoma, Arial, sans-serif';
+  ctx.globalAlpha = 0.92;
+  fillDirText(qShareTitle(), W / 2, 150);
+  ctx.globalAlpha = 1;
+
+  ctx.font = '800 50px Tahoma, Arial, sans-serif';
+  let y = wrapCentered(getResultCaption(), W / 2, 250, W - 140, 62);
+  y += 90;
+
+  const pct = Math.round((score / activeQuestions.length) * 100);
+  ctx.font = '700 38px Tahoma, Arial, sans-serif';
+  fillDirText((isRtl ? 'نتيجتك: ' : 'Your score: ') + score + '/' + activeQuestions.length + ' (' + pct + '%)', W / 2, y);
+  y += 80;
+
+  if (board.length) {
+    ctx.font = '700 32px Tahoma, Arial, sans-serif';
+    fillDirText(isRtl ? '🏆 ترتيب التحدي' : '🏆 Challenge Leaderboard', W / 2, y);
+    y += 54;
+    const medals = ['🥇', '🥈', '🥉'];
+    board.forEach(function(p, i) {
+      const mine = p.name === playerName;
+      ctx.fillStyle = mine ? '#fde047' : '#fff';
+      ctx.font = (mine ? '800 ' : '600 ') + '30px Tahoma, Arial, sans-serif';
+      const label = (medals[i] || (i + 1) + '.') + ' ' + p.name + ': ' + p.score + '/' + p.total;
+      fillDirText(label, W / 2, y);
+      y += 50;
+    });
+  }
+
+  ctx.fillStyle = '#fff';
+  ctx.font = '600 26px Tahoma, Arial, sans-serif';
+  fillDirText('adawati.space', W / 2, H - 50);
+
+  return canvas;
+}
+
 function shareResult() {
   const pct = Math.round((score / activeQuestions.length) * 100);
   let text = qResultText(score, activeQuestions.length, pct);
@@ -523,6 +656,25 @@ function shareResult() {
   const url = (challengeMode && challengeId)
     ? (location.origin + location.pathname + '?challenge=' + challengeId)
     : (location.origin + location.pathname);
+
+  try {
+    const canvas = buildResultShareCanvas();
+    canvas.toBlob(function(blob) {
+      if (blob) {
+        const file = new File([blob], 'adawati-result.png', { type: 'image/png' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({ files: [file], title: qShareTitle(), text: text + ' ' + url }).catch(function() {});
+          return;
+        }
+      }
+      shareResultTextOnly(text, url);
+    });
+    return;
+  } catch (e) { /* fall through to text-only share below */ }
+  shareResultTextOnly(text, url);
+}
+
+function shareResultTextOnly(text, url) {
   if (navigator.share) {
     navigator.share({ title: qShareTitle(), text: text, url: url }).catch(function() {});
     return;
