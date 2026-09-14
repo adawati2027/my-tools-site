@@ -122,7 +122,7 @@ function ttt(k){return (TT_T[currentLang]||TT_T.en)[k];}
 function buildGrid(){
   const g=document.getElementById('tableGrid');
   const tables=[0,2,3,4,5,6,7,8,9,10,11,12];
-  g.innerHTML=tables.map(t=>`<button class="tt-tbl${t===selectedTable?' active':''}" onclick="pickTable(${t})">${t===0?ttt('mix'):t+'×'}</button>`).join('');
+  g.innerHTML=tables.map(t=>`<button class="tt-tbl${t===selectedTable?' active':''}" data-table="${t}">${t===0?ttt('mix'):t+'×'}</button>`).join('');
 }
 
 function pickTable(t){
@@ -168,7 +168,7 @@ function renderQ(){
         <div style="font-size:22px;font-weight:900;color:#92400e;margin:10px 0;">${msg}</div>
         <div style="font-size:18px;">${stars}</div>
         <div style="font-size:15px;color:var(--text-muted);margin:8px 0;">${ttt('score')}: ${score} / ${TOTAL}</div>
-        <button class="btn btn-primary" style="margin-top:16px;" onclick="startGame()">${ttt('playAgain')}</button>
+        <button class="btn btn-primary quiz-restart-btn" style="margin-top:16px;">${ttt('playAgain')}</button>
       </div>`;
     return;
   }
@@ -186,7 +186,7 @@ function renderQ(){
   document.getElementById('ttScore').textContent=`${ttt('score')}: ${score} / ${TOTAL} | ${ttt('q')} ${qIdx+1} ${ttt('of')} ${TOTAL}`;
   document.getElementById('ttQ').textContent=`${q.a} × ${q.b} = ?`;
   document.getElementById('ttChoices').innerHTML=choices.map(c=>
-    `<button class="tt-choice" onclick="answerQ(this,${c},${q.ans})">${c}</button>`
+    `<button class="tt-choice" data-chosen="${c}" data-correct="${q.ans}">${c}</button>`
   ).join('');
   document.getElementById('ttFeedback').textContent='';
   answered=false;
@@ -250,6 +250,20 @@ document.addEventListener('DOMContentLoaded',()=>{
   startGame();
   buildRef();
   document.querySelector('#tableGrid').addEventListener('click',()=>setTimeout(buildRef,50));
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('tableGrid')?.addEventListener('click', function(e){
+    var btn = e.target.closest('.tt-tbl');
+    if (btn && btn.dataset.table !== undefined) { pickTable(Number(btn.dataset.table)); }
+  });
+  document.getElementById('gameArea')?.addEventListener('click', function(e){
+    var restartBtn = e.target.closest('.quiz-restart-btn');
+    if (restartBtn) { startGame(); return; }
+    var choiceBtn = e.target.closest('.tt-choice');
+    if (choiceBtn && choiceBtn.dataset.chosen !== undefined) { answerQ(choiceBtn, Number(choiceBtn.dataset.chosen), Number(choiceBtn.dataset.correct)); }
+  });
 });
 </script>
 <script src="i18n.js?v=42" defer></script>

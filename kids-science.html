@@ -65,23 +65,23 @@
     <div class="divider"></div>
 
     <div class="sci-tabs">
-      <button class="sci-tab active" onclick="setSection('planets')" id="tabPlanets">🪐 Planets</button>
-      <button class="sci-tab" onclick="setSection('body')" id="tabBody">🫀 Body</button>
-      <button class="sci-tab" onclick="setSection('nature')" id="tabNature">🌿 Nature</button>
-      <button class="sci-tab" onclick="setSection('quiz')" id="tabQuiz">🎯 Quiz</button>
+      <button class="sci-tab active" data-section="planets" id="tabPlanets">🪐 Planets</button>
+      <button class="sci-tab" data-section="body" id="tabBody">🫀 Body</button>
+      <button class="sci-tab" data-section="nature" id="tabNature">🌿 Nature</button>
+      <button class="sci-tab" data-section="quiz" id="tabQuiz">🎯 Quiz</button>
     </div>
 
     <div id="learnArea">
-      <div class="sci-card" onclick="speakCard()" id="sciCard">
+      <div class="sci-card" id="sciCard">
         <div class="sci-icon" id="sciIcon">☀️</div>
         <div class="sci-name" id="sciName">Loading...</div>
         <div class="sci-fact" id="sciFact"></div>
         <div style="font-size:12px;color:var(--text-muted);margin-top:8px;" id="tapToHear">🔊 Tap to hear</div>
       </div>
       <div class="sci-nav">
-        <button onclick="prev()">◀</button>
+        <button id="sciPrevBtn">◀</button>
         <div class="sci-progress" id="sciProg">1 / 9</div>
-        <button onclick="next()">▶</button>
+        <button id="sciNextBtn">▶</button>
       </div>
     </div>
 
@@ -354,7 +354,7 @@ function renderQuiz(){
         <div style="font-size:60px;">🔭</div>
         <div style="font-size:22px;font-weight:900;color:var(--primary);margin:10px 0;">${pct>=80?sui('genius'):pct>=50?sui('good'):sui('keep')}</div>
         <div style="font-size:15px;color:var(--text-muted);">${sui('score')}: ${qScore} / ${quizQ.length} (${pct}%)</div>
-        <button class="btn btn-primary" style="margin-top:16px;" onclick="startQuiz()">${sui('playAgain')}</button>
+        <button class="btn btn-primary quiz-restart-btn" style="margin-top:16px;">${sui('playAgain')}</button>
       </div>`;
     return;
   }
@@ -364,7 +364,7 @@ function renderQuiz(){
   document.getElementById('qIcon').textContent=q.icon;
   document.getElementById('qText').textContent=t.q;
   document.getElementById('qChoices').innerHTML=t.choices.map((c,i)=>
-    `<button class="sci-choice" onclick="answerQuiz(this,${i})">${c}</button>`
+    `<button class="sci-choice" data-idx="${i}">${c}</button>`
   ).join('');
   document.getElementById('qFeedback').textContent='';
   qAnswered=false;
@@ -408,6 +408,22 @@ document.addEventListener('DOMContentLoaded',()=>{
   window.onLangChange=function(lang){currentLang=lang;updateStaticText();if(section==='quiz')renderQuiz();else renderCard();};
   updateStaticText();
   renderCard();
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.sci-tab[data-section]').forEach(function(btn){
+    btn.addEventListener('click', function(){ setSection(btn.dataset.section); });
+  });
+  document.getElementById('sciCard')?.addEventListener('click', speakCard);
+  document.getElementById('sciPrevBtn')?.addEventListener('click', prev);
+  document.getElementById('sciNextBtn')?.addEventListener('click', next);
+  document.getElementById('quizArea')?.addEventListener('click', function(e){
+    var restartBtn = e.target.closest('.quiz-restart-btn');
+    if (restartBtn) { startQuiz(); return; }
+    var choiceBtn = e.target.closest('.sci-choice');
+    if (choiceBtn && choiceBtn.dataset.idx !== undefined) { answerQuiz(choiceBtn, Number(choiceBtn.dataset.idx)); }
+  });
 });
 </script>
 <script src="i18n.js?v=42" defer></script>

@@ -58,9 +58,9 @@
     <div class="divider"></div>
 
     <div class="clock-levels">
-      <button class="clock-lvl active" onclick="setLevel('oclock')" id="lvlO">🕐 O'Clock</button>
-      <button class="clock-lvl" onclick="setLevel('half')" id="lvlH">🕧 Half Hours</button>
-      <button class="clock-lvl" onclick="setLevel('quarter')" id="lvlQ">🕑 Quarters</button>
+      <button class="clock-lvl active" data-level="oclock" id="lvlO">🕐 O'Clock</button>
+      <button class="clock-lvl" data-level="half" id="lvlH">🕧 Half Hours</button>
+      <button class="clock-lvl" data-level="quarter" id="lvlQ">🕑 Quarters</button>
     </div>
 
     <div id="gameArea">
@@ -249,7 +249,7 @@ function renderQ(){
         <div style="font-size:60px;">🏆</div>
         <div style="font-size:22px;font-weight:900;color:#15803d;margin:10px 0;">${pct>=80?ct('master'):pct>=50?ct('nice'):ct('keep')}</div>
         <div style="font-size:15px;color:var(--text-muted);">${ct('score')}: ${score} / ${TOTAL} (${pct}%)</div>
-        <button class="btn btn-primary" style="margin-top:16px;" onclick="startGame()">${ct('playAgain')}</button>
+        <button class="btn btn-primary quiz-restart-btn" style="margin-top:16px;">${ct('playAgain')}</button>
       </div>`;
     return;
   }
@@ -258,7 +258,7 @@ function renderQ(){
   drawClock(currentTime.h,currentTime.m);
   document.getElementById('cScore').textContent=`${ct('score')}: ${score} / ${TOTAL} | ${ct('q')} ${qIdx+1} ${ct('of')} ${TOTAL}`;
   document.getElementById('cChoices').innerHTML=choices.map(c=>
-    `<button class="clock-choice" onclick="answerQ(this,'${c}','${fmt(currentTime.h,currentTime.m)}')">${c}</button>`
+    `<button class="clock-choice" data-chosen="${c}" data-correct="${fmt(currentTime.h,currentTime.m)}">${c}</button>`
   ).join('');
   document.getElementById('cFeedback').textContent='';
   answered=false;
@@ -314,6 +314,19 @@ document.addEventListener('DOMContentLoaded',()=>{
   window.onLangChange=function(lang){currentLang=lang;updateStaticText();renderQ();};
   updateStaticText();
   startGame();
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.clock-lvl[data-level]').forEach(function(btn){
+    btn.addEventListener('click', function(){ setLevel(btn.dataset.level); });
+  });
+  document.getElementById('gameArea')?.addEventListener('click', function(e){
+    var restartBtn = e.target.closest('.quiz-restart-btn');
+    if (restartBtn) { startGame(); return; }
+    var choiceBtn = e.target.closest('.clock-choice');
+    if (choiceBtn && choiceBtn.dataset.chosen !== undefined) { answerQ(choiceBtn, choiceBtn.dataset.chosen, choiceBtn.dataset.correct); }
+  });
 });
 </script>
 <script src="i18n.js?v=42" defer></script>

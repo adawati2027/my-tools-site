@@ -63,9 +63,9 @@
     <div class="divider"></div>
 
     <div class="tp-tabs">
-      <button class="tp-tab active" onclick="setLevel('easy')" id="tabEasy">⭐ Easy Words</button>
-      <button class="tp-tab" onclick="setLevel('medium')" id="tabMedium">⭐⭐ Medium</button>
-      <button class="tp-tab" onclick="setLevel('hard')" id="tabHard">⭐⭐⭐ Sentences</button>
+      <button class="tp-tab active" data-level="easy" id="tabEasy">⭐ Easy Words</button>
+      <button class="tp-tab" data-level="medium" id="tabMedium">⭐⭐ Medium</button>
+      <button class="tp-tab" data-level="hard" id="tabHard">⭐⭐⭐ Sentences</button>
     </div>
 
     <div id="gameArea">
@@ -80,7 +80,7 @@
       <input class="tp-input" id="tInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type here and press Space or Enter...">
       <div style="font-size:16px;font-weight:800;text-align:center;min-height:24px;" id="tFeedback"></div>
       <div style="text-align:center;margin-top:8px;">
-        <button class="btn" onclick="restart()" style="background:var(--surface-2);color:var(--text);font-size:13px;">🔄 Restart</button>
+        <button class="btn quiz-restart-btn" style="background:var(--surface-2);color:var(--text);font-size:13px;">🔄 Restart</button>
       </div>
     </div>
   </div>
@@ -226,11 +226,22 @@ function showResult(){
         <div class="tp-stat"><div class="tp-stat-val">${acc}%</div><div class="tp-stat-lbl">Accuracy</div></div>
         <div class="tp-stat"><div class="tp-stat-val">${secs}s</div><div class="tp-stat-lbl">Time</div></div>
       </div>
-      <button class="btn btn-primary" style="margin-top:12px;" onclick="restart()">Try Again</button>
+      <button class="btn btn-primary quiz-restart-btn" style="margin-top:12px;">Try Again</button>
     </div>`;
 }
 
 restart();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.tp-tab[data-level]').forEach(function(btn){
+    btn.addEventListener('click', function(){ setLevel(btn.dataset.level); });
+  });
+  document.getElementById('gameArea')?.addEventListener('click', function(e){
+    var restartBtn = e.target.closest('.quiz-restart-btn');
+    if (restartBtn) { restart(); }
+  });
+});
 </script>
 <script src="i18n.js?v=42" defer></script>
 </body></html>

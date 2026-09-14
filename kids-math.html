@@ -59,9 +59,9 @@
     <div class="divider"></div>
 
     <div class="km-level">
-      <button class="km-btn active" onclick="setLevel('easy')" id="lvlEasy">⭐ Easy (1–10)</button>
-      <button class="km-btn" onclick="setLevel('medium')" id="lvlMed">⭐⭐ Medium (1–20)</button>
-      <button class="km-btn" onclick="setLevel('hard')" id="lvlHard">⭐⭐⭐ Hard (1–50)</button>
+      <button class="km-btn active" data-level="easy" id="lvlEasy">⭐ Easy (1–10)</button>
+      <button class="km-btn" data-level="medium" id="lvlMed">⭐⭐ Medium (1–20)</button>
+      <button class="km-btn" data-level="hard" id="lvlHard">⭐⭐⭐ Hard (1–50)</button>
     </div>
 
     <div id="gameArea">
@@ -120,8 +120,9 @@ const SPEECH_LANG_CODES = {ar:'ar-SA',en:'en-US',fr:'fr-FR',es:'es-ES',de:'de-DE
 
 function setLevel(l){
   level=l;
+  var lvlIds={easy:'lvlEasy',medium:'lvlMed',hard:'lvlHard'};
   ['easy','medium','hard'].forEach(x=>{
-    document.getElementById('lvl'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('active',x===l);
+    document.getElementById(lvlIds[x]).classList.toggle('active',x===l);
   });
   startGame();
 }
@@ -165,7 +166,7 @@ function renderQ(){
         <div style="font-size:60px;">🏆</div>
         <div style="font-size:22px;font-weight:900;color:var(--primary);margin:10px 0;">${msg}</div>
         <div style="font-size:16px;color:var(--text-muted);">${kmt('score')}: ${score} / ${total} (${pct}%)</div>
-        <button class="btn btn-primary" style="margin-top:16px;" onclick="startGame()">${kmt('playAgain')}</button>
+        <button class="btn btn-primary quiz-restart-btn" style="margin-top:16px;">${kmt('playAgain')}</button>
       </div>`;
     return;
   }
@@ -182,7 +183,7 @@ function renderQ(){
   document.getElementById('kmVisual').innerHTML=visual;
   document.getElementById('kmQuestion').textContent=`${q.a} ${q.op==='+'?'+':'−'} ${q.b} = ?`;
   document.getElementById('kmChoices').innerHTML=choices.map(c=>
-    `<button class="km-choice" onclick="answerQ(this,${c},${q.ans})">${c}</button>`
+    `<button class="km-choice" data-chosen="${c}" data-correct="${q.ans}">${c}</button>`
   ).join('');
   document.getElementById('kmFeedback').textContent='';
   answered=false;
@@ -230,6 +231,19 @@ document.addEventListener('DOMContentLoaded',()=>{
   window.onLangChange=function(lang){currentLang=lang;updateStaticText();renderQ();};
   updateStaticText();
   startGame();
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.km-btn[data-level]').forEach(function(btn){
+    btn.addEventListener('click', function(){ setLevel(btn.dataset.level); });
+  });
+  document.getElementById('gameArea')?.addEventListener('click', function(e){
+    var restartBtn = e.target.closest('.quiz-restart-btn');
+    if (restartBtn) { startGame(); return; }
+    var choiceBtn = e.target.closest('.km-choice');
+    if (choiceBtn && choiceBtn.dataset.chosen !== undefined) { answerQ(choiceBtn, Number(choiceBtn.dataset.chosen), Number(choiceBtn.dataset.correct)); }
+  });
 });
 </script>
 <script src="i18n.js?v=42" defer></script>
