@@ -574,12 +574,40 @@ function getResultCaption() {
 // bidi-aware per-string text direction) but self-contained here since jo/games/*
 // pages don't load i18n.js — see the "In-page English translation system" note
 // in CLAUDE.md for why that's a deliberate choice, not an oversight.
+function wrapLineCount(ctx, text, maxWidth) {
+  const words = text.split(' ');
+  let line = '';
+  let count = 0;
+  for (let i = 0; i < words.length; i++) {
+    const test = line ? line + ' ' + words[i] : words[i];
+    if (ctx.measureText(test).width > maxWidth && line) { count++; line = words[i]; }
+    else line = test;
+  }
+  if (line) count++;
+  return count;
+}
+
 function buildResultShareCanvas() {
   const isRtl = quizLang !== 'en';
   const W = 1080;
   const board = latestLeaderboard.slice(0, 6);
-  const rowsH = board.length * 52;
-  const H = Math.min(Math.max(560 + rowsH + 220, 1200), 1920);
+  const caption = getResultCaption();
+
+  // Height must be derived from real measured content, not guessed upfront —
+  // a fixed/minimum height leaves a large empty gradient block below short
+  // results (solo player, no leaderboard yet), the same lesson already
+  // documented in i18n.js's exportResultImage() for calculator result cards.
+  const measure = document.createElement('canvas').getContext('2d');
+  measure.font = '800 50px Tahoma, Arial, sans-serif';
+  const captionLines = wrapLineCount(measure, caption, W - 140);
+
+  const topBlock = 250;
+  const captionBlock = captionLines * 62 + 90;
+  const scoreBlock = 80;
+  const leaderboardBlock = board.length ? (54 + board.length * 50) : 0;
+  const footerBlock = 90;
+  const H = topBlock + captionBlock + scoreBlock + leaderboardBlock + footerBlock;
+
   const canvas = document.createElement('canvas');
   canvas.width = W; canvas.height = H;
   const ctx = canvas.getContext('2d');
@@ -619,7 +647,7 @@ function buildResultShareCanvas() {
   ctx.globalAlpha = 1;
 
   ctx.font = '800 50px Tahoma, Arial, sans-serif';
-  let y = wrapCentered(getResultCaption(), W / 2, 250, W - 140, 62);
+  let y = wrapCentered(caption, W / 2, 250, W - 140, 62);
   y += 90;
 
   const pct = Math.round((score / activeQuestions.length) * 100);
