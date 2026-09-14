@@ -217,7 +217,10 @@ function exportDiscountResult() {
   } else {
     const val = document.getElementById('percentResult').textContent;
     if (!val) return;
-    rows = [{ label: (t.percent_label1 || 'Percentage') + ' ' + (t.percent_label2 || ''), value: val, highlight: true }];
+    rows = [
+      { label: (t.percent_label1 || 'What is') + ' ' + (t.percent_label2 || '% of'), value: document.getElementById('p1').value + '% / ' + document.getElementById('p2').value },
+      { label: (t.percent_label1 || 'Percentage') + ' ' + (t.percent_label2 || ''), value: val, highlight: true }
+    ];
   }
   if (typeof exportResultImage === 'function') exportResultImage(t.discount_title || 'Percentage & Discount Calculator', rows);
 }

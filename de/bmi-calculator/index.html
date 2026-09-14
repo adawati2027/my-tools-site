@@ -554,7 +554,14 @@ function exportBMIResult(){
   var cat=document.getElementById('category').textContent;
   if(!val||val==='⚠️')return;
   var t=D();
-  var rows=[{label:'BMI',value:val,highlight:true},{label:t.th_cat,value:cat}];
+  var weight=document.getElementById('weight').value;
+  var height=document.getElementById('height').value;
+  var rows=[
+    {label:t.lbl_weight,value:weight+' kg'},
+    {label:t.lbl_height,value:height+' cm'},
+    {label:'BMI',value:val,highlight:true},
+    {label:t.th_cat,value:cat}
+  ];
   if(typeof exportResultImage==='function')exportResultImage(t.main_title,rows);
 }
 

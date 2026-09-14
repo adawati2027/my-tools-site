@@ -451,7 +451,11 @@ function exportEOSResult() {
   if (!gratuity) return;
   const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
   const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
+  const salary = document.getElementById('basicSalaryEos').value;
   const rows = [
+    { label: t.eos_start || 'Start Date', value: document.getElementById('startDate').value },
+    { label: t.eos_end || 'End Date', value: document.getElementById('endDate').value },
+    { label: t.eos_salary || 'Last Basic Salary', value: salary },
     { label: t.eos_years_lbl || 'Years of Service', value: document.getElementById('yearsDisplay').textContent },
     { label: t.eos_months_lbl || 'Extra Months', value: document.getElementById('monthsDisplay').textContent },
     { label: t.eos_result_lbl || 'Gratuity', value: gratuity, highlight: true }

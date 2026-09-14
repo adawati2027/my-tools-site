@@ -379,6 +379,7 @@ function exportVatResult() {
   const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
   const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
   const rows = [
+    { label: document.getElementById('vatAmountLabel').textContent, value: document.getElementById('vatAmount').value },
     { label: t.vat_rate_lbl || 'Tax rate', value: document.getElementById('rateDisplay').textContent },
     { label: t.vat_tax_lbl || 'Tax amount', value: document.getElementById('taxDisplay').textContent },
     { label: document.getElementById('totalLabel').textContent, value: total, highlight: true }

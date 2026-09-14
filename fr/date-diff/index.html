@@ -449,6 +449,8 @@ function exportDateDiffResult() {
   const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
   const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
   const rows = [
+    { label: t.dd_from_lbl || 'First Date', value: document.getElementById('dateFrom').value },
+    { label: t.dd_to_lbl || 'Second Date', value: document.getElementById('dateTo').value },
     { label: document.querySelector('#ddResult .stat-lbl[data-i18n="dd_years_lbl"]').textContent, value: document.getElementById('yearsDisplay').textContent },
     { label: document.querySelector('#ddResult .stat-lbl[data-i18n="dd_months_lbl"]').textContent, value: document.getElementById('monthsDisplay').textContent },
     { label: document.querySelector('#ddResult .stat-lbl[data-i18n="dd_days_lbl"]').textContent, value: document.getElementById('daysDisplay').textContent },
