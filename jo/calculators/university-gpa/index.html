@@ -74,7 +74,7 @@
     </details>
 
     <div id="coursesList"></div>
-    <button type="button" onclick="addCourse()" style="width:100%;padding:10px;margin-top:6px;border:1px dashed var(--border);border-radius:var(--radius-sm);background:transparent;color:var(--primary);font-weight:700;cursor:pointer;font-size:14px;">+ أضف مادة</button>
+    <button type="button" id="addCourseBtn" style="width:100%;padding:10px;margin-top:6px;border:1px dashed var(--border);border-radius:var(--radius-sm);background:transparent;color:var(--primary);font-weight:700;cursor:pointer;font-size:14px;">+ أضف مادة</button>
 
     <div class="divider"></div>
     <label style="font-weight:700;">معدلك التراكمي السابق (اختياري)</label>
@@ -281,7 +281,7 @@ function addCourse() {
     '<div style="flex:1;"><label>المادة (اختياري)</label><input type="text" id="name-' + id + '" placeholder="مثال: تفاضل 1"></div>' +
     '<div style="width:90px;"><label>الساعات</label><input type="number" id="hours-' + id + '" min="0" step="1" oninput="calc()"></div>' +
     gradeInputHtml +
-    '<button type="button" onclick="removeCourse(' + id + ')" style="padding:9px 12px;border:none;background:#fef2f2;color:#dc2626;border-radius:8px;cursor:pointer;font-size:14px;">🗑️</button>';
+    '<button type="button" class="removeCourseBtn" data-id="' + id + '" style="padding:9px 12px;border:none;background:#fef2f2;color:#dc2626;border-radius:8px;cursor:pointer;font-size:14px;">🗑️</button>';
   document.getElementById('coursesList').appendChild(div);
 }
 
@@ -366,6 +366,12 @@ function calcPlan() {
 
 buildGradeTable();
 for (let i = 0; i < 5; i++) addCourse();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('addCourseBtn')?.addEventListener('click', addCourse);
+  document.getElementById('coursesList')?.addEventListener('click', function(e){ var b = e.target.closest('.removeCourseBtn'); if (b) removeCourse(b.dataset.id); });
+});
 </script>
 <script src="i18n.js?v=42" defer></script>
 </body></html>

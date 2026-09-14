@@ -68,8 +68,8 @@
     <div id="keyboard"></div>
 
     <div id="shareBox" style="display:none;margin-top:16px;gap:8px;justify-content:center;flex-wrap:wrap;">
-      <button onclick="shareResult()" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">📤 انسخ نتيجتك للمشاركة</button>
-      <button onclick="playAgain()" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">🔄 العب مرة ثانية (كلمة عشوائية)</button>
+      <button id="wordleShareBtn" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">📤 انسخ نتيجتك للمشاركة</button>
+      <button id="wordlePlayAgainBtn" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">🔄 العب مرة ثانية (كلمة عشوائية)</button>
     </div>
   </div>
 
@@ -271,5 +271,11 @@ document.addEventListener('keydown', function(e) {
 
 buildGrid();
 buildKeyboard();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('wordleShareBtn')?.addEventListener('click', shareResult);
+  document.getElementById('wordlePlayAgainBtn')?.addEventListener('click', playAgain);
+});
 </script>
 </body></html>
