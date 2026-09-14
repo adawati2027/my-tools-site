@@ -704,7 +704,7 @@ async function pdfToTxt(){
   pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
   const ab=await currentFile.arrayBuffer();
   setProgress(40);
-  const pdf=await pdfjsLib.getDocument({data:ab}).promise;
+  const pdf=await pdfjsLib.getDocument({data:ab,isEvalSupported:false}).promise;
   let full='';
   for(let i=1;i<=pdf.numPages;i++){
     const pg=await pdf.getPage(i);
@@ -790,7 +790,7 @@ async function pdfToImg(fmt) {
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
   const ab = await currentFile.arrayBuffer();
   setProgress(40);
-  const pdf = await pdfjsLib.getDocument({data: ab}).promise;
+  const pdf = await pdfjsLib.getDocument({data:ab,isEvalSupported:false}).promise;
   const page = await pdf.getPage(1);
   const vp = page.getViewport({scale: 2});
   const canvas = document.createElement('canvas');
@@ -864,7 +864,7 @@ async function pdfToDocx() {
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
   const ab = await currentFile.arrayBuffer();
   setProgress(35);
-  const pdf = await pdfjsLib.getDocument({data: ab}).promise;
+  const pdf = await pdfjsLib.getDocument({data:ab,isEvalSupported:false}).promise;
   let fullText = '';
   for (let i = 1; i <= pdf.numPages; i++) {
     const pg = await pdf.getPage(i);
