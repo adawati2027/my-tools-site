@@ -109,11 +109,11 @@
     <a href="contact.html" data-i18n="nav_contact">Contact</a>
     
     <div class="lang-switcher">
-      <button class="lang-btn" onclick="toggleLangMenu()">🌐 <span id="currentLang">EN</span> ▾</button>
+      <button class="lang-btn" id="langToggleBtn">🌐 <span id="currentLang">EN</span> ▾</button>
       <div class="lang-menu" id="langMenu">
-        <a onclick="setLang('ar')">🇸🇦 العربية</a><a onclick="setLang('en')">🇬🇧 English</a>
-        <a onclick="setLang('fr')">🇫🇷 Français</a><a onclick="setLang('es')">🇪🇸 Español</a>
-        <a onclick="setLang('de')">🇩🇪 Deutsch</a><a onclick="setLang('ru')">🇷🇺 Русский</a>
+        <a data-lang="ar">🇸🇦 العربية</a><a data-lang="en">🇬🇧 English</a>
+        <a data-lang="fr">🇫🇷 Français</a><a data-lang="es">🇪🇸 Español</a>
+        <a data-lang="de">🇩🇪 Deutsch</a><a data-lang="ru">🇷🇺 Русский</a>
       </div>
     </div>
   </div>
@@ -131,16 +131,13 @@
     <!-- STEP 1: Upload -->
     <div id="step1">
       <div class="step-label" id="step1Lbl">Step 1 — Upload file</div>
-      <div class="fc-drop" id="dropZone"
-        onclick="document.getElementById('fileInput').click()"
-        ondrop="handleDrop(event)" ondragover="e=>{e.preventDefault();document.getElementById('dropZone').classList.add('drag-over')}" ondragleave="document.getElementById('dropZone').classList.remove('drag-over')">
+      <div class="fc-drop" id="dropZone">
         <div class="fc-drop-icon">📂</div>
         <div class="fc-drop-text" id="dropText">Click here or drag your file</div>
         <div class="fc-drop-sub" id="dropSub">Word · Excel · PDF · CSV · TXT · Image — up to 50MB</div>
       </div>
       <input type="file" id="fileInput" style="display:none"
-        accept=".docx,.xlsx,.xls,.csv,.txt,.pdf,.jpg,.jpeg,.png,.webp"
-        onchange="handleFile(this.files[0])">
+        accept=".docx,.xlsx,.xls,.csv,.txt,.pdf,.jpg,.jpeg,.png,.webp">
     </div>
 
     <!-- STEP 2: Choose target -->
@@ -151,7 +148,7 @@
           <div class="fc-file-name" id="fileNameEl"></div>
           <div class="fc-file-meta" id="fileMetaEl"></div>
         </div>
-        <button onclick="resetAll()" class="btn btn-secondary" style="padding:4px 12px;font-size:13px;flex-shrink:0;" id="resetBtn">✕</button>
+        <button class="btn btn-secondary" style="padding:4px 12px;font-size:13px;flex-shrink:0;" id="resetBtn">✕</button>
       </div>
       <div class="fc-arrow">↓</div>
       <div class="step-label" id="step2Lbl">Step 2 — Choose output format</div>
@@ -167,8 +164,8 @@
         <span class="to-badge" id="summaryTo"></span>
       </div>
       <div class="fc-convert-row">
-        <button class="btn btn-primary" id="convertBtn" onclick="startConvert()" style="font-size:15px;padding:12px 28px;">⚡ <span id="convertBtnLbl">Convert</span></button>
-        <button onclick="backToStep2()" class="btn btn-secondary" id="backBtn">← <span id="backBtnLbl">Change</span></button>
+        <button class="btn btn-primary" id="convertBtn" style="font-size:15px;padding:12px 28px;">⚡ <span id="convertBtnLbl">Convert</span></button>
+        <button class="btn btn-secondary" id="backBtn">← <span id="backBtnLbl">Change</span></button>
       </div>
       <div class="fc-progress" id="progressWrap" style="margin-top:12px;">
         <div class="fc-progress-bar" id="progressBar"></div>
@@ -189,7 +186,7 @@
       </div>
       <div id="resultContent" class="fc-result-box" style="margin-top:12px;"></div>
       <div class="fc-dl-row" id="dlRow"></div>
-      <button onclick="convertAnother()" class="btn btn-secondary" style="margin-top:8px;width:100%;" id="anotherBtn">🔄 <span id="anotherBtnLbl">Convert another file</span></button>
+      <button class="btn btn-secondary" style="margin-top:8px;width:100%;" id="anotherBtn">🔄 <span id="anotherBtnLbl">Convert another file</span></button>
     </div>
 
     <div class="fc-privacy" style="margin-top:20px;">
@@ -919,6 +916,24 @@ document.addEventListener('DOMContentLoaded',()=>{
   const orig=window.setLang;
   window.setLang=function(l){ orig&&orig(l); lang=l; document.documentElement.dir=l==='ar'?'rtl':'ltr'; updateUI(); };
   updateUI();
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
+  document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
+    a.addEventListener('click', function(){ setLang(a.dataset.lang); });
+  });
+  var dz = document.getElementById('dropZone');
+  dz?.addEventListener('click', function(){ document.getElementById('fileInput').click(); });
+  dz?.addEventListener('drop', handleDrop);
+  dz?.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('drag-over'); });
+  dz?.addEventListener('dragleave', function(){ dz.classList.remove('drag-over'); });
+  document.getElementById('fileInput')?.addEventListener('change', function(){ handleFile(this.files[0]); });
+  document.getElementById('resetBtn')?.addEventListener('click', resetAll);
+  document.getElementById('convertBtn')?.addEventListener('click', startConvert);
+  document.getElementById('backBtn')?.addEventListener('click', backToStep2);
+  document.getElementById('anotherBtn')?.addEventListener('click', convertAnother);
 });
 </script>
 <script src="i18n.js?v=42" defer></script>
