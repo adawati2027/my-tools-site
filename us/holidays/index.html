@@ -9,15 +9,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/icon-192.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<title id="pageTitleTag">Public Holidays in USA 2026 | Adawati</title>
-<meta name="description" id="metaDescTag" content="Official public holidays in USA for 2026 (Islamic dates are estimates pending moon sighting): Eid, national holidays and more, with a countdown to the next holiday.">
-<meta name="keywords" content="public holidays USA 2026, العطل الرسمية أمريكا 2026, Eid al-Fitr 2026, Eid al-Adha 2026">
+<title id="pageTitleTag">US Federal Holidays 2026-2027 | Adawati</title>
+<meta name="description" id="metaDescTag" content="Official US federal holidays for 2026 and 2027, including observed dates when a holiday falls on a weekend, with a countdown to the next holiday.">
+<meta name="keywords" content="US federal holidays 2026 2027, public holidays USA 2026 2027, العطل الرسمية أمريكا 2026 2027">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://adawati.space/us/holidays/">
 <link rel="alternate" hreflang="x-default" href="https://adawati.space/">
 <link rel="alternate" hreflang="en" href="https://adawati.space/us/holidays/">
-<meta property="og:title" content="Public Holidays in USA 2026 | Adawati">
-<meta property="og:description" content="Official public holidays in USA for 2026 (Islamic dates are estimates pending moon sighting): Eid, national holidays and more, with a countdown to the next holiday.">
+<meta property="og:title" content="US Federal Holidays 2026-2027 | Adawati">
+<meta property="og:description" content="Official US federal holidays for 2026 and 2027, with a countdown to the next holiday.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adawati.space/us/holidays/">
 <script type="application/ld+json">
@@ -108,7 +108,18 @@ const HOLIDAYS = [
   {nameAr:'يوم كولومبوس', nameEn:'Columbus Day', start:'2026-10-12', end:'2026-10-12', type:'fixed'},
   {nameAr:'يوم المحاربين القدامى', nameEn:'Veterans Day', start:'2026-11-11', end:'2026-11-11', type:'fixed'},
   {nameAr:'عيد الشكر', nameEn:'Thanksgiving Day', start:'2026-11-26', end:'2026-11-26', type:'fixed'},
-  {nameAr:'عيد الميلاد المجيد', nameEn:'Christmas Day', start:'2026-12-25', end:'2026-12-25', type:'fixed'}
+  {nameAr:'عيد الميلاد المجيد', nameEn:'Christmas Day', start:'2026-12-25', end:'2026-12-25', type:'fixed'},
+  {nameAr:'رأس السنة الميلادية', nameEn:'New Year\'s Day', start:'2027-01-01', end:'2027-01-01', type:'fixed'},
+  {nameAr:'ذكرى مارتن لوثر كينغ', nameEn:'Martin Luther King Jr. Day', start:'2027-01-18', end:'2027-01-18', type:'fixed'},
+  {nameAr:'عيد الرؤساء', nameEn:'Washington\'s Birthday (Presidents Day)', start:'2027-02-15', end:'2027-02-15', type:'fixed'},
+  {nameAr:'يوم الذكرى', nameEn:'Memorial Day', start:'2027-05-31', end:'2027-05-31', type:'fixed'},
+  {nameAr:'جونتينث (يُحتفل به)', nameEn:'Juneteenth (observed)', start:'2027-06-18', end:'2027-06-18', type:'fixed'},
+  {nameAr:'عيد الاستقلال (يُحتفل به)', nameEn:'Independence Day (observed)', start:'2027-07-05', end:'2027-07-05', type:'fixed'},
+  {nameAr:'عيد العمال', nameEn:'Labor Day', start:'2027-09-06', end:'2027-09-06', type:'fixed'},
+  {nameAr:'يوم كولومبوس', nameEn:'Columbus Day', start:'2027-10-11', end:'2027-10-11', type:'fixed'},
+  {nameAr:'يوم المحاربين القدامى', nameEn:'Veterans Day', start:'2027-11-11', end:'2027-11-11', type:'fixed'},
+  {nameAr:'عيد الشكر', nameEn:'Thanksgiving Day', start:'2027-11-25', end:'2027-11-25', type:'fixed'},
+  {nameAr:'عيد الميلاد المجيد (يُحتفل به)', nameEn:'Christmas Day (observed)', start:'2027-12-24', end:'2027-12-24', type:'fixed'}
 ];
 
 let curLang = 'en';
@@ -161,8 +172,14 @@ function fmtDate(iso) {
 function buildTable() {
   const t = UI[curLang];
   const body = document.getElementById('holidaysTableBody');
+  let lastYear = null;
   let rowsHtml = '';
   HOLIDAYS.forEach(function(h, i) {
+    const year = h.start.slice(0, 4);
+    if (year !== lastYear) {
+      lastYear = year;
+      rowsHtml += '<tr><td colspan="3" style="padding:8px;background:#f3f4f6;font-weight:800;text-align:center;border:1px solid var(--border);">' + year + '</td></tr>';
+    }
     const name = curLang === 'ar' ? h.nameAr : h.nameEn;
     const dateStr = h.start === h.end ? fmtDate(h.start) : (fmtDate(h.start) + ' — ' + fmtDate(h.end));
     const badge = h.type === 'lunar' ? t.lunar : t.confirmed;
