@@ -89,7 +89,7 @@
       <a href="about.html" data-i18n="nav_about">About</a>
       <a href="contact.html" data-i18n="nav_contact">Contact</a>
       <div class="lang-switcher" style="margin-inline-end:4px;">
-        <button class="lang-btn" onclick="toggleCtyMenu()" style="background:var(--primary);color:#fff;border-radius:20px;padding:4px 12px;font-size:13px;">🇬🇧 <span data-i18n="cty_uk">UK</span></button>
+        <button class="lang-btn" id="ctyToggleBtn" style="background:var(--primary);color:#fff;border-radius:20px;padding:4px 12px;font-size:13px;">🇬🇧 <span data-i18n="cty_uk">UK</span></button>
         <div class="lang-menu" id="ctyMenu">
           <a href="index.html">🌍 <span data-i18n="cty_global">Global</span></a>
           <a href="om/">🇴🇲 <span data-i18n="cty_om">Oman</span></a>
@@ -106,11 +106,11 @@
         </div>
       </div>
       <div class="lang-switcher">
-        <button class="lang-btn" onclick="toggleLangMenu()">🌐 <span id="currentLang">EN</span> ▾</button>
+        <button class="lang-btn" id="langToggleBtn">🌐 <span id="currentLang">EN</span> ▾</button>
         <div class="lang-menu" id="langMenu">
-          <a onclick="setLang('ar')">🇸🇦 العربية</a><a onclick="setLang('en')">🇬🇧 English</a>
-          <a onclick="setLang('fr')">🇫🇷 Français</a><a onclick="setLang('es')">🇪🇸 Español</a>
-          <a onclick="setLang('de')">🇩🇪 Deutsch</a><a onclick="setLang('ru')">🇷🇺 Русский</a>
+          <a data-lang="ar">🇸🇦 العربية</a><a data-lang="en">🇬🇧 English</a>
+          <a data-lang="fr">🇫🇷 Français</a><a data-lang="es">🇪🇸 Español</a>
+          <a data-lang="de">🇩🇪 Deutsch</a><a data-lang="ru">🇷🇺 Русский</a>
         </div>
       </div>
     </div>
@@ -149,14 +149,14 @@
       <input type="text" id="toolSearch" data-i18n-ph="search_placeholder" placeholder="Search for a tool..." oninput="filterTools()" autocomplete="off" spellcheck="false">
     </div>
     <div class="cat-tabs" id="catTabs">
-      <button class="cat-tab active" data-cat="all" onclick="setCat('all')" data-i18n="cat_all">All</button>
-      <button class="cat-tab" data-cat="money" onclick="setCat('money')" data-i18n="cat_money">💰 Money</button>
-      <button class="cat-tab" data-cat="health" onclick="setCat('health')" data-i18n="cat_health">💪 Health</button>
-      <button class="cat-tab" data-cat="productivity" onclick="setCat('productivity')" data-i18n="cat_productivity">⚙️ Productivity</button>
-      <button class="cat-tab" data-cat="quick" onclick="setCat('quick')" data-i18n="cat_quick">⚡ Quick</button>
-      <button class="cat-tab" data-cat="games" onclick="setCat('games')" data-i18n="cat_games">🎮 Games</button>
-      <button class="cat-tab" data-cat="challenges" data-i18n="cat_challenges" onclick="setCat('challenges')">🏆 Challenges</button>
-      <button class="cat-tab" data-cat="education" onclick="setCat('education')" data-i18n="cat_education">🧒 Kids</button>
+      <button class="cat-tab active" data-cat="all"  data-i18n="cat_all">All</button>
+      <button class="cat-tab" data-cat="money"  data-i18n="cat_money">💰 Money</button>
+      <button class="cat-tab" data-cat="health"  data-i18n="cat_health">💪 Health</button>
+      <button class="cat-tab" data-cat="productivity"  data-i18n="cat_productivity">⚙️ Productivity</button>
+      <button class="cat-tab" data-cat="quick"  data-i18n="cat_quick">⚡ Quick</button>
+      <button class="cat-tab" data-cat="games"  data-i18n="cat_games">🎮 Games</button>
+      <button class="cat-tab" data-cat="challenges" data-i18n="cat_challenges" >🏆 Challenges</button>
+      <button class="cat-tab" data-cat="education"  data-i18n="cat_education">🧒 Kids</button>
     </div>
 
     <div id="countrySection" style="display:none;margin-bottom:28px;"><div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;" id="countrySectionLabel"></div><div class="tools-grid" id="countryGrid"></div></div>
@@ -335,9 +335,20 @@ let activeCat = 'all';
 function setCat(cat){activeCat=cat;document.querySelectorAll('.cat-tab[data-cat]').forEach(t=>t.classList.toggle('active',t.dataset.cat===cat));filterTools();}
 function filterTools(){const q=(document.getElementById('toolSearch').value||'').toLowerCase().trim();const cards=document.querySelectorAll('#toolsGrid .tool-card');let visible=0;cards.forEach(card=>{const catMatch=!!q||activeCat==='all'||card.dataset.cat===activeCat;const searchMatch=!q||(card.dataset.search||'').toLowerCase().includes(q)||card.textContent.toLowerCase().includes(q);const show=catMatch&&searchMatch;card.style.display=show?'':'none';if(show)visible++;});if(q&&visible===0){let noRes=document.getElementById('noResults');if(!noRes){noRes=document.createElement('div');noRes.className='search-no-results';noRes.id='noResults';noRes.innerHTML='<div class="no-results-icon">🔍</div><div>No tool found</div>';document.getElementById('toolsGrid').insertAdjacentElement('afterend',noRes);}noRes.style.display='block';}else{const noRes=document.getElementById('noResults');if(noRes)noRes.style.display='none';}const isAll=activeCat==='all'&&!q;const pop=document.getElementById('popularSection');if(pop)pop.style.display=isAll?'':'none';const country=document.getElementById('countrySection');if(country){const hasCards=document.querySelectorAll('#countryGrid .tool-card').length>0;country.style.display=isAll&&hasCards?'':'none';}const recent=document.getElementById('recentSection');if(recent){const hasRecent=document.querySelectorAll('#recentGrid .tool-card').length>0;recent.style.display=isAll&&hasRecent?'':'none';}const favSec=document.getElementById('favSection');if(favSec&&!isAll)favSec.style.display='none';}
 document.addEventListener('DOMContentLoaded',filterTools);
-function toggleLangMenu(){var m=document.getElementById('langMenu');m.style.display=m.style.display==='block'?'none':'block';}
 function toggleCtyMenu(){var m=document.getElementById('ctyMenu');m.style.display=m.style.display==='block'?'none':'block';}
-document.addEventListener('click',function(e){if(!e.target.closest('.lang-switcher')){var lm=document.getElementById('langMenu');if(lm)lm.style.display='none';var cm=document.getElementById('ctyMenu');if(cm)cm.style.display='none';}});
+document.addEventListener('click',function(e){if(!e.target.closest('.lang-switcher')){var cm=document.getElementById('ctyMenu');if(cm)cm.style.display='none';}});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('ctyToggleBtn')?.addEventListener('click', toggleCtyMenu);
+  document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
+  document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
+    a.addEventListener('click', function(){ setLang(a.dataset.lang); });
+  });
+  document.querySelectorAll('.cat-tab[data-cat]').forEach(function(btn){
+    btn.addEventListener('click', function(){ setCat(btn.dataset.cat); });
+  });
+});
 </script>
 <script src="../i18n.js?v=42" defer></script>
 </body></html>
