@@ -75,11 +75,11 @@
     <a href="about.html" data-i18n="nav_about">About</a>
     <a href="contact.html" data-i18n="nav_contact">Contact</a>
     <div class="lang-switcher">
-      <button class="lang-btn" onclick="toggleLangMenu()">🌐 <span id="currentLang">EN</span> ▾</button>
+      <button class="lang-btn" id="langToggleBtn">🌐 <span id="currentLang">EN</span> ▾</button>
       <div class="lang-menu" id="langMenu">
-        <a onclick="setLang('ar')">🇸🇦 العربية</a><a onclick="setLang('en')">🇬🇧 English</a>
-        <a onclick="setLang('fr')">🇫🇷 Français</a><a onclick="setLang('es')">🇪🇸 Español</a>
-        <a onclick="setLang('de')">🇩🇪 Deutsch</a><a onclick="setLang('ru')">🇷🇺 Русский</a>
+        <a data-lang="ar">🇸🇦 العربية</a><a data-lang="en">🇬🇧 English</a>
+        <a data-lang="fr">🇫🇷 Français</a><a data-lang="es">🇪🇸 Español</a>
+        <a data-lang="de">🇩🇪 Deutsch</a><a data-lang="ru">🇷🇺 Русский</a>
       </div>
     </div>
   </div>
@@ -94,7 +94,7 @@
     <div class="divider"></div>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Compress your image directly in the browser without uploading to any server. All processing happens on your device, guaranteeing complete privacy. Supports JPG, PNG, and WebP — savings can reach 90% depending on the image and settings, with full control over quality level.</p>
 
-    <div class="drop-zone" id="dropZone" onclick="document.getElementById('imgInput').click()">
+    <div class="drop-zone" id="dropZone">
       <div class="drop-zone-icon">📁</div>
       <div class="drop-zone-text" data-i18n="ic_drop_text">Click here or drag your image</div>
       <div class="drop-zone-sub" data-i18n="ic_drop_sub">JPG, PNG, WebP — up to 20MB</div>
@@ -143,10 +143,10 @@
         </div>
       </div>
 
-      <button class="btn btn-primary" id="downloadBtn" style="margin-top:16px;width:100%;" onclick="downloadCompressed()" data-i18n="ic_download_btn">
+      <button class="btn btn-primary" id="downloadBtn" style="margin-top:16px;width:100%;" data-i18n="ic_download_btn">
         ⬇️ Download Compressed Image
       </button>
-      <button onclick="document.getElementById('imgInput').click()" style="width:100%;margin-top:8px;padding:10px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:inherit;font-size:14px;color:var(--text);" data-i18n="ic_another_btn">
+      <button id="icAnotherBtn" style="width:100%;margin-top:8px;padding:10px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:inherit;font-size:14px;color:var(--text);" data-i18n="ic_another_btn">
         🔄 Choose Another Image
       </button>
     </div>
@@ -366,6 +366,17 @@ dz.addEventListener('drop', function(e) {
     inp.files = dt.files;
     loadImage(inp);
   }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
+  document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
+    a.addEventListener('click', function(){ setLang(a.dataset.lang); });
+  });
+  document.getElementById('dropZone')?.addEventListener('click', function(){ document.getElementById('imgInput').click(); });
+  document.getElementById('downloadBtn')?.addEventListener('click', downloadCompressed);
+  document.getElementById('icAnotherBtn')?.addEventListener('click', function(){ document.getElementById('imgInput').click(); });
 });
 </script>
 <script src="i18n.js?v=42" defer></script>

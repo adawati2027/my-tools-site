@@ -46,11 +46,11 @@
     <a href="about.html" data-i18n="nav_about">About</a>
     <a href="contact.html" data-i18n="nav_contact">Contact</a>
     <div class="lang-switcher">
-      <button class="lang-btn" onclick="toggleLangMenu()">🌐 <span id="currentLang">EN</span> ▾</button>
+      <button class="lang-btn" id="langToggleBtn">🌐 <span id="currentLang">EN</span> ▾</button>
       <div class="lang-menu" id="langMenu">
-        <a onclick="setLang('ar')">🇸🇦 العربية</a><a onclick="setLang('en')">🇬🇧 English</a>
-        <a onclick="setLang('fr')">🇫🇷 Français</a><a onclick="setLang('es')">🇪🇸 Español</a>
-        <a onclick="setLang('de')">🇩🇪 Deutsch</a><a onclick="setLang('ru')">🇷🇺 Русский</a>
+        <a data-lang="ar">🇸🇦 العربية</a><a data-lang="en">🇬🇧 English</a>
+        <a data-lang="fr">🇫🇷 Français</a><a data-lang="es">🇪🇸 Español</a>
+        <a data-lang="de">🇩🇪 Deutsch</a><a data-lang="ru">🇷🇺 Русский</a>
       </div>
     </div>
   </div>
@@ -71,7 +71,7 @@
     <div id="resultBox" style="margin-top:20px;padding:24px;background:linear-gradient(135deg,var(--primary-light),var(--accent-light));border-radius:var(--radius-lg);border:2px solid var(--border-focus);text-align:center;">
       <div id="numDisplay" style="font-size:56px;font-weight:900;color:var(--primary);letter-spacing:-2px;line-height:1;flex-wrap:wrap;display:flex;justify-content:center;gap:12px;align-items:center;"></div>
     </div>
-    <button class="btn btn-primary" onclick="generate()" data-i18n="rng_btn">🎲 Generate again</button>
+    <button class="btn btn-primary" id="rngGenBtn" data-i18n="rng_btn">🎲 Generate again</button>
     <div style="margin-top:12px;">
       <label data-i18n="rng_history">History</label>
       <div id="history" style="font-size:13px;color:var(--text-muted);max-height:80px;overflow-y:auto;padding:8px 12px;background:var(--surface-2);border-radius:var(--radius-sm);border:1px solid var(--border);"></div>
@@ -150,6 +150,15 @@ function generate() {
   document.getElementById('history').innerHTML = history.map((h,i) => `<div style="padding:2px 0;border-bottom:${i<history.length-1?'1px solid var(--border)':'none'};">${h}</div>`).join('');
 }
 generate();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
+  document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
+    a.addEventListener('click', function(){ setLang(a.dataset.lang); });
+  });
+  document.getElementById('rngGenBtn')?.addEventListener('click', generate);
+});
 </script>
 <script src="i18n.js?v=42" defer></script>
 </body></html>
