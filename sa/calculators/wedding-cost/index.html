@@ -49,7 +49,7 @@
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
       <div class="card-icon" style="background:#fdf4ff;">💍</div>
-      <button id="langToggleBtn" onclick="toggleLang()" style="font-size:12px;padding:6px 12px;border:1px solid var(--border);border-radius:99px;background:var(--surface-2);color:var(--text);cursor:pointer;">English</button>
+      <button id="langToggleBtn" style="font-size:12px;padding:6px 12px;border:1px solid var(--border);border-radius:99px;background:var(--surface-2);color:var(--text);cursor:pointer;">English</button>
     </div>
     <h1 class="card-title" data-t="page_title">حاسبة تكلفة الزواج في السعودية</h1>
     <div class="card-subtitle" data-t="page_sub">Add up every wedding expense in one place</div>
@@ -221,6 +221,11 @@ function calc() {
 }
 
 applyLang();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('langToggleBtn')?.addEventListener('click', toggleLang);
+});
 </script>
 <script src="i18n.js?v=42" defer></script>
 </body></html>

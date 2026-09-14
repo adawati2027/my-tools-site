@@ -52,7 +52,7 @@
   <div class="page-header"><a href="om/" data-t="backLink">→ العودة لأدوات عُمان</a></div>
 
   <div class="card">
-    <button class="lang-toggle-btn" onclick="toggleLang()" id="langBtn">English</button>
+    <button class="lang-toggle-btn" id="langBtn">English</button>
     <div class="card-icon" style="background:#eff6ff;">🚗</div>
     <h1 class="card-title" data-t="title">كم بتكلفك سيارتك فعلياً بالشهر؟ 🇴🇲</h1>
     <div class="card-subtitle" data-t="subtitle">اجمع كل مصاريف سيارتك بمكان واحد</div>
@@ -64,8 +64,8 @@
     <div class="divider"></div>
     <label style="font-weight:700;" data-t="lblFuelHeader">⛽ الوقود / الطاقة</label>
     <div class="option-toggle" style="margin-top:8px;">
-      <button class="option-btn active" id="typeFuel" onclick="setCarType('fuel')" data-t="btnFuel">بنزين / ديزل</button>
-      <button class="option-btn" id="typeElectric" onclick="setCarType('electric')" data-t="btnElectric">كهربائية بالكامل</button>
+      <button class="option-btn active" id="typeFuel" data-t="btnFuel">بنزين / ديزل</button>
+      <button class="option-btn" id="typeElectric" data-t="btnElectric">كهربائية بالكامل</button>
     </div>
 
     <div id="fuelSection" style="margin-top:10px;">
@@ -243,6 +243,13 @@ function applyLang() {
 }
 const LANG_AR = {"navHome":"أدوات عُمان","navGlobal":"عالمي","backLink":"→ العودة لأدوات عُمان","title":"كم بتكلفك سيارتك فعلياً بالشهر؟ 🇴🇲","subtitle":"اجمع كل مصاريف سيارتك بمكان واحد","lblInstallment":"القسط الشهري (ر.ع) — اتركه فارغ لو سيارتك مدفوعة بالكامل","lblFuelHeader":"⛽ الوقود / الطاقة","btnFuel":"بنزين / ديزل","btnElectric":"كهربائية بالكامل","lblDistance":"كم تسوق بالشهر (كم)","lblConsumption":"استهلاك سيارتك (لتر/100كم)","lblFuelPrice":"سعر اللتر (ر.ع) — القيمة الافتراضية محدّثة 7 سبتمبر 2026","fuelSourceNote":"المصدر: globalpetrolprices.com (Octane-95) — عدّل السعر إذا تغيّر","lblElectricBill":"كم زادت فاتورة الكهرباء شهرياً بسبب شحن السيارة؟ (ر.ع)","electricNote":"قارن فاتورة كهربائك قبل وبعد اقتناء السيارة، وأدخل الفرق فقط.","lblInsurance":"التأمين السنوي (ر.ع)","lblLicense":"الترخيص/التسجيل السنوي (ر.ع)","lblMaintenance":"الصيانة الشهرية التقديرية (ر.ع)","lblOtherHeader":"مصاريف تانية بتنسى غالباً (اختياري)","lblParking":"موقف/باركنج شهري (ر.ع)","lblDepreciation":"الإهلاك السنوي التقديري (ر.ع)","lblFines":"متوسط المخالفات المرورية بالسنة (ر.ع)","resultLbl":"سيارتك تكلفك هيك بالشهر (تقديري)","yearlyLbl":"التكلفة السنوية الإجمالية التقديرية","vatNote":"ملاحظة: ضريبة القيمة المضافة بعُمان 5% — عادة تكون محتسبة أصلاً بسعر السيارة المعلن.","faqHeader":"❓ أسئلة شائعة","faq1q":"شو المصاريف اللي بينسوها الناس عادة؟","faq1a":"كثير ناس بيحسبوا بس القسط والوقود، وبينسوا التأمين، الترخيص، الصيانة، والمخالفات.","faq2q":"هل السعر شامل الضريبة؟","faq2a":"ملاحظة: ضريبة القيمة المضافة بعُمان 5% — عادة تكون محتسبة أصلاً بسعر السيارة المعلن.","otherToolsHeader":"أدوات عُمان الأخرى:","linkFuel":"⛽ أسعار المحروقات","linkGold":"🪙 سعر الذهب اليوم","linkWeather":"🌤️ الطقس","linkAll":"🇴🇲 كل أدوات عُمان"};
 const LANG_EN = {"navHome":"Oman Tools","navGlobal":"Global","backLink":"← Back to Oman Tools","title":"What's Your Car Really Costing You Monthly? 🇴🇲","subtitle":"Gather all your car expenses in one place","lblInstallment":"Monthly loan installment (OMR) — leave blank if fully paid off","lblFuelHeader":"⛽ Fuel / Energy","btnFuel":"Petrol / Diesel","btnElectric":"Fully Electric","lblDistance":"km driven per month","lblConsumption":"Consumption (L/100km)","lblFuelPrice":"Price per liter (OMR) — default updated 7 Sep 2026","fuelSourceNote":"Source: globalpetrolprices.com (Octane-95) — adjust if the price has changed","lblElectricBill":"How much did your electric bill increase per month from charging? (OMR)","electricNote":"Compare your bill before and after getting the car, and enter only the difference.","lblInsurance":"Annual insurance (OMR)","lblLicense":"Annual registration (OMR)","lblMaintenance":"Estimated monthly maintenance (OMR)","lblOtherHeader":"Other often-forgotten costs (optional)","lblParking":"Monthly parking (OMR)","lblDepreciation":"Estimated annual depreciation (OMR)","lblFines":"Average annual traffic fines (OMR)","resultLbl":"Your car costs this much monthly (estimate)","yearlyLbl":"Estimated total annual cost","vatNote":"Note: Oman VAT is 5% — usually already included in the advertised car price.","faqHeader":"❓ FAQ","faq1q":"What costs do people usually forget?","faq1a":"Most people only count the loan and fuel, forgetting insurance, registration, maintenance, and fines.","faq2q":"Is tax/VAT included?","faq2a":"Note: Oman VAT is 5% — usually already included in the advertised car price.","otherToolsHeader":"Other Oman Tools:","linkFuel":"⛽ Fuel Prices","linkGold":"🪙 Gold Price Today","linkWeather":"🌤️ Weather","linkAll":"🇴🇲 All Oman Tools"};
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('langBtn')?.addEventListener('click', toggleLang);
+  document.getElementById('typeFuel')?.addEventListener('click', function(){ setCarType('fuel'); });
+  document.getElementById('typeElectric')?.addEventListener('click', function(){ setCarType('electric'); });
+});
 </script>
 <script src="i18n.js?v=42" defer></script>
 </body></html>

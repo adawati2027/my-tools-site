@@ -50,7 +50,7 @@
 
   <div class="card">
     <div style="display:flex;justify-content:flex-end;margin-bottom:6px;">
-      <button onclick="toggleLang()" id="langBtn" style="font-size:12px;padding:5px 12px;border:1px solid var(--border);border-radius:99px;background:var(--surface-2);color:var(--text);cursor:pointer;">English</button>
+      <button id="langBtn" style="font-size:12px;padding:5px 12px;border:1px solid var(--border);border-radius:99px;background:var(--surface-2);color:var(--text);cursor:pointer;">English</button>
     </div>
     <div class="card-icon" style="background:#eff6ff;">🎓</div>
     <h1 class="card-title" id="t-h1">حاسبة تكلفة الجامعة الكاملة 🇴🇲</h1>
@@ -211,6 +211,11 @@ function calc() {
 }
 
 applyLang();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('langBtn')?.addEventListener('click', toggleLang);
+});
 </script>
 <script src="i18n.js?v=42" defer></script>
 </body></html>

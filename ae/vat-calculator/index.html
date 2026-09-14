@@ -60,8 +60,8 @@
 
     <label>Mode</label>
     <div class="option-toggle">
-      <button class="option-btn active" id="modeAdd" onclick="setMode('add')">Add VAT (+ 5%)</button>
-      <button class="option-btn" id="modeEx" onclick="setMode('extract')">Remove VAT (÷ 1.05)</button>
+      <button class="option-btn active" id="modeAdd">Add VAT (+ 5%)</button>
+      <button class="option-btn" id="modeEx">Remove VAT (÷ 1.05)</button>
     </div>
 
     <label id="amountLabel">Amount before VAT (AED)</label>
@@ -168,6 +168,12 @@ function calculate() {
     'Total: <strong style="color:#16a34a;">AED ' + after.toFixed(2) + '</strong>';
   document.getElementById('result').style.display = 'block';
 }
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('modeAdd')?.addEventListener('click', function(){ setMode('add'); });
+  document.getElementById('modeEx')?.addEventListener('click', function(){ setMode('extract'); });
+});
 </script>
 <script src="i18n.js?v=42" defer></script>
 </body></html>

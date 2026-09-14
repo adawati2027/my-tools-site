@@ -40,7 +40,7 @@
   <div class="nav-links">
     <a href="sa/">أدوات السعودية</a>
     <a href="index.html">عالمي</a>
-    <button onclick="toggleLang()" id="langToggle" style="background:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;cursor:pointer;color:var(--text);font-family:inherit;font-size:13px;">English</button>
+    <button id="langToggle" style="background:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;cursor:pointer;color:var(--text);font-family:inherit;font-size:13px;">English</button>
   </div>
 </div></nav>
 
@@ -203,6 +203,11 @@ function calcTrip() {
 
 applyLang();
 
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('langToggle')?.addEventListener('click', toggleLang);
+});
 </script>
 <script src="i18n.js?v=42" defer></script>
 </body></html>
