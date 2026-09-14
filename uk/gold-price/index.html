@@ -119,32 +119,44 @@
 <script>
 let karatPrices = {24:0, 22:0, 21:0, 18:0};
 
+function applyGoldPrice(price24, isFallback) {
+  karatPrices = {24: price24, 22: price24 * (22/24), 21: price24 * (21/24), 18: price24 * (18/24)};
+
+  document.getElementById('p24').textContent = karatPrices[24].toFixed(2) + ' GBP';
+  document.getElementById('p22').textContent = karatPrices[22].toFixed(2) + ' GBP';
+  document.getElementById('p21').textContent = karatPrices[21].toFixed(2) + ' GBP';
+  document.getElementById('p18').textContent = karatPrices[18].toFixed(2) + ' GBP';
+
+  const now = new Date();
+  document.getElementById('updatedLabel').textContent = 'Last updated: ' + now.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'}) + (isFallback ? ' (fallback source)' : '');
+
+  document.getElementById('loadingMsg').style.display = 'none';
+  document.getElementById('pricesGrid').style.display = 'grid';
+  calcPurchase();
+}
+
 function fetchGoldPrice() {
   document.getElementById('loadingMsg').style.display = 'block';
   document.getElementById('pricesGrid').style.display = 'none';
   document.getElementById('errorMsg').style.display = 'none';
 
   fetch('https://xaus.com/api/v1/spot?currency=GBP&unit=gram')
-    .then(function(r) { return r.json(); })
+    .then(function(r) { if (!r.ok) throw new Error('xaus http ' + r.status); return r.json(); })
     .then(function(data) {
-      const price24 = data.xau.price;
-      karatPrices = {24: price24, 22: price24 * (22/24), 21: price24 * (21/24), 18: price24 * (18/24)};
-
-      document.getElementById('p24').textContent = karatPrices[24].toFixed(2) + ' GBP';
-      document.getElementById('p22').textContent = karatPrices[22].toFixed(2) + ' GBP';
-      document.getElementById('p21').textContent = karatPrices[21].toFixed(2) + ' GBP';
-      document.getElementById('p18').textContent = karatPrices[18].toFixed(2) + ' GBP';
-
-      const now = new Date();
-      document.getElementById('updatedLabel').textContent = 'Last updated: ' + now.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
-
-      document.getElementById('loadingMsg').style.display = 'none';
-      document.getElementById('pricesGrid').style.display = 'grid';
-      calcPurchase();
+      if (!data || !data.xau || typeof data.xau.price !== 'number') throw new Error('bad xaus data');
+      applyGoldPrice(data.xau.price, false);
     })
     .catch(function() {
-      document.getElementById('loadingMsg').style.display = 'none';
-      document.getElementById('errorMsg').style.display = 'block';
+      fetch('/api/gold-fallback?currency=GBP')
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (!d || typeof d.price24 !== 'number') throw new Error('bad fallback data');
+          applyGoldPrice(d.price24, true);
+        })
+        .catch(function() {
+          document.getElementById('loadingMsg').style.display = 'none';
+          document.getElementById('errorMsg').style.display = 'block';
+        });
     });
 }
 
