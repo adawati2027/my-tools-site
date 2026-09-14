@@ -88,11 +88,11 @@
     <a href="contact.html" data-i18n="nav_contact">Contact</a>
     
     <div class="lang-switcher">
-      <button class="lang-btn" onclick="toggleLangMenu()">🌐 <span id="currentLang">EN</span> ▾</button>
+      <button class="lang-btn" id="langToggleBtn">🌐 <span id="currentLang">EN</span> ▾</button>
       <div class="lang-menu" id="langMenu">
-        <a onclick="setLang('ar')">🇸🇦 العربية</a><a onclick="setLang('en')">🇬🇧 English</a>
-        <a onclick="setLang('fr')">🇫🇷 Français</a><a onclick="setLang('es')">🇪🇸 Español</a>
-        <a onclick="setLang('de')">🇩🇪 Deutsch</a><a onclick="setLang('ru')">🇷🇺 Русский</a>
+        <a data-lang="ar">🇸🇦 العربية</a><a data-lang="en">🇬🇧 English</a>
+        <a data-lang="fr">🇫🇷 Français</a><a data-lang="es">🇪🇸 Español</a>
+        <a data-lang="de">🇩🇪 Deutsch</a><a data-lang="ru">🇷🇺 Русский</a>
       </div>
     </div>
   </div>
@@ -129,8 +129,8 @@
       <div class="overlay-title" id="lcTitle">🎉 أحسنت!</div>
       <div class="overlay-sub" id="lcSub"></div>
       <div class="overlay-btns">
-        <button class="btn btn-primary" onclick="nextLevel()" id="nextLevelBtn">المستوى التالي ←</button>
-        <button class="btn btn-secondary" onclick="restartAll()" id="restartBtn2">⏮ من البداية</button>
+        <button class="btn btn-primary" id="nextLevelBtn">المستوى التالي ←</button>
+        <button class="btn btn-secondary" id="restartBtn2">⏮ من البداية</button>
       </div>
     </div>
 
@@ -138,7 +138,7 @@
       <div class="overlay-title">🏆 أنت أسطورة!</div>
       <div class="overlay-sub" id="allDoneSub"></div>
       <div class="overlay-btns">
-        <button class="btn btn-primary" onclick="restartAll()" id="playAgainBtn">🔄 العب مجدداً</button>
+        <button class="btn btn-primary" id="playAgainBtn">🔄 العب مجدداً</button>
       </div>
     </div>
 
@@ -147,14 +147,14 @@
       <div class="name-entry-row">
         <input type="text" id="nameInput" maxlength="20" placeholder="اسمك"
           onkeydown="if(event.key==='Enter')saveScore()">
-        <button class="btn btn-primary" onclick="saveScore()" id="saveBtn">💾 حفظ</button>
+        <button class="btn btn-primary" id="saveBtn">💾 حفظ</button>
       </div>
     </div>
 
     <div class="lb-wrap">
       <div class="lb-header">
         <span class="lb-title" id="lbTitle">🏆 أفضل 3 لاعبين</span>
-        <button class="lb-clear" onclick="clearLb()" id="clearBtn">🗑 مسح</button>
+        <button class="lb-clear" id="clearBtn">🗑 مسح</button>
       </div>
       <div id="lbRows"></div>
     </div>
@@ -272,7 +272,7 @@ function renderLevelUI(){
   document.getElementById('levelPill').textContent=`${t.levelLbl} ${currentLevel+1}`;
   document.getElementById('levelName').textContent=t.levelNames[currentLevel]||'';
   document.getElementById('speedBadge').textContent=`${t.speedLbl} ${(lv.flipMs/1000).toFixed(1)}s`;
-  document.getElementById('levelSelector').innerHTML=MEM_LEVELS.map((l,i)=>`<button class="lvl-btn ${i===currentLevel?'current':completedLevels.includes(i)?'completed':''}" onclick="jumpToLevel(${i})">${l.emoji} ${i+1}</button>`).join('');
+  document.getElementById('levelSelector').innerHTML=MEM_LEVELS.map((l,i)=>`<button class="lvl-btn ${i===currentLevel?'current':completedLevels.includes(i)?'completed':''}" data-level="${i}">${l.emoji} ${i+1}</button>`).join('');
 }
 function updateStats(){
   const t=MT[currentLang]||MT.en;
@@ -371,6 +371,20 @@ document.addEventListener('DOMContentLoaded',()=>{
   window.onLangChange=function(lang){if(!_initDone&&lang!==_PAGE_LANG)return;currentLang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';renderLevelUI();updateStats();renderLb();};
   startLevel(0);
   setTimeout(function(){_initDone=true;window.setLang(_PAGE_LANG);},0);
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
+  document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
+    a.addEventListener('click', function(){ setLang(a.dataset.lang); });
+  });
+  document.getElementById('nextLevelBtn')?.addEventListener('click', function(){ nextLevel(); });
+  document.getElementById('restartBtn2')?.addEventListener('click', function(){ restartAll(); });
+  document.getElementById('playAgainBtn')?.addEventListener('click', function(){ restartAll(); });
+  document.getElementById('saveBtn')?.addEventListener('click', function(){ saveScore(); });
+  document.getElementById('clearBtn')?.addEventListener('click', function(){ clearLb(); });
+  document.getElementById('levelSelector')?.addEventListener('click', function(e){ var b = e.target.closest('.lvl-btn'); if (b && b.dataset.level !== undefined) jumpToLevel(Number(b.dataset.level)); });
 });
 </script>
 <script src="i18n.js?v=42" defer></script>

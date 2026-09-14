@@ -67,11 +67,11 @@
     <a href="index.html" data-i18n="nav_home">Home</a>
     
     <div class="lang-switcher">
-      <button class="lang-btn" onclick="toggleLangMenu()">🌐 <span id="currentLang">EN</span> ▾</button>
+      <button class="lang-btn" id="langToggleBtn">🌐 <span id="currentLang">EN</span> ▾</button>
       <div class="lang-menu" id="langMenu">
-        <a onclick="setLang('ar')">🇸🇦 العربية</a><a onclick="setLang('en')">🇬🇧 English</a>
-        <a onclick="setLang('fr')">🇫🇷 Français</a><a onclick="setLang('es')">🇪🇸 Español</a>
-        <a onclick="setLang('de')">🇩🇪 Deutsch</a><a onclick="setLang('ru')">🇷🇺 Русский</a>
+        <a data-lang="ar">🇸🇦 العربية</a><a data-lang="en">🇬🇧 English</a>
+        <a data-lang="fr">🇫🇷 Français</a><a data-lang="es">🇪🇸 Español</a>
+        <a data-lang="de">🇩🇪 Deutsch</a><a data-lang="ru">🇷🇺 Русский</a>
       </div>
     </div>
   </div>
@@ -100,21 +100,21 @@
         <button class="touch-btn" id="rightBtn">▶</button>
       </div>
 
-      <button class="btn btn-primary game-start-btn" id="startBtn" onclick="startGame()">▶ ابدأ</button>
+      <button class="btn btn-primary game-start-btn" id="startBtn">▶ ابدأ</button>
     </div>
 
     <div class="name-entry" id="nameEntry" style="display:none;">
       <div class="name-entry-msg" id="nameEntryMsg">🏆 دخلت أفضل 3! اكتب اسمك:</div>
       <div class="name-entry-row">
         <input type="text" id="nameInput" maxlength="20" placeholder="اسمك" onkeydown="if(event.key==='Enter')saveScore()">
-        <button class="btn btn-primary" onclick="saveScore()" id="saveBtn">💾 حفظ</button>
+        <button class="btn btn-primary" id="saveBtn">💾 حفظ</button>
       </div>
     </div>
 
     <div class="lb-wrap">
       <div class="lb-header">
         <span class="lb-title" id="lbTitle">🏆 أفضل 3 سائقين</span>
-        <button class="lb-clear" onclick="clearLb()" id="clearBtn">🗑 مسح</button>
+        <button class="lb-clear" id="clearBtn">🗑 مسح</button>
       </div>
       <div id="lbRows"></div>
     </div>
@@ -427,6 +427,17 @@ function drawInitOverlay(){
   drawCar('🚙',LANES[1],H-135);
   drawOverlay(tr('game_title'),tr('dodge'),tr('start'));
 }
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
+  document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
+    a.addEventListener('click', function(){ setLang(a.dataset.lang); });
+  });
+  document.getElementById('startBtn')?.addEventListener('click', function(){ startGame(); });
+  document.getElementById('saveBtn')?.addEventListener('click', function(){ saveScore(); });
+  document.getElementById('clearBtn')?.addEventListener('click', function(){ clearLb(); });
+});
 </script>
 <script src="i18n.js?v=42" defer></script>
 </body></html>
