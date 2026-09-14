@@ -1,0 +1,606 @@
+{
+  "ae/calculators/car-cost/index.html": {
+    "icon": "🚗",
+    "title": "Car Cost Calculator"
+  },
+  "ae/calculators/university-cost/index.html": {
+    "icon": "🎓",
+    "title": "University Cost Calculator"
+  },
+  "ae/calculators/wedding-cost/index.html": {
+    "icon": "💍",
+    "title": "Wedding Cost Calculator"
+  },
+  "ae/emergency-numbers/index.html": {
+    "icon": "🚨",
+    "title": "Emergency Numbers"
+  },
+  "ae/fuel-prices/index.html": {
+    "icon": "⛽",
+    "title": "Fuel Prices"
+  },
+  "ae/gold-price/index.html": {
+    "icon": "🪙",
+    "title": "Gold Price Today"
+  },
+  "ae/holidays/index.html": {
+    "icon": "📅",
+    "title": "Public Holidays"
+  },
+  "ae/index.html": {
+    "icon": "🇦🇪",
+    "title": "أدوات الإمارات"
+  },
+  "ae/prayer-times/index.html": {
+    "icon": "🕌",
+    "title": "Prayer Times"
+  },
+  "ae/vat-calculator/index.html": {
+    "icon": "🧾",
+    "title": "VAT Calculator — UAE 5%"
+  },
+  "ae/weather/index.html": {
+    "icon": "🌤️",
+    "title": "Weather Today"
+  },
+  "age-calculator.html": {
+    "icon": "📅",
+    "title": "Age Calculator"
+  },
+  "bd/index.html": {
+    "icon": "🇧🇩",
+    "title": "Tools for Bangladeshi Expats"
+  },
+  "bmi-calculator.html": {
+    "icon": "⚖️",
+    "title": "BMI Calculator"
+  },
+  "car-game.html": {
+    "icon": "🚗",
+    "title": "Car Dodge Game"
+  },
+  "compound-interest.html": {
+    "icon": "📈",
+    "title": "Compound Interest"
+  },
+  "currency-converter.html": {
+    "icon": "💱",
+    "title": "Currency Converter"
+  },
+  "date-diff.html": {
+    "icon": "📆",
+    "title": "Date Difference"
+  },
+  "diet-plan.html": {
+    "icon": "🥗",
+    "title": "حاسبة السعرات والخطة الغذائية"
+  },
+  "discount-calculator.html": {
+    "icon": "🏷️",
+    "title": "Discount Calculator"
+  },
+  "eg/index.html": {
+    "icon": "🇪🇬",
+    "title": "Tools for Egyptian Expats"
+  },
+  "end-of-service.html": {
+    "icon": "📋",
+    "title": "End of Service"
+  },
+  "file-converter.html": {
+    "icon": "📂",
+    "title": "File Converter"
+  },
+  "hijri-converter.html": {
+    "icon": "🌙",
+    "title": "محول التاريخ الهجري"
+  },
+  "image-compressor.html": {
+    "icon": "🖼️",
+    "title": "Image Compressor"
+  },
+  "in/index.html": {
+    "icon": "🇮🇳",
+    "title": "Tools for Indian Expats"
+  },
+  "jo/calculators/car-cost/index.html": {
+    "icon": "🚗",
+    "title": "كم بتكلفك سيارتك؟"
+  },
+  "jo/calculators/income-tax/index.html": {
+    "icon": "🧾",
+    "title": "حاسبة ضريبة الدخل"
+  },
+  "jo/calculators/package-customs/index.html": {
+    "icon": "📦",
+    "title": "حاسبة جمارك الطرود"
+  },
+  "jo/calculators/rent-vs-buy/index.html": {
+    "icon": "🏠",
+    "title": "أأجر ولا أشتري بيت؟"
+  },
+  "jo/calculators/social-security/index.html": {
+    "icon": "💼",
+    "title": "حاسبة الضمان الاجتماعي"
+  },
+  "jo/calculators/tawjihi-average/index.html": {
+    "icon": "🎓",
+    "title": "حاسبة معدل التوجيهي"
+  },
+  "jo/calculators/university-cost/index.html": {
+    "icon": "🎓",
+    "title": "حاسبة تكلفة الجامعة"
+  },
+  "jo/calculators/university-gpa/index.html": {
+    "icon": "🎓",
+    "title": "حاسبة معدل الجامعة"
+  },
+  "jo/calculators/wedding-cost/index.html": {
+    "icon": "💍",
+    "title": "حاسبة تكلفة الزواج"
+  },
+  "jo/calculators/zakat/index.html": {
+    "icon": "🕌",
+    "title": "حاسبة زكاة المال"
+  },
+  "jo/emergency-numbers/index.html": {
+    "icon": "🚨",
+    "title": "أرقام الطوارئ"
+  },
+  "jo/fuel-prices/index.html": {
+    "icon": "⛽",
+    "title": "أسعار المحروقات"
+  },
+  "jo/games/animals-quiz/index.html": {
+    "icon": "🦁",
+    "title": "Animals & Nature Quiz"
+  },
+  "jo/games/cooking-quiz/index.html": {
+    "icon": "🍳",
+    "title": "Cooking Facts & Trivia"
+  },
+  "jo/games/culture-quiz/index.html": {
+    "icon": "🎭",
+    "title": "Culture Quiz"
+  },
+  "jo/games/general-quiz/index.html": {
+    "icon": "🌐",
+    "title": "General Knowledge Quiz"
+  },
+  "jo/games/geography-quiz/index.html": {
+    "icon": "🌍",
+    "title": "World Geography Quiz"
+  },
+  "jo/games/inventions-quiz/index.html": {
+    "icon": "💡",
+    "title": "Inventions & Discoveries Quiz"
+  },
+  "jo/games/islamic-history-quiz/index.html": {
+    "icon": "☪️",
+    "title": "Islamic History Quiz"
+  },
+  "jo/games/jordan-quiz/index.html": {
+    "icon": "🇯🇴",
+    "title": "شو بتعرف عن الأردن؟"
+  },
+  "jo/games/logo-quiz/index.html": {
+    "icon": "🏢",
+    "title": "Guess the Logo"
+  },
+  "jo/games/makeup-quiz/index.html": {
+    "icon": "💄",
+    "title": "Makeup Facts & Trivia"
+  },
+  "jo/games/math-quiz/index.html": {
+    "icon": "🧮",
+    "title": "Math Facts & History"
+  },
+  "jo/games/science-quiz/index.html": {
+    "icon": "🔬",
+    "title": "Science & Technology Quiz"
+  },
+  "jo/games/songs-quiz/index.html": {
+    "icon": "🎵",
+    "title": "Guess the Singer"
+  },
+  "jo/games/wordle/index.html": {
+    "icon": "🟩",
+    "title": "كلمة اليوم"
+  },
+  "jo/games/world-football-quiz/index.html": {
+    "icon": "⚽",
+    "title": "World Football Quiz"
+  },
+  "jo/games/world-sports-quiz/index.html": {
+    "icon": "🏆",
+    "title": "World Sports Quiz"
+  },
+  "jo/gold-price/index.html": {
+    "icon": "🪙",
+    "title": "سعر الذهب اليوم"
+  },
+  "jo/holidays/index.html": {
+    "icon": "📅",
+    "title": "العطل الرسمية 2026"
+  },
+  "jo/index.html": {
+    "icon": "🇯🇴",
+    "title": "أدوات الأردن"
+  },
+  "jo/prayer-times/index.html": {
+    "icon": "🕌",
+    "title": "مواقيت الصلاة"
+  },
+  "jo/students/best-tools/index.html": {
+    "icon": "⭐",
+    "title": "أفضل أدوات الطلاب"
+  },
+  "jo/students/scholarships-loans/index.html": {
+    "icon": "🎓",
+    "title": "منح وقروض الجامعة"
+  },
+  "jo/tools/government-vs-private/index.html": {
+    "icon": "⚖️",
+    "title": "الحكومي ولا الخاص؟"
+  },
+  "jo/tools/jordan-vs-gulf/index.html": {
+    "icon": "🌍",
+    "title": "الأردن أم الخليج؟"
+  },
+  "jo/weather/index.html": {
+    "icon": "🌤️",
+    "title": "طقس الأردن"
+  },
+  "jump-game.html": {
+    "icon": "🦸",
+    "title": "Jump Platformer"
+  },
+  "kids-alphabet.html": {
+    "icon": "🔤",
+    "title": "ABC Alphabet for Kids"
+  },
+  "kids-clock.html": {
+    "icon": "🕐",
+    "title": "Learn to Tell the Time"
+  },
+  "kids-flags.html": {
+    "icon": "🌍",
+    "title": "World Flags Quiz for Kids"
+  },
+  "kids-learn.html": {
+    "icon": "🧒",
+    "title": "Learn with Kids"
+  },
+  "kids-math.html": {
+    "icon": "➕",
+    "title": "Kids Math Game"
+  },
+  "kids-money.html": {
+    "icon": "💰",
+    "title": "Kids Money Game"
+  },
+  "kids-science.html": {
+    "icon": "🔬",
+    "title": "Kids Science Quiz"
+  },
+  "kids-spelling.html": {
+    "icon": "🐝",
+    "title": "Kids Spelling Bee Game"
+  },
+  "kids-times-tables.html": {
+    "icon": "✖️",
+    "title": "Times Tables Game for Kids"
+  },
+  "kids-typing.html": {
+    "icon": "⌨️",
+    "title": "Kids Typing Practice"
+  },
+  "loan-calculator.html": {
+    "icon": "🧮",
+    "title": "Loan Calculator"
+  },
+  "memory-game.html": {
+    "icon": "🃏",
+    "title": "Memory Card Game"
+  },
+  "number-guess.html": {
+    "icon": "🎯",
+    "title": "Number Guessing Game"
+  },
+  "om/calculators/car-cost/index.html": {
+    "icon": "🚗",
+    "title": "حاسبة تكلفة السيارة"
+  },
+  "om/calculators/university-cost/index.html": {
+    "icon": "🎓",
+    "title": "حاسبة تكلفة الجامعة"
+  },
+  "om/calculators/wedding-cost/index.html": {
+    "icon": "💍",
+    "title": "حاسبة تكلفة الزواج"
+  },
+  "om/emergency-numbers/index.html": {
+    "icon": "🚨",
+    "title": "أرقام الطوارئ"
+  },
+  "om/fuel-prices/index.html": {
+    "icon": "⛽",
+    "title": "أسعار المحروقات"
+  },
+  "om/gold-price/index.html": {
+    "icon": "🪙",
+    "title": "سعر الذهب اليوم"
+  },
+  "om/holidays/index.html": {
+    "icon": "📅",
+    "title": "العطل الرسمية"
+  },
+  "om/index.html": {
+    "icon": "🇴🇲",
+    "title": "أدواتي عُمان"
+  },
+  "om/prayer-times/index.html": {
+    "icon": "🕌",
+    "title": "مواقيت الصلاة"
+  },
+  "om/salary-calculator/index.html": {
+    "icon": "💼",
+    "title": "حاسبة الراتب — عمان"
+  },
+  "om/weather/index.html": {
+    "icon": "🌤️",
+    "title": "الطقس اليوم"
+  },
+  "oman-cost-of-living.html": {
+    "icon": "💵",
+    "title": "Oman Cost of Living"
+  },
+  "oman-labour-law-guide.html": {
+    "icon": "📜",
+    "title": "Oman Labour Law Guide"
+  },
+  "oman-loan-guide.html": {
+    "icon": "🏦",
+    "title": "دليل القرض الشخصي — عمان"
+  },
+  "oman-minimum-wage.html": {
+    "icon": "💵",
+    "title": "الحد الأدنى للأجور — عمان"
+  },
+  "oman-salary-guide.html": {
+    "icon": "💰",
+    "title": "Oman Salary Guide"
+  },
+  "oman-salary-slip-guide.html": {
+    "icon": "📋",
+    "title": "دليل كشف الراتب — عمان"
+  },
+  "oman-tax-guide.html": {
+    "icon": "💰",
+    "title": "Oman Tax Guide 2026"
+  },
+  "oman-vat-guide.html": {
+    "icon": "🧾",
+    "title": "دليل VAT عمان + حاسبة"
+  },
+  "oman-visa-guide.html": {
+    "icon": "🛂",
+    "title": "Oman Visa Guide"
+  },
+  "oman-working-hours-guide.html": {
+    "icon": "🕐",
+    "title": "Oman Working Hours Guide"
+  },
+  "omr-to-bdt.html": {
+    "icon": "🇧🇩",
+    "title": "OMR to BDT"
+  },
+  "omr-to-egp.html": {
+    "icon": "🇪🇬",
+    "title": "ريال عماني ← جنيه مصري"
+  },
+  "omr-to-inr.html": {
+    "icon": "🇮🇳",
+    "title": "ريال عماني ← روبية هندية"
+  },
+  "omr-to-php.html": {
+    "icon": "🇵🇭",
+    "title": "ريال عماني ← بيزو فلبيني"
+  },
+  "omr-to-pkr.html": {
+    "icon": "🇵🇰",
+    "title": "OMR to PKR"
+  },
+  "password-generator.html": {
+    "icon": "🔑",
+    "title": "Password Generator"
+  },
+  "percentage-calculator.html": {
+    "icon": "💯",
+    "title": "Percentage & Discount"
+  },
+  "ph/index.html": {
+    "icon": "🇵🇭",
+    "title": "Tools for Filipino Expats"
+  },
+  "pk/index.html": {
+    "icon": "🇵🇰",
+    "title": "Tools for Pakistani Expats"
+  },
+  "qr-generator.html": {
+    "icon": "📱",
+    "title": "QR Code Generator"
+  },
+  "quick-math.html": {
+    "icon": "🔢",
+    "title": "Quick Math"
+  },
+  "random-number.html": {
+    "icon": "🎲",
+    "title": "مولد أرقام عشوائية"
+  },
+  "reaction-test.html": {
+    "icon": "⚡",
+    "title": "Reaction Time Test"
+  },
+  "sa/calculators/car-cost/index.html": {
+    "icon": "🚗",
+    "title": "حاسبة تكلفة السيارة"
+  },
+  "sa/calculators/university-cost/index.html": {
+    "icon": "🎓",
+    "title": "حاسبة تكلفة الجامعة"
+  },
+  "sa/calculators/wedding-cost/index.html": {
+    "icon": "💍",
+    "title": "حاسبة تكلفة الزواج"
+  },
+  "sa/emergency-numbers/index.html": {
+    "icon": "🚨",
+    "title": "أرقام الطوارئ"
+  },
+  "sa/fuel-prices/index.html": {
+    "icon": "⛽",
+    "title": "أسعار المحروقات"
+  },
+  "sa/gold-price/index.html": {
+    "icon": "🪙",
+    "title": "سعر الذهب اليوم"
+  },
+  "sa/holidays/index.html": {
+    "icon": "📅",
+    "title": "العطل الرسمية"
+  },
+  "sa/index.html": {
+    "icon": "🇸🇦",
+    "title": "أدوات السعودية"
+  },
+  "sa/prayer-times/index.html": {
+    "icon": "🕌",
+    "title": "مواقيت الصلاة"
+  },
+  "sa/vat-calculator/index.html": {
+    "icon": "🧾",
+    "title": "حاسبة VAT — السعودية 15%"
+  },
+  "sa/weather/index.html": {
+    "icon": "🌤️",
+    "title": "الطقس اليوم"
+  },
+  "salary-calculator.html": {
+    "icon": "💼",
+    "title": "Salary Calculator"
+  },
+  "stopwatch.html": {
+    "icon": "⏱️",
+    "title": "Stopwatch"
+  },
+  "timezone-converter.html": {
+    "icon": "🕐",
+    "title": "Timezone Converter"
+  },
+  "tip-calculator.html": {
+    "icon": "🤝",
+    "title": "Tip Calculator"
+  },
+  "uk/calculators/car-cost/index.html": {
+    "icon": "🚗",
+    "title": "Car Cost Calculator"
+  },
+  "uk/calculators/university-cost/index.html": {
+    "icon": "🎓",
+    "title": "University Cost Calculator"
+  },
+  "uk/calculators/wedding-cost/index.html": {
+    "icon": "💍",
+    "title": "Wedding Cost Calculator"
+  },
+  "uk/emergency-numbers/index.html": {
+    "icon": "🚨",
+    "title": "Emergency Numbers"
+  },
+  "uk/fuel-prices/index.html": {
+    "icon": "⛽",
+    "title": "Fuel Prices"
+  },
+  "uk/gold-price/index.html": {
+    "icon": "🪙",
+    "title": "Gold Price Today"
+  },
+  "uk/holidays/index.html": {
+    "icon": "📅",
+    "title": "Public Holidays"
+  },
+  "uk/index.html": {
+    "icon": "🇬🇧",
+    "title": "UK Tools"
+  },
+  "uk/percentage-calculator/index.html": {
+    "icon": "💯",
+    "title": "Percentage Calculator"
+  },
+  "uk/prayer-times/index.html": {
+    "icon": "🕌",
+    "title": "Prayer Times"
+  },
+  "uk/weather/index.html": {
+    "icon": "🌤️",
+    "title": "Weather Today"
+  },
+  "unit-converter.html": {
+    "icon": "🔄",
+    "title": "Unit Converter"
+  },
+  "us/calculators/car-cost/index.html": {
+    "icon": "🚗",
+    "title": "Car Cost Calculator"
+  },
+  "us/calculators/university-cost/index.html": {
+    "icon": "🎓",
+    "title": "College Cost Calculator"
+  },
+  "us/calculators/wedding-cost/index.html": {
+    "icon": "💍",
+    "title": "Wedding Cost Calculator"
+  },
+  "us/emergency-numbers/index.html": {
+    "icon": "🚨",
+    "title": "Emergency Numbers"
+  },
+  "us/fuel-prices/index.html": {
+    "icon": "⛽",
+    "title": "Fuel Prices"
+  },
+  "us/gold-price/index.html": {
+    "icon": "🪙",
+    "title": "Gold Price Today"
+  },
+  "us/holidays/index.html": {
+    "icon": "📅",
+    "title": "Public Holidays"
+  },
+  "us/index.html": {
+    "icon": "🇺🇸",
+    "title": "US Tools"
+  },
+  "us/prayer-times/index.html": {
+    "icon": "🕌",
+    "title": "Prayer Times"
+  },
+  "us/tip-calculator/index.html": {
+    "icon": "🤝",
+    "title": "Tip Calculator"
+  },
+  "us/weather/index.html": {
+    "icon": "🌤️",
+    "title": "Weather Today"
+  },
+  "vat-calculator.html": {
+    "icon": "🧾",
+    "title": "Gulf VAT Calculator"
+  },
+  "word-counter.html": {
+    "icon": "📝",
+    "title": "Word Counter"
+  }
+}
