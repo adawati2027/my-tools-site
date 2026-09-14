@@ -706,7 +706,12 @@ function exportCurrencyResult() {
   if (!val || val === '—') return;
   const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
   const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
-  const rows = [{ label: lbl, value: val, highlight: true }];
+  const amount = parseFloat(document.getElementById('amount').value) || 0;
+  const from = document.getElementById('fromCurr').value;
+  const rows = [
+    { label: D().amt, value: fmtNum(amount) + ' ' + from },
+    { label: lbl, value: val, highlight: true }
+  ];
   if (typeof exportResultImage === 'function') exportResultImage(t.currency_card_title || 'Currency Converter', rows);
 }
 
