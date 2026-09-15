@@ -1,0 +1,4 @@
+Contact: mailto:ahmed.amawi@outlook.com
+Expires: 2027-09-15T00:00:00.000Z
+Preferred-Languages: en, ar
+Canonical: https://adawati.space/.well-known/security.txt
