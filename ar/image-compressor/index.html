@@ -38,14 +38,14 @@
 {"@type":"WebApplication","name":"Image Compressor — No Upload Required","url":"https://adawati.space/image-compressor.html","description":"ضغط الصور مجاناً داخل المتصفح بدون رفعها لأي خادم. يدعم JPG وPNG وWebP. يعمل بالكامل على جهازك — خصوصية تامة. قد تصل نسبة التوفير إلى 90% حسب الصورة والإعدادات.","applicationCategory":"MultimediaApplication","operatingSystem":"All","inLanguage":["ar","en","fr","es","de","ru"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
 {"@type":"HowTo","name":"How to Compress an Image — Step by Step","step":[{"@type":"HowToStep","position":1,"name":"اختر الصورة","text":"اسحب الصورة إلى منطقة الرفع أو انقر عليها لاختيار ملف JPG أو PNG أو WebP من جهازك."},{"@type":"HowToStep","position":2,"name":"Image Compressor","text":"حرّك شريط الجودة بين 5% و95%. القيمة 80% مثالية لمعظم الاستخدامات — توازن جيد بين الجودة والحجم."},{"@type":"HowToStep","position":3,"name":"قارن النتيجة","text":"يعرض المضغاط الصورة الأصلية والمضغوطة جنباً إلى جنب مع نسبة التوفير في الحجم."},{"@type":"HowToStep","position":4,"name":"حمّل الصورة المضغوطة","text":"انقر زر التحميل لحفظ الصورة المضغوطة على جهازك. الملف يُحفظ بصيغة JPEG."}]},
 {"@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"هل تُرسل الصور إلى أي خادم؟","acceptedAnswer":{"@type":"Answer","text":"لا. جميع عمليات الضغط تتم داخل المتصفح مباشرة باستخدام Canvas API. ملفاتك لا تغادر جهازك أبداً ولا تُرفع إلى أي خادم."}},
-{"@type":"Question","name":"ما الصيغ المدعومة؟","acceptedAnswer":{"@type":"Answer","text":"يدعم المضغاط صيغ JPG/JPEG وPNG وWebP. يحوّل الصور إلى JPEG تلقائياً. الملف المُنزَّل دائماً بصيغة JPEG."}},
-{"@type":"Question","name":"كم يمكن أن تصل نسبة الضغط؟","acceptedAnswer":{"@type":"Answer","text":"تتراوح نسبة الضغط عادةً بين 40% و80% بحسب الصورة ومستوى الجودة. صور JPG ذات الجودة العالية أصلاً تستجيب أفضل. الصور الصغيرة أو المضغوطة مسبقاً قد لا تنكمش كثيراً."}},
-{"@type":"Question","name":"هل يؤثر الضغط على جودة الصورة؟","acceptedAnswer":{"@type":"Answer","text":"يستخدم المضغاط ضغطاً مرئياً (Lossy). جودة 80% مناسبة لمعظم الاستخدامات. كلما انخفض الرقم ازداد الضغط وتراجعت الجودة."}},
-{"@type":"Question","name":"هل يحافظ الضاغط على شفافية صور PNG؟","acceptedAnswer":{"@type":"Answer","text":"لا. هذا الضاغط يحوّل PNG إلى JPEG، وصيغة JPEG لا تدعم الشفافية. إذا كانت صورتك تحتوي على خلفية شفافة ستُستبدل بخلفية بيضاء. للحفاظ على شفافية PNG استخدم أدوات ضغط PNG متخصصة."}},
-{"@type":"Question","name":"ما أفضل مستوى جودة للضغط؟","acceptedAnswer":{"@type":"Answer","text":"80%–85% مثالية للإنترنت والبريد الإلكتروني. 60%–75% لتقليل الحجم بشكل أكبر. 90%+ للاستخدامات الطباعية. القيمة الافتراضية 80% مناسبة لمعظم الحالات."}},
-{"@type":"Question","name":"لماذا قد تكون الصورة المضغوطة أكبر من الأصل؟","acceptedAnswer":{"@type":"Answer","text":"يحدث ذلك عندما تكون الصورة الأصلية مضغوطة بشكل جيد أصلاً أو صغيرة الحجم جداً. جرّب تخفيض مستوى الجودة للحصول على توفير أعلى."}},
-{"@type":"Question","name":"هل يمكن ضغط صور بصيغة WebP؟","acceptedAnswer":{"@type":"Answer","text":"نعم. يمكن رفع صور WebP وضغطها. سيتم تحويل الناتج إلى JPEG تلقائياً. إذا أردت الاحتفاظ بصيغة WebP استخدم أدوات متخصصة."}}
+{"@type":"Question","name":"Are images sent to any server?","acceptedAnswer":{"@type":"Answer","text":"No. All compression happens directly inside the browser. Your files never leave your device and are never uploaded to any server."}},
+{"@type":"Question","name":"What formats are supported?","acceptedAnswer":{"@type":"Answer","text":"The compressor supports JPG/JPEG, PNG and WebP. All output is automatically converted to JPEG."}},
+{"@type":"Question","name":"How much compression can be achieved?","acceptedAnswer":{"@type":"Answer","text":"Compression typically ranges between 40% and 80% depending on the image and selected quality. High-quality original JPG images respond best to compression."}},
+{"@type":"Question","name":"Does compression affect image quality?","acceptedAnswer":{"@type":"Answer","text":"The compressor uses a lossy compression algorithm that reduces file size while preserving acceptable visual quality. The more compression applied, the slightly lower the quality."}},
+{"@type":"Question","name":"Does the compressor preserve PNG transparency?","acceptedAnswer":{"@type":"Answer","text":"No. This compressor converts PNG to JPEG, and JPEG does not support transparency. If your image has a transparent background it will automatically be replaced with a white background. To preserve PNG transparency, use a dedicated PNG compressor."}},
+{"@type":"Question","name":"What is the best quality level for compression?","acceptedAnswer":{"@type":"Answer","text":"80%-85% is ideal for sharing online and via email. 60%-75% for greater size reduction with acceptable quality. 90%+ for print use. The default value of 80% is suitable for most cases."}},
+{"@type":"Question","name":"Why might the compressed image be larger than the original?","acceptedAnswer":{"@type":"Answer","text":"This happens when the original image is already well compressed or very small. Also, large PNGs converted to JPEG at high quality may have similar sizes. Solution: gradually lower the quality level until you achieve the desired saving."}},
+{"@type":"Question","name":"Can WebP images be compressed?","acceptedAnswer":{"@type":"Answer","text":"Yes. WebP images can be uploaded and compressed. The output will automatically be converted to JPEG. If you want to keep the WebP format, use a specialized tool instead."}}
 ]}]}
 </script>
 <link rel="stylesheet" href="style.css">
@@ -195,6 +195,10 @@
     <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
       <summary style="font-weight:700;cursor:pointer;font-size:14px;">Why might the compressed image be larger than the original?</summary>
       <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">This happens when the original image is already well compressed or very small. Also, large PNGs converted to JPEG at high quality may have similar sizes. Solution: gradually lower the quality level until you achieve the desired saving.</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Can WebP images be compressed?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Yes. WebP images can be uploaded and compressed. The output will automatically be converted to JPEG. If you want to keep the WebP format, use a specialized tool instead.</p>
     </details>
   </div>
 
