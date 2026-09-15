@@ -1020,7 +1020,7 @@ input:checked + .slider:before { transform: translateX(20px); }
   font-size: 14px;
   line-height: 1.65;
   max-width: 240px;
-  color: #64748b;
+  color: #8492a6;
 }
 
 .footer-col h4 {
@@ -1034,7 +1034,7 @@ input:checked + .slider:before { transform: translateX(20px); }
 
 .footer-col a {
   display: block;
-  color: #64748b;
+  color: #8492a6;
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
@@ -1054,7 +1054,7 @@ input:checked + .slider:before { transform: translateX(20px); }
   gap: 12px;
 }
 
-.footer-copy { font-size: 13px; color: #475569; }
+.footer-copy { font-size: 13px; color: #8492a6; }
 
 .footer-langs {
   display: flex;
@@ -1067,7 +1067,7 @@ input:checked + .slider:before { transform: translateX(20px); }
   background: rgba(255,255,255,0.06);
   padding: 3px 10px;
   border-radius: 100px;
-  color: #64748b;
+  color: #8492a6;
 }
 
 /* Simple footer fallback for tool pages */
@@ -1079,7 +1079,7 @@ input:checked + .slider:before { transform: translateX(20px); }
 }
 
 .footer-links a {
-  color: #64748b;
+  color: #8492a6;
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
@@ -1087,7 +1087,7 @@ input:checked + .slider:before { transform: translateX(20px); }
 }
 
 .footer-links a:hover { color: #93c5fd; }
-.footer-copy-simple { font-size: 13px; color: #475569; text-align: center; }
+.footer-copy-simple { font-size: 13px; color: #8492a6; text-align: center; }
 
 /* ══════════════════════════════════════════
    Responsive
