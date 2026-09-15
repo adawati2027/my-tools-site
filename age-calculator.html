@@ -102,6 +102,8 @@
     <input type="date" id="birthdate" onchange="calcAge()">
     <button class="btn btn-primary" id="age-btn">Calculate My Age</button>
 
+    <div id="ageError" class="result-box show danger" style="display:none;margin-top:20px;"></div>
+
     <div id="result" style="display:none;margin-top:20px;">
       <div class="result-box show success" style="margin-top:0;">
         <div class="result-value" id="ageMain"></div>
@@ -235,6 +237,7 @@ var AGE_T={
     lbl_totaldays:'إجمالي الأيام',lbl_totalhours:'إجمالي الساعات',lbl_next:'يوم لعيد الميلاد',
     age_main:function(y){return y+' سنة';},
     age_sub:function(m,d){return 'و '+m+' شهر و '+d+' يوم';},
+    future_date_error:'يجب أن يكون تاريخ الميلاد في الماضي',
     lbl_zodiac:'برجك الفلكي',lbl_bornday:'يوم الميلاد',lbl_hijri_age:'عمرك بالهجري',lbl_nextbd:'عيد ميلادك القادم',
     hijri_suffix:' هجري',
     hijri_greg:'تاريخ ميلادك بالميلادي: ',
@@ -262,6 +265,7 @@ var AGE_T={
     lbl_totaldays:'Total Days',lbl_totalhours:'Total Hours',lbl_next:'Days to Birthday',
     age_main:function(y){return y+' years';},
     age_sub:function(m,d){return 'and '+m+' months and '+d+' days';},
+    future_date_error:'Birth date must be in the past',
     lbl_zodiac:'Zodiac Sign',lbl_bornday:'Day Born',lbl_hijri_age:'Hijri Age',lbl_nextbd:'Next Birthday',
     hijri_suffix:' Hijri',
     hijri_greg:'Gregorian birthdate: ',
@@ -289,6 +293,7 @@ var AGE_T={
     lbl_totaldays:'Total de jours',lbl_totalhours:'Total d\'heures',lbl_next:'Jours avant anniversaire',
     age_main:function(y){return y+' ans';},
     age_sub:function(m,d){return 'et '+m+' mois et '+d+' jours';},
+    future_date_error:'La date de naissance doit être dans le passé',
     lbl_zodiac:'Signe du zodiaque',lbl_bornday:'Jour de naissance',lbl_hijri_age:'Âge hégirien',lbl_nextbd:'Prochain anniversaire',
     hijri_suffix:' hégire',
     hijri_greg:'Date de naissance grégorienne: ',
@@ -316,6 +321,7 @@ var AGE_T={
     lbl_totaldays:'Total de días',lbl_totalhours:'Total de horas',lbl_next:'Días para cumpleaños',
     age_main:function(y){return y+' años';},
     age_sub:function(m,d){return 'y '+m+' meses y '+d+' días';},
+    future_date_error:'La fecha de nacimiento debe estar en el pasado',
     lbl_zodiac:'Signo del zodiaco',lbl_bornday:'Día de nacimiento',lbl_hijri_age:'Edad Hijri',lbl_nextbd:'Próximo cumpleaños',
     hijri_suffix:' Hijri',
     hijri_greg:'Fecha de nacimiento gregoriana: ',
@@ -343,6 +349,7 @@ var AGE_T={
     lbl_totaldays:'Tage gesamt',lbl_totalhours:'Stunden gesamt',lbl_next:'Tage bis Geburtstag',
     age_main:function(y){return y+' Jahre';},
     age_sub:function(m,d){return 'und '+m+' Monate und '+d+' Tage';},
+    future_date_error:'Das Geburtsdatum muss in der Vergangenheit liegen',
     lbl_zodiac:'Sternzeichen',lbl_bornday:'Wochentag Geburt',lbl_hijri_age:'Hijri-Alter',lbl_nextbd:'Nächster Geburtstag',
     hijri_suffix:' Hijri',
     hijri_greg:'Gregorianisches Geburtsdatum: ',
@@ -370,6 +377,7 @@ var AGE_T={
     lbl_totaldays:'Всего дней',lbl_totalhours:'Всего часов',lbl_next:'Дней до дня рождения',
     age_main:function(y){return y+' лет';},
     age_sub:function(m,d){return 'и '+m+' месяцев и '+d+' дней';},
+    future_date_error:'Дата рождения должна быть в прошлом',
     lbl_zodiac:'Знак зодиака',lbl_bornday:'День рождения',lbl_hijri_age:'Возраст по хиджре',lbl_nextbd:'Следующий день рождения',
     hijri_suffix:' по хиджре',
     hijri_greg:'Дата рождения (григорианская): ',
@@ -422,10 +430,18 @@ function toHijri(day,month,year){
 function calcAge(){
   var t=D();
   var birthInput=document.getElementById('birthdate').value;
-  if(!birthInput){return;}
+  var result=document.getElementById('result');
+  var errorBox=document.getElementById('ageError');
+  if(!birthInput){result.style.display='none';errorBox.style.display='none';return;}
   var birth=new Date(birthInput);
   var today=new Date();today.setHours(0,0,0,0);
-  if(birth>=today){return;}
+  if(birth>=today){
+    result.style.display='none';
+    errorBox.textContent=t.future_date_error;
+    errorBox.style.display='block';
+    return;
+  }
+  errorBox.style.display='none';
 
   var y=today.getFullYear()-birth.getFullYear();
   var m=today.getMonth()-birth.getMonth();
