@@ -35,7 +35,7 @@
 {"@type":"Question","name":"Can I improve my reaction time with practice?","acceptedAnswer":{"@type":"Answer","text":"Regular practice can shave 10-20ms from your baseline by reducing anticipation errors. True neural reaction time has a biological floor of around 100-120ms — no amount of practice can go below that limit."}}
 ]}]}
 </script>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=1">
 <style>
 .level-steps{display:flex;gap:6px;justify-content:center;margin-bottom:14px;flex-wrap:wrap;}
 .level-step{width:36px;height:8px;border-radius:99px;background:var(--border);transition:background .3s;}
@@ -543,5 +543,5 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('levelSelector')?.addEventListener('click', function(e){ var b = e.target.closest('.lvl-btn'); if (b && b.dataset.level !== undefined) jumpToLevel(Number(b.dataset.level)); });
 });
 </script>
-<script src="i18n.js?v=42" defer></script>
+<script src="i18n.js?v=44" defer></script>
 </body></html>

@@ -35,7 +35,7 @@
 {"@type":"Question","name":"What are the difficulty levels in the number guessing game?","acceptedAnswer":{"@type":"Answer","text":"There are 6 levels: Easy (1–10), Medium (1–50), Hard (1–100), Expert (1–500), Master (1–1000), and Legendary (1–5000). Each level requires more strategic guessing to narrow down the answer."}}
 ]}]}
 </script>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=1">
 <style>
 /* ── Level bar ── */
 .level-steps{display:flex;gap:6px;justify-content:center;margin-bottom:14px;flex-wrap:wrap;}
@@ -590,5 +590,5 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('levelSelector')?.addEventListener('click', function(e){ var b = e.target.closest('.lvl-btn'); if (b && b.dataset.level !== undefined) jumpToLevel(Number(b.dataset.level)); });
 });
 </script>
-<script src="i18n.js?v=42" defer></script>
+<script src="i18n.js?v=44" defer></script>
 </body></html>
