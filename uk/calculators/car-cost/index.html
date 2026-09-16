@@ -66,7 +66,7 @@
     <div class="divider"></div>
 
     <label data-t="lblInstallment">Monthly loan installment (GBP) — leave blank if fully paid off</label>
-    <input type="number" id="installment" placeholder="0.00" min="0" step="any" oninput="calc()">
+    <input type="number" id="installment" placeholder="0.00" min="0" step="any">
 
     <div class="divider"></div>
     <label style="font-weight:700;" data-t="lblFuelHeader">⛽ Fuel / Energy</label>
@@ -77,36 +77,36 @@
 
     <div id="fuelSection" style="margin-top:10px;">
       <div class="row">
-        <div><label data-t="lblDistance">km driven per month</label><input type="number" id="distance" placeholder="e.g. 1500" min="0" step="any" oninput="calc()"></div>
-        <div><label data-t="lblConsumption">Consumption (L/100km)</label><input type="number" id="consumption" placeholder="e.g. 8" min="0" step="any" oninput="calc()"></div>
+        <div><label data-t="lblDistance">km driven per month</label><input type="number" id="distance" placeholder="e.g. 1500" min="0" step="any"></div>
+        <div><label data-t="lblConsumption">Consumption (L/100km)</label><input type="number" id="consumption" placeholder="e.g. 8" min="0" step="any"></div>
       </div>
       <label data-t="lblFuelPrice">Price per liter (GBP) — default updated 7 Sep 2026</label>
-      <input type="number" id="fuelPrice" value="1.64" min="0" step="any" oninput="calc()">
+      <input type="number" id="fuelPrice" value="1.64" min="0" step="any">
       <p style="font-size:11px;color:var(--text-muted);margin-top:2px;" data-t="fuelSourceNote">Source: globalpetrolprices.com — adjust if the price has changed</p>
     </div>
 
     <div id="electricSection" style="display:none;margin-top:10px;">
       <label data-t="lblElectricBill">How much did your electric bill increase per month from charging? (GBP)</label>
-      <input type="number" id="electricBill" placeholder="0.00" min="0" step="any" oninput="calc()">
+      <input type="number" id="electricBill" placeholder="0.00" min="0" step="any">
       <p style="font-size:12px;color:var(--text-muted);margin-top:4px;" data-t="electricNote">Compare your bill before and after getting the car, and enter only the difference.</p>
     </div>
 
     <div class="divider"></div>
     <div class="row">
-      <div><label data-t="lblInsurance">Annual insurance (GBP)</label><input type="number" id="insurance" placeholder="0.00" min="0" step="any" oninput="calc()"></div>
-      <div><label data-t="lblLicense">Annual road tax (VED) (GBP)</label><input type="number" id="license" placeholder="0.00" min="0" step="any" oninput="calc()"></div>
+      <div><label data-t="lblInsurance">Annual insurance (GBP)</label><input type="number" id="insurance" placeholder="0.00" min="0" step="any"></div>
+      <div><label data-t="lblLicense">Annual road tax (VED) (GBP)</label><input type="number" id="license" placeholder="0.00" min="0" step="any"></div>
     </div>
     <label data-t="lblMaintenance">Estimated monthly maintenance (GBP)</label>
-    <input type="number" id="maintenance" placeholder="0.00" min="0" step="any" oninput="calc()">
+    <input type="number" id="maintenance" placeholder="0.00" min="0" step="any">
 
     <div class="divider"></div>
     <label style="font-weight:700;" data-t="lblOtherHeader">Other often-forgotten costs (optional)</label>
     <div class="row" style="margin-top:8px;">
-      <div><label data-t="lblParking">Monthly parking (GBP)</label><input type="number" id="parking" placeholder="0.00" min="0" step="any" oninput="calc()"></div>
-      <div><label data-t="lblDepreciation">Estimated annual depreciation (GBP)</label><input type="number" id="depreciation" placeholder="0.00" min="0" step="any" oninput="calc()"></div>
+      <div><label data-t="lblParking">Monthly parking (GBP)</label><input type="number" id="parking" placeholder="0.00" min="0" step="any"></div>
+      <div><label data-t="lblDepreciation">Estimated annual depreciation (GBP)</label><input type="number" id="depreciation" placeholder="0.00" min="0" step="any"></div>
     </div>
     <label data-t="lblFines">Average annual traffic fines (GBP)</label>
-    <input type="number" id="fines" placeholder="0.00" min="0" step="any" oninput="calc()">
+    <input type="number" id="fines" placeholder="0.00" min="0" step="any">
 
     <div id="carResult" style="display:none;margin-top:20px;">
       <div class="result-box show success" style="margin-top:0;">
@@ -259,4 +259,55 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script src="i18n.js?v=44" defer></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('installment').addEventListener('input', calc);
+  document.getElementById('distance').addEventListener('input', calc);
+  document.getElementById('consumption').addEventListener('input', calc);
+  document.getElementById('fuelPrice').addEventListener('input', calc);
+  document.getElementById('electricBill').addEventListener('input', calc);
+  document.getElementById('insurance').addEventListener('input', calc);
+  document.getElementById('license').addEventListener('input', calc);
+  document.getElementById('maintenance').addEventListener('input', calc);
+  document.getElementById('parking').addEventListener('input', calc);
+  document.getElementById('depreciation').addEventListener('input', calc);
+  document.getElementById('fines').addEventListener('input', calc);
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var __resBox = document.getElementById('carResult');
+  if (__resBox) {
+    var __btn = document.createElement('button');
+    __btn.id = '__exportBtn';
+    __btn.textContent = '📸 Export as image / صدّر كصورة';
+    __btn.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;';
+    __resBox.appendChild(__btn);
+    __btn.addEventListener('click', function(){
+      
+      
+      function __rowsFromBreakdown(id) {
+        var el = document.getElementById(id);
+        if (!el) return [];
+        var parts = el.innerHTML.split('<br>');
+        var rows = [];
+        parts.forEach(function(p){
+          var m = p.match(/^(.*?):\s*<strong[^>]*>([^<]*)<\/strong>/);
+          if (m) rows.push({label: m[1].replace(/<[^>]*>/g,'').trim(), value: m[2].trim()});
+        });
+        if (rows.length) rows[rows.length-1].highlight = true;
+        return rows;
+      }
+
+      var rows = __rowsFromBreakdown('breakdown');
+      var yearlyEl = document.getElementById('totalYearly');
+      if (yearlyEl && yearlyEl.textContent) rows.push({label: document.querySelector('#carResult [data-t="yearlyLbl"]')?.textContent || 'Yearly Total', value: yearlyEl.textContent});
+      if (rows.length && typeof exportResultImage === 'function') exportResultImage(document.querySelector('h1.card-title')?.textContent || 'Car Cost', rows);
+  
+    });
+  }
+});
+</script>
 </body></html>

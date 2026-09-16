@@ -66,12 +66,12 @@
     <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:14px;" id="t-intro">💡 الجامعات الحكومية بالسعودية مجانية غالباً للمواطنين بالمسار العادي. هاي الحاسبة موجهة للمسارات المدفوعة — الجامعات الخاصة أو المسارات المدفوعة ببعض الجامعات الحكومية.</p>
 
     <div class="row">
-      <div><label id="t-lblHourPrice">سعر الساعة المعتمدة (ريال)</label><input type="number" id="hourPrice" placeholder="مثال: 600" min="0" step="any" oninput="calc()"></div>
-      <div><label id="t-lblTotalHours">عدد الساعات الكلية للتخصص</label><input type="number" id="totalHours" placeholder="مثال: 130" min="0" step="any" oninput="calc()"></div>
+      <div><label id="t-lblHourPrice">سعر الساعة المعتمدة (ريال)</label><input type="number" id="hourPrice" placeholder="مثال: 600" min="0" step="any"></div>
+      <div><label id="t-lblTotalHours">عدد الساعات الكلية للتخصص</label><input type="number" id="totalHours" placeholder="مثال: 130" min="0" step="any"></div>
     </div>
     <div class="row" style="margin-top:10px;">
-      <div><label id="t-lblYears">المدة المتوقعة للتخرج (سنوات)</label><input type="number" id="years" placeholder="مثال: 4" value="4" min="0" step="any" oninput="calc()"></div>
-      <div><label id="t-lblOther">مصاريف سنوية أخرى (مواصلات + كتب + سكن)</label><input type="number" id="annualOther" placeholder="مثال: 8000" min="0" step="any" oninput="calc()"></div>
+      <div><label id="t-lblYears">المدة المتوقعة للتخرج (سنوات)</label><input type="number" id="years" placeholder="مثال: 4" value="4" min="0" step="any"></div>
+      <div><label id="t-lblOther">مصاريف سنوية أخرى (مواصلات + كتب + سكن)</label><input type="number" id="annualOther" placeholder="مثال: 8000" min="0" step="any"></div>
     </div>
     <p style="font-size:12px;color:var(--text-muted);margin-top:6px;" id="t-note">المدى النموذجي: 265 ريال/ساعة (مسارات حكومية مدفوعة) إلى 3,400+ ريال/ساعة (جامعات خاصة كبرى، طب وهندسة).</p>
 
@@ -227,4 +227,39 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script src="i18n.js?v=44" defer></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('hourPrice').addEventListener('input', calc);
+  document.getElementById('totalHours').addEventListener('input', calc);
+  document.getElementById('years').addEventListener('input', calc);
+  document.getElementById('annualOther').addEventListener('input', calc);
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var __resBox = document.getElementById('costResult');
+  if (__resBox) {
+    var __btn = document.createElement('button');
+    __btn.id = '__exportBtn';
+    __btn.textContent = '📸 Export as image / صدّر كصورة';
+    __btn.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;';
+    __resBox.appendChild(__btn);
+    __btn.addEventListener('click', function(){
+      
+      function __row(valId, lblId) {
+        var v = document.getElementById(valId);
+        var l = document.getElementById(lblId);
+        if (!v || !v.textContent) return null;
+        return {label: l ? l.textContent : valId, value: v.textContent};
+      }
+      var rows = [__row('tuitionOnly','t-tuitionLbl'), __row('otherTotal','t-otherLbl'), __row('perYear','t-perYearLbl'), __row('totalCost','t-resultLbl')].filter(Boolean);
+      if (rows.length) rows[rows.length-1].highlight = true;
+      if (rows.length && typeof exportResultImage === 'function') exportResultImage(document.querySelector('h1.card-title')?.textContent || 'University Cost', rows);
+  
+    });
+  }
+});
+</script>
 </body></html>

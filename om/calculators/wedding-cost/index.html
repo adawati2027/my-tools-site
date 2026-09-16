@@ -63,26 +63,26 @@
     <div class="divider"></div>
 
     <div class="row">
-      <div><label data-t="lbl_mahr">المهر المقدم</label><input type="number" id="mahr" placeholder="0" min="0" step="any" oninput="calc()"></div>
-      <div><label data-t="lbl_gold">الذهب والشبكة</label><input type="number" id="gold" placeholder="0" min="0" step="any" oninput="calc()"></div>
+      <div><label data-t="lbl_mahr">المهر المقدم</label><input type="number" id="mahr" placeholder="0" min="0" step="any"></div>
+      <div><label data-t="lbl_gold">الذهب والشبكة</label><input type="number" id="gold" placeholder="0" min="0" step="any"></div>
     </div>
 
     <div class="row">
-      <div><label data-t="lbl_venue">القاعة والضيافة</label><input type="number" id="venue" placeholder="0" min="0" step="any" oninput="calc()"></div>
-      <div><label data-t="lbl_attire">فستان العروس وبدلة العريس</label><input type="number" id="attire" placeholder="0" min="0" step="any" oninput="calc()"></div>
+      <div><label data-t="lbl_venue">القاعة والضيافة</label><input type="number" id="venue" placeholder="0" min="0" step="any"></div>
+      <div><label data-t="lbl_attire">فستان العروس وبدلة العريس</label><input type="number" id="attire" placeholder="0" min="0" step="any"></div>
     </div>
 
     <div class="row">
-      <div><label data-t="lbl_photography">التصوير والفيديو</label><input type="number" id="photography" placeholder="0" min="0" step="any" oninput="calc()"></div>
-      <div><label data-t="lbl_furniture">تجهيز بيت الزوجية (أثاث)</label><input type="number" id="furniture" placeholder="0" min="0" step="any" oninput="calc()"></div>
+      <div><label data-t="lbl_photography">التصوير والفيديو</label><input type="number" id="photography" placeholder="0" min="0" step="any"></div>
+      <div><label data-t="lbl_furniture">تجهيز بيت الزوجية (أثاث)</label><input type="number" id="furniture" placeholder="0" min="0" step="any"></div>
     </div>
 
     <label data-t="lbl_other">بنود أخرى (دعوات، زفة، مكياج...)</label>
-    <input type="number" id="other" placeholder="0" min="0" step="any" oninput="calc()">
+    <input type="number" id="other" placeholder="0" min="0" step="any">
 
     <div class="divider"></div>
     <label data-t="months_lbl">How many months until you need the full amount? (optional)</label>
-    <input type="number" id="months" placeholder="12" min="1" step="1" oninput="calc()">
+    <input type="number" id="months" placeholder="12" min="1" step="1">
 
     <div id="weddingResult" style="display:none;margin-top:20px;">
       <div class="result-box show success" style="margin-top:0;">
@@ -235,4 +235,56 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script src="i18n.js?v=44" defer></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('mahr').addEventListener('input', calc);
+  document.getElementById('gold').addEventListener('input', calc);
+  document.getElementById('venue').addEventListener('input', calc);
+  document.getElementById('attire').addEventListener('input', calc);
+  document.getElementById('photography').addEventListener('input', calc);
+  document.getElementById('furniture').addEventListener('input', calc);
+  document.getElementById('other').addEventListener('input', calc);
+  document.getElementById('months').addEventListener('input', calc);
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var __resBox = document.getElementById('weddingResult');
+  if (__resBox) {
+    var __btn = document.createElement('button');
+    __btn.id = '__exportBtn';
+    __btn.textContent = '📸 Export as image / صدّر كصورة';
+    __btn.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;';
+    __resBox.appendChild(__btn);
+    __btn.addEventListener('click', function(){
+      
+      
+      function __rowsFromBreakdown(id) {
+        var el = document.getElementById(id);
+        if (!el) return [];
+        var parts = el.innerHTML.split('<br>');
+        var rows = [];
+        parts.forEach(function(p){
+          var m = p.match(/^(.*?):\s*<strong[^>]*>([^<]*)<\/strong>/);
+          if (m) rows.push({label: m[1].replace(/<[^>]*>/g,'').trim(), value: m[2].trim()});
+        });
+        if (rows.length) rows[rows.length-1].highlight = true;
+        return rows;
+      }
+
+      var rows = __rowsFromBreakdown('breakdown');
+      var monthlyBox = document.getElementById('monthlyBox');
+      var monthlyEl = document.getElementById('monthlySaving');
+      if (monthlyBox && monthlyBox.style.display !== 'none' && monthlyEl && monthlyEl.textContent) {
+        var lbl = document.querySelector('[data-t="monthly_lbl"]')?.textContent || monthlyEl.closest('.stat-box')?.querySelector('.stat-lbl')?.textContent || 'Monthly Saving Needed';
+        rows.splice(rows.length-1, 0, {label: lbl, value: monthlyEl.textContent});
+      }
+      if (rows.length && typeof exportResultImage === 'function') exportResultImage(document.querySelector('h1.card-title')?.textContent || 'Wedding Cost', rows);
+  
+    });
+  }
+});
+</script>
 </body></html>
