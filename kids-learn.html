@@ -196,65 +196,65 @@
 
 <script>
 const NUMBERS = [
-  {n:1,  emoji:'🍎', ar:'واحد',   en:'One',    fr:'Un',      es:'Uno',     de:'Eins',   ru:'Один'},
-  {n:2,  emoji:'🐝', ar:'اثنان',  en:'Two',    fr:'Deux',    es:'Dos',     de:'Zwei',   ru:'Два'},
-  {n:3,  emoji:'🌳', ar:'ثلاثة', en:'Three',  fr:'Trois',   es:'Tres',    de:'Drei',   ru:'Три'},
-  {n:4,  emoji:'🦋', ar:'أربعة', en:'Four',   fr:'Quatre',  es:'Cuatro',  de:'Vier',   ru:'Четыре'},
-  {n:5,  emoji:'🚗', ar:'خمسة',  en:'Five',   fr:'Cinq',    es:'Cinco',   de:'Fünf',   ru:'Пять'},
-  {n:6,  emoji:'🌸', ar:'ستة',   en:'Six',    fr:'Six',     es:'Seis',    de:'Sechs',  ru:'Шесть'},
-  {n:7,  emoji:'🎈', ar:'سبعة',  en:'Seven',  fr:'Sept',    es:'Siete',   de:'Sieben', ru:'Семь'},
-  {n:8,  emoji:'🐟', ar:'ثمانية',en:'Eight',  fr:'Huit',    es:'Ocho',    de:'Acht',   ru:'Восемь'},
-  {n:9,  emoji:'🌻', ar:'تسعة',  en:'Nine',   fr:'Neuf',    es:'Nueve',   de:'Neun',   ru:'Девять'},
-  {n:10, emoji:'🍕', ar:'عشرة',  en:'Ten',    fr:'Dix',     es:'Diez',    de:'Zehn',   ru:'Десять'},
+  {n:1,  emoji:'🍎', ar:'وَاحِد',   en:'One',    fr:'Un',      es:'Uno',     de:'Eins',   ru:'Один'},
+  {n:2,  emoji:'🐝', ar:'اِثْنَانِ',  en:'Two',    fr:'Deux',    es:'Dos',     de:'Zwei',   ru:'Два'},
+  {n:3,  emoji:'🌳', ar:'ثَلَاثَة', en:'Three',  fr:'Trois',   es:'Tres',    de:'Drei',   ru:'Три'},
+  {n:4,  emoji:'🦋', ar:'أَرْبَعَة', en:'Four',   fr:'Quatre',  es:'Cuatro',  de:'Vier',   ru:'Четыре'},
+  {n:5,  emoji:'🚗', ar:'خَمْسَة',  en:'Five',   fr:'Cinq',    es:'Cinco',   de:'Fünf',   ru:'Пять'},
+  {n:6,  emoji:'🌸', ar:'سِتَّة',   en:'Six',    fr:'Six',     es:'Seis',    de:'Sechs',  ru:'Шесть'},
+  {n:7,  emoji:'🎈', ar:'سَبْعَة',  en:'Seven',  fr:'Sept',    es:'Siete',   de:'Sieben', ru:'Семь'},
+  {n:8,  emoji:'🐟', ar:'ثَمَانِيَة',en:'Eight',  fr:'Huit',    es:'Ocho',    de:'Acht',   ru:'Восемь'},
+  {n:9,  emoji:'🌻', ar:'تِسْعَة',  en:'Nine',   fr:'Neuf',    es:'Nueve',   de:'Neun',   ru:'Девять'},
+  {n:10, emoji:'🍕', ar:'عَشَرَة',  en:'Ten',    fr:'Dix',     es:'Diez',    de:'Zehn',   ru:'Десять'},
 ];
 
 const COLORS = [
-  {color:'#ef4444',ar:'أحمر',      en:'Red',       fr:'Rouge',      es:'Rojo',      de:'Rot',        ru:'Красный'},
-  {color:'#3b82f6',ar:'أزرق',      en:'Blue',      fr:'Bleu',       es:'Azul',      de:'Blau',       ru:'Синий'},
-  {color:'#22c55e',ar:'أخضر',      en:'Green',     fr:'Vert',       es:'Verde',     de:'Grün',       ru:'Зелёный'},
-  {color:'#eab308',ar:'أصفر',      en:'Yellow',    fr:'Jaune',      es:'Amarillo',  de:'Gelb',       ru:'Жёлтый'},
-  {color:'#f97316',ar:'برتقالي',   en:'Orange',    fr:'Orange',     es:'Naranja',   de:'Orange',     ru:'Оранжевый'},
-  {color:'#a855f7',ar:'بنفسجي',    en:'Purple',    fr:'Violet',     es:'Morado',    de:'Lila',       ru:'Фиолетовый'},
-  {color:'#ec4899',ar:'وردي',      en:'Pink',      fr:'Rose',       es:'Rosa',      de:'Rosa',       ru:'Розовый'},
-  {color:'#1e293b',ar:'أسود',      en:'Black',     fr:'Noir',       es:'Negro',     de:'Schwarz',    ru:'Чёрный'},
-  {color:'#f9fafb',ar:'أبيض',      en:'White',     fr:'Blanc',      es:'Blanco',    de:'Weiß',       ru:'Белый'},
-  {color:'#92400e',ar:'بني',       en:'Brown',     fr:'Marron',     es:'Marrón',    de:'Braun',      ru:'Коричневый'},
-  {color:'#6b7280',ar:'رمادي',     en:'Gray',      fr:'Gris',       es:'Gris',      de:'Grau',       ru:'Серый'},
-  {color:'#0ea5e9',ar:'سماوي',     en:'Sky Blue',  fr:'Bleu ciel',  es:'Azul cielo',de:'Hellblau',   ru:'Голубой'},
-  {color:'#f59e0b',ar:'ذهبي',      en:'Gold',      fr:'Or',         es:'Dorado',    de:'Gold',       ru:'Золотой'},
-  {color:'#84cc16',ar:'أخضر ليموني',en:'Lime',     fr:'Vert citron',es:'Verde lima',de:'Lindgrün',  ru:'Лайм'},
-  {color:'#1e40af',ar:'كحلي',      en:'Navy',      fr:'Marine',     es:'Marino',    de:'Marine',     ru:'Тёмно-синий'},
-  {color:'#7f1d1d',ar:'عنابي',     en:'Maroon',    fr:'Bordeaux',   es:'Granate',   de:'Dunkelrot',  ru:'Бордовый'},
+  {color:'#ef4444',ar:'أَحْمَر',      en:'Red',       fr:'Rouge',      es:'Rojo',      de:'Rot',        ru:'Красный'},
+  {color:'#3b82f6',ar:'أَزْرَق',      en:'Blue',      fr:'Bleu',       es:'Azul',      de:'Blau',       ru:'Синий'},
+  {color:'#22c55e',ar:'أَخْضَر',      en:'Green',     fr:'Vert',       es:'Verde',     de:'Grün',       ru:'Зелёный'},
+  {color:'#eab308',ar:'أَصْفَر',      en:'Yellow',    fr:'Jaune',      es:'Amarillo',  de:'Gelb',       ru:'Жёлтый'},
+  {color:'#f97316',ar:'بُرْتُقَالِيّ',   en:'Orange',    fr:'Orange',     es:'Naranja',   de:'Orange',     ru:'Оранжевый'},
+  {color:'#a855f7',ar:'بَنَفْسَجِيّ',    en:'Purple',    fr:'Violet',     es:'Morado',    de:'Lila',       ru:'Фиолетовый'},
+  {color:'#ec4899',ar:'وَرْدِيّ',      en:'Pink',      fr:'Rose',       es:'Rosa',      de:'Rosa',       ru:'Розовый'},
+  {color:'#1e293b',ar:'أَسْوَد',      en:'Black',     fr:'Noir',       es:'Negro',     de:'Schwarz',    ru:'Чёрный'},
+  {color:'#f9fafb',ar:'أَبْيَض',      en:'White',     fr:'Blanc',      es:'Blanco',    de:'Weiß',       ru:'Белый'},
+  {color:'#92400e',ar:'بُنِّيّ',       en:'Brown',     fr:'Marron',     es:'Marrón',    de:'Braun',      ru:'Коричневый'},
+  {color:'#6b7280',ar:'رَمَادِيّ',     en:'Gray',      fr:'Gris',       es:'Gris',      de:'Grau',       ru:'Серый'},
+  {color:'#0ea5e9',ar:'سَمَاوِيّ',     en:'Sky Blue',  fr:'Bleu ciel',  es:'Azul cielo',de:'Hellblau',   ru:'Голубой'},
+  {color:'#f59e0b',ar:'ذَهَبِيّ',      en:'Gold',      fr:'Or',         es:'Dorado',    de:'Gold',       ru:'Золотой'},
+  {color:'#84cc16',ar:'أَخْضَر لَيْمُونِيّ',en:'Lime',     fr:'Vert citron',es:'Verde lima',de:'Lindgrün',  ru:'Лайм'},
+  {color:'#1e40af',ar:'كُحْلِيّ',      en:'Navy',      fr:'Marine',     es:'Marino',    de:'Marine',     ru:'Тёмно-синий'},
+  {color:'#7f1d1d',ar:'عُنَّابِيّ',     en:'Maroon',    fr:'Bordeaux',   es:'Granate',   de:'Dunkelrot',  ru:'Бордовый'},
 ];
 
 const ANIMALS = [
-  {emoji:'🐱',ar:'قطة',       en:'Cat',        fr:'Chat',       es:'Gato',      de:'Katze',    ru:'Кошка'},
-  {emoji:'🐶',ar:'كلب',       en:'Dog',        fr:'Chien',      es:'Perro',     de:'Hund',     ru:'Собака'},
-  {emoji:'🐮',ar:'بقرة',      en:'Cow',        fr:'Vache',      es:'Vaca',      de:'Kuh',      ru:'Корова'},
-  {emoji:'🐔',ar:'دجاجة',     en:'Chicken',    fr:'Poulet',     es:'Pollo',     de:'Huhn',     ru:'Курица'},
-  {emoji:'🐸',ar:'ضفدعة',     en:'Frog',       fr:'Grenouille', es:'Rana',      de:'Frosch',   ru:'Лягушка'},
-  {emoji:'🦁',ar:'أسد',       en:'Lion',       fr:'Lion',       es:'León',      de:'Löwe',     ru:'Лев'},
-  {emoji:'🐘',ar:'فيل',       en:'Elephant',   fr:'Éléphant',   es:'Elefante',  de:'Elefant',  ru:'Слон'},
-  {emoji:'🦒',ar:'زرافة',     en:'Giraffe',    fr:'Girafe',     es:'Jirafa',    de:'Giraffe',  ru:'Жираф'},
-  {emoji:'🐧',ar:'بطريق',     en:'Penguin',    fr:'Pingouin',   es:'Pingüino',  de:'Pinguin',  ru:'Пингвин'},
-  {emoji:'🐰',ar:'أرنب',      en:'Rabbit',     fr:'Lapin',      es:'Conejo',    de:'Hase',     ru:'Кролик'},
-  {emoji:'🦊',ar:'ثعلب',      en:'Fox',        fr:'Renard',     es:'Zorro',     de:'Fuchs',    ru:'Лиса'},
-  {emoji:'🐻',ar:'دب',        en:'Bear',       fr:'Ours',       es:'Oso',       de:'Bär',      ru:'Медведь'},
-  {emoji:'🐬',ar:'دلفين',     en:'Dolphin',    fr:'Dauphin',    es:'Delfín',    de:'Delfin',   ru:'Дельфин'},
-  {emoji:'🦅',ar:'نسر',       en:'Eagle',      fr:'Aigle',      es:'Águila',    de:'Adler',    ru:'Орёл'},
-  {emoji:'🐢',ar:'سلحفاة',    en:'Turtle',     fr:'Tortue',     es:'Tortuga',   de:'Schildkröte',ru:'Черепаха'},
-  {emoji:'🦉',ar:'بومة',      en:'Owl',        fr:'Hibou',      es:'Búho',      de:'Eule',     ru:'Сова'},
-  {emoji:'🦓',ar:'حمار وحشي', en:'Zebra',      fr:'Zèbre',      es:'Cebra',     de:'Zebra',    ru:'Зебра'},
-  {emoji:'🐊',ar:'تمساح',     en:'Crocodile',  fr:'Crocodile',  es:'Cocodrilo', de:'Krokodil', ru:'Крокодил'},
-  {emoji:'🦘',ar:'كنغر',      en:'Kangaroo',   fr:'Kangourou',  es:'Canguro',   de:'Känguru',  ru:'Кенгуру'},
-  {emoji:'🦈',ar:'قرش',       en:'Shark',      fr:'Requin',     es:'Tiburón',   de:'Hai',      ru:'Акула'},
-  {emoji:'🦌',ar:'غزال',      en:'Deer',       fr:'Cerf',       es:'Ciervo',    de:'Hirsch',   ru:'Олень'},
-  {emoji:'🐝',ar:'نحلة',      en:'Bee',        fr:'Abeille',    es:'Abeja',     de:'Biene',    ru:'Пчела'},
-  {emoji:'🦋',ar:'فراشة',     en:'Butterfly',  fr:'Papillon',   es:'Mariposa',  de:'Schmetterling',ru:'Бабочка'},
-  {emoji:'🐙',ar:'أخطبوط',    en:'Octopus',    fr:'Pieuvre',    es:'Pulpo',     de:'Oktopus',  ru:'Осьминог'},
-  {emoji:'🦚',ar:'طاووس',     en:'Peacock',    fr:'Paon',       es:'Pavo real', de:'Pfau',     ru:'Павлин'},
-  {emoji:'🐺',ar:'ذئب',       en:'Wolf',       fr:'Loup',       es:'Lobo',      de:'Wolf',     ru:'Волк'},
-  {emoji:'🦏',ar:'وحيد القرن',en:'Rhino',      fr:'Rhinocéros', es:'Rinoceronte',de:'Nashorn', ru:'Носорог'},
+  {emoji:'🐱',ar:'قِطَّة',       en:'Cat',        fr:'Chat',       es:'Gato',      de:'Katze',    ru:'Кошка'},
+  {emoji:'🐶',ar:'كَلْب',       en:'Dog',        fr:'Chien',      es:'Perro',     de:'Hund',     ru:'Собака'},
+  {emoji:'🐮',ar:'بَقَرَة',      en:'Cow',        fr:'Vache',      es:'Vaca',      de:'Kuh',      ru:'Корова'},
+  {emoji:'🐔',ar:'دَجَاجَة',     en:'Chicken',    fr:'Poulet',     es:'Pollo',     de:'Huhn',     ru:'Курица'},
+  {emoji:'🐸',ar:'ضِفْدَعَة',     en:'Frog',       fr:'Grenouille', es:'Rana',      de:'Frosch',   ru:'Лягушка'},
+  {emoji:'🦁',ar:'أَسَد',       en:'Lion',       fr:'Lion',       es:'León',      de:'Löwe',     ru:'Лев'},
+  {emoji:'🐘',ar:'فِيل',       en:'Elephant',   fr:'Éléphant',   es:'Elefante',  de:'Elefant',  ru:'Слон'},
+  {emoji:'🦒',ar:'زَرَافَة',     en:'Giraffe',    fr:'Girafe',     es:'Jirafa',    de:'Giraffe',  ru:'Жираф'},
+  {emoji:'🐧',ar:'بَطْرِيق',     en:'Penguin',    fr:'Pingouin',   es:'Pingüino',  de:'Pinguin',  ru:'Пингвин'},
+  {emoji:'🐰',ar:'أَرْنَب',      en:'Rabbit',     fr:'Lapin',      es:'Conejo',    de:'Hase',     ru:'Кролик'},
+  {emoji:'🦊',ar:'ثَعْلَب',      en:'Fox',        fr:'Renard',     es:'Zorro',     de:'Fuchs',    ru:'Лиса'},
+  {emoji:'🐻',ar:'دُبّ',        en:'Bear',       fr:'Ours',       es:'Oso',       de:'Bär',      ru:'Медведь'},
+  {emoji:'🐬',ar:'دُلْفِين',     en:'Dolphin',    fr:'Dauphin',    es:'Delfín',    de:'Delfin',   ru:'Дельфин'},
+  {emoji:'🦅',ar:'نَسْر',       en:'Eagle',      fr:'Aigle',      es:'Águila',    de:'Adler',    ru:'Орёл'},
+  {emoji:'🐢',ar:'سُلَحْفَاة',    en:'Turtle',     fr:'Tortue',     es:'Tortuga',   de:'Schildkröte',ru:'Черепаха'},
+  {emoji:'🦉',ar:'بُومَة',      en:'Owl',        fr:'Hibou',      es:'Búho',      de:'Eule',     ru:'Сова'},
+  {emoji:'🦓',ar:'حِمَار وَحْشِيّ', en:'Zebra',      fr:'Zèbre',      es:'Cebra',     de:'Zebra',    ru:'Зебра'},
+  {emoji:'🐊',ar:'تِمْسَاح',     en:'Crocodile',  fr:'Crocodile',  es:'Cocodrilo', de:'Krokodil', ru:'Крокодил'},
+  {emoji:'🦘',ar:'كَنْغَر',      en:'Kangaroo',   fr:'Kangourou',  es:'Canguro',   de:'Känguru',  ru:'Кенгуру'},
+  {emoji:'🦈',ar:'قِرْش',       en:'Shark',      fr:'Requin',     es:'Tiburón',   de:'Hai',      ru:'Акула'},
+  {emoji:'🦌',ar:'غَزَال',      en:'Deer',       fr:'Cerf',       es:'Ciervo',    de:'Hirsch',   ru:'Олень'},
+  {emoji:'🐝',ar:'نَحْلَة',      en:'Bee',        fr:'Abeille',    es:'Abeja',     de:'Biene',    ru:'Пчела'},
+  {emoji:'🦋',ar:'فَرَاشَة',     en:'Butterfly',  fr:'Papillon',   es:'Mariposa',  de:'Schmetterling',ru:'Бабочка'},
+  {emoji:'🐙',ar:'أُخْطُبُوط',    en:'Octopus',    fr:'Pieuvre',    es:'Pulpo',     de:'Oktopus',  ru:'Осьминог'},
+  {emoji:'🦚',ar:'طَاوُوس',     en:'Peacock',    fr:'Paon',       es:'Pavo real', de:'Pfau',     ru:'Павлин'},
+  {emoji:'🐺',ar:'ذِئْب',       en:'Wolf',       fr:'Loup',       es:'Lobo',      de:'Wolf',     ru:'Волк'},
+  {emoji:'🦏',ar:'وَحِيد الْقَرْن',en:'Rhino',      fr:'Rhinocéros', es:'Rinoceronte',de:'Nashorn', ru:'Носорог'},
 ];
 
 const KT = {
@@ -342,12 +342,24 @@ let currentLang=_PAGE_LANG, currentMode='numbers', currentIdx=0;
 
 function getName(item){return item[currentLang]||item.ar||item.en||'';}
 
+function pickVoice(langCode){
+  try {
+    const voices = speechSynthesis.getVoices();
+    if (!voices || !voices.length) return null;
+    const base = langCode.split('-')[0];
+    return voices.find(v=>v.lang===langCode) || voices.find(v=>v.lang && v.lang.startsWith(base)) || null;
+  } catch(e) { return null; }
+}
+
 function speak(text){
   if(!window.speechSynthesis) return;
   speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);
-  u.lang=LANG_CODES[currentLang]||'ar-SA';
-  u.rate=0.85;
+  const langCode=LANG_CODES[currentLang]||'ar-SA';
+  u.lang=langCode;
+  const voice=pickVoice(langCode);
+  if (voice) u.voice=voice;
+  u.rate=0.8;
   speechSynthesis.speak(u);
 }
 
