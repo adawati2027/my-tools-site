@@ -87,9 +87,9 @@
     <label data-i18n="tz_convert">Convert a specific time</label>
     <input type="datetime-local" id="inputTime">
     <label data-i18n="tz_from">From zone</label>
-    <select id="tzFrom" onchange="convertTime()"></select>
+    <select id="tzFrom" ></select>
     <label data-i18n="tz_to">To zone</label>
-    <select id="tzTo" onchange="convertTime()"></select>
+    <select id="tzTo" ></select>
     <div id="tzResult" class="result-box success" style="margin-top:16px;">
       <div class="result-value" id="tzResultVal" style="font-size:28px;"></div>
       <div class="result-label" id="tzResultLabel"></div>
@@ -263,6 +263,9 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
 });
+
+document.getElementById('tzFrom').addEventListener('change', convertTime);
+document.getElementById('tzTo').addEventListener('change', convertTime);
 </script>
 <script src="i18n.js?v=44" defer></script>
 </body></html>

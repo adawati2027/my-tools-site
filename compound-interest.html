@@ -97,22 +97,22 @@
     <div class="row">
       <div>
         <label for="principal" data-i18n="ci_principal">Principal (starting amount)</label>
-        <input type="number" id="principal" placeholder="e.g. 10000" min="0" step="any" oninput="calculate()">
+        <input type="number" id="principal" placeholder="e.g. 10000" min="0" step="any" >
       </div>
       <div>
         <label for="rate" data-i18n="ci_rate">Annual interest rate %</label>
-        <input type="number" id="rate" placeholder="e.g. 5" min="0" step="any" oninput="calculate()">
+        <input type="number" id="rate" placeholder="e.g. 5" min="0" step="any" >
       </div>
     </div>
 
     <div class="row">
       <div>
         <label for="years" data-i18n="ci_years">Duration (years)</label>
-        <input type="number" id="years" placeholder="e.g. 10" min="1" max="50" step="1" oninput="calculate()">
+        <input type="number" id="years" placeholder="e.g. 10" min="1" max="50" step="1" >
       </div>
       <div>
         <label for="freq" data-i18n="ci_freq">Compounding frequency</label>
-        <select id="freq" onchange="calculate()">
+        <select id="freq" >
           <option value="1" data-i18n="ci_annually">Annually</option>
           <option value="4" data-i18n="ci_quarterly">Quarterly</option>
           <option value="12" selected data-i18n="ci_monthly_f">Monthly</option>
@@ -123,7 +123,7 @@
 
     <div>
       <label for="monthly" data-i18n="ci_monthly">Optional monthly contribution</label>
-      <input type="number" id="monthly" placeholder="0 (optional)" min="0" step="any" value="0" oninput="calculate()">
+      <input type="number" id="monthly" placeholder="0 (optional)" min="0" step="any" value="0" >
     </div>
 
     <div id="ciResult" style="display:none;margin-top:20px;">
@@ -392,6 +392,12 @@ document.addEventListener('DOMContentLoaded', function(){
   });
   document.getElementById('compExportBtn')?.addEventListener('click', exportCompoundResult);
 });
+
+document.getElementById('principal').addEventListener('input', calculate);
+document.getElementById('rate').addEventListener('input', calculate);
+document.getElementById('years').addEventListener('input', calculate);
+document.getElementById('freq').addEventListener('change', calculate);
+document.getElementById('monthly').addEventListener('input', calculate);
 </script>
 <script src="i18n.js?v=44" defer></script>
 </body></html>

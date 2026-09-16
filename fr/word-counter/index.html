@@ -83,7 +83,7 @@
     <div class="card-subtitle" data-i18n="word_sub">Instant counter for your articles and texts</div>
     <div class="divider"></div>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Paste your text and word, character and sentence statistics appear instantly. Useful for writers, students and bloggers who need to track word limits for articles, messages or research papers.</p>
-    <textarea id="textInput" rows="8" style="width:100%;padding:12px;border:1.5px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:15px;resize:vertical;background:var(--bg);color:var(--text);" data-i18n-ph="word_placeholder" placeholder="Type or paste your text here..." oninput="updateStats()"></textarea>
+    <textarea id="textInput" rows="8" style="width:100%;padding:12px;border:1.5px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:15px;resize:vertical;background:var(--bg);color:var(--text);" data-i18n-ph="word_placeholder" placeholder="Type or paste your text here..." ></textarea>
     <div class="stat-grid" style="margin-top:16px;">
       <div class="stat-box"><div class="stat-val" id="wordCount">0</div><div class="stat-lbl" data-i18n="word_words">Words</div></div>
       <div class="stat-box"><div class="stat-val" id="charCount">0</div><div class="stat-lbl" data-i18n="word_chars">Characters</div></div>
@@ -195,6 +195,8 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
 });
+
+document.getElementById('textInput').addEventListener('input', updateStats);
 </script>
 <script src="i18n.js?v=44" defer></script>
 </body></html>

@@ -104,7 +104,7 @@
     <!-- Gregorian to Hijri -->
     <div id="gregSection">
       <label for="gregDate" data-i18n="hij_greg_date_lbl">Select Gregorian Date</label>
-      <input type="date" id="gregDate" onchange="convertGtoH()">
+      <input type="date" id="gregDate" >
       <div id="ghResult" style="display:none;" class="hijri-result-box" style="background:var(--surface-2);">
         <div class="hijri-date-display" id="ghDateDisplay"></div>
         <div class="hijri-date-sub" id="ghDateSub"></div>
@@ -116,11 +116,11 @@
       <div class="row">
         <div>
           <label for="hijriDay" data-i18n="hij_day_lbl">Day</label>
-          <input type="number" id="hijriDay" min="1" max="30" placeholder="1-30" oninput="convertHtoG()">
+          <input type="number" id="hijriDay" min="1" max="30" placeholder="1-30" >
         </div>
         <div>
           <label for="hijriYear" data-i18n="hij_year_lbl">Hijri Year</label>
-          <input type="number" id="hijriYear" min="1300" max="1600" placeholder="1446" oninput="convertHtoG()">
+          <input type="number" id="hijriYear" min="1300" max="1600" placeholder="1446" >
         </div>
       </div>
       <label data-i18n="hij_month_lbl">Hijri Month</label>
@@ -424,6 +424,10 @@ document.addEventListener('DOMContentLoaded', function(){
   });
   document.querySelectorAll('.option-btn[data-mode]').forEach(function(btn){ btn.addEventListener('click', function(){ setConvMode(btn.dataset.mode); }); });
 });
+
+document.getElementById('gregDate').addEventListener('change', convertGtoH);
+document.getElementById('hijriDay').addEventListener('input', convertHtoG);
+document.getElementById('hijriYear').addEventListener('input', convertHtoG);
 </script>
 <script src="i18n.js?v=44" defer></script>
 </body></html>

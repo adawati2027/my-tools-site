@@ -99,7 +99,7 @@
     <div class="divider"></div>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Calculate your exact age in years, months, days and hours — including your Hijri calendar age and days until your next birthday. Enter your date of birth for instant results.</p>
     <label for="birthdate" id="lbl-birth">Date of Birth</label>
-    <input type="date" id="birthdate" onchange="calcAge()">
+    <input type="date" id="birthdate" >
     <button class="btn btn-primary" id="age-btn">Calculate My Age</button>
 
     <div id="ageError" class="result-box show danger" style="display:none;margin-top:20px;"></div>
@@ -565,6 +565,8 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
   btn.addEventListener('click', function(){ toggleFaq(this); });
 });
 });
+
+document.getElementById('birthdate').addEventListener('change', calcAge);
 </script>
 <script src="i18n.js?v=44" defer></script>
 </body></html>
