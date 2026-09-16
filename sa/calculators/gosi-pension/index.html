@@ -92,6 +92,7 @@
         <div class="result-label" id="gFinalLbl" data-t="resultLbl">معاشك الشهري التقديري</div>
       </div>
       <div id="gDetail" style="margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2;"></div>
+      <button id="gExportBtn" data-t="exportBtn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
     </div>
 
     <div class="result-box show" id="notEligBox" style="display:none;margin-top:20px;background:#fef2f2;">
@@ -147,6 +148,7 @@
 let stillWorking = true;
 let curLang = 'ar';
 const CUR = { ar: 'ر.س', en: 'SAR' };
+let lastResult = null;
 
 function setWorking(val) {
   stillWorking = val;
@@ -167,6 +169,7 @@ function calc() {
   if (!age || years === undefined || isNaN(years) || !wage) {
     resultBox.style.display = 'none';
     notEligBox.style.display = 'none';
+    lastResult = null;
     return;
   }
 
@@ -183,7 +186,7 @@ function calc() {
     base: 'المعاش الأساسي (قبل أي خصم)',
     reduction: 'خصم التقاعد المبكر',
     floor: 'تم رفعه للحد الأدنى للمعاش',
-    months: 'أشهر الاشتراك',
+    months: 'سنوات الاشتراك',
   } : {
     lumpSum: 'With less than 180 months (15 years) of contribution, you are not entitled to a monthly pension — you would receive a one-time lump-sum payout instead. Check GOSI for the exact amount.',
     notYet: (needed) => 'You have not yet met the eligibility conditions. ' + needed,
@@ -192,13 +195,14 @@ function calc() {
     base: 'Base pension (before any reduction)',
     reduction: 'Early retirement reduction',
     floor: 'Raised to the minimum pension floor',
-    months: 'months contributed',
+    months: 'Years contributed',
   };
 
   if (contribMonths < 180) {
     resultBox.style.display = 'none';
     notEligBox.style.display = 'block';
     document.getElementById('notEligMsg').textContent = L.lumpSum;
+    lastResult = null;
     return;
   }
 
@@ -223,6 +227,7 @@ function calc() {
         : 'You need 360 months (30 years) of contribution and to stop working to retire early from age 55, or wait until age 65 (you currently have ' + years + ' years, which already meets the 15-year minimum for age 65).';
     }
     document.getElementById('notEligMsg').textContent = L.notYet(needed);
+    lastResult = null;
     return;
   }
 
@@ -256,10 +261,30 @@ function calc() {
     L.base + ': <strong>' + rawBase.toFixed(2) + ' ' + cur + '</strong>' +
     (note ? '<br>' + note : '');
   resultBox.style.display = 'block';
+
+  lastResult = {
+    age: age, years: years, wage: wage, cur: cur,
+    modeLabel: mode === 'normal' ? L.normal : L.early,
+    rawBase: rawBase, final: final, note: note
+  };
 }
 
-const LANG_AR = {"navHome":"أدوات السعودية","navGlobal":"عالمي","backLink":"→ العودة لأدوات السعودية","title":"كم بيكون راتبك التقاعدي من GOSI؟ 🇸🇦","subtitle":"حاسبة تقديرية لمعاش التأمينات الاجتماعية بعد نظام 2024","lblAge":"عمرك الحالي","lblYears":"سنوات الاشتراك بالتأمينات (GOSI)","lblWage":"متوسط راتبك الشهري الخاضع للاشتراك (ر.س)","wageNote":"الحد الأقصى للراتب الخاضع للاشتراك هو 45,000 ر.س شهرياً — أي مبلغ أعلى ما بيدخل بحساب المعاش.","lblWorkingHeader":"هل لسا تشتغل بوظيفة خاضعة للتأمينات؟","btnYes":"لسا أشتغل","btnNo":"توقفت عن العمل","resultLbl":"معاشك الشهري التقديري","disclaimer":"⚠️ أداة تقديرية غير رسمية، مبنية على النص العام لنظام التأمينات الاجتماعية (المرسوم الملكي م/273، ساري من 3 يوليو 2024). لا تغطي: الجدول الانتقالي لمن كان مشترك قبل هذا التاريخ (سن تقاعد أقل حسب العمر وقتها، أو خضوع كامل للنظام القديم لمن أكمل 20 سنة اشتراك قبل 2024)، معاش العجز أو الوفاة، أو تفاصيل التداخل بين الحد الأدنى للمعاش والتقاعد المبكر. راجع <a href=\"https://gosi.gov.sa\" target=\"_blank\" rel=\"noopener\">gosi.gov.sa</a> لحالتك الدقيقة.","faqHeader":"❓ أسئلة شائعة","faq1q":"كيف يتم احتساب معاش التقاعد؟","faq1a":"المعاش = متوسط الراتب الخاضع للاشتراك (أعلى 180 شهر) × 2.25% × عدد أشهر الاشتراك ÷ 12، بحد أقصى 100% من متوسط الراتب.","faq2q":"إيش سن التقاعد النظامي الآن؟","faq2a":"65 سنة مع اشتراك لا يقل عن 180 شهر. من كان مشترك قبل 3 يوليو 2024 ممكن يخضع لجدول انتقالي بسن أقل — راجع gosi.gov.sa.","faq3q":"ممكن أتقاعد مبكر؟","faq3a":"إذا توقفت عن العمل وعندك 360 شهر اشتراك (30 سنة)، تقدر تتقاعد من سن 55، بس بتخصم 3% عن كل سنة تقاعد فيها مبكر عن الـ65.","faq4q":"فيه حد أدنى للمعاش؟","faq4a":"نعم، 2,000 ريال لمن اشترك 180 شهر، ويرتفع تدريجياً حتى 4,000 ريال لمن اشترك 480 شهر (40 سنة) فأكثر.","faq5q":"هل هذي بديل عن كشف حساب GOSI الرسمي؟","faq5a":"لا، هذي أداة تقديرية بس. راجع gosi.gov.sa أو تطبيق تأميناتي للرقم الرسمي والدقيق.","otherToolsHeader":"أدوات السعودية الأخرى:","linkCar":"🚗 تكلفة السيارة الشهرية","linkVat":"🧾 حاسبة ضريبة القيمة المضافة","linkGold":"🪙 سعر الذهب اليوم","linkAll":"🇸🇦 كل أدوات السعودية"};
-const LANG_EN = {"navHome":"Saudi Arabia Tools","navGlobal":"Global","backLink":"← Back to Saudi Arabia Tools","title":"What Will Your GOSI Retirement Pension Be? 🇸🇦","subtitle":"Estimate your Social Insurance (GOSI) pension under the 2024 law","lblAge":"Your current age","lblYears":"Years contributed to GOSI","lblWage":"Average monthly contributory salary (SAR)","wageNote":"The maximum contributory salary is SAR 45,000/month — anything above that is not counted toward the pension.","lblWorkingHeader":"Are you still working in GOSI-covered employment?","btnYes":"Still working","btnNo":"Stopped working","resultLbl":"Your estimated monthly pension","disclaimer":"⚠️ An unofficial estimate based on the general text of the Social Insurance Law (Royal Decree M/273, effective 3 July 2024). Does NOT cover: the transitional schedule for anyone who was already contributing before that date (a lower retirement age on a sliding scale depending on their age then, or full coverage under the prior law for anyone with 20+ years of pre-2024 contributions), disability or survivor pensions, or the exact interaction between the minimum-pension floor and early-retirement reduction. Check <a href=\"https://gosi.gov.sa\" target=\"_blank\" rel=\"noopener\">gosi.gov.sa</a> for your exact case.","faqHeader":"❓ FAQ","faq1q":"How is the retirement pension calculated?","faq1a":"Pension = average contributory salary (highest 180 months) × 2.25% × months contributed ÷ 12, capped at 100% of the average salary.","faq2q":"What's the normal retirement age now?","faq2a":"65, with at least 180 months (15 years) of contribution. Anyone who was contributing before 3 July 2024 may follow a transitional schedule with a lower age — check gosi.gov.sa.","faq3q":"Can I retire early?","faq3a":"If you stop working and have 360 months (30 years) of contribution, you can retire from age 55, but the pension is reduced 3% for every year you retire before 65.","faq4q":"Is there a minimum pension?","faq4a":"Yes, SAR 2,000 for 180 months of contribution, rising gradually to SAR 4,000 for 480 months (40 years) or more.","faq5q":"Is this a substitute for my official GOSI statement?","faq5a":"No, this is only an estimate. Check gosi.gov.sa or the Ta'meenati app for your exact official figure.","otherToolsHeader":"Other Saudi Arabia Tools:","linkCar":"🚗 Monthly Car Cost","linkVat":"🧾 VAT Calculator","linkGold":"🪙 Gold Price Today","linkAll":"🇸🇦 All Saudi Arabia Tools"};
+function exportGosiResult() {
+  if (!lastResult) return;
+  const t = curLang === 'ar' ? LANG_AR : LANG_EN;
+  const r = lastResult;
+  const rows = [
+    { label: t.lblAge, value: r.age + (curLang === 'ar' ? ' سنة' : ' yrs') },
+    { label: t.lblYears, value: r.years + (curLang === 'ar' ? ' سنة' : ' yrs') },
+    { label: t.lblWage, value: r.wage.toFixed(0) + ' ' + r.cur }
+  ];
+  if (r.note) rows.push({ label: curLang === 'ar' ? 'ملاحظة' : 'Note', value: r.note });
+  rows.push({ label: r.modeLabel, value: r.final.toFixed(2) + ' ' + r.cur, highlight: true });
+  if (typeof exportResultImage === 'function') exportResultImage(t.title.replace(/[🇸🇦]/g, '').trim(), rows);
+}
+
+const LANG_AR = {"navHome":"أدوات السعودية","navGlobal":"عالمي","backLink":"→ العودة لأدوات السعودية","title":"كم بيكون راتبك التقاعدي من GOSI؟ 🇸🇦","subtitle":"حاسبة تقديرية لمعاش التأمينات الاجتماعية بعد نظام 2024","lblAge":"عمرك الحالي","lblYears":"سنوات الاشتراك بالتأمينات (GOSI)","lblWage":"متوسط راتبك الشهري الخاضع للاشتراك (ر.س)","wageNote":"الحد الأقصى للراتب الخاضع للاشتراك هو 45,000 ر.س شهرياً — أي مبلغ أعلى ما بيدخل بحساب المعاش.","lblWorkingHeader":"هل لسا تشتغل بوظيفة خاضعة للتأمينات؟","btnYes":"لسا أشتغل","btnNo":"توقفت عن العمل","resultLbl":"معاشك الشهري التقديري","disclaimer":"⚠️ أداة تقديرية غير رسمية، مبنية على النص العام لنظام التأمينات الاجتماعية (المرسوم الملكي م/273، ساري من 3 يوليو 2024). لا تغطي: الجدول الانتقالي لمن كان مشترك قبل هذا التاريخ (سن تقاعد أقل حسب العمر وقتها، أو خضوع كامل للنظام القديم لمن أكمل 20 سنة اشتراك قبل 2024)، معاش العجز أو الوفاة، أو تفاصيل التداخل بين الحد الأدنى للمعاش والتقاعد المبكر. راجع <a href=\"https://gosi.gov.sa\" target=\"_blank\" rel=\"noopener\">gosi.gov.sa</a> لحالتك الدقيقة.","faqHeader":"❓ أسئلة شائعة","faq1q":"كيف يتم احتساب معاش التقاعد؟","faq1a":"المعاش = متوسط الراتب الخاضع للاشتراك (أعلى 180 شهر) × 2.25% × عدد أشهر الاشتراك ÷ 12، بحد أقصى 100% من متوسط الراتب.","faq2q":"إيش سن التقاعد النظامي الآن؟","faq2a":"65 سنة مع اشتراك لا يقل عن 180 شهر. من كان مشترك قبل 3 يوليو 2024 ممكن يخضع لجدول انتقالي بسن أقل — راجع gosi.gov.sa.","faq3q":"ممكن أتقاعد مبكر؟","faq3a":"إذا توقفت عن العمل وعندك 360 شهر اشتراك (30 سنة)، تقدر تتقاعد من سن 55، بس بتخصم 3% عن كل سنة تقاعد فيها مبكر عن الـ65.","faq4q":"فيه حد أدنى للمعاش؟","faq4a":"نعم، 2,000 ريال لمن اشترك 180 شهر، ويرتفع تدريجياً حتى 4,000 ريال لمن اشترك 480 شهر (40 سنة) فأكثر.","faq5q":"هل هذي بديل عن كشف حساب GOSI الرسمي؟","faq5a":"لا، هذي أداة تقديرية بس. راجع gosi.gov.sa أو تطبيق تأميناتي للرقم الرسمي والدقيق.","exportBtn":"📸 صدّر النتيجة كصورة","otherToolsHeader":"أدوات السعودية الأخرى:","linkCar":"🚗 تكلفة السيارة الشهرية","linkVat":"🧾 حاسبة ضريبة القيمة المضافة","linkGold":"🪙 سعر الذهب اليوم","linkAll":"🇸🇦 كل أدوات السعودية"};
+const LANG_EN = {"navHome":"Saudi Arabia Tools","navGlobal":"Global","backLink":"← Back to Saudi Arabia Tools","title":"What Will Your GOSI Retirement Pension Be? 🇸🇦","subtitle":"Estimate your Social Insurance (GOSI) pension under the 2024 law","lblAge":"Your current age","lblYears":"Years contributed to GOSI","lblWage":"Average monthly contributory salary (SAR)","wageNote":"The maximum contributory salary is SAR 45,000/month — anything above that is not counted toward the pension.","lblWorkingHeader":"Are you still working in GOSI-covered employment?","btnYes":"Still working","btnNo":"Stopped working","resultLbl":"Your estimated monthly pension","disclaimer":"⚠️ An unofficial estimate based on the general text of the Social Insurance Law (Royal Decree M/273, effective 3 July 2024). Does NOT cover: the transitional schedule for anyone who was already contributing before that date (a lower retirement age on a sliding scale depending on their age then, or full coverage under the prior law for anyone with 20+ years of pre-2024 contributions), disability or survivor pensions, or the exact interaction between the minimum-pension floor and early-retirement reduction. Check <a href=\"https://gosi.gov.sa\" target=\"_blank\" rel=\"noopener\">gosi.gov.sa</a> for your exact case.","faqHeader":"❓ FAQ","faq1q":"How is the retirement pension calculated?","faq1a":"Pension = average contributory salary (highest 180 months) × 2.25% × months contributed ÷ 12, capped at 100% of the average salary.","faq2q":"What's the normal retirement age now?","faq2a":"65, with at least 180 months (15 years) of contribution. Anyone who was contributing before 3 July 2024 may follow a transitional schedule with a lower age — check gosi.gov.sa.","faq3q":"Can I retire early?","faq3a":"If you stop working and have 360 months (30 years) of contribution, you can retire from age 55, but the pension is reduced 3% for every year you retire before 65.","faq4q":"Is there a minimum pension?","faq4a":"Yes, SAR 2,000 for 180 months of contribution, rising gradually to SAR 4,000 for 480 months (40 years) or more.","faq5q":"Is this a substitute for my official GOSI statement?","faq5a":"No, this is only an estimate. Check gosi.gov.sa or the Ta'meenati app for your exact official figure.","exportBtn":"📸 Export Result as Image","otherToolsHeader":"Other Saudi Arabia Tools:","linkCar":"🚗 Monthly Car Cost","linkVat":"🧾 VAT Calculator","linkGold":"🪙 Gold Price Today","linkAll":"🇸🇦 All Saudi Arabia Tools"};
 
 function toggleLang() {
   curLang = curLang === 'ar' ? 'en' : 'ar';
@@ -284,6 +309,7 @@ document.addEventListener('DOMContentLoaded', function(){
   ['gAge','gYears','gWage'].forEach(function(id){
     document.getElementById(id).addEventListener('input', calc);
   });
+  document.getElementById('gExportBtn')?.addEventListener('click', exportGosiResult);
 });
 </script>
 <script src="i18n.js?v=42" defer></script>
