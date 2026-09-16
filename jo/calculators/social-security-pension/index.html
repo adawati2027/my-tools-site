@@ -62,7 +62,7 @@
   <div class="card">
     <div class="card-icon" style="background:#f0fdf4;">👴</div>
     <h1 class="card-title">حاسبة راتب تقاعد الضمان الاجتماعي 🇯🇴</h1>
-    <div class="card-subtitle">شيخوخة أو تقاعد مبكر — نسبة 2.5%/2% + زيادة الإعالة (2026)</div>
+    <div class="card-subtitle">قارن راتبك المتوقع: تقاعد مبكر أو تقاعد طبيعي — بناءً على وضعك الحالي (2026)</div>
     <div class="divider"></div>
     <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:#92400e;line-height:1.7;margin-bottom:14px;">
       ⚠️ للحالة المدنية العادية فقط (مو المهن الخطرة ولا المسارات الانتقالية الأقدم من 2014). أداة تقديرية — التفاصيل بالأسفل.
@@ -77,17 +77,17 @@
         </div>
       </div>
       <div>
-        <label>عمرك عند التقاعد (سنة)</label>
-        <input type="number" id="pAge" placeholder="مثال: 55" min="18" max="80" step="1">
+        <label>عمرك الحالي (سنة)</label>
+        <input type="number" id="pAge" placeholder="مثال: 35" min="18" max="65" step="1">
       </div>
     </div>
     <div class="row">
       <div>
-        <label>عدد سنوات الاشتراك الفعلي بالضمان</label>
-        <input type="number" id="pYears" placeholder="مثال: 22" min="0" max="55" step="0.1">
+        <label>سنوات اشتراكك بالضمان لغاية الآن</label>
+        <input type="number" id="pYears" placeholder="مثال: 10" min="0" max="45" step="0.1">
       </div>
       <div>
-        <label>متوسط أجرك الشهري الخاضع للاشتراك (دينار)</label>
+        <label>راتبك المتوقع بالسنين الأخيرة قبل التقاعد (دينار)</label>
         <input type="number" id="pWage" placeholder="مثال: 700" min="0" step="any">
       </div>
     </div>
@@ -97,21 +97,40 @@
         <input type="number" id="pDep" placeholder="0" min="0" max="3" step="1" value="0">
       </div>
     </div>
-    <p style="font-size:12px;color:var(--text-muted);margin-top:-4px;">💡 متوسط الأجر يُحتسب رسمياً على آخر 36 اشتراكاً (3 سنوات) لتقاعد الشيخوخة أو آخر 60 اشتراكاً (5 سنوات) للتقاعد المبكر — أدخل متوسط تقريبي لهذه الفترة.</p>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:-4px;">💡 متوسط الأجر الرسمي يُحتسب على آخر 36 اشتراكاً (3 سنوات) لتقاعد الشيخوخة أو آخر 60 اشتراكاً (5 سنوات) للتقاعد المبكر — عشان هيك بنطلب راتبك المتوقع بتلك الفترة (قريب من التقاعد)، مش راتبك الحالي، ومش متوسط كل مسيرتك.</p>
 
     <div id="pResult" style="display:none;margin-top:20px;">
       <div id="pNotEligible" style="display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-sm);padding:14px;font-size:14px;color:#991b1b;line-height:1.8;"></div>
-      <div id="pEligibleBox" style="display:none;">
-        <div id="pTypeNote" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
-        <div class="result-box show success" style="margin-top:0;">
-          <div class="result-value" id="pFinal"></div>
-          <div class="result-label">راتب التقاعد الشهري التقديري (دينار)</div>
+      <div id="pCompareBox" style="display:none;">
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">📊 المقارنة أدناه مبنية على افتراض إنك بتكمل تشتغل وتشترك بالضمان بشكل متواصل من عمرك الحالي لغاية كل سيناريو، بنفس متوسط الراتب اللي أدخلته.</p>
+        <div style="display:grid;gap:14px;grid-template-columns:1fr;">
+          <div id="earlyCard" style="display:none;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;background:#fffbeb;">
+            <div style="font-weight:800;font-size:14px;margin-bottom:8px;">🕐 التقاعد المبكر — أقرب عمر ممكن تستحقه فيه</div>
+            <div id="earlyAgeNote" style="font-size:13px;color:var(--text-muted);margin-bottom:8px;"></div>
+            <div class="result-box show" style="margin-top:0;background:#fff7ed;">
+              <div class="result-value" id="earlyFinal" style="color:#c2410c;"></div>
+              <div class="result-label">راتب التقاعد الشهري التقديري</div>
+            </div>
+            <div class="stat-grid" style="margin-top:10px;">
+              <div class="stat-box"><div class="stat-val" id="earlyBase"></div><div class="stat-lbl">الراتب الأساسي</div></div>
+              <div class="stat-box" style="background:#fef2f2;"><div class="stat-val" id="earlyReducePct" style="color:#dc2626;"></div><div class="stat-lbl">نسبة التخفيض</div></div>
+              <div class="stat-box" style="background:#f0fdf4;"><div class="stat-val" id="earlyDepAmount" style="color:#16a34a;"></div><div class="stat-lbl">زيادة الإعالة</div></div>
+            </div>
+          </div>
+          <div id="normalCard" style="display:none;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;background:#f0fdf4;">
+            <div style="font-weight:800;font-size:14px;margin-bottom:8px;">👴 تقاعد الشيخوخة — العمر النظامي</div>
+            <div id="normalAgeNote" style="font-size:13px;color:var(--text-muted);margin-bottom:8px;"></div>
+            <div class="result-box show success" style="margin-top:0;">
+              <div class="result-value" id="normalFinal"></div>
+              <div class="result-label">راتب التقاعد الشهري التقديري</div>
+            </div>
+            <div class="stat-grid" style="margin-top:10px;">
+              <div class="stat-box"><div class="stat-val" id="normalBase"></div><div class="stat-lbl">الراتب الأساسي</div></div>
+              <div class="stat-box" style="background:#f0fdf4;"><div class="stat-val" id="normalDepAmount" style="color:#16a34a;"></div><div class="stat-lbl">زيادة الإعالة</div></div>
+            </div>
+          </div>
         </div>
-        <div class="stat-grid" style="margin-top:12px;">
-          <div class="stat-box"><div class="stat-val" id="pBase"></div><div class="stat-lbl">الراتب الأساسي (قبل الإعالة)</div></div>
-          <div class="stat-box" id="pReduceBox" style="display:none;background:#fef2f2;"><div class="stat-val" id="pReducePct" style="color:#dc2626;"></div><div class="stat-lbl">نسبة تخفيض التقاعد المبكر</div></div>
-          <div class="stat-box" style="background:#f0fdf4;"><div class="stat-val" id="pDepAmount" style="color:#16a34a;"></div><div class="stat-lbl">زيادة الإعالة</div></div>
-        </div>
+        <button id="pExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
       </div>
     </div>
   </div>
@@ -137,6 +156,7 @@
       <li>العاملين بالمهن الخطرة إلهم شروط تقاعد مبكر مختلفة (سن أقل، اشتراكات أقل).</li>
       <li>ما في سقف على القفزة الكبيرة بمتوسط الأجر قبل التقاعد مباشرة (القانون بيحط حد أقصى لزيادة المتوسط عن أجرك قبل 4-5 سنين من التقاعد، هاي الحاسبة ما بتطبقها).</li>
       <li>لا تشمل رواتب الاعتلال (العجز) أو تقاعد الوفاة — هاي حالات منفصلة كلياً بالقانون.</li>
+      <li>المقارنة بين المسارين مبنية على افتراض إنك بتكمل تشتغل وتشترك بشكل متواصل من عمرك الحالي (بدون انقطاع)، وإن راتبك بيضل قريب من الرقم اللي أدخلته لغاية التقاعد — أي تغيير حقيقي بمسيرتك المهنية (انقطاع، تغيير راتب كبير) بيغيّر النتيجة الفعلية.</li>
     </ul>
   </div>
 
@@ -228,6 +248,9 @@ function findReduction(age, gender) {
   return null;
 }
 
+let lastEarly = null;
+let lastNormal = null;
+
 function calc() {
   const age = parseFloat(document.getElementById('pAge').value);
   const years = parseFloat(document.getElementById('pYears').value);
@@ -236,73 +259,103 @@ function calc() {
 
   const resultBox = document.getElementById('pResult');
   const notEligibleBox = document.getElementById('pNotEligible');
-  const eligibleBox = document.getElementById('pEligibleBox');
+  const compareBox = document.getElementById('pCompareBox');
+  const earlyCard = document.getElementById('earlyCard');
+  const normalCard = document.getElementById('normalCard');
 
-  if (!age || !years || !wage) { resultBox.style.display = 'none'; return; }
-
-  const contributions = Math.round(years * 12);
-  const oldAgeMinAge = gender === 'm' ? 60 : 55;
-  const earlyMinContrib1 = gender === 'm' ? 252 : 228;
-
-  let type = null;
-  if (age >= oldAgeMinAge && contributions >= 180) {
-    type = 'oldage';
-  } else if ((age >= 50 && contributions >= earlyMinContrib1) || (age >= 45 && contributions >= 300)) {
-    type = 'early';
-  }
+  if (!age || years === undefined || isNaN(years) || !wage) { resultBox.style.display = 'none'; return; }
 
   resultBox.style.display = 'block';
+  const currentContrib = Math.round(years * 12);
+  const oldAgeMinAge = gender === 'm' ? 60 : 55;
+  const earlyMinContrib1 = gender === 'm' ? 252 : 228;
+  const EARLY_MIN_AGE_A = 50, EARLY_MIN_CONTRIB_B = 300, EARLY_MIN_AGE_B = 45;
 
-  if (!type) {
+  // Earliest possible early-retirement age, projecting continuous future contribution from now
+  let ageA = Infinity;
+  if (currentContrib >= earlyMinContrib1) {
+    ageA = Math.max(age, EARLY_MIN_AGE_A);
+  } else if (age <= EARLY_MIN_AGE_A + 200) {
+    ageA = Math.max(age + (earlyMinContrib1 - currentContrib) / 12, EARLY_MIN_AGE_A);
+  }
+  let ageB = Infinity;
+  if (currentContrib >= EARLY_MIN_CONTRIB_B) {
+    ageB = Math.max(age, EARLY_MIN_AGE_B);
+  } else {
+    ageB = Math.max(age + (EARLY_MIN_CONTRIB_B - currentContrib) / 12, EARLY_MIN_AGE_B);
+  }
+  const earliestEarlyAge = Math.min(ageA, ageB);
+
+  lastEarly = null;
+  if (earliestEarlyAge < oldAgeMinAge && earliestEarlyAge >= age) {
+    const contribAtEarly = currentContrib + (earliestEarlyAge - age) * 12;
+    const base = baseAmount(wage, contribAtEarly / 12);
+    const reducePct = findReduction(Math.floor(earliestEarlyAge), gender) || 0;
+    const reducedBase = base * (1 - reducePct / 100);
+    const depAmt = dependentIncrement(reducedBase, dep);
+    lastEarly = { age: earliestEarlyAge, years: contribAtEarly / 12, base: reducedBase, reducePct, dep: depAmt, final: reducedBase + depAmt };
+  }
+
+  // Normal (old-age) retirement projection
+  const ageAtNormal = Math.max(age, oldAgeMinAge);
+  const contribAtNormal = currentContrib + (ageAtNormal - age) * 12;
+  lastNormal = null;
+  if (contribAtNormal >= 180) {
+    const base = baseAmount(wage, contribAtNormal / 12);
+    const depAmt = dependentIncrement(base, dep);
+    lastNormal = { age: ageAtNormal, years: contribAtNormal / 12, base, dep: depAmt, final: base + depAmt };
+  }
+
+  if (!lastEarly && !lastNormal) {
     notEligibleBox.style.display = 'block';
-    eligibleBox.style.display = 'none';
-    const need1 = earlyMinContrib1 - contributions;
-    const need2 = 300 - contributions;
-    let msg = 'ما توفرت شروط استحقاق أي راتب تقاعد بعد بهالبيانات. ';
-    if (age < 45) {
-      msg += 'أقل سن ممكن للتقاعد المبكر هو 45 سنة (مع 300 اشتراك فعلي على الأقل).';
-    } else {
-      const needed = Math.max(0, Math.min(need1 > 0 ? need1 : Infinity, need2 > 0 ? need2 : Infinity));
-      if (needed > 0 && needed !== Infinity) {
-        msg += 'محتاج تقريباً ' + Math.ceil(needed / 12 * 10) / 10 + ' سنة اشتراك إضافية (أو تكمل سن أكبر) حسب المسار.';
-      } else {
-        msg += 'تأكد من عمرك وعدد سنوات اشتراكك.';
-      }
-    }
-    notEligibleBox.textContent = msg;
+    compareBox.style.display = 'none';
+    notEligibleBox.textContent = 'حتى لو أكملت لعمر التقاعد النظامي (' + oldAgeMinAge + ' سنة) بنفس معدل الاشتراك الحالي، اشتراكاتك المتوقعة (' + Math.round(contribAtNormal) + ' اشتراك) أقل من الحد الأدنى (180 اشتراك) لأي راتب تقاعد. تأكد من عمرك وسنوات اشتراكك.';
     return;
   }
 
   notEligibleBox.style.display = 'none';
-  eligibleBox.style.display = 'block';
+  compareBox.style.display = 'block';
 
-  const typeNote = document.getElementById('pTypeNote');
-  const reduceBox = document.getElementById('pReduceBox');
-  let base = baseAmount(wage, years);
-
-  if (type === 'oldage') {
-    typeNote.textContent = '✅ تستحق راتب تقاعد الشيخوخة الكامل (بدون تخفيض).';
-    reduceBox.style.display = 'none';
+  if (lastEarly) {
+    earlyCard.style.display = 'block';
+    document.getElementById('earlyAgeNote').textContent = 'بعمر ' + lastEarly.age.toFixed(1) + ' سنة تقريباً (' + lastEarly.years.toFixed(1) + ' سنة اشتراك متوقعة)';
+    document.getElementById('earlyFinal').textContent = lastEarly.final.toFixed(2) + ' د.أ';
+    document.getElementById('earlyBase').textContent = lastEarly.base.toFixed(2);
+    document.getElementById('earlyReducePct').textContent = '− ' + lastEarly.reducePct + '%';
+    document.getElementById('earlyDepAmount').textContent = lastEarly.dep > 0 ? '+ ' + lastEarly.dep.toFixed(2) : '0.00';
   } else {
-    const pct = findReduction(Math.floor(age), gender);
-    const reducePct = pct === null ? 0 : pct;
-    const reduced = base * (1 - reducePct / 100);
-    typeNote.textContent = '🕐 تستحق راتب التقاعد المبكر — مخفَّض بنسبة ' + reducePct + '% حسب عمرك.';
-    document.getElementById('pReducePct').textContent = '− ' + reducePct + '%';
-    reduceBox.style.display = 'block';
-    base = reduced;
+    earlyCard.style.display = 'none';
   }
 
-  const depAmount = dependentIncrement(base, dep);
-  const final = base + depAmount;
-
-  document.getElementById('pBase').textContent = base.toFixed(2);
-  document.getElementById('pDepAmount').textContent = depAmount > 0 ? '+ ' + depAmount.toFixed(2) : '0.00';
-  document.getElementById('pFinal').textContent = final.toFixed(2) + ' د.أ';
+  if (lastNormal) {
+    normalCard.style.display = 'block';
+    document.getElementById('normalAgeNote').textContent = 'بعمر ' + lastNormal.age.toFixed(1) + ' سنة (' + lastNormal.years.toFixed(1) + ' سنة اشتراك متوقعة) — بدون أي تخفيض';
+    document.getElementById('normalFinal').textContent = lastNormal.final.toFixed(2) + ' د.أ';
+    document.getElementById('normalBase').textContent = lastNormal.base.toFixed(2);
+    document.getElementById('normalDepAmount').textContent = lastNormal.dep > 0 ? '+ ' + lastNormal.dep.toFixed(2) : '0.00';
+  } else {
+    normalCard.style.display = 'none';
+  }
 }
 
-['pAge', 'pYears', 'pWage', 'pDep'].forEach(function (id) {
-  document.getElementById(id).addEventListener('input', calc);
+function exportPensionResult() {
+  if (!lastEarly && !lastNormal) return;
+  const wage = document.getElementById('pWage').value;
+  const rows = [{ label: 'راتبك المتوقع قرب التقاعد', value: wage + ' د.أ' }];
+  if (lastEarly) {
+    rows.push({ label: 'التقاعد المبكر (~' + lastEarly.age.toFixed(1) + ' سنة)', value: lastEarly.final.toFixed(2) + ' د.أ', highlight: !lastNormal });
+  }
+  if (lastNormal) {
+    rows.push({ label: 'تقاعد الشيخوخة (' + lastNormal.age.toFixed(1) + ' سنة)', value: lastNormal.final.toFixed(2) + ' د.أ', highlight: true });
+  }
+  if (typeof exportResultImage === 'function') exportResultImage('حاسبة راتب تقاعد الضمان الاجتماعي', rows);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  ['pAge', 'pYears', 'pWage', 'pDep'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', calc);
+  });
+  document.getElementById('pExportBtn')?.addEventListener('click', exportPensionResult);
 });
 </script>
 <script src="i18n.js?v=42" defer></script>
