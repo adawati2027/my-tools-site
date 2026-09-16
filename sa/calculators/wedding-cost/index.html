@@ -77,8 +77,15 @@
       <div><label data-t="lbl_furniture">تجهيز بيت الزوجية (أثاث)</label><input type="number" id="furniture" placeholder="0" min="0" step="any"></div>
     </div>
 
-    <label data-t="lbl_other">بنود أخرى (دعوات، زفة، مكياج...)</label>
-    <input type="number" id="other" placeholder="0" min="0" step="any">
+    <div class="row">
+      <div><label data-t="lbl_zaffa">الزفة</label><input type="number" id="zaffa" placeholder="0" min="0" step="any"></div>
+      <div><label data-t="lbl_makeup">المكياج والتجميل</label><input type="number" id="makeup" placeholder="0" min="0" step="any"></div>
+    </div>
+
+    <div class="row">
+      <div><label data-t="lbl_shabab">سهرة الشباب</label><input type="number" id="shababNight" placeholder="0" min="0" step="any"></div>
+      <div><label data-t="lbl_other">بنود أخرى (دعوات، ورد...)</label><input type="number" id="other" placeholder="0" min="0" step="any"></div>
+    </div>
 
     <div class="divider"></div>
     <label data-t="months_lbl">How many months until you need the full amount? (optional)</label>
@@ -150,7 +157,10 @@ const WT = {
     lbl_attire: "فستان العروس وبدلة العريس",
     lbl_photography: "التصوير والفيديو",
     lbl_furniture: "تجهيز بيت الزوجية (أثاث)",
-    lbl_other: "بنود أخرى (دعوات، زفة، مكياج...)"
+    lbl_zaffa: "الزفة",
+    lbl_makeup: "المكياج والتجميل",
+    lbl_shabab: "سهرة الشباب",
+    lbl_other: "بنود أخرى (دعوات، ورد...)"
   },
   en: {
     page_title: "Wedding Cost Calculator 🇸🇦",
@@ -171,7 +181,10 @@ const WT = {
     lbl_attire: "Bride & Groom Attire",
     lbl_photography: "Photography & Video",
     lbl_furniture: "Home Furnishing",
-    lbl_other: "Other (invitations, makeup...)"
+    lbl_zaffa: "Wedding Procession (Zaffa)",
+    lbl_makeup: "Makeup & Beauty",
+    lbl_shabab: "Groom's Night Party",
+    lbl_other: "Other (invitations, flowers...)"
   }
 };
 let pageLang = (function(){ try { return localStorage.getItem('lang') === 'en' ? 'en' : 'ar'; } catch(e) { return 'ar'; } })();
@@ -199,10 +212,13 @@ function calc() {
   const attire = parseFloat(document.getElementById('attire').value) || 0;
   const photography = parseFloat(document.getElementById('photography').value) || 0;
   const furniture = parseFloat(document.getElementById('furniture').value) || 0;
+  const zaffa = parseFloat(document.getElementById('zaffa').value) || 0;
+  const makeup = parseFloat(document.getElementById('makeup').value) || 0;
+  const shababNight = parseFloat(document.getElementById('shababNight').value) || 0;
   const other = parseFloat(document.getElementById('other').value) || 0;
   const months = parseFloat(document.getElementById('months').value) || 0;
 
-  const total = mahr + gold + venue + attire + photography + furniture + other;
+  const total = mahr + gold + venue + attire + photography + furniture + zaffa + makeup + shababNight + other;
   if (!total) { document.getElementById('weddingResult').style.display = 'none'; return; }
 
   document.getElementById('totalCost').textContent = total.toFixed(3) + ' SAR';
@@ -213,6 +229,9 @@ function calc() {
     (attire ? t('lbl_attire') + ': <strong>' + attire.toFixed(3) + ' SAR</strong><br>' : '') +
     (photography ? t('lbl_photography') + ': <strong>' + photography.toFixed(3) + ' SAR</strong><br>' : '') +
     (furniture ? t('lbl_furniture') + ': <strong>' + furniture.toFixed(3) + ' SAR</strong><br>' : '') +
+    (zaffa ? t('lbl_zaffa') + ': <strong>' + zaffa.toFixed(3) + ' SAR</strong><br>' : '') +
+    (makeup ? t('lbl_makeup') + ': <strong>' + makeup.toFixed(3) + ' SAR</strong><br>' : '') +
+    (shababNight ? t('lbl_shabab') + ': <strong>' + shababNight.toFixed(3) + ' SAR</strong><br>' : '') +
     (other ? t('lbl_other') + ': <strong>' + other.toFixed(3) + ' SAR</strong><br>' : '') +
     (t('total_lbl') + ': <strong style="color:var(--primary);font-size:16px;">' + total.toFixed(3) + ' SAR</strong>');
 
@@ -244,6 +263,9 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('attire').addEventListener('input', calc);
   document.getElementById('photography').addEventListener('input', calc);
   document.getElementById('furniture').addEventListener('input', calc);
+  document.getElementById('zaffa').addEventListener('input', calc);
+  document.getElementById('makeup').addEventListener('input', calc);
+  document.getElementById('shababNight').addEventListener('input', calc);
   document.getElementById('other').addEventListener('input', calc);
   document.getElementById('months').addEventListener('input', calc);
 });
