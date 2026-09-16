@@ -525,7 +525,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   });
   startLevel(0);
-  setTimeout(function(){_initDone=true;window.setLang(_PAGE_LANG);},0);
+  setTimeout(function(){_initDone=true;window.setLang(document.documentElement.lang||_PAGE_LANG);},0);
 });
 </script>
 <script>

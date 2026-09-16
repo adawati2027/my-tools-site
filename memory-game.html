@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   window.setLang=function(lang){origSet&&origSet(lang);if(!_initDone&&lang!==_PAGE_LANG)return;currentLang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';renderLevelUI();updateStats();renderLb();};
   window.onLangChange=function(lang){if(!_initDone&&lang!==_PAGE_LANG)return;currentLang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';renderLevelUI();updateStats();renderLb();};
   startLevel(0);
-  setTimeout(function(){_initDone=true;window.setLang(_PAGE_LANG);},0);
+  setTimeout(function(){_initDone=true;window.setLang(document.documentElement.lang||_PAGE_LANG);},0);
 });
 </script>
 <script>
