@@ -211,6 +211,28 @@
       </div>
       <div id="lbRows"></div>
     </div>
+
+    <div style="margin-top:16px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);">
+      <div id="raceIntro">
+        <div style="font-weight:700;margin-bottom:8px;" id="raceTitleTxt">🏁 تحدي صديق: مين الأسرع بالتخمين؟</div>
+        <button class="btn btn-primary" id="raceStartBtn" style="width:100%;">ابدأ تحدي</button>
+      </div>
+      <div id="raceNameEntry" style="display:none;">
+        <div id="raceNameMsg" style="margin-bottom:8px;font-weight:700;">اكتب اسمك:</div>
+        <div class="name-entry-row">
+          <input type="text" id="raceNameInput" maxlength="20" placeholder="اسمك">
+          <button class="btn btn-primary" id="raceNameConfirmBtn">ابدأ</button>
+        </div>
+      </div>
+      <div id="raceShareBox" style="display:none;margin-top:10px;">
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:6px;" id="raceShareMsg"></div>
+        <button class="btn btn-secondary" id="raceShareBtn" style="width:100%;">📤 شارك رابط التحدي</button>
+      </div>
+      <div id="raceLbWrap" style="display:none;margin-top:12px;">
+        <div style="font-weight:700;margin-bottom:6px;">🏆 نتائج التحدي (المستوى 1 — الوقت بالثواني)</div>
+        <div id="raceLbRows"></div>
+      </div>
+    </div>
   </div>
   <div class="card" style="margin-top:16px;">
     <div class="card-title" style="font-size:15px;">🎮 More Games</div>
@@ -366,7 +388,7 @@ const GT = {
 };
 
 /* ── State ── */
-let currentLang='ar', currentLevel=0, secret, triesLeft, gameOver, pendingScore=null;
+let currentLang='ar', currentLevel=0, secret, triesLeft, gameOver, pendingScore=null, raceLevel0StartTime=0;
 let completedLevels=[];
 
 function tr(k){ return (GT[currentLang]||GT.en)[k]||k; }
@@ -440,6 +462,7 @@ function startLevel(lvIdx){
   const lv=LEVELS[currentLevel];
   secret=Math.floor(Math.random()*(lv.max-1))+1;
   triesLeft=lv.maxTries; gameOver=false; pendingScore=null;
+  if(currentLevel===0) raceLevel0StartTime=performance.now();
 
   document.getElementById('secretDisplay').textContent='?';
   document.getElementById('secretDisplay').style.color='var(--primary)';
@@ -498,6 +521,10 @@ function makeGuess(){
 }
 
 function onWin(tries){
+  if(currentLevel===0&&typeof raceOnLevel0Complete==='function'){
+    const elapsedMs=Math.round(performance.now()-raceLevel0StartTime);
+    raceOnLevel0Complete(elapsedMs);
+  }
   if(!completedLevels.includes(currentLevel)) completedLevels.push(currentLevel);
   const t=GT[currentLang]||GT.en;
   const isLast=currentLevel===LEVELS.length-1;
@@ -588,6 +615,76 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('levelSelector')?.addEventListener('click', function(e){ var b = e.target.closest('.lvl-btn'); if (b && b.dataset.level !== undefined) jumpToLevel(Number(b.dataset.level)); });
   document.getElementById('guessInput')?.addEventListener('keydown', function(e){ if(e.key==='Enter') makeGuess(); });
   document.getElementById('nameInput')?.addEventListener('keydown', function(e){ if(e.key==='Enter') saveScore(); });
+});
+</script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" integrity="sha384-+65NgAKqXr1Nb7sBmV6O09pL8ASqZsi29OE718meKinGAWaa70VE5V6LNjXVBjIA" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" integrity="sha384-YHSscHG455M7b+d6r5ibTMznxrZxV272bMjXT9ndTgmx05fLR7HsdmcVklhpBSyt" crossorigin="anonymous"></script>
+<script src="race-engine.js"></script>
+<script>
+let raceId=null, raceMyName=null, raceSubmitted=false, racePending=null, raceUnsub=null;
+
+function raceRenderLb(rows){
+  const wrap=document.getElementById('raceLbWrap');
+  wrap.style.display=rows.length?'block':'none';
+  const medals=['🥇','🥈','🥉'];
+  document.getElementById('raceLbRows').innerHTML=rows.map(function(r,i){
+    return '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);">'+
+      '<span>'+(medals[i]||(i+1)+'.')+' '+raceEscapeHtml(r.name)+(r.name===raceMyName?' (أنت)':'')+'</span>'+
+      '<span style="font-weight:700;color:var(--primary);">'+(r.timeMs/1000).toFixed(1)+' ث</span></div>';
+  }).join('');
+}
+
+function raceShowLeaderboard(){
+  if(raceUnsub) raceUnsub();
+  raceUnsub=raceListenLeaderboard(raceId, raceRenderLb);
+}
+
+function raceOnLevel0Complete(elapsedMs){
+  if(!raceId||raceSubmitted||!raceMyName) return;
+  raceSubmitted=true;
+  raceSubmitEntry(raceId, raceMyName, elapsedMs);
+}
+
+async function raceInit(){
+  const existingId=raceGetIdFromURL();
+  if(!existingId) return;
+  raceId=existingId;
+  racePending='accept';
+  const info=await raceGetChallengeInfo(raceId);
+  document.getElementById('raceTitleTxt').textContent=info?('🏁 '+raceEscapeHtml(info.creatorName)+' تحدّاك! مين الأسرع بالتخمين؟'):'🏁 تحدي صديق: مين الأسرع بالتخمين؟';
+  document.getElementById('raceStartBtn').textContent='قبول التحدي';
+  raceShowLeaderboard();
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  raceInit();
+  document.getElementById('raceStartBtn')?.addEventListener('click', function(){
+    document.getElementById('raceIntro').style.display='none';
+    document.getElementById('raceNameEntry').style.display='block';
+    document.getElementById('raceNameMsg').textContent=racePending==='accept'?'اكتب اسمك للانضمام:':'اكتب اسمك لبدء التحدي:';
+    document.getElementById('raceNameInput').focus();
+  });
+  async function raceConfirmName(){
+    const name=document.getElementById('raceNameInput').value.trim();
+    if(!name) return;
+    raceMyName=name;
+    if(racePending!=='accept'){
+      raceId=await raceCreateChallenge('number-guess', name);
+      try{ history.replaceState(null,'',location.pathname+'?race='+raceId); }catch(e){}
+      const link=location.origin+location.pathname+'?race='+raceId;
+      document.getElementById('raceShareMsg').textContent='شارك هذا الرابط مع صاحبك: '+link;
+      document.getElementById('raceShareBox').style.display='block';
+      document.getElementById('raceShareBtn').onclick=function(){
+        if(navigator.share){ navigator.share({title:'تحدي تخمين الرقم 🔢',text:'مين الأسرع فينا؟',url:link}); }
+        else if(navigator.clipboard){ navigator.clipboard.writeText(link); this.textContent='✅ تم النسخ'; setTimeout(()=>{this.textContent='📤 شارك رابط التحدي';},1500); }
+      };
+      raceShowLeaderboard();
+    }
+    document.getElementById('raceNameEntry').style.display='none';
+    restartAll();
+  }
+  document.getElementById('raceNameConfirmBtn')?.addEventListener('click', raceConfirmName);
+  document.getElementById('raceNameInput')?.addEventListener('keydown', function(e){ if(e.key==='Enter') raceConfirmName(); });
 });
 </script>
 <script src="i18n.js?v=44" defer></script>
