@@ -39,7 +39,7 @@
 <link rel="stylesheet" href="style.css?v=1">
 <style>
 .game-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;}
-#gameCanvas{border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.18);display:block;max-width:100%;}
+#gameCanvas{border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.18);display:block;max-width:100%;touch-action:none;}
 .hud{display:flex;gap:20px;justify-content:center;font-size:15px;font-weight:800;flex-wrap:wrap;}
 .hud-item{text-align:center;}
 .hud-val{font-size:26px;font-weight:900;color:var(--primary);}
@@ -104,7 +104,7 @@
     <div class="name-entry" id="nameEntry" style="display:none;">
       <div class="name-entry-msg" id="nameEntryMsg">🏆 دخلت أفضل 3! اكتب اسمك:</div>
       <div class="name-entry-row">
-        <input type="text" id="nameInput" maxlength="20" placeholder="اسمك" onkeydown="if(event.key==='Enter')saveScore()">
+        <input type="text" id="nameInput" maxlength="20" placeholder="اسمك">
         <button class="btn btn-primary" id="saveBtn">💾</button>
       </div>
     </div>
@@ -472,6 +472,7 @@ document.addEventListener('DOMContentLoaded', function(){
   });
   document.getElementById('saveBtn')?.addEventListener('click', function(){ saveScore(); });
   document.getElementById('clearBtn')?.addEventListener('click', function(){ clearLb(); });
+  document.getElementById('nameInput')?.addEventListener('keydown', function(e){ if(e.key==='Enter') saveScore(); });
 });
 </script>
 <script src="i18n.js?v=44" defer></script>
