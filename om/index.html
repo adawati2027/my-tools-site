@@ -159,7 +159,7 @@
 
     <div class="tools-search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="toolSearch" data-i18n-ph="search_placeholder" placeholder="ابحث عن أداة..." oninput="filterTools()" autocomplete="off" spellcheck="false">
+      <input type="text" id="toolSearch" data-i18n-ph="search_placeholder" placeholder="ابحث عن أداة..." autocomplete="off" spellcheck="false">
     </div>
 
     <div class="cat-tabs" id="catTabs">
@@ -804,6 +804,7 @@ document.addEventListener('click',function(e){if(!e.target.closest('.lang-switch
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('ctyToggleBtn')?.addEventListener('click', toggleCtyMenu);
+  document.getElementById('toolSearch')?.addEventListener('input', filterTools);
   document.getElementById('langToggleBtn')?.addEventListener('click', toggleLangMenu);
   document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
     a.addEventListener('click', function(){ setLang(a.dataset.lang); });
