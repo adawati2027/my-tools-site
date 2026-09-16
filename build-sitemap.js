@@ -55,6 +55,7 @@ const countryTools = [
   `${BASE}/jo/fuel-prices/`,
   `${BASE}/jo/holidays/`,
   `${BASE}/jo/calculators/social-security/`,
+  `${BASE}/jo/calculators/social-security-pension/`,
   `${BASE}/jo/calculators/income-tax/`,
   `${BASE}/jo/calculators/car-cost/`,
   `${BASE}/jo/calculators/university-cost/`,
