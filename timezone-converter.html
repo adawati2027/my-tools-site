@@ -235,6 +235,43 @@ function populateTzSelects() {
   });
 }
 
+const COUNTRY_TZ = {
+  OM:'Asia/Muscat', SA:'Asia/Riyadh', AE:'Asia/Dubai', EG:'Africa/Cairo', GB:'Europe/London',
+  US:'America/New_York', FR:'Europe/Paris', DE:'Europe/Berlin', RU:'Europe/Moscow', TR:'Europe/Istanbul',
+  JP:'Asia/Tokyo', CN:'Asia/Shanghai', IN:'Asia/Kolkata', SG:'Asia/Singapore', AU:'Australia/Sydney',
+  CA:'America/Toronto', ES:'Europe/Madrid', JO:'Asia/Amman', KW:'Asia/Kuwait', QA:'Asia/Qatar'
+};
+
+async function detectCountryCode() {
+  try {
+    const cc = sessionStorage.getItem('adawati_country');
+    if (cc) return cc;
+  } catch(e) {}
+  try {
+    const ctrl = new AbortController();
+    const tmr = setTimeout(() => ctrl.abort(), 2500);
+    const r = await fetch('https://api.country.is/', {signal: ctrl.signal});
+    clearTimeout(tmr);
+    const d = await r.json();
+    if (d && d.country) {
+      try { sessionStorage.setItem('adawati_country', d.country); } catch(e) {}
+      return d.country;
+    }
+  } catch(e) {}
+  return null;
+}
+
+async function applyDetectedCountryDefault() {
+  const cc = await detectCountryCode();
+  const tz = cc && COUNTRY_TZ[cc];
+  if (!tz) return;
+  const from = document.getElementById('tzFrom');
+  if ([...from.options].some(o => o.value === tz)) {
+    from.value = tz;
+    convertTime();
+  }
+}
+
 function convertTime() {
   const input = document.getElementById('inputTime').value;
   if (!input) { document.getElementById('tzResult').classList.remove('show'); return; }
@@ -255,6 +292,8 @@ buildClocks();
 populateTzSelects();
 tickClocks();
 setInterval(tickClocks, 1000);
+convertTime();
+applyDetectedCountryDefault();
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
@@ -267,6 +306,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 document.getElementById('tzFrom').addEventListener('change', convertTime);
 document.getElementById('tzTo').addEventListener('change', convertTime);
+document.getElementById('inputTime').addEventListener('input', convertTime);
 </script>
 <script src="i18n.js?v=44" defer></script>
 </body></html>
