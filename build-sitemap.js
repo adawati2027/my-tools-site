@@ -119,6 +119,9 @@ for (const code of ['om','sa','ae','us','uk']) {
 
 // Saudi GOSI retirement pension calculator — built 2026-09-16
 countryTools.push(`${BASE}/sa/calculators/gosi-pension/`);
+
+// UAE + Saudi end-of-service gratuity calculators — built 2026-09-16
+countryTools.push(`${BASE}/ae/calculators/end-of-service/`, `${BASE}/sa/calculators/end-of-service/`);
 for (const url of countryTools) {
   entries.push(urlEntry(url, '0.7', 'monthly'));
 }
