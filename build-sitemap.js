@@ -116,6 +116,9 @@ for (const code of ['om','sa','ae','us','uk']) {
 for (const code of ['om','sa','ae','us','uk']) {
   countryTools.push(`${BASE}/${code}/emergency-numbers/`);
 }
+
+// Saudi GOSI retirement pension calculator — built 2026-09-16
+countryTools.push(`${BASE}/sa/calculators/gosi-pension/`);
 for (const url of countryTools) {
   entries.push(urlEntry(url, '0.7', 'monthly'));
 }
