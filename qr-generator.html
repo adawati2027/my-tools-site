@@ -184,9 +184,9 @@
     <div class="footer-copy-simple" data-i18n="footer_copy">© 2026 Adawati</div>
   </div>
 </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 function generateQR() {
-  var btn    = document.getElementById('qrBtn');
   var status = document.getElementById('qrStatus');
   var wrap   = document.getElementById('qrWrap');
   var empty  = document.getElementById('qrEmpty');
@@ -194,59 +194,37 @@ function generateQR() {
   var input  = document.getElementById('qrInput');
   var text   = input ? input.value.trim() : '';
 
-  // Immediate visible proof the function ran
-  if (btn) { btn.disabled = true; btn.textContent = '⏳...'; }
-
   if (!text) {
     if (status) { status.textContent = '⚠️ اكتب نصاً أو رابطاً أولاً'; status.style.display = 'block'; }
     if (wrap)  wrap.style.display  = 'none';
     if (empty) empty.style.display = 'block';
-    setTimeout(function(){ if(btn){btn.disabled=false;btn.textContent='توليد الرمز';} }, 1000);
     return;
   }
 
-  if (status) { status.textContent = '⏳ جاري التوليد...'; status.style.display = 'block'; }
-  if (wrap)  wrap.style.display  = 'none';
+  if (display) display.innerHTML = '';
+  if (status) status.style.display = 'none';
   if (empty) empty.style.display = 'none';
 
-  var encoded = encodeURIComponent(text);
-  var urls = [
-    'https://chart.googleapis.com/chart?cht=qr&chs=220x220&chl=' + encoded + '&choe=UTF-8',
-    'https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=10&data=' + encoded,
-    'https://quickchart.io/qr?text=' + encoded + '&size=220'
-  ];
-
-  var tried = 0;
-  function tryNext() {
-    if (tried >= urls.length) {
-      if (status) status.textContent = '❌ تعذّر التوليد. تحقق من اتصالك بالإنترنت.';
-      if (btn) { btn.disabled = false; btn.textContent = 'توليد الرمز'; }
-      return;
-    }
-    var img = new Image();
-    img.onload = function() {
-      img.id = 'qrImg';
-      img.width = 220; img.height = 220;
-      img.style.borderRadius = '4px';
-      if (display) { display.innerHTML = ''; display.appendChild(img); }
-      if (wrap) wrap.style.display = 'block';
-      if (status) status.style.display = 'none';
-      if (empty) empty.style.display = 'none';
-      if (btn) { btn.disabled = false; btn.textContent = 'توليد الرمز'; }
-    };
-    img.onerror = function() { tried++; tryNext(); };
-    img.src = urls[tried++];
+  try {
+    new QRCode(display, {
+      text: text, width: 220, height: 220,
+      colorDark: '#000000', colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+    if (wrap) wrap.style.display = 'block';
+  } catch (e) {
+    if (status) { status.textContent = '❌ تعذّر توليد الرمز — النص طويل جداً، جرّب نصاً أقصر.'; status.style.display = 'block'; }
+    if (wrap) wrap.style.display = 'none';
   }
-  tryNext();
 }
 
 function downloadQR() {
-  var img = document.getElementById('qrImg');
-  if (!img) return;
+  var display = document.getElementById('qrDisplay');
+  var canvas = display ? display.querySelector('canvas') : null;
+  if (!canvas) return;
   var a = document.createElement('a');
   a.download = 'qr-code.png';
-  a.href = img.src;
-  a.target = '_blank';
+  a.href = canvas.toDataURL('image/png');
   a.click();
 }
 
