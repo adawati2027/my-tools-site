@@ -36,8 +36,7 @@
 </script>
 <link rel="stylesheet" href="style.css?v=1">
 <style>
-.flag-display{font-size:120px;text-align:center;line-height:1;margin:12px 0;cursor:pointer;transition:transform .2s;}
-.flag-display:active{transform:scale(.93);}
+.flag-display{font-size:120px;text-align:center;line-height:1;margin:12px 0;}
 .flag-q{font-size:18px;font-weight:700;text-align:center;color:var(--text-muted);margin-bottom:12px;}
 .flag-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:420px;margin:0 auto 12px;}
 .flag-choice{padding:14px 10px;border-radius:12px;border:3px solid var(--border);background:var(--surface-2);font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;text-align:center;}
@@ -69,7 +68,7 @@
     <div id="quizArea">
       <div class="flag-score" id="fScore">Score: 0 / 20</div>
       <div class="flag-display" id="fFlag">🏳️</div>
-      <div class="flag-q" id="fQuestion">Which country is this flag? 🔊 Tap flag to hear!</div>
+      <div class="flag-q" id="fQuestion">Which country is this flag?</div>
       <div class="flag-choices" id="fChoices"></div>
       <div class="flag-feedback" id="fFeedback"></div>
     </div>
@@ -135,32 +134,32 @@ const FLAGS = [
 ];
 
 const FT = {
-  en:{subtitle:'Guess the Country — Ages 7–13',question:'Which country is this flag? 🔊 Tap flag to hear!',
+  en:{subtitle:'Guess the Country — Ages 7–13',question:'Which country is this flag?',
       allCountries:'🗺️ All 30 Countries',scienceQuiz:'🔬 Science Quiz',allKidsTools:'🧒 All Kids Tools',
       backToKids:'← Back to Kids',kids:'🧒 Kids',home:'Home',
       score:'Score',q:'Q',of:'of',correct:'✅ Correct!',itsX:v=>`❌ It's ${v}`,playAgain:'Play Again',
       expert:'🌍 World Geography Expert!',great:'🗺️ Great job, Explorer!',good:'👍 Good effort! Play again!',keep:'💪 Keep learning! You\'ll get there!'},
-  ar:{subtitle:'خمّن الدولة — للأطفال من 7 إلى 13 سنة',question:'دولة أي علم هذا؟ 🔊 انقر العلم للاستماع!',
+  ar:{subtitle:'خمّن الدولة — للأطفال من 7 إلى 13 سنة',question:'دولة أي علم هذا؟',
       allCountries:'🗺️ كل الدول الثلاثين',scienceQuiz:'🔬 مسابقة العلوم',allKidsTools:'🧒 كل أدوات الأطفال',
       backToKids:'← رجوع للأطفال',kids:'🧒 الأطفال',home:'الرئيسية',
       score:'النتيجة',q:'سؤال',of:'من',correct:'✅ إجابة صحيحة!',itsX:v=>`❌ الإجابة هي ${v}`,playAgain:'العب مجدداً',
       expert:'🌍 خبير الجغرافيا العالمية!',great:'🗺️ عمل رائع أيها المستكشف!',good:'👍 مجهود جيد! العب مجدداً!',keep:'💪 استمر في التعلم! ستصل!'},
-  fr:{subtitle:'Devine le pays — 7 à 13 ans',question:'De quel pays est ce drapeau ? 🔊 Touchez le drapeau pour écouter !',
+  fr:{subtitle:'Devine le pays — 7 à 13 ans',question:'De quel pays est ce drapeau ?',
       allCountries:'🗺️ Les 30 pays',scienceQuiz:'🔬 Quiz de sciences',allKidsTools:'🧒 Tous les jeux enfants',
       backToKids:'← Retour aux jeux enfants',kids:'🧒 Enfants',home:'Accueil',
       score:'Score',q:'Q',of:'sur',correct:'✅ Correct !',itsX:v=>`❌ C'est ${v}`,playAgain:'Rejouer',
       expert:'🌍 Expert en géographie mondiale !',great:'🗺️ Bravo, explorateur !',good:'👍 Bon effort ! Rejoue !',keep:'💪 Continue d\'apprendre !'},
-  es:{subtitle:'Adivina el país — 7 a 13 años',question:'¿De qué país es esta bandera? 🔊 ¡Toca la bandera para escuchar!',
+  es:{subtitle:'Adivina el país — 7 a 13 años',question:'¿De qué país es esta bandera?',
       allCountries:'🗺️ Los 30 países',scienceQuiz:'🔬 Quiz de ciencias',allKidsTools:'🧒 Todos los juegos infantiles',
       backToKids:'← Volver a juegos infantiles',kids:'🧒 Niños',home:'Inicio',
       score:'Puntaje',q:'P',of:'de',correct:'✅ ¡Correcto!',itsX:v=>`❌ Es ${v}`,playAgain:'Jugar de nuevo',
       expert:'🌍 ¡Experto en geografía mundial!',great:'🗺️ ¡Buen trabajo, explorador!',good:'👍 ¡Buen esfuerzo! ¡Juega de nuevo!',keep:'💪 ¡Sigue aprendiendo!'},
-  de:{subtitle:'Errate das Land — 7 bis 13 Jahre',question:'Zu welchem Land gehört diese Flagge? 🔊 Flagge antippen zum Anhören!',
+  de:{subtitle:'Errate das Land — 7 bis 13 Jahre',question:'Zu welchem Land gehört diese Flagge?',
       allCountries:'🗺️ Alle 30 Länder',scienceQuiz:'🔬 Wissenschaftsquiz',allKidsTools:'🧒 Alle Kinderspiele',
       backToKids:'← Zurück zu Kinderspielen',kids:'🧒 Kinder',home:'Startseite',
       score:'Punkte',q:'F',of:'von',correct:'✅ Richtig!',itsX:v=>`❌ Es ist ${v}`,playAgain:'Nochmal spielen',
       expert:'🌍 Experte für Weltgeografie!',great:'🗺️ Gut gemacht, Entdecker!',good:'👍 Guter Versuch! Nochmal!',keep:'💪 Lerne weiter!'},
-  ru:{subtitle:'Угадай страну — от 7 до 13 лет',question:'Какой это флаг? 🔊 Нажми на флаг, чтобы услышать!',
+  ru:{subtitle:'Угадай страну — от 7 до 13 лет',question:'Какой это флаг?',
       allCountries:'🗺️ Все 30 стран',scienceQuiz:'🔬 Квиз по науке',allKidsTools:'🧒 Все детские игры',
       backToKids:'← Назад к детским играм',kids:'🧒 Детям',home:'Главная',
       score:'Счёт',q:'Вопрос',of:'из',correct:'✅ Правильно!',itsX:v=>`❌ Это ${v}`,playAgain:'Играть снова',
@@ -281,7 +280,6 @@ document.addEventListener('DOMContentLoaded',()=>{
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-  document.getElementById('fFlag')?.addEventListener('click', speakCountry);
   document.getElementById('quizArea')?.addEventListener('click', function(e){
     var restartBtn = e.target.closest('.quiz-restart-btn');
     if (restartBtn) { startGame(); return; }
