@@ -284,6 +284,8 @@ var DD_T={
     days_lbl:' يوم',
     ev_ny:function(y){return '🎉 رأس السنة الميلادية '+y;},
     ev_ramadan:'🌙 رمضان 2027 (تقريبي)',
+    exp_ramadan:function(n){return '🌙 '+n+' يوم حتى بداية رمضان 2027';},
+    exp_ny:function(n){return '🎉 '+n+' يوم حتى رأس السنة';},
     ev_oman:'🇴🇲 العيد الوطني العماني',
     months:['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],
     days:['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت']
@@ -299,6 +301,8 @@ var DD_T={
     days_lbl:' days',
     ev_ny:function(y){return '🎉 New Year '+y;},
     ev_ramadan:'🌙 Ramadan 2027 (approx.)',
+    exp_ramadan:function(n){return '🌙 '+n+' days until Ramadan 2027 starts';},
+    exp_ny:function(n){return '🎉 '+n+' days until New Year';},
     ev_oman:'🇴🇲 Oman National Day',
     months:['January','February','March','April','May','June','July','August','September','October','November','December'],
     days:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
@@ -314,6 +318,8 @@ var DD_T={
     days_lbl:' jours',
     ev_ny:function(y){return '🎉 Nouvel An '+y;},
     ev_ramadan:'🌙 Ramadan 2027 (approx.)',
+    exp_ramadan:function(n){return '🌙 '+n+' jours jusqu\'au Ramadan 2027';},
+    exp_ny:function(n){return '🎉 '+n+' jours jusqu\'au Nouvel An';},
     ev_oman:'🇴🇲 Fête nationale d\'Oman',
     months:['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'],
     days:['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi']
@@ -329,6 +335,8 @@ var DD_T={
     days_lbl:' días',
     ev_ny:function(y){return '🎉 Año Nuevo '+y;},
     ev_ramadan:'🌙 Ramadán 2027 (aprox.)',
+    exp_ramadan:function(n){return '🌙 '+n+' días hasta el Ramadán 2027';},
+    exp_ny:function(n){return '🎉 '+n+' días hasta el Año Nuevo';},
     ev_oman:'🇴🇲 Día Nacional de Omán',
     months:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
     days:['domingo','lunes','martes','miércoles','jueves','viernes','sábado']
@@ -344,6 +352,8 @@ var DD_T={
     days_lbl:' Tage',
     ev_ny:function(y){return '🎉 Neujahr '+y;},
     ev_ramadan:'🌙 Ramadan 2027 (ca.)',
+    exp_ramadan:function(n){return '🌙 '+n+' Tage bis Ramadan 2027';},
+    exp_ny:function(n){return '🎉 '+n+' Tage bis Neujahr';},
     ev_oman:'🇴🇲 Nationalfeiertag Oman',
     months:['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
     days:['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag']
@@ -359,6 +369,8 @@ var DD_T={
     days_lbl:' дней',
     ev_ny:function(y){return '🎉 Новый год '+y;},
     ev_ramadan:'🌙 Рамадан 2027 (прибл.)',
+    exp_ramadan:function(n){return '🌙 '+n+' дней до Рамадана 2027';},
+    exp_ny:function(n){return '🎉 '+n+' дней до Нового года';},
     ev_oman:'🇴🇲 Национальный день Омана',
     months:['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'],
     days:['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота']
@@ -382,6 +394,7 @@ function updateDDContent(){
 }
 window.onLangChange=function(lang){updateDDContent();calculate();showUpcoming();};
 
+let activePreset = null;
 function setPreset(type) {
   const today = new Date();
   const todayStr = today.toISOString().split('T')[0];
@@ -393,6 +406,7 @@ function setPreset(type) {
   } else if (type === 'ramadan') {
     document.getElementById('dateTo').value = '2027-02-17';
   }
+  activePreset = type;
   calculate();
 }
 
@@ -456,7 +470,12 @@ function exportDateDiffResult() {
     { label: document.querySelector('#ddResult .stat-lbl[data-i18n="dd_days_lbl"]').textContent, value: document.getElementById('daysDisplay').textContent },
     { label: document.querySelector('#ddResult .result-label').textContent, value: total, highlight: true }
   ];
-  if (typeof exportResultImage === 'function') exportResultImage(t.dd_card_title || 'Date Difference Calculator', rows);
+  const dt = DDT();
+  let title = t.dd_card_title || 'Date Difference Calculator';
+  const totalNum = parseInt(total.replace(/[^0-9]/g, ''), 10);
+  if (activePreset === 'ramadan' && dt && typeof dt.exp_ramadan === 'function') title = dt.exp_ramadan(totalNum);
+  else if (activePreset === 'newYear' && dt && typeof dt.exp_ny === 'function') title = dt.exp_ny(totalNum);
+  if (typeof exportResultImage === 'function') exportResultImage(title, rows);
 }
 
 function showUpcoming() {
@@ -500,8 +519,8 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('ddExportBtn')?.addEventListener('click', exportDateDiffResult);
 });
 
-document.getElementById('dateFrom').addEventListener('change', calculate);
-document.getElementById('dateTo').addEventListener('change', calculate);
+document.getElementById('dateFrom').addEventListener('change', function(){ activePreset = null; calculate(); });
+document.getElementById('dateTo').addEventListener('change', function(){ activePreset = null; calculate(); });
 </script>
 <script src="i18n.js?v=44" defer></script>
 </body></html>
