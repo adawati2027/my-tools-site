@@ -78,23 +78,23 @@
       </div>
       <div>
         <label>عمرك عند التقاعد (سنة)</label>
-        <input type="number" id="pAge" placeholder="مثال: 55" min="18" max="80" step="1" oninput="calc()">
+        <input type="number" id="pAge" placeholder="مثال: 55" min="18" max="80" step="1">
       </div>
     </div>
     <div class="row">
       <div>
         <label>عدد سنوات الاشتراك الفعلي بالضمان</label>
-        <input type="number" id="pYears" placeholder="مثال: 22" min="0" max="55" step="0.1" oninput="calc()">
+        <input type="number" id="pYears" placeholder="مثال: 22" min="0" max="55" step="0.1">
       </div>
       <div>
         <label>متوسط أجرك الشهري الخاضع للاشتراك (دينار)</label>
-        <input type="number" id="pWage" placeholder="مثال: 700" min="0" step="any" oninput="calc()">
+        <input type="number" id="pWage" placeholder="مثال: 700" min="0" step="any">
       </div>
     </div>
     <div class="row">
       <div>
         <label>عدد المعالين (بحد أقصى 3)</label>
-        <input type="number" id="pDep" placeholder="0" min="0" max="3" step="1" value="0" oninput="calc()">
+        <input type="number" id="pDep" placeholder="0" min="0" max="3" step="1" value="0">
       </div>
     </div>
     <p style="font-size:12px;color:var(--text-muted);margin-top:-4px;">💡 متوسط الأجر يُحتسب رسمياً على آخر 36 اشتراكاً (3 سنوات) لتقاعد الشيخوخة أو آخر 60 اشتراكاً (5 سنوات) للتقاعد المبكر — أدخل متوسط تقريبي لهذه الفترة.</p>
@@ -300,6 +300,10 @@ function calc() {
   document.getElementById('pDepAmount').textContent = depAmount > 0 ? '+ ' + depAmount.toFixed(2) : '0.00';
   document.getElementById('pFinal').textContent = final.toFixed(2) + ' د.أ';
 }
+
+['pAge', 'pYears', 'pWage', 'pDep'].forEach(function (id) {
+  document.getElementById(id).addEventListener('input', calc);
+});
 </script>
 <script src="i18n.js?v=42" defer></script>
 </body></html>
