@@ -69,21 +69,21 @@
     <div class="row">
       <div>
         <label>الراتب الأساسي (دينار)</label>
-        <input type="number" id="basic" placeholder="0.000" min="0" step="any" oninput="calc()">
+        <input type="number" id="basic" placeholder="0.000" min="0" step="any">
       </div>
       <div>
         <label>بدل السكن (اختياري)</label>
-        <input type="number" id="housing" placeholder="0.000" min="0" step="any" oninput="calc()">
+        <input type="number" id="housing" placeholder="0.000" min="0" step="any">
       </div>
     </div>
     <div class="row">
       <div>
         <label>بدل النقل (اختياري)</label>
-        <input type="number" id="transport" placeholder="0.000" min="0" step="any" oninput="calc()">
+        <input type="number" id="transport" placeholder="0.000" min="0" step="any">
       </div>
       <div>
         <label>بدلات ثابتة أخرى (اختياري)</label>
-        <input type="number" id="other" placeholder="0.000" min="0" step="any" oninput="calc()">
+        <input type="number" id="other" placeholder="0.000" min="0" step="any">
       </div>
     </div>
     <p style="font-size:12px;color:var(--text-muted);margin-top:-4px;">💡 "الأجر الخاضع للاشتراك" عادة يشمل الراتب الأساسي والبدلات الثابتة المنصوص عليها بعقدك، ولا يشمل العمل الإضافي أو المكافآت غير المنتظمة. بحد أعلى <strong>3733 دينار/شهر</strong> لعام 2026.</p>
@@ -99,6 +99,7 @@
         <div class="stat-box" style="background:#f0fdf4;"><div class="stat-val" id="erShareDisplay" style="color:#16a34a;"></div><div class="stat-lbl">حصة صاحب العمل (14.25%)</div></div>
       </div>
       <div id="capNote" style="display:none;margin-top:10px;padding:10px 14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;color:var(--text-muted);"></div>
+      <button id="ssExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
     </div>
   </div>
 
@@ -207,6 +208,32 @@ function calc() {
 
   document.getElementById('ssResult').style.display = 'block';
 }
+
+function exportSSResult() {
+  const netText = document.getElementById('netDisplay').textContent;
+  if (!netText) return;
+  const basic = parseFloat(document.getElementById('basic').value) || 0;
+  const housing = parseFloat(document.getElementById('housing').value) || 0;
+  const transport = parseFloat(document.getElementById('transport').value) || 0;
+  const other = parseFloat(document.getElementById('other').value) || 0;
+  const rows = [];
+  if (basic) rows.push({ label: 'الراتب الأساسي', value: basic.toFixed(3) + ' د.أ' });
+  if (housing) rows.push({ label: 'بدل السكن', value: housing.toFixed(3) + ' د.أ' });
+  if (transport) rows.push({ label: 'بدل النقل', value: transport.toFixed(3) + ' د.أ' });
+  if (other) rows.push({ label: 'بدلات ثابتة أخرى', value: other.toFixed(3) + ' د.أ' });
+  rows.push({ label: 'إجمالي الأجر', value: document.getElementById('grossDisplay').textContent + ' د.أ' });
+  rows.push({ label: 'حصتك بالضمان (7.5%)', value: document.getElementById('empShareDisplay').textContent + ' د.أ' });
+  rows.push({ label: 'حصة صاحب العمل (14.25%)', value: document.getElementById('erShareDisplay').textContent + ' د.أ' });
+  rows.push({ label: 'الراتب الصافي التقديري', value: netText, highlight: true });
+  if (typeof exportResultImage === 'function') exportResultImage('حاسبة الضمان الاجتماعي — القطاع الخاص', rows);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  ['basic', 'housing', 'transport', 'other'].forEach(function(id) {
+    document.getElementById(id).addEventListener('input', calc);
+  });
+  document.getElementById('ssExportBtn')?.addEventListener('click', exportSSResult);
+});
 </script>
 <script src="i18n.js?v=42" defer></script>
 </body></html>
