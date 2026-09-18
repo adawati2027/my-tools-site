@@ -874,8 +874,8 @@ function filterTools() {
       document.getElementById('toolsGrid').insertAdjacentElement('afterend', noRes);
     }
     const lang = localStorage.getItem('lang') || 'en';
-    const txt = (window.T && window.T[lang] && window.T[lang].search_no_results) || 'No tool found with that name';
-    const searchElsewhere = (window.T && window.T[lang] && window.T[lang].search_try_site) || 'Search all of Adawati for';
+    const txt = (typeof T !== 'undefined' && T[lang] && T[lang].search_no_results) || 'No tool found with that name';
+    const searchElsewhere = (typeof T !== 'undefined' && T[lang] && T[lang].search_try_site) || 'Search all of Adawati for';
     noRes.innerHTML = '<div class="no-results-icon">🔍</div><div>' + txt + '</div>' +
       '<div style="margin-top:8px;"><a href="https://www.google.com/search?q=site:adawati.space+' + encodeURIComponent(q) +
       '" target="_blank" rel="noopener" style="font-size:13px;color:var(--primary);text-decoration:underline;">' + searchElsewhere + ' "' + q.replace(/</g,'&lt;') + '" →</a></div>';

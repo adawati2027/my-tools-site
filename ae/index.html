@@ -451,6 +451,12 @@ function filterTools() {
     if (__r.top < 0 || __r.top > 140) { window.scrollTo({top: __r.top + window.scrollY - 70, behavior: 'instant'}); }
   }
   if (q && visible === 0) {
+    var __extra = document.querySelectorAll('#dailySection .tool-card,#decisionsSection .tool-card');
+    var __match = null;
+    __extra.forEach(function(c){ if (!__match && ((c.dataset.search||'').toLowerCase().includes(q) || c.textContent.toLowerCase().includes(q))) __match = c; });
+    if (__match) { __match.scrollIntoView({behavior:'instant', block:'center'}); __match.style.outline='3px solid var(--primary)'; setTimeout(function(){ __match.style.outline=''; }, 2000); visible = 1; }
+  }
+  if (q && visible === 0) {
     let noRes = document.getElementById('noResults');
     if (!noRes) { noRes = document.createElement('div'); noRes.className = 'search-no-results'; noRes.id = 'noResults'; noRes.innerHTML = '<div class="no-results-icon">🔍</div><div>No tool found</div>'; document.getElementById('toolsGrid').insertAdjacentElement('afterend', noRes); }
     noRes.style.display = 'block';
