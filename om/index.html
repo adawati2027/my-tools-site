@@ -640,6 +640,11 @@ function filterTools() {
     card.style.display = show ? '' : 'none';
     if (show) visible++;
   });
+  if (q && visible > 0) {
+    var __tg = document.getElementById('toolsGrid');
+    var __r = __tg.getBoundingClientRect();
+    if (__r.top < 0 || __r.top > 140) { window.scrollTo({top: __r.top + window.scrollY - 70, behavior: 'instant'}); }
+  }
   if (q && visible === 0) {
     let noRes = document.getElementById('noResults');
     if (!noRes) {

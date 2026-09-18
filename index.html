@@ -860,6 +860,11 @@ function filterTools() {
     if (show) { visible++; localHrefs.add(new URL(card.getAttribute('href'), location.href).href); }
   });
   renderCrossSiteResults(q, localHrefs);
+  if (q && visible > 0) {
+    const tg = document.getElementById('toolsGrid');
+    const r = tg.getBoundingClientRect();
+    if (r.top < 0 || r.top > 140) { window.scrollTo({top: r.top + window.scrollY - 70, behavior: 'instant'}); }
+  }
   if (q && visible === 0) {
     let noRes = document.getElementById('noResults');
     if (!noRes) {
