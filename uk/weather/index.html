@@ -57,7 +57,7 @@
     <div class="divider"></div>
 
     <label>City</label>
-    <select id="citySelect" onchange="fetchWeather()" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
+    <select id="citySelect" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
       <option value="London">London</option>
       <option value="Manchester">Manchester</option>
       <option value="Birmingham">Birmingham</option>
@@ -95,6 +95,13 @@
   <div class="card" id="forecastCard" style="margin-top:16px;display:none;">
     <div class="card-title" style="font-size:15px;">📅 5-Day Forecast</div>
     <div id="forecastRow" style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px;"></div>
+    <div id="hourlyBox" style="display:none;margin-top:14px;border-top:1px solid var(--border);padding-top:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span id="hourlyTitle" style="font-size:13px;font-weight:700;">⏰ Hourly Details</span>
+        <button id="hourlyCloseBtn" style="background:none;border:none;color:var(--text-muted);font-size:12px;cursor:pointer;">✕ Close</button>
+      </div>
+      <div id="hourlyRow" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;"></div>
+    </div>
   </div>
 
   <div class="card" style="margin-top:16px;">
@@ -153,6 +160,33 @@ const WEATHER_CODES = {
   95: ['⛈️','Thunderstorm'], 96: ['⛈️','Thunderstorm with hail'], 99: ['⛈️','Severe thunderstorm']
 };
 
+let lastHourly = null;
+let lastDailyTimes = null;
+let activeHourDate = null;
+
+function renderHourly(dateStr) {
+  if (!lastHourly) return;
+  activeHourDate = dateStr;
+  const row = document.getElementById('hourlyRow');
+  row.innerHTML = '';
+  for (let i = 0; i < lastHourly.time.length; i++) {
+    if (!lastHourly.time[i].startsWith(dateStr)) continue;
+    const hr = new Date(lastHourly.time[i]);
+    const hwc = WEATHER_CODES[lastHourly.weather_code[i]] || ['🌡️','—'];
+    const chip = document.createElement('div');
+    chip.style.cssText = 'flex:0 0 auto;text-align:center;padding:8px 10px;background:var(--surface-2);border-radius:8px;min-width:60px;';
+    chip.innerHTML = '<div style="font-size:11px;color:var(--text-muted);">' + String(hr.getHours()).padStart(2,'0') + ':00</div>' +
+      '<div style="font-size:18px;margin-top:2px;">' + hwc[0] + '</div>' +
+      '<div style="font-size:13px;font-weight:700;margin-top:2px;">' + Math.round(lastHourly.temperature_2m[i]) + '°</div>' +
+      '<div style="font-size:10px;color:var(--text-muted);margin-top:3px;white-space:nowrap;">💧' + lastHourly.relative_humidity_2m[i] + '%</div>' +
+      '<div style="font-size:10px;color:var(--text-muted);white-space:nowrap;">💨' + Math.round(lastHourly.wind_speed_10m[i]) + '</div>';
+    row.appendChild(chip);
+  }
+  document.getElementById('hourlyBox').style.display = 'block';
+  document.querySelectorAll('#forecastRow > div').forEach(function(b){ b.style.outline = (b.dataset.date === dateStr) ? '2px solid var(--primary)' : 'none'; });
+  document.getElementById('hourlyBox').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
 function fetchWeather() {
   const city = document.getElementById('citySelect').value;
   const c = CITY_COORDS[city];
@@ -162,7 +196,7 @@ function fetchWeather() {
 
   const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + c.lat + '&longitude=' + c.lon +
     '&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,relative_humidity_2m' +
-    '&daily=temperature_2m_max,temperature_2m_min,weather_code&forecast_days=6&timezone=auto';
+    '&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&forecast_days=6&timezone=auto';
 
   const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
@@ -182,13 +216,17 @@ function fetchWeather() {
       document.getElementById('weatherBox').style.display = 'block';
 
       const daily = data.daily;
+      lastHourly = data.hourly;
+      document.getElementById('hourlyBox').style.display = 'none';
       const forecastRow = document.getElementById('forecastRow');
       forecastRow.innerHTML = '';
       for (let i = 1; i < daily.time.length; i++) {
         const d = new Date(daily.time[i] + 'T00:00:00');
         const dwc = WEATHER_CODES[daily.weather_code[i]] || ['🌡️','—'];
         const box = document.createElement('div');
-        box.style.cssText = 'text-align:center;padding:10px 4px;background:var(--surface-2);border-radius:8px;';
+        box.style.cssText = 'text-align:center;padding:10px 4px;background:var(--surface-2);border-radius:8px;cursor:pointer;';
+        box.dataset.date = daily.time[i];
+        box.addEventListener('click', function(){ renderHourly(this.dataset.date); });
         box.innerHTML = '<div style="font-size:12px;font-weight:700;margin-bottom:4px;">' + DAY_NAMES[d.getDay()] + '</div>' +
           '<div style="font-size:22px;">' + dwc[0] + '</div>' +
           '<div style="font-size:13px;margin-top:4px;"><strong>' + Math.round(daily.temperature_2m_max[i]) + '°</strong> / ' + Math.round(daily.temperature_2m_min[i]) + '°</div>';
@@ -206,4 +244,11 @@ function fetchWeather() {
 fetchWeather();
 </script>
 <script src="i18n.js?v=44" defer></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('citySelect')?.addEventListener('change', fetchWeather);
+  document.getElementById('hourlyCloseBtn')?.addEventListener('click', function(){ document.getElementById('hourlyBox').style.display = 'none'; document.querySelectorAll('#forecastRow > div').forEach(function(b){ b.style.outline = 'none'; }); });
+});
+</script>
 </body></html>
