@@ -75,9 +75,9 @@
     <div class="card-title" style="font-size:15px;">🧮 حابب تشتري؟ احسب التكلفة الكاملة</div>
     <p style="font-size:12px;color:var(--text-muted);margin-top:6px;margin-bottom:10px;">أجرة الصنعة تختلف كثير حسب المحل والتصميم — القيمة أدناه تقديرية فقط، عدّلها حسب اللي بيحكيلك الصائغ.</p>
     <div class="row">
-      <div><label>كم غرام بدك تشتري؟</label><input type="number" id="buyGrams" placeholder="0" min="0" step="any" oninput="calcPurchase()"></div>
+      <div><label>كم غرام بدك تشتري؟</label><input type="number" id="buyGrams" placeholder="0" min="0" step="any" ></div>
       <div><label>العيار</label>
-        <select id="buyKarat" onchange="calcPurchase()" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
+        <select id="buyKarat" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
           <option value="24">24 (خالص)</option>
           <option value="22">22</option>
           <option value="21" selected>21</option>
@@ -86,7 +86,7 @@
       </div>
     </div>
     <label>أجرة الصنعة لكل غرام (ريال سعودي تقديري)</label>
-    <input type="number" id="makingFee" placeholder="مثال: 3" min="0" step="any" value="3" oninput="calcPurchase()">
+    <input type="number" id="makingFee" placeholder="مثال: 3" min="0" step="any" value="3" >
 
     <div id="purchaseResult" style="display:none;margin-top:16px;">
       <div class="result-box show success" style="margin-top:0;">
@@ -196,4 +196,12 @@ fetchGoldPrice();
 setInterval(fetchGoldPrice, 300000);
 </script>
 <script src="i18n.js?v=44" defer></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('buyGrams')?.addEventListener('input', calcPurchase);
+  document.getElementById('buyKarat')?.addEventListener('change', calcPurchase);
+  document.getElementById('makingFee')?.addEventListener('input', calcPurchase);
+});
+</script>
 </body></html>

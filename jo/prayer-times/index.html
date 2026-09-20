@@ -62,7 +62,7 @@
     <div class="divider"></div>
 
     <label>المدينة</label>
-    <select id="citySelect" onchange="fetchTimes()" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
+    <select id="citySelect" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
       <option value="Amman">عمّان</option>
       <option value="Irbid">إربد</option>
       <option value="Zarqa">الزرقاء</option>
@@ -181,4 +181,10 @@ function fetchTimes() {
 fetchTimes();
 </script>
 <script src="i18n.js?v=44" defer></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('citySelect')?.addEventListener('change', fetchTimes);
+});
+</script>
 </body></html>
