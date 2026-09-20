@@ -104,6 +104,7 @@
       <div style="margin-top:12px;padding:10px 14px;background:#fef9c3;border-radius:8px;font-size:13px;color:#854d0e;">
         ⚠️ Numbers are estimates. Consult a nutritionist before following any diet.
       </div>
+      <button class="btn btn-primary" id="dietExportBtn" data-i18n="export_img_btn" style="margin-top:12px;width:100%;">📸 Export Result as Image</button>
     </div>
   </div>
 
@@ -161,6 +162,31 @@ function calculate() {
   document.getElementById('freeResult').style.display = 'block';
 }
 function buyPlan() { window.open('https://amawi7.gumroad.com/l/lvabsl', '_blank'); }
+function exportDietResult() {
+  const lang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
+  const t = T[lang];
+  const age = document.getElementById('age').value;
+  const weight = document.getElementById('weight').value;
+  const height = document.getElementById('height').value;
+  const activitySelect = document.getElementById('activity');
+  const goalSelect = document.getElementById('goal');
+  const activityText = activitySelect.options[activitySelect.selectedIndex].textContent;
+  const goalText = goalSelect.options[goalSelect.selectedIndex].textContent;
+  const genderBtn = document.querySelector('.option-btn[data-gender].active');
+  const genderLabel = genderBtn ? genderBtn.textContent : gender;
+  const rows = [
+    { label: t.diet_gender, value: genderLabel },
+    { label: t.diet_age, value: age },
+    { label: t.diet_weight, value: weight },
+    { label: t.diet_height, value: height },
+    { label: t.diet_goal, value: goalText },
+    { label: t.diet_protein, value: document.getElementById('proteinResult').textContent },
+    { label: t.diet_carb, value: document.getElementById('carbResult').textContent },
+    { label: t.diet_fat, value: document.getElementById('fatResult').textContent },
+    { label: t.diet_calories, value: document.getElementById('calorieResult').textContent, highlight: true }
+  ];
+  if (typeof exportResultImage === 'function') exportResultImage(t.diet_title, rows);
+}
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
@@ -170,6 +196,7 @@ document.addEventListener('DOMContentLoaded', function(){
   });
   document.querySelectorAll('.option-btn[data-gender]').forEach(function(btn){ btn.addEventListener('click', function(){ setGender(btn.dataset.gender); }); });
   document.getElementById('dietCalcBtn')?.addEventListener('click', calculate);
+  document.getElementById('dietExportBtn')?.addEventListener('click', exportDietResult);
 });
 </script>
 <script src="i18n.js?v=44" defer></script>
