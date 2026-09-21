@@ -170,7 +170,7 @@ cty_global:'Global', cty_om:'Oman', cty_ae:'UAE', cty_sa:'Saudi Arabia', cty_us:
     qr_input:'Link or Text', qr_placeholder:'https://example.com or any text...',
     qr_generate:'Generate Code', qr_download:'Download Image', qr_hint:'Type any link or text to generate the code',
     tz_title:'Time Zone Converter', tz_sub:'Find the current time in any city around the world',
-    tz_convert:'Convert a specific time', tz_from:'From Zone', tz_to:'To Zone',
+    tz_convert:'Convert a specific time', tz_from:'From Zone', tz_to:'To Zone', tz_input_lbl:'Input Time', tz_result_lbl:'Converted Time',
     rng_title:'Random Number Generator', rng_sub:'Generate random numbers for draws and games',
     rng_min:'Min Number', rng_max:'Max Number', rng_count:'Count:', rng_btn:'🎲 Generate Again', rng_history:'History',
     sw_title:'Stopwatch & Timer', sw_sub:'Professional stopwatch and timer for exercise and work',

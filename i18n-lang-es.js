@@ -89,7 +89,7 @@ cty_global:'Global', cty_om:'Omán', cty_ae:'Emiratos Árabes Unidos', cty_sa:'A
     qr_input:'Enlace o texto', qr_placeholder:'https://example.com o cualquier texto...',
     qr_generate:'Generar código', qr_download:'Descargar imagen', qr_hint:'Escribe un enlace o texto para generar el código',
     tz_title:'Conversor de zonas horarias', tz_sub:'Hora actual en el mundo',
-    tz_convert:'Convertir una hora', tz_from:'Desde', tz_to:'Hacia',
+    tz_convert:'Convertir una hora', tz_from:'Desde', tz_to:'Hacia', tz_input_lbl:'Hora ingresada', tz_result_lbl:'Hora convertida',
     rng_title:'Generador aleatorio', rng_sub:'Para sorteos y juegos',
     rng_min:'Mínimo', rng_max:'Máximo', rng_count:'Cantidad:', rng_btn:'🎲 Generar de nuevo', rng_history:'Historial',
     sw_title:'Cronómetro y temporizador', sw_sub:'Cronómetro profesional',

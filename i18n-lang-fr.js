@@ -89,7 +89,7 @@ cty_global:'Mondial', cty_om:'Oman', cty_ae:'Émirats arabes unis', cty_sa:'Arab
     qr_input:'Lien ou texte', qr_placeholder:'https://example.com ou n\'importe quel texte...',
     qr_generate:'Générer le code', qr_download:'Télécharger l\'image', qr_hint:'Entrez un lien ou un texte pour générer le code',
     tz_title:'Convertisseur de fuseaux horaires', tz_sub:'Heure actuelle dans le monde',
-    tz_convert:'Convertir une heure', tz_from:'Depuis', tz_to:'Vers',
+    tz_convert:'Convertir une heure', tz_from:'Depuis', tz_to:'Vers', tz_input_lbl:'Heure saisie', tz_result_lbl:'Heure convertie',
     rng_title:'Générateur de nombres aléatoires', rng_sub:'Pour les tirages et jeux',
     rng_min:'Min', rng_max:'Max', rng_count:'Quantité:', rng_btn:'🎲 Générer à nouveau', rng_history:'Historique',
     sw_title:'Chronomètre et minuteur', sw_sub:'Chronomètre professionnel',

@@ -89,7 +89,7 @@ cty_global:'Global', cty_om:'Oman', cty_ae:'Vereinigte Arabische Emirate', cty_s
     qr_input:'Link oder Text', qr_placeholder:'https://example.com oder beliebiger Text...',
     qr_generate:'Code generieren', qr_download:'Bild herunterladen', qr_hint:'Geben Sie einen Link oder Text ein',
     tz_title:'Zeitzonenrechner', tz_sub:'Aktuelle Zeit weltweit',
-    tz_convert:'Bestimmte Zeit umrechnen', tz_from:'Von Zone', tz_to:'Nach Zone',
+    tz_convert:'Bestimmte Zeit umrechnen', tz_from:'Von Zone', tz_to:'Nach Zone', tz_input_lbl:'Eingegebene Zeit', tz_result_lbl:'Umgerechnete Zeit',
     rng_title:'Zufallszahlengenerator', rng_sub:'Für Lotterien und Spiele',
     rng_min:'Minimum', rng_max:'Maximum', rng_count:'Anzahl:', rng_btn:'🎲 Erneut generieren', rng_history:'Verlauf',
     sw_title:'Stoppuhr und Timer', sw_sub:'Professionelle Stoppuhr',
