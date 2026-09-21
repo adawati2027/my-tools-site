@@ -1,10 +1,12 @@
-const CACHE = 'adawati-v62';
+const CACHE = 'adawati-v63';
 const BASE = '';
 const STATIC = [
   BASE + '/',
   BASE + '/index.html',
   BASE + '/style.css',
   BASE + '/i18n.js',
+  BASE + '/i18n-lang-en.js',
+  BASE + '/i18n-lang-ar.js',
   BASE + '/manifest.json',
   BASE + '/icon-192.svg',
   BASE + '/icon-512.svg',
@@ -140,7 +142,7 @@ self.addEventListener('fetch', e => {
   }
   // Network-first for HTML + i18n.js + style.css — always fresh, cache as offline fallback
   const isHTML = url.pathname.endsWith('.html') || url.pathname.endsWith('/');
-  const isCore = url.pathname.endsWith('/i18n.js') || url.pathname.endsWith('/style.css') || url.pathname.endsWith('/quiz-engine.js') || url.pathname.endsWith('/search-index.json');
+  const isCore = url.pathname.endsWith('/i18n.js') || url.pathname.endsWith('/style.css') || url.pathname.endsWith('/quiz-engine.js') || url.pathname.endsWith('/search-index.json') || /\/i18n-lang-(ar|en|fr|es|de|ru)\.js$/.test(url.pathname);
   if (isHTML || isCore) {
     e.respondWith(
       fetch(e.request, {cache: 'no-cache'}).then(resp => {
