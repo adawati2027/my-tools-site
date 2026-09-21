@@ -281,11 +281,22 @@ function exportTzResult(){
   var toSel=document.getElementById('tzTo');
   var fromText=fromSel.options[fromSel.selectedIndex].text;
   var toText=toSel.options[toSel.selectedIndex].text;
+  var input=document.getElementById('inputTime').value;
+  var date=new Date(input);
+  // The on-page tzResultVal/tzResultLabel are built with hardcoded en-US/
+  // en-GB locales regardless of the site's actual language — fine for the
+  // live page (numerals/weekday names there are a minor detail), but
+  // stacking both a 12h and a 24h English string into one exported row
+  // reads as jarringly English even when the rest of the card is Arabic.
+  // Recompute a single, locale-correct string here instead of reusing them.
+  var localeMap={ar:'ar',en:'en-US',fr:'fr-FR',es:'es-ES',de:'de-DE',ru:'ru-RU'};
+  var resultStr=isNaN(date.getTime())?document.getElementById('tzResultVal').textContent:
+    date.toLocaleString(localeMap[lang]||'en-US',{timeZone:toSel.value,weekday:'short',year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
   var rows=[
     {label:t.tz_from||'From Zone', value:fromText},
-    {label:t.tz_input_lbl||'Input Time', value:document.getElementById('inputTime').value.replace('T',' ')},
+    {label:t.tz_input_lbl||'Input Time', value:input.replace('T',' ')},
     {label:t.tz_to||'To Zone', value:toText},
-    {label:t.tz_result_lbl||'Converted Time', value:document.getElementById('tzResultVal').textContent+' — '+document.getElementById('tzResultLabel').textContent, highlight:true}
+    {label:t.tz_result_lbl||'Converted Time', value:resultStr, highlight:true}
   ];
   var title=t.tz_title||document.querySelector('h1.card-title').textContent;
   exportResultImage(title, rows);

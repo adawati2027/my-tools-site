@@ -1262,8 +1262,14 @@ function exportResultImage(titleText, rows, embedCanvas) {
   canvas.toBlob(function(blob) {
     if (!blob) return;
     const file = new File([blob], 'adawati-result.png', { type: 'image/png' });
+    // A PNG's own pixels can never be a clickable link — this is a real
+    // format limitation, not something fixable in the image itself. The
+    // closest real equivalent: pass the page's own URL as accompanying
+    // share text, since apps like WhatsApp/Messages/Mail auto-linkify a
+    // URL in that text field, so it IS tappable once actually shared —
+    // just not by tapping on the image pixels themselves.
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      navigator.share({ files: [file], title: titleText }).catch(function() {});
+      navigator.share({ files: [file], title: titleText, text: location.href }).catch(function() {});
     } else {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
