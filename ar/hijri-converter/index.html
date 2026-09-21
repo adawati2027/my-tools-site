@@ -134,6 +134,7 @@
       Note: This converter uses a tabular Hijri calendar. Dates may differ by 1–2 days from local moon-sighting calendars.<br>
       ملاحظة: يستخدم هذا المحوّل تقويماً هجرياً حسابياً (Tabular Hijri). قد يختلف التاريخ بيوم أو يومين عن التقويم المعتمد على رؤية الهلال المحلية.
     </p>
+    <button id="hijExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
   </div>
 
   <!-- Today's date panel -->
@@ -239,7 +240,8 @@ var HIJ_T={
     faq_q1:'ما الفرق بين التقويم الهجري والميلادي؟',faq_a1:'التقويم الهجري قمري (يعتمد على دورة القمر) ويتكون من 354-355 يوماً في السنة. التقويم الميلادي شمسي ويتكون من 365-366 يوماً. لهذا تتقدم السنة الهجرية بحوالي 11 يوماً كل سنة ميلادية.',
     faq_q2:'متى بدأ التقويم الهجري؟',faq_a2:'بدأ التقويم الهجري من هجرة النبي محمد ﷺ من مكة إلى المدينة المنورة، وهو ما يوافق 16 يوليو 622 ميلادي.',
     faq_q3:'لماذا قد يختلف التاريخ الهجري يوماً؟',faq_a3:'يعتمد التحديد الرسمي في كثير من الدول على رؤية الهلال بالعين المجردة، مما قد يُحدث فارقاً يوماً أو يومين. هذه الأداة تستخدم خوارزمية التقويم الهجري الجدولي (Tabular Hijri).',
-    related:'أدوات مرتبطة:',rel1:'📅 حاسبة العمر',rel2:'📋 نهاية الخدمة'
+    related:'أدوات مرتبطة:',rel1:'📅 حاسبة العمر',rel2:'📋 نهاية الخدمة',
+    lbl_greg_input:'التاريخ الميلادي المُدخل',lbl_hijri_result:'التاريخ الهجري',lbl_hijri_input:'التاريخ الهجري المُدخل',lbl_greg_result:'التاريخ الميلادي',lbl_today_hijri:'التاريخ الهجري لليوم'
   },
   en:{
     hmonths:['Muharram','Safar','Rabi al-Awwal','Rabi al-Thani','Jumada al-Awwal','Jumada al-Thani','Rajab','Sha\'ban','Ramadan','Shawwal','Dhu al-Qi\'dah','Dhu al-Hijjah'],
@@ -250,7 +252,8 @@ var HIJ_T={
     faq_q1:'What is the difference between Hijri and Gregorian calendars?',faq_a1:'The Hijri calendar is lunar (based on moon cycles) with 354-355 days per year. The Gregorian calendar is solar with 365-366 days. This means the Hijri year advances about 11 days each Gregorian year.',
     faq_q2:'When did the Hijri calendar begin?',faq_a2:'The Hijri calendar began from the Prophet Muhammad\'s ﷺ migration (Hijra) from Mecca to Medina, corresponding to July 16, 622 CE.',
     faq_q3:'Why might the Hijri date differ by a day?',faq_a3:'Official determination in many countries depends on naked-eye moon sighting, which can cause a one-day difference between countries. This tool uses a tabular Hijri calendar algorithm, which may differ by 1–2 days from the observed calendar.',
-    related:'Related tools:',rel1:'📅 Age Calculator',rel2:'📋 End of Service'
+    related:'Related tools:',rel1:'📅 Age Calculator',rel2:'📋 End of Service',
+    lbl_greg_input:'Gregorian Date Entered',lbl_hijri_result:'Hijri Date',lbl_hijri_input:'Hijri Date Entered',lbl_greg_result:'Gregorian Date',lbl_today_hijri:'Today\'s Hijri Date'
   },
   fr:{
     hmonths:['Mouharram','Safar','Rabi al-Awwal','Rabi al-Thani','Joumada al-Awwal','Joumada al-Thani','Rajab','Chaaban','Ramadan','Chawwal','Dhou al-Qi\'da','Dhou al-Hijja'],
@@ -261,7 +264,8 @@ var HIJ_T={
     faq_q1:'Quelle est la différence entre le calendrier hégirien et grégorien?',faq_a1:'Le calendrier hégirien est lunaire avec 354-355 jours par an. Le calendrier grégorien est solaire avec 365-366 jours. L\'année hégirienne avance d\'environ 11 jours chaque année grégorienne.',
     faq_q2:'Quand le calendrier hégirien a-t-il commencé?',faq_a2:'Le calendrier hégirien a commencé avec la migration du Prophète Muhammad ﷺ de La Mecque à Médine, correspondant au 16 juillet 622 EC.',
     faq_q3:'Pourquoi la date hégirienne peut-elle différer d\'un jour?',faq_a3:'La détermination officielle dans de nombreux pays dépend de l\'observation de la lune à l\'œil nu. Cet outil utilise un algorithme de calendrier hégirien tabulaire, qui peut différer de 1 à 2 jours du calendrier observé.',
-    related:'Outils connexes:',rel1:'📅 Calculateur d\'âge',rel2:'📋 Fin de service'
+    related:'Outils connexes:',rel1:'📅 Calculateur d\'âge',rel2:'📋 Fin de service',
+    lbl_greg_input:'Date grégorienne saisie',lbl_hijri_result:'Date hégirienne',lbl_hijri_input:'Date hégirienne saisie',lbl_greg_result:'Date grégorienne',lbl_today_hijri:'Date hégirienne d\'aujourd\'hui'
   },
   es:{
     hmonths:['Muharram','Safar','Rabi al-Awwal','Rabi al-Thani','Yumada al-Awwal','Yumada al-Thani','Rayab','Shaabán','Ramadán','Shawwal','Dhu al-Qi\'dah','Dhu al-Hijjah'],
@@ -272,7 +276,8 @@ var HIJ_T={
     faq_q1:'¿Cuál es la diferencia entre los calendarios hijri y gregoriano?',faq_a1:'El calendario hijri es lunar con 354-355 días por año. El calendario gregoriano es solar con 365-366 días. El año hijri avanza aproximadamente 11 días cada año gregoriano.',
     faq_q2:'¿Cuándo comenzó el calendario hijri?',faq_a2:'El calendario hijri comenzó con la migración del Profeta Muhammad ﷺ de La Meca a Medina, correspondiente al 16 de julio de 622 EC.',
     faq_q3:'¿Por qué puede diferir la fecha hijri en un día?',faq_a3:'La determinación oficial en muchos países depende de la observación de la luna. Esta herramienta utiliza un algoritmo de calendario hijri tabular, que puede diferir 1–2 días del calendario observado.',
-    related:'Herramientas relacionadas:',rel1:'📅 Calculadora de edad',rel2:'📋 Fin de servicio'
+    related:'Herramientas relacionadas:',rel1:'📅 Calculadora de edad',rel2:'📋 Fin de servicio',
+    lbl_greg_input:'Fecha gregoriana ingresada',lbl_hijri_result:'Fecha Hijri',lbl_hijri_input:'Fecha Hijri ingresada',lbl_greg_result:'Fecha gregoriana',lbl_today_hijri:'Fecha Hijri de hoy'
   },
   de:{
     hmonths:['Muharram','Safar','Rabi al-Awwal','Rabi al-Thani','Dschumada al-Awwal','Dschumada al-Thani','Radschab','Schaaban','Ramadan','Schawwal','Dhu al-Qaida','Dhu al-Hiddscha'],
@@ -283,7 +288,8 @@ var HIJ_T={
     faq_q1:'Was ist der Unterschied zwischen Hijri- und Gregorianischem Kalender?',faq_a1:'Der Hijri-Kalender ist Mondkalender mit 354-355 Tagen pro Jahr. Der Gregorianische Kalender ist Sonnenkalender mit 365-366 Tagen. Das Hijri-Jahr rückt jährlich um ca. 11 Tage vor.',
     faq_q2:'Wann begann der Hijri-Kalender?',faq_a2:'Der Hijri-Kalender begann mit der Auswanderung des Propheten Muhammad ﷺ von Mekka nach Medina, entsprechend dem 16. Juli 622 n.Chr.',
     faq_q3:'Warum kann das Hijri-Datum um einen Tag abweichen?',faq_a3:'Die offizielle Bestimmung in vielen Ländern hängt von der Mondbeobachtung ab. Dieses Tool verwendet einen tabulierten Hijri-Kalenderalgorithmus, der 1–2 Tage vom beobachteten Kalender abweichen kann.',
-    related:'Verwandte Tools:',rel1:'📅 Altersrechner',rel2:'📋 Dienstzeitende'
+    related:'Verwandte Tools:',rel1:'📅 Altersrechner',rel2:'📋 Dienstzeitende',
+    lbl_greg_input:'Eingegebenes gregorianisches Datum',lbl_hijri_result:'Hijri-Datum',lbl_hijri_input:'Eingegebenes Hijri-Datum',lbl_greg_result:'Gregorianisches Datum',lbl_today_hijri:'Heutiges Hijri-Datum'
   },
   ru:{
     hmonths:['Мухаррам','Сафар','Раби аль-авваль','Раби ас-сани','Джумада аль-уля','Джумада аль-ахира','Раджаб','Шаабан','Рамадан','Шавваль','Зуль-каада','Зуль-хиджа'],
@@ -294,7 +300,8 @@ var HIJ_T={
     faq_q1:'В чём разница между календарями хиджры и григорианским?',faq_a1:'Календарь хиджры лунный — 354-355 дней в году. Григорианский солнечный — 365-366 дней. Год хиджры опережает григорианский примерно на 11 дней ежегодно.',
     faq_q2:'Когда начался календарь хиджры?',faq_a2:'Календарь хиджры начался с переселения Пророка Мухаммада ﷺ из Мекки в Медину, что соответствует 16 июля 622 н.э.',
     faq_q3:'Почему дата хиджры может отличаться на один день?',faq_a3:'Официальное определение во многих странах зависит от наблюдения луны невооружённым глазом. Этот инструмент использует табличный алгоритм хиджры, который может отличаться на 1–2 дня от наблюдаемого календаря.',
-    related:'Связанные инструменты:',rel1:'📅 Калькулятор возраста',rel2:'📋 Выходное пособие'
+    related:'Связанные инструменты:',rel1:'📅 Калькулятор возраста',rel2:'📋 Выходное пособие',
+    lbl_greg_input:'Введённая григорианская дата',lbl_hijri_result:'Дата по хиджре',lbl_hijri_input:'Введённая дата по хиджре',lbl_greg_result:'Григорианская дата',lbl_today_hijri:'Сегодняшняя дата по хиджре'
   }
 };
 function HT(){return HIJ_T[(document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en'];}
@@ -402,6 +409,28 @@ function convertHtoG() {
   document.getElementById('hgResult').style.background = 'var(--surface-2)';
 }
 
+function exportHijriResult() {
+  var t=HT();
+  var titleEl=document.querySelector('h1.card-title');
+  var title=titleEl?titleEl.textContent:'Hijri Converter';
+  var rows=[];
+  if (convMode === 'g2h') {
+    var ghResult=document.getElementById('ghResult');
+    if (ghResult.style.display !== 'block') return;
+    rows.push({label:t.lbl_greg_input,value:document.getElementById('gregDate').value});
+    rows.push({label:t.lbl_hijri_result,value:document.getElementById('ghDateDisplay').textContent,highlight:true});
+  } else {
+    var hgResult=document.getElementById('hgResult');
+    if (hgResult.style.display !== 'block') return;
+    var hDay=document.getElementById('hijriDay').value;
+    var hYear=document.getElementById('hijriYear').value;
+    rows.push({label:t.lbl_hijri_input,value:hDay+' '+t.hmonths[selectedHijriMonth-1]+' '+hYear+t.hsuffix});
+    rows.push({label:t.lbl_greg_result,value:document.getElementById('hgDateDisplay').textContent,highlight:true});
+  }
+  rows.push({label:t.lbl_today_hijri,value:document.getElementById('todayHijri').textContent});
+  if (typeof exportResultImage === 'function') exportResultImage(title, rows);
+}
+
 function showTodayHijri() {
   var t=HT();
   var now = new Date();
@@ -423,6 +452,7 @@ document.addEventListener('DOMContentLoaded', function(){
     a.addEventListener('click', function(){ setLang(a.dataset.lang); });
   });
   document.querySelectorAll('.option-btn[data-mode]').forEach(function(btn){ btn.addEventListener('click', function(){ setConvMode(btn.dataset.mode); }); });
+  document.getElementById('hijExportBtn')?.addEventListener('click', exportHijriResult);
 });
 
 document.getElementById('gregDate').addEventListener('change', convertGtoH);
