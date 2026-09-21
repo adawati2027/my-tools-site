@@ -138,6 +138,7 @@
       </div>
       <div id="tmp-result" class="result-box success"><div class="result-value" id="tmp-out"></div></div>
     </div>
+    <button id="unitExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
   </div>
 
   <div class="card" style="margin-top:16px;">
@@ -257,6 +258,29 @@ var WGT={kg:1,g:0.001,lb:0.453592,oz:0.0283495,t:1000};
 function convertLength(){var v=parseFloat(document.getElementById('len-val').value),f=document.getElementById('len-from').value,t=document.getElementById('len-to').value,box=document.getElementById('len-result');if(isNaN(v)){box.classList.remove('show');return;}document.getElementById('len-out').textContent=+(v*LEN[f]/LEN[t]).toFixed(4);box.classList.add('show');}
 function convertWeight(){var v=parseFloat(document.getElementById('wgt-val').value),f=document.getElementById('wgt-from').value,t=document.getElementById('wgt-to').value,box=document.getElementById('wgt-result');if(isNaN(v)){box.classList.remove('show');return;}document.getElementById('wgt-out').textContent=+(v*WGT[f]/WGT[t]).toFixed(4);box.classList.add('show');}
 function convertTemp(){var v=parseFloat(document.getElementById('tmp-val').value),f=document.getElementById('tmp-from').value,t=document.getElementById('tmp-to').value,box=document.getElementById('tmp-result');if(isNaN(v)){box.classList.remove('show');return;}var c=f==='c'?v:f==='f'?(v-32)*5/9:v-273.15;var out=t==='c'?c:t==='f'?c*9/5+32:c+273.15;document.getElementById('tmp-out').textContent=+out.toFixed(4);box.classList.add('show');}
+
+function exportUnitResult(){
+  var lang=(document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
+  var gt=(typeof T!=='undefined'&&T[lang])?T[lang]:{};
+  var ut=UNI_T[lang]||UNI_T.en;
+  var tab=document.querySelector('.tab.active').dataset.tab;
+  var prefix=tab==='length'?'len':tab==='weight'?'wgt':'tmp';
+  var box=document.getElementById(prefix+'-result');
+  if(!box||!box.classList.contains('show')){return;}
+  var subKey=tab==='length'?'len':tab==='weight'?'wgt':'tmp';
+  var fromVal=document.getElementById(prefix+'-from').value;
+  var toVal=document.getElementById(prefix+'-to').value;
+  var fromLabel=(ut[subKey]&&ut[subKey][fromVal])||fromVal;
+  var toLabel=(ut[subKey]&&ut[subKey][toVal])||toVal;
+  var rows=[
+    {label:gt.unit_value||'Value', value:document.getElementById(prefix+'-val').value},
+    {label:gt.unit_from||'From', value:fromLabel},
+    {label:gt.unit_to||'To', value:toLabel},
+    {label:fromLabel+' → '+toLabel, value:document.getElementById(prefix+'-out').textContent, highlight:true}
+  ];
+  var title=document.querySelector('h1.card-title')?document.querySelector('h1.card-title').textContent:document.title;
+  exportResultImage(title, rows);
+}
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
@@ -265,6 +289,7 @@ document.addEventListener('DOMContentLoaded', function(){
     a.addEventListener('click', function(){ setLang(a.dataset.lang); });
   });
   document.querySelectorAll('.tab[data-tab]').forEach(function(el){ el.addEventListener('click', function(){ switchTab(el.dataset.tab); }); });
+  document.getElementById('unitExportBtn')?.addEventListener('click', exportUnitResult);
 });
 
 document.getElementById('len-val').addEventListener('input', convertLength);
