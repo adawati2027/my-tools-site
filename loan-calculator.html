@@ -733,15 +733,6 @@ function downloadOrShare(blob,filename,mime){
 }
 function fallbackOpenOrDownload(blob,filename,mime){
   var url=URL.createObjectURL(blob);
-  if(mime==='application/pdf'){
-    // Mobile Safari doesn't reliably honor the `download` attribute for
-    // blob URLs, but it does have a native PDF viewer — opening the blob
-    // URL directly in a new tab lets Safari's own viewer show it, with
-    // its own Share/Save-to-Files controls, which is far more reliable
-    // there than <a download>.
-    var win=window.open(url,'_blank');
-    if(win)return;
-  }
   var a=document.createElement('a');
   a.href=url;a.download=filename;
   document.body.appendChild(a);a.click();a.remove();
