@@ -180,6 +180,24 @@
     </div>
   </div>
 
+  <div id="monthTableCard" class="card" style="margin-top:16px;display:none;">
+    <div class="card-title" style="font-size:15px;" data-i18n="ci_month_table_title">📅 Monthly Breakdown</div>
+    <div style="overflow-x:auto;">
+      <table class="ci-table" id="ciMonthTable">
+        <thead><tr>
+          <th data-i18n="ci_th_month">Month</th>
+          <th data-i18n="ci_th_amount">Amount</th>
+          <th data-i18n="ci_th_int_added">Interest added</th>
+        </tr></thead>
+        <tbody id="ciMonthTableBody"></tbody>
+      </table>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+      <button class="btn btn-primary" id="ciMonthCsvBtn" style="margin-top:0;" data-i18n="ci_export_csv_btn">📊 Export CSV</button>
+      <button class="btn btn-primary" id="ciMonthPdfBtn" style="margin-top:0;" data-i18n="ci_export_pdf_btn">📄 Export PDF</button>
+    </div>
+  </div>
+
   <div class="card" style="margin-top:16px;">
     <div class="card-title" style="font-size:15px;">📊 Comparison: Simple vs Compound Interest — 10,000</div>
     <div style="overflow-x:auto;margin-top:12px;">
@@ -315,8 +333,21 @@ function calculate() {
   if (P <= 0 || r <= 0 || t <= 0) {
     document.getElementById('ciResult').style.display = 'none';
     document.getElementById('tableCard').style.display = 'none';
+    document.getElementById('monthTableCard').style.display = 'none';
     return;
   }
+
+  // Invalidate any PDF held for a previous set of inputs — otherwise a
+  // second tap on the export button after changing an input could still
+  // share the old, now-outdated table.
+  if (_pendingCiPdfBlob) {
+    _pendingCiPdfBlob = null;
+    var pdfBtn = document.getElementById('ciMonthPdfBtn');
+    var tPdf = (typeof T !== 'undefined' && T[localStorage.getItem('lang')||document.documentElement.lang||'en']) ? T[localStorage.getItem('lang')||document.documentElement.lang||'en'] : {};
+    if (pdfBtn) pdfBtn.textContent = tPdf.ci_export_pdf_btn || '📄 Export PDF';
+  }
+  loadScript(HTML2CANVAS_URLS).catch(function(){});
+  loadScript(JSPDF_URLS).catch(function(){});
 
   const rate = r / 100;
   let balance = P;
@@ -346,6 +377,35 @@ function calculate() {
     tbody.appendChild(tr);
     prevYearTotal = total;
   }
+
+  // Capped the same way the annual table caps at 30 years — a 50-year
+  // duration would mean 600 rows, excessive for a plain scrollable table;
+  // 360 months (30 years) matches the existing annual-table precedent.
+  const totalMonthsWanted = Math.min(t * 12, 360);
+  const rMonthlyForMonths = rate / 12;
+  function balanceAtMonths(m) {
+    const yrs = m / 12;
+    const compoundPart = P * Math.pow(1 + rate / n, n * yrs);
+    const fvContribs = monthly > 0
+      ? monthly * ((Math.pow(1 + rMonthlyForMonths, m) - 1) / rMonthlyForMonths)
+      : 0;
+    return compoundPart + fvContribs;
+  }
+  const monthTbody = document.getElementById('ciMonthTableBody');
+  monthTbody.innerHTML = '';
+  let prevMonthTotal = P;
+  for (let m = 1; m <= totalMonthsWanted; m++) {
+    const monthTotal = balanceAtMonths(m);
+    const monthInterest = monthTotal - prevMonthTotal - monthly;
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td>' + m + '</td>' +
+      '<td style="font-weight:600;">' + monthTotal.toFixed(2) + '</td>' +
+      '<td style="color:#16a34a;">' + monthInterest.toFixed(2) + '</td>';
+    monthTbody.appendChild(tr);
+    prevMonthTotal = monthTotal;
+  }
+  document.getElementById('monthTableCard').style.display = totalMonthsWanted > 0 ? 'block' : 'none';
 
   const finalPrincipal = P * Math.pow(1 + rate/n, n * t);
   const rM = rate / 12;
@@ -384,6 +444,135 @@ function exportCompoundResult() {
   ];
   if (typeof exportResultImage === 'function') exportResultImage(t.ci_card_title || 'Compound Interest Calculator', rows);
 }
+
+function ciLangText(){
+  var lang=(document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
+  return (typeof T!=='undefined'&&T[lang])?T[lang]:{};
+}
+
+var HTML2CANVAS_URLS=['vendor/html2canvas-1.4.1.min.js','https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js','https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'];
+var JSPDF_URLS=['vendor/jspdf-2.5.1.umd.min.js','https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js','https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js'];
+var _scriptLoadPromises={};
+function loadScript(urls){
+  var list=Array.isArray(urls)?urls:[urls];
+  var key=list[0];
+  if(_scriptLoadPromises[key])return _scriptLoadPromises[key];
+  function loadOne(src){
+    return new Promise(function(resolve,reject){
+      var s=document.createElement('script');
+      s.src=src;
+      s.onload=function(){resolve();};
+      s.onerror=function(){reject(new Error('script failed to load: '+src));};
+      document.head.appendChild(s);
+    });
+  }
+  function tryIndex(i){
+    if(i>=list.length)return Promise.reject(new Error('script failed to load from all sources: '+key));
+    return loadOne(list[i]).catch(function(){ return tryIndex(i+1); });
+  }
+  _scriptLoadPromises[key]=tryIndex(0);
+  return _scriptLoadPromises[key];
+}
+function getCiMonthRows(){
+  var rows=[];
+  document.querySelectorAll('#ciMonthTableBody tr').forEach(function(tr){
+    var tds=tr.querySelectorAll('td');
+    rows.push([tds[0].textContent,tds[1].textContent,tds[2].textContent]);
+  });
+  return rows;
+}
+function escCsv(v){
+  v=String(v);
+  if(/[",\n]/.test(v)) return '"'+v.replace(/"/g,'""')+'"';
+  return v;
+}
+function downloadOrShare(blob,filename,mime){
+  var file=new File([blob],filename,{type:mime});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+    navigator.share({files:[file]}).catch(function(e){
+      if(e&&e.name==='AbortError')return;
+      fallbackOpenOrDownload(blob,filename,mime);
+    });
+    return;
+  }
+  fallbackOpenOrDownload(blob,filename,mime);
+}
+function fallbackOpenOrDownload(blob,filename,mime){
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download=filename;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(url);},60000);
+}
+function exportCiMonthCSV(){
+  var t=ciLangText();
+  var rows=getCiMonthRows();
+  if(!rows.length)return;
+  var headers=[t.ci_th_month||'Month',t.ci_th_amount||'Amount',t.ci_th_int_added||'Interest added'];
+  var lines=[headers.map(escCsv).join(',')];
+  rows.forEach(function(r){lines.push(r.map(escCsv).join(','));});
+  var csv='﻿'+lines.join('\r\n');
+  var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  downloadOrShare(blob,'compound-interest-schedule.csv','text/csv');
+}
+var _pendingCiPdfBlob=null;
+async function exportCiMonthPDF(){
+  var t=ciLangText();
+  var btn=document.getElementById('ciMonthPdfBtn');
+  if(_pendingCiPdfBlob){
+    var blobToShare=_pendingCiPdfBlob;
+    _pendingCiPdfBlob=null;
+    btn.textContent=t.ci_export_pdf_btn||'📄 Export PDF';
+    downloadOrShare(blobToShare,'compound-interest-schedule.pdf','application/pdf');
+    return;
+  }
+  var rows=getCiMonthRows();
+  if(!rows.length)return;
+  var origText=btn.textContent;
+  btn.textContent='⏳';btn.disabled=true;
+  try{
+    await loadScript(HTML2CANVAS_URLS);
+    await loadScript(JSPDF_URLS);
+    var jsPDF=window.jspdf.jsPDF;
+    var isRtl=document.documentElement.dir==='rtl';
+    var PX_W=718,PAGE_W_MM=190,MARGIN_MM=10,PAGE_H_MM=297-2*MARGIN_MM;
+    var headers=[t.ci_th_month||'Month',t.ci_th_amount||'Amount',t.ci_th_int_added||'Interest added'];
+    var thHtml=headers.map(function(h){return '<th style="border:1px solid #999;padding:6px 8px;background:#2563eb;color:#fff;">'+h+'</th>';}).join('');
+    var trsHtml=rows.map(function(r){return '<tr>'+r.map(function(c){return '<td style="border:1px solid #ccc;padding:5px 8px;">'+c+'</td>';}).join('')+'</tr>';}).join('');
+    var titleHtml='<h2 style="font-family:Arial;margin:0 0 10px;">'+(t.ci_month_table_title||'Monthly Breakdown')+'</h2>';
+    var tmp=document.createElement('div');
+    tmp.style.cssText='position:fixed;left:-9999px;top:0;width:'+PX_W+'px;font-size:14px;font-family:Arial;background:#fff;color:#000;direction:'+(isRtl?'rtl':'ltr')+';';
+    tmp.innerHTML=titleHtml+'<table style="border-collapse:collapse;width:100%;"><thead><tr>'+thHtml+'</tr></thead><tbody>'+trsHtml+'</tbody></table>';
+    document.body.appendChild(tmp);
+    var fullCanvas=await html2canvas(tmp,{backgroundColor:'#fff',scrollX:0,scrollY:0,scale:2,ignoreElements:function(el){return el.tagName==='IFRAME'||(el.className&&typeof el.className==='string'&&el.className.indexOf('adsbygoogle')!==-1);}});
+    document.body.removeChild(tmp);
+
+    var PX_PER_MM=fullCanvas.width/PAGE_W_MM;
+    var PAGE_H_PX=Math.floor(PAGE_H_MM*PX_PER_MM);
+
+    var doc=new jsPDF({unit:'mm',format:'a4',orientation:'portrait'});
+    var totalH=fullCanvas.height;
+    var y=0,first=true;
+    while(y<totalH){
+      var sliceH=Math.min(PAGE_H_PX,totalH-y);
+      var sliceCanvas=document.createElement('canvas');
+      sliceCanvas.width=fullCanvas.width;sliceCanvas.height=sliceH;
+      var sctx=sliceCanvas.getContext('2d');
+      sctx.drawImage(fullCanvas,0,y,fullCanvas.width,sliceH,0,0,fullCanvas.width,sliceH);
+      var sliceHmm=sliceH/PX_PER_MM;
+      if(!first)doc.addPage();
+      doc.addImage(sliceCanvas.toDataURL('image/jpeg',0.90),'JPEG',MARGIN_MM,MARGIN_MM,PAGE_W_MM,sliceHmm);
+      y+=sliceH;first=false;
+    }
+    _pendingCiPdfBlob=doc.output('blob');
+    btn.textContent=t.ci_pdf_ready_tap||'📤 Tap to Share';btn.disabled=false;
+  } catch(e){
+    console.error('PDF export failed:',e);
+    var detail=(e&&(e.message||e.name))?(': '+(e.message||e.name)):'';
+    if(typeof showToast==='function')showToast('❌ '+(t.ci_pdf_export_error||'Could not create PDF — try again')+detail,'error');
+    btn.textContent=origText;btn.disabled=false;
+  }
+}
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
@@ -392,6 +581,8 @@ document.addEventListener('DOMContentLoaded', function(){
     a.addEventListener('click', function(){ setLang(a.dataset.lang); });
   });
   document.getElementById('compExportBtn')?.addEventListener('click', exportCompoundResult);
+  document.getElementById('ciMonthCsvBtn')?.addEventListener('click', exportCiMonthCSV);
+  document.getElementById('ciMonthPdfBtn')?.addEventListener('click', exportCiMonthPDF);
 });
 
 document.getElementById('principal').addEventListener('input', calculate);

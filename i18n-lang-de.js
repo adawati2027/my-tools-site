@@ -163,6 +163,7 @@ cty_global:'Global', cty_om:'Oman', cty_ae:'Vereinigte Arabische Emirate', cty_s
     ci_result_lbl:'Endbetrag', ci_capital_lbl:'Anfangskapital', ci_interest_lbl:'Gesamtzinsen', ci_additions_lbl:'Gesamtergänzungen',
     ci_table_title:'📊 Jährliche Wachstumstabelle',
     ci_th_year:'Jahr', ci_th_amount:'Betrag', ci_th_int_added:'Zinsen hinzugefügt', ci_th_total_int:'Gesamtzinsen',
+    ci_month_table_title:'📅 Monatliche Aufschlüsselung', ci_th_month:'Monat', ci_export_csv_btn:'📊 CSV exportieren', ci_export_pdf_btn:'📄 PDF exportieren', ci_pdf_export_error:'PDF konnte nicht erstellt werden — versuchen Sie es erneut', ci_pdf_ready_tap:'📤 Zum Teilen tippen',
     dd_sub:'Tage, Wochen, Monate und Jahre zwischen zwei Daten',
     dd_from_lbl:'Erstes Datum (von)', dd_to_lbl:'Zweites Datum (bis)',
     dd_preset_today:'Ab heute', dd_preset_ny:'Bis Neujahr', dd_preset_ramadan:'Bis Ramadan 2027',

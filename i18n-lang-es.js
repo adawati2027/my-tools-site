@@ -163,6 +163,7 @@ cty_global:'Global', cty_om:'Omán', cty_ae:'Emiratos Árabes Unidos', cty_sa:'A
     ci_result_lbl:'Cantidad final', ci_capital_lbl:'Capital original', ci_interest_lbl:'Interés total', ci_additions_lbl:'Adiciones totales',
     ci_table_title:'📊 Tabla de crecimiento anual',
     ci_th_year:'Año', ci_th_amount:'Cantidad', ci_th_int_added:'Interés añadido', ci_th_total_int:'Interés total',
+    ci_month_table_title:'📅 Desglose mensual', ci_th_month:'Mes', ci_export_csv_btn:'📊 Exportar CSV', ci_export_pdf_btn:'📄 Exportar PDF', ci_pdf_export_error:'No se pudo crear el PDF — inténtalo de nuevo', ci_pdf_ready_tap:'📤 Toca para compartir',
     dd_sub:'Días, semanas, meses y años entre dos fechas',
     dd_from_lbl:'Primera fecha (desde)', dd_to_lbl:'Segunda fecha (hasta)',
     dd_preset_today:'Desde hoy', dd_preset_ny:'Hasta Año Nuevo', dd_preset_ramadan:'Hasta Ramadán 2027',

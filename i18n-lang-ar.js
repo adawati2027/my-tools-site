@@ -306,6 +306,7 @@ cty_global:'العالمي', cty_om:'عمان', cty_ae:'الإمارات', cty_s
     ci_interest_lbl:'إجمالي الفائدة', ci_additions_lbl:'إجمالي الإضافات',
     ci_table_title:'📊 جدول النمو السنوي',
     ci_th_year:'السنة', ci_th_amount:'المبلغ', ci_th_int_added:'الفائدة المضافة', ci_th_total_int:'إجمالي الفائدة',
+    ci_month_table_title:'📅 الجدول الشهري', ci_th_month:'الشهر', ci_export_csv_btn:'📊 تصدير CSV', ci_export_pdf_btn:'📄 تصدير PDF', ci_pdf_export_error:'تعذّر إنشاء ملف PDF — جرّب مرة أخرى', ci_pdf_ready_tap:'📤 اضغط للمشاركة',
     dd_sub:'أيام، أسابيع، أشهر وسنوات بين أي تاريخين',
     dd_from_lbl:'التاريخ الأول (من)', dd_to_lbl:'التاريخ الثاني (إلى)',
     dd_preset_today:'من اليوم', dd_preset_ny:'حتى رأس السنة', dd_preset_ramadan:'حتى رمضان 2027',

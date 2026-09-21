@@ -252,6 +252,7 @@ cty_global:'Global', cty_om:'Oman', cty_ae:'UAE', cty_sa:'Saudi Arabia', cty_us:
     ci_interest_lbl:'Total Interest', ci_additions_lbl:'Total Additions',
     ci_table_title:'📊 Annual Growth Table',
     ci_th_year:'Year', ci_th_amount:'Amount', ci_th_int_added:'Interest Added', ci_th_total_int:'Total Interest',
+    ci_month_table_title:'📅 Monthly Breakdown', ci_th_month:'Month', ci_export_csv_btn:'📊 Export CSV', ci_export_pdf_btn:'📄 Export PDF', ci_pdf_export_error:'Could not create PDF — try again', ci_pdf_ready_tap:'📤 Tap to Share',
     dd_sub:'Days, weeks, months and years between any two dates',
     dd_from_lbl:'First date (from)', dd_to_lbl:'Second date (to)',
     dd_preset_today:'From today', dd_preset_ny:'Until New Year', dd_preset_ramadan:'Until Ramadan 2027',

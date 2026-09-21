@@ -163,6 +163,7 @@ cty_global:'Глобально', cty_om:'Оман', cty_ae:'ОАЭ', cty_sa:'С�
     ci_result_lbl:'Итоговая сумма', ci_capital_lbl:'Начальный капитал', ci_interest_lbl:'Всего процентов', ci_additions_lbl:'Всего пополнений',
     ci_table_title:'📊 Таблица ежегодного роста',
     ci_th_year:'Год', ci_th_amount:'Сумма', ci_th_int_added:'Начислено %', ci_th_total_int:'Всего %',
+    ci_month_table_title:'📅 Помесячная разбивка', ci_th_month:'Месяц', ci_export_csv_btn:'📊 Экспорт CSV', ci_export_pdf_btn:'📄 Экспорт PDF', ci_pdf_export_error:'Не удалось создать PDF — попробуйте снова', ci_pdf_ready_tap:'📤 Нажмите, чтобы поделиться',
     dd_sub:'Дни, недели, месяцы и годы между двумя датами',
     dd_from_lbl:'Первая дата (от)', dd_to_lbl:'Вторая дата (до)',
     dd_preset_today:'От сегодня', dd_preset_ny:'До Нового года', dd_preset_ramadan:'До Рамадан 2027',
