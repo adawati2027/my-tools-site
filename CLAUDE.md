@@ -1188,6 +1188,12 @@ User-reported via two real screenshots of age-calculator's export image: the his
 
 **Verified**: a local test built the exact scenario from the user's screenshots (Arabic mode, 3 long event rows mixed with short date/age rows) — all 3 events now wrap cleanly with zero overlap. A regression check on `loan-calculator.html` (all short values, plus one moderately-long "Interest Type: Compound (Reducing Balance)" value that also now correctly stacks/wraps instead of whatever overflow risk it may have silently had before) confirmed the normal short-row layout is visually unaffected. Re-verified live against production `age-calculator.html` with a real fetched set of events (different text than the local test, since events are live-fetched from Wikipedia) — same clean result, 0 JS exceptions. `test-calculators.js` (20/20) and `test-e2e.js` (29/29) re-run clean afterward.
 
+## age-calculator export — final summary row label/value swapped, fixed 2026-09-21
+
+Follow-up to the wrap fix above — user pointed at the bottom of the exported card looking "not organized." Root cause was a separate, real bug in `age-calculator.html`'s own `exportAgeResult()`, not the shared function: the final highlighted row was built as `{label: document.getElementById('ageSub').textContent, value: main, highlight:true}` — but `#ageSub` holds the small continuation phrase ("و 0 شهر و 0 يوم") and `main` holds the big number ("14 سنة"), so the export literally put the continuation half first (as the "label") and the number half second (as the "value"), reading backwards instead of as the single coherent on-page phrase "14 سنة و 0 شهر و 0 يوم".
+
+**Fixed**: combined both pieces into one `value` string (`main + ' ' + ageSubText`) and added a proper new short label key `lbl_your_age` ("عمرك"/"Your Age"/etc., all 6 languages) instead of reusing `#ageSub`'s text as the label. Verified live on production (real fetched values, real events) — the row now renders as a clean heading ("عمرك") above the full wrapped phrase ("24 سنة و 0 شهر و 0 يوم"), matching the same stacked layout already used for the Hijri-age row right above it. Pushed as 6 files (root + 5 lang variants), verified live via blob-sha diff, `test-calculators.js` (20/20) re-run clean.
+
 ## Style/tone conventions
 
 - All Jordan-vertical copy is in Jordanian-dialect Arabic (not MSA), casual and direct — match existing pages' voice, not formal Arabic.
