@@ -1082,11 +1082,49 @@ function exportResultImage(titleText, rows) {
   const lang = localStorage.getItem('lang') || 'en';
   const isRtl = lang === 'ar';
   const W = 1080;
-  // Height follows row count instead of a fixed value — a 3-row result
+
+  // Two-pass measurement: a throwaway canvas decides which rows are too
+  // long for the normal side-by-side label/value layout (e.g. a full
+  // sentence — a historical-events row — rather than a short number or
+  // word) and how many lines that needs, before the real canvas (whose
+  // height depends on this) is created. Rows below the threshold render
+  // exactly as before — this only changes behavior for genuinely long
+  // values, zero risk to the many short label/value calculators already
+  // using this function.
+  const cardWMeasure = W - 120 - 100; // matches cardW - (50px padding each side) below
+  const valueColMaxW = cardWMeasure * 0.55;
+  const measureCanvas = document.createElement('canvas');
+  const mctx = measureCanvas.getContext('2d');
+  function wrapLines(text, font, maxW) {
+    mctx.font = font;
+    const words = String(text).split(' ');
+    let line = '', lines = [];
+    for (const w of words) {
+      const test = line ? line + ' ' + w : w;
+      if (mctx.measureText(test).width > maxW && line) { lines.push(line); line = w; }
+      else line = test;
+    }
+    if (line) lines.push(line);
+    return lines;
+  }
+  const rowPlans = rows.map(function(r) {
+    const big = !!r.highlight;
+    const valueFont = (big ? '800 46px' : '700 36px') + ' Tahoma, Arial, sans-serif';
+    mctx.font = valueFont;
+    if (mctx.measureText(String(r.value)).width <= valueColMaxW) {
+      return { row: r, wrapped: false, height: big ? 78 : 66 };
+    }
+    const stackedFont = (big ? '800 34px' : '700 30px') + ' Tahoma, Arial, sans-serif';
+    const lines = wrapLines(r.value, stackedFont, cardWMeasure);
+    const lineH = big ? 44 : 40;
+    return { row: r, wrapped: true, lines: lines, lineH: lineH, height: 40 + lines.length * lineH + 24 };
+  });
+
+  // Height follows row content instead of a fixed value — a 3-row result
   // (e.g. a simple percentage calc) shouldn't render with a huge empty
   // card, and a long breakdown (e.g. a loan amortization summary)
   // shouldn't get clipped.
-  const rowsHeight = rows.reduce((sum, r) => sum + (r.highlight ? 78 : 66), 0);
+  const rowsHeight = rowPlans.reduce((sum, p) => sum + p.height, 0);
   const H = Math.min(Math.max(260 + (rowsHeight + 140) + 170, 900), 1920);
   const cardH = H - 260 - 170;
   const canvas = document.createElement('canvas');
@@ -1140,18 +1178,39 @@ function exportResultImage(titleText, rows) {
 
   let rowY = cardY + 100;
   const rowMaxY = cardY + cardH - 40;
-  rows.forEach(function(r, i) {
+  rowPlans.forEach(function(p, i) {
+    const r = p.row;
     const big = !!r.highlight;
-    ctx.textAlign = isRtl ? 'right' : 'left';
-    ctx.fillStyle = '#64748b';
-    ctx.font = '500 32px Tahoma, Arial, sans-serif';
-    fillRowText(r.label, isRtl ? cardX + cardW - 50 : cardX + 50);
-    ctx.textAlign = isRtl ? 'left' : 'right';
-    ctx.fillStyle = big ? '#2563eb' : '#0f172a';
-    ctx.font = (big ? '800 46px' : '700 36px') + ' Tahoma, Arial, sans-serif';
-    fillRowText(r.value, isRtl ? cardX + 50 : cardX + cardW - 50);
-    rowY += big ? 78 : 66;
-    if (i < rows.length - 1 && rowY < rowMaxY) {
+    if (!p.wrapped) {
+      ctx.textAlign = isRtl ? 'right' : 'left';
+      ctx.fillStyle = '#64748b';
+      ctx.font = '500 32px Tahoma, Arial, sans-serif';
+      fillRowText(r.label, isRtl ? cardX + cardW - 50 : cardX + 50);
+      ctx.textAlign = isRtl ? 'left' : 'right';
+      ctx.fillStyle = big ? '#2563eb' : '#0f172a';
+      ctx.font = (big ? '800 46px' : '700 36px') + ' Tahoma, Arial, sans-serif';
+      fillRowText(r.value, isRtl ? cardX + 50 : cardX + cardW - 50);
+      rowY += big ? 78 : 66;
+    } else {
+      // Long value (e.g. a full sentence) — stack label as a small heading
+      // above the wrapped value text, both anchored to the same edge,
+      // instead of the normal opposing-edges label/value columns.
+      const anchorX = isRtl ? cardX + cardW - 50 : cardX + 50;
+      ctx.textAlign = isRtl ? 'right' : 'left';
+      ctx.fillStyle = '#64748b';
+      ctx.font = '600 28px Tahoma, Arial, sans-serif';
+      fillRowText(r.label, anchorX);
+      rowY += 40;
+      ctx.textAlign = isRtl ? 'right' : 'left';
+      ctx.fillStyle = big ? '#2563eb' : '#0f172a';
+      ctx.font = (big ? '800 34px' : '700 30px') + ' Tahoma, Arial, sans-serif';
+      p.lines.forEach(function(line) {
+        fillRowText(line, anchorX);
+        rowY += p.lineH;
+      });
+      rowY += 8;
+    }
+    if (i < rowPlans.length - 1 && rowY < rowMaxY) {
       ctx.strokeStyle = '#e2e8f0';
       ctx.lineWidth = 1;
       ctx.beginPath();
