@@ -1,4 +1,4 @@
-const CACHE = 'adawati-v63';
+const CACHE = 'adawati-v64';
 const BASE = '';
 const STATIC = [
   BASE + '/',
