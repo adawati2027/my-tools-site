@@ -130,6 +130,11 @@
       </div>
       <div id="extraInfo" style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
       <div id="hijriBox" style="display:none;margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2;"></div>
+      <div id="eventsBox" style="display:none;margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;" id="eventsTitle"></div>
+        <div id="eventsList" style="font-size:13px;line-height:1.9;color:var(--text-muted);"></div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:6px;opacity:.75;" id="eventsSource"></div>
+      </div>
       <button id="ageExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
     </div>
   </div>
@@ -239,6 +244,9 @@ var AGE_T={
     age_sub:function(m,d){return 'و '+m+' شهر و '+d+' يوم';},
     future_date_error:'يجب أن يكون تاريخ الميلاد في الماضي',
     lbl_zodiac:'برجك الفلكي',lbl_bornday:'يوم الميلاد',lbl_hijri_age:'عمرك بالهجري',lbl_nextbd:'عيد ميلادك القادم',
+    lbl_hijri_bdate:'تاريخ ميلادك بالهجري',
+    sec_events:'📅 أحداث تاريخية صارت يوم مثل يوم ميلادك',
+    events_source:'المصدر: ويكيبيديا',
     hijri_suffix:' هجري',
     hijri_greg:'تاريخ ميلادك بالميلادي: ',
     hijri_h:'تاريخ ميلادك بالهجري: ',
@@ -267,6 +275,9 @@ var AGE_T={
     age_sub:function(m,d){return 'and '+m+' months and '+d+' days';},
     future_date_error:'Birth date must be in the past',
     lbl_zodiac:'Zodiac Sign',lbl_bornday:'Day Born',lbl_hijri_age:'Hijri Age',lbl_nextbd:'Next Birthday',
+    lbl_hijri_bdate:'Hijri Birth Date',
+    sec_events:'📅 Historical Events on Your Birthday',
+    events_source:'Source: Wikipedia',
     hijri_suffix:' Hijri',
     hijri_greg:'Gregorian birthdate: ',
     hijri_h:'Hijri birthdate: ',
@@ -295,6 +306,9 @@ var AGE_T={
     age_sub:function(m,d){return 'et '+m+' mois et '+d+' jours';},
     future_date_error:'La date de naissance doit être dans le passé',
     lbl_zodiac:'Signe du zodiaque',lbl_bornday:'Jour de naissance',lbl_hijri_age:'Âge hégirien',lbl_nextbd:'Prochain anniversaire',
+    lbl_hijri_bdate:'Date de naissance hégirienne',
+    sec_events:'📅 Événements historiques le jour de votre anniversaire',
+    events_source:'Source : Wikipédia',
     hijri_suffix:' hégire',
     hijri_greg:'Date de naissance grégorienne: ',
     hijri_h:'Date de naissance hégirienne: ',
@@ -323,6 +337,9 @@ var AGE_T={
     age_sub:function(m,d){return 'y '+m+' meses y '+d+' días';},
     future_date_error:'La fecha de nacimiento debe estar en el pasado',
     lbl_zodiac:'Signo del zodiaco',lbl_bornday:'Día de nacimiento',lbl_hijri_age:'Edad Hijri',lbl_nextbd:'Próximo cumpleaños',
+    lbl_hijri_bdate:'Fecha de nacimiento Hijri',
+    sec_events:'📅 Eventos históricos en tu cumpleaños',
+    events_source:'Fuente: Wikipedia',
     hijri_suffix:' Hijri',
     hijri_greg:'Fecha de nacimiento gregoriana: ',
     hijri_h:'Fecha de nacimiento hijri: ',
@@ -351,6 +368,9 @@ var AGE_T={
     age_sub:function(m,d){return 'und '+m+' Monate und '+d+' Tage';},
     future_date_error:'Das Geburtsdatum muss in der Vergangenheit liegen',
     lbl_zodiac:'Sternzeichen',lbl_bornday:'Wochentag Geburt',lbl_hijri_age:'Hijri-Alter',lbl_nextbd:'Nächster Geburtstag',
+    lbl_hijri_bdate:'Hijri-Geburtsdatum',
+    sec_events:'📅 Historische Ereignisse an deinem Geburtstag',
+    events_source:'Quelle: Wikipedia',
     hijri_suffix:' Hijri',
     hijri_greg:'Gregorianisches Geburtsdatum: ',
     hijri_h:'Hijri-Geburtsdatum: ',
@@ -379,6 +399,9 @@ var AGE_T={
     age_sub:function(m,d){return 'и '+m+' месяцев и '+d+' дней';},
     future_date_error:'Дата рождения должна быть в прошлом',
     lbl_zodiac:'Знак зодиака',lbl_bornday:'День рождения',lbl_hijri_age:'Возраст по хиджре',lbl_nextbd:'Следующий день рождения',
+    lbl_hijri_bdate:'Дата рождения по хиджре',
+    sec_events:'📅 Исторические события в день вашего рождения',
+    events_source:'Источник: Википедия',
     hijri_suffix:' по хиджре',
     hijri_greg:'Дата рождения (григорианская): ',
     hijri_h:'Дата рождения (хиджра): ',
@@ -410,6 +433,41 @@ function getZodiac(month,day){
     if(month<ZODIAC_ENDS[i][0]||(month===ZODIAC_ENDS[i][0]&&day<=ZODIAC_ENDS[i][1]))return t.zodiac[i];
   }
   return t.zodiac[0];
+}
+
+var lastHijriBirthStr='',lastHijriAgeStr='',lastEvents=[],lastEventsKey='';
+
+function cleanEventText(s){return s.replace(/\{[^{}]*\}/g,'').replace(/\s{2,}/g,' ').trim();}
+
+var WIKI_LANGS={ar:1,en:1,fr:1,es:1,de:1,ru:1};
+
+function fetchBirthdayEvents(month,day){
+  var t=D();
+  var lang=document.documentElement.lang;
+  var wikiLang=WIKI_LANGS[lang]?lang:'en';
+  var key=wikiLang+'-'+month+'-'+day;
+  var box=document.getElementById('eventsBox');
+  var list=document.getElementById('eventsList');
+  document.getElementById('eventsTitle').textContent=t.sec_events;
+  document.getElementById('eventsSource').textContent=t.events_source;
+  if(lastEventsKey===key&&lastEvents.length){
+    list.innerHTML=lastEvents.map(function(e){return '<div style="margin-bottom:6px;"><strong>'+e.year+':</strong> '+e.text+'</div>';}).join('');
+    box.style.display='block';
+    return;
+  }
+  fetch('/api/onthisday?lang='+wikiLang+'&month='+month+'&day='+day)
+    .then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();})
+    .then(function(data){
+      if(!data||!data.events||!data.events.length)throw new Error('no events');
+      var top3=data.events.map(function(e){return{year:e.year,text:cleanEventText(e.text)};});
+      lastEvents=top3;lastEventsKey=key;
+      list.innerHTML=top3.map(function(e){return '<div style="margin-bottom:6px;"><strong>'+e.year+':</strong> '+e.text+'</div>';}).join('');
+      box.style.display='block';
+    })
+    .catch(function(){
+      lastEvents=[];lastEventsKey='';
+      box.style.display='none';
+    });
 }
 
 function isHijriLeap(y){return[2,5,7,10,13,16,18,21,24,26,29].indexOf(y%30)!==-1;}
@@ -490,12 +548,19 @@ function calcAge(){
     extra.appendChild(box);
   });
 
+  var hijriBirthStr=hBirth.day+' '+t.hmonths[hBirth.month-1]+' '+hBirth.year+t.hijri_he;
+  var hijriTodayStr=hToday.day+' '+t.hmonths[hToday.month-1]+' '+hToday.year+t.hijri_he;
+  lastHijriBirthStr=hijriBirthStr;
+  lastHijriAgeStr=hijriAgeStr;
+
   var hijriBox=document.getElementById('hijriBox');
   hijriBox.innerHTML=t.hijri_greg+'<strong>'+birthDateStr+'</strong><br>'
-    +t.hijri_h+'<strong>'+hBirth.day+' '+t.hmonths[hBirth.month-1]+' '+hBirth.year+t.hijri_he+'</strong><br>'
-    +t.hijri_today+'<strong>'+hToday.day+' '+t.hmonths[hToday.month-1]+' '+hToday.year+t.hijri_he+'</strong>';
+    +t.hijri_h+'<strong>'+hijriBirthStr+'</strong><br>'
+    +t.hijri_today+'<strong>'+hijriTodayStr+'</strong>';
   hijriBox.style.display='block';
   document.getElementById('result').style.display='block';
+
+  fetchBirthdayEvents(birth.getMonth()+1,birth.getDate());
 }
 
 function exportAgeResult(){
@@ -509,9 +574,12 @@ function exportAgeResult(){
     {label:document.getElementById('lbl-months').textContent,value:document.getElementById('stat-months').textContent},
     {label:document.getElementById('lbl-days').textContent,value:document.getElementById('stat-days').textContent},
     {label:document.getElementById('lbl-totaldays').textContent,value:document.getElementById('totalDays').textContent},
-    {label:document.getElementById('lbl-next').textContent,value:document.getElementById('daysToNext').textContent},
-    {label:document.getElementById('ageSub').textContent,value:main,highlight:true}
+    {label:document.getElementById('lbl-next').textContent,value:document.getElementById('daysToNext').textContent}
   ];
+  if(lastHijriBirthStr)rows.push({label:t.lbl_hijri_bdate,value:lastHijriBirthStr});
+  if(lastHijriAgeStr)rows.push({label:t.lbl_hijri_age,value:lastHijriAgeStr});
+  lastEvents.forEach(function(e){rows.push({label:e.year,value:e.text});});
+  rows.push({label:document.getElementById('ageSub').textContent,value:main,highlight:true});
   if(typeof exportResultImage==='function')exportResultImage(t.title,rows);
 }
 
