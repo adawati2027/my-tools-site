@@ -355,7 +355,7 @@ var LOAN_T = {
     flat_table_note:'الجدول أعلاه لفائدة ثابتة مبسّط (أصل وفائدة متساويان كل شهر) — قد تختلف جداول البنوك الفعلية قليلاً.',
     disclaimer:'الأرقام تقديرية للأغراض المعلوماتية فقط. راجع البنك أو الجهة المالية لأرقام دقيقة.',
     sec_amort:'📊 جدول السداد التفصيلي',
-    export_csv_btn:'📊 تصدير CSV',export_pdf_btn:'📄 تصدير PDF',
+    export_csv_btn:'📊 تصدير CSV',export_pdf_btn:'📄 تصدير PDF',pdf_export_error:'تعذّر إنشاء ملف PDF — جرّب مرة أخرى',
     th_month:'الشهر',th_payment:'القسط',th_principal:'أصل القرض',th_interest:'الفائدة',th_remaining:'المتبقي',
     leg_principal:'أصل القرض',leg_interest:'الفائدة',
     amort_note_fn:function(n){return 'جدول السداد الكامل: '+n+' شهر';},
@@ -385,7 +385,7 @@ var LOAN_T = {
     flat_table_note:'The schedule above shows a simplified flat-rate breakdown (equal principal and interest each month) — actual bank flat-rate schedules may differ slightly.',
     disclaimer:'Figures are estimates for informational purposes only. Consult your bank for exact numbers.',
     sec_amort:'📊 Full Amortization Schedule',
-    export_csv_btn:'📊 Export CSV',export_pdf_btn:'📄 Export PDF',
+    export_csv_btn:'📊 Export CSV',export_pdf_btn:'📄 Export PDF',pdf_export_error:'Could not create PDF — try again',
     th_month:'Month',th_payment:'Payment',th_principal:'Principal',th_interest:'Interest',th_remaining:'Remaining',
     leg_principal:'Principal',leg_interest:'Interest',
     amort_note_fn:function(n){return 'Full schedule: '+n+' months';},
@@ -415,7 +415,7 @@ var LOAN_T = {
     flat_table_note:'Le tableau ci-dessus montre une répartition simplifiée à taux fixe (capital et intérêts égaux chaque mois) — les tableaux bancaires réels peuvent légèrement différer.',
     disclaimer:'Les chiffres sont estimatifs à titre informatif uniquement. Consultez votre banque pour des chiffres exacts.',
     sec_amort:'📊 Tableau d\'amortissement complet',
-    export_csv_btn:'📊 Exporter en CSV',export_pdf_btn:'📄 Exporter en PDF',
+    export_csv_btn:'📊 Exporter en CSV',export_pdf_btn:'📄 Exporter en PDF',pdf_export_error:'Impossible de créer le PDF — réessayez',
     th_month:'Mois',th_payment:'Mensualité',th_principal:'Capital',th_interest:'Intérêts',th_remaining:'Restant',
     leg_principal:'Capital',leg_interest:'Intérêts',
     amort_note_fn:function(n){return 'Tableau complet: '+n+' mois';},
@@ -445,7 +445,7 @@ var LOAN_T = {
     flat_table_note:'La tabla anterior muestra un desglose simplificado a tasa fija (capital e interés iguales cada mes) — las tablas bancarias reales pueden diferir ligeramente.',
     disclaimer:'Los valores son estimados con fines informativos únicamente. Consulta a tu banco para cifras exactas.',
     sec_amort:'📊 Tabla de amortización completa',
-    export_csv_btn:'📊 Exportar CSV',export_pdf_btn:'📄 Exportar PDF',
+    export_csv_btn:'📊 Exportar CSV',export_pdf_btn:'📄 Exportar PDF',pdf_export_error:'No se pudo crear el PDF — inténtalo de nuevo',
     th_month:'Mes',th_payment:'Cuota',th_principal:'Capital',th_interest:'Interés',th_remaining:'Pendiente',
     leg_principal:'Capital',leg_interest:'Interés',
     amort_note_fn:function(n){return 'Tabla completa: '+n+' meses';},
@@ -475,7 +475,7 @@ var LOAN_T = {
     flat_table_note:'Die obige Tabelle zeigt eine vereinfachte Festzins-Aufteilung (gleicher Tilgungs- und Zinsanteil jeden Monat) — tatsächliche Banktabellen können leicht abweichen.',
     disclaimer:'Die Zahlen sind Schätzungen und dienen nur zu Informationszwecken. Wenden Sie sich für genaue Zahlen an Ihre Bank.',
     sec_amort:'📊 Vollständiger Tilgungsplan',
-    export_csv_btn:'📊 CSV exportieren',export_pdf_btn:'📄 PDF exportieren',
+    export_csv_btn:'📊 CSV exportieren',export_pdf_btn:'📄 PDF exportieren',pdf_export_error:'PDF konnte nicht erstellt werden — versuchen Sie es erneut',
     th_month:'Monat',th_payment:'Rate',th_principal:'Tilgung',th_interest:'Zinsen',th_remaining:'Restschuld',
     leg_principal:'Tilgung',leg_interest:'Zinsen',
     amort_note_fn:function(n){return 'Vollständiger Plan: '+n+' Monate';},
@@ -505,7 +505,7 @@ var LOAN_T = {
     flat_table_note:'Таблица выше показывает упрощённый расчёт по флэт-ставке (равные доли основного долга и процентов каждый месяц) — реальные банковские графики могут немного отличаться.',
     disclaimer:'Цифры являются приблизительными и носят исключительно информационный характер. Обратитесь в банк для получения точных данных.',
     sec_amort:'📊 Полный график платежей',
-    export_csv_btn:'📊 Экспорт CSV',export_pdf_btn:'📄 Экспорт PDF',
+    export_csv_btn:'📊 Экспорт CSV',export_pdf_btn:'📄 Экспорт PDF',pdf_export_error:'Не удалось создать PDF — попробуйте снова',
     th_month:'Месяц',th_payment:'Платёж',th_principal:'Основной долг',th_interest:'Проценты',th_remaining:'Остаток',
     leg_principal:'Основной долг',leg_interest:'Проценты',
     amort_note_fn:function(n){return 'Полный график: '+n+' месяцев';},
@@ -672,14 +672,29 @@ function exportAmortCSV(){
 function downloadOrShare(blob,filename,mime){
   var file=new File([blob],filename,{type:mime});
   if(navigator.canShare&&navigator.canShare({files:[file]})){
-    navigator.share({files:[file]}).catch(function(){});
+    navigator.share({files:[file]}).catch(function(e){
+      if(e&&e.name==='AbortError')return; // user cancelled the share sheet, not a failure
+      fallbackOpenOrDownload(blob,filename,mime);
+    });
     return;
   }
+  fallbackOpenOrDownload(blob,filename,mime);
+}
+function fallbackOpenOrDownload(blob,filename,mime){
   var url=URL.createObjectURL(blob);
+  if(mime==='application/pdf'){
+    // Mobile Safari doesn't reliably honor the `download` attribute for
+    // blob URLs, but it does have a native PDF viewer — opening the blob
+    // URL directly in a new tab lets Safari's own viewer show it, with
+    // its own Share/Save-to-Files controls, which is far more reliable
+    // there than <a download>.
+    var win=window.open(url,'_blank');
+    if(win)return;
+  }
   var a=document.createElement('a');
   a.href=url;a.download=filename;
   document.body.appendChild(a);a.click();a.remove();
-  setTimeout(function(){URL.revokeObjectURL(url);},4000);
+  setTimeout(function(){URL.revokeObjectURL(url);},60000);
 }
 async function exportAmortPDF(){
   var t=D();
@@ -728,6 +743,8 @@ async function exportAmortPDF(){
       y+=sliceH;first=false;
     }
     downloadOrShare(doc.output('blob'),'amortization-schedule.pdf','application/pdf');
+  } catch(e){
+    if(typeof showToast==='function')showToast('❌ '+(t.pdf_export_error||'Could not create PDF — try again'),'error');
   } finally {
     btn.textContent=origText;btn.disabled=false;
   }
