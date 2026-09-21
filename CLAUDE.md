@@ -1136,6 +1136,12 @@ User requested (`وهاي كمان محول الوحدات صدر النتيجة
 
 Same request batch as the unit-converter feature above (`وكمان هاي عداد الكلمات والأحرف صدر النتيجة ك صورة`). Simpler than unit-converter — no tabs, just 4 live stats (words/characters/no-space/sentences) updating on `textarea` input. Added `exportWordResult()` + `#wordExportBtn` (shared `export_img_btn` key), reusing the page's own already-existing global `word_words`/`word_chars`/`word_nospace`/`word_sentences`/`word_title` i18n keys via `T[lang]` (same reuse-over-duplication pattern as tip-calculator/unit-converter) — sentence count is the highlighted row. Verified via CDP against a local static server: typed a 3-sentence test string, confirmed the stat boxes computed correctly (9 words/42 chars/34 no-space/3 sentences) and the export captured the identical values, plus confirmed button-click wiring. Pushed as 6 files (root + 5 lang variants), verified live via blob-sha diff (0 mismatches).
 
+## Password-generator save-advice note, 2026-09-21
+
+User requested (`مولد كلمات المرور اعطي نصيحة يحفظها على تلفونه او جهازه إذا رح يستخدمها ب مكان مهم`) a note advising users to save a generated password locally if they'll use it somewhere important — the tool has no memory (each page load/regenerate produces a fresh password, by design, per the page's own existing "Privacy note" section), so a user who navigates away or regenerates loses the one they were looking at. Added a persistent info box under the generate button (always visible, not just after copy) with a new shared global `pass_save_advice` i18n key (ar/en/fr/es/de/ru) — Arabic written in MSA (not Jordanian dialect, since this is a global/generic tool page, not a `/jo/` page). Verified via CDP: confirmed the English text renders on load and the Arabic translation renders correctly after `setLang('ar')`, and confirmed the password-generation flow itself is unaffected. Pushed as 7 files (i18n.js + root + 5 lang variants), verified live via blob-sha diff (0 mismatches).
+
+This closes the 3-item feature-request batch from this session (unit-converter export-image, word-counter export-image, password-generator save-advice).
+
 ## Style/tone conventions
 
 - All Jordan-vertical copy is in Jordanian-dialect Arabic (not MSA), casual and direct — match existing pages' voice, not formal Arabic.
