@@ -86,9 +86,19 @@
     <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Calculate the appropriate tip and split the bill equally among any number of people. Move the slider to choose a tip percentage (0% to 30%) and enter the number of people to instantly get each person's share.</p>
     <label for="bill" data-i18n="tip_bill">Total bill</label>
     <input type="number" id="bill" placeholder="0.00" >
-    <label for="tipSlider"><span data-i18n="tip_pct">Tip percentage:</span> <span id="tipPctLabel">15</span>%</label>
-    <input type="range" id="tipSlider" min="0" max="30" value="15" aria-label="Tip percentage"  style="width:100%;accent-color:var(--primary);margin:8px 0 4px;">
-    <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:4px;"><span>0%</span><span>10%</span><span>15%</span><span>20%</span><span>30%</span></div>
+    <div class="option-toggle">
+      <button class="option-btn active" data-mode="pct" data-i18n="tip_mode_pct">Percentage</button>
+      <button class="option-btn" data-mode="fixed" data-i18n="tip_mode_fixed">Fixed Amount</button>
+    </div>
+    <div id="tipPctSection" style="margin-top:6px;">
+      <label for="tipSlider"><span data-i18n="tip_pct">Tip percentage:</span> <span id="tipPctLabel">15</span>%</label>
+      <input type="range" id="tipSlider" min="0" max="30" value="15" aria-label="Tip percentage"  style="width:100%;accent-color:var(--primary);margin:8px 0 4px;">
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:4px;"><span>0%</span><span>10%</span><span>15%</span><span>20%</span><span>30%</span></div>
+    </div>
+    <div id="tipFixedSection" style="display:none;margin-top:6px;">
+      <label for="tipFixed" data-i18n="tip_fixed_lbl">Fixed Tip Amount</label>
+      <input type="number" id="tipFixed" placeholder="0.00" min="0" step="any" >
+    </div>
     <label for="people" data-i18n="tip_people">Number of people</label>
     <input type="number" id="people" value="1" min="1" >
     <div id="results" style="display:none;margin-top:20px;">
@@ -192,12 +202,27 @@
   </div>
 </footer>
 <script>
+var tipMode = 'pct';
+
+function setTipMode(m) {
+  tipMode = m;
+  document.querySelectorAll('.option-btn[data-mode]').forEach(function(b){ b.classList.toggle('active', b.dataset.mode === m); });
+  document.getElementById('tipPctSection').style.display = m === 'pct' ? '' : 'none';
+  document.getElementById('tipFixedSection').style.display = m === 'fixed' ? '' : 'none';
+  calcTip();
+}
+
 function calcTip() {
   const bill = parseFloat(document.getElementById('bill').value) || 0;
-  const pct = parseFloat(document.getElementById('tipSlider').value) || 0;
   const people = Math.max(1, parseInt(document.getElementById('people').value) || 1);
   if (!bill) { document.getElementById('results').style.display = 'none'; return; }
-  const tip = bill * pct / 100;
+  let tip;
+  if (tipMode === 'fixed') {
+    tip = parseFloat(document.getElementById('tipFixed').value) || 0;
+  } else {
+    const pct = parseFloat(document.getElementById('tipSlider').value) || 0;
+    tip = bill * pct / 100;
+  }
   const total = bill + tip;
   document.getElementById('tipAmt').textContent = tip.toFixed(2);
   document.getElementById('totalAmt').textContent = total.toFixed(2);
@@ -212,7 +237,9 @@ function exportTipResult() {
   const t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
   const rows = [
     { label: t.tip_bill || 'Total bill', value: document.getElementById('bill').value },
-    { label: t.tip_pct || 'Tip %', value: document.getElementById('tipPctLabel').textContent + '%' },
+    tipMode === 'fixed'
+      ? { label: t.tip_fixed_lbl || 'Fixed Tip Amount', value: document.getElementById('tipFixed').value }
+      : { label: t.tip_pct || 'Tip %', value: document.getElementById('tipPctLabel').textContent + '%' },
     { label: t.tip_people || 'Number of people', value: document.getElementById('people').value },
     { label: t.tip_amount || 'Tip amount', value: document.getElementById('tipAmt').textContent },
     { label: t.tip_total || 'Total', value: document.getElementById('totalAmt').textContent },
@@ -228,9 +255,11 @@ document.addEventListener('DOMContentLoaded', function(){
     a.addEventListener('click', function(){ setLang(a.dataset.lang); });
   });
   document.getElementById('tipExportBtn')?.addEventListener('click', exportTipResult);
+  document.querySelectorAll('.option-btn[data-mode]').forEach(function(btn){ btn.addEventListener('click', function(){ setTipMode(btn.dataset.mode); }); });
 });
 
 document.getElementById('bill').addEventListener('input', calcTip);
+document.getElementById('tipFixed').addEventListener('input', calcTip);
 document.getElementById('tipSlider').addEventListener('input', function(){ document.getElementById('tipPctLabel').textContent=this.value;calcTip() });
 document.getElementById('people').addEventListener('input', calcTip);
 </script>
