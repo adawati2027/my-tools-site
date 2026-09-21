@@ -639,8 +639,19 @@ function buildAmortTable(amount,r,monthly,months,mode){
   buildChart(yearlyData,t);
 }
 
-var HTML2CANVAS_URLS=['https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js','https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'];
-var JSPDF_URLS=['https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js','https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js'];
+// Self-hosted first: two rounds of real device reports showed BOTH
+// cdnjs.cloudflare.com and cdn.jsdelivr.net (different domains) failing to
+// load on the same device while the rest of the page — including other
+// same-origin assets — loaded fine, pointing at something blocking
+// third-party CDN requests specifically (a content blocker or restrictive
+// network policy), not either CDN's own availability. Same-origin static
+// files are indistinguishable from any other site asset, sidestepping
+// that whole class of failure — matches this project's own established
+// fix for the xlsx CVE (see the "self-hosted instead of a CDN-allowlist
+// change" section above). The two CDN URLs are kept only as a last-resort
+// fallback for the unlikely case the self-hosted copy itself 404s.
+var HTML2CANVAS_URLS=['vendor/html2canvas-1.4.1.min.js','https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js','https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'];
+var JSPDF_URLS=['vendor/jspdf-2.5.1.umd.min.js','https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js','https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js'];
 var _scriptLoadPromises={};
 function loadScript(urls){
   // Real bug found via a user's actual device (not visible in this
