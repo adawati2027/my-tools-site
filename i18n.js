@@ -1176,8 +1176,18 @@ function exportResultImage(titleText, rows, embedCanvas) {
   // text. ctx.textAlign stays anchored to the fixed x position regardless;
   // only ctx.direction (which governs internal character/word reordering)
   // needs to match the string's own script, not the card's overall layout.
-  function fillRowText(str, x) {
+  function fillRowText(str, x, align) {
+    // direction and textAlign are set together, immediately before
+    // fillText, in one call — WebKit/Safari has a real canvas bug where
+    // assigning ctx.direction *after* ctx.textAlign was already set in an
+    // earlier statement can silently flip which edge textAlign anchors to
+    // (confirmed via a real user report: a right-anchored LTR value like
+    // "Muscat" rendered as if left-aligned, overflowing past the card's
+    // and even the canvas's right edge — invisible in Chrome-based testing,
+    // which doesn't have this bug). Keeping both assignments atomic here,
+    // with textAlign set last, avoids the ordering entirely.
     ctx.direction = /[؀-ۿ]/.test(str) ? 'rtl' : 'ltr';
+    ctx.textAlign = align;
     ctx.fillText(str, x, rowY);
   }
 
@@ -1199,30 +1209,26 @@ function exportResultImage(titleText, rows, embedCanvas) {
     const r = p.row;
     const big = !!r.highlight;
     if (!p.wrapped) {
-      ctx.textAlign = isRtl ? 'right' : 'left';
       ctx.fillStyle = '#64748b';
       ctx.font = '500 32px Tahoma, Arial, sans-serif';
-      fillRowText(r.label, isRtl ? cardX + cardW - 50 : cardX + 50);
-      ctx.textAlign = isRtl ? 'left' : 'right';
+      fillRowText(r.label, isRtl ? cardX + cardW - 50 : cardX + 50, isRtl ? 'right' : 'left');
       ctx.fillStyle = big ? '#2563eb' : '#0f172a';
       ctx.font = (big ? '800 46px' : '700 36px') + ' Tahoma, Arial, sans-serif';
-      fillRowText(r.value, isRtl ? cardX + 50 : cardX + cardW - 50);
+      fillRowText(r.value, isRtl ? cardX + 50 : cardX + cardW - 50, isRtl ? 'left' : 'right');
       rowY += big ? 78 : 66;
     } else {
       // Long value (e.g. a full sentence) — stack label as a small heading
       // above the wrapped value text, both anchored to the same edge,
       // instead of the normal opposing-edges label/value columns.
       const anchorX = isRtl ? cardX + cardW - 50 : cardX + 50;
-      ctx.textAlign = isRtl ? 'right' : 'left';
       ctx.fillStyle = '#64748b';
       ctx.font = '600 28px Tahoma, Arial, sans-serif';
-      fillRowText(r.label, anchorX);
+      fillRowText(r.label, anchorX, isRtl ? 'right' : 'left');
       rowY += 40;
-      ctx.textAlign = isRtl ? 'right' : 'left';
       ctx.fillStyle = big ? '#2563eb' : '#0f172a';
       ctx.font = (big ? '800 34px' : '700 30px') + ' Tahoma, Arial, sans-serif';
       p.lines.forEach(function(line) {
-        fillRowText(line, anchorX);
+        fillRowText(line, anchorX, isRtl ? 'right' : 'left');
         rowY += p.lineH;
       });
       rowY += 8;
