@@ -1078,10 +1078,15 @@ const RELATED_MAP = {
    ctx.direction. Individual calculator pages call this with their own
    already-computed rows; it does not read the DOM itself, since every
    calculator's result markup is different. */
-function exportResultImage(titleText, rows) {
+function exportResultImage(titleText, rows, embedCanvas) {
   const lang = localStorage.getItem('lang') || 'en';
   const isRtl = lang === 'ar';
   const W = 1080;
+  // Optional embedded image (e.g. a generated QR code) drawn between the
+  // title and the rows — every existing caller omits this 3rd argument, so
+  // imgBlockH stays 0 and the layout is byte-for-byte unchanged for them.
+  const imgSize = embedCanvas ? 460 : 0;
+  const imgBlockH = embedCanvas ? imgSize + 60 : 0;
 
   // Two-pass measurement: a throwaway canvas decides which rows are too
   // long for the normal side-by-side label/value layout (e.g. a full
@@ -1125,7 +1130,7 @@ function exportResultImage(titleText, rows) {
   // card, and a long breakdown (e.g. a loan amortization summary)
   // shouldn't get clipped.
   const rowsHeight = rowPlans.reduce((sum, p) => sum + p.height, 0);
-  const H = Math.min(Math.max(260 + (rowsHeight + 140) + 170, 900), 1920);
+  const H = Math.min(Math.max(260 + (imgBlockH + rowsHeight + 140) + 170, 900), 1920);
   const cardH = H - 260 - 170;
   const canvas = document.createElement('canvas');
   canvas.width = W; canvas.height = H;
@@ -1177,6 +1182,18 @@ function exportResultImage(titleText, rows) {
   }
 
   let rowY = cardY + 100;
+  if (embedCanvas) {
+    const imgX = cardX + (cardW - imgSize) / 2;
+    const imgY = rowY;
+    roundRect(imgX - 12, imgY - 12, imgSize + 24, imgSize + 24, 16);
+    ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 2;
+    ctx.fill();
+    ctx.stroke();
+    ctx.drawImage(embedCanvas, imgX, imgY, imgSize, imgSize);
+    rowY += imgBlockH;
+  }
   const rowMaxY = cardY + cardH - 40;
   rowPlans.forEach(function(p, i) {
     const r = p.row;

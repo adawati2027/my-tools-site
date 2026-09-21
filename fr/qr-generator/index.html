@@ -89,8 +89,9 @@
     <div id="qrStatus" style="display:none;text-align:center;margin-top:16px;font-size:15px;padding:10px;border-radius:8px;background:#fef9c3;color:#92400e;font-weight:600;"></div>
     <div id="qrWrap" style="display:none;text-align:center;margin-top:24px;">
       <div id="qrDisplay" style="display:inline-block;padding:16px;background:#fff;border-radius:var(--radius);border:2px solid var(--border);box-shadow:var(--shadow-md);"></div>
-      <div style="margin-top:16px;">
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
         <button class="btn btn-primary" id="qrDownloadBtn" style="margin-top:0;" data-i18n="qr_download">Download image</button>
+        <button class="btn btn-primary" id="qrExportBtn" style="margin-top:0;" data-i18n="export_img_btn">Export as image</button>
       </div>
     </div>
     <div id="qrEmpty" style="text-align:center;padding:32px;color:var(--text-muted);">
@@ -251,6 +252,19 @@ function downloadQR() {
   a.click();
 }
 
+function exportQRResult() {
+  var display = document.getElementById('qrDisplay');
+  var canvas = display ? display.querySelector('canvas') : null;
+  if (!canvas) return;
+  var lang = (document.documentElement.lang !== 'en' ? document.documentElement.lang : null) || localStorage.getItem('lang') || document.documentElement.lang || 'en';
+  var t = (typeof T !== 'undefined' && T[lang]) ? T[lang] : {};
+  var text = document.getElementById('qrInput').value.trim();
+  var textForImage = text.length > 200 ? (text.slice(0, 200) + '…') : text;
+  var rows = [{ label: t.qr_input || 'Link or text', value: textForImage }];
+  var title = t.qr_title || document.querySelector('h1.card-title').textContent;
+  exportResultImage(title, rows, canvas);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   var btn = document.getElementById('qrBtn');
   if (btn) btn.addEventListener('click', generateQR);
@@ -266,6 +280,7 @@ document.addEventListener('DOMContentLoaded', function(){
     a.addEventListener('click', function(){ setLang(a.dataset.lang); });
   });
   document.getElementById('qrDownloadBtn')?.addEventListener('click', downloadQR);
+  document.getElementById('qrExportBtn')?.addEventListener('click', exportQRResult);
 });
 </script>
 <script src="i18n-lang-fr.js?v=1" defer></script>
