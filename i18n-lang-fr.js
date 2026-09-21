@@ -35,7 +35,7 @@ cty_global:'Mondial', cty_om:'Oman', cty_ae:'Émirats arabes unis', cty_sa:'Arab
     pass_length:'Longueur :', pass_numbers:'Chiffres (0–9)', pass_symbols:'Symboles (!@#$)', pass_upper:'Majuscules',
     pass_btn:'Générer un nouveau mot de passe', pass_copied:'Copié ✓', pass_save_advice:"💡 Si vous allez utiliser ce mot de passe pour un usage important, enregistrez-le maintenant dans un gestionnaire de mots de passe ou une note sécurisée sur votre téléphone ou appareil — ce mot de passe exact ne sera plus affiché une fois que vous quitterez la page.",
     word_title:'Compteur de mots et caractères', word_sub:'Compteur instantané pour vos textes',
-    word_words:'Mots', word_chars:'Caractères', word_nospace:'Sans espaces', word_sentences:'Phrases',
+    word_words:'Mots', word_chars:'Caractères', word_nospace:'Sans espaces', word_sentences:'Phrases', word_text_lbl:'Texte',
     diet_title:'Calculateur de calories', diet_sub:'Calculez vos besoins quotidiens avec précision',
     diet_gender:'Genre', diet_male:'Homme', diet_female:'Femme',
     diet_age:'Âge', diet_weight:'Poids (kg)', diet_height:'Taille (cm)',

@@ -116,7 +116,7 @@ cty_global:'العالمي', cty_om:'عمان', cty_ae:'الإمارات', cty_s
     pass_length:'الطول:', pass_numbers:'أرقام (0–9)', pass_symbols:'رموز (!@#$)', pass_upper:'الأحرف الكبيرة',
     pass_btn:'توليد كلمة مرور جديدة', pass_copied:'تم النسخ ✓', pass_save_advice:'💡 إذا كنت ستستخدم كلمة المرور هذه في مكان مهم، احفظها الآن في مدير كلمات مرور أو في ملاحظة آمنة على هاتفك أو جهازك — لن تظهر كلمة المرور هذه مرة أخرى بعد مغادرة الصفحة.',
     word_title:'عداد الكلمات والأحرف', word_sub:'عداد فوري لمقالاتك ونصوصك',
-    word_words:'كلمة', word_chars:'حرف', word_nospace:'بدون مسافات', word_sentences:'جملة',
+    word_words:'كلمة', word_chars:'حرف', word_nospace:'بدون مسافات', word_sentences:'جملة', word_text_lbl:'النص',
     diet_title:'حاسبة السعرات والخطة الغذائية', diet_sub:'احسب احتياجك اليومي من السعرات والبروتين والكربوهيدرات',
     diet_gender:'الجنس', diet_male:'ذكر', diet_female:'أنثى',
     diet_age:'العمر', diet_weight:'الوزن (كغم)', diet_height:'الطول (سم)',

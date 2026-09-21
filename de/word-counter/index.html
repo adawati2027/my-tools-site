@@ -191,12 +191,16 @@ function updateStats() {
 function exportWordResult(){
   var lang=(document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
   var t=(typeof T!=='undefined'&&T[lang])?T[lang]:{};
-  var rows=[
+  var enteredText=document.getElementById('textInput').value;
+  var textForImage=enteredText.length>300?(enteredText.slice(0,300)+'…'):enteredText;
+  var rows=[];
+  if(textForImage) rows.push({label:t.word_text_lbl||'Text', value:textForImage});
+  rows.push(
     {label:t.word_words||'Words', value:document.getElementById('wordCount').textContent},
     {label:t.word_chars||'Characters', value:document.getElementById('charCount').textContent},
     {label:t.word_nospace||'Without Spaces', value:document.getElementById('charNoSpace').textContent},
     {label:t.word_sentences||'Sentences', value:document.getElementById('sentenceCount').textContent, highlight:true}
-  ];
+  );
   var title=t.word_title||document.querySelector('h1.card-title').textContent;
   exportResultImage(title, rows);
 }

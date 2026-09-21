@@ -35,7 +35,7 @@ cty_global:'Global', cty_om:'Oman', cty_ae:'Vereinigte Arabische Emirate', cty_s
     pass_length:'Länge:', pass_numbers:'Zahlen (0–9)', pass_symbols:'Symbole (!@#$)', pass_upper:'Großbuchstaben',
     pass_btn:'Neues Passwort generieren', pass_copied:'Kopiert ✓', pass_save_advice:"💡 Wenn Sie dieses Passwort für etwas Wichtiges verwenden, speichern Sie es jetzt in einem Passwort-Manager oder einer sicheren Notiz auf Ihrem Telefon oder Gerät — dieses genaue Passwort wird nicht erneut angezeigt, sobald Sie die Seite verlassen.",
     word_title:'Wörter- und Zeichenzähler', word_sub:'Sofortzähler für Ihre Texte',
-    word_words:'Wörter', word_chars:'Zeichen', word_nospace:'Ohne Leerzeichen', word_sentences:'Sätze',
+    word_words:'Wörter', word_chars:'Zeichen', word_nospace:'Ohne Leerzeichen', word_sentences:'Sätze', word_text_lbl:'Text',
     diet_title:'Kalorienrechner', diet_sub:'Berechnen Sie Ihren täglichen Bedarf',
     diet_gender:'Geschlecht', diet_male:'Männlich', diet_female:'Weiblich',
     diet_age:'Alter', diet_weight:'Gewicht (kg)', diet_height:'Größe (cm)',

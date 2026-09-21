@@ -35,7 +35,7 @@ cty_global:'Global', cty_om:'Omán', cty_ae:'Emiratos Árabes Unidos', cty_sa:'A
     pass_length:'Longitud:', pass_numbers:'Números (0–9)', pass_symbols:'Símbolos (!@#$)', pass_upper:'Letras mayúsculas',
     pass_btn:'Generar nueva contraseña', pass_copied:'Copiado ✓', pass_save_advice:"💡 Si vas a usar esta contraseña en algo importante, guárdala ahora en un gestor de contraseñas o en una nota segura en tu teléfono o dispositivo — esta contraseña exacta no volverá a mostrarse una vez que salgas de la página.",
     word_title:'Contador de palabras y caracteres', word_sub:'Contador instantáneo para tus textos',
-    word_words:'Palabras', word_chars:'Caracteres', word_nospace:'Sin espacios', word_sentences:'Oraciones',
+    word_words:'Palabras', word_chars:'Caracteres', word_nospace:'Sin espacios', word_sentences:'Oraciones', word_text_lbl:'Texto',
     diet_title:'Calculadora de calorías', diet_sub:'Calcula tus necesidades diarias con precisión',
     diet_gender:'Género', diet_male:'Masculino', diet_female:'Femenino',
     diet_age:'Edad', diet_weight:'Peso (kg)', diet_height:'Altura (cm)',

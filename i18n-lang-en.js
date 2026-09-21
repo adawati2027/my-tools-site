@@ -116,7 +116,7 @@ cty_global:'Global', cty_om:'Oman', cty_ae:'UAE', cty_sa:'Saudi Arabia', cty_us:
     pass_length:'Length:', pass_numbers:'Numbers (0–9)', pass_symbols:'Symbols (!@#$)', pass_upper:'Uppercase Letters',
     pass_btn:'Generate New Password', pass_copied:'Copied ✓', pass_save_advice:"💡 If you'll use this password somewhere important, save it now in a password manager or a secure note on your phone or device — this exact password won't be shown again once you leave the page.",
     word_title:'Word & Character Counter', word_sub:'Instant counter for your texts and articles',
-    word_words:'Words', word_chars:'Characters', word_nospace:'Without Spaces', word_sentences:'Sentences',
+    word_words:'Words', word_chars:'Characters', word_nospace:'Without Spaces', word_sentences:'Sentences', word_text_lbl:'Text',
     diet_title:'Calorie & Diet Plan Calculator', diet_sub:'Calculate your daily calories, protein, carbs and fats',
     diet_gender:'Gender', diet_male:'Male', diet_female:'Female',
     diet_age:'Age', diet_weight:'Weight (kg)', diet_height:'Height (cm)',
