@@ -189,31 +189,45 @@
 </footer>
 <script>
 const ZONES = [
-  {name:'Riyadh',tz:'Asia/Riyadh',flag:'🇸🇦'},{name:'Dubai',tz:'Asia/Dubai',flag:'🇦🇪'},
-  {name:'Cairo',tz:'Africa/Cairo',flag:'🇪🇬'},{name:'London',tz:'Europe/London',flag:'🇬🇧'},
-  {name:'New York',tz:'America/New_York',flag:'🇺🇸'},{name:'Los Angeles',tz:'America/Los_Angeles',flag:'🇺🇸'},
-  {name:'Paris',tz:'Europe/Paris',flag:'🇫🇷'},{name:'Berlin',tz:'Europe/Berlin',flag:'🇩🇪'},
-  {name:'Moscow',tz:'Europe/Moscow',flag:'🇷🇺'},{name:'Istanbul',tz:'Europe/Istanbul',flag:'🇹🇷'},
-  {name:'Tokyo',tz:'Asia/Tokyo',flag:'🇯🇵'},{name:'Beijing',tz:'Asia/Shanghai',flag:'🇨🇳'},
-  {name:'Mumbai',tz:'Asia/Kolkata',flag:'🇮🇳'},{name:'Singapore',tz:'Asia/Singapore',flag:'🇸🇬'},
-  {name:'Sydney',tz:'Australia/Sydney',flag:'🇦🇺'},{name:'Toronto',tz:'America/Toronto',flag:'🇨🇦'},
-  {name:'Madrid',tz:'Europe/Madrid',flag:'🇪🇸'},{name:'Amman',tz:'Asia/Amman',flag:'🇯🇴'},
-  {name:'Kuwait',tz:'Asia/Kuwait',flag:'🇰🇼'},{name:'Doha',tz:'Asia/Qatar',flag:'🇶🇦'},
-  {name:'Muscat',tz:'Asia/Muscat',flag:'🇴🇲'},
+  {key:'Riyadh',tz:'Asia/Riyadh',flag:'🇸🇦',name:{ar:'الرياض',en:'Riyadh',fr:'Riyad',es:'Riad',de:'Riad',ru:'Эр-Рияд'}},
+  {key:'Dubai',tz:'Asia/Dubai',flag:'🇦🇪',name:{ar:'دبي',en:'Dubai',fr:'Dubaï',es:'Dubái',de:'Dubai',ru:'Дубай'}},
+  {key:'Cairo',tz:'Africa/Cairo',flag:'🇪🇬',name:{ar:'القاهرة',en:'Cairo',fr:'Le Caire',es:'El Cairo',de:'Kairo',ru:'Каир'}},
+  {key:'London',tz:'Europe/London',flag:'🇬🇧',name:{ar:'لندن',en:'London',fr:'Londres',es:'Londres',de:'London',ru:'Лондон'}},
+  {key:'New York',tz:'America/New_York',flag:'🇺🇸',name:{ar:'نيويورك',en:'New York',fr:'New York',es:'Nueva York',de:'New York',ru:'Нью-Йорк'}},
+  {key:'Los Angeles',tz:'America/Los_Angeles',flag:'🇺🇸',name:{ar:'لوس أنجلوس',en:'Los Angeles',fr:'Los Angeles',es:'Los Ángeles',de:'Los Angeles',ru:'Лос-Анджелес'}},
+  {key:'Paris',tz:'Europe/Paris',flag:'🇫🇷',name:{ar:'باريس',en:'Paris',fr:'Paris',es:'París',de:'Paris',ru:'Париж'}},
+  {key:'Berlin',tz:'Europe/Berlin',flag:'🇩🇪',name:{ar:'برلين',en:'Berlin',fr:'Berlin',es:'Berlín',de:'Berlin',ru:'Берлин'}},
+  {key:'Moscow',tz:'Europe/Moscow',flag:'🇷🇺',name:{ar:'موسكو',en:'Moscow',fr:'Moscou',es:'Moscú',de:'Moskau',ru:'Москва'}},
+  {key:'Istanbul',tz:'Europe/Istanbul',flag:'🇹🇷',name:{ar:'إسطنبول',en:'Istanbul',fr:'Istanbul',es:'Estambul',de:'Istanbul',ru:'Стамбул'}},
+  {key:'Tokyo',tz:'Asia/Tokyo',flag:'🇯🇵',name:{ar:'طوكيو',en:'Tokyo',fr:'Tokyo',es:'Tokio',de:'Tokio',ru:'Токио'}},
+  {key:'Beijing',tz:'Asia/Shanghai',flag:'🇨🇳',name:{ar:'بكين',en:'Beijing',fr:'Pékin',es:'Pekín',de:'Peking',ru:'Пекин'}},
+  {key:'Mumbai',tz:'Asia/Kolkata',flag:'🇮🇳',name:{ar:'مومباي',en:'Mumbai',fr:'Bombay',es:'Bombay',de:'Mumbai',ru:'Мумбаи'}},
+  {key:'Singapore',tz:'Asia/Singapore',flag:'🇸🇬',name:{ar:'سنغافورة',en:'Singapore',fr:'Singapour',es:'Singapur',de:'Singapur',ru:'Сингапур'}},
+  {key:'Sydney',tz:'Australia/Sydney',flag:'🇦🇺',name:{ar:'سيدني',en:'Sydney',fr:'Sydney',es:'Sídney',de:'Sydney',ru:'Сидней'}},
+  {key:'Toronto',tz:'America/Toronto',flag:'🇨🇦',name:{ar:'تورنتو',en:'Toronto',fr:'Toronto',es:'Toronto',de:'Toronto',ru:'Торонто'}},
+  {key:'Madrid',tz:'Europe/Madrid',flag:'🇪🇸',name:{ar:'مدريد',en:'Madrid',fr:'Madrid',es:'Madrid',de:'Madrid',ru:'Мадрид'}},
+  {key:'Amman',tz:'Asia/Amman',flag:'🇯🇴',name:{ar:'عمّان',en:'Amman',fr:'Amman',es:'Amán',de:'Amman',ru:'Амман'}},
+  {key:'Kuwait',tz:'Asia/Kuwait',flag:'🇰🇼',name:{ar:'الكويت',en:'Kuwait City',fr:'Koweït',es:'Kuwait',de:'Kuwait-Stadt',ru:'Эль-Кувейт'}},
+  {key:'Doha',tz:'Asia/Qatar',flag:'🇶🇦',name:{ar:'الدوحة',en:'Doha',fr:'Doha',es:'Doha',de:'Doha',ru:'Доха'}},
+  {key:'Muscat',tz:'Asia/Muscat',flag:'🇴🇲',name:{ar:'مسقط',en:'Muscat',fr:'Mascate',es:'Mascate',de:'Maskat',ru:'Маскат'}},
 ];
+
+function tzLang(){ return localStorage.getItem('lang') || document.documentElement.lang || 'en'; }
+function zoneName(z){ return z.name[tzLang()] || z.name.en; }
 
 const WORLD_CLOCKS = ['Riyadh','Dubai','London','New York','Tokyo','Sydney'];
 
 function buildClocks() {
   const grid = document.getElementById('clockGrid');
-  WORLD_CLOCKS.forEach(city => {
-    const z = ZONES.find(x=>x.name===city);
+  grid.innerHTML = '';
+  WORLD_CLOCKS.forEach(key => {
+    const z = ZONES.find(x=>x.key===key);
     if (!z) return;
     const div = document.createElement('div');
-    div.id = 'clk_'+city.replaceAll(' ','_');
+    div.id = 'clk_'+key.replaceAll(' ','_');
     div.style.cssText = 'background:var(--surface-2);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 12px;text-align:center;';
     div.innerHTML = `<div style="font-size:20px;margin-bottom:2px;">${z.flag}</div>
-      <div style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;">${city}</div>
+      <div style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;">${zoneName(z)}</div>
       <div class="clk-time" style="font-size:22px;font-weight:900;color:var(--primary);font-family:monospace;">--:--</div>`;
     grid.appendChild(div);
   });
@@ -221,21 +235,32 @@ function buildClocks() {
 
 function tickClocks() {
   const now = new Date();
-  WORLD_CLOCKS.forEach(city => {
-    const z = ZONES.find(x=>x.name===city);
+  WORLD_CLOCKS.forEach(key => {
+    const z = ZONES.find(x=>x.key===key);
     if (!z) return;
-    const el = document.querySelector('#clk_'+city.replaceAll(' ','_')+' .clk-time');
+    const el = document.querySelector('#clk_'+key.replaceAll(' ','_')+' .clk-time');
     if (el) el.textContent = now.toLocaleTimeString('en-US', {timeZone:z.tz,hour:'2-digit',minute:'2-digit',hour12:false});
   });
 }
 
 function populateTzSelects() {
   const from = document.getElementById('tzFrom'), to = document.getElementById('tzTo');
+  const prevFrom = from.value, prevTo = to.value;
+  from.innerHTML = ''; to.innerHTML = '';
   ZONES.forEach((z,i) => {
-    from.innerHTML += `<option value="${z.tz}" ${i===0?'selected':''}>${z.flag} ${z.name}</option>`;
-    to.innerHTML   += `<option value="${z.tz}" ${i===2?'selected':''}>${z.flag} ${z.name}</option>`;
+    from.innerHTML += `<option value="${z.tz}" ${i===0?'selected':''}>${z.flag} ${zoneName(z)}</option>`;
+    to.innerHTML   += `<option value="${z.tz}" ${i===2?'selected':''}>${z.flag} ${zoneName(z)}</option>`;
   });
+  if (prevFrom && [...from.options].some(o=>o.value===prevFrom)) from.value = prevFrom;
+  if (prevTo && [...to.options].some(o=>o.value===prevTo)) to.value = prevTo;
 }
+
+window.onLangChange = function(){
+  populateTzSelects();
+  buildClocks();
+  tickClocks();
+  convertTime();
+};
 
 const COUNTRY_TZ = {
   OM:'Asia/Muscat', SA:'Asia/Riyadh', AE:'Asia/Dubai', EG:'Africa/Cairo', GB:'Europe/London',
