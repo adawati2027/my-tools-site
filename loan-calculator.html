@@ -175,6 +175,10 @@
     </div>
     <p class="amort-note" id="amort-note"></p>
     <p class="amort-note" id="flat-table-note" style="display:none;"></p>
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
+      <button id="amortCsvBtn" style="flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;background:var(--surface-2);border:1.5px solid var(--border);border-radius:12px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--text);">📊 CSV</button>
+      <button id="amortPdfBtn" style="flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;background:var(--surface-2);border:1.5px solid var(--border);border-radius:12px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--text);">📄 PDF</button>
+    </div>
   </div>
 
   <!-- How loan works -->
@@ -350,6 +354,7 @@ var LOAN_T = {
     flat_table_note:'الجدول أعلاه لفائدة ثابتة مبسّط (أصل وفائدة متساويان كل شهر) — قد تختلف جداول البنوك الفعلية قليلاً.',
     disclaimer:'الأرقام تقديرية للأغراض المعلوماتية فقط. راجع البنك أو الجهة المالية لأرقام دقيقة.',
     sec_amort:'📊 جدول السداد التفصيلي',
+    export_csv_btn:'📊 تصدير CSV',export_pdf_btn:'📄 تصدير PDF',
     th_month:'الشهر',th_payment:'القسط',th_principal:'أصل القرض',th_interest:'الفائدة',th_remaining:'المتبقي',
     leg_principal:'أصل القرض',leg_interest:'الفائدة',
     amort_note_fn:function(n){return 'جدول السداد الكامل: '+n+' شهر';},
@@ -379,6 +384,7 @@ var LOAN_T = {
     flat_table_note:'The schedule above shows a simplified flat-rate breakdown (equal principal and interest each month) — actual bank flat-rate schedules may differ slightly.',
     disclaimer:'Figures are estimates for informational purposes only. Consult your bank for exact numbers.',
     sec_amort:'📊 Full Amortization Schedule',
+    export_csv_btn:'📊 Export CSV',export_pdf_btn:'📄 Export PDF',
     th_month:'Month',th_payment:'Payment',th_principal:'Principal',th_interest:'Interest',th_remaining:'Remaining',
     leg_principal:'Principal',leg_interest:'Interest',
     amort_note_fn:function(n){return 'Full schedule: '+n+' months';},
@@ -408,6 +414,7 @@ var LOAN_T = {
     flat_table_note:'Le tableau ci-dessus montre une répartition simplifiée à taux fixe (capital et intérêts égaux chaque mois) — les tableaux bancaires réels peuvent légèrement différer.',
     disclaimer:'Les chiffres sont estimatifs à titre informatif uniquement. Consultez votre banque pour des chiffres exacts.',
     sec_amort:'📊 Tableau d\'amortissement complet',
+    export_csv_btn:'📊 Exporter en CSV',export_pdf_btn:'📄 Exporter en PDF',
     th_month:'Mois',th_payment:'Mensualité',th_principal:'Capital',th_interest:'Intérêts',th_remaining:'Restant',
     leg_principal:'Capital',leg_interest:'Intérêts',
     amort_note_fn:function(n){return 'Tableau complet: '+n+' mois';},
@@ -437,6 +444,7 @@ var LOAN_T = {
     flat_table_note:'La tabla anterior muestra un desglose simplificado a tasa fija (capital e interés iguales cada mes) — las tablas bancarias reales pueden diferir ligeramente.',
     disclaimer:'Los valores son estimados con fines informativos únicamente. Consulta a tu banco para cifras exactas.',
     sec_amort:'📊 Tabla de amortización completa',
+    export_csv_btn:'📊 Exportar CSV',export_pdf_btn:'📄 Exportar PDF',
     th_month:'Mes',th_payment:'Cuota',th_principal:'Capital',th_interest:'Interés',th_remaining:'Pendiente',
     leg_principal:'Capital',leg_interest:'Interés',
     amort_note_fn:function(n){return 'Tabla completa: '+n+' meses';},
@@ -466,6 +474,7 @@ var LOAN_T = {
     flat_table_note:'Die obige Tabelle zeigt eine vereinfachte Festzins-Aufteilung (gleicher Tilgungs- und Zinsanteil jeden Monat) — tatsächliche Banktabellen können leicht abweichen.',
     disclaimer:'Die Zahlen sind Schätzungen und dienen nur zu Informationszwecken. Wenden Sie sich für genaue Zahlen an Ihre Bank.',
     sec_amort:'📊 Vollständiger Tilgungsplan',
+    export_csv_btn:'📊 CSV exportieren',export_pdf_btn:'📄 PDF exportieren',
     th_month:'Monat',th_payment:'Rate',th_principal:'Tilgung',th_interest:'Zinsen',th_remaining:'Restschuld',
     leg_principal:'Tilgung',leg_interest:'Zinsen',
     amort_note_fn:function(n){return 'Vollständiger Plan: '+n+' Monate';},
@@ -495,6 +504,7 @@ var LOAN_T = {
     flat_table_note:'Таблица выше показывает упрощённый расчёт по флэт-ставке (равные доли основного долга и процентов каждый месяц) — реальные банковские графики могут немного отличаться.',
     disclaimer:'Цифры являются приблизительными и носят исключительно информационный характер. Обратитесь в банк для получения точных данных.',
     sec_amort:'📊 Полный график платежей',
+    export_csv_btn:'📊 Экспорт CSV',export_pdf_btn:'📄 Экспорт PDF',
     th_month:'Месяц',th_payment:'Платёж',th_principal:'Основной долг',th_interest:'Проценты',th_remaining:'Остаток',
     leg_principal:'Основной долг',leg_interest:'Проценты',
     amort_note_fn:function(n){return 'Полный график: '+n+' месяцев';},
@@ -619,6 +629,91 @@ function buildAmortTable(amount,r,monthly,months,mode){
   buildChart(yearlyData,t);
 }
 
+function loadScript(src){
+  return new Promise(function(resolve,reject){
+    if(document.querySelector('script[src="'+src+'"]')){ resolve(); return; }
+    var s=document.createElement('script'); s.src=src; s.onload=resolve; s.onerror=reject; document.head.appendChild(s);
+  });
+}
+function getAmortRows(){
+  var rows=[];
+  document.querySelectorAll('#amort-body tr').forEach(function(tr){
+    var tds=tr.querySelectorAll('td');
+    rows.push([tds[0].textContent,tds[1].textContent,tds[2].textContent,tds[3].textContent,tds[4].textContent]);
+  });
+  return rows;
+}
+function escCsv(v){
+  v=String(v);
+  if(/[",\n]/.test(v)) return '"'+v.replace(/"/g,'""')+'"';
+  return v;
+}
+function exportAmortCSV(){
+  var t=D();
+  var rows=getAmortRows();
+  if(!rows.length)return;
+  var headers=[t.th_month,t.th_payment,t.th_principal,t.th_interest,t.th_remaining];
+  var lines=[headers.map(escCsv).join(',')];
+  rows.forEach(function(r){lines.push(r.map(escCsv).join(','));});
+  var csv='﻿'+lines.join('\r\n');
+  var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download='amortization-schedule.csv';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(url);},4000);
+}
+async function exportAmortPDF(){
+  var t=D();
+  var rows=getAmortRows();
+  if(!rows.length)return;
+  var btn=document.getElementById('amortPdfBtn');
+  var origText=btn.textContent;
+  btn.textContent='⏳';btn.disabled=true;
+  try{
+    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+    var jsPDF=window.jspdf.jsPDF;
+    var isRtl=document.documentElement.dir==='rtl';
+    var PX_W=718,PAGE_W_MM=190,MARGIN_MM=10,PAGE_H_MM=297-2*MARGIN_MM;
+    var PX_PER_MM=PX_W/PAGE_W_MM;
+    var PAGE_H_PX=Math.floor(PAGE_H_MM*PX_PER_MM);
+    var headers=[t.th_month,t.th_payment,t.th_principal,t.th_interest,t.th_remaining];
+    var thHtml=headers.map(function(h){return '<th style="border:1px solid #999;padding:6px 8px;background:#2563eb;color:#fff;">'+h+'</th>';}).join('');
+    var trsHtml=rows.map(function(r){return '<tr>'+r.map(function(c){return '<td style="border:1px solid #ccc;padding:5px 8px;">'+c+'</td>';}).join('')+'</tr>';}).join('');
+    var titleHtml='<h2 style="font-family:Arial;margin:0 0 10px;">'+t.sec_amort+'</h2>';
+    var tmp=document.createElement('div');
+    // Rendered via html2canvas directly (not jsPDF's own .html() convenience
+    // wrapper — that method internally re-invokes html2canvas per page/chunk
+    // for tall content, and each re-invocation beyond the first ignores the
+    // element's off-screen position fix, producing wildly negative
+    // coordinates that render nothing. Rasterizing once ourselves and
+    // slicing the resulting canvas across pages sidesteps that bug entirely.
+    tmp.style.cssText='position:fixed;left:-9999px;top:0;width:'+PX_W+'px;font-size:14px;font-family:Arial;background:#fff;color:#000;direction:'+(isRtl?'rtl':'ltr')+';';
+    tmp.innerHTML=titleHtml+'<table style="border-collapse:collapse;width:100%;"><thead><tr>'+thHtml+'</tr></thead><tbody>'+trsHtml+'</tbody></table>';
+    document.body.appendChild(tmp);
+    var fullCanvas=await html2canvas(tmp,{backgroundColor:'#fff',scrollX:0,scrollY:0});
+    document.body.removeChild(tmp);
+
+    var doc=new jsPDF({unit:'mm',format:'a4',orientation:'portrait'});
+    var totalH=fullCanvas.height;
+    var y=0,first=true;
+    while(y<totalH){
+      var sliceH=Math.min(PAGE_H_PX,totalH-y);
+      var sliceCanvas=document.createElement('canvas');
+      sliceCanvas.width=fullCanvas.width;sliceCanvas.height=sliceH;
+      var sctx=sliceCanvas.getContext('2d');
+      sctx.drawImage(fullCanvas,0,y,fullCanvas.width,sliceH,0,0,fullCanvas.width,sliceH);
+      var sliceHmm=sliceH/PX_PER_MM;
+      if(!first)doc.addPage();
+      doc.addImage(sliceCanvas.toDataURL('image/jpeg',0.85),'JPEG',MARGIN_MM,MARGIN_MM,PAGE_W_MM,sliceHmm);
+      y+=sliceH;first=false;
+    }
+    doc.save('amortization-schedule.pdf');
+  } finally {
+    btn.textContent=origText;btn.disabled=false;
+  }
+}
 function buildChart(years,t){
   var barsEl=document.getElementById('chart-bars');
   var labelsEl=document.getElementById('chart-labels');
@@ -666,6 +761,8 @@ function updateLoanContent(){
   document.getElementById('th-principal').textContent=t.th_principal;
   document.getElementById('th-interest').textContent=t.th_interest;
   document.getElementById('th-remaining').textContent=t.th_remaining;
+  document.getElementById('amortCsvBtn').textContent=t.export_csv_btn;
+  document.getElementById('amortPdfBtn').textContent=t.export_pdf_btn;
   document.getElementById('sec-how-title').textContent=t.sec_how;
   document.getElementById('sec-how-p1').textContent=t.how_p1;
   document.getElementById('sec-how-p2').textContent=t.how_p2;
@@ -703,6 +800,8 @@ document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
   a.addEventListener('click', function(){ setLang(a.dataset.lang); });
 });
 document.getElementById('loanExportBtn')?.addEventListener('click', exportLoanResult);
+document.getElementById('amortCsvBtn')?.addEventListener('click', exportAmortCSV);
+document.getElementById('amortPdfBtn')?.addEventListener('click', exportAmortPDF);
 document.querySelectorAll('.faq-q').forEach(function(btn){
   btn.addEventListener('click', function(){ toggleFaq(this); });
 });
