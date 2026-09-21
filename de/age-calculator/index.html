@@ -244,7 +244,7 @@ var AGE_T={
     age_main:function(y){return y+' سنة';},
     age_sub:function(m,d){return 'و '+m+' شهر و '+d+' يوم';},
     future_date_error:'يجب أن يكون تاريخ الميلاد في الماضي',
-    lbl_zodiac:'برجك الفلكي',lbl_bornday:'يوم الميلاد',lbl_hijri_age:'عمرك بالهجري',lbl_nextbd:'عيد ميلادك القادم',
+    lbl_zodiac:'برجك الفلكي',lbl_bornday:'يوم الميلاد',lbl_hijri_age:'عمرك بالهجري',lbl_nextbd:'عيد ميلادك القادم',lbl_your_age:'عمرك',
     lbl_hijri_bdate:'تاريخ ميلادك بالهجري',
     sec_events:'📅 أحداث تاريخية صارت يوم مثل يوم ميلادك',
     events_source:'المصدر: ويكيبيديا',
@@ -275,7 +275,7 @@ var AGE_T={
     age_main:function(y){return y+' years';},
     age_sub:function(m,d){return 'and '+m+' months and '+d+' days';},
     future_date_error:'Birth date must be in the past',
-    lbl_zodiac:'Zodiac Sign',lbl_bornday:'Day Born',lbl_hijri_age:'Hijri Age',lbl_nextbd:'Next Birthday',
+    lbl_zodiac:'Zodiac Sign',lbl_bornday:'Day Born',lbl_hijri_age:'Hijri Age',lbl_nextbd:'Next Birthday',lbl_your_age:'Your Age',
     lbl_hijri_bdate:'Hijri Birth Date',
     sec_events:'📅 Historical Events on Your Birthday',
     events_source:'Source: Wikipedia',
@@ -306,7 +306,7 @@ var AGE_T={
     age_main:function(y){return y+' ans';},
     age_sub:function(m,d){return 'et '+m+' mois et '+d+' jours';},
     future_date_error:'La date de naissance doit être dans le passé',
-    lbl_zodiac:'Signe du zodiaque',lbl_bornday:'Jour de naissance',lbl_hijri_age:'Âge hégirien',lbl_nextbd:'Prochain anniversaire',
+    lbl_zodiac:'Signe du zodiaque',lbl_bornday:'Jour de naissance',lbl_hijri_age:'Âge hégirien',lbl_nextbd:'Prochain anniversaire',lbl_your_age:'Votre âge',
     lbl_hijri_bdate:'Date de naissance hégirienne',
     sec_events:'📅 Événements historiques le jour de votre anniversaire',
     events_source:'Source : Wikipédia',
@@ -337,7 +337,7 @@ var AGE_T={
     age_main:function(y){return y+' años';},
     age_sub:function(m,d){return 'y '+m+' meses y '+d+' días';},
     future_date_error:'La fecha de nacimiento debe estar en el pasado',
-    lbl_zodiac:'Signo del zodiaco',lbl_bornday:'Día de nacimiento',lbl_hijri_age:'Edad Hijri',lbl_nextbd:'Próximo cumpleaños',
+    lbl_zodiac:'Signo del zodiaco',lbl_bornday:'Día de nacimiento',lbl_hijri_age:'Edad Hijri',lbl_nextbd:'Próximo cumpleaños',lbl_your_age:'Tu edad',
     lbl_hijri_bdate:'Fecha de nacimiento Hijri',
     sec_events:'📅 Eventos históricos en tu cumpleaños',
     events_source:'Fuente: Wikipedia',
@@ -368,7 +368,7 @@ var AGE_T={
     age_main:function(y){return y+' Jahre';},
     age_sub:function(m,d){return 'und '+m+' Monate und '+d+' Tage';},
     future_date_error:'Das Geburtsdatum muss in der Vergangenheit liegen',
-    lbl_zodiac:'Sternzeichen',lbl_bornday:'Wochentag Geburt',lbl_hijri_age:'Hijri-Alter',lbl_nextbd:'Nächster Geburtstag',
+    lbl_zodiac:'Sternzeichen',lbl_bornday:'Wochentag Geburt',lbl_hijri_age:'Hijri-Alter',lbl_nextbd:'Nächster Geburtstag',lbl_your_age:'Ihr Alter',
     lbl_hijri_bdate:'Hijri-Geburtsdatum',
     sec_events:'📅 Historische Ereignisse an deinem Geburtstag',
     events_source:'Quelle: Wikipedia',
@@ -399,7 +399,7 @@ var AGE_T={
     age_main:function(y){return y+' лет';},
     age_sub:function(m,d){return 'и '+m+' месяцев и '+d+' дней';},
     future_date_error:'Дата рождения должна быть в прошлом',
-    lbl_zodiac:'Знак зодиака',lbl_bornday:'День рождения',lbl_hijri_age:'Возраст по хиджре',lbl_nextbd:'Следующий день рождения',
+    lbl_zodiac:'Знак зодиака',lbl_bornday:'День рождения',lbl_hijri_age:'Возраст по хиджре',lbl_nextbd:'Следующий день рождения',lbl_your_age:'Ваш возраст',
     lbl_hijri_bdate:'Дата рождения по хиджре',
     sec_events:'📅 Исторические события в день вашего рождения',
     events_source:'Источник: Википедия',
@@ -580,7 +580,8 @@ function exportAgeResult(){
   if(lastHijriBirthStr)rows.push({label:t.lbl_hijri_bdate,value:lastHijriBirthStr});
   if(lastHijriAgeStr)rows.push({label:t.lbl_hijri_age,value:lastHijriAgeStr});
   lastEvents.forEach(function(e){rows.push({label:e.year,value:e.text});});
-  rows.push({label:document.getElementById('ageSub').textContent,value:main,highlight:true});
+  var ageSubText=document.getElementById('ageSub').textContent;
+  rows.push({label:t.lbl_your_age,value:(ageSubText?main+' '+ageSubText:main),highlight:true});
   if(typeof exportResultImage==='function')exportResultImage(t.title,rows);
 }
 
