@@ -596,8 +596,8 @@ function buildAmortTable(amount,r,monthly,months,mode){
   // works every time in automated testing (no such timing restriction
   // there). Same root cause and same fix already used for Google Sign-in
   // on this site — see the CLAUDE.md note on that bug.
-  loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js').catch(function(){});
-  loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js').catch(function(){});
+  loadScript(HTML2CANVAS_URLS).catch(function(){});
+  loadScript(JSPDF_URLS).catch(function(){});
   var t=D();
   var tbody=document.getElementById('amort-body');
   tbody.innerHTML='';
@@ -639,8 +639,10 @@ function buildAmortTable(amount,r,monthly,months,mode){
   buildChart(yearlyData,t);
 }
 
+var HTML2CANVAS_URLS=['https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js','https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'];
+var JSPDF_URLS=['https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js','https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js'];
 var _scriptLoadPromises={};
-function loadScript(src){
+function loadScript(urls){
   // Real bug found via a user's actual device (not visible in this
   // project's own low-latency test environment): the old version checked
   // whether a <script> tag for this URL already existed in the DOM and, if
@@ -655,15 +657,34 @@ function loadScript(src){
   // what was reported). Caching the load Promise itself (not just the tag)
   // means every caller for the same URL shares one real completion signal
   // regardless of which call happens to insert the tag.
-  if(_scriptLoadPromises[src])return _scriptLoadPromises[src];
-  _scriptLoadPromises[src]=new Promise(function(resolve,reject){
-    var s=document.createElement('script');
-    s.src=src;
-    s.onload=function(){resolve();};
-    s.onerror=function(){delete _scriptLoadPromises[src];reject(new Error('script failed to load: '+src));};
-    document.head.appendChild(s);
-  });
-  return _scriptLoadPromises[src];
+  //
+  // Second real device report after that fix: cdnjs.cloudflare.com itself
+  // failed to load ("script failed to load: https://cdnjs...") — a genuine
+  // network/DNS/blocker-level failure for that specific host on that
+  // device, not something this session can reproduce or diagnose further
+  // without another round-trip. Accepts an array of fallback URLs and
+  // tries each in turn (cdnjs first, matching every other CDN reference on
+  // this site, then jsdelivr — a different domain, so a host-specific
+  // block/outage affecting only one of them doesn't take the whole feature
+  // down) rather than giving up after a single source fails.
+  var list=Array.isArray(urls)?urls:[urls];
+  var key=list[0];
+  if(_scriptLoadPromises[key])return _scriptLoadPromises[key];
+  function loadOne(src){
+    return new Promise(function(resolve,reject){
+      var s=document.createElement('script');
+      s.src=src;
+      s.onload=function(){resolve();};
+      s.onerror=function(){reject(new Error('script failed to load: '+src));};
+      document.head.appendChild(s);
+    });
+  }
+  function tryIndex(i){
+    if(i>=list.length)return Promise.reject(new Error('script failed to load from all sources: '+key));
+    return loadOne(list[i]).catch(function(){ return tryIndex(i+1); });
+  }
+  _scriptLoadPromises[key]=tryIndex(0);
+  return _scriptLoadPromises[key];
 }
 function getAmortRows(){
   var rows=[];
@@ -724,8 +745,8 @@ async function exportAmortPDF(){
   var origText=btn.textContent;
   btn.textContent='⏳';btn.disabled=true;
   try{
-    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
-    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+    await loadScript(HTML2CANVAS_URLS);
+    await loadScript(JSPDF_URLS);
     var jsPDF=window.jspdf.jsPDF;
     var isRtl=document.documentElement.dir==='rtl';
     var PX_W=718,PAGE_W_MM=190,MARGIN_MM=10,PAGE_H_MM=297-2*MARGIN_MM;
