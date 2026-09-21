@@ -639,11 +639,31 @@ function buildAmortTable(amount,r,monthly,months,mode){
   buildChart(yearlyData,t);
 }
 
+var _scriptLoadPromises={};
 function loadScript(src){
-  return new Promise(function(resolve,reject){
-    if(document.querySelector('script[src="'+src+'"]')){ resolve(); return; }
-    var s=document.createElement('script'); s.src=src; s.onload=resolve; s.onerror=reject; document.head.appendChild(s);
+  // Real bug found via a user's actual device (not visible in this
+  // project's own low-latency test environment): the old version checked
+  // whether a <script> tag for this URL already existed in the DOM and, if
+  // so, resolved immediately — but tag-present does not mean load-complete.
+  // The PDF export preloads html2canvas/jsPDF as soon as a schedule exists
+  // (see buildAmortTable()), then exportAmortPDF() itself calls
+  // loadScript() again for the same URLs when the user actually taps
+  // export — on a slow connection the second call would see the tag
+  // already inserted and resolve instantly, well before the first call's
+  // own fetch had actually finished, so window.jspdf could still be
+  // undefined at the point of use ("window.jspdf.jsPDF" TypeError, exactly
+  // what was reported). Caching the load Promise itself (not just the tag)
+  // means every caller for the same URL shares one real completion signal
+  // regardless of which call happens to insert the tag.
+  if(_scriptLoadPromises[src])return _scriptLoadPromises[src];
+  _scriptLoadPromises[src]=new Promise(function(resolve,reject){
+    var s=document.createElement('script');
+    s.src=src;
+    s.onload=function(){resolve();};
+    s.onerror=function(){delete _scriptLoadPromises[src];reject(new Error('script failed to load: '+src));};
+    document.head.appendChild(s);
   });
+  return _scriptLoadPromises[src];
 }
 function getAmortRows(){
   var rows=[];
