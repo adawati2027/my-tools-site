@@ -129,13 +129,20 @@ function check(name, actual, expected) {
   {
     const s = new Session(); await s.open();
     await s.goto(BASE + '/?e2e=1');
-    const r = await s.eval(`
+    const r0 = await s.eval(`
       document.getElementById('langToggleBtn').click();
       var menuOpenAfterClick = document.getElementById('langMenu').classList.contains('open');
       document.querySelector('#langMenu a[data-lang="ar"]').click();
-      JSON.stringify({ menuOpenAfterClick: menuOpenAfterClick, htmlLang: document.documentElement.lang, dir: document.documentElement.dir });
+      JSON.stringify({ menuOpenAfterClick: menuOpenAfterClick });
     `);
-    const v = JSON.parse(r);
+    // Arabic isn't this page's default language pack, so setLang('ar') lazy-loads
+    // i18n-lang-ar.js (a real network fetch) before applying — wait for it.
+    await s.wait(1500);
+    const r = await s.eval(`
+      JSON.stringify({ htmlLang: document.documentElement.lang, dir: document.documentElement.dir });
+    `);
+    const v0 = JSON.parse(r0);
+    const v = Object.assign(v0, JSON.parse(r));
     check('language menu opens on click', v.menuOpenAfterClick, true);
     check('switching to Arabic sets html lang=ar', v.htmlLang, 'ar');
     check('switching to Arabic sets dir=rtl', v.dir, 'rtl');
