@@ -724,7 +724,13 @@ async function exportAmortPDF(){
     tmp.style.cssText='position:fixed;left:-9999px;top:0;width:'+PX_W+'px;font-size:14px;font-family:Arial;background:#fff;color:#000;direction:'+(isRtl?'rtl':'ltr')+';';
     tmp.innerHTML=titleHtml+'<table style="border-collapse:collapse;width:100%;"><thead><tr>'+thHtml+'</tr></thead><tbody>'+trsHtml+'</tbody></table>';
     document.body.appendChild(tmp);
-    var fullCanvas=await html2canvas(tmp,{backgroundColor:'#fff',scrollX:0,scrollY:0});
+    // ignoreElements skips ad iframes/embeds during html2canvas's internal
+    // full-document clone (used to compute styles reliably) — a real AdSense
+    // ad only actually serves on a real visit, never in automated testing,
+    // so a cross-origin-taint failure from it would be invisible here but
+    // could still throw on a real device; excluding these is harmless
+    // either way since they were never part of the table being captured.
+    var fullCanvas=await html2canvas(tmp,{backgroundColor:'#fff',scrollX:0,scrollY:0,ignoreElements:function(el){return el.tagName==='IFRAME'||(el.className&&typeof el.className==='string'&&el.className.indexOf('adsbygoogle')!==-1);}});
     document.body.removeChild(tmp);
 
     var doc=new jsPDF({unit:'mm',format:'a4',orientation:'portrait'});
@@ -743,7 +749,9 @@ async function exportAmortPDF(){
     }
     downloadOrShare(doc.output('blob'),'amortization-schedule.pdf','application/pdf');
   } catch(e){
-    if(typeof showToast==='function')showToast('❌ '+(t.pdf_export_error||'Could not create PDF — try again'),'error');
+    console.error('PDF export failed:',e);
+    var detail=(e&&(e.message||e.name))?(': '+(e.message||e.name)):'';
+    if(typeof showToast==='function')showToast('❌ '+(t.pdf_export_error||'Could not create PDF — try again')+detail,'error');
   } finally {
     btn.textContent=origText;btn.disabled=false;
   }
