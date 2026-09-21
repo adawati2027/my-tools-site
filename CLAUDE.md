@@ -1106,6 +1106,14 @@ Per the original user request ("حاسبة العمر بدي نضيف التار
 
 **Gotcha hit while re-running the regression suite this session, worth remembering**: `test-e2e.js` needs headless Chrome on **port 9750**, not the 9700 used by `test-calculators.js` (and by the earlier ad-hoc CDP scripts throughout this session) — confirmed via `grep CDP_PORT test-e2e.js`. Launching Chrome on the wrong port produces a generic, unhelpful `TEST RUNNER ERROR:` with no message (an `AggregateError [ECONNREFUSED]` whose `.message` happens to be empty) — don't assume this means a real regression; check `CDP_PORT` in the specific test file before concluding anything is broken, and don't reuse one test's Chrome instance/port for the other.
 
+## Hijri converter — image-export/share feature added, 2026-09-21
+
+Per the original user request ("محول محول التاريخ الهجري بدنا مشاركة الصورة كمان"), `hijri-converter.html` had **zero** export/share functionality — confirmed via grep (`exportResultImage`, `export_img_btn` etc. all absent). Added the standard `exportResultImage()`-based button, matching the established site-wide pattern.
+
+**Mode-aware, matching the page's own 2-tab structure** (`convMode`, `'g2h'`/`'h2g'`, same `.option-btn[data-mode]` pattern the page already uses): the export button reads whichever conversion is currently active and only exports if that mode's result box is actually visible (`style.display==='block'`) — g2h mode exports the entered Gregorian date + the computed Hijri result; h2g mode exports the entered Hijri date (day + month name + year, reconstructed from `selectedHijriMonth`) + the computed Gregorian result. Both modes also append the already-computed "Today's Hijri Date" as a bonus context row, since it's free (already on-page, already translated) and adds real value to a shared image. New label keys (`lbl_greg_input`/`lbl_hijri_result`/`lbl_hijri_input`/`lbl_greg_result`/`lbl_today_hijri`) added to all 6 `HIJ_T` language blocks; the button itself reuses the existing shared global `data-i18n="export_img_btn"` key rather than adding a redundant local one, matching the same reuse convention already established for the currency-converter/percentage-calculator export buttons.
+
+**Verified live via CDP** (this page has no `<base href>`, so ordinary local-server testing worked directly — no Fetch-interception workaround needed here): captured the real `rows` array for g2h mode, h2g mode (15 Ramadan 1446 → 15 March 2025, a plausible real conversion), and Arabic-mode label translation — all correct. Pushed as a 6-file batch (root + 5 lang variants), verified live via blob-sha diff, 0 mismatches.
+
 ## Style/tone conventions
 
 - All Jordan-vertical copy is in Jordanian-dialect Arabic (not MSA), casual and direct — match existing pages' voice, not formal Arabic.
