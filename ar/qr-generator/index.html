@@ -206,6 +206,19 @@ function generateQR() {
   if (status) status.style.display = 'none';
   if (empty) empty.style.display = 'none';
 
+  var canvasOK = false;
+  try {
+    var testCanvas = document.createElement('canvas');
+    var testCtx = testCanvas.getContext && testCanvas.getContext('2d');
+    canvasOK = !!(testCtx && typeof testCtx.fillRect === 'function');
+  } catch (ce) { canvasOK = false; }
+
+  if (!canvasOK) {
+    if (status) { status.textContent = '❌ متصفحك يمنع توليد صور QR (غالباً بسبب إعداد حماية خصوصية/بصمة المتصفح). جرّب تعطيل هذا الإعداد لهذا الموقع أو استخدم متصفحاً آخر.'; status.style.display = 'block'; }
+    if (wrap) wrap.style.display = 'none';
+    return;
+  }
+
   try {
     new QRCode(display, {
       text: text, width: 220, height: 220,
@@ -214,9 +227,18 @@ function generateQR() {
     });
     if (wrap) wrap.style.display = 'block';
   } catch (e) {
-    if (status) { status.textContent = '❌ تعذّر توليد الرمز — النص طويل جداً، جرّب نصاً أقصر.'; status.style.display = 'block'; }
+    var msg = text.length > 300
+      ? '❌ تعذّر توليد الرمز — النص طويل جداً، جرّب نصاً أقصر.'
+      : '❌ حدث خطأ أثناء توليد الرمز. حاول مرة أخرى أو جرّب متصفحاً آخر.';
+    if (status) { status.textContent = msg; status.style.display = 'block'; }
     if (wrap) wrap.style.display = 'none';
   }
+}
+
+var qrDebounceTimer = null;
+function generateQRDebounced() {
+  clearTimeout(qrDebounceTimer);
+  qrDebounceTimer = setTimeout(generateQR, 180);
 }
 
 function downloadQR() {
@@ -233,8 +255,8 @@ document.addEventListener('DOMContentLoaded', function() {
   var btn = document.getElementById('qrBtn');
   if (btn) btn.addEventListener('click', generateQR);
   var inp = document.getElementById('qrInput');
-  if (inp) inp.addEventListener('input', generateQR);
-  if (inp) inp.addEventListener('paste', function(){ setTimeout(generateQR, 50); });
+  if (inp) inp.addEventListener('input', generateQRDebounced);
+  if (inp) inp.addEventListener('paste', function(){ setTimeout(generateQR, 180); });
 });
 </script>
 <script>
