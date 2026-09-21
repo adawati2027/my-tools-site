@@ -90,6 +90,7 @@
       <div class="stat-box"><div class="stat-val" id="charNoSpace">0</div><div class="stat-lbl" data-i18n="word_nospace">No spaces</div></div>
       <div class="stat-box"><div class="stat-val" id="sentenceCount">0</div><div class="stat-lbl" data-i18n="word_sentences">Sentences</div></div>
     </div>
+    <button id="wordExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
   </div>
 
   <div class="card" style="margin-top:16px;">
@@ -186,6 +187,19 @@ function updateStats() {
   document.getElementById('charNoSpace').textContent = text.replace(/\s/g, '').length;
   document.getElementById('sentenceCount').textContent = text.trim() === '' ? 0 : text.split(/[.!?؟]+/).filter(s => s.trim().length > 0).length;
 }
+
+function exportWordResult(){
+  var lang=(document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
+  var t=(typeof T!=='undefined'&&T[lang])?T[lang]:{};
+  var rows=[
+    {label:t.word_words||'Words', value:document.getElementById('wordCount').textContent},
+    {label:t.word_chars||'Characters', value:document.getElementById('charCount').textContent},
+    {label:t.word_nospace||'Without Spaces', value:document.getElementById('charNoSpace').textContent},
+    {label:t.word_sentences||'Sentences', value:document.getElementById('sentenceCount').textContent, highlight:true}
+  ];
+  var title=t.word_title||document.querySelector('h1.card-title').textContent;
+  exportResultImage(title, rows);
+}
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
@@ -197,6 +211,7 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 document.getElementById('textInput').addEventListener('input', updateStats);
+document.getElementById('wordExportBtn')?.addEventListener('click', exportWordResult);
 </script>
 <script src="i18n.js?v=44" defer></script>
 </body></html>
