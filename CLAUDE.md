@@ -1237,6 +1237,14 @@ The `navigator.share`-based fix above wasn't enough — user re-tested on the sa
 
 **Still cannot fully confirm this resolves the user's exact device** — same standing limitation noted every time this class of bug comes up in this project. If reported broken a third time: the `showToast` error message (now finally visible) is the next real diagnostic lead — ask what it actually said, since that narrows down which of the 3 tiers is failing and why, rather than guessing again from scratch.
 
+## Amortization PDF export — round 3: real error now visible, still awaiting the actual message
+
+User retested after the 3-tier fallback shipped and got a real, visible error toast for the first time ("تعذّر إنشاء ملف PDF — جرّب مرة أخرى") — confirms `exportAmortPDF()` genuinely throws on this device, closing the "silent failure" diagnostic gap, but the message itself was still too generic to identify the cause.
+
+**Fixed immediately**: the `catch` block now appends the real `e.message`/`e.name` to the shown toast (plus `console.error`), so the *next* report will carry the actual error text instead of the generic wrapper. **Also added a proactive, evidence-informed (not confirmed) defensive fix while waiting for that**: `html2canvas` clones the whole document internally (to compute styles reliably) — this would include any live AdSense ad iframe on a real page visit, and Safari is known to enforce canvas cross-origin tainting more strictly than Chrome; a real ad iframe (which never actually serves in this project's own automated/headless testing, since ad networks don't serve to bots) could taint the capture with a `SecurityError` that would be completely invisible to every round of testing done so far. Added `ignoreElements` to the `html2canvas()` call, skipping `<iframe>` elements and anything with an `adsbygoogle` class — harmless if this isn't the actual cause (ad content was never meant to be part of the captured table anyway), a real fix if it is. Verified the normal flow still produces a correct PDF with this filter in place (0 exceptions, no regression).
+
+**Status**: not confirmed fixed — waiting on the user's next retry, which will now surface the real error text (or confirm success) instead of another blind round. **If reported broken again**: read the toast's exact text first — that alone should point at the real failure point (script load, html2canvas capture, jsPDF page-building, or the final `downloadOrShare` call) rather than requiring another speculative fix.
+
 ## Style/tone conventions
 
 - All Jordan-vertical copy is in Jordanian-dialect Arabic (not MSA), casual and direct — match existing pages' voice, not formal Arabic.
