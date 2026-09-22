@@ -326,6 +326,7 @@ const L = {
     privacy:'ملفك لا يغادر متصفحك أبداً — المعالجة تتم محلياً بالكامل',
     noTargets:'لا توجد تحويلات متاحة لهذا النوع',
     errSize:'حجم الملف كبير جداً (الحد 50MB)',errType:'نوع الملف غير مدعوم',errConvert:'فشل التحويل. تأكد أن الملف غير تالف.',
+    errLoadLib:'تعذّر تحميل مكتبة التحويل. تأكد من اتصالك بالإنترنت وجرّب تعطيل أي حاجب إعلانات/خصوصية لهذا الموقع، ثم أعد المحاولة.',
     reset:'✕'},
   en:{title:'File Converter',sub:'Convert between file formats — runs entirely in your browser',
     drop:'Click here or drag your file',dropsub:'Word · Excel · PDF · CSV · TXT · Image — up to 50MB',
@@ -336,6 +337,7 @@ const L = {
     privacy:'Your file never leaves your browser — all processing is local',
     noTargets:'No conversions available for this file type',
     errSize:'File too large (max 50MB)',errType:'File type not supported',errConvert:'Conversion failed. Make sure the file is not corrupted.',
+    errLoadLib:'Could not load the conversion library. Check your internet connection and try disabling any ad/privacy blocker for this site, then retry.',
     reset:'✕'},
   fr:{title:'Convertisseur de fichiers',sub:'Convertissez entre formats — entièrement dans votre navigateur',
     drop:'Cliquez ici ou glissez votre fichier',dropsub:'Word · Excel · PDF · CSV · TXT · Image — jusqu\'à 50MB',
@@ -346,6 +348,7 @@ const L = {
     privacy:'Votre fichier ne quitte jamais votre navigateur',
     noTargets:'Aucune conversion disponible pour ce type de fichier',
     errSize:'Fichier trop volumineux (max 50MB)',errType:'Type non pris en charge',errConvert:'Échec de la conversion.',
+    errLoadLib:'Impossible de charger la bibliothèque de conversion. Vérifiez votre connexion et désactivez un éventuel bloqueur de pub/vie privée, puis réessayez.',
     reset:'✕'},
   es:{title:'Conversor de archivos',sub:'Convierte entre formatos — funciona en tu navegador',
     drop:'Haz clic aquí o arrastra tu archivo',dropsub:'Word · Excel · PDF · CSV · TXT · Imagen — hasta 50MB',
@@ -356,6 +359,7 @@ const L = {
     privacy:'Tu archivo nunca sale de tu navegador',
     noTargets:'No hay conversiones disponibles para este tipo',
     errSize:'Archivo demasiado grande (máx 50MB)',errType:'Tipo no soportado',errConvert:'Conversión fallida.',
+    errLoadLib:'No se pudo cargar la librería de conversión. Verifica tu conexión y desactiva algún bloqueador de anuncios/privacidad, luego reintenta.',
     reset:'✕'},
   de:{title:'Datei-Konverter',sub:'Zwischen Formaten konvertieren — läuft in Ihrem Browser',
     drop:'Hier klicken oder Datei ziehen',dropsub:'Word · Excel · PDF · CSV · TXT · Bild — bis 50MB',
@@ -366,6 +370,7 @@ const L = {
     privacy:'Ihre Datei verlässt nie Ihren Browser',
     noTargets:'Keine Konvertierungen für diesen Dateityp verfügbar',
     errSize:'Datei zu groß (max 50MB)',errType:'Dateityp nicht unterstützt',errConvert:'Konvertierung fehlgeschlagen.',
+    errLoadLib:'Die Konvertierungsbibliothek konnte nicht geladen werden. Prüfen Sie Ihre Internetverbindung und deaktivieren Sie ggf. einen Werbe-/Privatsphäre-Blocker, dann erneut versuchen.',
     reset:'✕'},
   ru:{title:'Конвертер файлов',sub:'Конвертируйте между форматами — прямо в браузере',
     drop:'Нажмите или перетащите файл',dropsub:'Word · Excel · PDF · CSV · TXT · Изображение — до 50MB',
@@ -376,6 +381,7 @@ const L = {
     privacy:'Ваш файл никогда не покидает браузер',
     noTargets:'Нет доступных конверсий для этого типа',
     errSize:'Файл слишком большой (макс 50MB)',errType:'Тип файла не поддерживается',errConvert:'Ошибка конвертации.',
+    errLoadLib:'Не удалось загрузить библиотеку конвертации. Проверьте подключение к интернету и отключите блокировщик рекламы/конфиденциальности для этого сайта, затем повторите попытку.',
     reset:'✕'}
 };
 
@@ -496,7 +502,13 @@ async function startConvert(){
     else if(key==='csv-docx'||key==='xlsx-docx'||key==='xls-docx') await tableToDocx();
     else if(key==='pdf-docx') await pdfToDocx();
     else { showErr(t('errConvert')); setStatus(false); }
-  } catch(err){ showErr(t('errConvert')); setStatus(false); console.error(err); }
+  } catch(err){
+    console.error(err);
+    const msg = (err && err.message) ? err.message : '';
+    if(/load failed|all sources failed/i.test(msg)) showErr(t('errLoadLib'));
+    else showErr(t('errConvert'));
+    setStatus(false);
+  }
 }
 
 function setStatus(on){
@@ -566,8 +578,8 @@ async function docxToPdf(){
   setProgress(30);
   const html = await getDocxHtml();
   setProgress(60);
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+  await loadScript(HTML2CANVAS_URLS);
+  await loadScript(JSPDF_URLS);
   setProgress(80);
   const {jsPDF} = window.jspdf;
   const doc = new jsPDF({unit:'mm',format:'a4'});
@@ -631,8 +643,8 @@ async function xlsxToPdf(){
   const ws=wb.Sheets[wb.SheetNames[0]];
   const data=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
   setProgress(55);
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+  await loadScript(HTML2CANVAS_URLS);
+  await loadScript(JSPDF_URLS);
   setProgress(75);
   const {jsPDF}=window.jspdf;
   const doc=new jsPDF({unit:'mm',format:'a4',orientation:'landscape'});
@@ -681,8 +693,8 @@ async function csvToTxt(){
 async function csvToPdf(){
   const text=await currentFile.text();
   const rows=text.trim().split('\n').map(r=>r.split(','));
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+  await loadScript(HTML2CANVAS_URLS);
+  await loadScript(JSPDF_URLS);
   const {jsPDF}=window.jspdf;
   const doc=new jsPDF({unit:'mm',format:'a4',orientation:'landscape'});
   const tmp=document.createElement('div');
@@ -703,8 +715,7 @@ async function csvToPdf(){
 /* ─── PDF → TXT ─── */
 async function pdfToTxt(){
   setProgress(20);
-  await loadScript('https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js');
-  pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+  await loadPdfjs();
   const ab=await currentFile.arrayBuffer();
   setProgress(40);
   const pdf=await pdfjsLib.getDocument({data:ab,isEvalSupported:false}).promise;
@@ -726,7 +737,7 @@ async function pdfToTxt(){
 async function txtToPdf(){
   setProgress(40);
   const text=await currentFile.text();
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+  await loadScript(JSPDF_URLS);
   const {jsPDF}=window.jspdf;
   const doc=new jsPDF();
   const lines=doc.splitTextToSize(text,180);
@@ -741,7 +752,7 @@ async function txtToPdf(){
 /* ─── Image → PDF ─── */
 async function imgToPdf(){
   setProgress(40);
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+  await loadScript(JSPDF_URLS);
   const {jsPDF}=window.jspdf;
   const url=URL.createObjectURL(currentFile);
   const img=new Image();
@@ -789,8 +800,7 @@ async function imgToImg(fmt) {
 /* ─── PDF → Image (first page) ─── */
 async function pdfToImg(fmt) {
   setProgress(20);
-  await loadScript('https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js');
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+  await loadPdfjs();
   const ab = await currentFile.arrayBuffer();
   setProgress(40);
   const pdf = await pdfjsLib.getDocument({data:ab,isEvalSupported:false}).promise;
@@ -863,8 +873,7 @@ async function tableToDocx() {
 
 async function pdfToDocx() {
   setProgress(20);
-  await loadScript('https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js');
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+  await loadPdfjs();
   const ab = await currentFile.arrayBuffer();
   setProgress(35);
   const pdf = await pdfjsLib.getDocument({data:ab,isEvalSupported:false}).promise;
@@ -910,11 +919,38 @@ function resetAll(){
 }
 function convertAnother(){ resetAll(); }
 
-function loadScript(src){
+const HTML2CANVAS_URLS = ['vendor/html2canvas-1.4.1.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js'];
+const JSPDF_URLS = ['vendor/jspdf-2.5.1.umd.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js', 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js'];
+const PDFJS_URLS = ['vendor/pdfjs-3.11.174.min.js', 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js'];
+const PDFJS_WORKER_URLS = ['vendor/pdfjs-3.11.174.worker.min.js', 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'];
+
+async function loadPdfjs(){
+  await loadScript(PDFJS_URLS);
+  pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_URLS[0];
+}
+
+const _scriptLoadPromises = {};
+function loadScriptOnce(src){
   return new Promise((res,rej)=>{
     if(document.querySelector(`script[src="${src}"]`)){ res(); return; }
-    const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=rej; document.head.appendChild(s);
+    const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=()=>rej(new Error('load failed: '+src)); document.head.appendChild(s);
   });
+}
+function loadScript(srcOrList){
+  const list = Array.isArray(srcOrList) ? srcOrList : [srcOrList];
+  const key = list[0];
+  if(_scriptLoadPromises[key]) return _scriptLoadPromises[key];
+  const p = (async () => {
+    let lastErr;
+    for(const url of list){
+      try { await loadScriptOnce(url); return; }
+      catch(e){ lastErr = e; }
+    }
+    throw lastErr || new Error('all sources failed: '+key);
+  })();
+  _scriptLoadPromises[key] = p;
+  p.catch(() => { delete _scriptLoadPromises[key]; });
+  return p;
 }
 
 /* ─── i18n hook ─── */
