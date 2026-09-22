@@ -51,7 +51,7 @@
     <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">أدخل موادك مع عدد الساعات المعتمدة والتقدير لكل مادة، وبتحسب الحاسبة معدل الفصل تلقائياً. لو أضفت معدلك التراكمي السابق وساعاتك المنجزة، بتطلعلك المعدل التراكمي الجديد كمان.</p>
 
     <label style="font-weight:700;" for="systemSelect">المعدل من كم؟ (نظام جامعتك)</label>
-    <select id="systemSelect" onchange="setSystem(this.value)" style="width:100%;margin-top:6px;margin-bottom:12px;">
+    <select id="systemSelect" style="width:100%;margin-top:6px;margin-bottom:12px;">
       <option value="gpa4">نقاط من 4.0</option>
       <option value="gpa42">نقاط من 4.2</option>
       <option value="pct">علامة مئوية من 100 مباشرة</option>
@@ -72,11 +72,11 @@
     <div class="row">
       <div>
         <label>المعدل التراكمي السابق</label>
-        <input type="number" inputmode="decimal" id="prevGpa" placeholder="مثال: 3.20" min="0" max="100" step="any" oninput="calc()">
+        <input type="number" inputmode="decimal" id="prevGpa" placeholder="مثال: 3.20" min="0" max="100" step="any">
       </div>
       <div>
         <label>الساعات المنجزة سابقاً</label>
-        <input type="number" inputmode="decimal" id="prevHours" placeholder="مثال: 45" min="0" step="1" oninput="calc()">
+        <input type="number" inputmode="decimal" id="prevHours" placeholder="مثال: 45" min="0" step="1">
       </div>
     </div>
 
@@ -90,6 +90,7 @@
         <div class="stat-box"><div class="stat-val" id="semHoursDisplay"></div><div class="stat-lbl">ساعات هذا الفصل</div></div>
         <div class="stat-box"><div class="stat-val" id="totalHoursDisplay"></div><div class="stat-lbl">إجمالي الساعات المنجزة</div></div>
       </div>
+      <button id="gpaExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
     </div>
   </div>
 
@@ -97,12 +98,12 @@
     <div class="card-title" style="font-size:15px;">🎯 كم لازم أطلع بالساعات الباقية؟</div>
     <p style="font-size:13px;color:var(--text-muted);margin-top:6px;margin-bottom:12px;">مثال: خلّصت 80 ساعة بمعدل B-، وضل معك 40 ساعة، وبدك توصل معدل معيّن عند التخرج — هاي بتطلعلك شو لازم يكون معدلك بالساعات الباقية.</p>
     <div class="row">
-      <div><label>الساعات المنجزة</label><input type="number" inputmode="decimal" id="planCompletedHours" placeholder="مثال: 80" min="0" step="any" oninput="calcPlan()"></div>
-      <div><label>معدلك الحالي</label><input type="number" inputmode="decimal" id="planCurrentGpa" placeholder="مثال: 3.00" min="0" step="any" oninput="calcPlan()"></div>
+      <div><label>الساعات المنجزة</label><input type="number" inputmode="decimal" id="planCompletedHours" placeholder="مثال: 80" min="0" step="any"></div>
+      <div><label>معدلك الحالي</label><input type="number" inputmode="decimal" id="planCurrentGpa" placeholder="مثال: 3.00" min="0" step="any"></div>
     </div>
     <div class="row">
-      <div><label>الساعات المتبقية</label><input type="number" inputmode="decimal" id="planRemainingHours" placeholder="مثال: 40" min="0" step="any" oninput="calcPlan()"></div>
-      <div><label>المعدل المستهدف</label><input type="number" inputmode="decimal" id="planTargetGpa" placeholder="مثال: 3.30" min="0" step="any" oninput="calcPlan()"></div>
+      <div><label>الساعات المتبقية</label><input type="number" inputmode="decimal" id="planRemainingHours" placeholder="مثال: 40" min="0" step="any"></div>
+      <div><label>المعدل المستهدف</label><input type="number" inputmode="decimal" id="planTargetGpa" placeholder="مثال: 3.30" min="0" step="any"></div>
     </div>
     <div id="planResult" style="display:none;margin-top:16px;"></div>
   </div>
@@ -233,7 +234,7 @@ function buildGradeTable() {
   wrap.innerHTML = Object.keys(GRADE_DEFAULTS).map(g =>
     '<div><label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:3px;">' + g + '</label>' +
     '<input type="number" inputmode="decimal" id="gp-' + g + '" value="' + gradePoints[g].toFixed(2) + '" step="0.05" min="0" max="10" ' +
-    'style="width:100%;padding:6px;font-size:13px;border:1px solid var(--border);border-radius:6px;" onchange="updateGradeTable()">' +
+    'style="width:100%;padding:6px;font-size:13px;border:1px solid var(--border);border-radius:6px;">' +
     '</div>'
   ).join('');
 }
@@ -266,11 +267,11 @@ function addCourse() {
   div.style.alignItems = 'flex-end';
   div.style.gap = '8px';
   const gradeInputHtml = isPointsSystem()
-    ? '<div style="width:120px;"><label>التقدير</label><select class="course-grade" id="grade-' + id + '" onchange="calc()">' + gradeOptions() + '</select></div>'
-    : '<div style="width:110px;"><label>العلامة (من 100)</label><input type="number" inputmode="decimal" class="course-pct" id="pct-' + id + '" min="0" max="100" step="any" oninput="calc()"></div>';
+    ? '<div style="width:120px;"><label>التقدير</label><select class="course-grade" id="grade-' + id + '">' + gradeOptions() + '</select></div>'
+    : '<div style="width:110px;"><label>العلامة (من 100)</label><input type="number" inputmode="decimal" class="course-pct" id="pct-' + id + '" min="0" max="100" step="any"></div>';
   div.innerHTML =
     '<div style="flex:1;"><label>المادة (اختياري)</label><input type="text" id="name-' + id + '" placeholder="مثال: تفاضل 1"></div>' +
-    '<div style="width:90px;"><label>الساعات</label><input type="number" inputmode="decimal" id="hours-' + id + '" min="0" step="1" oninput="calc()"></div>' +
+    '<div style="width:90px;"><label>الساعات</label><input type="number" inputmode="decimal" id="hours-' + id + '" min="0" step="1"></div>' +
     gradeInputHtml +
     '<button type="button" class="removeCourseBtn" data-id="' + id + '" style="padding:9px 12px;border:none;background:#fef2f2;color:#dc2626;border-radius:8px;cursor:pointer;font-size:14px;">🗑️</button>';
   document.getElementById('coursesList').appendChild(div);
@@ -357,11 +358,54 @@ function calcPlan() {
 
 buildGradeTable();
 for (let i = 0; i < 5; i++) addCourse();
+
+function exportUniGpaResult() {
+  const rows = [];
+  document.querySelectorAll('#coursesList > div').forEach(function(row) {
+    const id = row.id.split('-')[1];
+    const hoursEl = document.getElementById('hours-' + id);
+    if (!hoursEl) return;
+    const hours = parseFloat(hoursEl.value) || 0;
+    if (hours <= 0) return;
+    const nameEl = document.getElementById('name-' + id);
+    const name = (nameEl && nameEl.value.trim()) || ('مادة ' + id);
+    let gradeLabel;
+    if (isPointsSystem()) {
+      const gradeEl = document.getElementById('grade-' + id);
+      if (!gradeEl) return;
+      gradeLabel = gradeEl.value;
+    } else {
+      const pctEl = document.getElementById('pct-' + id);
+      if (!pctEl || pctEl.value === '') return;
+      gradeLabel = pctEl.value + '%';
+    }
+    rows.push({ label: name + ' (' + hours + ' س)', value: gradeLabel });
+  });
+  const prevGpa = document.getElementById('prevGpa').value;
+  const prevHours = document.getElementById('prevHours').value;
+  if (prevHours) {
+    rows.push({ label: 'المعدل التراكمي السابق', value: prevGpa + ' / ' + prevHours + ' ساعة' });
+  }
+  rows.push({ label: 'معدل هذا الفصل', value: document.getElementById('semGpaDisplay').textContent });
+  rows.push({ label: 'المعدل التراكمي الجديد', value: document.getElementById('cumGpaDisplay').textContent, highlight: true });
+  exportResultImage('حاسبة معدل الجامعة الأردني', rows);
+}
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('addCourseBtn')?.addEventListener('click', addCourse);
   document.getElementById('coursesList')?.addEventListener('click', function(e){ var b = e.target.closest('.removeCourseBtn'); if (b) removeCourse(b.dataset.id); });
+  document.getElementById('coursesList')?.addEventListener('input', function(e){ if (e.target.matches('[id^="hours-"], .course-pct')) calc(); });
+  document.getElementById('coursesList')?.addEventListener('change', function(e){ if (e.target.matches('.course-grade')) calc(); });
+  document.getElementById('gradeTable')?.addEventListener('change', function(e){ if (e.target.matches('[id^="gp-"]')) updateGradeTable(); });
+  document.getElementById('systemSelect')?.addEventListener('change', function(e){ setSystem(e.target.value); });
+  document.getElementById('prevGpa')?.addEventListener('input', calc);
+  document.getElementById('prevHours')?.addEventListener('input', calc);
+  document.getElementById('planCompletedHours')?.addEventListener('input', calcPlan);
+  document.getElementById('planCurrentGpa')?.addEventListener('input', calcPlan);
+  document.getElementById('planRemainingHours')?.addEventListener('input', calcPlan);
+  document.getElementById('planTargetGpa')?.addEventListener('input', calcPlan);
+  document.getElementById('gpaExportBtn')?.addEventListener('click', exportUniGpaResult);
 });
 </script>
 <script src="i18n-lang-ar.js?v=1" defer></script>
