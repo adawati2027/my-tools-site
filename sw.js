@@ -1,4 +1,4 @@
-const CACHE = 'adawati-v64';
+const CACHE = 'adawati-v65';
 const BASE = '';
 const STATIC = [
   BASE + '/',
@@ -121,6 +121,17 @@ self.addEventListener('fetch', e => {
   if (url.hostname === 'www.gstatic.com' || url.hostname === 'identitytoolkit.googleapis.com'
       || url.hostname === 'securetoken.googleapis.com' || url.hostname === 'firestore.googleapis.com'
       || url.hostname === 'accounts.google.com' || url.hostname === 'apis.google.com') {
+    return;
+  }
+  // Google Analytics / gtag: let the browser handle these natively. The
+  // real measurement hits (gtag('event',...) -> g/collect) are one-shot,
+  // often sent via navigator.sendBeacon, and were confirmed via direct
+  // testing to silently never reach the network at all once routed
+  // through this SW's cache-first fallback branch below - no error, no
+  // console warning, the pageview/event just never gets recorded. Every
+  // visit from a browser with this SW installed was invisible to GA.
+  if (url.hostname === 'www.googletagmanager.com' || url.hostname === 'www.google-analytics.com'
+      || url.hostname === 'analytics.google.com' || url.hostname === 'stats.g.doubleclick.net') {
     return;
   }
   // Network-first for live currency APIs
