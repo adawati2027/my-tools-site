@@ -529,6 +529,7 @@ function setProgress(pct){ el('progressBar').style.width=pct+'%'; }
 function showResult(contentHtml, dlButtons){
   setStatus(false);
   setProgress(100);
+  if (typeof gtag === 'function') gtag('event', 'file_converted', { from_format: currentExt, to_format: targetFmt });
   el('step3').style.display='none';
   el('step4').style.display='';
   el('doneFrom').textContent = currentExt.toUpperCase();

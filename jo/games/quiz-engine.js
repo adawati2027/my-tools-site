@@ -908,6 +908,8 @@ function showResult() {
   document.getElementById('resultScore').textContent = qt('score_label')(score, activeQuestions.length, pct);
   document.getElementById('resultMessage').textContent = rm.msg;
 
+  if (typeof gtag === 'function') gtag('event', 'quiz_completed', { game_id: QUIZ_CONFIG.gameId, score_pct: pct });
+
   if (challengeMode && challengeId) {
     if (!challengeSubmitted) {
       challengeSubmitted = true;

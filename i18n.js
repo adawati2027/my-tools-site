@@ -404,6 +404,7 @@ function submitAuthForm(mode, lang) {
       const modal = document.getElementById('signupModal');
       if (modal) modal.remove();
       updateAuthBtn();
+      if (typeof gtag === 'function') gtag('event', mode === 'signup' ? 'sign_up' : 'login', { method: 'email' });
       showToast((t.signup_welcome || 'Welcome') + ', ' + (user.displayName || user.email).split(' ')[0] + '!', 'success');
     });
   }).catch(function(err) {
@@ -425,6 +426,7 @@ function signInGoogle(lang) {
       const modal = document.getElementById('signupModal');
       if (modal) modal.remove();
       updateAuthBtn();
+      if (typeof gtag === 'function') gtag('event', 'login', { method: 'google' });
       showToast((t.signup_welcome || 'Welcome') + ', ' + (user.displayName || user.email).split(' ')[0] + '!', 'success');
     });
   };
@@ -1267,6 +1269,7 @@ function exportResultImage(titleText, rows, embedCanvas) {
 
   canvas.toBlob(function(blob) {
     if (!blob) return;
+    if (typeof gtag === 'function') gtag('event', 'export_result', { tool_name: titleText });
     const file = new File([blob], 'adawati-result.png', { type: 'image/png' });
     // A PNG's own pixels can never be a clickable link — this is a real
     // format limitation, not something fixable in the image itself. The

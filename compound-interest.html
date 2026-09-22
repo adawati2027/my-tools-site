@@ -486,6 +486,7 @@ function escCsv(v){
   return v;
 }
 function downloadOrShare(blob,filename,mime){
+  if(typeof gtag==='function')gtag('event','schedule_exported',{file_type:filename.split('.').pop()});
   var file=new File([blob],filename,{type:mime});
   if(navigator.canShare&&navigator.canShare({files:[file]})){
     navigator.share({files:[file]}).catch(function(e){
