@@ -72,11 +72,11 @@
     <div class="row">
       <div>
         <label>المعدل التراكمي السابق</label>
-        <input type="number" id="prevGpa" placeholder="مثال: 3.20" min="0" max="100" step="any" oninput="calc()">
+        <input type="number" inputmode="decimal" id="prevGpa" placeholder="مثال: 3.20" min="0" max="100" step="any" oninput="calc()">
       </div>
       <div>
         <label>الساعات المنجزة سابقاً</label>
-        <input type="number" id="prevHours" placeholder="مثال: 45" min="0" step="1" oninput="calc()">
+        <input type="number" inputmode="decimal" id="prevHours" placeholder="مثال: 45" min="0" step="1" oninput="calc()">
       </div>
     </div>
 
@@ -97,12 +97,12 @@
     <div class="card-title" style="font-size:15px;">🎯 كم لازم أطلع بالساعات الباقية؟</div>
     <p style="font-size:13px;color:var(--text-muted);margin-top:6px;margin-bottom:12px;">مثال: خلّصت 80 ساعة بمعدل B-، وضل معك 40 ساعة، وبدك توصل معدل معيّن عند التخرج — هاي بتطلعلك شو لازم يكون معدلك بالساعات الباقية.</p>
     <div class="row">
-      <div><label>الساعات المنجزة</label><input type="number" id="planCompletedHours" placeholder="مثال: 80" min="0" step="any" oninput="calcPlan()"></div>
-      <div><label>معدلك الحالي</label><input type="number" id="planCurrentGpa" placeholder="مثال: 3.00" min="0" step="any" oninput="calcPlan()"></div>
+      <div><label>الساعات المنجزة</label><input type="number" inputmode="decimal" id="planCompletedHours" placeholder="مثال: 80" min="0" step="any" oninput="calcPlan()"></div>
+      <div><label>معدلك الحالي</label><input type="number" inputmode="decimal" id="planCurrentGpa" placeholder="مثال: 3.00" min="0" step="any" oninput="calcPlan()"></div>
     </div>
     <div class="row">
-      <div><label>الساعات المتبقية</label><input type="number" id="planRemainingHours" placeholder="مثال: 40" min="0" step="any" oninput="calcPlan()"></div>
-      <div><label>المعدل المستهدف</label><input type="number" id="planTargetGpa" placeholder="مثال: 3.30" min="0" step="any" oninput="calcPlan()"></div>
+      <div><label>الساعات المتبقية</label><input type="number" inputmode="decimal" id="planRemainingHours" placeholder="مثال: 40" min="0" step="any" oninput="calcPlan()"></div>
+      <div><label>المعدل المستهدف</label><input type="number" inputmode="decimal" id="planTargetGpa" placeholder="مثال: 3.30" min="0" step="any" oninput="calcPlan()"></div>
     </div>
     <div id="planResult" style="display:none;margin-top:16px;"></div>
   </div>
@@ -232,7 +232,7 @@ function buildGradeTable() {
   const wrap = document.getElementById('gradeTable');
   wrap.innerHTML = Object.keys(GRADE_DEFAULTS).map(g =>
     '<div><label style="font-size:11px;color:var(--text-muted);display:block;margin-bottom:3px;">' + g + '</label>' +
-    '<input type="number" id="gp-' + g + '" value="' + gradePoints[g].toFixed(2) + '" step="0.05" min="0" max="10" ' +
+    '<input type="number" inputmode="decimal" id="gp-' + g + '" value="' + gradePoints[g].toFixed(2) + '" step="0.05" min="0" max="10" ' +
     'style="width:100%;padding:6px;font-size:13px;border:1px solid var(--border);border-radius:6px;" onchange="updateGradeTable()">' +
     '</div>'
   ).join('');
@@ -267,10 +267,10 @@ function addCourse() {
   div.style.gap = '8px';
   const gradeInputHtml = isPointsSystem()
     ? '<div style="width:120px;"><label>التقدير</label><select class="course-grade" id="grade-' + id + '" onchange="calc()">' + gradeOptions() + '</select></div>'
-    : '<div style="width:110px;"><label>العلامة (من 100)</label><input type="number" class="course-pct" id="pct-' + id + '" min="0" max="100" step="any" oninput="calc()"></div>';
+    : '<div style="width:110px;"><label>العلامة (من 100)</label><input type="number" inputmode="decimal" class="course-pct" id="pct-' + id + '" min="0" max="100" step="any" oninput="calc()"></div>';
   div.innerHTML =
     '<div style="flex:1;"><label>المادة (اختياري)</label><input type="text" id="name-' + id + '" placeholder="مثال: تفاضل 1"></div>' +
-    '<div style="width:90px;"><label>الساعات</label><input type="number" id="hours-' + id + '" min="0" step="1" oninput="calc()"></div>' +
+    '<div style="width:90px;"><label>الساعات</label><input type="number" inputmode="decimal" id="hours-' + id + '" min="0" step="1" oninput="calc()"></div>' +
     gradeInputHtml +
     '<button type="button" class="removeCourseBtn" data-id="' + id + '" style="padding:9px 12px;border:none;background:#fef2f2;color:#dc2626;border-radius:8px;cursor:pointer;font-size:14px;">🗑️</button>';
   document.getElementById('coursesList').appendChild(div);

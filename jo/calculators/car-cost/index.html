@@ -64,7 +64,7 @@
     <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">كثير أصحاب السيارات بيحسبوا بس القسط الشهري وينسوا باقي المصاريف. هاي الحاسبة بتجمعلك كل شي بمكان واحد عشان تشوف الصورة الكاملة.</p>
 
     <label>القسط الشهري (دينار) — اتركه فارغ لو سيارتك مدفوعة بالكامل</label>
-    <input type="number" id="installment" placeholder="0.000" min="0" step="any" oninput="calc()">
+    <input type="number" inputmode="decimal" id="installment" placeholder="0.000" min="0" step="any" oninput="calc()">
 
     <div class="divider"></div>
     <label style="font-weight:700;">⛽ الوقود / الطاقة</label>
@@ -75,8 +75,8 @@
 
     <div id="fuelSection" style="margin-top:10px;">
       <div class="row">
-        <div><label>كم تسوق بالشهر (كم)</label><input type="number" id="distance" placeholder="مثال: 1500" min="0" step="any" oninput="calc()"></div>
-        <div><label>استهلاك سيارتك (لتر/100كم)</label><input type="number" id="consumption" placeholder="مثال: 8" min="0" step="any" oninput="calc()"></div>
+        <div><label>كم تسوق بالشهر (كم)</label><input type="number" inputmode="decimal" id="distance" placeholder="مثال: 1500" min="0" step="any" oninput="calc()"></div>
+        <div><label>استهلاك سيارتك (لتر/100كم)</label><input type="number" inputmode="decimal" id="consumption" placeholder="مثال: 8" min="0" step="any" oninput="calc()"></div>
       </div>
       <label>نوع الوقود</label>
       <select id="fuelType" onchange="calc()" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
@@ -88,30 +88,30 @@
 
     <div id="electricSection" style="display:none;margin-top:10px;">
       <label>كم زادت فاتورة الكهرباء شهرياً بسبب شحن السيارة؟ (دينار)</label>
-      <input type="number" id="electricBill" placeholder="مثال: 25" min="0" step="any" oninput="calc()">
+      <input type="number" inputmode="decimal" id="electricBill" placeholder="مثال: 25" min="0" step="any" oninput="calc()">
       <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">💡 قارن فاتورة كهربائك قبل وبعد اقتناء السيارة، وأدخل الفرق فقط — مش الفاتورة كاملة.</p>
     </div>
 
     <div class="divider"></div>
     <div class="row">
-      <div><label>التأمين السنوي (دينار)</label><input type="number" id="insurance" placeholder="0.000" min="0" step="any" oninput="calc()"></div>
-      <div><label>الترخيص السنوي (دينار)</label><input type="number" id="license" placeholder="0.000" min="0" step="any" oninput="calc()"></div>
+      <div><label>التأمين السنوي (دينار)</label><input type="number" inputmode="decimal" id="insurance" placeholder="0.000" min="0" step="any" oninput="calc()"></div>
+      <div><label>الترخيص السنوي (دينار)</label><input type="number" inputmode="decimal" id="license" placeholder="0.000" min="0" step="any" oninput="calc()"></div>
     </div>
     <label>الصيانة الشهرية التقديرية (دينار)</label>
-    <input type="number" id="maintenance" placeholder="0.000" min="0" step="any" oninput="calc()">
+    <input type="number" inputmode="decimal" id="maintenance" placeholder="0.000" min="0" step="any" oninput="calc()">
 
     <div class="divider"></div>
     <label style="font-weight:700;">مصاريف تانية بتنسى غالباً (اختياري)</label>
     <div class="row" style="margin-top:8px;">
-      <div><label>رسوم الفحص الدوري السنوي (دينار)</label><input type="number" id="inspection" placeholder="0.000" min="0" step="any" oninput="calc()"></div>
-      <div><label>موقف/باركنج شهري (دينار)</label><input type="number" id="parking" placeholder="0.000" min="0" step="any" oninput="calc()"></div>
+      <div><label>رسوم الفحص الدوري السنوي (دينار)</label><input type="number" inputmode="decimal" id="inspection" placeholder="0.000" min="0" step="any" oninput="calc()"></div>
+      <div><label>موقف/باركنج شهري (دينار)</label><input type="number" inputmode="decimal" id="parking" placeholder="0.000" min="0" step="any" oninput="calc()"></div>
     </div>
     <div class="row">
-      <div><label>غسيل ومستلزمات شهرياً (دينار)</label><input type="number" id="carwash" placeholder="0.000" min="0" step="any" oninput="calc()"></div>
-      <div><label>الإهلاك السنوي التقديري (دينار)</label><input type="number" id="depreciation" placeholder="0.000" min="0" step="any" oninput="calc()"></div>
+      <div><label>غسيل ومستلزمات شهرياً (دينار)</label><input type="number" inputmode="decimal" id="carwash" placeholder="0.000" min="0" step="any" oninput="calc()"></div>
+      <div><label>الإهلاك السنوي التقديري (دينار)</label><input type="number" inputmode="decimal" id="depreciation" placeholder="0.000" min="0" step="any" oninput="calc()"></div>
     </div>
     <label>متوسط المخالفات المرورية بالسنة (دينار)</label>
-    <input type="number" id="fines" placeholder="0.000" min="0" step="any" oninput="calc()">
+    <input type="number" inputmode="decimal" id="fines" placeholder="0.000" min="0" step="any" oninput="calc()">
     <p style="font-size:12px;color:var(--text-muted);margin-top:-4px;">💡 قدّر متوسط مخالفاتك بالسنة الماضية (سرعة، وقوف خاطئ، إلخ) — لو ما عندك مخالفات، سيبه فاضي.</p>
     <p style="font-size:12px;color:var(--text-muted);margin-top:-4px;">💡 الإهلاك = مقدار ما تنقص قيمة سيارتك بالسوق كل سنة — لو ما بتعرفه بالضبط، قارن سعرها الحالي بسعرها قبل سنة بمواقع بيع السيارات المستعملة، أو سيبه فاضي.</p>
 

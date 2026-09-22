@@ -98,18 +98,18 @@
     <div class="row">
       <div>
         <label for="principal" data-i18n="ci_principal">Principal (starting amount)</label>
-        <input type="number" id="principal" placeholder="e.g. 10000" min="0" step="any" >
+        <input type="number" inputmode="decimal" id="principal" placeholder="e.g. 10000" min="0" step="any" >
       </div>
       <div>
         <label for="rate" data-i18n="ci_rate">Annual interest rate %</label>
-        <input type="number" id="rate" placeholder="e.g. 5" min="0" step="any" >
+        <input type="number" inputmode="decimal" id="rate" placeholder="e.g. 5" min="0" step="any" >
       </div>
     </div>
 
     <div class="row">
       <div>
         <label for="years" data-i18n="ci_years">Duration (years)</label>
-        <input type="number" id="years" placeholder="e.g. 10" min="1" max="50" step="1" >
+        <input type="number" inputmode="decimal" id="years" placeholder="e.g. 10" min="1" max="50" step="1" >
       </div>
       <div>
         <label for="freq" data-i18n="ci_freq">Compounding frequency</label>
@@ -124,7 +124,7 @@
 
     <div>
       <label for="monthly" data-i18n="ci_monthly">Optional monthly contribution</label>
-      <input type="number" id="monthly" placeholder="0 (optional)" min="0" step="any" value="0" >
+      <input type="number" inputmode="decimal" id="monthly" placeholder="0 (optional)" min="0" step="any" value="0" >
     </div>
 
     <div id="ciResult" style="display:none;margin-top:20px;">
