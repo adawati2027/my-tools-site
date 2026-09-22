@@ -98,6 +98,7 @@
         <div class="stat-box"><div class="stat-val" id="y11Display"></div><div class="stat-lbl">مساهمة الحادي عشر (30%)</div></div>
         <div class="stat-box"><div class="stat-val" id="y12Display"></div><div class="stat-lbl">مساهمة الثاني عشر (70%)</div></div>
       </div>
+      <button id="tawjihiExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
     </div>
   </div>
 
@@ -207,10 +208,33 @@ function calc() {
   document.getElementById('tawjihiResult').style.display = 'block';
 }
 
+function exportTawjihiResult() {
+  const specName = function(id, fallback) {
+    const v = (document.getElementById(id).value || '').trim();
+    return v || fallback;
+  };
+  const val = function(id) { return document.getElementById(id).value || '0'; };
+  const rows = [
+    { label: 'اللغة العربية (10%)', value: val('g-arabic') },
+    { label: 'اللغة الإنجليزية (10%)', value: val('g-english') },
+    { label: 'التربية الإسلامية (6%)', value: val('g-islamic') },
+    { label: 'تاريخ الأردن (4%)', value: val('g-history') },
+    { label: specName('name-spec1', 'المبحث التخصصي 1') + ' (17.5%)', value: val('g-spec1') },
+    { label: specName('name-spec2', 'المبحث التخصصي 2') + ' (17.5%)', value: val('g-spec2') },
+    { label: specName('name-spec3', 'المبحث التخصصي 3') + ' (17.5%)', value: val('g-spec3') },
+    { label: specName('name-spec4', 'المبحث التخصصي 4') + ' (17.5%)', value: val('g-spec4') },
+    { label: 'مساهمة الحادي عشر (30%)', value: document.getElementById('y11Display').textContent },
+    { label: 'مساهمة الثاني عشر (70%)', value: document.getElementById('y12Display').textContent },
+    { label: 'معدلك التقديري النهائي', value: document.getElementById('finalAvgDisplay').textContent, highlight: true }
+  ];
+  exportResultImage('حاسبة معدل التوجيهي الأردني', rows);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   ['g-arabic', 'g-english', 'g-islamic', 'g-history', 'g-spec1', 'g-spec2', 'g-spec3', 'g-spec4'].forEach(function(id) {
     document.getElementById(id).addEventListener('input', calc);
   });
+  document.getElementById('tawjihiExportBtn')?.addEventListener('click', exportTawjihiResult);
 });
 </script>
 <script src="i18n-lang-ar.js?v=1" defer></script>
