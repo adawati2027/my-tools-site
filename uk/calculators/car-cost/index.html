@@ -66,7 +66,7 @@
     <div class="divider"></div>
 
     <label data-t="lblInstallment">Monthly loan installment (GBP) — leave blank if fully paid off</label>
-    <input type="number" id="installment" placeholder="0.00" min="0" step="any">
+    <input type="number" inputmode="decimal" id="installment" placeholder="0.00" min="0" step="any">
 
     <div class="divider"></div>
     <label style="font-weight:700;" data-t="lblFuelHeader">⛽ Fuel / Energy</label>
@@ -77,36 +77,36 @@
 
     <div id="fuelSection" style="margin-top:10px;">
       <div class="row">
-        <div><label data-t="lblDistance">km driven per month</label><input type="number" id="distance" placeholder="e.g. 1500" min="0" step="any"></div>
-        <div><label data-t="lblConsumption">Consumption (L/100km)</label><input type="number" id="consumption" placeholder="e.g. 8" min="0" step="any"></div>
+        <div><label data-t="lblDistance">km driven per month</label><input type="number" inputmode="decimal" id="distance" placeholder="e.g. 1500" min="0" step="any"></div>
+        <div><label data-t="lblConsumption">Consumption (L/100km)</label><input type="number" inputmode="decimal" id="consumption" placeholder="e.g. 8" min="0" step="any"></div>
       </div>
       <label data-t="lblFuelPrice">Price per liter (GBP) — default updated 7 Sep 2026</label>
-      <input type="number" id="fuelPrice" value="1.64" min="0" step="any">
+      <input type="number" inputmode="decimal" id="fuelPrice" value="1.64" min="0" step="any">
       <p style="font-size:11px;color:var(--text-muted);margin-top:2px;" data-t="fuelSourceNote">Source: globalpetrolprices.com — adjust if the price has changed</p>
     </div>
 
     <div id="electricSection" style="display:none;margin-top:10px;">
       <label data-t="lblElectricBill">How much did your electric bill increase per month from charging? (GBP)</label>
-      <input type="number" id="electricBill" placeholder="0.00" min="0" step="any">
+      <input type="number" inputmode="decimal" id="electricBill" placeholder="0.00" min="0" step="any">
       <p style="font-size:12px;color:var(--text-muted);margin-top:4px;" data-t="electricNote">Compare your bill before and after getting the car, and enter only the difference.</p>
     </div>
 
     <div class="divider"></div>
     <div class="row">
-      <div><label data-t="lblInsurance">Annual insurance (GBP)</label><input type="number" id="insurance" placeholder="0.00" min="0" step="any"></div>
-      <div><label data-t="lblLicense">Annual road tax (VED) (GBP)</label><input type="number" id="license" placeholder="0.00" min="0" step="any"></div>
+      <div><label data-t="lblInsurance">Annual insurance (GBP)</label><input type="number" inputmode="decimal" id="insurance" placeholder="0.00" min="0" step="any"></div>
+      <div><label data-t="lblLicense">Annual road tax (VED) (GBP)</label><input type="number" inputmode="decimal" id="license" placeholder="0.00" min="0" step="any"></div>
     </div>
     <label data-t="lblMaintenance">Estimated monthly maintenance (GBP)</label>
-    <input type="number" id="maintenance" placeholder="0.00" min="0" step="any">
+    <input type="number" inputmode="decimal" id="maintenance" placeholder="0.00" min="0" step="any">
 
     <div class="divider"></div>
     <label style="font-weight:700;" data-t="lblOtherHeader">Other often-forgotten costs (optional)</label>
     <div class="row" style="margin-top:8px;">
-      <div><label data-t="lblParking">Monthly parking (GBP)</label><input type="number" id="parking" placeholder="0.00" min="0" step="any"></div>
-      <div><label data-t="lblDepreciation">Estimated annual depreciation (GBP)</label><input type="number" id="depreciation" placeholder="0.00" min="0" step="any"></div>
+      <div><label data-t="lblParking">Monthly parking (GBP)</label><input type="number" inputmode="decimal" id="parking" placeholder="0.00" min="0" step="any"></div>
+      <div><label data-t="lblDepreciation">Estimated annual depreciation (GBP)</label><input type="number" inputmode="decimal" id="depreciation" placeholder="0.00" min="0" step="any"></div>
     </div>
     <label data-t="lblFines">Average annual traffic fines (GBP)</label>
-    <input type="number" id="fines" placeholder="0.00" min="0" step="any">
+    <input type="number" inputmode="decimal" id="fines" placeholder="0.00" min="0" step="any">
 
     <div id="carResult" style="display:none;margin-top:20px;">
       <div class="result-box show success" style="margin-top:0;">

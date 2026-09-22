@@ -73,13 +73,13 @@
 
     <div id="intlFeeRow" style="display:none;margin-top:10px;">
       <label id="t-lblIntlFee">Your university's international tuition fee (£/year)</label>
-      <input type="number" id="intlFee" placeholder="e.g. 18000" min="0" step="any">
+      <input type="number" inputmode="decimal" id="intlFee" placeholder="e.g. 18000" min="0" step="any">
       <p style="font-size:12px;color:var(--text-muted);margin-top:4px;" id="t-intlNote">Typical range: £10,000-£70,500/year depending on university and course (medicine highest). Check your specific offer letter for the exact figure.</p>
     </div>
 
     <div class="row" style="margin-top:10px;">
-      <div><label id="t-lblYears">Course length (years)</label><input type="number" id="years" placeholder="e.g. 3" min="0" step="any" value="3"></div>
-      <div><label id="t-lblLiving">Living costs per year (£)</label><input type="number" id="living" placeholder="e.g. 10544" value="10544" min="0" step="any"></div>
+      <div><label id="t-lblYears">Course length (years)</label><input type="number" inputmode="decimal" id="years" placeholder="e.g. 3" min="0" step="any" value="3"></div>
+      <div><label id="t-lblLiving">Living costs per year (£)</label><input type="number" inputmode="decimal" id="living" placeholder="e.g. 10544" value="10544" min="0" step="any"></div>
     </div>
     <p style="font-size:12px;color:var(--text-muted);margin-top:4px;" id="t-livingNote">Default is the 2026-27 maximum maintenance loan for home students living away from home outside London (£10,544/year) — a reasonable living-cost baseline. International students should budget more (roughly £14,000-£18,000/year, higher in London).</p>
 

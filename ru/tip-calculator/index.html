@@ -85,7 +85,7 @@
     <div class="divider"></div>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Calculate the appropriate tip and split the bill equally among any number of people. Move the slider to choose a tip percentage (0% to 30%) and enter the number of people to instantly get each person's share.</p>
     <label for="bill" data-i18n="tip_bill">Total bill</label>
-    <input type="number" id="bill" placeholder="0.00" >
+    <input type="number" inputmode="decimal" id="bill" placeholder="0.00" >
     <div class="option-toggle">
       <button class="option-btn active" data-mode="pct" data-i18n="tip_mode_pct">Percentage</button>
       <button class="option-btn" data-mode="fixed" data-i18n="tip_mode_fixed">Fixed Amount</button>
@@ -97,10 +97,10 @@
     </div>
     <div id="tipFixedSection" style="display:none;margin-top:6px;">
       <label for="tipFixed" data-i18n="tip_fixed_lbl">Fixed Tip Amount</label>
-      <input type="number" id="tipFixed" placeholder="0.00" min="0" step="any" >
+      <input type="number" inputmode="decimal" id="tipFixed" placeholder="0.00" min="0" step="any" >
     </div>
     <label for="people" data-i18n="tip_people">Number of people</label>
-    <input type="number" id="people" value="1" min="1" >
+    <input type="number" inputmode="decimal" id="people" value="1" min="1" >
     <div id="results" style="display:none;margin-top:20px;">
       <div class="stat-grid">
         <div class="stat-box"><div class="stat-val" id="tipAmt"></div><div class="stat-lbl" data-i18n="tip_amount">Tip amount</div></div>
