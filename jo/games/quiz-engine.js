@@ -345,7 +345,17 @@ function savePlayedRecord(id, data) {
 async function showChallengeJoinIntro(id) {
   challengeId = id;
   try {
-    const doc = await db.collection('challenges').doc(id).get();
+    // Fire all three reads together instead of chaining them one after another —
+    // accepts/starts don't depend on the challenge doc's own data, so running them
+    // sequentially was paying for 3 full network round-trips back to back on every
+    // page load of a challenge link, when the slowest of the three is all that
+    // actually gates showing the intro message.
+    const docRef = db.collection('challenges').doc(id);
+    const [doc, acceptsSnap, startsSnap] = await Promise.all([
+      docRef.get(),
+      docRef.collection('accepts').get(),
+      docRef.collection('starts').get().catch(function() { return null; })
+    ]);
     if (!doc.exists) {
       document.getElementById('challengeJoinMsg').textContent = qt('not_found');
       document.getElementById('challengeJoinForm').style.display = 'none';
@@ -366,7 +376,6 @@ async function showChallengeJoinIntro(id) {
       return;
     }
 
-    const acceptsSnap = await db.collection('challenges').doc(id).collection('accepts').get();
     const joinedCount = acceptsSnap.size + 1; // +1 for the creator
     if (joinedCount >= MAX_PLAYERS) {
       document.getElementById('challengeJoinMsg').textContent = qt('challenge_full_join')(MAX_PLAYERS);
@@ -374,11 +383,10 @@ async function showChallengeJoinIntro(id) {
       return;
     }
 
-    let alreadyStarted = false;
-    try {
-      const startsSnap = await db.collection('challenges').doc(id).collection('starts').get();
-      alreadyStarted = !startsSnap.empty;
-    } catch (e) { /* if this check fails, show the normal pre-start message below */ }
+    // startsSnap is null if that read failed (e.g. transient permissions/network
+    // blip) — treat that the same as "not started yet" and show the normal
+    // pre-start message rather than failing the whole intro screen over it.
+    const alreadyStarted = !!(startsSnap && !startsSnap.empty);
 
     document.getElementById('challengeJoinMsg').textContent = alreadyStarted
       ? qt('already_playing')(escapeHtml(data.creatorName))
@@ -423,19 +431,12 @@ async function joinChallenge() {
     challengeSubmitted = false;
     document.getElementById('challengeJoinArea').style.display = 'none';
 
-    let alreadyStarted = false;
-    try {
-      const startsSnap = await db.collection('challenges').doc(challengeId).collection('starts').get();
-      alreadyStarted = !startsSnap.empty;
-    } catch (e) { /* if this check fails, fall back to the normal wait-for-start flow below */ }
-
-    if (alreadyStarted) {
-      currentQ = 0; score = 0; quizStartTime = Date.now();
-      document.getElementById('quizArea').style.display = 'block';
-      loadQuestion();
-      return;
-    }
-
+    // No separate "already started?" read here — onSnapshot always delivers the
+    // current state on first subscription (not just future changes), so
+    // listenForStart() already fires beginJoinerPlay() immediately if the creator
+    // started before this joiner accepted. A prior version did an extra .get() on
+    // the starts collection here first, which just duplicated that same read as a
+    // second Firestore round-trip (~400-800ms) on every single join.
     document.getElementById('joinerWaitingArea').style.display = 'block';
     listenForStart();
   } catch (e) {
@@ -890,6 +891,15 @@ function selectAnswer(i, btn) {
     else if (idx === i) { b.style.background = '#fee2e2'; b.style.borderColor = '#dc2626'; }
   });
   if (i === q.correct) score++;
+  // Prefetch the next question's image (if any) during this 900ms feedback pause,
+  // so by the time loadQuestion() actually sets it as the visible <img>'s src, it's
+  // already sitting in the browser's HTTP cache — logo-quiz's per-question images
+  // were measurably taking 400-900ms to pop in otherwise (each one a fresh,
+  // uncached request), which is the flavor of "بطء" this project's other games
+  // (no images) don't have. A bare `new Image()` with no DOM insertion is enough
+  // to trigger the fetch without it ever becoming visible.
+  const nextQ = activeQuestions[currentQ + 1];
+  if (nextQ && nextQ.img) { const pre = new Image(); pre.src = nextQ.img; }
   setTimeout(function() {
     currentQ++;
     if (currentQ < activeQuestions.length) loadQuestion();
