@@ -63,14 +63,14 @@
     <div class="divider"></div>
 
     <label>إجمالي النقد والمدخرات (دينار)</label>
-    <input type="number" inputmode="decimal" id="cash" placeholder="0.000" min="0" step="any" oninput="calc()">
+    <input type="number" inputmode="decimal" id="cash" placeholder="0.000" min="0" step="any">
 
     <div class="divider"></div>
     <label style="font-weight:700;">🪙 الذهب اللي تملكه</label>
     <div class="row" style="margin-top:8px;">
-      <div><label>كم غرام ذهب عندك؟</label><input type="number" inputmode="decimal" id="goldGrams" placeholder="0" min="0" step="any" oninput="calc()"></div>
+      <div><label>كم غرام ذهب عندك؟</label><input type="number" inputmode="decimal" id="goldGrams" placeholder="0" min="0" step="any"></div>
       <div><label>عيار الذهب</label>
-        <select id="goldKarat" onchange="calc()" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
+        <select id="goldKarat" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
           <option value="24">24 (خالص)</option>
           <option value="22">22</option>
           <option value="21" selected>21</option>
@@ -83,9 +83,9 @@
 
     <div class="divider"></div>
     <label>قيمة استثمارات أو تجارة قابلة للتسييل (اختياري)</label>
-    <input type="number" inputmode="decimal" id="investments" placeholder="0.000" min="0" step="any" oninput="calc()">
+    <input type="number" inputmode="decimal" id="investments" placeholder="0.000" min="0" step="any">
     <label style="margin-top:8px;display:block;">ديون مستحقة عليك تُخصم (اختياري)</label>
-    <input type="number" inputmode="decimal" id="debts" placeholder="0.000" min="0" step="any" oninput="calc()">
+    <input type="number" inputmode="decimal" id="debts" placeholder="0.000" min="0" step="any">
 
     <div id="zakatResult" style="display:none;margin-top:20px;"></div>
   </div>
@@ -152,6 +152,7 @@
 <script>
 const NISAB_GOLD_GRAMS = 85;
 let goldPrice24 = 0;
+let lastZakatResult = null;
 
 function fetchGoldPrice() {
   fetch('https://xaus.com/api/v1/spot?currency=JOD&unit=gram')
@@ -199,20 +200,50 @@ function calc() {
     return;
   }
 
+  const exportBtnHtml = '<button id="zakatExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>';
+
   if (totalWealth < nisabValue) {
+    lastZakatResult = { due: false, totalWealth: totalWealth, nisabValue: nisabValue, zakatDue: 0 };
     result.innerHTML =
-      '<div class="result-box show" style="margin-top:0;background:var(--surface-2);"><div class="result-value" style="font-size:18px;">لا تجب عليك الزكاة حالياً</div><div class="result-label">مالك (' + totalWealth.toFixed(3) + ' د.أ) أقل من النصاب (' + nisabValue.toFixed(3) + ' د.أ)</div></div>';
+      '<div class="result-box show" style="margin-top:0;background:var(--surface-2);"><div class="result-value" style="font-size:18px;">لا تجب عليك الزكاة حالياً</div><div class="result-label">مالك (' + totalWealth.toFixed(3) + ' د.أ) أقل من النصاب (' + nisabValue.toFixed(3) + ' د.أ)</div></div>' +
+      exportBtnHtml;
   } else {
     const zakatDue = totalWealth * 0.025;
+    lastZakatResult = { due: true, totalWealth: totalWealth, nisabValue: nisabValue, zakatDue: zakatDue };
     result.innerHTML =
       '<div class="result-box show success" style="margin-top:0;"><div class="result-value">' + zakatDue.toFixed(3) + ' د.أ</div><div class="result-label">مقدار الزكاة الواجبة (2.5%)</div></div>' +
       '<div class="stat-grid" style="margin-top:12px;">' +
         '<div class="stat-box"><div class="stat-val">' + totalWealth.toFixed(3) + '</div><div class="stat-lbl">إجمالي المال الزكوي</div></div>' +
         '<div class="stat-box"><div class="stat-val">' + nisabValue.toFixed(3) + '</div><div class="stat-lbl">قيمة النصاب</div></div>' +
-      '</div>';
+      '</div>' +
+      exportBtnHtml;
   }
   result.style.display = 'block';
 }
+
+function exportZakatResult() {
+  if (!lastZakatResult) return;
+  const rows = [
+    { label: 'النقد والمدخرات', value: (document.getElementById('cash').value || '0') + ' د.أ' },
+    { label: 'غرامات الذهب', value: (document.getElementById('goldGrams').value || '0') + ' غرام (عيار ' + document.getElementById('goldKarat').value + ')' },
+    { label: 'استثمارات', value: (document.getElementById('investments').value || '0') + ' د.أ' },
+    { label: 'ديون تُخصم', value: (document.getElementById('debts').value || '0') + ' د.أ' },
+    { label: 'إجمالي المال الزكوي', value: lastZakatResult.totalWealth.toFixed(3) + ' د.أ' },
+    { label: 'قيمة النصاب', value: lastZakatResult.nisabValue.toFixed(3) + ' د.أ' },
+    { label: lastZakatResult.due ? 'مقدار الزكاة الواجبة (2.5%)' : 'الحالة', value: lastZakatResult.due ? (lastZakatResult.zakatDue.toFixed(3) + ' د.أ') : 'لا تجب الزكاة حالياً', highlight: true }
+  ];
+  exportResultImage('حاسبة زكاة المال', rows);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  ['cash', 'goldGrams', 'investments', 'debts'].forEach(function(id) {
+    document.getElementById(id).addEventListener('input', calc);
+  });
+  document.getElementById('goldKarat').addEventListener('change', calc);
+  document.getElementById('zakatResult').addEventListener('click', function(e) {
+    if (e.target.closest('#zakatExportBtn')) exportZakatResult();
+  });
+});
 
 fetchGoldPrice();
 </script>

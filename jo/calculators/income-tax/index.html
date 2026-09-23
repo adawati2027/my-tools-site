@@ -53,7 +53,7 @@
     </div>
 
     <label>الدخل السنوي الإجمالي (دينار)</label>
-    <input type="number" inputmode="decimal" id="annualIncome" placeholder="0.000" min="0" step="any" oninput="calc()">
+    <input type="number" inputmode="decimal" id="annualIncome" placeholder="0.000" min="0" step="any">
 
     <label style="margin-top:10px;display:block;">الحالة الاجتماعية</label>
     <div class="option-toggle">
@@ -63,12 +63,12 @@
 
     <div id="kidsField" style="display:none;margin-top:10px;">
       <label style="display:block;">عدد الأبناء المعالين (لغايات إعفاء المصاريف الإضافية فقط، حد أقصى 3)</label>
-      <input type="number" inputmode="decimal" id="numKids" placeholder="0" min="0" max="3" step="1" value="0" oninput="onKidsChange()">
+      <input type="number" inputmode="decimal" id="numKids" placeholder="0" min="0" max="3" step="1" value="0">
     </div>
 
     <label style="margin-top:10px;display:block;">مصاريف موثقة إضافية (علاج/تعليم/سكن وفوائد قرض إسكان) — اختياري</label>
     <div id="extraExpensesHint" style="font-size:12px;color:var(--text-muted);margin-bottom:4px;"></div>
-    <input type="number" inputmode="decimal" id="extraExpenses" placeholder="0.000" min="0" step="any" oninput="calc()">
+    <input type="number" inputmode="decimal" id="extraExpenses" placeholder="0.000" min="0" step="any">
 
     <div id="taxResult" style="display:none;margin-top:20px;">
       <div class="result-box show success" style="margin-top:0;">
@@ -81,6 +81,7 @@
         <div class="stat-box" style="background:#eff6ff;"><div class="stat-val" id="monthlyTaxDisplay" style="color:#2563eb;"></div><div class="stat-lbl">الضريبة الشهرية التقديرية</div></div>
       </div>
       <div id="ncNote" style="display:none;margin-top:10px;padding:10px 14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;color:var(--text-muted);"></div>
+      <button id="taxExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
     </div>
   </div>
 
@@ -266,11 +267,27 @@ function calc() {
 
   document.getElementById('taxResult').style.display = 'block';
 }
+
+function exportTaxResult() {
+  const rows = [
+    { label: 'الدخل السنوي الإجمالي', value: (document.getElementById('annualIncome').value || '0') + ' د.أ' },
+    { label: 'الحالة الاجتماعية', value: maritalStatus === 'married' ? 'متزوج/معيل' : 'أعزب' },
+    { label: 'الدخل الخاضع للضريبة', value: document.getElementById('taxableDisplay').textContent + ' د.أ' },
+    { label: 'إجمالي الضريبة السنوية', value: document.getElementById('taxDisplay').textContent + ' د.أ' },
+    { label: 'الضريبة الشهرية التقديرية', value: document.getElementById('monthlyTaxDisplay').textContent + ' د.أ' },
+    { label: 'الدخل السنوي بعد الضريبة (تقديري)', value: document.getElementById('netAfterTax').textContent, highlight: true }
+  ];
+  exportResultImage('حاسبة ضريبة الدخل الأردني', rows);
+}
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('statusSingle')?.addEventListener('click', function(){ setStatus('single'); });
   document.getElementById('statusMarried')?.addEventListener('click', function(){ setStatus('married'); });
+  document.getElementById('annualIncome')?.addEventListener('input', calc);
+  document.getElementById('numKids')?.addEventListener('input', onKidsChange);
+  document.getElementById('extraExpenses')?.addEventListener('input', calc);
+  document.getElementById('taxExportBtn')?.addEventListener('click', exportTaxResult);
 });
 </script>
 <script src="i18n-lang-ar.js?v=1" defer></script>

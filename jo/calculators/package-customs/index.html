@@ -59,11 +59,11 @@
     <div class="row">
       <div>
         <label id="valueLbl">قيمة الطرد (دينار)</label>
-        <input type="number" inputmode="decimal" id="pkgValue" placeholder="0.00" min="0" step="any" oninput="calc()">
+        <input type="number" inputmode="decimal" id="pkgValue" placeholder="0.00" min="0" step="any">
       </div>
       <div>
         <label>تكلفة الشحن (اختياري)</label>
-        <input type="number" inputmode="decimal" id="shipCost" placeholder="0.00" min="0" step="any" oninput="calc()">
+        <input type="number" inputmode="decimal" id="shipCost" placeholder="0.00" min="0" step="any">
       </div>
     </div>
     <p style="font-size:12px;color:var(--text-muted);margin-top:-4px;">💡 الدينار مرتبط بسعر ثابت: 1 دولار ≈ 0.709 دينار. أدخل قيمة المنتج نفسها — احتساب تكلفة الشحن ضمن القيمة الخاضعة للرسم قد يختلف حسب حالة كل طرد، راجع الجمارك للتأكد.</p>
@@ -183,6 +183,7 @@
 <script>
 const USD_TO_JOD = 0.709;
 let curMode = 'jod';
+let lastPkgResult = null;
 
 function setCur(c) {
   curMode = c;
@@ -213,6 +214,7 @@ function calc() {
   const fee = Math.max(valueJod * 0.16, 5);
   const totalNoShip = valueJod + fee;
   const totalWithShip = valueJod + shipJod + fee;
+  lastPkgResult = { valueJod: valueJod, shipJod: shipJod, fee: fee, totalNoShip: totalNoShip, totalWithShip: totalWithShip };
 
   result.innerHTML =
     '<div class="result-box show success" style="margin-top:0;"><div class="result-value">' + fee.toFixed(3) + ' د.أ</div><div class="result-label">الرسم الموحد المتوقع (16%، حد أدنى 5 دينار)</div></div>' +
@@ -221,14 +223,32 @@ function calc() {
       '<div class="stat-box" style="background:#fefce8;"><div class="stat-val" style="color:#ca8a04;">' + totalNoShip.toFixed(3) + '</div><div class="stat-lbl">الإجمالي (قيمة + رسم)</div></div>' +
       '<div class="stat-box" style="background:#f0fdf4;"><div class="stat-val" style="color:#16a34a;">' + totalWithShip.toFixed(3) + '</div><div class="stat-lbl">الإجمالي مع الشحن</div></div>' +
     '</div>' +
-    '<p style="margin-top:10px;font-size:12px;color:var(--text-muted);">⚠️ تقدير مبدئي وليس ملزماً — الرسم الفعلي قد يختلف حسب نوع السلعة، تصنيفها الجمركي، وأي إعفاءات مطبّقة على شحنتك أو حسابك.</p>';
+    '<p style="margin-top:10px;font-size:12px;color:var(--text-muted);">⚠️ تقدير مبدئي وليس ملزماً — الرسم الفعلي قد يختلف حسب نوع السلعة، تصنيفها الجمركي، وأي إعفاءات مطبّقة على شحنتك أو حسابك.</p>' +
+    '<button id="pkgExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>';
   result.style.display = 'block';
+}
+
+function exportPkgResult() {
+  if (!lastPkgResult) return;
+  const unit = curMode === 'usd' ? '$' : 'د.أ';
+  const rows = [
+    { label: 'قيمة الطرد المدخلة', value: (document.getElementById('pkgValue').value || '0') + ' ' + unit },
+    { label: 'تكلفة الشحن المدخلة', value: (document.getElementById('shipCost').value || '0') + ' ' + unit },
+    { label: 'قيمة الطرد (دينار)', value: lastPkgResult.valueJod.toFixed(3) + ' د.أ' },
+    { label: 'الرسم الموحد المتوقع (16%، حد أدنى 5)', value: lastPkgResult.fee.toFixed(3) + ' د.أ' },
+    { label: 'الإجمالي (قيمة + رسم)', value: lastPkgResult.totalNoShip.toFixed(3) + ' د.أ' },
+    { label: 'الإجمالي مع الشحن', value: lastPkgResult.totalWithShip.toFixed(3) + ' د.أ', highlight: true }
+  ];
+  exportResultImage('حاسبة جمارك الطرود', rows);
 }
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('curJod')?.addEventListener('click', function(){ setCur('jod'); });
   document.getElementById('curUsd')?.addEventListener('click', function(){ setCur('usd'); });
+  document.getElementById('pkgValue')?.addEventListener('input', calc);
+  document.getElementById('shipCost')?.addEventListener('input', calc);
+  document.getElementById('pkgResult')?.addEventListener('click', function(e){ if (e.target.closest('#pkgExportBtn')) exportPkgResult(); });
 });
 </script>
 <script src="i18n-lang-ar.js?v=1" defer></script>
