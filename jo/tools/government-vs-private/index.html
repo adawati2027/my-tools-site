@@ -62,20 +62,20 @@
       <div>
         <h3 style="font-size:14px;color:#16a34a;margin-bottom:8px;">🏛️ الوظيفة الحكومية</h3>
         <label>الراتب الشهري الصافي (دينار)</label>
-        <input type="number" inputmode="decimal" id="govSalary" placeholder="0.000" min="0" step="any" oninput="calc()">
+        <input type="number" inputmode="decimal" id="govSalary" placeholder="0.000" min="0" step="any">
         <label style="margin-top:8px;display:block;">ساعات العمل بالأسبوع</label>
-        <input type="number" inputmode="decimal" id="govHours" placeholder="مثال: 35" min="0" step="any" oninput="calc()">
+        <input type="number" inputmode="decimal" id="govHours" placeholder="مثال: 35" min="0" step="any">
         <label style="margin-top:8px;display:block;">أيام الإجازة السنوية</label>
-        <input type="number" inputmode="decimal" id="govVacation" placeholder="مثال: 30" min="0" step="any" oninput="calc()">
+        <input type="number" inputmode="decimal" id="govVacation" placeholder="مثال: 30" min="0" step="any">
       </div>
       <div>
         <h3 style="font-size:14px;color:#2563eb;margin-bottom:8px;">🏢 الوظيفة الخاصة</h3>
         <label>الراتب الشهري الصافي (دينار)</label>
-        <input type="number" inputmode="decimal" id="privSalary" placeholder="0.000" min="0" step="any" oninput="calc()">
+        <input type="number" inputmode="decimal" id="privSalary" placeholder="0.000" min="0" step="any">
         <label style="margin-top:8px;display:block;">ساعات العمل بالأسبوع</label>
-        <input type="number" inputmode="decimal" id="privHours" placeholder="مثال: 45" min="0" step="any" oninput="calc()">
+        <input type="number" inputmode="decimal" id="privHours" placeholder="مثال: 45" min="0" step="any">
         <label style="margin-top:8px;display:block;">أيام الإجازة السنوية</label>
-        <input type="number" inputmode="decimal" id="privVacation" placeholder="مثال: 14" min="0" step="any" oninput="calc()">
+        <input type="number" inputmode="decimal" id="privVacation" placeholder="مثال: 14" min="0" step="any">
       </div>
     </div>
 
@@ -96,6 +96,7 @@
         </table>
       </div>
       <div id="verdictBox" style="margin-top:14px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:1.9;"></div>
+      <button id="cmpExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
     </div>
   </div>
 
@@ -175,6 +176,27 @@ function calc() {
 
   document.getElementById('compareResult').style.display = 'block';
 }
+
+function exportCompareResult() {
+  const rows = [
+    { label: 'الراتب الشهري — الحكومي', value: document.getElementById('cmpSalaryGov').textContent },
+    { label: 'الراتب الشهري — الخاص', value: document.getElementById('cmpSalaryPriv').textContent },
+    { label: 'الراتب الفعلي بالساعة — الحكومي', value: document.getElementById('cmpHourlyGov').textContent },
+    { label: 'الراتب الفعلي بالساعة — الخاص', value: document.getElementById('cmpHourlyPriv').textContent },
+    { label: 'أيام العمل الفعلية بالسنة — الحكومي', value: document.getElementById('cmpDaysGov').textContent },
+    { label: 'أيام العمل الفعلية بالسنة — الخاص', value: document.getElementById('cmpDaysPriv').textContent },
+    { label: 'ساعات العمل الفعلية بالسنة — الحكومي', value: document.getElementById('cmpAnnualHoursGov').textContent },
+    { label: 'ساعات العمل الفعلية بالسنة — الخاص', value: document.getElementById('cmpAnnualHoursPriv').textContent, highlight: true }
+  ];
+  exportResultImage('الحكومي ولا الخاص؟', rows);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  ['govSalary', 'govHours', 'govVacation', 'privSalary', 'privHours', 'privVacation'].forEach(function(id) {
+    document.getElementById(id).addEventListener('input', calc);
+  });
+  document.getElementById('cmpExportBtn')?.addEventListener('click', exportCompareResult);
+});
 </script>
 <script src="i18n-lang-ar.js?v=1" defer></script>
 <script src="i18n.js?v=44" defer></script>
