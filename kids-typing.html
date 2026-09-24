@@ -76,19 +76,22 @@
     </div>
 
     <div id="gameArea">
-      <div class="tp-stats">
-        <div class="tp-stat"><div class="tp-stat-val" id="tWPM">0</div><div class="tp-stat-lbl">WPM</div></div>
-        <div class="tp-stat"><div class="tp-stat-val" id="tAcc">100%</div><div class="tp-stat-lbl">Accuracy</div></div>
-        <div class="tp-stat"><div class="tp-stat-val" id="tTime">0s</div><div class="tp-stat-lbl">Time</div></div>
+      <div id="tGameUI">
+        <div class="tp-stats">
+          <div class="tp-stat"><div class="tp-stat-val" id="tWPM">0</div><div class="tp-stat-lbl">WPM</div></div>
+          <div class="tp-stat"><div class="tp-stat-val" id="tAcc">100%</div><div class="tp-stat-lbl">Accuracy</div></div>
+          <div class="tp-stat"><div class="tp-stat-val" id="tTime">0s</div><div class="tp-stat-lbl">Time</div></div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-align:center;margin-bottom:4px;" id="tCount">Word 1 / 10</div>
+        <div class="tp-prog"><div class="tp-prog-bar" id="tProgBar" style="width:0%"></div></div>
+        <div class="tp-target" id="tTarget">cat</div>
+        <input class="tp-input" id="tInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type here and press Space or Enter...">
+        <div style="font-size:16px;font-weight:800;text-align:center;min-height:24px;" id="tFeedback"></div>
+        <div style="text-align:center;margin-top:8px;">
+          <button class="btn quiz-restart-btn" style="background:var(--surface-2);color:var(--text);font-size:13px;">🔄 Restart</button>
+        </div>
       </div>
-      <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-align:center;margin-bottom:4px;" id="tCount">Word 1 / 10</div>
-      <div class="tp-prog"><div class="tp-prog-bar" id="tProgBar" style="width:0%"></div></div>
-      <div class="tp-target" id="tTarget">cat</div>
-      <input class="tp-input" id="tInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type here and press Space or Enter...">
-      <div style="font-size:16px;font-weight:800;text-align:center;min-height:24px;" id="tFeedback"></div>
-      <div style="text-align:center;margin-top:8px;">
-        <button class="btn quiz-restart-btn" style="background:var(--surface-2);color:var(--text);font-size:13px;">🔄 Restart</button>
-      </div>
+      <div id="tDoneUI" style="display:none;"></div>
     </div>
   </div>
 
@@ -153,6 +156,8 @@ function shuffle(a){return [...a].sort(()=>Math.random()-.5);}
 
 function restart(){
   clearInterval(timerInt);
+  document.getElementById('tDoneUI').style.display='none';
+  document.getElementById('tGameUI').style.display='';
   if(level==='hard'){
     wordList=shuffle(WORDS.hard).slice(0,5);
   } else {
@@ -236,7 +241,9 @@ function showResult(){
   const acc=Math.round((typed.filter(x=>x.ok).length/typed.length)*100);
   const grade=wpm>=50?'🏆 Typing Champion!':wpm>=30?'🎉 Great speed!':wpm>=15?'👍 Good job!':'💪 Keep practicing!';
   document.getElementById('tProgBar').style.width='100%';
-  document.getElementById('gameArea').innerHTML=`
+  document.getElementById('tGameUI').style.display='none';
+  const doneUI=document.getElementById('tDoneUI');
+  doneUI.innerHTML=`
     <div class="tp-result">
       <div style="font-size:60px;">⌨️</div>
       <div style="font-size:22px;font-weight:900;color:var(--primary);margin:10px 0;">${grade}</div>
@@ -247,6 +254,7 @@ function showResult(){
       </div>
       <button class="btn btn-primary quiz-restart-btn" style="margin-top:12px;">Try Again</button>
     </div>`;
+  doneUI.style.display='block';
 }
 
 restart();
@@ -263,5 +271,5 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script src="i18n-lang-en.js?v=1" defer></script>
-<script src="i18n.js?v=45" defer></script>
+<script src="i18n.js?v=46" defer></script>
 </body></html>

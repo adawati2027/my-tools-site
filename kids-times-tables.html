@@ -71,11 +71,14 @@
     <div class="tt-grid" id="tableGrid"></div>
 
     <div id="gameArea">
-      <div class="tt-score" id="ttScore">Score: 0 / 10</div>
-      <div class="tt-timer" id="ttTimer"></div>
-      <div class="tt-q" id="ttQ">Ready!</div>
-      <div class="tt-choices" id="ttChoices"></div>
-      <div style="font-size:20px;font-weight:800;text-align:center;min-height:28px;" id="ttFeedback"></div>
+      <div id="ttGameUI">
+        <div class="tt-score" id="ttScore">Score: 0 / 10</div>
+        <div class="tt-timer" id="ttTimer"></div>
+        <div class="tt-q" id="ttQ">Ready!</div>
+        <div class="tt-choices" id="ttChoices"></div>
+        <div style="font-size:20px;font-weight:800;text-align:center;min-height:28px;" id="ttFeedback"></div>
+      </div>
+      <div id="ttDoneUI" style="display:none;"></div>
     </div>
   </div>
 
@@ -181,7 +184,9 @@ function renderQ(){
     const pct=Math.round(score/TOTAL*100);
     const stars='⭐'.repeat(Math.min(5,Math.ceil(pct/20)));
     const msg=pct>=90?ttt('champion'):pct>=70?ttt('excellent'):pct>=50?ttt('good'):ttt('keep');
-    document.getElementById('gameArea').innerHTML=`
+    document.getElementById('ttGameUI').style.display='none';
+    const doneUI=document.getElementById('ttDoneUI');
+    doneUI.innerHTML=`
       <div class="tt-done">
         <div style="font-size:60px;">🏆</div>
         <div style="font-size:22px;font-weight:900;color:#92400e;margin:10px 0;">${msg}</div>
@@ -189,8 +194,11 @@ function renderQ(){
         <div style="font-size:15px;color:var(--text-muted);margin:8px 0;">${ttt('score')}: ${score} / ${TOTAL}</div>
         <button class="btn btn-primary quiz-restart-btn" style="margin-top:16px;">${ttt('playAgain')}</button>
       </div>`;
+    doneUI.style.display='block';
     return;
   }
+  document.getElementById('ttDoneUI').style.display='none';
+  document.getElementById('ttGameUI').style.display='';
   const q=questions[qIdx];
   if(timerInterval) clearInterval(timerInterval);
   timerVal=10;
@@ -286,5 +294,5 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script src="i18n-lang-en.js?v=1" defer></script>
-<script src="i18n.js?v=45" defer></script>
+<script src="i18n.js?v=46" defer></script>
 </body></html>

@@ -76,12 +76,15 @@
     </div>
 
     <div id="gameArea">
-      <div class="money-score" id="mScore">Score: 0 / 10</div>
-      <div style="font-size:16px;font-weight:700;text-align:center;color:var(--text-muted);margin-bottom:6px;" id="howMuch">How much money is shown?</div>
-      <div class="coins-display" id="mDisplay"></div>
-      <div class="money-q" id="mQ">?</div>
-      <div class="money-choices" id="mChoices"></div>
-      <div style="font-size:20px;font-weight:800;text-align:center;min-height:28px;" id="mFeedback"></div>
+      <div id="mGameUI">
+        <div class="money-score" id="mScore">Score: 0 / 10</div>
+        <div style="font-size:16px;font-weight:700;text-align:center;color:var(--text-muted);margin-bottom:6px;" id="howMuch">How much money is shown?</div>
+        <div class="coins-display" id="mDisplay"></div>
+        <div class="money-q" id="mQ">?</div>
+        <div class="money-choices" id="mChoices"></div>
+        <div style="font-size:20px;font-weight:800;text-align:center;min-height:28px;" id="mFeedback"></div>
+      </div>
+      <div id="mDoneUI" style="display:none;"></div>
     </div>
   </div>
 
@@ -227,15 +230,20 @@ function startGame(){
 function renderQ(){
   if(qIdx>=TOTAL){
     const pct=Math.round(score/TOTAL*100);
-    document.getElementById('gameArea').innerHTML=`
+    document.getElementById('mGameUI').style.display='none';
+    const doneUI=document.getElementById('mDoneUI');
+    doneUI.innerHTML=`
       <div style="text-align:center;padding:24px;background:linear-gradient(135deg,#fef9c3,#fde68a);border-radius:16px;">
         <div style="font-size:60px;">💰</div>
         <div style="font-size:22px;font-weight:900;color:#92400e;margin:10px 0;">${pct>=80?mt('master'):pct>=50?mt('great'):mt('keep')}</div>
         <div style="font-size:15px;color:var(--text-muted);">${mt('score')}: ${score} / ${TOTAL} (${pct}%)</div>
         <button class="btn btn-primary quiz-restart-btn" style="margin-top:16px;">${mt('playAgain')}</button>
       </div>`;
+    doneUI.style.display='block';
     return;
   }
+  document.getElementById('mDoneUI').style.display='none';
+  document.getElementById('mGameUI').style.display='';
   const q=questions[qIdx];
   document.getElementById('mScore').textContent=`${mt('score')}: ${score} / ${TOTAL} | ${mt('q')} ${qIdx+1} ${mt('of')} ${TOTAL}`;
 
@@ -328,5 +336,5 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script src="i18n-lang-en.js?v=1" defer></script>
-<script src="i18n.js?v=45" defer></script>
+<script src="i18n.js?v=46" defer></script>
 </body></html>

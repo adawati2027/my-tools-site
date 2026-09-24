@@ -93,11 +93,14 @@
     </div>
 
     <div id="quizArea" style="display:none;">
-      <div style="font-size:14px;font-weight:700;color:var(--text-muted);text-align:center;margin-bottom:8px;" id="qScore">Score: 0 / 15</div>
-      <div style="font-size:50px;text-align:center;" id="qIcon">🌍</div>
-      <div class="sci-q-text" id="qText"></div>
-      <div class="sci-choices" id="qChoices"></div>
-      <div style="font-size:18px;font-weight:800;text-align:center;min-height:26px;" id="qFeedback"></div>
+      <div id="qGameUI">
+        <div style="font-size:14px;font-weight:700;color:var(--text-muted);text-align:center;margin-bottom:8px;" id="qScore">Score: 0 / 15</div>
+        <div style="font-size:50px;text-align:center;" id="qIcon">🌍</div>
+        <div class="sci-q-text" id="qText"></div>
+        <div class="sci-choices" id="qChoices"></div>
+        <div style="font-size:18px;font-weight:800;text-align:center;min-height:26px;" id="qFeedback"></div>
+      </div>
+      <div id="qDoneUI" style="display:none;"></div>
     </div>
   </div>
 
@@ -368,15 +371,20 @@ function startQuiz(){
 function renderQuiz(){
   if(qIdx>=quizQ.length){
     const pct=Math.round(qScore/quizQ.length*100);
-    document.getElementById('quizArea').innerHTML=`
+    document.getElementById('qGameUI').style.display='none';
+    const doneUI=document.getElementById('qDoneUI');
+    doneUI.innerHTML=`
       <div style="text-align:center;padding:24px;background:linear-gradient(135deg,#eff6ff,#dbeafe);border-radius:16px;">
         <div style="font-size:60px;">🔭</div>
         <div style="font-size:22px;font-weight:900;color:var(--primary);margin:10px 0;">${pct>=80?sui('genius'):pct>=50?sui('good'):sui('keep')}</div>
         <div style="font-size:15px;color:var(--text-muted);">${sui('score')}: ${qScore} / ${quizQ.length} (${pct}%)</div>
         <button class="btn btn-primary quiz-restart-btn" style="margin-top:16px;">${sui('playAgain')}</button>
       </div>`;
+    doneUI.style.display='block';
     return;
   }
+  document.getElementById('qDoneUI').style.display='none';
+  document.getElementById('qGameUI').style.display='';
   const q=quizQ[qIdx];
   const t=itemT(q);
   document.getElementById('qScore').textContent=`${sui('score')}: ${qScore} / ${quizQ.length} | ${sui('q')} ${qIdx+1} ${sui('of')} ${quizQ.length}`;
@@ -446,5 +454,5 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script src="i18n-lang-en.js?v=1" defer></script>
-<script src="i18n.js?v=45" defer></script>
+<script src="i18n.js?v=46" defer></script>
 </body></html>

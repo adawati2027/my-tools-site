@@ -98,12 +98,15 @@
     </div>
 
     <div id="quizMode" style="display:none;">
-      <div style="font-size:14px;font-weight:700;color:var(--text-muted);text-align:center;margin-bottom:8px;" id="qScore">Score: 0 / 26</div>
-      <div style="font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;" id="quizQuestion">Which letter does this start with? 🔊 Tap image to hear!</div>
-      <div class="aq-emoji" id="qEmoji">🍎</div>
-      <div style="font-size:18px;font-weight:700;text-align:center;color:var(--text-muted);margin-bottom:10px;" id="qWord"></div>
-      <div class="aq-choices" id="qChoices"></div>
-      <div style="font-size:20px;font-weight:800;text-align:center;min-height:28px;" id="qFeedback"></div>
+      <div id="qGameUI">
+        <div style="font-size:14px;font-weight:700;color:var(--text-muted);text-align:center;margin-bottom:8px;" id="qScore">Score: 0 / 26</div>
+        <div style="font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;" id="quizQuestion">Which letter does this start with? 🔊 Tap image to hear!</div>
+        <div class="aq-emoji" id="qEmoji">🍎</div>
+        <div style="font-size:18px;font-weight:700;text-align:center;color:var(--text-muted);margin-bottom:10px;" id="qWord"></div>
+        <div class="aq-choices" id="qChoices"></div>
+        <div style="font-size:20px;font-weight:800;text-align:center;min-height:28px;" id="qFeedback"></div>
+      </div>
+      <div id="qDoneUI" style="display:none;"></div>
     </div>
 
     <div id="gridMode" style="display:none;">
@@ -227,15 +230,20 @@ function speakQuizWord(){const a=qOrder[qIdx];speak(`${a.l} is for ${a.w}`);}
 function renderQuiz(){
   if(qIdx>=26){
     const pct=Math.round(qScore/26*100);
-    document.getElementById('quizMode').innerHTML=`
+    document.getElementById('qGameUI').style.display='none';
+    const doneUI=document.getElementById('qDoneUI');
+    doneUI.innerHTML=`
       <div style="text-align:center;padding:24px;background:linear-gradient(135deg,#fef9c3,#fde68a);border-radius:16px;">
         <div style="font-size:60px;">🏆</div>
         <div style="font-size:22px;font-weight:900;color:var(--primary);margin:10px 0;">${pct>=80?abt('master'):pct>=50?abt('great'):abt('keep')}</div>
         <div style="font-size:15px;color:var(--text-muted);">${abt('score')}: ${qScore} / 26 (${pct}%)</div>
         <button class="btn btn-primary quiz-restart-btn" style="margin-top:16px;">${abt('playAgain')}</button>
       </div>`;
+    doneUI.style.display='block';
     return;
   }
+  document.getElementById('qDoneUI').style.display='none';
+  document.getElementById('qGameUI').style.display='';
   const a=qOrder[qIdx];
   const wrongs=[...ALPHA].filter(x=>x.l!==a.l).sort(()=>Math.random()-.5).slice(0,3);
   const choices=[a,...wrongs].sort(()=>Math.random()-.5);
@@ -318,5 +326,5 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script src="i18n-lang-en.js?v=1" defer></script>
-<script src="i18n.js?v=45" defer></script>
+<script src="i18n.js?v=46" defer></script>
 </body></html>
