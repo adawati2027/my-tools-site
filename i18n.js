@@ -1080,6 +1080,37 @@ const RELATED_MAP = {
    ctx.direction. Individual calculator pages call this with their own
    already-computed rows; it does not read the DOM itself, since every
    calculator's result markup is different. */
+/* ── Shared result-breakdown donut chart ──
+   Dependency-free SVG donut (stroke-dasharray technique), for showing a
+   calculator's result as a visual proportion instead of just numbers.
+   Callers pass already-computed segments; this never reads the DOM or any
+   calculator's specific logic itself. */
+function renderDonutChart(containerId, segments) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+  var valid = segments.filter(function(s) { return s.value > 0; });
+  var total = valid.reduce(function(sum, s) { return sum + s.value; }, 0);
+  if (total <= 0) { container.innerHTML = ''; return; }
+  var size = 140, stroke = 22, r = (size - stroke) / 2, c = 2 * Math.PI * r;
+  var offset = 0;
+  var circles = valid.map(function(seg) {
+    var frac = seg.value / total;
+    var dash = frac * c;
+    var circle = '<circle cx="' + (size / 2) + '" cy="' + (size / 2) + '" r="' + r + '" fill="none" stroke="' + seg.color + '" stroke-width="' + stroke + '" stroke-dasharray="' + dash.toFixed(2) + ' ' + (c - dash).toFixed(2) + '" stroke-dashoffset="' + (-offset).toFixed(2) + '" transform="rotate(-90 ' + (size / 2) + ' ' + (size / 2) + ')"></circle>';
+    offset += dash;
+    return circle;
+  }).join('');
+  var legend = valid.map(function(seg) {
+    var pct = Math.round(seg.value / total * 100);
+    return '<div style="display:flex;align-items:center;gap:7px;font-size:13px;color:var(--text-muted);"><span style="width:10px;height:10px;border-radius:3px;background:' + seg.color + ';display:inline-block;flex-shrink:0;"></span>' + seg.label + ' — <strong style="color:var(--text);">' + pct + '%</strong></div>';
+  }).join('');
+  container.innerHTML =
+    '<div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center;padding:14px 0;">' +
+      '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '" role="img" aria-label="Result breakdown chart">' + circles + '</svg>' +
+      '<div style="display:flex;flex-direction:column;gap:8px;">' + legend + '</div>' +
+    '</div>';
+}
+
 function exportResultImage(titleText, rows, embedCanvas) {
   const lang = localStorage.getItem('lang') || 'en';
   const isRtl = lang === 'ar';
