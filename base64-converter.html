@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>Base64 Encoder & Decoder | Adawati</title>
+<meta name="description" content="Free Base64 encoder and decoder: convert text to Base64 or decode Base64 back to text instantly, including full Unicode/UTF-8 support. No signup.">
+<meta name="keywords" content="base64 encoder, base64 decoder, base64 converter, encode text to base64, decode base64 to text, base64 online">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/base64-converter.html">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/base64-converter.html">
+<meta property="og:title" content="Base64 Encoder & Decoder | Adawati">
+<meta property="og:description" content="Convert text to Base64 or decode Base64 back to text instantly. Free, no signup.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/base64-converter.html">
+<meta property="og:image" content="https://adawati.space/og/base64-converter.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Base64 Encoder & Decoder | Adawati">
+<meta name="twitter:description" content="Convert text to Base64 or decode Base64 back to text instantly. Free, no signup.">
+<meta name="twitter:image" content="https://adawati.space/og/base64-converter.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"Base64 Converter","item":"https://adawati.space/base64-converter.html"}
+]},
+{"@type":"WebApplication","name":"Base64 Encoder & Decoder","url":"https://adawati.space/base64-converter.html","description":"Encode text to Base64 or decode Base64 back to text instantly, with full Unicode/UTF-8 support.","applicationCategory":"UtilitiesApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Text to Base64 encoding","Base64 to text decoding","Unicode/UTF-8 support","Live as-you-type conversion"]},
+{"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"What is Base64 encoding?","acceptedAnswer":{"@type":"Answer","text":"Base64 is a way to represent binary data (or any text) using only 64 printable ASCII characters (A-Z, a-z, 0-9, +, /). It's used to safely embed data in places that only support text, like email attachments, URLs, or JSON/XML fields, without the bytes being misinterpreted."}},
+  {"@type":"Question","name":"Is Base64 encryption?","acceptedAnswer":{"@type":"Answer","text":"No. Base64 is an encoding, not encryption — it provides zero security or confidentiality. Anyone can decode Base64 back to the original text instantly, with no key required. Never use it to protect sensitive data like passwords."}},
+  {"@type":"Question","name":"Why does Base64 text end with = signs sometimes?","acceptedAnswer":{"@type":"Answer","text":"The = characters are padding. Base64 processes input in groups of 3 bytes at a time, encoding each group as 4 characters. When the final group has only 1 or 2 bytes left over, = signs pad the output to keep it a multiple of 4 characters long."}},
+  {"@type":"Question","name":"Why does Base64 make data about 33% larger?","acceptedAnswer":{"@type":"Answer","text":"Base64 encodes every 3 bytes of input as 4 output characters (3 bytes = 24 bits = exactly four 6-bit Base64 characters). That 3-to-4 ratio means the encoded output is always about 4/3, or roughly 33%, larger than the original data."}},
+  {"@type":"Question","name":"Does this tool support non-English text and emoji?","acceptedAnswer":{"@type":"Answer","text":"Yes. The encoder first converts text to UTF-8 bytes before Base64-encoding, so Arabic, Chinese, emoji, and any other Unicode text round-trips correctly through encode and decode."}}
+]}
+]}
+</script>
+<link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="index.html" class="nav-brand">Adawati</a>
+  <div class="nav-links">
+    <a href="index.html" data-i18n="nav_home">Home</a>
+    <a href="about.html" data-i18n="nav_about">About</a>
+    <a href="contact.html" data-i18n="nav_contact">Contact</a>
+  </div>
+</div></nav>
+<main><div class="tool-page">
+  <div class="page-header"><a href="index.html" data-i18n="back">← Back to Home</a></div>
+  <div class="card">
+    <div class="card-icon" style="background:#eef2ff;">🔐</div>
+    <h1 class="card-title">Base64 Encoder &amp; Decoder</h1>
+    <div class="card-subtitle">Convert text to Base64 or decode it back — instantly</div>
+    <div class="divider"></div>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Type or paste text in either box — it converts live as you type. Full Unicode/UTF-8 support, so Arabic, emoji and any other characters round-trip correctly.</p>
+
+    <label>Plain Text</label>
+    <textarea id="b64Text" rows="4" placeholder="Type text here to encode..." style="width:100%;font-family:monospace;resize:vertical;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);font-size:14px;"></textarea>
+
+    <label style="margin-top:10px;display:block;">Base64</label>
+    <textarea id="b64Encoded" rows="4" placeholder="Paste Base64 here to decode..." style="width:100%;font-family:monospace;resize:vertical;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);font-size:14px;"></textarea>
+
+    <div id="b64Error" style="display:none;margin-top:12px;padding:10px 14px;background:#fef2f2;border-radius:var(--radius-sm);font-size:13px;color:#dc2626;"></div>
+    <div id="b64Stats" style="margin-top:10px;font-size:13px;color:var(--text-muted);"></div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;">❓ Frequently Asked Questions</div>
+    <details style="margin-top:12px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">What is Base64 encoding?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Base64 is a way to represent binary data (or any text) using only 64 printable ASCII characters (A-Z, a-z, 0-9, +, /). It's used to safely embed data in places that only support text, like email attachments, URLs, or JSON/XML fields, without the bytes being misinterpreted.</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Is Base64 encryption?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">No. Base64 is an encoding, not encryption — it provides zero security or confidentiality. Anyone can decode Base64 back to the original text instantly, with no key required. Never use it to protect sensitive data like passwords.</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Why does Base64 text end with = signs sometimes?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">The = characters are padding. Base64 processes input in groups of 3 bytes at a time, encoding each group as 4 characters. When the final group has only 1 or 2 bytes left over, = signs pad the output to keep it a multiple of 4 characters long.</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Why does Base64 make data about 33% larger?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Base64 encodes every 3 bytes of input as 4 output characters (3 bytes = 24 bits = exactly four 6-bit Base64 characters). That 3-to-4 ratio means the encoded output is always about 4/3, or roughly 33%, larger than the original data.</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Does this tool support non-English text and emoji?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Yes. The encoder first converts text to UTF-8 bytes before Base64-encoding, so Arabic, Chinese, emoji, and any other Unicode text round-trips correctly through encode and decode.</p>
+    </details>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>Related Tools:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="binary-converter.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔢 Binary / Hex Converter</a>
+      <a href="ascii-converter.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔤 ASCII Converter</a>
+      <a href="color-converter.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎨 Color Converter</a>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;" lang="en" dir="ltr">
+    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">Base64 Encoding Explained</h2>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">Many systems — email (MIME attachments), URLs, JSON, XML, and older text-only protocols — can only safely carry plain text characters, not arbitrary binary bytes. Base64 solves this by re-packaging any data as a sequence of 64 safe, printable characters, so it can pass through text-only channels intact and be decoded back to the exact original bytes on the other end.</p>
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">Where Base64 shows up in practice</h3>
+    <ul style="font-size:14px;color:var(--text-muted);line-height:2;padding-inline-start:18px;margin-bottom:12px;">
+      <li><strong>Email attachments:</strong> images and files attached to emails are Base64-encoded inside the message body.</li>
+      <li><strong>Data URIs:</strong> small images embedded directly in HTML/CSS as <code>data:image/png;base64,...</code>, avoiding a separate file request.</li>
+      <li><strong>API tokens and Basic Auth:</strong> HTTP Basic Authentication sends <code>username:password</code> Base64-encoded in a request header (not encrypted — only safe over HTTPS).</li>
+      <li><strong>Storing binary in text fields:</strong> databases or config files that only accept text can hold binary data (like a small image or key) as a Base64 string.</li>
+    </ul>
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">Worked example</h3>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:0;">The text <strong>"Hi!"</strong> encodes to <strong>SGkh</strong> in Base64. Type "Hi!" into the Plain Text box above to see it confirmed instantly, or paste "SGkh" into the Base64 box to decode it back.</p>
+  </div>
+</div></main>
+<footer class="footer">
+  <div class="footer-links"><a href="about.html" data-i18n="footer_about">About</a><a href="contact.html" data-i18n="footer_contact">Contact</a></div>
+  <div class="footer-copy" data-i18n="footer_copy">© 2026 Adawati</div>
+</footer>
+<script>
+function showB64Error(msg) {
+  var box = document.getElementById('b64Error');
+  if (!msg) { box.style.display = 'none'; return; }
+  box.textContent = msg;
+  box.style.display = 'block';
+}
+
+function utf8ToBase64(str) {
+  var bytes = new TextEncoder().encode(str);
+  var binary = '';
+  for (var i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  return btoa(binary);
+}
+
+function base64ToUtf8(b64) {
+  var binary = atob(b64);
+  var bytes = new Uint8Array(binary.length);
+  for (var i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+}
+
+function updateStats(plain) {
+  var box = document.getElementById('b64Stats');
+  if (!plain) { box.textContent = ''; return; }
+  var byteLen = new TextEncoder().encode(plain).length;
+  box.textContent = byteLen + ' bytes → ' + Math.ceil(byteLen / 3) * 4 + ' Base64 characters';
+}
+
+function encodeFromText() {
+  var text = document.getElementById('b64Text').value;
+  if (!text) { showB64Error(null); document.getElementById('b64Encoded').value = ''; updateStats(''); return; }
+  try {
+    document.getElementById('b64Encoded').value = utf8ToBase64(text);
+    showB64Error(null);
+    updateStats(text);
+  } catch (e) {
+    showB64Error('Could not encode this text.');
+  }
+}
+
+function decodeFromBase64() {
+  var b64 = document.getElementById('b64Encoded').value.trim();
+  if (!b64) { showB64Error(null); document.getElementById('b64Text').value = ''; updateStats(''); return; }
+  if (!/^[A-Za-z0-9+/]*={0,2}$/.test(b64) || b64.length % 4 !== 0) {
+    showB64Error('Not valid Base64 — check for missing characters or padding.');
+    return;
+  }
+  try {
+    var text = base64ToUtf8(b64);
+    document.getElementById('b64Text').value = text;
+    showB64Error(null);
+    updateStats(text);
+  } catch (e) {
+    showB64Error('Could not decode this Base64 text — it may be corrupted or incomplete.');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('b64Text').addEventListener('input', encodeFromText);
+  document.getElementById('b64Encoded').addEventListener('input', decodeFromBase64);
+});
+</script>
+<script src="i18n-lang-en.js?v=1" defer></script>
+<script src="i18n.js?v=44" defer></script>
+</body></html>
