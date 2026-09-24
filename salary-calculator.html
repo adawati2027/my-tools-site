@@ -127,6 +127,7 @@
           <div class="stat-lbl" data-i18n="sal_annual_lbl">Annual Salary</div>
         </div>
       </div>
+      <div id="salDonut"></div>
       <div id="salBreakdown" style="margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2.2;"></div>
       <button id="salExportBtn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);"></button>
     </div>
@@ -414,6 +415,17 @@ function calculate() {
   document.getElementById('grossDisplay').textContent = gross.toFixed(3);
   document.getElementById('pasiDisplay').textContent = spfDeduction.toFixed(3);
   document.getElementById('annualDisplay').textContent = annual.toFixed(3);
+
+  if (typeof renderDonutChart === 'function') {
+    if (spfDeduction > 0) {
+      renderDonutChart('salDonut', [
+        { label: 'Net Salary', value: net, color: '#16a34a' },
+        { label: document.getElementById('spfLabel').textContent, value: spfDeduction, color: '#dc2626' }
+      ]);
+    } else {
+      document.getElementById('salDonut').innerHTML = '';
+    }
+  }
 
   document.getElementById('salBreakdown').innerHTML =
     t.lbl_basic + ': <strong>' + basic.toFixed(3) + ' ' + c + '</strong><br>' +
