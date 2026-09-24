@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>Color Converter — HEX, RGB, HSL | Adawati</title>
+<meta name="description" content="Free color converter and picker: convert between HEX, RGB and HSL instantly with a live color preview swatch. No signup.">
+<meta name="keywords" content="color converter, hex to rgb, rgb to hex, hsl converter, color picker, hex color, rgb color">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/color-converter.html">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/color-converter.html">
+<meta property="og:title" content="Color Converter — HEX, RGB, HSL | Adawati">
+<meta property="og:description" content="Convert between HEX, RGB and HSL instantly with a live color preview. Free, no signup.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/color-converter.html">
+<meta property="og:image" content="https://adawati.space/og/color-converter.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Color Converter — HEX, RGB, HSL | Adawati">
+<meta name="twitter:description" content="Convert between HEX, RGB and HSL instantly with a live color preview. Free, no signup.">
+<meta name="twitter:image" content="https://adawati.space/og/color-converter.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"Color Converter","item":"https://adawati.space/color-converter.html"}
+]},
+{"@type":"WebApplication","name":"Color Converter — HEX, RGB, HSL","url":"https://adawati.space/color-converter.html","description":"Convert between HEX, RGB and HSL color formats instantly with a live preview swatch.","applicationCategory":"UtilitiesApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["HEX to RGB","RGB to HEX","HEX to HSL","HSL to RGB","Live color swatch preview"]},
+{"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"What is a HEX color code?","acceptedAnswer":{"@type":"Answer","text":"A HEX color code is a 6-digit hexadecimal number (like #3B82F6) representing a color's red, green and blue components as two hex digits each (00 to FF, i.e. 0 to 255). It's the most common way to specify colors in web design (CSS, HTML)."}},
+  {"@type":"Question","name":"What does RGB stand for?","acceptedAnswer":{"@type":"Answer","text":"RGB stands for Red, Green, Blue — the three color channels that combine (by adding light) to create any color on a screen. Each channel ranges from 0 to 255, so RGB(0,0,0) is black and RGB(255,255,255) is white."}},
+  {"@type":"Question","name":"What is HSL and why use it?","acceptedAnswer":{"@type":"Answer","text":"HSL stands for Hue (0-360°, the color itself), Saturation (0-100%, how vivid) and Lightness (0-100%, how light or dark). Unlike RGB, HSL maps closely to how humans intuitively describe color, making it easier to create shades and tints of the same hue by just adjusting the Lightness value."}},
+  {"@type":"Question","name":"How do I convert HEX to RGB?","acceptedAnswer":{"@type":"Answer","text":"Split the 6-digit hex code into three 2-digit pairs (RR, GG, BB) and convert each pair from base-16 to base-10. For example #FF5733 splits into FF (255), 57 (87), 33 (51), giving RGB(255, 87, 51)."}},
+  {"@type":"Question","name":"What is a hex color's alpha channel?","acceptedAnswer":{"@type":"Answer","text":"An 8-digit hex code (like #3B82F6CC) adds a 4th pair representing alpha (opacity), from 00 (fully transparent) to FF (fully opaque). This is sometimes called HEX8 or RGBA hex notation."}}
+]}
+]}
+</script>
+<link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="index.html" class="nav-brand">Adawati</a>
+  <div class="nav-links">
+    <a href="index.html" data-i18n="nav_home">Home</a>
+    <a href="about.html" data-i18n="nav_about">About</a>
+    <a href="contact.html" data-i18n="nav_contact">Contact</a>
+  </div>
+</div></nav>
+<main><div class="tool-page">
+  <div class="page-header"><a href="index.html" data-i18n="back">← Back to Home</a></div>
+  <div class="card">
+    <div class="card-icon" style="background:#fdf4ff;">🎨</div>
+    <h1 class="card-title">Color Converter</h1>
+    <div class="card-subtitle">Convert between HEX, RGB and HSL — type in any field</div>
+    <div class="divider"></div>
+
+    <div id="colorSwatch" style="width:100%;height:90px;border-radius:12px;border:1px solid var(--border);margin-bottom:16px;background:#3B82F6;"></div>
+
+    <label>HEX</label>
+    <input type="text" id="hexInput" value="#3B82F6" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:15px;margin-bottom:12px;" autocomplete="off">
+
+    <label>RGB</label>
+    <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <input type="number" id="rInput" min="0" max="255" style="width:33%;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:monospace;" autocomplete="off">
+      <input type="number" id="gInput" min="0" max="255" style="width:33%;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:monospace;" autocomplete="off">
+      <input type="number" id="bInput" min="0" max="255" style="width:33%;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:monospace;" autocomplete="off">
+    </div>
+    <div style="font-size:12px;color:var(--text-muted);margin:-8px 0 12px;">rgb(<span id="rgbText"></span>)</div>
+
+    <label>HSL</label>
+    <div style="display:flex;gap:8px;margin-bottom:8px;">
+      <input type="number" id="hInput" min="0" max="360" style="width:33%;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:monospace;" autocomplete="off">
+      <input type="number" id="sInput" min="0" max="100" style="width:33%;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:monospace;" autocomplete="off">
+      <input type="number" id="lInput" min="0" max="100" style="width:33%;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:monospace;" autocomplete="off">
+    </div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">hsl(<span id="hslText"></span>)</div>
+
+    <div id="colorError" style="display:none;margin-top:6px;padding:10px 14px;background:#fef2f2;border-radius:var(--radius-sm);font-size:13px;color:#dc2626;"></div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;">🎨 Common Colors</div>
+    <div id="commonColors" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;"></div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;">❓ Frequently Asked Questions</div>
+    <details style="margin-top:12px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">What is a HEX color code?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">A HEX color code is a 6-digit hexadecimal number (like #3B82F6) representing a color's red, green and blue components as two hex digits each (00 to FF, i.e. 0 to 255). It's the most common way to specify colors in web design (CSS, HTML).</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">What does RGB stand for?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">RGB stands for Red, Green, Blue — the three color channels that combine (by adding light) to create any color on a screen. Each channel ranges from 0 to 255, so RGB(0,0,0) is black and RGB(255,255,255) is white.</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">What is HSL and why use it?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">HSL stands for Hue (0-360°, the color itself), Saturation (0-100%, how vivid) and Lightness (0-100%, how light or dark). Unlike RGB, HSL maps closely to how humans intuitively describe color, making it easier to create shades and tints of the same hue by just adjusting the Lightness value.</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">How do I convert HEX to RGB?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Split the 6-digit hex code into three 2-digit pairs (RR, GG, BB) and convert each pair from base-16 to base-10. For example #FF5733 splits into FF (255), 57 (87), 33 (51), giving RGB(255, 87, 51).</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">What is a hex color's alpha channel?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">An 8-digit hex code (like #3B82F6CC) adds a 4th pair representing alpha (opacity), from 00 (fully transparent) to FF (fully opaque). This is sometimes called HEX8 or RGBA hex notation.</p>
+    </details>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>Related Tools:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="binary-converter.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔢 Binary Converter</a>
+      <a href="ascii-converter.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔤 ASCII Converter</a>
+      <a href="unit-converter.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">📏 Unit Converter</a>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;" lang="en" dir="ltr">
+    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">Three Ways to Describe the Same Color</h2>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">HEX, RGB and HSL are three different notations for the exact same underlying color information — a screen pixel's red, green and blue light intensities. HEX packs them into a compact 6-character code that's easy to paste into CSS. RGB spells the same three numbers out in base 10, which is friendlier for reading and generating programmatically. HSL re-parameterizes color around how people actually think about it — "a bright blue" (hue + high saturation) that's "a bit darker" (lower lightness) — which is why design tools often expose HSL sliders even though the color is stored as RGB underneath.</p>
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">A quick worked example</h3>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:0;">#3B82F6 (a common "blue-500" shade) is RGB(59, 130, 246) and HSL(217°, 91%, 60%). Try typing any of these three forms into the boxes above — they'll all update together, live, and the swatch will show the exact color.</p>
+  </div>
+</div></main>
+<footer class="footer">
+  <div class="footer-links"><a href="about.html" data-i18n="footer_about">About</a><a href="contact.html" data-i18n="footer_contact">Contact</a></div>
+  <div class="footer-copy" data-i18n="footer_copy">© 2026 Adawati</div>
+</footer>
+<script>
+function showColorError(msg) {
+  var box = document.getElementById('colorError');
+  if (!msg) { box.style.display = 'none'; return; }
+  box.textContent = msg;
+  box.style.display = 'block';
+}
+
+function clamp(n, min, max) { return Math.min(max, Math.max(min, n)); }
+
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(function(v){ return clamp(Math.round(v), 0, 255).toString(16).toUpperCase().padStart(2, '0'); }).join('');
+}
+
+function hexToRgb(hex) {
+  hex = hex.replace('#', '');
+  if (hex.length === 3) hex = hex.split('').map(function(c){ return c + c; }).join('');
+  if (!/^[0-9a-fA-F]{6}$/.test(hex)) return null;
+  return { r: parseInt(hex.slice(0,2),16), g: parseInt(hex.slice(2,4),16), b: parseInt(hex.slice(4,6),16) };
+}
+
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  var max = Math.max(r,g,b), min = Math.min(r,g,b);
+  var h, s, l = (max + min) / 2;
+  if (max === min) { h = s = 0; }
+  else {
+    var d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      default: h = (r - g) / d + 4;
+    }
+    h *= 60;
+  }
+  return { h: Math.round(h), s: Math.round(s * 100), l: Math.round(l * 100) };
+}
+
+function hslToRgb(h, s, l) {
+  h = ((h % 360) + 360) % 360; s = clamp(s, 0, 100) / 100; l = clamp(l, 0, 100) / 100;
+  var c = (1 - Math.abs(2 * l - 1)) * s;
+  var x = c * (1 - Math.abs((h / 60) % 2 - 1));
+  var m = l - c / 2;
+  var r,g,b;
+  if (h < 60) { r=c; g=x; b=0; }
+  else if (h < 120) { r=x; g=c; b=0; }
+  else if (h < 180) { r=0; g=c; b=x; }
+  else if (h < 240) { r=0; g=x; b=c; }
+  else if (h < 300) { r=x; g=0; b=c; }
+  else { r=c; g=0; b=x; }
+  return { r: Math.round((r+m)*255), g: Math.round((g+m)*255), b: Math.round((b+m)*255) };
+}
+
+function applyColor(r, g, b, skip) {
+  var hex = rgbToHex(r, g, b);
+  var hsl = rgbToHsl(r, g, b);
+  if (skip !== 'hex') document.getElementById('hexInput').value = hex;
+  if (skip !== 'rgb') {
+    document.getElementById('rInput').value = r;
+    document.getElementById('gInput').value = g;
+    document.getElementById('bInput').value = b;
+  }
+  if (skip !== 'hsl') {
+    document.getElementById('hInput').value = hsl.h;
+    document.getElementById('sInput').value = hsl.s;
+    document.getElementById('lInput').value = hsl.l;
+  }
+  document.getElementById('rgbText').textContent = r + ', ' + g + ', ' + b;
+  document.getElementById('hslText').textContent = hsl.h + '°, ' + hsl.s + '%, ' + hsl.l + '%';
+  document.getElementById('colorSwatch').style.background = hex;
+  showColorError(null);
+}
+
+function onHexChange() {
+  var rgb = hexToRgb(document.getElementById('hexInput').value.trim());
+  if (!rgb) { showColorError('Enter a valid 3 or 6-digit hex color, e.g. #3B82F6.'); return; }
+  applyColor(rgb.r, rgb.g, rgb.b, 'hex');
+}
+
+function onRgbChange() {
+  var r = parseInt(document.getElementById('rInput').value, 10);
+  var g = parseInt(document.getElementById('gInput').value, 10);
+  var b = parseInt(document.getElementById('bInput').value, 10);
+  if (!Number.isFinite(r) || !Number.isFinite(g) || !Number.isFinite(b) || r<0 || r>255 || g<0 || g>255 || b<0 || b>255) {
+    showColorError('RGB values must be numbers from 0 to 255.'); return;
+  }
+  applyColor(r, g, b, 'rgb');
+}
+
+function onHslChange() {
+  var h = parseInt(document.getElementById('hInput').value, 10);
+  var s = parseInt(document.getElementById('sInput').value, 10);
+  var l = parseInt(document.getElementById('lInput').value, 10);
+  if (!Number.isFinite(h) || !Number.isFinite(s) || !Number.isFinite(l) || s<0 || s>100 || l<0 || l>100) {
+    showColorError('HSL values must be numbers: hue 0-360, saturation/lightness 0-100.'); return;
+  }
+  var rgb = hslToRgb(h, s, l);
+  applyColor(rgb.r, rgb.g, rgb.b, 'hsl');
+}
+
+function buildCommonColors() {
+  var colors = ['#EF4444','#F97316','#EAB308','#22C55E','#3B82F6','#8B5CF6','#EC4899','#111827','#6B7280','#FFFFFF'];
+  var wrap = document.getElementById('commonColors');
+  colors.forEach(function(hex) {
+    var sw = document.createElement('div');
+    sw.style.cssText = 'width:36px;height:36px;border-radius:8px;border:1px solid var(--border);cursor:pointer;background:' + hex + ';';
+    sw.title = hex;
+    sw.addEventListener('click', function() {
+      document.getElementById('hexInput').value = hex;
+      onHexChange();
+    });
+    wrap.appendChild(sw);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  buildCommonColors();
+  document.getElementById('hexInput').addEventListener('input', onHexChange);
+  ['rInput','gInput','bInput'].forEach(function(id){ document.getElementById(id).addEventListener('input', onRgbChange); });
+  ['hInput','sInput','lInput'].forEach(function(id){ document.getElementById(id).addEventListener('input', onHslChange); });
+  onHexChange();
+});
+</script>
+<script src="i18n-lang-en.js?v=1" defer></script>
+<script src="i18n.js?v=44" defer></script>
+</body></html>

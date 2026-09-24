@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>Text to ASCII / Hex / Binary Converter | Adawati</title>
+<meta name="description" content="Free ASCII converter: turn text into ASCII decimal, hex or binary codes instantly, or decode codes back into text. No signup.">
+<meta name="keywords" content="ascii converter, text to ascii, ascii to text, text to binary, text to hex, ascii table, char code converter">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/ascii-converter.html">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/ascii-converter.html">
+<meta property="og:title" content="Text to ASCII / Hex / Binary Converter | Adawati">
+<meta property="og:description" content="Convert text to ASCII, hex or binary codes instantly, or decode back to text. Free, no signup.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/ascii-converter.html">
+<meta property="og:image" content="https://adawati.space/og/ascii-converter.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Text to ASCII / Hex / Binary Converter | Adawati">
+<meta name="twitter:description" content="Convert text to ASCII, hex or binary codes instantly, or decode back to text. Free, no signup.">
+<meta name="twitter:image" content="https://adawati.space/og/ascii-converter.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"ASCII Converter","item":"https://adawati.space/ascii-converter.html"}
+]},
+{"@type":"WebApplication","name":"Text to ASCII / Hex / Binary Converter","url":"https://adawati.space/ascii-converter.html","description":"Convert text to ASCII decimal, hex or binary codes instantly, or decode back to text.","applicationCategory":"UtilitiesApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Text to ASCII decimal","Text to hex codes","Text to binary codes","Decode codes back to text","Live conversion"]},
+{"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"What is ASCII?","acceptedAnswer":{"@type":"Answer","text":"ASCII (American Standard Code for Information Interchange) is a character-encoding standard that assigns a number from 0 to 127 to each English letter, digit, punctuation mark and common control character, so text can be stored and transmitted as numbers."}},
+  {"@type":"Question","name":"What is the ASCII code for the letter A?","acceptedAnswer":{"@type":"Answer","text":"Uppercase A is ASCII 65. Lowercase a is 97 (uppercase and lowercase letters are always 32 apart in ASCII). The digit character '0' is 48, and a space is 32."}},
+  {"@type":"Question","name":"What is the difference between ASCII and Unicode?","acceptedAnswer":{"@type":"Answer","text":"ASCII only covers 128 characters — enough for basic unaccented English text. Unicode is a much larger standard covering virtually every writing system in the world (Arabic, Chinese, emoji, etc.), and its first 128 code points are identical to ASCII for backward compatibility. UTF-8, the most common Unicode encoding on the web, encodes those first 128 characters as a single byte, exactly like ASCII."}},
+  {"@type":"Question","name":"How do I convert text to binary?","acceptedAnswer":{"@type":"Answer","text":"Each character is first converted to its ASCII/Unicode decimal code, then that number is converted to binary, usually padded to 8 bits (1 byte). For example 'A' = 65 = binary 01000001."}},
+  {"@type":"Question","name":"Why do some ASCII codes not print anything?","acceptedAnswer":{"@type":"Answer","text":"Codes 0-31 (and 127) are control characters, not visible symbols — they include things like Tab (9), Line Feed (10), and Carriage Return (13), originally designed to control teletype/printer behavior rather than to be displayed."}}
+]}
+]}
+</script>
+<link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="index.html" class="nav-brand">Adawati</a>
+  <div class="nav-links">
+    <a href="index.html" data-i18n="nav_home">Home</a>
+    <a href="about.html" data-i18n="nav_about">About</a>
+    <a href="contact.html" data-i18n="nav_contact">Contact</a>
+  </div>
+</div></nav>
+<main><div class="tool-page">
+  <div class="page-header"><a href="index.html" data-i18n="back">← Back to Home</a></div>
+  <div class="card">
+    <div class="card-icon" style="background:#f0fdf4;">🔤</div>
+    <h1 class="card-title">Text to ASCII / Hex / Binary Converter</h1>
+    <div class="card-subtitle">Convert text to character codes, or decode codes back to text</div>
+    <div class="divider"></div>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Type text below to see each character's ASCII decimal, hex and binary codes — or switch mode to paste in codes and get the text back.</p>
+
+    <div class="option-toggle">
+      <button class="option-btn active" id="modeEncode">Text → Codes</button>
+      <button class="option-btn" id="modeDecode">Codes → Text</button>
+    </div>
+
+    <div id="encodeSection" style="margin-top:14px;">
+      <label>Text</label>
+      <textarea id="textInput" rows="3" placeholder="Type something..." style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:15px;resize:vertical;"></textarea>
+      <label style="margin-top:10px;display:block;">Decimal codes</label>
+      <textarea id="outDec" rows="2" readonly style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:14px;background:var(--surface-2);resize:vertical;"></textarea>
+      <label style="margin-top:10px;display:block;">Hex codes</label>
+      <textarea id="outHex" rows="2" readonly style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:14px;background:var(--surface-2);resize:vertical;"></textarea>
+      <label style="margin-top:10px;display:block;">Binary codes (8-bit)</label>
+      <textarea id="outBin" rows="2" readonly style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:14px;background:var(--surface-2);resize:vertical;"></textarea>
+    </div>
+
+    <div id="decodeSection" style="display:none;margin-top:14px;">
+      <label>Code format</label>
+      <div class="option-toggle" style="margin-bottom:10px;">
+        <button class="option-btn active" id="fmtDec" data-fmt="10">Decimal</button>
+        <button class="option-btn" id="fmtHex" data-fmt="16">Hex</button>
+        <button class="option-btn" id="fmtBin" data-fmt="2">Binary</button>
+      </div>
+      <label>Codes (space-separated)</label>
+      <textarea id="codesInput" rows="3" placeholder="e.g. 72 101 108 108 111" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:14px;resize:vertical;" autocomplete="off"></textarea>
+      <label style="margin-top:10px;display:block;">Decoded text</label>
+      <textarea id="outText" rows="2" readonly style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:15px;background:var(--surface-2);resize:vertical;"></textarea>
+      <div id="decodeError" style="display:none;margin-top:10px;padding:10px 14px;background:#fef2f2;border-radius:var(--radius-sm);font-size:13px;color:#dc2626;"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;">🔤 Common ASCII Codes</div>
+    <div style="overflow-x:auto;margin-top:12px;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:var(--surface-2);">
+            <th style="padding:8px 10px;text-align:center;border:1px solid var(--border);">Char</th>
+            <th style="padding:8px 10px;text-align:center;border:1px solid var(--border);">Decimal</th>
+            <th style="padding:8px 10px;text-align:center;border:1px solid var(--border);">Hex</th>
+            <th style="padding:8px 10px;text-align:center;border:1px solid var(--border);">Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);font-family:monospace;">Space</td><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);">32</td><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);">20</td><td style="padding:8px 10px;border:1px solid var(--border);">Space character</td></tr>
+          <tr style="background:var(--surface-2);"><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);font-family:monospace;">0-9</td><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);">48-57</td><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);">30-39</td><td style="padding:8px 10px;border:1px solid var(--border);">Digit characters</td></tr>
+          <tr><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);font-family:monospace;">A-Z</td><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);">65-90</td><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);">41-5A</td><td style="padding:8px 10px;border:1px solid var(--border);">Uppercase letters</td></tr>
+          <tr style="background:var(--surface-2);"><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);font-family:monospace;">a-z</td><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);">97-122</td><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);">61-7A</td><td style="padding:8px 10px;border:1px solid var(--border);">Lowercase letters</td></tr>
+          <tr><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);font-family:monospace;">\n</td><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);">10</td><td style="padding:8px 10px;text-align:center;border:1px solid var(--border);">0A</td><td style="padding:8px 10px;border:1px solid var(--border);">Line feed (newline)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;">❓ Frequently Asked Questions</div>
+    <details style="margin-top:12px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">What is ASCII?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">ASCII (American Standard Code for Information Interchange) is a character-encoding standard that assigns a number from 0 to 127 to each English letter, digit, punctuation mark and common control character, so text can be stored and transmitted as numbers.</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">What is the ASCII code for the letter A?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Uppercase A is ASCII 65. Lowercase a is 97 (uppercase and lowercase letters are always 32 apart in ASCII). The digit character '0' is 48, and a space is 32.</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">What is the difference between ASCII and Unicode?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">ASCII only covers 128 characters — enough for basic unaccented English text. Unicode is a much larger standard covering virtually every writing system in the world (Arabic, Chinese, emoji, etc.), and its first 128 code points are identical to ASCII for backward compatibility. UTF-8, the most common Unicode encoding on the web, encodes those first 128 characters as a single byte, exactly like ASCII.</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">How do I convert text to binary?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Each character is first converted to its ASCII/Unicode decimal code, then that number is converted to binary, usually padded to 8 bits (1 byte). For example 'A' = 65 = binary 01000001.</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Why do some ASCII codes not print anything?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Codes 0-31 (and 127) are control characters, not visible symbols — they include things like Tab (9), Line Feed (10), and Carriage Return (13), originally designed to control teletype/printer behavior rather than to be displayed.</p>
+    </details>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>Related Tools:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="binary-converter.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔢 Binary Converter</a>
+      <a href="base64-converter.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔐 Base64 Converter</a>
+      <a href="word-counter.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">📝 Word Counter</a>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;" lang="en" dir="ltr">
+    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">How Text Becomes Numbers</h2>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">Computers only store numbers — every character of text is really just a number that a program agrees to interpret as a letter, digit or symbol. ASCII was the original standard for this mapping (published 1963), covering the 128 characters common in American English typewriters and teleprinters of the era. Because 128 = 2⁷, a full ASCII character fits in 7 bits, though it's almost always stored in a full 8-bit byte in practice, with the extra bit historically used for parity-checking or extended character sets.</p>
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">A quick worked example</h3>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:0;">The word "Hi" is stored as two bytes: 'H' is ASCII 72 (hex 48, binary 01001000) and 'i' is ASCII 105 (hex 69, binary 01101001). Type "Hi" into the box above to see this generated live — this is exactly what happens, byte by byte, whenever text is saved to a file or sent over a network.</p>
+  </div>
+</div></main>
+<footer class="footer">
+  <div class="footer-links"><a href="about.html" data-i18n="footer_about">About</a><a href="contact.html" data-i18n="footer_contact">Contact</a></div>
+  <div class="footer-copy" data-i18n="footer_copy">© 2026 Adawati</div>
+</footer>
+<script>
+function setAsciiMode(mode) {
+  document.getElementById('modeEncode').classList.toggle('active', mode === 'encode');
+  document.getElementById('modeDecode').classList.toggle('active', mode === 'decode');
+  document.getElementById('encodeSection').style.display = mode === 'encode' ? 'block' : 'none';
+  document.getElementById('decodeSection').style.display = mode === 'decode' ? 'block' : 'none';
+}
+
+function doEncode() {
+  var text = document.getElementById('textInput').value;
+  var decs = [], hexes = [], bins = [];
+  for (var i = 0; i < text.length; i++) {
+    var code = text.charCodeAt(i);
+    decs.push(code);
+    hexes.push(code.toString(16).toUpperCase().padStart(2, '0'));
+    bins.push(code.toString(2).padStart(8, '0'));
+  }
+  document.getElementById('outDec').value = decs.join(' ');
+  document.getElementById('outHex').value = hexes.join(' ');
+  document.getElementById('outBin').value = bins.join(' ');
+}
+
+function decodeError(msg) {
+  var box = document.getElementById('decodeError');
+  if (!msg) { box.style.display = 'none'; return; }
+  box.textContent = msg;
+  box.style.display = 'block';
+}
+
+var decodeFormat = 10;
+var FMT_PATTERNS = { 2: /^[01]+$/, 10: /^[0-9]+$/, 16: /^[0-9a-fA-F]+$/ };
+var FMT_NAMES = { 2: 'binary', 10: 'decimal', 16: 'hex' };
+
+function setDecodeFormat(base) {
+  decodeFormat = base;
+  document.getElementById('fmtDec').classList.toggle('active', base === 10);
+  document.getElementById('fmtHex').classList.toggle('active', base === 16);
+  document.getElementById('fmtBin').classList.toggle('active', base === 2);
+  doDecode();
+}
+
+function doDecode() {
+  var raw = document.getElementById('codesInput').value.trim();
+  if (!raw) { document.getElementById('outText').value = ''; decodeError(null); return; }
+  var tokens = raw.split(/\s+/);
+  try {
+    var chars = tokens.map(function(tok) {
+      if (!FMT_PATTERNS[decodeFormat].test(tok)) throw new Error('"' + tok + '" is not a valid ' + FMT_NAMES[decodeFormat] + ' code.');
+      var n = parseInt(tok, decodeFormat);
+      if (!Number.isFinite(n) || n < 0 || n > 1114111) throw new Error('"' + tok + '" is not a valid character code.');
+      return String.fromCharCode(n);
+    });
+    document.getElementById('outText').value = chars.join('');
+    decodeError(null);
+  } catch (e) {
+    document.getElementById('outText').value = '';
+    decodeError(e.message);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('modeEncode').addEventListener('click', function(){ setAsciiMode('encode'); });
+  document.getElementById('modeDecode').addEventListener('click', function(){ setAsciiMode('decode'); });
+  document.getElementById('textInput').addEventListener('input', doEncode);
+  document.getElementById('codesInput').addEventListener('input', doDecode);
+  document.getElementById('fmtDec').addEventListener('click', function(){ setDecodeFormat(10); });
+  document.getElementById('fmtHex').addEventListener('click', function(){ setDecodeFormat(16); });
+  document.getElementById('fmtBin').addEventListener('click', function(){ setDecodeFormat(2); });
+  document.getElementById('textInput').value = 'Hi';
+  doEncode();
+});
+</script>
+<script src="i18n-lang-en.js?v=1" defer></script>
+<script src="i18n.js?v=44" defer></script>
+</body></html>

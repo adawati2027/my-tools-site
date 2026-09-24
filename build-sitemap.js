@@ -170,6 +170,12 @@ for (const page of OMR_CONVERTERS) {
   entries.push(urlEntry(`${BASE}/${page}.html`, '0.7', 'weekly'));
 }
 
+// Root-only generic converters, no lang variants yet — built 2026-09-24
+const DATA_CONVERTERS = ['binary-converter','ascii-converter','color-converter'];
+for (const page of DATA_CONVERTERS) {
+  entries.push(urlEntry(`${BASE}/${page}.html`, '0.7', 'monthly'));
+}
+
 for (const page of ['privacy.html','terms.html']) {
   entries.push(urlEntry(`${BASE}/${page}`, '0.3', 'yearly'));
 }
