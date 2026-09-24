@@ -176,6 +176,9 @@ for (const page of DATA_CONVERTERS) {
   entries.push(urlEntry(`${BASE}/${page}.html`, '0.7', 'monthly'));
 }
 
+entries.push(urlEntry(`${BASE}/construction-calculator.html`, '0.7', 'monthly'));
+entries.push(urlEntry(`${BASE}/in/epf-calculator/`, '0.7', 'monthly'));
+
 for (const page of ['privacy.html','terms.html']) {
   entries.push(urlEntry(`${BASE}/${page}`, '0.3', 'yearly'));
 }
