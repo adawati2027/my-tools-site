@@ -72,12 +72,12 @@
     <div class="conv-box">
       <div>
         <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:4px;">🇴🇲 OMR (Omani Rial)</div>
-        <input class="conv-inp" id="omrInput" type="number" inputmode="decimal" value="1" min="0" oninput="fromOMR()">
+        <input class="conv-inp" id="omrInput" type="number" inputmode="decimal" value="1" min="0">
       </div>
       <div class="conv-arrow" id="convArrow">⇄</div>
       <div>
         <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:4px;">🇮🇳 INR (Indian Rupee)</div>
-        <input class="conv-inp" id="inrInput" type="number" inputmode="decimal" min="0" oninput="fromINR()">
+        <input class="conv-inp" id="inrInput" type="number" inputmode="decimal" min="0">
       </div>
     </div>
     <div style="text-align:center;margin-top:8px;">
@@ -208,6 +208,8 @@ fetchRate();
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('omrInput')?.addEventListener('input', fromOMR);
+  document.getElementById('inrInput')?.addEventListener('input', fromINR);
   document.getElementById('convArrow')?.addEventListener('click', swap);
 });
 </script>

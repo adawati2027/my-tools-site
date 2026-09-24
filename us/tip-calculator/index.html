@@ -67,14 +67,14 @@
     <div class="divider"></div>
 
     <label>Bill Amount (USD $)</label>
-    <input type="number" inputmode="decimal" id="bill" placeholder="0.00" oninput="calcTip()">
+    <input type="number" inputmode="decimal" id="bill" placeholder="0.00">
 
     <label><span>Tip Percentage:</span> <span id="tipPctLabel">18</span>%</label>
-    <input type="range" id="tipSlider" min="0" max="30" value="18" oninput="document.getElementById('tipPctLabel').textContent=this.value;calcTip()" style="width:100%;accent-color:var(--primary);margin:8px 0 4px;">
+    <input type="range" id="tipSlider" min="0" max="30" value="18" style="width:100%;accent-color:var(--primary);margin:8px 0 4px;">
     <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:4px;"><span>0%</span><span>15%</span><span>18%</span><span>20%</span><span>30%</span></div>
 
     <label>Number of People</label>
-    <input type="number" inputmode="decimal" id="people" value="1" min="1" oninput="calcTip()">
+    <input type="number" inputmode="decimal" id="people" value="1" min="1">
 
     <div id="results" style="display:none;margin-top:20px;">
       <div class="stat-grid">
@@ -181,6 +181,16 @@ function calcTip() {
   document.getElementById('perPerson').textContent = '$' + (total / people).toFixed(2);
   document.getElementById('results').style.display = 'block';
 }
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('bill')?.addEventListener('input', calcTip);
+  document.getElementById('people')?.addEventListener('input', calcTip);
+  document.getElementById('tipSlider')?.addEventListener('input', function(){
+    document.getElementById('tipPctLabel').textContent = this.value;
+    calcTip();
+  });
+});
 </script>
 <script src="i18n-lang-en.js?v=1" defer></script>
 <script src="i18n.js?v=44" defer></script>

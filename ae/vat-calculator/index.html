@@ -72,7 +72,7 @@
     </div>
 
     <label id="amountLabel">Amount before VAT (AED)</label>
-    <input type="number" inputmode="decimal" id="amount" placeholder="0.00" min="0" step="any" oninput="calculate()">
+    <input type="number" inputmode="decimal" id="amount" placeholder="0.00" min="0" step="any">
 
     <div id="result" style="display:none;margin-top:20px;">
       <div class="stat-grid">
@@ -204,6 +204,7 @@ function calculate() {
 document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('modeAdd')?.addEventListener('click', function(){ setMode('add'); });
   document.getElementById('modeEx')?.addEventListener('click', function(){ setMode('extract'); });
+  document.getElementById('amount')?.addEventListener('input', calculate);
 });
 </script>
 <script src="i18n-lang-en.js?v=1" defer></script>

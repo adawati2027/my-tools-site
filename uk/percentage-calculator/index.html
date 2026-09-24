@@ -75,21 +75,21 @@
 
     <div id="pct_of_section">
       <label>Percentage (%)</label>
-      <input type="number" inputmode="decimal" id="pct" placeholder="e.g. 20" oninput="calculate()">
+      <input type="number" inputmode="decimal" id="pct" placeholder="e.g. 20">
       <label>Amount (£)</label>
-      <input type="number" inputmode="decimal" id="amt" placeholder="e.g. 100" oninput="calculate()">
+      <input type="number" inputmode="decimal" id="amt" placeholder="e.g. 100">
     </div>
     <div id="what_pct_section" style="display:none;">
       <label>Value (X)</label>
-      <input type="number" inputmode="decimal" id="xval" placeholder="e.g. 20" oninput="calculate()">
+      <input type="number" inputmode="decimal" id="xval" placeholder="e.g. 20">
       <label>Total (Y)</label>
-      <input type="number" inputmode="decimal" id="yval" placeholder="e.g. 120" oninput="calculate()">
+      <input type="number" inputmode="decimal" id="yval" placeholder="e.g. 120">
     </div>
     <div id="pct_change_section" style="display:none;">
       <label>From amount (£)</label>
-      <input type="number" inputmode="decimal" id="fromVal" placeholder="e.g. 80" oninput="calculate()">
+      <input type="number" inputmode="decimal" id="fromVal" placeholder="e.g. 80">
       <label>To amount (£)</label>
-      <input type="number" inputmode="decimal" id="toVal" placeholder="e.g. 100" oninput="calculate()">
+      <input type="number" inputmode="decimal" id="toVal" placeholder="e.g. 100">
     </div>
 
     <div id="result" style="display:none;margin-top:20px;">
@@ -224,6 +224,9 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('calcTypePctOf')?.addEventListener('click', function(){ setCalcType('pct_of'); });
   document.getElementById('calcTypeWhatPct')?.addEventListener('click', function(){ setCalcType('what_pct'); });
   document.getElementById('calcTypePctChange')?.addEventListener('click', function(){ setCalcType('pct_change'); });
+  ['pct', 'amt', 'xval', 'yval', 'fromVal', 'toVal'].forEach(function(id) {
+    document.getElementById(id)?.addEventListener('input', calculate);
+  });
 });
 </script>
 <script src="i18n-lang-en.js?v=1" defer></script>

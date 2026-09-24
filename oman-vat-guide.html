@@ -71,7 +71,7 @@
       <h2>Quick VAT Calculator</h2>
       <div class="vat-calc">
         <label style="font-size:13px;font-weight:700;color:var(--text-muted);">Enter price (OMR):</label>
-        <input type="number" inputmode="decimal" id="vatPrice" value="100" min="0" oninput="calcVat()">
+        <input type="number" inputmode="decimal" id="vatPrice" value="100" min="0">
         <div class="vat-result" id="vatResult"></div>
       </div>
       <div style="text-align:center;margin-top:8px;">
@@ -180,6 +180,7 @@ function calcVat(){
   document.getElementById('vatResult').innerHTML=`VAT: <span style="color:#7c3aed">OMR ${vat}</span> &nbsp;|&nbsp; Total: <span style="color:#7c3aed">OMR ${total}</span>`;
 }
 calcVat();
+document.getElementById('vatPrice')?.addEventListener('input', calcVat);
 </script>
 <script src="i18n-lang-en.js?v=1" defer></script>
 <script src="i18n.js?v=44" defer></script>
