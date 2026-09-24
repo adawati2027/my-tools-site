@@ -49,10 +49,16 @@
     <div class="card-subtitle">الشرائح التصاعدية والإعفاءات الشخصية والعائلية (2026)</div>
     <div class="divider"></div>
     <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:#92400e;line-height:1.7;margin-bottom:14px;">
-      ⚠️ أداة مساعدة تقديرية غير رسمية. لم نتمكن من التأكد إذا كان اشتراك الضمان الاجتماعي يُخصم من الدخل قبل احتساب الضريبة — الحاسبة تعتمد الدخل الإجمالي كما أدخلته. راجع دائرة ضريبة الدخل والمبيعات (istd.gov.jo) لحالتك الدقيقة.
+      ⚠️ أداة مساعدة تقديرية غير رسمية <strong>للأفراد فقط</strong> (موظف/متقاعد راتبه دخل شخصي) — مش لضريبة دخل الشركات اللي إلها نظام نسب مختلف كلياً (20% أساسي، وحتى 35% للبنوك). لم نتمكن من التأكد إذا كان اشتراك الضمان الاجتماعي يُخصم من الدخل قبل احتساب الضريبة — الحاسبة تعتمد الدخل الإجمالي كما أدخلته. راجع دائرة ضريبة الدخل والمبيعات (istd.gov.jo) لحالتك الدقيقة.
     </div>
 
-    <label>الدخل السنوي الإجمالي (دينار)</label>
+    <label>هل الرقم اللي رح تدخله شهري ولا سنوي؟</label>
+    <div class="option-toggle">
+      <button class="option-btn active" id="periodAnnual">سنوي</button>
+      <button class="option-btn" id="periodMonthly">شهري</button>
+    </div>
+
+    <label style="margin-top:10px;display:block;" id="incomeLabel">الدخل السنوي الإجمالي (دينار)</label>
     <input type="number" inputmode="decimal" id="annualIncome" placeholder="0.000" min="0" step="any">
 
     <label style="margin-top:10px;display:block;">الحالة الاجتماعية</label>
@@ -189,6 +195,15 @@
 
 <script>
 let maritalStatus = 'single';
+let incomePeriod = 'annual';
+
+function setPeriod(p) {
+  incomePeriod = p;
+  document.getElementById('periodAnnual').classList.toggle('active', p === 'annual');
+  document.getElementById('periodMonthly').classList.toggle('active', p === 'monthly');
+  document.getElementById('incomeLabel').textContent = p === 'annual' ? 'الدخل السنوي الإجمالي (دينار)' : 'الدخل الشهري الإجمالي (دينار)';
+  calc();
+}
 
 function setStatus(s) {
   maritalStatus = s;
@@ -235,7 +250,8 @@ function calcTax(taxable) {
 }
 
 function calc() {
-  const income = parseFloat(document.getElementById('annualIncome').value) || 0;
+  const rawIncome = parseFloat(document.getElementById('annualIncome').value) || 0;
+  const income = incomePeriod === 'monthly' ? rawIncome * 12 : rawIncome;
   if (!income) { document.getElementById('taxResult').style.display = 'none'; return; }
 
   const extra = Math.min(parseFloat(document.getElementById('extraExpenses').value) || 0, maxExtraCap());
@@ -269,8 +285,9 @@ function calc() {
 }
 
 function exportTaxResult() {
+  const periodLabel = incomePeriod === 'annual' ? 'الدخل السنوي الإجمالي' : 'الدخل الشهري الإجمالي';
   const rows = [
-    { label: 'الدخل السنوي الإجمالي', value: (document.getElementById('annualIncome').value || '0') + ' د.أ' },
+    { label: periodLabel, value: (document.getElementById('annualIncome').value || '0') + ' د.أ' },
     { label: 'الحالة الاجتماعية', value: maritalStatus === 'married' ? 'متزوج/معيل' : 'أعزب' },
     { label: 'الدخل الخاضع للضريبة', value: document.getElementById('taxableDisplay').textContent + ' د.أ' },
     { label: 'إجمالي الضريبة السنوية', value: document.getElementById('taxDisplay').textContent + ' د.أ' },
@@ -282,6 +299,8 @@ function exportTaxResult() {
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('periodAnnual')?.addEventListener('click', function(){ setPeriod('annual'); });
+  document.getElementById('periodMonthly')?.addEventListener('click', function(){ setPeriod('monthly'); });
   document.getElementById('statusSingle')?.addEventListener('click', function(){ setStatus('single'); });
   document.getElementById('statusMarried')?.addEventListener('click', function(){ setStatus('married'); });
   document.getElementById('annualIncome')?.addEventListener('input', calc);
