@@ -1111,7 +1111,7 @@ function renderDonutChart(containerId, segments) {
     '</div>';
 }
 
-function exportResultImage(titleText, rows, embedCanvas) {
+function buildResultCanvas(titleText, rows, embedCanvas) {
   const lang = localStorage.getItem('lang') || 'en';
   const isRtl = lang === 'ar';
   const W = 1080;
@@ -1298,6 +1298,11 @@ function exportResultImage(titleText, rows, embedCanvas) {
     lines.forEach(function(l, i) { ctx.fillText(l, cx, y + i * lineHeight); });
   }
 
+  return canvas;
+}
+
+function exportResultImage(titleText, rows, embedCanvas) {
+  const canvas = buildResultCanvas(titleText, rows, embedCanvas);
   canvas.toBlob(function(blob) {
     if (!blob) return;
     if (typeof gtag === 'function') gtag('event', 'export_result', { tool_name: titleText });
@@ -1321,6 +1326,88 @@ function exportResultImage(titleText, rows, embedCanvas) {
       setTimeout(function() { URL.revokeObjectURL(url); }, 4000);
     }
   }, 'image/png');
+}
+
+/* ── Shared result PDF export ──
+   Reuses buildResultCanvas() (plain Canvas 2D, not html2canvas) so this
+   never touches the html2canvas chunking/coordinate bug documented in
+   docs/history/pdf-export-saga.md — that bug lived entirely inside
+   html2canvas re-capturing a tall DOM table, which this code path never
+   does. jsPDF itself loads self-hosted first (same vendor/ copy already
+   proven working for the amortization-table export), matching that same
+   history's final, hardened pattern: self-hosted primary + 2 CDN
+   fallbacks, one shared load-Promise per URL (not just a DOM-tag check)
+   to avoid the exact race condition documented there. */
+var _RESULT_PDF_JSPDF_URLS = ['vendor/jspdf-2.5.1.umd.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js', 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js'];
+var _resultPdfScriptPromises = {};
+function _loadResultPdfScript(urls) {
+  var list = Array.isArray(urls) ? urls : [urls];
+  var key = list[0];
+  if (_resultPdfScriptPromises[key]) return _resultPdfScriptPromises[key];
+  function loadOne(src) {
+    return new Promise(function(resolve, reject) {
+      var s = document.createElement('script');
+      s.src = src;
+      s.onload = function() { resolve(); };
+      s.onerror = function() { reject(new Error('script failed to load: ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function tryIndex(i) {
+    if (i >= list.length) return Promise.reject(new Error('script failed to load from all sources: ' + key));
+    return loadOne(list[i]).catch(function() { return tryIndex(i + 1); });
+  }
+  _resultPdfScriptPromises[key] = tryIndex(0);
+  return _resultPdfScriptPromises[key];
+}
+
+// Callers can invoke this as soon as a result exists (not lazily inside the
+// export click handler) so the library is normally already loaded by the
+// time a user actually taps "Export PDF" — the same fix already proven
+// necessary for the amortization PDF export (a slow-network async chain can
+// outlive Safari's user-activation window for navigator.share()).
+function preloadResultPdfLib() {
+  _loadResultPdfScript(_RESULT_PDF_JSPDF_URLS).catch(function() {});
+}
+
+function _resultPdfDownloadOrShare(blob, filename, titleText) {
+  var file;
+  try { file = new File([blob], filename, { type: 'application/pdf' }); } catch (e) {}
+  if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+    navigator.share({ files: [file], title: titleText, text: location.href }).catch(function(e) {
+      if (e && e.name === 'AbortError') return; // user cancelled the share sheet, not a failure
+      _resultPdfFallbackDownload(blob, filename);
+    });
+    return;
+  }
+  _resultPdfFallbackDownload(blob, filename);
+}
+function _resultPdfFallbackDownload(blob, filename) {
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function() { URL.revokeObjectURL(url); }, 60000);
+}
+
+async function exportResultPDF(titleText, rows, embedCanvas) {
+  var canvas = buildResultCanvas(titleText, rows, embedCanvas);
+  try {
+    await _loadResultPdfScript(_RESULT_PDF_JSPDF_URLS);
+    var jsPDFCtor = window.jspdf.jsPDF;
+    var doc = new jsPDFCtor({ unit: 'mm', format: 'a4' });
+    var marginMm = 10;
+    var pageWMm = 210 - marginMm * 2;
+    var imgHMm = pageWMm * (canvas.height / canvas.width);
+    var imgData = canvas.toDataURL('image/jpeg', 0.92);
+    doc.addImage(imgData, 'JPEG', marginMm, marginMm, pageWMm, imgHMm);
+    var blob = doc.output('blob');
+    if (typeof gtag === 'function') gtag('event', 'export_result_pdf', { tool_name: titleText });
+    _resultPdfDownloadOrShare(blob, 'adawati-result.pdf', titleText);
+  } catch (e) {
+    if (typeof showToast === 'function') showToast('⚠️ Could not create PDF — try again.', 'error');
+    if (typeof console !== 'undefined') console.error('exportResultPDF failed:', e);
+  }
 }
 
 function injectShareBtn() {
