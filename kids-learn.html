@@ -439,7 +439,7 @@ function navItem(dir){
 
 function speakCurrent(){
   const item=getDataset()[currentIdx];
-  const text=currentMode==='numbers'?`${getName(item)}, ${item.n}`:getName(item);
+  const text=getName(item);
   speak(text);
   // animate card
   const card=document.getElementById('learnCard');
