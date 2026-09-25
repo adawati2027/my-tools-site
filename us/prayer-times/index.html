@@ -135,16 +135,23 @@ function to12h(t) {
   return h + ':' + m + ' ' + suffix;
 }
 
+let ptFetchSeq = 0;
+
 function fetchTimes() {
   const city = document.getElementById('citySelect').value;
+  const mySeq = ++ptFetchSeq;
   document.getElementById('loadingMsg').style.display = 'block';
   document.getElementById('timesGrid').style.display = 'none';
   document.getElementById('errorMsg').style.display = 'none';
 
   const url = 'https://api.aladhan.com/v1/timingsByCity?city=' + city + '&country=United%20States&method=2';
-  fetch(url)
+  const controller = new AbortController();
+  const timeoutId = setTimeout(function() { controller.abort(); }, 6000);
+  fetch(url, { signal: controller.signal })
     .then(function(r) { return r.json(); })
     .then(function(data) {
+      if (mySeq !== ptFetchSeq) return;
+      clearTimeout(timeoutId);
       const t = data.data.timings;
       document.getElementById('t-Fajr').textContent = to12h(t.Fajr);
       document.getElementById('t-Sunrise').textContent = to12h(t.Sunrise);
@@ -158,6 +165,8 @@ function fetchTimes() {
       document.getElementById('timesGrid').style.display = 'grid';
     })
     .catch(function() {
+      if (mySeq !== ptFetchSeq) return;
+      clearTimeout(timeoutId);
       try {
         const t = getLocalPrayerTimes('United States', city);
         document.getElementById('t-Fajr').textContent = to12h(t.Fajr);
