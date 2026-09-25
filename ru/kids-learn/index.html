@@ -2,9 +2,9 @@
 <html lang="ru" dir="ltr">
 <head>
 <meta charset="UTF-8">
+<base href="https://adawati.space/">
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-arabic.woff2" crossorigin>
-<base href="https://adawati.space/">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,9 +53,14 @@
 .learn-word{font-size:36px;font-weight:900;color:#0369a1;text-align:center;}
 .learn-color-circle{width:140px;height:140px;border-radius:50%;box-shadow:0 8px 24px rgba(0,0,0,.2);border:4px solid rgba(255,255,255,.6);}
 .tap-hint{font-size:13px;color:var(--text-muted);display:flex;align-items:center;gap:6px;}
-.nav-row{display:flex;gap:16px;align-items:center;justify-content:center;margin-top:8px;}
-.nav-btn{width:52px;height:52px;border-radius:50%;border:2px solid var(--border);background:var(--surface);font-size:22px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.progress-dots-row{display:flex;justify-content:center;margin-top:12px;}
+.nav-row{display:flex;gap:20px;align-items:center;justify-content:center;margin-top:12px;}
+.nav-btn{border-radius:50%;border:2px solid var(--border);background:var(--surface);cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .nav-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+#navPrevBtn{width:44px;height:44px;font-size:18px;color:var(--text-muted);}
+#navNextBtn{width:78px;height:78px;font-size:32px;font-weight:900;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;box-shadow:0 5px 16px rgba(37,99,235,0.4);}
+#navNextBtn:hover{background:linear-gradient(135deg,#2563eb,#7c3aed);transform:scale(1.06);}
+#navNextBtn:active{transform:scale(0.96);}
 .progress-dots{display:flex;gap:6px;}
 .prog-dot{width:10px;height:10px;border-radius:50%;background:var(--border);transition:background .2s;}
 .prog-dot.active{background:var(--primary);}
@@ -128,9 +133,11 @@
         <div class="learn-word" id="learnWord">واحد</div>
         <div class="tap-hint">🔊 <span id="tapHint">انقر لسماع الصوت</span></div>
       </div>
+      <div class="progress-dots-row">
+        <div class="progress-dots" id="progDots"></div>
+      </div>
       <div class="nav-row">
         <button class="nav-btn" id="navPrevBtn">›</button>
-        <div class="progress-dots" id="progDots"></div>
         <button class="nav-btn" id="navNextBtn">‹</button>
       </div>
     </div>
@@ -354,11 +361,31 @@ function pickVoice(langCode){
   } catch(e) { return null; }
 }
 
+// iOS Safari's speech-synthesis voice list loads asynchronously and is often
+// still empty on the very first tap; warm it up as early as possible.
+if (window.speechSynthesis) {
+  speechSynthesis.getVoices();
+  speechSynthesis.addEventListener('voiceschanged', function(){ speechSynthesis.getVoices(); });
+}
+
+let _lastSpeakText='', _lastSpeakAt=0;
+
 function speak(text){
   if(!window.speechSynthesis) return;
-  speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
+  // Guard against the same word being spoken twice in quick succession —
+  // e.g. a double-tap, or a duplicate touch/click event pair on some
+  // devices — rather than trying to chase the exact trigger.
+  const now=Date.now();
+  if (text===_lastSpeakText && (now-_lastSpeakAt)<700) return;
+  _lastSpeakText=text; _lastSpeakAt=now;
+  // Must run synchronously inside the tap handler — iOS Safari drops the
+  // user-gesture association across a setTimeout/microtask boundary. Also
+  // avoid calling cancel() when nothing is queued: doing so on every single
+  // tap is a known way to leave iOS's speech engine stuck silent.
+  try { speechSynthesis.resume(); } catch(e) {}
+  if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.cancel();
   const langCode=LANG_CODES[currentLang]||'ar-SA';
+  const u=new SpeechSynthesisUtterance(text);
   u.lang=langCode;
   const voice=pickVoice(langCode);
   if (voice) u.voice=voice;
@@ -417,13 +444,13 @@ function renderLearn(){
 
 function navItem(dir){
   const len=getDataset().length;
-  currentIdx=(currentIdx-dir+len)%len;
+  currentIdx=(currentIdx+dir+len)%len;
   renderLearn();
 }
 
 function speakCurrent(){
   const item=getDataset()[currentIdx];
-  const text=currentMode==='numbers'?`${getName(item)}, ${item.n}`:getName(item);
+  const text=getName(item);
   speak(text);
   // animate card
   const card=document.getElementById('learnCard');
@@ -592,6 +619,6 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 </script>
-<script src="i18n-lang-ru.js?v=1" defer></script>
+<script src="i18n-lang-ru.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

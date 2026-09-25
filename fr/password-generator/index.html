@@ -2,9 +2,9 @@
 <html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
+<base href="https://adawati.space/">
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-arabic.woff2" crossorigin>
-<base href="https://adawati.space/">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
@@ -84,7 +84,7 @@
     <h1 class="card-title" data-i18n="pass_title">Password Generator</h1>
     <div class="card-subtitle" data-i18n="pass_sub">Strong, secure passwords with one click</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">This tool uses the browser-built-in Web Crypto API to generate true cryptographic randomness — passwords are never stored or sent to any server. Choose the length and character types, then click to copy instantly.</p>
+    <p data-i18n="pass_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">This tool uses the browser-built-in Web Crypto API to generate true cryptographic randomness — passwords are never stored or sent to any server. Choose the length and character types, then click to copy instantly.</p>
     <label for="lengthSlider"><span data-i18n="pass_length">Length:</span> <span id="lenDisplay">16</span></label>
     <input type="range" id="lengthSlider" aria-label="Password length" min="8" max="64" value="16"  style="width:100%;accent-color:var(--primary);margin:8px 0;">
     <div class="switch-row"><label data-i18n="pass_numbers">Numbers (0–9)</label><label class="toggle"><input type="checkbox" id="useNumbers" checked ><span class="slider"></span></label></div>
@@ -227,6 +227,6 @@ document.getElementById('useNumbers').addEventListener('change', generatePasswor
 document.getElementById('useSymbols').addEventListener('change', generatePassword);
 document.getElementById('useUpper').addEventListener('change', generatePassword);
 </script>
-<script src="i18n-lang-fr.js?v=1" defer></script>
+<script src="i18n-lang-fr.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

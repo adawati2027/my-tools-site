@@ -83,7 +83,7 @@
     <h1 class="card-title" data-i18n="tz_title">Time Zone Converter</h1>
     <div class="card-subtitle" data-i18n="tz_sub">Find the time in any city around the world</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">See the current time live in 6 major cities (Riyadh, Dubai, London, New York, Tokyo, Sydney) or convert any time between any two zones from a list of 20 world cities.</p>
+    <p data-i18n="tz_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">See the current time live in 6 major cities (Riyadh, Dubai, London, New York, Tokyo, Sydney) or convert any time between any two zones from a list of 20 world cities.</p>
     <div id="clockGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;"></div>
     <div class="divider"></div>
     <label data-i18n="tz_convert">Convert a specific time</label>
@@ -414,6 +414,6 @@ document.getElementById('inputTime').addEventListener('input', convertTime);
 document.getElementById('tzExportBtn')?.addEventListener('click', exportTzResult);
 document.getElementById('meetingTime').addEventListener('input', buildMeetingPlanner);
 </script>
-<script src="i18n-lang-en.js?v=1" defer></script>
+<script src="i18n-lang-en.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

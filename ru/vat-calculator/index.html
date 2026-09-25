@@ -2,9 +2,9 @@
 <html lang="ru" dir="ltr">
 <head>
 <meta charset="UTF-8">
+<base href="https://adawati.space/">
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-arabic.woff2" crossorigin>
-<base href="https://adawati.space/">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
@@ -83,7 +83,7 @@
     <h1 class="card-title" data-i18n="vat_card_title">VAT Calculator — Gulf Countries</h1>
     <div class="card-subtitle">Oman • Saudi Arabia • UAE • Bahrain • Qatar • Kuwait</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">VAT (Value Added Tax) is applied across Gulf countries. Oman implemented 5% VAT in April 2021 on most goods and services. This calculator supports 6 GCC countries and lets you add VAT to or extract it from any amount.</p>
+    <p data-i18n="vat_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">VAT (Value Added Tax) is applied across Gulf countries. Oman implemented 5% VAT in April 2021 on most goods and services. This calculator supports 6 GCC countries and lets you add VAT to or extract it from any amount.</p>
 
     <label for="vatCountry" data-i18n="vat_country_lbl">Country</label>
     <select id="vatCountry" >
@@ -434,6 +434,6 @@ document.getElementById('vatExportBtn')?.addEventListener('click', exportVatResu
 document.getElementById('vatCountry').addEventListener('change', updateRate);
 document.getElementById('vatAmount').addEventListener('input', calculate);
 </script>
-<script src="i18n-lang-ru.js?v=1" defer></script>
+<script src="i18n-lang-ru.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

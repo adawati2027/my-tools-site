@@ -118,7 +118,7 @@
     <h1 class="card-title" id="loan-main-title">Loan & Payment Calculator</h1>
     <div class="card-subtitle" id="loan-main-sub">Calculate any loan or mortgage payment</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Free calculator for monthly loan payments on any personal, mortgage, or business loan. Enter the amount, interest rate, and term to instantly get the monthly payment, total interest, and a full month-by-month amortization schedule. Uses the standard bank amortization formula.</p>
+    <p id="loan-main-desc" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Free calculator for monthly loan payments on any personal, mortgage, or business loan. Enter the amount, interest rate, and term to instantly get the monthly payment, total interest, and a full month-by-month amortization schedule. Uses the standard bank amortization formula.</p>
     <label for="amount" id="lbl-amount">Loan Amount</label>
     <input type="number" id="amount" placeholder="e.g. 50,000"  inputmode="decimal">
     <label for="rate" id="lbl-rate">Annual Interest Rate %</label>
@@ -371,6 +371,7 @@
 var LOAN_T = {
   ar:{
     main_title:'حاسبة القسط الشهري',main_sub:'احسب قسط أي قرض أو تمويل',
+    main_desc:'حاسبة مجانية للقسط الشهري لأي قرض شخصي أو عقاري أو تجاري. أدخل المبلغ ونسبة الفائدة والمدة للحصول فوراً على القسط الشهري وإجمالي الفائدة وجدول استهلاك كامل شهراً بشهر. تستخدم معادلة الاستهلاك البنكية المعيارية.',
     lbl_amount:'مبلغ القرض',lbl_rate:'نسبة الفائدة السنوية %',lbl_years:'مدة السداد (بالسنوات)',
     lbl_monthly:'القسط الشهري',lbl_total:'إجمالي المدفوع',lbl_interest:'إجمالي الفائدة',
     lbl_mode:'نوع الفائدة',mode_compound:'فائدة مركبة (متناقصة)',mode_flat:'فائدة ثابتة (Flat)',
@@ -401,6 +402,7 @@ var LOAN_T = {
   },
   en:{
     main_title:'Loan & Payment Calculator',main_sub:'Calculate any loan or mortgage payment',
+    main_desc:'Free calculator for monthly loan payments on any personal, mortgage, or business loan. Enter the amount, interest rate, and term to instantly get the monthly payment, total interest, and a full month-by-month amortization schedule. Uses the standard bank amortization formula.',
     lbl_amount:'Loan Amount',lbl_rate:'Annual Interest Rate %',lbl_years:'Repayment Period (years)',
     lbl_monthly:'Monthly Payment',lbl_total:'Total Paid',lbl_interest:'Total Interest',
     lbl_mode:'Interest Type',mode_compound:'Compound (Reducing Balance)',mode_flat:'Fixed (Flat Rate)',
@@ -431,6 +433,7 @@ var LOAN_T = {
   },
   fr:{
     main_title:'Calculateur de prêt',main_sub:'Calculez la mensualité de tout prêt',
+    main_desc:'Calculateur gratuit de mensualités pour tout prêt personnel, immobilier ou professionnel. Indiquez le montant, le taux d\'intérêt et la durée pour obtenir instantanément la mensualité, le total des intérêts et un tableau d\'amortissement complet mois par mois. Utilise la formule d\'amortissement bancaire standard.',
     lbl_amount:'Montant du prêt',lbl_rate:'Taux d\'intérêt annuel %',lbl_years:'Durée de remboursement (années)',
     lbl_monthly:'Mensualité',lbl_total:'Total payé',lbl_interest:'Total des intérêts',
     lbl_mode:'Type d\'intérêt',mode_compound:'Composé (capital restant dû)',mode_flat:'Fixe (taux forfaitaire)',
@@ -461,6 +464,7 @@ var LOAN_T = {
   },
   es:{
     main_title:'Calculadora de Préstamo',main_sub:'Calcula la cuota de cualquier préstamo',
+    main_desc:'Calculadora gratuita de cuotas mensuales para cualquier préstamo personal, hipotecario o empresarial. Introduce el importe, la tasa de interés y el plazo para obtener al instante la cuota mensual, el interés total y un cuadro de amortización completo mes a mes. Utiliza la fórmula de amortización bancaria estándar.',
     lbl_amount:'Monto del préstamo',lbl_rate:'Tasa de interés anual %',lbl_years:'Plazo de pago (años)',
     lbl_monthly:'Cuota mensual',lbl_total:'Total pagado',lbl_interest:'Total de intereses',
     lbl_mode:'Tipo de interés',mode_compound:'Compuesto (saldo decreciente)',mode_flat:'Fijo (tasa plana)',
@@ -491,6 +495,7 @@ var LOAN_T = {
   },
   de:{
     main_title:'Kreditrechner',main_sub:'Berechnen Sie die Rate für jeden Kredit',
+    main_desc:'Kostenloser Rechner für monatliche Ratenzahlungen bei jedem Privat-, Immobilien- oder Geschäftskredit. Geben Sie Betrag, Zinssatz und Laufzeit ein, um sofort die monatliche Rate, die Gesamtzinsen und einen vollständigen monatlichen Tilgungsplan zu erhalten. Verwendet die standardmäßige Bank-Tilgungsformel.',
     lbl_amount:'Kreditbetrag',lbl_rate:'Jährlicher Zinssatz %',lbl_years:'Laufzeit (Jahre)',
     lbl_monthly:'Monatliche Rate',lbl_total:'Gesamtzahlung',lbl_interest:'Gesamtzinsen',
     lbl_mode:'Zinsart',mode_compound:'Effektivzins (Restschuld)',mode_flat:'Festzins (Flat Rate)',
@@ -521,6 +526,7 @@ var LOAN_T = {
   },
   ru:{
     main_title:'Кредитный калькулятор',main_sub:'Рассчитайте платёж по любому кредиту',
+    main_desc:'Бесплатный калькулятор ежемесячных платежей для любого личного, ипотечного или коммерческого кредита. Введите сумму, процентную ставку и срок, чтобы мгновенно получить ежемесячный платёж, общую сумму процентов и полный помесячный график погашения. Использует стандартную банковскую формулу амортизации.',
     lbl_amount:'Сумма кредита',lbl_rate:'Годовая процентная ставка %',lbl_years:'Срок погашения (лет)',
     lbl_monthly:'Ежемесячный платёж',lbl_total:'Итого выплачено',lbl_interest:'Итого процентов',
     lbl_mode:'Тип процентов',mode_compound:'Аннуитетный (убывающий остаток)',mode_flat:'Фиксированный (флэт-ставка)',
@@ -919,6 +925,7 @@ function updateLoanContent(){
   document.documentElement.dir=dir;
   document.getElementById('loan-main-title').textContent=t.main_title;
   document.getElementById('loan-main-sub').textContent=t.main_sub;
+  document.getElementById('loan-main-desc').textContent=t.main_desc;
   document.getElementById('lbl-amount').textContent=t.lbl_amount;
   document.getElementById('lbl-rate').textContent=t.lbl_rate;
   document.getElementById('lbl-years').textContent=t.lbl_years;
@@ -990,6 +997,6 @@ document.getElementById('amount').addEventListener('input', calcLoan);
 document.getElementById('rate').addEventListener('input', calcLoan);
 document.getElementById('years').addEventListener('input', calcLoan);
 </script>
-<script src="i18n-lang-en.js?v=1" defer></script>
+<script src="i18n-lang-en.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

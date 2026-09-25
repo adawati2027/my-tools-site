@@ -2,9 +2,9 @@
 <html lang="de" dir="ltr">
 <head>
 <meta charset="UTF-8">
+<base href="https://adawati.space/">
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-arabic.woff2" crossorigin>
-<base href="https://adawati.space/">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
@@ -84,7 +84,7 @@
     <h1 class="card-title" data-i18n="qr_title">QR Code Generator</h1>
     <div class="card-subtitle" data-i18n="qr_sub">Generate a QR code for any link or text instantly</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Generate a QR code for any link or text in seconds. Download as high-quality PNG. Perfect for website links, WhatsApp numbers, email addresses and business cards.</p>
+    <p data-i18n="qr_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Generate a QR code for any link or text in seconds. Download as high-quality PNG. Perfect for website links, WhatsApp numbers, email addresses and business cards.</p>
     <label data-i18n="qr_input">Link or text</label>
     <textarea id="qrInput" rows="3" data-i18n-ph="qr_placeholder" placeholder="https://example.com أو أي نص..." style="resize:vertical;"></textarea>
     <button class="btn btn-primary" id="qrBtn" data-i18n="qr_generate">Generate code</button>
@@ -285,6 +285,6 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('qrExportBtn')?.addEventListener('click', exportQRResult);
 });
 </script>
-<script src="i18n-lang-de.js?v=1" defer></script>
+<script src="i18n-lang-de.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

@@ -2,9 +2,9 @@
 <html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
+<base href="https://adawati.space/">
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-arabic.woff2" crossorigin>
-<base href="https://adawati.space/">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
@@ -83,7 +83,7 @@
     <h1 class="card-title" data-i18n="discount_title">Percentage & Discount Calculator</h1>
     <div class="card-subtitle" data-i18n="discount_sub">Calculate percentages and discounts instantly</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Free tool supporting two modes: calculate a percentage of a number, or calculate the price after a given discount. Useful for shopping, sales offers and comparing prices in supermarkets and online stores.</p>
+    <p data-i18n="discount_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Free tool supporting two modes: calculate a percentage of a number, or calculate the price after a given discount. Useful for shopping, sales offers and comparing prices in supermarkets and online stores.</p>
     <div class="tabs">
       <div class="tab active" data-tab="percent" data-i18n="tab_percent">Percentage</div>
       <div class="tab" data-tab="discount" data-i18n="tab_discount">Discount</div>
@@ -257,6 +257,6 @@ document.getElementById('p2').addEventListener('input', calcPercent);
 document.getElementById('d1').addEventListener('input', calcDiscount);
 document.getElementById('d2').addEventListener('input', calcDiscount);
 </script>
-<script src="i18n-lang-fr.js?v=1" defer></script>
+<script src="i18n-lang-fr.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

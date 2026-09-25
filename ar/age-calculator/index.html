@@ -2,9 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<base href="https://adawati.space/">
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-arabic.woff2" crossorigin>
-<base href="https://adawati.space/">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
@@ -100,7 +100,7 @@
     <h1 class="card-title" id="age-title">Age Calculator</h1>
     <div class="card-subtitle" id="age-sub">Your age in detail — years, months, days and hours</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Calculate your exact age in years, months, days and hours — including your Hijri calendar age and days until your next birthday. Enter your date of birth for instant results.</p>
+    <p id="age-desc" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Calculate your exact age in years, months, days and hours — including your Hijri calendar age and days until your next birthday. Enter your date of birth for instant results.</p>
     <label for="birthdate" id="lbl-birth">Date of Birth</label>
     <input type="date" id="birthdate" >
     <button class="btn btn-primary" id="age-btn">Calculate My Age</button>
@@ -240,6 +240,7 @@
 var AGE_T={
   ar:{
     title:'حاسبة العمر',sub:'عمرك بالتفصيل — سنوات وأشهر وأيام وساعات',
+    desc:'احسب عمرك الدقيق بالسنوات والأشهر والأيام والساعات — بما في ذلك عمرك بالتقويم الهجري وعدد الأيام المتبقية لعيد ميلادك القادم. أدخل تاريخ ميلادك للحصول على نتائج فورية.',
     lbl_birth:'تاريخ ميلادك',btn:'احسب عمري',
     lbl_years:'سنة',lbl_months:'شهر',lbl_days:'يوم',
     lbl_totaldays:'إجمالي الأيام',lbl_totalhours:'إجمالي الساعات',lbl_next:'يوم لعيد الميلاد',
@@ -271,6 +272,7 @@ var AGE_T={
   },
   en:{
     title:'Age Calculator',sub:'Your age in detail — years, months, days and hours',
+    desc:'Calculate your exact age in years, months, days and hours — including your Hijri calendar age and days until your next birthday. Enter your date of birth for instant results.',
     lbl_birth:'Date of Birth',btn:'Calculate My Age',
     lbl_years:'Years',lbl_months:'Months',lbl_days:'Days',
     lbl_totaldays:'Total Days',lbl_totalhours:'Total Hours',lbl_next:'Days to Birthday',
@@ -302,6 +304,7 @@ var AGE_T={
   },
   fr:{
     title:'Calculateur d\'âge',sub:'Votre âge en détail — années, mois, jours et heures',
+    desc:'Calculez votre âge exact en années, mois, jours et heures — y compris votre âge selon le calendrier hégirien et le nombre de jours restants avant votre prochain anniversaire. Indiquez votre date de naissance pour un résultat instantané.',
     lbl_birth:'Date de naissance',btn:'Calculer mon âge',
     lbl_years:'Années',lbl_months:'Mois',lbl_days:'Jours',
     lbl_totaldays:'Total de jours',lbl_totalhours:'Total d\'heures',lbl_next:'Jours avant anniversaire',
@@ -333,6 +336,7 @@ var AGE_T={
   },
   es:{
     title:'Calculadora de edad',sub:'Tu edad en detalle — años, meses, días y horas',
+    desc:'Calcula tu edad exacta en años, meses, días y horas — incluyendo tu edad según el calendario hijri y los días que faltan para tu próximo cumpleaños. Introduce tu fecha de nacimiento para obtener resultados al instante.',
     lbl_birth:'Fecha de nacimiento',btn:'Calcular mi edad',
     lbl_years:'Años',lbl_months:'Meses',lbl_days:'Días',
     lbl_totaldays:'Total de días',lbl_totalhours:'Total de horas',lbl_next:'Días para cumpleaños',
@@ -364,6 +368,7 @@ var AGE_T={
   },
   de:{
     title:'Altersrechner',sub:'Ihr genaues Alter — Jahre, Monate, Tage und Stunden',
+    desc:'Berechnen Sie Ihr genaues Alter in Jahren, Monaten, Tagen und Stunden — einschließlich Ihres Alters nach dem Hijri-Kalender und der Tage bis zu Ihrem nächsten Geburtstag. Geben Sie Ihr Geburtsdatum für sofortige Ergebnisse ein.',
     lbl_birth:'Geburtsdatum',btn:'Mein Alter berechnen',
     lbl_years:'Jahre',lbl_months:'Monate',lbl_days:'Tage',
     lbl_totaldays:'Tage gesamt',lbl_totalhours:'Stunden gesamt',lbl_next:'Tage bis Geburtstag',
@@ -395,6 +400,7 @@ var AGE_T={
   },
   ru:{
     title:'Калькулятор возраста',sub:'Ваш точный возраст — лет, месяцев, дней и часов',
+    desc:'Рассчитайте свой точный возраст в годах, месяцах, днях и часах — включая возраст по календарю хиджры и количество дней до следующего дня рождения. Введите дату рождения, чтобы мгновенно получить результат.',
     lbl_birth:'Дата рождения',btn:'Рассчитать возраст',
     lbl_years:'Лет',lbl_months:'Месяцев',lbl_days:'Дней',
     lbl_totaldays:'Всего дней',lbl_totalhours:'Всего часов',lbl_next:'Дней до дня рождения',
@@ -595,6 +601,7 @@ function updateAgeContent(){
   document.documentElement.dir=dir;
   document.getElementById('age-title').textContent=t.title;
   document.getElementById('age-sub').textContent=t.sub;
+  document.getElementById('age-desc').textContent=t.desc;
   document.getElementById('lbl-birth').textContent=t.lbl_birth;
   document.getElementById('age-btn').textContent=t.btn;
   document.getElementById('lbl-years').textContent=t.lbl_years;
@@ -640,6 +647,6 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
 
 document.getElementById('birthdate').addEventListener('change', calcAge);
 </script>
-<script src="i18n-lang-ar.js?v=1" defer></script>
+<script src="i18n-lang-ar.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

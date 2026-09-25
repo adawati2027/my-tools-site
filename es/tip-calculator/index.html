@@ -2,9 +2,9 @@
 <html lang="es" dir="ltr">
 <head>
 <meta charset="UTF-8">
+<base href="https://adawati.space/">
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-arabic.woff2" crossorigin>
-<base href="https://adawati.space/">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
@@ -85,7 +85,7 @@
     <h1 class="card-title" data-i18n="tip_title">Tip Calculator</h1>
     <div class="card-subtitle" data-i18n="tip_sub">Calculate the tip and split the bill easily</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Calculate the appropriate tip and split the bill equally among any number of people. Move the slider to choose a tip percentage (0% to 30%) and enter the number of people to instantly get each person's share.</p>
+    <p data-i18n="tip_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Calculate the appropriate tip and split the bill equally among any number of people. Move the slider to choose a tip percentage (0% to 30%) and enter the number of people to instantly get each person's share.</p>
     <label for="bill" data-i18n="tip_bill">Total bill</label>
     <input type="number" inputmode="decimal" id="bill" placeholder="0.00" >
     <div class="option-toggle">
@@ -265,6 +265,6 @@ document.getElementById('tipFixed').addEventListener('input', calcTip);
 document.getElementById('tipSlider').addEventListener('input', function(){ document.getElementById('tipPctLabel').textContent=this.value;calcTip() });
 document.getElementById('people').addEventListener('input', calcTip);
 </script>
-<script src="i18n-lang-es.js?v=1" defer></script>
+<script src="i18n-lang-es.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

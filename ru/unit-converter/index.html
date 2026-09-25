@@ -2,9 +2,9 @@
 <html lang="ru" dir="ltr">
 <head>
 <meta charset="UTF-8">
+<base href="https://adawati.space/">
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-arabic.woff2" crossorigin>
-<base href="https://adawati.space/">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
@@ -84,7 +84,7 @@
     <h1 class="card-title" data-i18n="unit_title">Unit Converter</h1>
     <div class="card-subtitle" data-i18n="unit_sub">Convert between length, weight & temperature</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Supports three conversion types: length (meter, kilometer, foot, inch, mile), weight (kilogram, pound, gram, tonne), and temperature (Celsius, Fahrenheit, Kelvin). Conversion is instant as you type.</p>
+    <p data-i18n="unit_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Supports three conversion types: length (meter, kilometer, foot, inch, mile), weight (kilogram, pound, gram, tonne), and temperature (Celsius, Fahrenheit, Kelvin). Conversion is instant as you type.</p>
     <div class="tabs">
       <div class="tab active" data-tab="length" data-i18n="tab_length">Length</div>
       <div class="tab" data-tab="weight" data-i18n="tab_weight">Weight</div>
@@ -305,6 +305,6 @@ document.getElementById('tmp-val').addEventListener('input', convertTemp);
 document.getElementById('tmp-from').addEventListener('change', convertTemp);
 document.getElementById('tmp-to').addEventListener('change', convertTemp);
 </script>
-<script src="i18n-lang-ru.js?v=1" defer></script>
+<script src="i18n-lang-ru.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

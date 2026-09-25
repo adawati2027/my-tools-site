@@ -2,9 +2,9 @@
 <html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
+<base href="https://adawati.space/">
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-arabic.woff2" crossorigin>
-<base href="https://adawati.space/">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
@@ -96,7 +96,7 @@
     <h1 class="card-title" data-i18n="hijri_card_title">Hijri ↔ Gregorian Date Converter</h1>
     <div class="card-subtitle" data-i18n="hij_sub">Instant tabular Hijri calendar conversion in both directions</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">This converter converts between the Islamic (Hijri) lunar calendar and the Gregorian solar calendar using a tabular Hijri calendar algorithm. Commonly used to find dates for Islamic occasions such as Ramadan and Eid al-Adha, and widely referenced in Gulf states. Results may differ by 1–2 days from official moon-sighting calendars.</p>
+    <p data-i18n="hijri_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">This converter converts between the Islamic (Hijri) lunar calendar and the Gregorian solar calendar using a tabular Hijri calendar algorithm. Commonly used to find dates for Islamic occasions such as Ramadan and Eid al-Adha, and widely referenced in Gulf states. Results may differ by 1–2 days from official moon-sighting calendars.</p>
 
     <div class="option-toggle">
       <button class="option-btn active" id="modeGH" data-mode="g2h" data-i18n="hij_mode_gh">🗓️ Gregorian → Hijri</button>
@@ -461,6 +461,6 @@ document.getElementById('gregDate').addEventListener('change', convertGtoH);
 document.getElementById('hijriDay').addEventListener('input', convertHtoG);
 document.getElementById('hijriYear').addEventListener('input', convertHtoG);
 </script>
-<script src="i18n-lang-fr.js?v=1" defer></script>
+<script src="i18n-lang-fr.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

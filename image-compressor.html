@@ -100,7 +100,7 @@
     <h1 class="card-title" data-i18n="ic_title">Image Compressor</h1>
     <div class="card-subtitle" data-i18n="ic_sub">Works in your browser — your images are never uploaded ✅</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Compress your image directly in the browser without uploading to any server. All processing happens on your device, guaranteeing complete privacy. Supports JPG, PNG, and WebP — savings can reach 90% depending on the image and settings, with full control over quality level.</p>
+    <p data-i18n="ic_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Compress your image directly in the browser without uploading to any server. All processing happens on your device, guaranteeing complete privacy. Supports JPG, PNG, and WebP — savings can reach 90% depending on the image and settings, with full control over quality level.</p>
 
     <div class="drop-zone" id="dropZone">
       <div class="drop-zone-icon">📁</div>
@@ -394,6 +394,6 @@ document.addEventListener('DOMContentLoaded', function(){
 document.getElementById('imgInput').addEventListener('change', function(){ loadImage(this) });
 document.getElementById('qualitySlider').addEventListener('input', function(){ onQualityChange(this.value) });
 </script>
-<script src="i18n-lang-en.js?v=1" defer></script>
+<script src="i18n-lang-en.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

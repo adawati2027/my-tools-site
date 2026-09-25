@@ -2,9 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<base href="https://adawati.space/">
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-arabic.woff2" crossorigin>
-<base href="https://adawati.space/">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
@@ -81,7 +81,7 @@
     <h1 class="card-title" data-i18n="sal_card_title">Salary Calculator — Sultanate of Oman 🇴🇲</h1>
     <div class="card-subtitle" id="salCardSub">Calculate your net salary under Oman's Social Protection Fund system</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Calculate your net salary in Oman instantly — enter your basic salary and allowances, and SPF contributions are calculated automatically. In 2026 no personal income tax applies to salaries (PIT law issued 2025, implementation from 2028) — the only deduction for Omanis is 8% SPF.</p>
+    <p data-i18n="sal_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Calculate your net salary in Oman instantly — enter your basic salary and allowances, and SPF contributions are calculated automatically. In 2026 no personal income tax applies to salaries (PIT law issued 2025, implementation from 2028) — the only deduction for Omanis is 8% SPF.</p>
 
     <label id="salNatLbl">Nationality</label>
     <div class="option-toggle">
@@ -130,8 +130,12 @@
           <div class="stat-lbl" data-i18n="sal_annual_lbl">Annual Salary</div>
         </div>
       </div>
+      <div id="salDonut"></div>
       <div id="salBreakdown" style="margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2.2;"></div>
-      <button id="salExportBtn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);"></button>
+      <div style="display:flex;gap:8px;margin-top:12px;">
+        <button id="salExportBtn" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);"></button>
+        <button id="salExportPdfBtn" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;color:var(--text);">📄 PDF</button>
+      </div>
     </div>
   </div>
 
@@ -418,6 +422,17 @@ function calculate() {
   document.getElementById('pasiDisplay').textContent = spfDeduction.toFixed(3);
   document.getElementById('annualDisplay').textContent = annual.toFixed(3);
 
+  if (typeof renderDonutChart === 'function') {
+    if (spfDeduction > 0) {
+      renderDonutChart('salDonut', [
+        { label: 'Net Salary', value: net, color: '#16a34a' },
+        { label: document.getElementById('spfLabel').textContent, value: spfDeduction, color: '#dc2626' }
+      ]);
+    } else {
+      document.getElementById('salDonut').innerHTML = '';
+    }
+  }
+
   document.getElementById('salBreakdown').innerHTML =
     t.lbl_basic + ': <strong>' + basic.toFixed(3) + ' ' + c + '</strong><br>' +
     (housing > 0 ? t.lbl_housing + ': <strong>' + housing.toFixed(3) + ' ' + c + '</strong><br>' : '') +
@@ -432,7 +447,7 @@ function calculate() {
   document.getElementById('salResult').style.display = 'block';
 }
 
-function exportSalaryResult() {
+function getSalaryResultRows() {
   const t = getSAL();
   const c = t.curr;
   const basic = parseFloat(document.getElementById('basicSalary').value) || 0;
@@ -450,7 +465,15 @@ function exportSalaryResult() {
   rows.push({ label: t.lbl_gross, value: gross.toFixed(3) + ' ' + c });
   if (nationality === 'omani') rows.push({ label: t.lbl_spf_from, value: '−' + spfDeduction.toFixed(3) + ' ' + c });
   rows.push({ label: t.lbl_net, value: net.toFixed(3) + ' ' + c, highlight: true });
-  if (typeof exportResultImage === 'function') exportResultImage(t.export_title, rows);
+  return { title: t.export_title, rows: rows };
+}
+function exportSalaryResult() {
+  const r = getSalaryResultRows();
+  if (typeof exportResultImage === 'function') exportResultImage(r.title, r.rows);
+}
+function exportSalaryResultPDF() {
+  const r = getSalaryResultRows();
+  if (typeof exportResultPDF === 'function') exportResultPDF(r.title, r.rows);
 }
 
 var _origSalSetLang;
@@ -482,6 +505,6 @@ document.getElementById('housingAllowance').addEventListener('input', calculate)
 document.getElementById('transportAllowance').addEventListener('input', calculate);
 document.getElementById('otherAllowance').addEventListener('input', calculate);
 </script>
-<script src="i18n-lang-ar.js?v=1" defer></script>
+<script src="i18n-lang-ar.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

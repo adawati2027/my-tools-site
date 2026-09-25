@@ -2,9 +2,9 @@
 <html lang="ru" dir="ltr">
 <head>
 <meta charset="UTF-8">
+<base href="https://adawati.space/">
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-arabic.woff2" crossorigin>
-<base href="https://adawati.space/">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
@@ -119,7 +119,7 @@
     <h1 class="card-title" id="loan-main-title">Loan & Payment Calculator</h1>
     <div class="card-subtitle" id="loan-main-sub">Calculate any loan or mortgage payment</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Free calculator for monthly loan payments on any personal, mortgage, or business loan. Enter the amount, interest rate, and term to instantly get the monthly payment, total interest, and a full month-by-month amortization schedule. Uses the standard bank amortization formula.</p>
+    <p id="loan-main-desc" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Free calculator for monthly loan payments on any personal, mortgage, or business loan. Enter the amount, interest rate, and term to instantly get the monthly payment, total interest, and a full month-by-month amortization schedule. Uses the standard bank amortization formula.</p>
     <label for="amount" id="lbl-amount">Loan Amount</label>
     <input type="number" id="amount" placeholder="e.g. 50,000"  inputmode="decimal">
     <label for="rate" id="lbl-rate">Annual Interest Rate %</label>
@@ -132,6 +132,7 @@
       <button class="option-btn" data-mode="flat" id="modeFlatBtn">Fixed (Flat Rate)</button>
     </div>
     <p style="font-size:12px;color:var(--text-muted);line-height:1.6;margin-top:6px;" id="mode-note">Reducing balance: interest is calculated monthly on the remaining balance (most common at banks). Flat rate: interest is calculated once on the full original amount for the whole term.</p>
+    <p style="font-size:12px;margin-top:4px;"><a href="flat-vs-reducing-balance-loan-guide.html" style="color:var(--primary);font-weight:700;">📚 Why does this choice matter? See a real cost comparison →</a></p>
     <div id="result" style="display:none;margin-top:20px;">
       <div class="result-box show success" style="margin-top:0;">
         <div class="result-value" id="monthlyPayment"></div>
@@ -141,7 +142,11 @@
         <div class="stat-box"><div class="stat-val" id="totalPaid" style="font-size:17px;"></div><div class="stat-lbl" id="lbl-total">Total Paid</div></div>
         <div class="stat-box"><div class="stat-val" id="totalInterest" style="font-size:17px;color:#ef4444;"></div><div class="stat-lbl" id="lbl-interest">Total Interest</div></div>
       </div>
-      <button id="loanExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+      <div id="loanDonut"></div>
+      <div style="display:flex;gap:8px;margin-top:12px;">
+        <button id="loanExportBtn" data-i18n="export_img_btn" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Image</button>
+        <button id="loanExportPdfBtn" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;color:var(--text);">📄 PDF</button>
+      </div>
     </div>
     <div style="margin-top:16px;padding:10px 14px;background:#fef9c3;border-radius:8px;font-size:13px;color:#854d0e;">
       ⚠️ <span id="loan-disclaimer">Figures are estimates for informational purposes only. Consult your bank for exact numbers.</span>
@@ -299,6 +304,10 @@
         <span class="rel-icon">%</span>
         <span>حاسبة النسبة</span>
       </a>
+      <a href="flat-vs-reducing-balance-loan-guide.html" class="related-card">
+        <span class="rel-icon">📚</span>
+        <span>Flat vs Reducing Balance Guide</span>
+      </a>
       <a href="om/" class="related-card" style="background:var(--primary);color:#fff;border-color:var(--primary);">
         <span class="rel-icon">🇴🇲</span>
         <span>أدوات عُمان</span>
@@ -313,6 +322,19 @@
     <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">A lower monthly payment is not always better. A 5-year loan costs less total interest than a 10-year loan at the same rate, even though the monthly payment is higher. Use the repayment schedule to compare the total interest paid over the full loan term.</p>
     <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">Gulf country note</h3>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:0;">Banks in Oman, Saudi Arabia and UAE often quote a flat interest rate rather than APR. A 5% flat rate is roughly equivalent to 9-10% APR under amortization. Always ask your bank for the APR to compare loans on equal terms.</p>
+  </div>
+
+  <div class="card" style="margin-top:16px;" lang="en" dir="ltr">
+    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">🧮 Worked Example, Step by Step</h2>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">Let's plug real numbers into the formula above so you can see exactly where each figure comes from. Say you borrow <strong>$10,000</strong> at a <strong>6% annual interest rate</strong> for <strong>5 years</strong> (this matches the first row of the reference table below).</p>
+    <div style="margin-top:8px;padding:16px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2.1;">
+      <strong>Step 1 — monthly rate (r):</strong> 6% annual ÷ 12 months = <strong>0.5% per month</strong> (0.005 as a decimal).<br>
+      <strong>Step 2 — number of payments (n):</strong> 5 years × 12 = <strong>60 monthly payments</strong>.<br>
+      <strong>Step 3 — plug into the formula:</strong> Payment = 10,000 × [0.005 × (1.005)⁶⁰] ÷ [(1.005)⁶⁰ − 1]. Since (1.005)⁶⁰ ≈ 1.3489, this works out to Payment ≈ <strong>$193.33/month</strong>.<br>
+      <strong>Step 4 — total cost over the loan:</strong> the calculator carries the full unrounded monthly payment through all 60 months (not the $193.33 you see on screen, which is already rounded to the cent) — that gives <strong>$11,599.68 total paid</strong>. Note this is a few cents different from simply multiplying 193.33 × 60 ($11,599.80) — that tiny gap is exactly the rounding you'd expect once you round the monthly figure before multiplying instead of after.<br>
+      <strong>Step 5 — total interest:</strong> 11,599.68 − 10,000 (the original principal) = <strong>$1,599.68 total interest</strong> — that's the real cost of borrowing, spread invisibly across 60 payments.
+    </div>
+    <p style="margin-top:12px;font-size:14px;color:var(--text-muted);line-height:1.8;">Notice that even though you're paying back $11,599.68 total, only $10,000 of that is the money you actually borrowed — the other $1,599.68 is what the loan costs you for spreading repayment over 5 years instead of paying in full today. Try the calculator above with a shorter term (say 3 years) on the same $10,000 at 6% — the monthly payment goes up, but total interest drops, because the bank charges interest on the outstanding balance for less time.</p>
   </div>
 
   <div class="card" style="margin-top:16px;" lang="en" dir="ltr">
@@ -350,6 +372,7 @@
 var LOAN_T = {
   ar:{
     main_title:'حاسبة القسط الشهري',main_sub:'احسب قسط أي قرض أو تمويل',
+    main_desc:'حاسبة مجانية للقسط الشهري لأي قرض شخصي أو عقاري أو تجاري. أدخل المبلغ ونسبة الفائدة والمدة للحصول فوراً على القسط الشهري وإجمالي الفائدة وجدول استهلاك كامل شهراً بشهر. تستخدم معادلة الاستهلاك البنكية المعيارية.',
     lbl_amount:'مبلغ القرض',lbl_rate:'نسبة الفائدة السنوية %',lbl_years:'مدة السداد (بالسنوات)',
     lbl_monthly:'القسط الشهري',lbl_total:'إجمالي المدفوع',lbl_interest:'إجمالي الفائدة',
     lbl_mode:'نوع الفائدة',mode_compound:'فائدة مركبة (متناقصة)',mode_flat:'فائدة ثابتة (Flat)',
@@ -380,6 +403,7 @@ var LOAN_T = {
   },
   en:{
     main_title:'Loan & Payment Calculator',main_sub:'Calculate any loan or mortgage payment',
+    main_desc:'Free calculator for monthly loan payments on any personal, mortgage, or business loan. Enter the amount, interest rate, and term to instantly get the monthly payment, total interest, and a full month-by-month amortization schedule. Uses the standard bank amortization formula.',
     lbl_amount:'Loan Amount',lbl_rate:'Annual Interest Rate %',lbl_years:'Repayment Period (years)',
     lbl_monthly:'Monthly Payment',lbl_total:'Total Paid',lbl_interest:'Total Interest',
     lbl_mode:'Interest Type',mode_compound:'Compound (Reducing Balance)',mode_flat:'Fixed (Flat Rate)',
@@ -410,6 +434,7 @@ var LOAN_T = {
   },
   fr:{
     main_title:'Calculateur de prêt',main_sub:'Calculez la mensualité de tout prêt',
+    main_desc:'Calculateur gratuit de mensualités pour tout prêt personnel, immobilier ou professionnel. Indiquez le montant, le taux d\'intérêt et la durée pour obtenir instantanément la mensualité, le total des intérêts et un tableau d\'amortissement complet mois par mois. Utilise la formule d\'amortissement bancaire standard.',
     lbl_amount:'Montant du prêt',lbl_rate:'Taux d\'intérêt annuel %',lbl_years:'Durée de remboursement (années)',
     lbl_monthly:'Mensualité',lbl_total:'Total payé',lbl_interest:'Total des intérêts',
     lbl_mode:'Type d\'intérêt',mode_compound:'Composé (capital restant dû)',mode_flat:'Fixe (taux forfaitaire)',
@@ -440,6 +465,7 @@ var LOAN_T = {
   },
   es:{
     main_title:'Calculadora de Préstamo',main_sub:'Calcula la cuota de cualquier préstamo',
+    main_desc:'Calculadora gratuita de cuotas mensuales para cualquier préstamo personal, hipotecario o empresarial. Introduce el importe, la tasa de interés y el plazo para obtener al instante la cuota mensual, el interés total y un cuadro de amortización completo mes a mes. Utiliza la fórmula de amortización bancaria estándar.',
     lbl_amount:'Monto del préstamo',lbl_rate:'Tasa de interés anual %',lbl_years:'Plazo de pago (años)',
     lbl_monthly:'Cuota mensual',lbl_total:'Total pagado',lbl_interest:'Total de intereses',
     lbl_mode:'Tipo de interés',mode_compound:'Compuesto (saldo decreciente)',mode_flat:'Fijo (tasa plana)',
@@ -470,6 +496,7 @@ var LOAN_T = {
   },
   de:{
     main_title:'Kreditrechner',main_sub:'Berechnen Sie die Rate für jeden Kredit',
+    main_desc:'Kostenloser Rechner für monatliche Ratenzahlungen bei jedem Privat-, Immobilien- oder Geschäftskredit. Geben Sie Betrag, Zinssatz und Laufzeit ein, um sofort die monatliche Rate, die Gesamtzinsen und einen vollständigen monatlichen Tilgungsplan zu erhalten. Verwendet die standardmäßige Bank-Tilgungsformel.',
     lbl_amount:'Kreditbetrag',lbl_rate:'Jährlicher Zinssatz %',lbl_years:'Laufzeit (Jahre)',
     lbl_monthly:'Monatliche Rate',lbl_total:'Gesamtzahlung',lbl_interest:'Gesamtzinsen',
     lbl_mode:'Zinsart',mode_compound:'Effektivzins (Restschuld)',mode_flat:'Festzins (Flat Rate)',
@@ -500,6 +527,7 @@ var LOAN_T = {
   },
   ru:{
     main_title:'Кредитный калькулятор',main_sub:'Рассчитайте платёж по любому кредиту',
+    main_desc:'Бесплатный калькулятор ежемесячных платежей для любого личного, ипотечного или коммерческого кредита. Введите сумму, процентную ставку и срок, чтобы мгновенно получить ежемесячный платёж, общую сумму процентов и полный помесячный график погашения. Использует стандартную банковскую формулу амортизации.',
     lbl_amount:'Сумма кредита',lbl_rate:'Годовая процентная ставка %',lbl_years:'Срок погашения (лет)',
     lbl_monthly:'Ежемесячный платёж',lbl_total:'Итого выплачено',lbl_interest:'Итого процентов',
     lbl_mode:'Тип процентов',mode_compound:'Аннуитетный (убывающий остаток)',mode_flat:'Фиксированный (флэт-ставка)',
@@ -565,29 +593,48 @@ function calcLoan(){
   document.getElementById('monthlyPayment').textContent=fmt(monthly);
   document.getElementById('totalPaid').textContent=fmt(totalPaid);
   document.getElementById('totalInterest').textContent=fmt(totalPaid-amount);
+  if (typeof renderDonutChart === 'function') {
+    renderDonutChart('loanDonut', [
+      { label: document.getElementById('lbl-amount').textContent, value: amount, color: '#3b82f6' },
+      { label: document.getElementById('lbl-interest').textContent, value: totalPaid - amount, color: '#f87171' }
+    ]);
+  }
   resultDiv.style.display='block';
+  if (typeof preloadResultPdfLib === 'function') preloadResultPdfLib();
   buildAmortTable(amount,r,monthly,months,loanMode);
   amortSec.style.display='block';
 }
 
-function exportLoanResult(){
+function getLoanResultRows(){
   var monthly=document.getElementById('monthlyPayment').textContent;
-  if(!monthly)return;
+  if(!monthly)return null;
   var t=D();
   var amount=document.getElementById('amount').value;
   var rate=document.getElementById('rate').value;
   var years=document.getElementById('years').value;
   var modeLabel=loanMode==='flat'?t.mode_flat:t.mode_compound;
-  var rows=[
-    {label:t.lbl_amount,value:fmt(parseFloat(amount)||0)},
-    {label:t.lbl_rate,value:rate+'%'},
-    {label:t.lbl_years,value:years},
-    {label:t.lbl_mode,value:modeLabel},
-    {label:document.getElementById('lbl-total').textContent,value:document.getElementById('totalPaid').textContent},
-    {label:document.getElementById('lbl-interest').textContent,value:document.getElementById('totalInterest').textContent},
-    {label:document.getElementById('lbl-monthly').textContent,value:monthly,highlight:true}
-  ];
-  if(typeof exportResultImage==='function')exportResultImage(t.main_title,rows);
+  return {
+    title: t.main_title,
+    rows: [
+      {label:t.lbl_amount,value:fmt(parseFloat(amount)||0)},
+      {label:t.lbl_rate,value:rate+'%'},
+      {label:t.lbl_years,value:years},
+      {label:t.lbl_mode,value:modeLabel},
+      {label:document.getElementById('lbl-total').textContent,value:document.getElementById('totalPaid').textContent},
+      {label:document.getElementById('lbl-interest').textContent,value:document.getElementById('totalInterest').textContent},
+      {label:document.getElementById('lbl-monthly').textContent,value:monthly,highlight:true}
+    ]
+  };
+}
+function exportLoanResult(){
+  var r=getLoanResultRows();
+  if(!r)return;
+  if(typeof exportResultImage==='function')exportResultImage(r.title,r.rows);
+}
+function exportLoanResultPDF(){
+  var r=getLoanResultRows();
+  if(!r)return;
+  if(typeof exportResultPDF==='function')exportResultPDF(r.title,r.rows);
 }
 
 function buildAmortTable(amount,r,monthly,months,mode){
@@ -879,6 +926,7 @@ function updateLoanContent(){
   document.documentElement.dir=dir;
   document.getElementById('loan-main-title').textContent=t.main_title;
   document.getElementById('loan-main-sub').textContent=t.main_sub;
+  document.getElementById('loan-main-desc').textContent=t.main_desc;
   document.getElementById('lbl-amount').textContent=t.lbl_amount;
   document.getElementById('lbl-rate').textContent=t.lbl_rate;
   document.getElementById('lbl-years').textContent=t.lbl_years;
@@ -935,6 +983,7 @@ document.querySelectorAll('#langMenu a[data-lang]').forEach(function(a){
   a.addEventListener('click', function(){ setLang(a.dataset.lang); });
 });
 document.getElementById('loanExportBtn')?.addEventListener('click', exportLoanResult);
+document.getElementById('loanExportPdfBtn')?.addEventListener('click', exportLoanResultPDF);
 document.getElementById('amortCsvBtn')?.addEventListener('click', exportAmortCSV);
 document.getElementById('amortPdfBtn')?.addEventListener('click', exportAmortPDF);
 document.querySelectorAll('.faq-q').forEach(function(btn){
@@ -949,6 +998,6 @@ document.getElementById('amount').addEventListener('input', calcLoan);
 document.getElementById('rate').addEventListener('input', calcLoan);
 document.getElementById('years').addEventListener('input', calcLoan);
 </script>
-<script src="i18n-lang-ru.js?v=1" defer></script>
+<script src="i18n-lang-ru.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

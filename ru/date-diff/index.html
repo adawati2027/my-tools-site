@@ -2,9 +2,9 @@
 <html lang="ru" dir="ltr">
 <head>
 <meta charset="UTF-8">
+<base href="https://adawati.space/">
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-arabic.woff2" crossorigin>
-<base href="https://adawati.space/">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
@@ -86,7 +86,7 @@
     <h1 class="card-title" data-i18n="dd_card_title">Date Difference Calculator</h1>
     <div class="card-subtitle" data-i18n="dd_sub">Days, weeks, months and years between any two dates</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Free tool to calculate the exact difference between any two dates in days, weeks, months, years and approximate working days. Useful for calculating contract durations, leave periods and days remaining until an upcoming event.</p>
+    <p data-i18n="dd_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Free tool to calculate the exact difference between any two dates in days, weeks, months, years and approximate working days. Useful for calculating contract durations, leave periods and days remaining until an upcoming event.</p>
 
     <div class="row">
       <div>
@@ -524,6 +524,6 @@ document.addEventListener('DOMContentLoaded', function(){
 document.getElementById('dateFrom').addEventListener('change', function(){ activePreset = null; calculate(); });
 document.getElementById('dateTo').addEventListener('change', function(){ activePreset = null; calculate(); });
 </script>
-<script src="i18n-lang-ru.js?v=1" defer></script>
+<script src="i18n-lang-ru.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>

@@ -2,9 +2,9 @@
 <html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8">
+<base href="https://adawati.space/">
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-arabic.woff2" crossorigin>
-<base href="https://adawati.space/">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
@@ -135,7 +135,7 @@
     <h1 class="card-title" id="fcTitle">File Converter</h1>
     <div class="card-subtitle" id="fcSub">Convert between file formats — runs entirely in your browser</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Convert your files between formats directly in your browser — no server upload, no signup, no limits. Supports Word to PDF, Excel to CSV, PDF to text, and image formats. Max file size 50 MB.</p>
+    <p id="fcDesc" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Convert your files between formats directly in your browser — no server upload, no signup, no limits. Supports Word to PDF, Excel to CSV, PDF to text, and image formats. Max file size 50 MB.</p>
 
     <!-- STEP 1: Upload -->
     <div id="step1">
@@ -321,6 +321,7 @@
 /* ─── Translations ─── */
 const L = {
   ar:{title:'محوّل الملفات',sub:'حوّل بين صيغ الملفات المختلفة — يعمل في متصفحك بالكامل',
+    desc:'حوّل ملفاتك بين الصيغ مباشرةً في متصفحك — بدون رفع لأي خادم، بدون تسجيل، بدون حدود. يدعم تحويل Word إلى PDF، وExcel إلى CSV، وPDF إلى نص، وصيغ الصور. الحد الأقصى لحجم الملف 50 ميغابايت.',
     drop:'انقر هنا أو اسحب الملف',dropsub:'Word · Excel · PDF · CSV · TXT · صورة — حتى 50MB',
     step1:'الخطوة 1 — ارفع الملف',step2:'الخطوة 2 — اختر صيغة الإخراج',
     convert:'تحويل',back:'تغيير',another:'تحويل ملف آخر',
@@ -333,6 +334,7 @@ const L = {
     errDownload:'تعذّر حفظ الملف. جرّب مرة أخرى، أو اضغط مطولاً على زر التحميل واختر "حفظ" من القائمة.',
     reset:'✕'},
   en:{title:'File Converter',sub:'Convert between file formats — runs entirely in your browser',
+    desc:'Convert your files between formats directly in your browser — no server upload, no signup, no limits. Supports Word to PDF, Excel to CSV, PDF to text, and image formats. Max file size 50 MB.',
     drop:'Click here or drag your file',dropsub:'Word · Excel · PDF · CSV · TXT · Image — up to 50MB',
     step1:'Step 1 — Upload file',step2:'Step 2 — Choose output format',
     convert:'Convert',back:'Change',another:'Convert another file',
@@ -345,6 +347,7 @@ const L = {
     errDownload:'Could not save the file. Try again, or press and hold the download button and choose "Save".',
     reset:'✕'},
   fr:{title:'Convertisseur de fichiers',sub:'Convertissez entre formats — entièrement dans votre navigateur',
+    desc:'Convertissez vos fichiers entre différents formats directement dans votre navigateur — sans envoi vers un serveur, sans inscription, sans limites. Prend en charge Word vers PDF, Excel vers CSV, PDF vers texte, et les formats d\'image. Taille de fichier maximale : 50 Mo.',
     drop:'Cliquez ici ou glissez votre fichier',dropsub:'Word · Excel · PDF · CSV · TXT · Image — jusqu\'à 50MB',
     step1:'Étape 1 — Téléversez le fichier',step2:'Étape 2 — Choisissez le format de sortie',
     convert:'Convertir',back:'Changer',another:'Convertir un autre fichier',
@@ -357,6 +360,7 @@ const L = {
     errDownload:'Impossible d\'enregistrer le fichier. Réessayez, ou maintenez le bouton de téléchargement et choisissez "Enregistrer".',
     reset:'✕'},
   es:{title:'Conversor de archivos',sub:'Convierte entre formatos — funciona en tu navegador',
+    desc:'Convierte tus archivos entre formatos directamente en tu navegador — sin subir a ningún servidor, sin registro, sin límites. Admite conversión de Word a PDF, Excel a CSV, PDF a texto y formatos de imagen. Tamaño máximo de archivo: 50 MB.',
     drop:'Haz clic aquí o arrastra tu archivo',dropsub:'Word · Excel · PDF · CSV · TXT · Imagen — hasta 50MB',
     step1:'Paso 1 — Sube el archivo',step2:'Paso 2 — Elige el formato de salida',
     convert:'Convertir',back:'Cambiar',another:'Convertir otro archivo',
@@ -369,6 +373,7 @@ const L = {
     errDownload:'No se pudo guardar el archivo. Intenta de nuevo, o mantén presionado el botón de descarga y elige "Guardar".',
     reset:'✕'},
   de:{title:'Datei-Konverter',sub:'Zwischen Formaten konvertieren — läuft in Ihrem Browser',
+    desc:'Konvertieren Sie Ihre Dateien direkt im Browser zwischen Formaten — kein Server-Upload, keine Anmeldung, keine Beschränkungen. Unterstützt Word zu PDF, Excel zu CSV, PDF zu Text und Bildformate. Maximale Dateigröße 50 MB.',
     drop:'Hier klicken oder Datei ziehen',dropsub:'Word · Excel · PDF · CSV · TXT · Bild — bis 50MB',
     step1:'Schritt 1 — Datei hochladen',step2:'Schritt 2 — Ausgabeformat wählen',
     convert:'Konvertieren',back:'Ändern',another:'Weitere Datei konvertieren',
@@ -381,6 +386,7 @@ const L = {
     errDownload:'Datei konnte nicht gespeichert werden. Versuchen Sie es erneut, oder halten Sie den Download-Button gedrückt und wählen Sie "Speichern".',
     reset:'✕'},
   ru:{title:'Конвертер файлов',sub:'Конвертируйте между форматами — прямо в браузере',
+    desc:'Конвертируйте файлы между форматами прямо в браузере — без загрузки на сервер, без регистрации, без ограничений. Поддерживает конвертацию Word в PDF, Excel в CSV, PDF в текст и форматы изображений. Максимальный размер файла — 50 МБ.',
     drop:'Нажмите или перетащите файл',dropsub:'Word · Excel · PDF · CSV · TXT · Изображение — до 50MB',
     step1:'Шаг 1 — Загрузите файл',step2:'Шаг 2 — Выберите формат вывода',
     convert:'Конвертировать',back:'Изменить',another:'Конвертировать другой файл',
@@ -415,7 +421,7 @@ function t(k){return (L[lang]||L.ar)[k]||k;}
 function el(id){return document.getElementById(id);}
 
 function updateUI(){
-  el('fcTitle').textContent=t('title'); el('fcSub').textContent=t('sub');
+  el('fcTitle').textContent=t('title'); el('fcSub').textContent=t('sub'); el('fcDesc').textContent=t('desc');
   el('dropText').textContent=t('drop'); el('dropSub').textContent=t('dropsub');
   el('step1Lbl').textContent=t('step1'); el('step2Lbl').textContent=t('step2');
   el('convertBtnLbl').textContent=t('convert'); el('backBtnLbl').textContent=t('back');
@@ -1012,6 +1018,6 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('anotherBtn')?.addEventListener('click', convertAnother);
 });
 </script>
-<script src="i18n-lang-fr.js?v=1" defer></script>
+<script src="i18n-lang-fr.js?v=2" defer></script>
 <script src="i18n.js?v=47" defer></script>
 </body></html>
