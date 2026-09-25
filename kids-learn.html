@@ -365,8 +365,16 @@ if (window.speechSynthesis) {
   speechSynthesis.addEventListener('voiceschanged', function(){ speechSynthesis.getVoices(); });
 }
 
+let _lastSpeakText='', _lastSpeakAt=0;
+
 function speak(text){
   if(!window.speechSynthesis) return;
+  // Guard against the same word being spoken twice in quick succession —
+  // e.g. a double-tap, or a duplicate touch/click event pair on some
+  // devices — rather than trying to chase the exact trigger.
+  const now=Date.now();
+  if (text===_lastSpeakText && (now-_lastSpeakAt)<700) return;
+  _lastSpeakText=text; _lastSpeakAt=now;
   // Must run synchronously inside the tap handler — iOS Safari drops the
   // user-gesture association across a setTimeout/microtask boundary. Also
   // avoid calling cancel() when nothing is queued: doing so on every single
