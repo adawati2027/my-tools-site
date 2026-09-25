@@ -366,11 +366,11 @@ if (window.speechSynthesis) {
 }
 
 function speak(text){
-  const hint = document.getElementById('tapHint');
-  if(!window.speechSynthesis) {
-    if (hint) hint.textContent = 'DEBUG: no window.speechSynthesis on this browser';
-    return;
-  }
+  if(!window.speechSynthesis) return;
+  // Must run synchronously inside the tap handler — iOS Safari drops the
+  // user-gesture association across a setTimeout/microtask boundary. Also
+  // avoid calling cancel() when nothing is queued: doing so on every single
+  // tap is a known way to leave iOS's speech engine stuck silent.
   try { speechSynthesis.resume(); } catch(e) {}
   if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.cancel();
   const langCode=LANG_CODES[currentLang]||'ar-SA';
@@ -379,16 +379,6 @@ function speak(text){
   const voice=pickVoice(langCode);
   if (voice) u.voice=voice;
   u.rate=0.8;
-
-  // TEMPORARY on-screen diagnostics (2026-09-25): a code-level timing/gesture
-  // fix didn't resolve a reported silent-audio bug, so surface real state
-  // instead of guessing again. Remove once the root cause is confirmed.
-  const voiceCount = (speechSynthesis.getVoices()||[]).length;
-  if (hint) hint.textContent = 'DEBUG voices=' + voiceCount + ' voice=' + (voice ? voice.name : 'none') + ' lang=' + langCode;
-  u.onstart = function(){ if (hint) hint.textContent = 'DEBUG: onstart fired (should be speaking now)'; };
-  u.onend = function(){ if (hint) hint.textContent = 'DEBUG: onend fired ok, voices=' + voiceCount; };
-  u.onerror = function(e){ if (hint) hint.textContent = 'DEBUG ERROR: ' + (e && e.error ? e.error : 'unknown'); };
-
   speechSynthesis.speak(u);
 }
 
