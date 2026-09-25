@@ -50,9 +50,14 @@
 .learn-word{font-size:36px;font-weight:900;color:#0369a1;text-align:center;}
 .learn-color-circle{width:140px;height:140px;border-radius:50%;box-shadow:0 8px 24px rgba(0,0,0,.2);border:4px solid rgba(255,255,255,.6);}
 .tap-hint{font-size:13px;color:var(--text-muted);display:flex;align-items:center;gap:6px;}
-.nav-row{display:flex;gap:16px;align-items:center;justify-content:center;margin-top:8px;}
-.nav-btn{width:52px;height:52px;border-radius:50%;border:2px solid var(--border);background:var(--surface);font-size:22px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.progress-dots-row{display:flex;justify-content:center;margin-top:12px;}
+.nav-row{display:flex;gap:20px;align-items:center;justify-content:center;margin-top:12px;}
+.nav-btn{border-radius:50%;border:2px solid var(--border);background:var(--surface);cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .nav-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+#navPrevBtn{width:44px;height:44px;font-size:18px;color:var(--text-muted);}
+#navNextBtn{width:78px;height:78px;font-size:32px;font-weight:900;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;box-shadow:0 5px 16px rgba(37,99,235,0.4);}
+#navNextBtn:hover{background:linear-gradient(135deg,#2563eb,#7c3aed);transform:scale(1.06);}
+#navNextBtn:active{transform:scale(0.96);}
 .progress-dots{display:flex;gap:6px;}
 .prog-dot{width:10px;height:10px;border-radius:50%;background:var(--border);transition:background .2s;}
 .prog-dot.active{background:var(--primary);}
@@ -125,9 +130,11 @@
         <div class="learn-word" id="learnWord">واحد</div>
         <div class="tap-hint">🔊 <span id="tapHint">انقر لسماع الصوت</span></div>
       </div>
+      <div class="progress-dots-row">
+        <div class="progress-dots" id="progDots"></div>
+      </div>
       <div class="nav-row">
         <button class="nav-btn" id="navPrevBtn">›</button>
-        <div class="progress-dots" id="progDots"></div>
         <button class="nav-btn" id="navNextBtn">‹</button>
       </div>
     </div>
@@ -414,7 +421,7 @@ function renderLearn(){
 
 function navItem(dir){
   const len=getDataset().length;
-  currentIdx=(currentIdx-dir+len)%len;
+  currentIdx=(currentIdx+dir+len)%len;
   renderLearn();
 }
 
@@ -590,5 +597,5 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script src="i18n-lang-en.js?v=1" defer></script>
-<script src="i18n.js?v=45" defer></script>
+<script src="i18n.js?v=46" defer></script>
 </body></html>
