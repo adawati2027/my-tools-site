@@ -118,8 +118,11 @@
   </div>
 </footer>
 
+<script src="vendor/praytime-3.2.js"></script>
+<script src="prayer-calc.js?v=1"></script>
 <script>
 const CITY_NAMES_EN = {'Dubai':'Dubai','Abu%20Dhabi':'Abu Dhabi','Sharjah':'Sharjah','Al%20Ain':'Al Ain','Fujairah':'Fujairah'};
+const EN_MONTHS = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 function to12h(t) {
   if (!t) return '--';
@@ -155,15 +158,28 @@ function fetchTimes() {
       document.getElementById('timesGrid').style.display = 'grid';
     })
     .catch(function() {
-      document.getElementById('loadingMsg').style.display = 'none';
-      document.getElementById('errorMsg').style.display = 'block';
+      try {
+        const t = getLocalPrayerTimes('United Arab Emirates', city);
+        document.getElementById('t-Fajr').textContent = to12h(t.Fajr);
+        document.getElementById('t-Sunrise').textContent = to12h(t.Sunrise);
+        document.getElementById('t-Dhuhr').textContent = to12h(t.Dhuhr);
+        document.getElementById('t-Asr').textContent = to12h(t.Asr);
+        document.getElementById('t-Maghrib').textContent = to12h(t.Maghrib);
+        document.getElementById('t-Isha').textContent = to12h(t.Isha);
+        document.getElementById('dateSubtitle').textContent = "Today's times in " + (CITY_NAMES_EN[city] || city) + ' — ' + t.day + ' ' + EN_MONTHS[t.month] + ' ' + t.year + ' (calculated locally)';
+        document.getElementById('loadingMsg').style.display = 'none';
+        document.getElementById('timesGrid').style.display = 'grid';
+      } catch (e) {
+        document.getElementById('loadingMsg').style.display = 'none';
+        document.getElementById('errorMsg').style.display = 'block';
+      }
     });
 }
 
 fetchTimes();
 </script>
 <script src="i18n-lang-en.js?v=1" defer></script>
-<script src="i18n.js?v=45" defer></script>
+<script src="i18n.js?v=46" defer></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function(){

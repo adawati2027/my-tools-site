@@ -140,6 +140,8 @@
   </div>
 </footer>
 
+<script src="vendor/praytime-3.2.js"></script>
+<script src="prayer-calc.js?v=1"></script>
 <script>
 const CITY_NAMES_AR = {Amman:'عمّان',Irbid:'إربد',Zarqa:'الزرقاء',Aqaba:'العقبة','As-Salt':'السلط',Karak:'الكرك',Mafraq:'المفرق',Jerash:'جرش',Ajloun:'عجلون',Madaba:'مادبا',"Ma'an":'معان',Tafilah:'الطفيلة'};
 
@@ -179,15 +181,28 @@ function fetchTimes() {
       document.getElementById('timesGrid').style.display = 'grid';
     })
     .catch(function() {
-      document.getElementById('loadingMsg').style.display = 'none';
-      document.getElementById('errorMsg').style.display = 'block';
+      try {
+        const t = getLocalPrayerTimes('Jordan', city);
+        document.getElementById('t-Fajr').textContent = to12h(t.Fajr);
+        document.getElementById('t-Sunrise').textContent = to12h(t.Sunrise);
+        document.getElementById('t-Dhuhr').textContent = to12h(t.Dhuhr);
+        document.getElementById('t-Asr').textContent = to12h(t.Asr);
+        document.getElementById('t-Maghrib').textContent = to12h(t.Maghrib);
+        document.getElementById('t-Isha').textContent = to12h(t.Isha);
+        document.getElementById('dateSubtitle').textContent = 'مواقيت اليوم في ' + (CITY_NAMES_AR[city] || city) + ' — ' + t.day + ' ' + AR_MONTHS[t.month] + ' ' + t.year + ' (محسوبة محلياً)';
+        document.getElementById('loadingMsg').style.display = 'none';
+        document.getElementById('timesGrid').style.display = 'grid';
+      } catch (e) {
+        document.getElementById('loadingMsg').style.display = 'none';
+        document.getElementById('errorMsg').style.display = 'block';
+      }
     });
 }
 
 fetchTimes();
 </script>
 <script src="i18n-lang-ar.js?v=1" defer></script>
-<script src="i18n.js?v=45" defer></script>
+<script src="i18n.js?v=46" defer></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function(){
