@@ -414,10 +414,11 @@ function calculate() {
   const totalContrib = monthly * nM;
   const interestEarned = final - P - totalContrib;
 
-  document.getElementById('finalAmount').textContent = final.toFixed(2);
-  document.getElementById('principalDisplay').textContent = P.toFixed(2);
-  document.getElementById('interestEarned').textContent = interestEarned.toFixed(2);
-  document.getElementById('totalContrib').textContent = totalContrib.toFixed(2);
+  const fmt2 = n => n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  document.getElementById('finalAmount').textContent = fmt2(final);
+  document.getElementById('principalDisplay').textContent = fmt2(P);
+  document.getElementById('interestEarned').textContent = fmt2(interestEarned);
+  document.getElementById('totalContrib').textContent = fmt2(totalContrib);
 
   const barP = (P / final) * 100;
   const barC = (totalContrib / final) * 100;
@@ -592,5 +593,5 @@ document.getElementById('freq').addEventListener('change', calculate);
 document.getElementById('monthly').addEventListener('input', calculate);
 </script>
 <script src="i18n-lang-en.js?v=1" defer></script>
-<script src="i18n.js?v=45" defer></script>
+<script src="i18n.js?v=46" defer></script>
 </body></html>

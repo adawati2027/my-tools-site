@@ -1,7 +1,7 @@
 window.T = window.T || {};
 window.T.de = {
     nav_home:'Startseite', nav_about:'Über uns', nav_contact:'Kontakt',
-    back:'← Zurück zur Startseite', footer_about:'Über uns', footer_contact:'Kontakt',
+    back:'← Zurück zur Startseite', footer_about:'Über uns', footer_contact:'Kontakt', footer_privacy:'Datenschutz', footer_terms:'AGB',
     footer_copy:'© 2026 Adawati — Kostenlose Tools; die meisten laufen lokal in Ihrem Browser',
     hero_title:'Kostenlose Online-Tools zum Berechnen, Konvertieren und Produktivsein',
     hero_sub:'Schnelle und genaue Tools, die direkt in Ihrem Browser funktionieren — ohne Registrierung, 100% kostenlos',

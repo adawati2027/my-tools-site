@@ -2001,6 +2001,7 @@ function initOfflineBanner() {
 
 function _initAfterLangReady() {
   initDarkMode();
+  initBottomNav();
   setLang(_initLang);
   updateAuthBtn();
   injectDarkToggle();
@@ -2015,7 +2016,6 @@ function _initAfterLangReady() {
   initHomePrompt();
   injectPageFavStar();
   fixBackLink();
-  initBottomNav();
   initOfflineBanner();
   if (document.getElementById('toolsGrid')) {
     renderFavSection();

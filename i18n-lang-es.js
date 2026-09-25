@@ -1,7 +1,7 @@
 window.T = window.T || {};
 window.T.es = {
     nav_home:'Inicio', nav_about:'Sobre nosotros', nav_contact:'Contacto',
-    back:'← Volver al inicio', footer_about:'Sobre nosotros', footer_contact:'Contacto',
+    back:'← Volver al inicio', footer_about:'Sobre nosotros', footer_contact:'Contacto', footer_privacy:'Privacidad', footer_terms:'Términos',
     footer_copy:'© 2026 Adawati — Herramientas gratuitas; la mayoría funciona en tu navegador',
     hero_title:'Herramientas gratuitas en línea para calcular, convertir y ser productivo',
     hero_sub:'Herramientas rápidas y precisas que funcionan en tu navegador — sin registro, 100% gratuito',
