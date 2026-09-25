@@ -358,16 +358,27 @@ function pickVoice(langCode){
   } catch(e) { return null; }
 }
 
+// iOS Safari's speech-synthesis voice list loads asynchronously and is often
+// still empty on the very first tap; warm it up as early as possible.
+if (window.speechSynthesis) {
+  speechSynthesis.getVoices();
+  speechSynthesis.addEventListener('voiceschanged', function(){ speechSynthesis.getVoices(); });
+}
+
 function speak(text){
   if(!window.speechSynthesis) return;
   speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
   const langCode=LANG_CODES[currentLang]||'ar-SA';
-  u.lang=langCode;
-  const voice=pickVoice(langCode);
-  if (voice) u.voice=voice;
-  u.rate=0.8;
-  speechSynthesis.speak(u);
+  // iOS Safari silently drops an utterance queued in the same tick as
+  // cancel(); a short delay before speak() is the standard workaround.
+  setTimeout(function(){
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang=langCode;
+    const voice=pickVoice(langCode);
+    if (voice) u.voice=voice;
+    u.rate=0.8;
+    speechSynthesis.speak(u);
+  }, 60);
 }
 
 function setMode(mode){
