@@ -672,6 +672,10 @@ function filterTools() {
   const isOman = activeCat === 'oman' && !q;
   const pop = document.getElementById('popularSection');
   if (pop) pop.style.display = isAll ? '' : 'none';
+  const daily = document.getElementById('dailySection');
+  if (daily) daily.style.display = activeCat === 'all' ? '' : 'none';
+  const decisions = document.getElementById('decisionsSection');
+  if (decisions) decisions.style.display = activeCat === 'all' ? '' : 'none';
   const country = document.getElementById('countrySection');
   if (country) {
     const hasCards = document.querySelectorAll('#countryGrid .tool-card').length > 0;
@@ -827,7 +831,7 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script src="../i18n-lang-ar.js?v=1" defer></script>
-<script src="../i18n.js?v=45" defer></script>
+<script src="../i18n.js?v=46" defer></script>
 <script>
 (function(){
   var _orig=window.setLang;
