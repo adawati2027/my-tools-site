@@ -64,6 +64,7 @@ const countryTools = [
   `${BASE}/jo/calculators/rent-vs-buy/`,
   `${BASE}/jo/calculators/zakat/`,
   `${BASE}/jo/calculators/wedding-cost/`,
+  `${BASE}/jo/games/`,
   `${BASE}/jo/games/jordan-quiz/`,
   `${BASE}/jo/games/world-sports-quiz/`,
   `${BASE}/jo/games/world-football-quiz/`,
