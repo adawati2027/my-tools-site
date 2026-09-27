@@ -778,7 +778,7 @@ function pickQuestions() {
   });
 }
 
-const QUESTION_SECONDS = 10;
+const QUESTION_SECONDS = QUIZ_CONFIG.questionSeconds || 10;
 let timerInterval = null;
 
 function clearQuestionTimer() {
