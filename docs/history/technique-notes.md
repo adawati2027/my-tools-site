@@ -16,3 +16,11 @@ This session had no CDP/browser-automation tool (confirmed via repeated `ToolSea
 
 **Real mistake made while doing this, worth flagging so it isn't repeated**: killed Chrome afterward with `taskkill /F /IM chrome.exe` — this kills **every** `chrome.exe` process system-wide, including the user's own actual browser windows/tabs, not just the isolated headless test instance. Got lucky this time (user confirmed no actual work was lost). **If this technique is reused, kill only the specific PID(s) actually launched for the test** (capture the PID when starting the background process, e.g. via `$!` in bash or `Start-Process ... -PassThru` in PowerShell), never a blanket `taskkill /IM chrome.exe`.
 
+## `WebFetch` "can't parse binary content" is not a dead end — read the saved file directly, 2026-09-27
+
+Discovered while researching real Jordanian university tuition data for `jo/students/masters-guide/`: when a `WebFetch` target is a PDF or image, its own small internal model very often responds "I'm unable to extract this, the content appears to be corrupted/binary data" — but the tool **still downloads the raw file to a local path** and states that path in the same result ("Binary content (application/pdf, 22.6KB) also saved to ..."). That saved file is a completely normal, valid PDF/image — WebFetch's own text-conversion step just can't read it, not because the fetch failed.
+
+**Fix: pass that saved file path straight to the `Read` tool.** `Read` is multimodal and parses PDFs and images natively (tables, embedded text, everything), unlike WebFetch's HTML-to-markdown pipeline. This single move turned several apparent dead ends into real data: a university's official credit-hour-fee PDF and a fee-brochure image both "failed" under WebFetch's own prompt-answering step, then read out cleanly (full tables, exact JOD figures) via `Read` on the saved file.
+
+**Lesson: never conclude a WebFetch target is unreadable just because its answer says so — check whether the result also says "also saved to [path]", and if so, `Read` that path before giving up or trying a different URL.** This applies to any binary asset (PDF, PNG, JPG) encountered via WebFetch, not just this one project.
+

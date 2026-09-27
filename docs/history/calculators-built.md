@@ -154,3 +154,16 @@ Cross-linked both directions: `jo/index.html` (2 spots — the education tools-g
 
 **This is explicitly phase 1 of an ongoing project**, communicated to the user as such rather than presented as finished: the 8 remaining universities from the phase-1 list are named on-page as not-yet-added, and further sessions should keep expanding coverage university by university (check this page's own inline source comment for which URLs were already tried and what worked/didn't, before re-attempting a university from scratch).
 
+### Follow-up same day: user pushback ("بس 2 جامعه وما في اسعار") → 116 programs, 5 universities, real prices
+
+User immediately pushed back on phase 1 as too thin ("ضعيف جدا المحتوى" — the content is very weak). Rather than defending the phase-1 framing, went back to research with a technique correction: **`WebFetch`'s own text-extraction step frequently fails on PDFs and images ("corrupted/binary data, can't parse") — but it still downloads the raw file to a local path and reports it in the tool result.** Reading that saved file directly with the `Read` tool (which is multimodal and handles PDF/image natively, unlike WebFetch's markdown-conversion pipeline) unlocked several official fee documents that had looked like dead ends:
+- GJU's own credit-hour-fee PDF (`credit_hour_fees_for_masterss_degree_programs_in_jod.pdf`) — 14 real majors, 120-250 JOD/credit hour.
+- Hashemite University's official fee PDF (`pic.hu.edu.jo/Upload/.../Offered majors and credit hour fees...master2.pdf`) — a genuinely complete 5-page table, 37 programs across 13 colleges, 60-125 JOD/hour (Jordanian-student rate) — by far the richest single source found.
+- PSUT's `admission-platform` page fee table (plain HTML, no PDF workaround needed) — 12 of 14 programs with exact credit hours (33/34) and 150 JOD/hour; 2 (Engineering Management, EMBA) explicitly show no fee on the university's own page, left null rather than guessed.
+- Al-Balqa Applied University's `Degrees.aspx` page — 25 programs directly in HTML, 60-125 JOD/hour, 33-36 credit hours.
+- JUST's `fees.aspx` — grouped-by-department data, expanded into ~26 individual specialization rows using the exact per-department figures given; a couple of programs the page only described as "similar range 60-200 JOD" with no exact number were deliberately left out rather than assigned a guessed price.
+
+Net result: **116 programs across 5 universities, 114 with real verified credit-hour fees** (up from 25 programs / 2 universities / 0 prices). Added a `faculty` field for Hashemite's entries (its fee table was organized by college, so this was free to capture). Updated the "جامعات بنشتغل على إضافتها" on-page list to drop the now-added universities, keeping اليرموك، مؤتة، الزيتونة، البترا، العلوم التطبيقية (one attempt at Zaytoonah hit a Cloudflare 522, not a hard block — worth a plain retry next time, not written off like `ju.edu.jo`'s WAF block). Re-verified via CDP after the rebuild: 116/116 cards render, filters still narrow correctly, 0 exceptions.
+
+**Lesson for future WebFetch use on this project**: never treat a WebFetch "I can't parse this binary/corrupted content" response as a dead end by itself — check whether the result also says "also saved to [path]" and read that file directly first.
+
