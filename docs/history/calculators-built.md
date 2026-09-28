@@ -233,3 +233,9 @@ Implementation: `programCard(p, idx)` now takes an index into the currently-rend
 
 Verified via CDP: monkey-patched `window.exportResultImage` to capture calls, clicked the export button in both Jordan mode and online mode, confirmed correct rows (including the right label — "المدينة" vs "الدولة" — and correct price/URL text) for one card of each, 0 console exceptions. Mobile screenshot confirmed the button renders cleanly next to the existing "official page" link. Pushed via the targeted `push-files.js` script (single file) after a full-repo `push-to-github.js` push attempt hit GitHub's secondary rate limit partway through blobbing 801 files — the targeted script is the right tool for a single-file change like this one.
 
+### Same-day bug fix: specGroup pill + "in-scope only" checkbox silently produced 0 results
+
+User sent phone screenshots (online mode, "قانون" specialization pill checked together with the "بس البرامج ضمن نطاق معادلة التعلّم عن بعد" checkbox) showing "0 برنامج مطابق" with no explanation. Root cause: the in-scope-only filter only ever allows `specGroup === 'humanities'` through, so combining it with ANY other specGroup pill (law, computing, business, etc.) is a logical contradiction that always yields zero — confirmed by reproducing the exact combination live before touching any code.
+
+Fixed by making the two controls mutually exclusive instead of silently deadlocking: checking a non-humanities specGroup pill while "in-scope only" is active now auto-unchecks the in-scope filter; checking "in-scope only" while a non-humanities pill is active now auto-unchecks that pill. Whichever the user touches last wins, and results are never silently empty because of an invisible filter conflict. Verified via CDP both directions (law-then-scope → scope auto-clears, law pill stays checked, 42 real law programs shown; scope-then-law → law pill auto-clears, scope stays checked, 44 humanities programs shown), 0 console exceptions.
+
