@@ -217,3 +217,9 @@ Used this to make the disclaimer much sharper: the top banner now quotes the exa
 
 Re-verified via CDP after all changes: 391/391 still render, price coverage 203/391, the one verified hours entry shows 30, Purdue split confirmed (6 premium @ 485 / 18 standard @ 420), scope-warning badge renders on non-humanities cards, 0 exceptions.
 
+### Same-day follow-up: "in-scope only" filter + more IT programs
+
+User asked for a filter checkbox to show only programs actually within the verified equivalency scope (humanities/social science), plus more Information Technology programs. Added `onlyInScope` state + a green checkbox (`#onlineScopeFilterWrap`, shown only in online mode, resets when switching modes) filtering to `specGroup === 'humanities'` — verified via CDP it narrows exactly to 44 and every resulting card is actually `data-group="humanities"`.
+
+Then found 11 more real IT-focused programs via 3 more `distancelearningportal.com` computer-science-it pages (pages 4-6): Information Systems (Michigan-Dearborn, Colorado Denver), Networking & Systems Administration (Charles Sturt), Computer Science with Software Engineering (Gloucestershire), Artificial Intelligence (Liverpool Online, Illinois Institute of Technology), Information Technology (La Trobe Online), Health Informatics (Liberty), Computer Science (York), Information Systems & Technology (Michigan-Dearborn, a second distinct program), Applied Analytics (Columbia). **ONLINE_PROGRAMS now at 402, 94 universities.** Re-verified via CDP: count updates correctly in both the raw array and the coverage banner, 0 exceptions.
+

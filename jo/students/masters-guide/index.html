@@ -89,6 +89,12 @@
       <label>مجموعة التخصص</label>
       <div id="specGroupWrap" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;"></div>
     </div>
+    <div id="onlineScopeFilterWrap" style="display:none;margin-top:14px;">
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;cursor:pointer;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;padding:9px 12px;">
+        <input type="checkbox" id="onlyInScope" style="width:auto;">
+        ✅ بس البرامج ضمن نطاق معادلة التعلّم عن بعد بالأردن (علوم إنسانية واجتماعية فقط)
+      </label>
+    </div>
     <div class="row" style="margin-top:14px;gap:14px;">
       <div style="flex:1;"><label>معدلك التراكمي (اختياري)</label><input type="number" id="mgGpa" inputmode="decimal" min="0" max="4.2" step="0.01" placeholder="مثال: 3.10"></div>
       <div style="flex:1;"><label id="mgCityLabel">المدينة</label><select id="mgCity"><option value="">الكل</option></select></div>
@@ -952,6 +958,18 @@ const ONLINE_PROGRAMS = [
   {university:"Bangor University",universityType:"خاصة",country:"المملكة المتحدة",specialization:"ماجستير الغابات (تعلم عن بعد)",specGroup:"science",programMode:"أونلاين بالكامل",creditHours:null,tuitionTotal:null,tuitionCurrency:null,minGpa:null,acceptedBachelors:[],officialUrl:"https://www.distancelearningportal.com/search/distance-learning/agriculture-forestry",lastVerified:"2026-09-28"},
   {university:"Bangor University",universityType:"خاصة",country:"المملكة المتحدة",specialization:"ماجستير الغابات الاستوائية",specGroup:"science",programMode:"أونلاين بالكامل",creditHours:null,tuitionTotal:null,tuitionCurrency:null,minGpa:null,acceptedBachelors:[],officialUrl:"https://www.distancelearningportal.com/search/distance-learning/agriculture-forestry",lastVerified:"2026-09-28"},
   {university:"LUT University",universityType:"خاصة",country:"فنلندا",specialization:"ماجستير تكنولوجيا تصنيع الأغذية",specGroup:"science",programMode:"أونلاين بالكامل",creditHours:null,tuitionTotal:null,tuitionCurrency:null,minGpa:null,acceptedBachelors:[],officialUrl:"https://www.distancelearningportal.com/search/distance-learning/agriculture-forestry",lastVerified:"2026-09-28"}
+,
+  {university:"University of Michigan - Dearborn",universityType:"حكومية",country:"الولايات المتحدة",specialization:"ماجستير نظم المعلومات (Information Systems)",specGroup:"computing",programMode:"أونلاين بالكامل",creditHours:null,tuitionPerHour:null,minGpa:null,acceptedBachelors:[],officialUrl:"https://www.distancelearningportal.com/search/distance-learning/computer-science-it",lastVerified:"2026-09-28"},
+  {university:"University of Colorado Denver",universityType:"حكومية",country:"الولايات المتحدة",specialization:"ماجستير نظم المعلومات (Information Systems)",specGroup:"computing",programMode:"أونلاين بالكامل",creditHours:null,tuitionPerHour:null,minGpa:null,acceptedBachelors:[],officialUrl:"https://www.distancelearningportal.com/search/distance-learning/computer-science-it",lastVerified:"2026-09-28"},
+  {university:"Charles Sturt University",universityType:"خاصة",country:"أستراليا",specialization:"ماجستير الشبكات وإدارة الأنظمة (Networking & Systems Administration)",specGroup:"computing",programMode:"أونلاين بالكامل",creditHours:null,tuitionPerHour:null,minGpa:null,acceptedBachelors:[],officialUrl:"https://www.distancelearningportal.com/search/distance-learning/computer-science-it",lastVerified:"2026-09-28"},
+  {university:"University of Gloucestershire",universityType:"خاصة",country:"المملكة المتحدة",specialization:"ماجستير علم الحاسوب وهندسة البرمجيات (Computer Science with Software Engineering)",specGroup:"computing",programMode:"أونلاين بالكامل",creditHours:null,tuitionPerHour:null,minGpa:null,acceptedBachelors:[],officialUrl:"https://www.distancelearningportal.com/search/distance-learning/computer-science-it",lastVerified:"2026-09-28"},
+  {university:"University of Liverpool Online",universityType:"خاصة",country:"المملكة المتحدة",specialization:"ماجستير الذكاء الاصطناعي (Artificial Intelligence)",specGroup:"computing",programMode:"أونلاين بالكامل",creditHours:null,tuitionPerHour:null,minGpa:null,acceptedBachelors:[],officialUrl:"https://www.distancelearningportal.com/search/distance-learning/computer-science-it",lastVerified:"2026-09-28"},
+  {university:"La Trobe University Online",universityType:"خاصة",country:"أستراليا",specialization:"ماجستير تقنية المعلومات (Information Technology)",specGroup:"computing",programMode:"أونلاين بالكامل",creditHours:null,tuitionPerHour:null,minGpa:null,acceptedBachelors:[],officialUrl:"https://www.distancelearningportal.com/search/distance-learning/computer-science-it",lastVerified:"2026-09-28"},
+  {university:"Liberty University",universityType:"خاصة",country:"الولايات المتحدة",specialization:"ماجستير المعلوماتية الصحية (Health Informatics)",specGroup:"health",programMode:"أونلاين بالكامل",creditHours:null,tuitionPerHour:null,minGpa:null,acceptedBachelors:[],officialUrl:"https://www.distancelearningportal.com/search/distance-learning/computer-science-it",lastVerified:"2026-09-28"},
+  {university:"University of York",universityType:"خاصة",country:"المملكة المتحدة",specialization:"ماجستير علم الحاسوب (Computer Science)",specGroup:"computing",programMode:"أونلاين بالكامل",creditHours:null,tuitionPerHour:null,minGpa:null,acceptedBachelors:[],officialUrl:"https://www.distancelearningportal.com/search/distance-learning/computer-science-it",lastVerified:"2026-09-28"},
+  {university:"Illinois Institute of Technology",universityType:"خاصة",country:"الولايات المتحدة",specialization:"ماجستير الذكاء الاصطناعي (STEM)",specGroup:"computing",programMode:"أونلاين بالكامل",creditHours:null,tuitionPerHour:null,minGpa:null,acceptedBachelors:[],officialUrl:"https://www.distancelearningportal.com/search/distance-learning/computer-science-it",lastVerified:"2026-09-28"},
+  {university:"University of Michigan - Dearborn",universityType:"حكومية",country:"الولايات المتحدة",specialization:"ماجستير نظم وتقنية المعلومات (Information Systems & Technology)",specGroup:"computing",programMode:"أونلاين بالكامل",creditHours:null,tuitionPerHour:null,minGpa:null,acceptedBachelors:[],officialUrl:"https://www.distancelearningportal.com/search/distance-learning/computer-science-it",lastVerified:"2026-09-28"},
+  {university:"Columbia University - School of Professional Studies",universityType:"خاصة",country:"الولايات المتحدة",specialization:"ماجستير التحليلات التطبيقية (Applied Analytics)",specGroup:"computing",programMode:"أونلاين بالكامل",creditHours:null,tuitionPerHour:null,minGpa:null,acceptedBachelors:[],officialUrl:"https://www.distancelearningportal.com/search/distance-learning/computer-science-it",lastVerified:"2026-09-28"}
 ];
 
 const SPEC_GROUPS = [
@@ -968,6 +986,7 @@ const SPEC_GROUPS = [
 let activeType = "all";
 let activeGroups = new Set();
 let DATA_MODE = "jo";
+let onlyInScope = false;
 
 function getActiveData() { return DATA_MODE === 'online' ? ONLINE_PROGRAMS : MASTERS_PROGRAMS; }
 
@@ -985,6 +1004,8 @@ function updateModeUI() {
   document.getElementById('jordanAdmissionNote').style.display = DATA_MODE === 'online' ? 'none' : 'block';
   document.getElementById('mgCityLabel').textContent = DATA_MODE === 'online' ? 'الدولة' : 'المدينة';
   document.getElementById('mgSearch').placeholder = DATA_MODE === 'online' ? 'مثال: حاسوب، MBA، أريزونا...' : 'مثال: محاسبة، حوسبة، الألمانية الأردنية...';
+  document.getElementById('onlineScopeFilterWrap').style.display = DATA_MODE === 'online' ? 'block' : 'none';
+  if (DATA_MODE !== 'online') { onlyInScope = false; document.getElementById('onlyInScope').checked = false; }
 
   const places = Array.from(new Set(data.map(function(p){ return p.country || p.city; }))).sort();
   const citySelect = document.getElementById('mgCity');
@@ -1044,6 +1065,7 @@ function render() {
   const filtered = getActiveData().filter(function(p) {
     if (activeType !== 'all' && p.universityType !== activeType) return false;
     if (activeGroups.size > 0 && !activeGroups.has(p.specGroup)) return false;
+    if (onlyInScope && p.specGroup !== 'humanities') return false;
     if (city && (p.country || p.city) !== city) return false;
     if (hasGpa && p.minGpa !== null && gpaInput < p.minGpa) return false;
     if (q) {
@@ -1098,10 +1120,13 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('mgSearch').addEventListener('input', render);
   document.getElementById('mgGpa').addEventListener('input', render);
   document.getElementById('mgCity').addEventListener('change', render);
+  document.getElementById('onlyInScope').addEventListener('change', function(e){ onlyInScope = e.target.checked; render(); });
 
   document.getElementById('mgReset').addEventListener('click', function(){
     activeType = 'all';
     activeGroups.clear();
+    onlyInScope = false;
+    document.getElementById('onlyInScope').checked = false;
     document.querySelectorAll('.option-btn[data-type]').forEach(function(b){ b.classList.toggle('active', b.dataset.type === 'all'); });
     document.querySelectorAll('.spec-pill').forEach(function(p){ p.classList.remove('active'); p.querySelector('input').checked = false; });
     document.getElementById('mgSearch').value = '';
