@@ -987,6 +987,7 @@ let activeType = "all";
 let activeGroups = new Set();
 let DATA_MODE = "jo";
 let onlyInScope = false;
+let lastFiltered = [];
 
 function getActiveData() { return DATA_MODE === 'online' ? ONLINE_PROGRAMS : MASTERS_PROGRAMS; }
 
@@ -1022,7 +1023,38 @@ function updateModeUI() {
     : '📊 قاعدة بيانات قيد التوسّع — حالياً ' + data.length + ' برنامج من ' + uniCount + ' جامعة، وبنكمل نزيد عليها باستمرار.';
 }
 
-function programCard(p) {
+function programPriceText(p) {
+  if (p.tuitionTotal) {
+    return (p.tuitionCurrency === 'USD' ? '$' : (p.tuitionCurrency || '')) + p.tuitionTotal.toLocaleString('en-US') + ' (تقديري لكامل البرنامج)';
+  } else if (p.tuitionPerHour && p.country) {
+    const unit = p.intlCurrency === 'USD' ? '$' : (p.intlCurrency || '');
+    return unit + p.tuitionPerHour + '/ساعة معتمدة (تقريبي، حسب سعر الصرف)';
+  } else if (p.tuitionPerHour) {
+    const intlUnit = p.intlCurrency === 'USD' ? '$' : 'د.أ';
+    return p.tuitionPerHour + ' د.أ/ساعة' + (p.tuitionPerHourIntl ? ' — غير أردني: ' + p.tuitionPerHourIntl + ' ' + intlUnit : '');
+  }
+  return 'راجع الجامعة';
+}
+
+function exportProgramImage(idx) {
+  const p = lastFiltered[idx];
+  if (!p) return;
+  const rows = [
+    { label: 'التخصص', value: p.specialization, highlight: true },
+    { label: 'الجامعة', value: p.university },
+    { label: p.country ? 'الدولة' : 'المدينة', value: p.country || p.city },
+    { label: 'نوع الجامعة', value: p.universityType },
+    { label: 'عدد الساعات', value: p.creditHours ? (p.creditHours + ' ساعة معتمدة') : 'راجع الجامعة' },
+    { label: 'الرسوم', value: programPriceText(p) },
+    { label: 'الحد الأدنى للمعدل', value: p.minGpa ? String(p.minGpa) : 'غير محدد' }
+  ];
+  if (p.officialUrl) {
+    rows.push({ label: 'الرابط الرسمي', value: p.officialUrl.replace(/^https?:\/\//, '') });
+  }
+  exportResultImage('دليل الماجستير — أدواتي', rows);
+}
+
+function programCard(p, idx) {
   const typeBadgeClass = p.universityType === 'حكومية' ? 'type-gov' : 'type-priv';
   const hoursHtml = p.creditHours ? p.creditHours + ' ساعة معتمدة' : '<span class="mg-badge unknown">ساعات البرنامج: راجع الجامعة</span>';
   const intlUnit = p.intlCurrency === 'USD' ? '$' : 'د.أ';
@@ -1052,7 +1084,10 @@ function programCard(p) {
       '<span>' + hoursHtml + '</span><span>' + priceHtml + '</span><span>' + gpaHtml + '</span>' +
     '</div>' +
     scopeWarning +
-    (p.officialUrl ? '<a href="' + p.officialUrl + '" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;padding:7px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:700;">🔗 صفحة البرنامج الرسمية</a>' : '') +
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">' +
+      (p.officialUrl ? '<a href="' + p.officialUrl + '" target="_blank" rel="noopener" style="display:inline-block;padding:7px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:700;">🔗 صفحة البرنامج الرسمية</a>' : '') +
+      '<button type="button" class="mg-export-btn" data-export-idx="' + idx + '" style="padding:7px 14px;background:var(--surface-2);color:var(--text);border:2px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">🖼️ شارك كصورة</button>' +
+    '</div>' +
   '</div>';
 }
 
@@ -1075,8 +1110,9 @@ function render() {
     return true;
   });
 
+  lastFiltered = filtered;
   document.getElementById('mgCount').textContent = filtered.length + ' برنامج مطابق';
-  document.getElementById('mgResults').innerHTML = filtered.map(programCard).join('');
+  document.getElementById('mgResults').innerHTML = filtered.map(function(p, idx){ return programCard(p, idx); }).join('');
   document.getElementById('mgEmpty').style.display = filtered.length === 0 ? 'block' : 'none';
 }
 
@@ -1121,6 +1157,12 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('mgGpa').addEventListener('input', render);
   document.getElementById('mgCity').addEventListener('change', render);
   document.getElementById('onlyInScope').addEventListener('change', function(e){ onlyInScope = e.target.checked; render(); });
+
+  document.getElementById('mgResults').addEventListener('click', function(e){
+    const btn = e.target.closest('.mg-export-btn');
+    if (!btn) return;
+    exportProgramImage(parseInt(btn.dataset.exportIdx, 10));
+  });
 
   document.getElementById('mgReset').addEventListener('click', function(){
     activeType = 'all';
