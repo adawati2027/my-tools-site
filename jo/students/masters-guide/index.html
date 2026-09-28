@@ -1148,7 +1148,15 @@ document.addEventListener('DOMContentLoaded', function(){
     const cb = e.target;
     if (!cb.matches('input[type="checkbox"]')) return;
     const pill = cb.closest('.spec-pill');
-    if (cb.checked) { activeGroups.add(cb.value); pill.classList.add('active'); }
+    if (cb.checked) {
+      activeGroups.add(cb.value);
+      pill.classList.add('active');
+      if (onlyInScope && cb.value !== 'humanities') {
+        onlyInScope = false;
+        const scopeCb = document.getElementById('onlyInScope');
+        if (scopeCb) scopeCb.checked = false;
+      }
+    }
     else { activeGroups.delete(cb.value); pill.classList.remove('active'); }
     render();
   });
@@ -1156,7 +1164,20 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('mgSearch').addEventListener('input', render);
   document.getElementById('mgGpa').addEventListener('input', render);
   document.getElementById('mgCity').addEventListener('change', render);
-  document.getElementById('onlyInScope').addEventListener('change', function(e){ onlyInScope = e.target.checked; render(); });
+  document.getElementById('onlyInScope').addEventListener('change', function(e){
+    onlyInScope = e.target.checked;
+    if (onlyInScope) {
+      document.querySelectorAll('.spec-pill').forEach(function(p){
+        const input = p.querySelector('input');
+        if (input.value !== 'humanities' && input.checked) {
+          input.checked = false;
+          p.classList.remove('active');
+          activeGroups.delete(input.value);
+        }
+      });
+    }
+    render();
+  });
 
   document.getElementById('mgResults').addEventListener('click', function(e){
     const btn = e.target.closest('.mg-export-btn');
