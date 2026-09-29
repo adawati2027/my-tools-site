@@ -83,6 +83,8 @@ const countryTools = [
   `${BASE}/jo/games/wordle/`,
   `${BASE}/jo/gold-price/`,
   `${BASE}/jo/students/scholarships-loans/`,
+  `${BASE}/jo/students/masters-guide/`,
+  `${BASE}/jo/students/bachelor-guide/`,
   `${BASE}/jo/students/best-tools/`,
   `${BASE}/om/gold-price/`,
   `${BASE}/om/weather/`,
