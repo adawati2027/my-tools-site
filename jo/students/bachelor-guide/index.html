@@ -90,6 +90,17 @@
       <div style="flex:1;"><label>معدل التوجيهي (اختياري)</label><input type="number" id="bgAvg" inputmode="decimal" min="0" max="100" step="0.1" placeholder="مثال: 85"></div>
       <div style="flex:1;"><label>المدينة</label><select id="bgCity"><option value="">الكل</option></select></div>
     </div>
+    <div style="margin-top:14px;">
+      <label>الترتيب</label>
+      <select id="bgSort">
+        <option value="default">الافتراضي</option>
+        <option value="avg-asc">المعدل (من الأقل)</option>
+        <option value="avg-desc">المعدل (من الأعلى)</option>
+        <option value="price-asc">سعر الساعة (من الأقل)</option>
+        <option value="price-desc">سعر الساعة (من الأعلى)</option>
+        <option value="uni-asc">اسم الجامعة (أ-ي)</option>
+      </select>
+    </div>
     <button type="button" id="bgReset" style="margin-top:14px;padding:9px 16px;border:2px solid var(--border);background:var(--surface-2);color:var(--text-muted);border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;">↺ مسح كل الفلاتر</button>
   </div>
 
@@ -582,9 +593,16 @@ function initFilters() {
   document.getElementById('coverageBanner').textContent = '📊 قاعدة بيانات قيد التوسّع — حالياً ' + BACHELOR_PROGRAMS.length + ' تخصص من ' + uniCount + ' جامعة، وبنكمل نزيد عليها باستمرار.';
 }
 
+function feeFieldsHtml(p) {
+  let html = '';
+  if (p.tuitionPerHour) html += '<span>' + p.tuitionPerHour + ' د.أ/ساعة</span>';
+  if (p.creditHours) html += '<span>' + p.creditHours + ' ساعة معتمدة</span>';
+  return html;
+}
+
 function minimumsHtml(p) {
   if (p.minAvgSingle != null) {
-    return '<span>الحد الأدنى: ' + p.minAvgSingle + '</span>';
+    return '<span>الحد الأدنى: ' + p.minAvgSingle + '</span>' + feeFieldsHtml(p);
   }
   const compHtml = p.minAvgCompetitive != null
     ? ('تنافسي: ' + p.minAvgCompetitive)
@@ -592,7 +610,7 @@ function minimumsHtml(p) {
   const parHtml = p.minAvgParallel != null
     ? ('موازي: ' + p.minAvgParallel)
     : '<span class="bg-badge unknown">موازي: راجع الجامعة</span>';
-  return '<span>' + compHtml + '</span><span>' + parHtml + '</span>';
+  return '<span>' + compHtml + '</span><span>' + parHtml + '</span>' + feeFieldsHtml(p);
 }
 
 function computeVerdict(p, avg) {
@@ -632,6 +650,7 @@ function exportProgramImage(idx) {
     rows.push({ label: 'الحد الأدنى (موازي)', value: p.minAvgParallel != null ? String(p.minAvgParallel) : 'راجع الجامعة' });
   }
   if (p.tuitionPerHour) rows.push({ label: 'سعر الساعة المعتمدة', value: p.tuitionPerHour + ' د.أ' });
+  if (p.creditHours) rows.push({ label: 'عدد الساعات الكلية', value: String(p.creditHours) });
   if (p.officialUrl) rows.push({ label: 'المصدر الرسمي', value: p.officialUrl.replace(/^https?:\/\//, '') });
   exportResultImage('دليل قبول البكالوريوس — أدواتي', rows);
 }
@@ -652,6 +671,7 @@ function programCard(p, idx) {
     '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--text-muted);">' +
       minimumsHtml(p) +
     '</div>' +
+    (p.minAvgSingle != null ? '<div style="margin-top:6px;font-size:11px;color:var(--text-muted);">ℹ️ الجامعات الخاصة بتحط حد أدنى واحد بدون تمييز تنافسي/موازي</div>' : '') +
     verdict +
     '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">' +
       (p.officialUrl ? '<a href="' + p.officialUrl + '" target="_blank" rel="noopener" style="display:inline-block;padding:7px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:700;">🔗 المصدر الرسمي</a>' : '') +
@@ -660,11 +680,34 @@ function programCard(p, idx) {
   '</div>';
 }
 
+function effectiveAvg(p) {
+  return p.minAvgSingle != null ? p.minAvgSingle : (p.minAvgCompetitive != null ? p.minAvgCompetitive : null);
+}
+
+function sortPrograms(list, mode) {
+  const withVal = function(val, dir) { return val == null ? Infinity : val * dir; };
+  switch (mode) {
+    case 'avg-asc':
+      return list.slice().sort(function(a,b){ return withVal(effectiveAvg(a),1) - withVal(effectiveAvg(b),1); });
+    case 'avg-desc':
+      return list.slice().sort(function(a,b){ return withVal(effectiveAvg(a),-1) - withVal(effectiveAvg(b),-1); });
+    case 'price-asc':
+      return list.slice().sort(function(a,b){ return withVal(a.tuitionPerHour,1) - withVal(b.tuitionPerHour,1); });
+    case 'price-desc':
+      return list.slice().sort(function(a,b){ return withVal(a.tuitionPerHour,-1) - withVal(b.tuitionPerHour,-1); });
+    case 'uni-asc':
+      return list.slice().sort(function(a,b){ return a.university.localeCompare(b.university, 'ar'); });
+    default:
+      return list;
+  }
+}
+
 function render() {
   const q = document.getElementById('bgSearch').value.trim().toLowerCase();
   const city = document.getElementById('bgCity').value;
+  const sortMode = document.getElementById('bgSort').value;
 
-  const filtered = BACHELOR_PROGRAMS.filter(function(p) {
+  let filtered = BACHELOR_PROGRAMS.filter(function(p) {
     if (activeType !== 'all' && p.universityType !== activeType) return false;
     if (activeGroups.size > 0 && !activeGroups.has(p.specGroup)) return false;
     if (city && p.city !== city) return false;
@@ -674,6 +717,8 @@ function render() {
     }
     return true;
   });
+
+  filtered = sortPrograms(filtered, sortMode);
 
   lastFiltered = filtered;
   document.getElementById('bgCount').textContent = filtered.length + ' تخصص مطابق';
@@ -705,6 +750,7 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('bgSearch').addEventListener('input', render);
   document.getElementById('bgAvg').addEventListener('input', render);
   document.getElementById('bgCity').addEventListener('change', render);
+  document.getElementById('bgSort').addEventListener('change', render);
 
   document.getElementById('bgReset').addEventListener('click', function(){
     activeType = 'all';
@@ -714,6 +760,7 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('bgSearch').value = '';
     document.getElementById('bgAvg').value = '';
     document.getElementById('bgCity').value = '';
+    document.getElementById('bgSort').value = 'default';
     render();
   });
 
