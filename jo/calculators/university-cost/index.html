@@ -40,7 +40,8 @@
 {"@type":"WebApplication","name":"حاسبة تكلفة الجامعة الكاملة","url":"https://adawati.space/jo/calculators/university-cost/","description":"احسب التكلفة الكاملة المتوقعة لدرجة جامعية حسب سعر الساعة المعتمدة وعدد الساعات ومصاريف المواصلات والسكن والكتب.","applicationCategory":"EducationApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}},
 {"@type":"FAQPage","mainEntity":[
 {"@type":"Question","name":"كيف بعرف سعر الساعة المعتمدة لتخصصي؟","acceptedAnswer":{"@type":"Answer","text":"سعر الساعة المعتمدة يختلف كثيراً حسب الجامعة (حكومية أو خاصة) والتخصص (الطبي والهندسي عادة أغلى من الإنساني). راجع الموقع الرسمي لجامعتك أو دائرة القبول الموحد للرقم الدقيق."}},
-{"@type":"Question","name":"شو المصاريف اللي لازم أضيفها غير الرسوم الدراسية؟","acceptedAnswer":{"@type":"Answer","text":"المواصلات، السكن (إذا كانت الجامعة بمدينة ثانية)، الكتب والقرطاسية، ورسوم التسجيل الفصلية. هاي المصاريف مجتمعة ممكن تشكل جزء كبير من التكلفة الكلية بالإضافة للرسوم الدراسية نفسها."}}
+{"@type":"Question","name":"شو المصاريف اللي لازم أضيفها غير الرسوم الدراسية؟","acceptedAnswer":{"@type":"Answer","text":"المواصلات، السكن (إذا كانت الجامعة بمدينة ثانية)، الكتب والقرطاسية، ورسوم التسجيل الفصلية. هاي المصاريف مجتمعة ممكن تشكل جزء كبير من التكلفة الكلية بالإضافة للرسوم الدراسية نفسها."}},
+{"@type":"Question","name":"شو الفرق بين البرنامج العادي والموازي؟","acceptedAnswer":{"@type":"Answer","text":"بالجامعات الحكومية الأردنية، البرنامج العادي مدعوم جزئياً والقبول فيه تنافسي حسب معدل التوجيهي عبر وحدة التنسيق الموحد، بينما البرنامج الموازي (الذاتي) رسومه أعلى بشكل ملحوظ مقابل معدل قبول أخف. الفرق بالسعر بين البرنامجين يختلف من جامعة لثانية ومن تخصص لثاني، فلازم تتأكد من سعر ساعة الموازي تحديداً من الجامعة نفسها ولا تفترض إنه نفس سعر العادي."}}
 ]}
 ]}
 </script>
@@ -64,6 +65,13 @@
     <div class="card-subtitle">كم بتكلفك درجتك الجامعية من الألف للياء؟</div>
     <div class="divider"></div>
     <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:14px;">💡 سعر الساعة المعتمدة وعدد الساعات المطلوبة يختلفان كثيراً بين الجامعات والتخصصات — تأكد من الرقم الدقيق من الجامعة نفسها وأدخله هون.</p>
+
+    <label style="display:block;margin-bottom:6px;">نوع البرنامج</label>
+    <div class="option-toggle" id="programTrackToggle" style="margin-bottom:14px;">
+      <button type="button" class="option-btn active" data-track="regular">🎓 عادي</button>
+      <button type="button" class="option-btn" data-track="parallel">💰 موازي</button>
+    </div>
+    <div id="parallelHint" style="display:none;font-size:12px;color:#92400e;background:#fef3c7;border-radius:8px;padding:8px 10px;margin-bottom:14px;line-height:1.6;">⚠️ سعر الساعة بالبرنامج الموازي أعلى بشكل ملحوظ من العادي بنفس الجامعة والتخصص (بس الفرق مختلف من جامعة لثانية) — تأكد تاخذ سعر الساعة الخاص بالموازي تحديداً من الجامعة، مش سعر العادي.</div>
 
     <div class="row">
       <div><label>سعر الساعة المعتمدة (دينار)</label><input type="number" inputmode="decimal" id="hourPrice" placeholder="مثال: 25" min="0" step="any"></div>
@@ -111,6 +119,10 @@
       <summary style="font-weight:700;cursor:pointer;font-size:14px;">شو المصاريف اللي لازم أضيفها غير الرسوم الدراسية؟</summary>
       <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">المواصلات، السكن (إذا كانت الجامعة بمدينة ثانية)، الكتب والقرطاسية، ورسوم التسجيل الفصلية. هاي المصاريف مجتمعة ممكن تشكل جزء كبير من التكلفة الكلية بالإضافة للرسوم الدراسية نفسها.</p>
     </details>
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">شو الفرق بين البرنامج العادي والموازي؟</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">بالجامعات الحكومية الأردنية، البرنامج العادي مدعوم جزئياً والقبول فيه تنافسي حسب معدل التوجيهي عبر وحدة التنسيق الموحد، بينما البرنامج الموازي (الذاتي) رسومه أعلى بشكل ملحوظ مقابل معدل قبول أخف. الفرق بالسعر بين البرنامجين يختلف من جامعة لثانية ومن تخصص لثاني، فلازم تتأكد من سعر ساعة الموازي تحديداً من الجامعة نفسها ولا تفترض إنه نفس سعر العادي.</p>
+    </details>
   </div>
 
   <div style="margin-top:16px;text-align:center;">
@@ -142,6 +154,8 @@
 </footer>
 
 <script>
+let programTrack = 'regular';
+
 function calc() {
   const hourPrice = parseFloat(document.getElementById('hourPrice').value) || 0;
   const totalHours = parseFloat(document.getElementById('totalHours').value) || 0;
@@ -165,6 +179,7 @@ function calc() {
 function exportUniCostResult() {
   const val = function(id) { return document.getElementById(id).value || '0'; };
   const rows = [
+    { label: 'نوع البرنامج', value: programTrack === 'parallel' ? 'موازي' : 'عادي' },
     { label: 'سعر الساعة المعتمدة', value: val('hourPrice') + ' د.أ' },
     { label: 'عدد الساعات الكلية', value: val('totalHours') },
     { label: 'المدة المتوقعة للتخرج', value: val('years') + ' سنوات' },
@@ -182,6 +197,16 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById(id).addEventListener('input', calc);
   });
   document.getElementById('uniCostExportBtn')?.addEventListener('click', exportUniCostResult);
+
+  document.getElementById('programTrackToggle').addEventListener('click', function(e) {
+    const btn = e.target.closest('.option-btn[data-track]');
+    if (!btn) return;
+    programTrack = btn.dataset.track;
+    document.querySelectorAll('#programTrackToggle .option-btn').forEach(function(b) {
+      b.classList.toggle('active', b === btn);
+    });
+    document.getElementById('parallelHint').style.display = programTrack === 'parallel' ? 'block' : 'none';
+  });
 });
 </script>
 <script src="i18n-lang-ar.js?v=2" defer></script>
