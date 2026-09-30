@@ -9,21 +9,6 @@
   } catch (e) {}
 })();
 
-// iOS/WKWebView gets stuck zoomed in after focusing a text input inside the
-// native app (a known WKWebView bug — font-size:16px on inputs reduces how
-// often it triggers but doesn't eliminate it). Lock the viewport scale so
-// iOS never zooms at all. Only runs inside the Capacitor app (window.Capacitor
-// is injected by the native shell) — the public website keeps normal
-// pinch-zoom for accessibility.
-(function() {
-  try {
-    if (window.Capacitor) {
-      var vp = document.querySelector('meta[name="viewport"]');
-      if (vp) vp.setAttribute('content', 'width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no');
-    }
-  } catch (e) {}
-})();
-
 var T = window.T = window.T || {};
 var I18N_BASE = (function() {
   try {
