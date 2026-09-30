@@ -9,6 +9,21 @@
   } catch (e) {}
 })();
 
+// iOS/WKWebView gets stuck zoomed in after focusing a text input inside the
+// native app (a known WKWebView bug — font-size:16px on inputs reduces how
+// often it triggers but doesn't eliminate it). Lock the viewport scale so
+// iOS never zooms at all. Only runs inside the Capacitor app (window.Capacitor
+// is injected by the native shell) — the public website keeps normal
+// pinch-zoom for accessibility.
+(function() {
+  try {
+    if (window.Capacitor) {
+      var vp = document.querySelector('meta[name="viewport"]');
+      if (vp) vp.setAttribute('content', 'width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no');
+    }
+  } catch (e) {}
+})();
+
 var T = window.T = window.T || {};
 var I18N_BASE = (function() {
   try {
@@ -1826,6 +1841,18 @@ async function initCountryDetect() {
       } catch(e) {}
     }
     if (code) sessionStorage.setItem('adawati_country', code);
+  }
+  // Native app cold start: land the user on their own country hub instead of
+  // the global English homepage. Web visitors are never redirected this way —
+  // this only runs inside the Capacitor WebView (window.Capacitor is injected
+  // by the native shell, undefined in a normal browser).
+  if (window.Capacitor && code) {
+    var _appHubMap = {OM:'om/', SA:'sa/', JO:'jo/', AE:'ae/', US:'us/', GB:'uk/'};
+    if (_appHubMap[code]) {
+      var _base = location.pathname.includes('/my-tools-site') ? '/my-tools-site' : '';
+      location.replace(_base + '/' + _appHubMap[code]);
+      return;
+    }
   }
   if (code && COUNTRY_DATA[code]) renderCountrySection(code);
 }
