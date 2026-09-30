@@ -9,6 +9,21 @@
   } catch (e) {}
 })();
 
+// iOS/WKWebView gets stuck zoomed in after focusing a text input inside the
+// native app (a known WKWebView bug). Lock the viewport scale so iOS never
+// zooms at all. Only runs inside the Capacitor app — the public website
+// keeps normal pinch-zoom for accessibility. Game pages don't load i18n.js
+// (see quiz-engine.js's other top-of-file duplication), so this has to be
+// duplicated here too rather than relying on i18n.js's copy.
+(function() {
+  try {
+    if (window.Capacitor) {
+      var vp = document.querySelector('meta[name="viewport"]');
+      if (vp) vp.setAttribute('content', 'width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no');
+    }
+  } catch (e) {}
+})();
+
 firebase.initializeApp({
   apiKey: "AIzaSyAO8ZKfiaKlqTIw8xUfEp5xHFy0ilBztKQ",
   authDomain: "adawati-challenges.firebaseapp.com",
