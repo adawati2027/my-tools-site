@@ -1816,15 +1816,23 @@ async function initCountryDetect() {
   // Use sessionStorage so country detection is fresh each browser session
   let code = sessionStorage.getItem('adawati_country');
   if (!code) {
-    code = detectCountryFromLang();
-    if (!code) {
-      // Try free IP API as fallback (no key needed)
+    async function _tryIpLookup() {
       try {
         const r = await fetch('https://api.country.is/');
         const d = await r.json();
-        code = d.country || null;
-      } catch(e) {}
+        return d.country || null;
+      } catch(e) { return null; }
     }
+    // Native app: prefer real IP-based location over the device's display
+    // language. A phone set to generic "English" often reports navigator.language
+    // as en-GB regardless of where the user actually is, which was sending every
+    // app user to the UK hub on first launch — IP is a far more reliable signal
+    // for "what country is this person actually in" than their UI language choice.
+    if (window.Capacitor) {
+      code = await _tryIpLookup();
+    }
+    if (!code) code = detectCountryFromLang();
+    if (!code) code = await _tryIpLookup();
     if (code) sessionStorage.setItem('adawati_country', code);
   }
   // Native app cold start: land the user on their own country hub instead of
