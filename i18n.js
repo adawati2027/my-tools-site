@@ -1318,7 +1318,7 @@ function _showImagePreviewOverlay(dataUrl) {
   img.src = dataUrl;
   img.style.cssText = 'max-width:100%;max-height:70vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.5);';
   const hint = document.createElement('div');
-  hint.textContent = isAr ? '📌 اضغط مطولاً على الصورة ثم اختر "حفظ الصورة"' : '📌 Press and hold the image, then choose "Save image"';
+  hint.textContent = isAr ? '📸 خذ لقطة شاشة للصورة (زر الصوت + زر التشغيل) لحفظها' : '📸 Take a screenshot (volume + power button) to save this image';
   hint.style.cssText = 'color:#fff;margin-top:18px;font-size:15px;text-align:center;max-width:320px;line-height:1.6;';
   const closeBtn = document.createElement('button');
   closeBtn.textContent = isAr ? '✕ إغلاق' : '✕ Close';
