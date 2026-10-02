@@ -1301,31 +1301,48 @@ function buildResultCanvas(titleText, rows, embedCanvas) {
   return canvas;
 }
 
+function _dataURLtoBlob(dataUrl) {
+  const parts = dataUrl.split(',');
+  const mime = parts[0].match(/:(.*?);/)[1];
+  const binary = atob(parts[1]);
+  const arr = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) arr[i] = binary.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+
 function exportResultImage(titleText, rows, embedCanvas) {
   const canvas = buildResultCanvas(titleText, rows, embedCanvas);
-  canvas.toBlob(function(blob) {
-    if (!blob) return;
-    if (typeof gtag === 'function') gtag('event', 'export_result', { tool_name: titleText });
-    const file = new File([blob], 'adawati-result.png', { type: 'image/png' });
-    // A PNG's own pixels can never be a clickable link — this is a real
-    // format limitation, not something fixable in the image itself. The
-    // closest real equivalent: pass the page's own URL as accompanying
-    // share text, since apps like WhatsApp/Messages/Mail auto-linkify a
-    // URL in that text field, so it IS tappable once actually shared —
-    // just not by tapping on the image pixels themselves.
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      navigator.share({ files: [file], title: titleText, text: location.href }).catch(function() {});
-    } else {
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'adawati-result.png';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(function() { URL.revokeObjectURL(url); }, 4000);
-    }
-  }, 'image/png');
+  // toDataURL is synchronous, unlike toBlob — calling navigator.share() from
+  // inside toBlob's async callback loses the click's transient user-activation
+  // in stricter WebViews (the Android app), so share() silently rejected via
+  // the old swallowed .catch(()=>{}) and the button looked dead on tap.
+  const blob = _dataURLtoBlob(canvas.toDataURL('image/png'));
+  if (typeof gtag === 'function') gtag('event', 'export_result', { tool_name: titleText });
+  const file = new File([blob], 'adawati-result.png', { type: 'image/png' });
+  function fallbackDownload() {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'adawati-result.png';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function() { URL.revokeObjectURL(url); }, 4000);
+  }
+  // A PNG's own pixels can never be a clickable link — this is a real
+  // format limitation, not something fixable in the image itself. The
+  // closest real equivalent: pass the page's own URL as accompanying
+  // share text, since apps like WhatsApp/Messages/Mail auto-linkify a
+  // URL in that text field, so it IS tappable once actually shared —
+  // just not by tapping on the image pixels themselves.
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    navigator.share({ files: [file], title: titleText, text: location.href }).catch(function(e) {
+      if (e && e.name === 'AbortError') return; // user cancelled the share sheet, not a failure
+      fallbackDownload();
+    });
+  } else {
+    fallbackDownload();
+  }
 }
 
 /* ── Shared result PDF export ──
