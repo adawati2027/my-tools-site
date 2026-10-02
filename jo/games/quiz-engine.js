@@ -687,7 +687,34 @@ function dataURLtoBlob(dataUrl) {
   return new Blob([arr], { type: mime });
 }
 
-function downloadCanvasImage(blob) {
+function showImagePreviewOverlay(dataUrl) {
+  const isAr = quizLang !== 'en';
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;';
+  const img = document.createElement('img');
+  img.src = dataUrl;
+  img.style.cssText = 'max-width:100%;max-height:70vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.5);';
+  const hint = document.createElement('div');
+  hint.textContent = isAr ? '📌 اضغط مطولاً على الصورة ثم اختر "حفظ الصورة"' : '📌 Press and hold the image, then choose "Save image"';
+  hint.style.cssText = 'color:#fff;margin-top:18px;font-size:15px;text-align:center;max-width:320px;line-height:1.6;';
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = isAr ? '✕ إغلاق' : '✕ Close';
+  closeBtn.style.cssText = 'margin-top:22px;padding:10px 28px;background:#fff;color:#111;border:none;border-radius:999px;font-weight:700;font-size:14px;cursor:pointer;';
+  closeBtn.onclick = function() { overlay.remove(); };
+  overlay.appendChild(img);
+  overlay.appendChild(hint);
+  overlay.appendChild(closeBtn);
+  document.body.appendChild(overlay);
+}
+
+function downloadCanvasImage(blob, dataUrl) {
+  // A blob: <a download> click is reliably a silent no-op inside the Android
+  // app's bare WebView (no DownloadListener registered on the native side to
+  // catch it) even though it works fine in real browsers — so inside the app,
+  // show the image instead and let the user save it via the WebView's own
+  // native long-press "Save image" context menu, which doesn't depend on any
+  // JS download/share bridge at all.
+  if (window.Capacitor) { showImagePreviewOverlay(dataUrl); return; }
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
@@ -712,16 +739,17 @@ function shareResult() {
     // inside toBlob's async callback loses the click's transient user-activation
     // in the Android app's WebView (stricter than mobile browsers), so share()
     // silently rejects and the old swallowed .catch(()=>{}) looked like a dead button.
-    const blob = dataURLtoBlob(canvas.toDataURL('image/png'));
+    const dataUrl = canvas.toDataURL('image/png');
+    const blob = dataURLtoBlob(dataUrl);
     const file = new File([blob], 'adawati-result.png', { type: 'image/png' });
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
       navigator.share({ files: [file], title: qShareTitle(), text: text + ' ' + url }).catch(function(err) {
         if (err && err.name === 'AbortError') return;
-        downloadCanvasImage(blob);
+        downloadCanvasImage(blob, dataUrl);
       });
       return;
     }
-    downloadCanvasImage(blob);
+    downloadCanvasImage(blob, dataUrl);
     return;
   } catch (e) { /* fall through to text-only share below */ }
   shareResultTextOnly(text, url);
