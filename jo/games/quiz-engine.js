@@ -678,6 +678,26 @@ function buildResultShareCanvas() {
   return canvas;
 }
 
+function dataURLtoBlob(dataUrl) {
+  const parts = dataUrl.split(',');
+  const mime = parts[0].match(/:(.*?);/)[1];
+  const binary = atob(parts[1]);
+  const arr = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) arr[i] = binary.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+
+function downloadCanvasImage(blob) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'adawati-result.png';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+}
+
 function shareResult() {
   const pct = Math.round((score / activeQuestions.length) * 100);
   let text = qResultText(score, activeQuestions.length, pct);
@@ -688,16 +708,20 @@ function shareResult() {
 
   try {
     const canvas = buildResultShareCanvas();
-    canvas.toBlob(function(blob) {
-      if (blob) {
-        const file = new File([blob], 'adawati-result.png', { type: 'image/png' });
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          navigator.share({ files: [file], title: qShareTitle(), text: text + ' ' + url }).catch(function() {});
-          return;
-        }
-      }
-      shareResultTextOnly(text, url);
-    });
+    // toDataURL is synchronous, unlike toBlob — calling navigator.share() from
+    // inside toBlob's async callback loses the click's transient user-activation
+    // in the Android app's WebView (stricter than mobile browsers), so share()
+    // silently rejects and the old swallowed .catch(()=>{}) looked like a dead button.
+    const blob = dataURLtoBlob(canvas.toDataURL('image/png'));
+    const file = new File([blob], 'adawati-result.png', { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: qShareTitle(), text: text + ' ' + url }).catch(function(err) {
+        if (err && err.name === 'AbortError') return;
+        downloadCanvasImage(blob);
+      });
+      return;
+    }
+    downloadCanvasImage(blob);
     return;
   } catch (e) { /* fall through to text-only share below */ }
   shareResultTextOnly(text, url);
