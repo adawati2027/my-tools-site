@@ -44,7 +44,7 @@
 ]}
 ]}
 </script>
-<link rel="stylesheet" href="../../../style.css?v=3">
+<link rel="stylesheet" href="../../../style.css?v=4">
 </head>
 <body>
 <nav class="navbar"><div class="nav-container">
@@ -166,9 +166,9 @@ function calc() {
   const totalInterest = totalPaid - loan;
 
   document.getElementById('monthlyPayment').textContent = monthlyPayment.toFixed(3) + ' د.أ';
-  document.getElementById('loanAmount').textContent = loan.toFixed(3);
-  document.getElementById('totalInterest').textContent = totalInterest.toFixed(3);
-  document.getElementById('totalPaid').textContent = totalPaid.toFixed(3);
+  document.getElementById('loanAmount').textContent = loan.toLocaleString('en-US', { maximumFractionDigits: 0 });
+  document.getElementById('totalInterest').textContent = totalInterest.toLocaleString('en-US', { maximumFractionDigits: 0 });
+  document.getElementById('totalPaid').textContent = totalPaid.toLocaleString('en-US', { maximumFractionDigits: 0 });
 
   let verdict = '';
   if (rent > 0) {
