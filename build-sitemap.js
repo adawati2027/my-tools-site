@@ -67,6 +67,7 @@ const countryTools = [
   `${BASE}/jo/games/`,
   `${BASE}/jo/games/jordan-quiz/`,
   `${BASE}/om/games/oman-quiz/`,
+  `${BASE}/sa/games/saudi-quiz/`,
   `${BASE}/jo/games/world-sports-quiz/`,
   `${BASE}/jo/games/world-football-quiz/`,
   `${BASE}/jo/games/songs-quiz/`,

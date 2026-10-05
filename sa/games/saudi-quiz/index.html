@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link rel="preload" as="font" type="font/woff2" href="../../../fonts/cairo-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../../../fonts/cairo-arabic.woff2" crossorigin>
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>شو بتعرف عن السعودية؟ — تحدي 200 سؤال | Adawati</title>
+<meta name="description" content="تحدّى نفسك وأصحابك: 200 سؤال عن السعودية بثلاث مستويات (سهل، متوسط، صعب) — التاريخ، الجغرافيا، المعالم، الثقافة والرياضة. 12 سؤال عشوائي في كل تحدي.">
+<meta name="keywords" content="اسئلة عن السعودية, مسابقة عن السعودية, كويز السعودية, معلومات عن السعودية, Saudi Arabia trivia quiz">>
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/sa/games/saudi-quiz/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/sa/games/saudi-quiz/">
+<link rel="alternate" hreflang="ar-SA" href="https://adawati.space/sa/games/saudi-quiz/">
+<meta property="og:title" content="شو بتعرف عن السعودية؟ | Adawati">
+<meta property="og:description" content="تحدّى أصحابك بـ200 سؤال عن السعودية بثلاث مستويات.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/sa/games/saudi-quiz/">
+<meta property="og:image" content="https://adawati.space/og/sa.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="شو بتعرف عن السعودية؟ | Adawati">
+<meta name="twitter:description" content="تحدّى أصحابك بـ200 سؤال عن السعودية بثلاث مستويات.">
+<meta name="twitter:image" content="https://adawati.space/og/sa.jpg">
+<link rel="stylesheet" href="../../../style.css?v=3">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="sa/" class="nav-brand">Adawati 🇸🇦</a>
+  <div class="nav-links">
+    <a href="sa/">أدوات السعودية</a>
+    <a href="index.html" data-qt="nav_global">عالمي</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="sa/" data-i18n="back">← العودة للرئيسية</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#dcfce7;">🇸🇦</div>
+    <h1 class="card-title" data-en="How Well Do You Know Saudi Arabia?">شو بتعرف عن السعودية؟</h1>
+    <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div id="quizArabicNote" style="font-size:12px;color:var(--text-muted);margin-top:2px;"></div>
+    <div class="divider"></div>
+
+    <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;" data-qt="challenge_start_title">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;" data-qt="challenge_start_subtitle">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">اختار المستوى:</div>
+      <div id="difficultySelectArea" style="display:none;gap:8px;flex-wrap:wrap;margin-bottom:10px;"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="creatorNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;font-size:16px;border:1px solid var(--border);border-radius:8px;">
+        <button id="createChallengeBtn" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_challenge_btn">ابدأ تحدي</button>
+      </div>
+    </div>
+
+    <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
+      <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <input id="joinerNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;font-size:16px;border:1px solid var(--border);border-radius:8px;">
+        <button id="joinChallengeBtn" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="accept_btn">قبول التحدي ✅</button>
+      </div>
+    </div>
+
+    <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div style="font-weight:700;" data-qt="joiner_waiting">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+    </div>
+
+    <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:8px;" data-qt="challenge_ready">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareWaitingLinkBtn" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
+      </div>
+      <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
+        <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
+        <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
+        <button id="creatorStartBtn" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_playing_btn">ابدأ اللعب 🚀</button>
+      </div>
+    </div>
+
+    <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;" data-qt="active_link_label">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareActiveLinkBtn" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
+      </div>
+    </div>
+
+    <div id="quizArea">
+      <div id="questionText" style="font-size:17px;font-weight:700;margin-bottom:16px;"></div>
+      <div id="optionsArea" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="resultArea" style="display:none;text-align:center;">
+      <div style="font-size:48px;margin-bottom:8px;" id="resultEmoji"></div>
+      <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
+      <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button id="shareResultBtn" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="share_result_btn">📤 شارك نتيجتك</button>
+        <button id="restartBtn" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="try_again_btn">🔄 جرّب مرة ثانية</button>
+      </div>
+
+      <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;" data-qt="share_challenge_title">📤 شارك التحدي مع أصحابك</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+          <button id="shareLinkBtn" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+          <button id="copyLinkBtn" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
+        </div>
+      </div>
+
+      <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;" data-qt="leaderboard_title">🏆 لوحة الترتيب</div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;" data-qt="leaderboard_name">الاسم</th><th style="padding:6px;text-align:right;" data-qt="leaderboard_score">النتيجة</th></tr></thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>أدوات السعودية والكويزات الأخرى:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="sa/vat-calculator/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧾 حاسبة الضريبة</a>
+      <a href="sa/prayer-times/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🕌 مواقيت الصلاة</a>
+      <a href="sa/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب</a>
+      <a href="sa/fuel-prices/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⛽ أسعار الوقود</a>
+      <a href="sa/holidays/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">📅 العطل الرسمية</a>
+      <a href="om/games/oman-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇴🇲 شو بتعرف عن عُمان؟</a>
+      <a href="jo/games/geography-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌍 كويز الجغرافيا العالمية</a>
+      <a href="jo/games/islamic-history-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">☪️ كويز التاريخ الإسلامي</a>
+      <a href="jo/games/general-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌐 كويز المعلومات العامة</a>
+      <a href="sa/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇸🇦 كل أدوات السعودية</a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html" data-qt="nav_about">من نحن</a><a href="contact.html" data-qt="nav_contact">تواصل</a><a href="sa/">أدوات السعودية</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" integrity="sha384-+65NgAKqXr1Nb7sBmV6O09pL8ASqZsi29OE718meKinGAWaa70VE5V6LNjXVBjIA" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" integrity="sha384-YHSscHG455M7b+d6r5ibTMznxrZxV272bMjXT9ndTgmx05fLR7HsdmcVklhpBSyt" crossorigin="anonymous"></script>
+<script>
+const QUESTIONS = [
+  {q:'ما هي عاصمة المملكة العربية السعودية؟', opts:['الرياض','جدة','مكة المكرمة','الدمام'], correct:0, difficulty:'easy'},
+  {q:'ما هي عملة السعودية؟', opts:['الريال السعودي','الدينار السعودي','الدرهم السعودي','الجنيه السعودي'], correct:0, difficulty:'easy'},
+  {q:'من هو ملك السعودية الحالي؟', opts:['الملك سلمان بن عبدالعزيز','الملك عبدالله بن عبدالعزيز','الملك فهد بن عبدالعزيز','الملك فيصل بن عبدالعزيز'], correct:0, difficulty:'easy'},
+  {q:'من هو ولي العهد السعودي الحالي؟', opts:['الأمير محمد بن سلمان','الأمير محمد بن نايف','الأمير مقرن بن عبدالعزيز','الأمير سلطان بن عبدالعزيز'], correct:0, difficulty:'easy'},
+  {q:'من هو مؤسس المملكة العربية السعودية الحديثة؟', opts:['الملك عبدالعزيز آل سعود','الملك سعود','الملك فيصل','الإمام تركي بن عبدالله'], correct:0, difficulty:'easy'},
+  {q:'متى يُحتفل باليوم الوطني السعودي؟', opts:['23 سبتمبر','22 فبراير','2 ديسمبر','18 نوفمبر'], correct:0, difficulty:'easy'},
+  {q:'متى يُحتفل بيوم التأسيس السعودي؟', opts:['22 فبراير','23 سبتمبر','1 يناير','15 مارس'], correct:0, difficulty:'easy'},
+  {q:'ما هو لون علم السعودية؟', opts:['الأخضر','الأحمر','الأزرق','الأسود'], correct:0, difficulty:'easy'},
+  {q:'ماذا يوجد تحت الشهادة على علم السعودية؟', opts:['سيف','نخلة','نجمة','هلال'], correct:0, difficulty:'easy'},
+  {q:'ما هو شعار السعودية؟', opts:['نخلة وسيفان متقاطعان','صقر ذهبي','هلال ونجمة','جمل وخنجر'], correct:0, difficulty:'easy'},
+  {q:'في أي مدينة يقع المسجد الحرام؟', opts:['مكة المكرمة','المدينة المنورة','جدة','الطائف'], correct:0, difficulty:'easy'},
+  {q:'في أي مدينة يقع المسجد النبوي؟', opts:['المدينة المنورة','مكة المكرمة','الرياض','تبوك'], correct:0, difficulty:'easy'},
+  {q:'ما هي أكبر صحراء رملية في السعودية؟', opts:['الربع الخالي','النفود','الدهناء','صحراء سيناء'], correct:0, difficulty:'easy'},
+  {q:'ما هو مفتاح الاتصال الدولي للسعودية؟', opts:['+966','+971','+965','+962'], correct:0, difficulty:'easy'},
+  {q:'ما هو نطاق الإنترنت الخاص بالسعودية؟', opts:['.sa','.ks','.sd','.ar'], correct:0, difficulty:'easy'},
+  {q:'ما اسم شركة النفط الوطنية السعودية؟', opts:['أرامكو السعودية','سابك','أدنوك','بترومين'], correct:0, difficulty:'easy'},
+  {q:'على أي بحرين تطل السعودية؟', opts:['البحر الأحمر والخليج العربي','البحر المتوسط والأحمر','بحر العرب والمتوسط','البحر الأسود والأحمر'], correct:0, difficulty:'easy'},
+  {q:'ما هي المدينة الساحلية الكبرى على البحر الأحمر وبوابة الحرمين؟', opts:['جدة','ينبع','جازان','الدمام'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الرؤية الوطنية السعودية للتنمية؟', opts:['رؤية 2030','رؤية 2040','رؤية 2025','رؤية 2050'], correct:0, difficulty:'easy'},
+  {q:'ما اسم المشروع الضخم في شمال غرب السعودية الذي يضم مدينة "ذا لاين"؟', opts:['نيوم','القدية','روشن','البحر الأحمر الدولية'], correct:0, difficulty:'easy'},
+  {q:'ما اسم شركة الطيران الوطنية السعودية؟', opts:['السعودية (الخطوط السعودية)','طيران الإمارات','الطيران العُماني','طيران الخليج'], correct:0, difficulty:'easy'},
+  {q:'ما اسم شركة الطيران السعودية منخفضة التكلفة من هذه؟', opts:['طيران ناس','العربية للطيران','فلاي دبي','طيران السلام'], correct:0, difficulty:'easy'},
+  {q:'ما هو لقب منتخب السعودية لكرة القدم؟', opts:['الأخضر','الأحمر','الأبيض','النشامى'], correct:0, difficulty:'easy'},
+  {q:'أي منتخب هزمته السعودية في كأس العالم 2022 بنتيجة 2-1؟', opts:['الأرجنتين','البرازيل','فرنسا','ألمانيا'], correct:0, difficulty:'easy'},
+  {q:'أي بطولة كأس عالم لكرة القدم ستستضيفها السعودية؟', opts:['كأس العالم 2034','كأس العالم 2030','كأس العالم 2026','كأس العالم 2038'], correct:0, difficulty:'easy'},
+  {q:'في أي نادٍ سعودي يلعب كريستيانو رونالدو؟', opts:['النصر','الهلال','الاتحاد','الأهلي'], correct:0, difficulty:'easy'},
+  {q:'ما هو الطبق الشعبي الأشهر في السعودية؟', opts:['الكبسة','المنسف','الكشري','الكسكسي'], correct:0, difficulty:'easy'},
+  {q:'مع ماذا تُقدَّم القهوة السعودية عادةً؟', opts:['التمر','الكعك','البسكويت','الشوكولاتة'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الرقصة الوطنية السعودية بالسيوف والطبول؟', opts:['العرضة السعودية','الدبكة','التنورة','الرزحة'], correct:0, difficulty:'easy'},
+  {q:'ما اسم غطاء الرأس الأحمر والأبيض المشهور في السعودية؟', opts:['الشماغ','الكوفية الفلسطينية','المصر','الطربوش'], correct:0, difficulty:'easy'},
+  {q:'ما هو الزي التقليدي للرجل السعودي؟', opts:['الثوب','الجلابية','الدشداشة العُمانية','القفطان'], correct:0, difficulty:'easy'},
+  {q:'ما هي اللغة الرسمية في السعودية؟', opts:['العربية','الإنجليزية','الأردية','الفارسية'], correct:0, difficulty:'easy'},
+  {q:'ما هو التوقيت المعتمد في السعودية؟', opts:['غرينتش +3','غرينتش +4','غرينتش +2','غرينتش +5'], correct:0, difficulty:'easy'},
+  {q:'بأي جانب من الطريق تكون القيادة في السعودية؟', opts:['اليمين','اليسار','حسب المنطقة','المنتصف'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الجسر الذي يربط السعودية بالبحرين؟', opts:['جسر الملك فهد','جسر الملك سلمان','جسر الخليج','جسر المحبة'], correct:0, difficulty:'easy'},
+  {q:'ما اسم القلعة الطينية الشهيرة في الرياض التي استعادها الملك عبدالعزيز؟', opts:['قصر المصمك','قلعة القشلة','قصر المربع','قلعة الجلالي'], correct:0, difficulty:'easy'},
+  {q:'ما اسم المحافظة التاريخية قرب الرياض التي كانت عاصمة الدولة السعودية الأولى؟', opts:['الدرعية','الخرج','القصيم','الزلفي'], correct:0, difficulty:'easy'},
+  {q:'ما اسم المنطقة الأثرية الشهيرة في العلا بمقابرها النبطية؟', opts:['الحِجر (مدائن صالح)','البتراء','تدمر','جرش'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الموسم الترفيهي السنوي الشهير في العاصمة؟', opts:['موسم الرياض','مهرجان دبي للتسوق','ليالي مسقط','هلا فبراير'], correct:0, difficulty:'easy'},
+  {q:'ما اسم البرج الشهير الذي يضم ساعة ضخمة مطلّة على المسجد الحرام؟', opts:['أبراج البيت (برج الساعة)','برج المملكة','برج الفيصلية','برج خليفة'], correct:0, difficulty:'easy'},
+  {q:'ما اسم البرج الشهير في الرياض بفتحته العلوية على شكل قوس؟', opts:['برج المملكة','برج الفيصلية','برج رافال','برج الساعة'], correct:0, difficulty:'easy'},
+  {q:'في أي مدينة توجد جبل عرفات وأماكن الحج؟', opts:['مكة المكرمة','المدينة المنورة','الطائف','جدة'], correct:0, difficulty:'easy'},
+  {q:'ما اسم البئر المباركة في المسجد الحرام؟', opts:['زمزم','بئر رومة','بئر علي','بئر السبع'], correct:0, difficulty:'easy'},
+  {q:'ما هي المدينة المشهورة بالورد الطائفي؟', opts:['الطائف','أبها','الباحة','تبوك'], correct:0, difficulty:'easy'},
+  {q:'أي منطقة سعودية تشتهر بتمر السكري؟', opts:['القصيم','جازان','تبوك','الجوف'], correct:0, difficulty:'easy'},
+  {q:'ما اسم المنطقة الجبلية الخضراء جنوب غرب السعودية وعاصمتها أبها؟', opts:['عسير','حائل','الجوف','الحدود الشمالية'], correct:0, difficulty:'easy'},
+  {q:'ما هي عاصمة المنطقة الشرقية؟', opts:['الدمام','الخبر','الأحساء','الجبيل'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الواحة الكبيرة في المنطقة الشرقية المشهورة بالنخيل؟', opts:['الأحساء','العلا','تيماء','الخرج'], correct:0, difficulty:'easy'},
+  {q:'ما هو الحيوان الذي يُعد رمزاً للصحراء ويُقام له مهرجان كبير في السعودية؟', opts:['الإبل','الخيل','الصقر','الغزال'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الدوري السعودي للمحترفين حالياً تجارياً؟', opts:['دوري روشن','دوري زين','دوري جميل','دوري الخليج العربي'], correct:0, difficulty:'easy'},
+  {q:'ما اسم أقدم جامعة في السعودية؟', opts:['جامعة الملك سعود','جامعة الملك عبدالعزيز','جامعة أم القرى','جامعة الملك فهد للبترول'], correct:0, difficulty:'easy'},
+  {q:'في أي سنة سُمح للمرأة بقيادة السيارة في السعودية؟', opts:['2018','2015','2020','2012'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الإطلالة الصخرية الشهيرة شمال غرب الرياض؟', opts:['حافة العالم (جبال طويق)','الجبل الأخضر','جبل شمس','وادي رم'], correct:0, difficulty:'easy'},
+  {q:'ما اسم سلسلة الجبال الممتدة في نجد قرب الرياض؟', opts:['جبال طويق','جبال السروات','جبال الحجر','جبال أجا'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الصخرة الضخمة على شكل فيل في العلا؟', opts:['جبل الفيل','صخرة الأسد','جبل الجمل','صخرة النسر'], correct:0, difficulty:'easy'},
+  {q:'ما اسم القاعة المغطاة بالمرايا في العلا؟', opts:['مرايا','مرآة الصحراء','قصر الزجاج','البلّورة'], correct:0, difficulty:'easy'},
+  {q:'أي مدينة سعودية تستضيف سباق جائزة السعودية الكبرى للفورمولا 1؟', opts:['جدة','الرياض','الدمام','نيوم'], correct:0, difficulty:'easy'},
+  {q:'كم عدد الدول التي تحدّ السعودية برياً؟', opts:['7','5','9','4'], correct:0, difficulty:'easy'},
+  {q:'أي دولة من هذه لا تحدّ السعودية؟', opts:['سوريا','الأردن','العراق','اليمن'], correct:0, difficulty:'easy'},
+  {q:'أي دولة تحدّ السعودية من الجنوب؟', opts:['اليمن','الأردن','الكويت','العراق'], correct:0, difficulty:'easy'},
+  {q:'ما هو أول مسجد بُني في الإسلام ويقع في المدينة المنورة؟', opts:['مسجد قباء','مسجد القبلتين','المسجد النبوي','مسجد الجن'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الجبل الذي يقع فيه غار حراء؟', opts:['جبل النور','جبل ثور','جبل أحد','جبل الرحمة'], correct:0, difficulty:'easy'},
+  {q:'في أي مدينة يقع جبل أحد؟', opts:['المدينة المنورة','مكة المكرمة','الطائف','تبوك'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الحي التاريخي في جدة؟', opts:['البلد','الدرعية','العلا القديمة','الطريف'], correct:0, difficulty:'easy'},
+  {q:'ما اسم النافورة الشهيرة في جدة من أعلى نوافير العالم؟', opts:['نافورة الملك فهد','نافورة دبي','نافورة الملك عبدالله','نافورة جدة الكبرى'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الصندوق السيادي السعودي؟', opts:['صندوق الاستثمارات العامة','جهاز أبوظبي للاستثمار','الصندوق السعودي للتنمية','صندوق الثروة الخليجي'], correct:0, difficulty:'easy'},
+  {q:'ما اسم البنك المركزي السعودي (المعروف سابقاً بمؤسسة النقد)؟', opts:['ساما','المركزي الخليجي','بنك الرياض','الأهلي'], correct:0, difficulty:'easy'},
+  {q:'ما اسم سوق الأسهم السعودية؟', opts:['تداول','بورصة الرياض','سوق مكة المالي','نسداك العربية'], correct:0, difficulty:'easy'},
+  {q:'ما اسم شركة الاتصالات السعودية الكبرى؟', opts:['stc','زين','موبايلي','عُمانتل'], correct:0, difficulty:'easy'},
+  {q:'ما هي ديانة المملكة الرسمية؟', opts:['الإسلام','المسيحية','اليهودية','الهندوسية'], correct:0, difficulty:'easy'},
+  {q:'في أي عام أُعلن توحيد المملكة باسم "المملكة العربية السعودية"؟', opts:['1932','1902','1953','1945'], correct:0, difficulty:'medium'},
+  {q:'في أي عام استعاد الملك عبدالعزيز الرياض؟', opts:['1902','1932','1890','1920'], correct:0, difficulty:'medium'},
+  {q:'إلى أي عام يعود تأسيس الدولة السعودية الأولى الذي يُحتفى به في يوم التأسيس؟', opts:['1727','1902','1818','1932'], correct:0, difficulty:'medium'},
+  {q:'من هو مؤسس الدولة السعودية الأولى؟', opts:['الإمام محمد بن سعود','الإمام تركي بن عبدالله','الملك عبدالعزيز','الإمام فيصل بن تركي'], correct:0, difficulty:'medium'},
+  {q:'من هو مؤسس الدولة السعودية الثانية؟', opts:['الإمام تركي بن عبدالله','الإمام محمد بن سعود','الإمام عبدالله بن سعود','الملك سعود'], correct:0, difficulty:'medium'},
+  {q:'في أي عام احتُفل بيوم التأسيس لأول مرة؟', opts:['2022','2017','2005','2019'], correct:0, difficulty:'medium'},
+  {q:'من هو ثاني ملوك السعودية بعد الملك عبدالعزيز؟', opts:['الملك سعود','الملك فيصل','الملك خالد','الملك فهد'], correct:0, difficulty:'medium'},
+  {q:'من هو الملك السعودي الذي حكم من 1964 إلى 1975؟', opts:['الملك فيصل','الملك خالد','الملك سعود','الملك فهد'], correct:0, difficulty:'medium'},
+  {q:'من هو الملك السعودي الذي اتخذ لقب "خادم الحرمين الشريفين" عام 1986؟', opts:['الملك فهد','الملك عبدالله','الملك فيصل','الملك خالد'], correct:0, difficulty:'medium'},
+  {q:'من حكم السعودية من 2005 إلى 2015؟', opts:['الملك عبدالله','الملك فهد','الملك سلمان','الملك خالد'], correct:0, difficulty:'medium'},
+  {q:'في أي عام تولّى الملك سلمان الحكم؟', opts:['2015','2012','2017','2005'], correct:0, difficulty:'medium'},
+  {q:'أين اكتُشف النفط تجارياً لأول مرة في السعودية عام 1938؟', opts:['بئر الدمام رقم 7','حقل الغوار','رأس تنورة','الجبيل'], correct:0, difficulty:'medium'},
+  {q:'ما اسم أكبر حقل نفط تقليدي في العالم ويقع في السعودية؟', opts:['الغوار','السفانية','برقان','الشيبة'], correct:0, difficulty:'medium'},
+  {q:'هل السعودية عضو مؤسس في منظمة أوبك؟', opts:['نعم، منذ 1960','لا','نعم، منذ 1980','نعم، منذ 2000'], correct:0, difficulty:'medium'},
+  {q:'كم ريالاً سعودياً يساوي الدولار الأمريكي وفق سعر الربط؟', opts:['3.75','3.67','1','2.6'], correct:0, difficulty:'medium'},
+  {q:'ما هو أعلى جبل في السعودية؟', opts:['جبل السودة','جبل طويق','جبل أحد','جبل أجا'], correct:0, difficulty:'medium'},
+  {q:'في أي منطقة يقع جبل السودة؟', opts:['عسير','حائل','تبوك','الجوف'], correct:0, difficulty:'medium'},
+  {q:'كم عدد المناطق الإدارية في السعودية؟', opts:['13','11','15','9'], correct:0, difficulty:'medium'},
+  {q:'ما هي عاصمة منطقة القصيم؟', opts:['بريدة','عنيزة','الرس','حائل'], correct:0, difficulty:'medium'},
+  {q:'ما هي عاصمة منطقة الجوف؟', opts:['سكاكا','عرعر','تبوك','دومة الجندل'], correct:0, difficulty:'medium'},
+  {q:'ما هي عاصمة منطقة الحدود الشمالية؟', opts:['عرعر','سكاكا','رفحاء','طريف'], correct:0, difficulty:'medium'},
+  {q:'ما هي عاصمة منطقة عسير؟', opts:['أبها','خميس مشيط','النماص','بيشة'], correct:0, difficulty:'medium'},
+  {q:'ما هي عاصمة منطقة حائل؟', opts:['حائل','بريدة','سكاكا','تبوك'], correct:0, difficulty:'medium'},
+  {q:'ما الصحراء الكبيرة في شمال السعودية؟', opts:['النفود الكبير','الربع الخالي','الدهناء','صحراء الجافورة'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الجزر السعودية الشهيرة في البحر الأحمر قبالة جازان؟', opts:['جزر فرسان','جزر الديمانيات','جزر حوار','جزر القمر'], correct:0, difficulty:'medium'},
+  {q:'ما أول موقع سعودي أُدرج في قائمة التراث العالمي لليونسكو (2008)؟', opts:['الحِجر (مدائن صالح)','الدرعية','جدة التاريخية','الأحساء'], correct:0, difficulty:'medium'},
+  {q:'متى أُدرج حي الطريف بالدرعية في قائمة التراث العالمي؟', opts:['2010','2008','2014','2018'], correct:0, difficulty:'medium'},
+  {q:'متى أُدرجت جدة التاريخية في قائمة التراث العالمي؟', opts:['2014','2008','2010','2021'], correct:0, difficulty:'medium'},
+  {q:'ما أول موقع طبيعي سعودي يُدرج في قائمة التراث العالمي (2023)؟', opts:['عروق بني معارض','جزر فرسان','حافة العالم','جبل السودة'], correct:0, difficulty:'medium'},
+  {q:'أي فن سعودي أُدرج في قائمة اليونسكو للتراث غير المادي عام 2015؟', opts:['العرضة النجدية','السامري','المزمار','الخطوة'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الحضارة التي نحتت مقابر الحِجر في العلا؟', opts:['الأنباط','الرومان','الفراعنة','الفينيقيون'], correct:0, difficulty:'medium'},
+  {q:'ما اسم القطار السريع الذي يربط مكة بالمدينة مروراً بجدة؟', opts:['قطار الحرمين','قطار الشمال','قطار الخليج','مترو الرياض'], correct:0, difficulty:'medium'},
+  {q:'في أي عام بدأ تشغيل قطار الحرمين للركاب؟', opts:['2018','2010','2022','2015'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الشركة الوطنية الجديدة للطيران التي أُعلن عنها عام 2023؟', opts:['طيران الرياض','طيران نيوم','فلاي أديل','السعودية الدولية'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المطار الرئيسي في الرياض؟', opts:['مطار الملك خالد الدولي','مطار الملك عبدالعزيز الدولي','مطار الملك فهد الدولي','مطار الأمير سلطان'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المطار الرئيسي في جدة؟', opts:['مطار الملك عبدالعزيز الدولي','مطار الملك خالد الدولي','مطار الأمير محمد بن عبدالعزيز','مطار الملك فهد'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المطار الرئيسي في الدمام؟', opts:['مطار الملك فهد الدولي','مطار الملك خالد الدولي','مطار الأحساء','مطار الملك عبدالعزيز'], correct:0, difficulty:'medium'},
+  {q:'ما المدينتان الصناعيتان الكبريان في السعودية؟', opts:['الجبيل وينبع','الخبر والطائف','أبها وتبوك','حائل وعرعر'], correct:0, difficulty:'medium'},
+  {q:'في أي عام انضمت السعودية إلى منظمة التجارة العالمية؟', opts:['2005','1995','2010','2000'], correct:0, difficulty:'medium'},
+  {q:'ما الدولة العربية الوحيدة العضو في مجموعة العشرين؟', opts:['السعودية','الإمارات','مصر','قطر'], correct:0, difficulty:'medium'},
+  {q:'في أي عام استضافت السعودية قمة مجموعة العشرين؟', opts:['2020','2018','2022','2016'], correct:0, difficulty:'medium'},
+  {q:'أي معرض دولي فازت الرياض باستضافته عام 2030؟', opts:['إكسبو 2030','الألعاب الأولمبية 2030','كأس العالم 2030','الألعاب الآسيوية 2030'], correct:0, difficulty:'medium'},
+  {q:'كم مرة فازت السعودية بكأس آسيا لكرة القدم؟', opts:['3 مرات','مرة واحدة','5 مرات','ولا مرة'], correct:0, difficulty:'medium'},
+  {q:'في أي كأس عالم شاركت السعودية لأول مرة؟', opts:['1994','1990','1998','1986'], correct:0, difficulty:'medium'},
+  {q:'من سجّل الهدف التاريخي الفردي الشهير للسعودية ضد بلجيكا في كأس العالم 1994؟', opts:['سعيد العويران','سامي الجابر','ماجد عبدالله','ياسر القحطاني'], correct:0, difficulty:'medium'},
+  {q:'من سجّل هدف الفوز للسعودية على الأرجنتين في كأس العالم 2022؟', opts:['سالم الدوسري','صالح الشهري','فراس البريكان','سلمان الفرج'], correct:0, difficulty:'medium'},
+  {q:'ما النادي السعودي الأكثر فوزاً بدوري أبطال آسيا؟', opts:['الهلال','النصر','الاتحاد','الأهلي'], correct:0, difficulty:'medium'},
+  {q:'أي بطولة آسيوية ستستضيفها السعودية عام 2027؟', opts:['كأس آسيا لكرة القدم','الألعاب الآسيوية','كأس آسيا لكرة السلة','بطولة آسيا للسباحة'], correct:0, difficulty:'medium'},
+  {q:'إلى أي نادٍ سعودي انتقل نيمار عام 2023؟', opts:['الهلال','النصر','الاتحاد','الشباب'], correct:0, difficulty:'medium'},
+  {q:'إلى أي نادٍ سعودي انتقل كريم بنزيمة عام 2023؟', opts:['الاتحاد','الهلال','النصر','الأهلي'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المهرجان الوطني للتراث والثقافة الذي اشتهر في الجنادرية؟', opts:['مهرجان الجنادرية','مهرجان سوق عكاظ فقط','موسم جدة','مهرجان الزيتون'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المهرجان السعودي الكبير لمزاين الإبل؟', opts:['مهرجان الملك عبدالعزيز للإبل','مهرجان الظفرة','مهرجان الصقور','مهرجان الخيل العربية'], correct:0, difficulty:'medium'},
+  {q:'أي عام أطلقت عليه السعودية "عام القهوة السعودية"؟', opts:['2022','2019','2024','2020'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المركز الثقافي الشهير في الظهران التابع لأرامكو؟', opts:['إثراء','مسك','القدية','الدرعية'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الجامعة البحثية التي افتُتحت عام 2009 في ثول؟', opts:['كاوست (جامعة الملك عبدالله للعلوم والتقنية)','جامعة الملك سعود','جامعة الأميرة نورة','جامعة الملك فهد للبترول'], correct:0, difficulty:'medium'},
+  {q:'في أي مدينة يقع مقر منظمة التعاون الإسلامي؟', opts:['جدة','الرياض','مكة المكرمة','المدينة المنورة'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الوادي الشهير الذي يخترق الرياض؟', opts:['وادي حنيفة','وادي الرمة','وادي فاطمة','وادي الدواسر'], correct:0, difficulty:'medium'},
+  {q:'ما اسم أكبر مسطح رملي متصل في العالم والذي يغطي جنوب السعودية؟', opts:['الربع الخالي','النفود','الدهناء','الصحراء الكبرى'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المنطقة الغربية التاريخية التي تضم مكة والمدينة؟', opts:['الحجاز','نجد','الأحساء','تهامة عسير'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الإقليم الأوسط في السعودية الذي تقع فيه الرياض؟', opts:['نجد','الحجاز','عسير','الجوف'], correct:0, difficulty:'medium'},
+  {q:'ما اسم ميناء تصدير النفط الشهير ومصفاته في المنطقة الشرقية؟', opts:['رأس تنورة','ينبع','جازان','ضباء'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الشركة السعودية الكبرى للبتروكيماويات؟', opts:['سابك','معادن','بترو رابغ','أكوا باور'], correct:0, difficulty:'medium'},
+  {q:'متى طُرحت أسهم أرامكو للاكتتاب العام في السوق السعودية؟', opts:['2019','2016','2022','2010'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المشروع الترفيهي والرياضي الضخم قرب الرياض؟', opts:['القدية','نيوم','آمالا','أوكساچون'], correct:0, difficulty:'medium'},
+  {q:'من هو أول رائد فضاء سعودي وعربي؟', opts:['الأمير سلطان بن سلمان','علي القرني','هزاع المنصوري','محمد فارس'], correct:0, difficulty:'medium'},
+  {q:'من هي أول رائدة فضاء سعودية (2023)؟', opts:['ريانة برناوي','سارة الأميري','نورة المطروشي','هيفاء المنصور'], correct:0, difficulty:'medium'},
+  {q:'في أي عام شاركت المرأة السعودية لأول مرة في الانتخابات البلدية تصويتاً وترشحاً؟', opts:['2015','2005','2011','2019'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الغزوة الشهيرة التي وقعت بين مكة والمدينة في السنة الثانية للهجرة؟', opts:['غزوة بدر','غزوة تبوك','غزوة حنين','غزوة الخندق'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الغار الذي اختبأ فيه النبي ﷺ وأبو بكر أثناء الهجرة؟', opts:['غار ثور','غار حراء','غار الكهف','غار أحد'], correct:0, difficulty:'medium'},
+  {q:'في أي شهر هجري يُؤدَّى الحج؟', opts:['ذو الحجة','رمضان','شوال','محرم'], correct:0, difficulty:'medium'},
+  {q:'ما الاسم الرسمي للدولة قبل توحيدها عام 1932؟', opts:['مملكة الحجاز ونجد وملحقاتها','سلطنة نجد','إمارة الدرعية','المملكة العربية المتحدة'], correct:0, difficulty:'hard'},
+  {q:'متى سقطت الدرعية وانتهت الدولة السعودية الأولى؟', opts:['1818','1727','1891','1902'], correct:0, difficulty:'hard'},
+  {q:'متى انتهت الدولة السعودية الثانية؟', opts:['1891','1818','1902','1865'], correct:0, difficulty:'hard'},
+  {q:'في أي عام توفي الملك عبدالعزيز؟', opts:['1953','1945','1964','1932'], correct:0, difficulty:'hard'},
+  {q:'من هو الملك السعودي الذي حكم من 1975 إلى 1982؟', opts:['الملك خالد','الملك فهد','الملك فيصل','الملك سعود'], correct:0, difficulty:'hard'},
+  {q:'في أي عام اغتيل الملك فيصل؟', opts:['1975','1969','1982','1973'], correct:0, difficulty:'hard'},
+  {q:'متى تأسست جامعة الملك سعود؟', opts:['1957','1967','1975','1949'], correct:0, difficulty:'hard'},
+  {q:'متى افتُتح جسر الملك فهد بين السعودية والبحرين؟', opts:['1986','1979','1995','2001'], correct:0, difficulty:'hard'},
+  {q:'ما المساحة التقريبية للسعودية؟', opts:['حوالي 2.15 مليون كم²','حوالي مليون كم²','حوالي 4 ملايين كم²','حوالي 500 ألف كم²'], correct:0, difficulty:'hard'},
+  {q:'ما الارتفاع التقريبي لجبل السودة؟', opts:['حوالي 3000 متر','حوالي 1500 متر','حوالي 5000 متر','حوالي 800 متر'], correct:0, difficulty:'hard'},
+  {q:'متى أُدرجت واحة الأحساء في قائمة التراث العالمي؟', opts:['2018','2010','2014','2023'], correct:0, difficulty:'hard'},
+  {q:'متى أُدرج الفن الصخري في منطقة حائل (جبة والشويمس) في التراث العالمي؟', opts:['2015','2008','2021','2010'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الموقع الثقافي في نجران المدرج في التراث العالمي عام 2021؟', opts:['منطقة حمى الثقافية','الأخدود','قصر العان','بئر حمى'], correct:0, difficulty:'hard'},
+  {q:'ما الاسم السابق لشركة أرامكو قبل تأميمها الكامل؟', opts:['شركة الزيت العربية الأمريكية','شركة نفط العراق','شركة النفط الأنجلو-فارسية','شركة النفط الوطنية الخليجية'], correct:0, difficulty:'hard'},
+  {q:'في أي مدينة تأسست منظمة أوبك عام 1960؟', opts:['بغداد','الرياض','فيينا','الكويت'], correct:0, difficulty:'hard'},
+  {q:'متى أصبح اسم "مؤسسة النقد العربي السعودي" هو "البنك المركزي السعودي"؟', opts:['2020','2015','2010','2023'], correct:0, difficulty:'hard'},
+  {q:'متى أعلن البنك المركزي السعودي رمزاً جديداً للريال؟', opts:['2025','2019','2022','2016'], correct:0, difficulty:'hard'},
+  {q:'ما اسم سكة الحديد التاريخية العثمانية التي كانت تصل دمشق بالمدينة المنورة؟', opts:['سكة حديد الحجاز','سكة حديد بغداد','سكة الشرق السريع','خط طوروس'], correct:0, difficulty:'hard'},
+  {q:'على أي مكوك فضاء طار الأمير سلطان بن سلمان عام 1985؟', opts:['ديسكفري','تشالنجر','كولومبيا','أتلانتس'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المنطقة التي تقع فيها مدينة القطيف؟', opts:['المنطقة الشرقية','منطقة الرياض','منطقة القصيم','منطقة الحدود الشمالية'], correct:0, difficulty:'hard'},
+  {q:'ما اسم اللاعب السعودي الذي شارك في 4 نسخ من كأس العالم (1994–2006)؟', opts:['سامي الجابر','ماجد عبدالله','سعيد العويران','ياسر القحطاني'], correct:0, difficulty:'hard'},
+  {q:'في أي أعوام فازت السعودية بكأس آسيا؟', opts:['1984 و1988 و1996','1980 و1992 و2000','1988 و2000 و2007','1996 و2004 و2011'], correct:0, difficulty:'hard'},
+  {q:'أي مدينة استضافت كأس العالم للرياضات الإلكترونية 2024؟', opts:['الرياض','جدة','نيوم','الدمام'], correct:0, difficulty:'hard'},
+  {q:'متى بدأ سباق الفورمولا 1 في جدة؟', opts:['2021','2018','2023','2015'], correct:0, difficulty:'hard'},
+  {q:'متى أُطلق موسم الرياض لأول مرة؟', opts:['2019','2016','2021','2014'], correct:0, difficulty:'hard'},
+  {q:'ما المدينة السعودية الأقرب لموقع "ذا لاين" ضمن نيوم؟', opts:['تبوك (منطقة تبوك)','جازان','حائل','الأحساء'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المشروع السياحي الضخم على ساحل البحر الأحمر بين أملج والوجه؟', opts:['البحر الأحمر (البحر الأحمر الدولية)','القدية','روشن','الدرعية بوابة'], correct:0, difficulty:'hard'},
+  {q:'ما اسم حي الشركة الوطنية للإسكان والمشاريع العقارية الكبرى في السعودية؟', opts:['روشن','إعمار','داماك','سيدرا'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الجبل الشهير بالنقوش الدادانية واللحيانية قرب العلا؟', opts:['جبل عكمة','جبل أجا','جبل سلمى','جبل طويق'], correct:0, difficulty:'hard'},
+  {q:'في أي منطقة قامت مملكتا دادان ولحيان القديمتان؟', opts:['العلا','تيماء','نجران','الأحساء'], correct:0, difficulty:'hard'},
+  {q:'ما اسم القلعة الأثرية الشهيرة في دومة الجندل؟', opts:['قلعة مارد','قلعة تبوك','قلعة المصمك','قلعة القشلة'], correct:0, difficulty:'hard'},
+  {q:'ما اسم البئر التاريخية الشهيرة في تيماء؟', opts:['بئر هداج','بئر زمزم','بئر رومة','بئر الحمام'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الموقع الأثري في نجران الذي يرتبط بقصة أصحاب الأخدود؟', opts:['الأخدود','الحِجر','الفاو','حمى'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المدينة الأثرية عاصمة مملكة كندة على أطراف الربع الخالي؟', opts:['قرية الفاو','تيماء','العلا','الأخدود'], correct:0, difficulty:'hard'},
+  {q:'ما اسم أكبر جامعة للبنات في العالم ومقرها الرياض؟', opts:['جامعة الأميرة نورة بنت عبدالرحمن','جامعة الملك سعود','جامعة دار الحكمة','جامعة عفت'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الشركة السعودية للتعدين؟', opts:['معادن','سابك','أكوا باور','صدارة'], correct:0, difficulty:'hard'},
+  {q:'ما الدول التي تحدّ السعودية برياً؟', opts:['الأردن، العراق، الكويت، قطر، الإمارات، عُمان، اليمن','الأردن، سوريا، العراق، الكويت، قطر، اليمن، عُمان','مصر، الأردن، العراق، الكويت، قطر، الإمارات، اليمن','الأردن، العراق، الكويت، البحرين، قطر، الإمارات، اليمن'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الغزوة التي وقعت في منطقة تبوك في السنة التاسعة للهجرة؟', opts:['غزوة تبوك','غزوة بدر','غزوة أحد','غزوة خيبر'], correct:0, difficulty:'hard'},
+  {q:'أين يقع موقع خيبر التاريخي؟', opts:['شمال المدينة المنورة','جنوب مكة','شرق الرياض','قرب جازان'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المسجد في المدينة الذي شهد تحويل القبلة؟', opts:['مسجد القبلتين','مسجد قباء','مسجد الغمامة','المسجد النبوي'], correct:0, difficulty:'hard'},
+  {q:'أين يقع مشعر منى؟', opts:['بين مكة المكرمة ومزدلفة','شمال المدينة المنورة','قرب الطائف','داخل جدة'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الطريق الذي يجمع حجاج العراق تاريخياً إلى مكة؟', opts:['درب زبيدة','طريق البخور','طريق الحرير','درب الحاج الشامي'], correct:0, difficulty:'hard'},
+  {q:'ما اسم السوق العربي القديم الذي أُعيد إحياؤه في الطائف؟', opts:['سوق عكاظ','سوق المربد','سوق ذي المجاز','سوق حباشة'], correct:0, difficulty:'hard'},
+  {q:'في أي منطقة سعودية يقع وادي الدواسر؟', opts:['منطقة الرياض','منطقة عسير','منطقة نجران','المنطقة الشرقية'], correct:0, difficulty:'hard'},
+  {q:'في أي منطقة إدارية تقع محافظة العلا؟', opts:['منطقة المدينة المنورة','منطقة تبوك','منطقة حائل','منطقة الجوف'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الجزيرة التاريخية في الخليج العربي التابعة لمحافظة القطيف؟', opts:['جزيرة تاروت','جزيرة فرسان','جزيرة أبو علي','جزيرة جنا'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الصحراء الرملية الطويلة التي تصل النفود بالربع الخالي؟', opts:['الدهناء','الجافورة','الصمان','النفود الصغير'], correct:0, difficulty:'hard'},
+  {q:'ما اسم السهل الساحلي على البحر الأحمر جنوب غرب السعودية؟', opts:['تهامة','الحجاز','نجد','الصمان'], correct:0, difficulty:'hard'},
+  {q:'ما اسم سلسلة الجبال الغربية الممتدة بمحاذاة البحر الأحمر؟', opts:['جبال السروات','جبال طويق','جبال أجا وسلمى','جبال الحجر'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الجبلين الشهيرين في منطقة حائل؟', opts:['أجا وسلمى','طويق والعارض','أحد وثور','السودة وتهلل'], correct:0, difficulty:'hard'},
+  {q:'أي عام شهد إطلاق رؤية السعودية 2030؟', opts:['2016','2014','2018','2020'], correct:0, difficulty:'hard'},
+  {q:'في أي عام أطلقت السعودية التأشيرة السياحية الإلكترونية؟', opts:['2019','2015','2022','2010'], correct:0, difficulty:'hard'},
+  {q:'ما الملعب السعودي الملقب بـ"الجوهرة المشعة"؟', opts:['استاد مدينة الملك عبدالله الرياضية بجدة','استاد الملك فهد الدولي','استاد الأمير فيصل بن فهد','استاد الأول بارك'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الملعب الدولي الكبير في الرياض المعروف بخيمته؟', opts:['استاد الملك فهد الدولي','استاد الأمير فيصل','المرسول بارك','استاد الجوهرة'], correct:0, difficulty:'hard'},
+  {q:'متى افتُتح مترو الرياض للركاب؟', opts:['2024','2019','2021','2026'], correct:0, difficulty:'hard'},
+  {q:'ما اسم أطول خط سكة حديد في السعودية يربط الرياض بالحدود الشمالية؟', opts:['قطار الشمال','قطار الحرمين','قطار الشرق','قطار الجسر البري'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المنتخب الذي واجهته السعودية في مباراة افتتاح كأس العالم 2018؟', opts:['روسيا','مصر','الأوروغواي','إسبانيا'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الهداف التاريخي للمنتخب السعودي ومن أساطير النصر؟', opts:['ماجد عبدالله','سامي الجابر','يوسف الثنيان','محمد الدعيع'], correct:0, difficulty:'hard'},
+  {q:'من هو حارس المرمى السعودي الأسطوري الذي شارك في عدة كؤوس عالم؟', opts:['محمد الدعيع','محمد العويس','وليد عبدالله','مبروك زايد'], correct:0, difficulty:'hard'},
+  {q:'من أي ميناء صُدّرت أول شحنة نفط سعودية عام 1939؟', opts:['رأس تنورة','ينبع','جدة','الجبيل'], correct:0, difficulty:'hard'}
+];
+
+const QUIZ_CONFIG = {
+  gameId: 'saudi-quiz',
+  questionSeconds: 15,
+  difficulties: [
+    {key:'mix', label:'🎲 مشكّل', labelEn:'🎲 Mixed'},
+    {key:'easy', label:'🟢 سهل', labelEn:'🟢 Easy'},
+    {key:'medium', label:'🟡 متوسط', labelEn:'🟡 Medium'},
+    {key:'hard', label:'🔴 صعب', labelEn:'🔴 Hard'}
+  ],
+  shareTitle: 'شو بتعرف عن السعودية؟ 🇸🇦',
+  challengeText: 'تحداك بكويز عن السعودية، جاهز تنافسني؟',
+  resultText: function(score, total, pct) {
+    return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بتحدي "شو بتعرف عن السعودية؟" 🇸🇦 جرب تتحداني!';
+  },
+  shareTitleEn: 'How Well Do You Know Saudi Arabia? 🇸🇦',
+  challengeTextEn: 'I challenge you to the Saudi Arabia quiz — ready to compete?',
+  resultTextEn: function(score, total, pct) {
+    return 'I scored ' + score + '/' + total + ' (' + pct + '%) on How Well Do You Know Saudi Arabia? 🇸🇦 Try to beat me!';
+  },
+  resultMessagesEn: [
+    {min:90, emoji:'🏆', msg:'A Saudi Arabia expert! Amazing score.'},
+    {min:70, emoji:'🇸🇦', msg:'Your knowledge of Saudi Arabia is excellent!'},
+    {min:50, emoji:'👍', msg:'Not bad, but there\'s room to improve.'},
+    {min:0, emoji:'📚', msg:'Time to learn a bit more about Saudi Arabia!'}
+  ],
+  resultMessages: [
+    {min:90, emoji:'🏆', msg:'خبير بـالسعودية! نتيجة رهيبة.'},
+    {min:70, emoji:'🇸🇦', msg:'معلوماتك عن السعودية ممتازة!'},
+    {min:50, emoji:'👍', msg:'مش بطال، بس فيه مجال تتحسن.'},
+    {min:0,  emoji:'📚', msg:'وقتها نتعرف أكثر على السعودية!'}
+  ]
+};
+
+</script>
+<script src="jo/games/quiz-engine.js?v=5"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('createChallengeBtn')?.addEventListener('click', createChallenge);
+  document.getElementById('joinChallengeBtn')?.addEventListener('click', joinChallenge);
+  document.getElementById('shareResultBtn')?.addEventListener('click', shareResult);
+  document.getElementById('restartBtn')?.addEventListener('click', restart);
+  document.getElementById('shareWaitingLinkBtn')?.addEventListener('click', function(){ shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn'); });
+  document.getElementById('copyWaitingLinkBtn')?.addEventListener('click', function(){ copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn'); });
+  document.getElementById('creatorStartBtn')?.addEventListener('click', creatorStartPlaying);
+  document.getElementById('shareActiveLinkBtn')?.addEventListener('click', function(){ shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn'); });
+  document.getElementById('copyActiveLinkBtn')?.addEventListener('click', function(){ copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn'); });
+  document.getElementById('shareLinkBtn')?.addEventListener('click', function(){ shareOrCopy('challengeShareLink','shareLinkBtn'); });
+  document.getElementById('copyLinkBtn')?.addEventListener('click', copyChallengeLink);
+});
+</script>
+
+</body></html>
