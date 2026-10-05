@@ -46,6 +46,7 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 - **bachelor-guide government universities**: `admhec.gov.jo` blocks automation — needs the owner's manually saved pages.
 - **masters/bachelor guides**: read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending (dead-end universities listed).
 - **GSC indexing**: ~10 URLs/day via browser (memory `gsc_indexing_queue`). Don't resubmit AdSense until organic traffic grows.
+- **Quiz levels (medium/hard)**: done for om/sa/ae/eg country quizzes + cooking (2026-10-05). Owner chose GRADUAL rollout for the other 13 `jo/games/*` quizzes — 1-2 per session: tag each `{q:...}` with `difficulty:'medium'|'hard'`, add `difficulties` to QUIZ_CONFIG + `#difficultySelectArea` (see cooking-quiz). Easy questions count as medium.
 - **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season.
 - Translations: only Arabic is maintained (fr/es/de/ru deliberately deferred, ~0 traffic).
 

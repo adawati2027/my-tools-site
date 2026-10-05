@@ -1,7 +1,7 @@
 // usage: node tools/build-country-quiz.js config.json
 // config: {code:"sa", slug:"saudi-quiz", nameAr:"السعودية", fullAr:"المملكة العربية السعودية", nameEn:"Saudi Arabia", flag:"🇸🇦",
 //          iconBg:"#dcfce7", questions:"path/to/q.json" ({easy:[[q,correct,w1,w2,w3]...],medium:[...],hard:[...]}),
-//          links:[[url,label],...], levels:false}  (levels:true adds the easy/medium/hard selector; default = random mix)
+//          links:[[url,label],...], levels}  (default: medium/hard selector — easy questions count as medium; levels:false = random only)
 // Builds <code>/games/<slug>/index.html from jo/games/jordan-quiz/ (correct answer stored at index 0; the engine shuffles).
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
@@ -27,7 +27,7 @@ h = h.replace(/<a href="jo\/" data-qt="nav_jordan">أدوات الأردن<\/a>/
 must(/<div class="page-header"><a href="jo\/"/, `<div class="page-header"><a href="${c.code}/"`);
 must(/<div class="card-icon" style="background:#fef3c7;">🇯🇴<\/div>/, `<div class="card-icon" style="background:${c.iconBg};">${c.flag}</div>`);
 must(/<h1 class="card-title" data-en="How Well Do You Know Jordan\?">شو بتعرف عن الأردن؟<\/h1>/, `<h1 class="card-title" data-en="How Well Do You Know ${c.nameEn}?">${title}</h1>`);
-if (c.levels) must(/(<div style="font-size:13px;color:var\(--text-muted\);margin-bottom:8px;" data-qt="challenge_start_subtitle">[^\n]*<\/div>)/,
+if (c.levels !== false) must(/(<div style="font-size:13px;color:var\(--text-muted\);margin-bottom:8px;" data-qt="challenge_start_subtitle">[^\n]*<\/div>)/,
   '$1' + NL + '      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">اختار المستوى:</div>' + NL + '      <div id="difficultySelectArea" style="display:none;gap:8px;flex-wrap:wrap;margin-bottom:10px;"></div>');
 
 const linkStyle = 'font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;';
@@ -41,17 +41,16 @@ h = h.slice(0, a) + c.links.map(([u, t]) => `<a href="${u}" style="${linkStyle}"
 const esc = s => s.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 const rows = [];
 for (const lvl of ['easy', 'medium', 'hard']) for (const [qq, ok, w1, w2, w3] of q[lvl])
-  rows.push(`  {q:'${esc(qq)}', opts:['${[ok, w1, w2, w3].map(esc).join("','")}'], correct:0, difficulty:'${lvl}'}`);
+  rows.push(`  {q:'${esc(qq)}', opts:['${[ok, w1, w2, w3].map(esc).join("','")}'], correct:0, difficulty:'${lvl === 'hard' ? 'hard' : 'medium'}'}`);
 const qs = h.indexOf('const QUESTIONS = ['), qe = h.indexOf(NL + '];', qs);
 h = h.slice(0, qs) + 'const QUESTIONS = [' + NL + rows.join(',' + NL) + h.slice(qe);
 
 const cs = h.indexOf('const QUIZ_CONFIG = {'), ce = h.indexOf(NL + '};', cs) + NL.length + 2;
 const cfg = `const QUIZ_CONFIG = {
   gameId: '${c.slug}',
-  questionSeconds: 15,${c.levels ? `
+  questionSeconds: 15,${c.levels !== false ? `
   difficulties: [
     {key:'mix', label:'🎲 مشكّل', labelEn:'🎲 Mixed'},
-    {key:'easy', label:'🟢 سهل', labelEn:'🟢 Easy'},
     {key:'medium', label:'🟡 متوسط', labelEn:'🟡 Medium'},
     {key:'hard', label:'🔴 صعب', labelEn:'🔴 Hard'}
   ],` : ''}
