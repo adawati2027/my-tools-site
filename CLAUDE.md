@@ -40,14 +40,13 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 
 ## Open items
 
-- **Translation**: Arabic content done for salary/eos/vat/bmi/loan (2026-10-05); fr/es/de/ru deliberately deferred (~0 traffic). See `docs/history/i18n-language-bugs.md`.
-- **bachelor-guide government universities**: `admhec.gov.jo` blocks automation (F5 bot defense) — needs owner's manually saved pages. See `docs/history/calculators-built.md`.
-- **masters-guide / bachelor-guide**: ongoing data collection with known dead-end universities — read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending.
-- **GSC indexing**: Claude submits ~10/day via browser (memory `gsc_indexing_queue`). AdSense "low value" — don't resubmit until organic traffic grows.
-- **Logo quiz** 263/~400 — owner said leave as is.
-- **Ads board** (`jo/ads/`): phase 1 live (submit → admin approve → listing + likes). Phase 2 = ratings + comments + report. See `docs/history/ads-board.md`.
-- **parallel-results page** (`jo/students/parallel-results/`): re-check university links each admission season.
-- Minor/known: duplicate security headers from an old Cloudflare rule (harmless, needs dashboard access).
+- **Google sign-in on mobile**: v=58 (2026-10-05) waits for the SDK, opens the popup synchronously, and shows the real `auth/...` code in the error. If the owner still reports failure, ask for the code shown; likely next fix = same-origin authDomain (proxy `/__/auth/` via the Cloudflare Worker). See `docs/history/auth-accounts.md`.
+- **Ads board phase 2**: ratings + comments + report (phase 1 + expiry + admin nav link are live). See `docs/history/ads-board.md`.
+- **bachelor-guide government universities**: `admhec.gov.jo` blocks automation — needs the owner's manually saved pages.
+- **masters/bachelor guides**: read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending (dead-end universities listed).
+- **GSC indexing**: ~10 URLs/day via browser (memory `gsc_indexing_queue`). Don't resubmit AdSense until organic traffic grows.
+- **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season.
+- Translations: only Arabic is maintained (fr/es/de/ru deliberately deferred, ~0 traffic).
 
 ## Documentation index (read only when relevant)
 
