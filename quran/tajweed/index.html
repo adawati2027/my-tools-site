@@ -221,7 +221,7 @@
   </details>
   </div>
   <p style="font-size:13px;color:var(--text-muted);margin-top:14px;line-height:1.8;">⚠️ هذا مسار تعليمي مقترح للتنظيم والمتابعة، والتجويد يُؤخذ بالتلقّي والمشافهة — الأفضل دائماً التعلّم على يد معلّم متقن.</p>
-<p style="font-size:12px;color:var(--text-muted);margin-top:18px;line-height:1.8;text-align:center;">نص المصحف بالرسم العثماني من <a href="https://tanzil.net" target="_blank" rel="noopener" style="color:var(--primary);">مشروع تنزيل (Tanzil)</a> · التفسير: التفسير الميسّر — مجمع الملك فهد لطباعة المصحف الشريف · الأحاديث: الأربعون النووية للإمام النووي رحمه الله</p>
+<p style="font-size:12px;color:var(--text-muted);margin-top:18px;line-height:1.8;text-align:center;">نص المصحف بالرسم العثماني من <a href="https://tanzil.net" target="_blank" rel="noopener" style="color:var(--primary);">مشروع تنزيل (Tanzil)</a> · التفسير: التفسير الميسّر — مجمع الملك فهد لطباعة المصحف الشريف · التلاوة التعليمية: الشيخ محمود خليل الحصري (المصحف المعلّم) · الأحاديث: الأربعون النووية للإمام النووي رحمه الله</p>
 </div></main>
 <footer class="footer" style="padding:28px;">
   <div style="max-width:1160px;margin:0 auto;">
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('details.t-stage').forEach(function(d) { d.addEventListener('toggle', function() { if (d.open) loadEx(d); }); });
   document.addEventListener('click', function(e) {
     var b = e.target.closest('.t-play'); if (!b) return;
-    var ex = b.closest('.t-ex'), src = 'https://everyayah.com/data/Husary_Muallim_128kbps/' + pad(ex.getAttribute('data-s'), 3) + pad(ex.getAttribute('data-a'), 3) + '.mp3';
+    var ex = b.closest('.t-ex'), src = 'quran/audio/' + pad(ex.getAttribute('data-s'), 3) + pad(ex.getAttribute('data-a'), 3) + '.mp3';
     if (audio && audio.src === src && !audio.paused) { audio.pause(); b.textContent = '▶️ اسمع الشيخ الحصري (المصحف المعلّم)'; return; }
     if (audio) { audio.pause(); document.querySelectorAll('.t-play').forEach(function(x) { x.textContent = '▶️ اسمع الشيخ الحصري (المصحف المعلّم)'; }); }
     audio = new Audio(src); b.textContent = '⏳ جاري التحميل...';
