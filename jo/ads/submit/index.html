@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>إعلانك علينا وإعلانا عليك — أعلن ببلاش على أدواتي | Adawati</title>
+<meta name="description" content="أعلن عن محلك أو مشروعك أو صفحتك ببلاش على أدواتي، وبالمقابل انشر أدواتي على صفحتك. سجّل، عبّي الفورم، وبعد المراجعة بينزل إعلانك.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/jo/ads/submit/">
+<meta property="og:title" content="إعلانك علينا وإعلانا عليك — أعلن ببلاش على أدواتي | Adawati">
+<meta property="og:description" content="أعلن عن محلك أو مشروعك أو صفحتك ببلاش على أدواتي، وبالمقابل انشر أدواتي على صفحتك. سجّل، عبّي الفورم، وبعد المراجعة بينزل إعلانك.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/jo/ads/submit/">
+<meta property="og:image" content="https://adawati.space/og/jo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="jo/ads/ads.css?v=1">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/ads/">عنا الإعلانات</a>
+    <a href="jo/">أدوات الأردن</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="jo/ads/">→ عنا الإعلانات</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#dcfce7;">🤝</div>
+    <h1 class="card-title">إعلانك علينا وإعلانا عليك</h1>
+    <div class="card-subtitle">أعلن عن محلك أو مشروعك ببلاش — وبالمقابل انشر أدواتي على صفحتك</div>
+    <div class="divider"></div>
+    <ol style="font-size:14px;color:var(--text-muted);line-height:2;padding-inline-start:18px;">
+      <li>سجّل دخول على أدواتي (ببلاش).</li>
+      <li>انشر رابط أدواتي <strong>adawati.space</strong> على صفحتك أو حالتك أو جروبك، وانسخ رابط المنشور.</li>
+      <li>عبّي الفورم تحت: اسم إعلانك، لشو بيفيد الناس، وروابط صفحاتك.</li>
+      <li>منراجع الإعلان — يا بننشره، يا بنطلب منك تعديل بسيط.</li>
+    </ol>
+  </div>
+  <div class="card" style="margin-top:16px;" id="adsFormCard"><div>⏳ جاري التحميل...</div></div>
+  <div class="card" style="margin-top:16px;" id="myAdsCard" hidden>
+    <div class="card-title" style="font-size:15px;">📋 إعلاناتي</div>
+    <div id="myAds"></div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+<script src="i18n-lang-ar.js?v=2" defer></script>
+<script src="i18n.js?v=55" defer></script>
+<script src="jo/ads/ads.js?v=1" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  var card = document.getElementById('adsFormCard'), editId = null, current = null;
+  var formHtml = '<form class="ads-form" id="adsForm" novalidate>' +
+    '<div class="card-title" style="font-size:15px;" id="formTitle">📝 أضف إعلانك</div>' +
+    '<label for="f_title">اسم الإعلان / المحل / المشروع *</label><input id="f_title" maxlength="80" required>' +
+    '<label for="f_cat">النوع *</label><select id="f_cat">' + Object.keys(ADS_CATS).map(function(k){ return '<option value="' + k + '">' + ADS_CATS[k] + '</option>'; }).join('') + '</select>' +
+    '<label for="f_city">المدينة / المنطقة</label><input id="f_city" maxlength="30" placeholder="مثلاً: عمّان، إربد، الزرقاء...">' +
+    '<label for="f_desc">لشو ممكن يفيد الناس؟ *</label><textarea id="f_desc" maxlength="800" placeholder="احكي عن شغلك، شو بتقدّم، وليش الناس بتستفيد منك (20 حرف على الأقل)"></textarea>' +
+    '<label for="f_links">روابط صفحاتك * (رابط بكل سطر، لحد 4)</label><textarea id="f_links" style="min-height:80px;" placeholder="https://instagram.com/...&#10;https://wa.me/962..."></textarea><div class="ads-hint">إنستغرام، فيسبوك، واتساب، موقعك، أو لوكيشن على الخريطة — لازم يبلّش بـ https://</div>' +
+    '<label for="f_proof">رابط منشورك اللي نشرت فيه أدواتي *</label><input id="f_proof" maxlength="300" placeholder="https://...">' +
+    '<label for="f_name">اسمك أو اسم الجهة (بيظهر مع الإعلان)</label><input id="f_name" maxlength="40">' +
+    '<div class="ads-row"><button type="submit" class="ads-btn" id="f_submit">📤 أرسل للمراجعة</button><button type="button" class="ads-btn secondary" id="f_cancel" hidden>إلغاء التعديل</button></div>' +
+    '<div id="f_msg"></div></form>';
+  function val(id) { return document.getElementById(id).value.trim(); }
+  function msg(t, ok) { document.getElementById('f_msg').innerHTML = '<div class="ads-msg ' + (ok ? 'ok' : 'err') + '">' + adsEsc(t) + '</div>'; }
+  function resetForm() {
+    editId = null; document.getElementById('adsForm').reset();
+    document.getElementById('formTitle').textContent = '📝 أضف إعلانك';
+    document.getElementById('f_cancel').hidden = true;
+    if (current) document.getElementById('f_name').value = current.displayName || '';
+  }
+  function loadMine(fb, user) {
+    fb.db.collection('ads').where('ownerUid', '==', user.uid).get().then(function(snap) {
+      var box = document.getElementById('myAds');
+      document.getElementById('myAdsCard').hidden = snap.empty;
+      box.innerHTML = snap.docs.map(function(d) {
+        var a = d.data(), canEdit = a.status === 'pending' || a.status === 'changes';
+        return '<div style="border-top:1px solid var(--border);padding:12px 0;">' +
+          '<div style="display:flex;justify-content:space-between;gap:8px;align-items:center;"><strong>' + adsEsc(a.title) + '</strong><span class="ads-status">' + adsEsc(ADS_STATUS[a.status] || a.status) + '</span></div>' +
+          (a.adminNote ? '<div class="ads-note">💬 ملاحظة الإدارة: ' + adsEsc(a.adminNote) + '</div>' : '') +
+          '<div class="ads-row">' + (a.status === 'approved' ? '<a class="ads-btn secondary" href="jo/ads/view/?id=' + d.id + '">👁️ شوف إعلانك</a>' : '') +
+          (canEdit ? '<button type="button" class="ads-btn secondary" data-edit="' + d.id + '">✏️ تعديل</button>' : '') + '</div></div>';
+      }).join('');
+      box.querySelectorAll('[data-edit]').forEach(function(b) {
+        b.addEventListener('click', function() {
+          var a = snap.docs.filter(function(d){ return d.id === b.getAttribute('data-edit'); })[0].data();
+          editId = b.getAttribute('data-edit');
+          document.getElementById('f_title').value = a.title; document.getElementById('f_cat').value = a.category;
+          document.getElementById('f_city').value = a.city; document.getElementById('f_desc').value = a.description;
+          document.getElementById('f_links').value = (a.links || []).join('\n'); document.getElementById('f_proof').value = a.shareProof;
+          document.getElementById('f_name').value = a.ownerName;
+          document.getElementById('formTitle').textContent = '✏️ تعديل الإعلان';
+          document.getElementById('f_cancel').hidden = false;
+          card.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+    }).catch(function() {});
+  }
+  adsOnUser(function(user, fb) {
+    current = user;
+    if (!user) { adsSignInPrompt(card, 'لازم تسجّل دخول عشان تضيف إعلانك — التسجيل ببلاش وبياخذ دقيقة.'); document.getElementById('myAdsCard').hidden = true; return; }
+    card.innerHTML = formHtml; resetForm();
+    document.getElementById('f_cancel').addEventListener('click', resetForm);
+    document.getElementById('adsForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var links = val('f_links').split(/\s+/).map(adsSafeUrl).filter(Boolean).slice(0, 4);
+      var d = { title: val('f_title'), category: val('f_cat'), city: val('f_city'), description: val('f_desc'), links: links,
+        shareProof: adsSafeUrl(val('f_proof')), ownerName: val('f_name') || (user.displayName || '').slice(0, 40) };
+      if (d.title.length < 2) return msg('اكتب اسم الإعلان.');
+      if (d.description.length < 20) return msg('احكي أكثر عن إعلانك (20 حرف على الأقل).');
+      if (!links.length) return msg('حط رابط واحد على الأقل لصفحتك (يبلّش بـ https://).');
+      if (!d.shareProof) return msg('حط رابط المنشور اللي نشرت فيه أدواتي (يبلّش بـ https://).');
+      var btn = document.getElementById('f_submit'); btn.disabled = true;
+      var ts = firebase.firestore.FieldValue.serverTimestamp(), op;
+      d.status = 'pending'; d.updatedAt = ts;
+      if (editId) op = fb.db.collection('ads').doc(editId).update(d);
+      else { d.ownerUid = user.uid; d.adminNote = ''; d.likeCount = 0; d.createdAt = ts; op = fb.db.collection('ads').add(d); }
+      op.then(function() {
+        resetForm(); msg('✅ وصلنا إعلانك! رح نراجعه بأقرب وقت، وبتلاقي حالته تحت بـ"إعلاناتي".', true); loadMine(fb, user);
+      }).catch(function() { msg('ما زبط الإرسال — تأكد من الروابط وجرّب مرة ثانية.'); })
+        .then(function() { btn.disabled = false; });
+    });
+    loadMine(fb, user);
+  });
+});
+</script>
+</body></html>

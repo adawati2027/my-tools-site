@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>تفاصيل الإعلان — عنا الإعلانات | Adawati</title>
+<meta name="description" content="تفاصيل إعلان من دليل عنا الإعلانات على أدواتي — محلات ومشاريع أردنية مراجَعة.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/jo/ads/view/">
+<meta property="og:title" content="تفاصيل الإعلان — عنا الإعلانات | Adawati">
+<meta property="og:description" content="تفاصيل إعلان من دليل عنا الإعلانات على أدواتي — محلات ومشاريع أردنية مراجَعة.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/jo/ads/view/">
+<meta property="og:image" content="https://adawati.space/og/jo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="jo/ads/ads.css?v=1">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/ads/">عنا الإعلانات</a>
+    <a href="jo/">أدوات الأردن</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="jo/ads/">→ كل الإعلانات</a></div>
+
+  <div class="card" id="adView"><div>⏳ جاري التحميل...</div></div>
+  <div style="margin-top:16px;text-align:center;"><a class="ads-btn secondary" href="jo/ads/submit/">➕ بدك تعلن كمان؟ أضف إعلانك ببلاش</a></div>
+  <p style="font-size:12px;color:var(--text-muted);margin-top:16px;text-align:center;">⚠️ الإعلانات مقدّمة من أصحابها ومراجَعة قبل النشر، لكن أدواتي مش مسؤول عن أي تعامل بينك وبين المعلن — تأكد بنفسك قبل أي دفع أو اتفاق.</p>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+<script src="i18n-lang-ar.js?v=2" defer></script>
+<script src="i18n.js?v=55" defer></script>
+<script src="jo/ads/ads.js?v=1" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  var box = document.getElementById('adView');
+  var id = new URLSearchParams(location.search).get('id');
+  if (!id) { box.innerHTML = 'الإعلان مش موجود. <a href="jo/ads/">ارجع للإعلانات</a>'; return; }
+  var fbRef, ad, liked = false;
+  function likeBtn() {
+    return '<button type="button" class="ads-btn secondary ads-like' + (liked ? ' on' : '') + '" id="likeBtn">' + (liked ? '❤️' : '🤍') + ' ' + (ad.likeCount || 0) + '</button>';
+  }
+  function draw() {
+    document.title = ad.title + ' | عنا الإعلانات | Adawati';
+    box.innerHTML = '<div class="ads-card-top"><span class="ads-cat">' + adsEsc(ADS_CATS[ad.category] || '') + '</span>' + (ad.city ? '<span class="ads-city">📍 ' + adsEsc(ad.city) + '</span>' : '') + '</div>' +
+      '<h1 class="card-title" style="margin-top:10px;">' + adsEsc(ad.title) + '</h1>' +
+      '<div class="card-subtitle">' + (ad.ownerName ? 'من: ' + adsEsc(ad.ownerName) : '') + (ad.createdAt ? ' · ' + adsEsc(adsDate(ad.createdAt)) : '') + '</div>' +
+      '<div class="divider"></div>' +
+      '<p style="font-size:15px;line-height:1.9;white-space:pre-line;">' + adsEsc(ad.description) + '</p>' +
+      '<div class="card-title" style="font-size:15px;margin-top:16px;">🔗 صفحات المعلن</div><div class="ads-links">' + adsLinksHtml(ad.links) + '</div>' +
+      '<div class="ads-row" style="margin-top:16px;">' + likeBtn() + '<button type="button" class="ads-btn secondary" id="shareBtn">📤 شارك الإعلان</button></div><div id="likeMsg"></div>';
+    document.getElementById('likeBtn').addEventListener('click', toggleLike);
+    document.getElementById('shareBtn').addEventListener('click', function() {
+      if (navigator.share) navigator.share({ title: ad.title, url: location.href }).catch(function(){});
+      else if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(function(){ document.getElementById('likeMsg').innerHTML = '<div class="ads-msg ok">✅ انسخ الرابط</div>'; });
+    });
+  }
+  function toggleLike() {
+    var user = fbRef.auth.currentUser;
+    if (!user) { openAuthModal(); return; }
+    var adRef = fbRef.db.collection('ads').doc(id), likeRef = adRef.collection('likes').doc(user.uid);
+    var batch = fbRef.db.batch(), inc = liked ? -1 : 1;
+    if (liked) batch.delete(likeRef); else batch.set(likeRef, { createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+    batch.update(adRef, { likeCount: (ad.likeCount || 0) + inc });
+    document.getElementById('likeBtn').disabled = true;
+    batch.commit().then(function() { liked = !liked; ad.likeCount = (ad.likeCount || 0) + inc; draw(); })
+      .catch(function() { document.getElementById('likeBtn').disabled = false; document.getElementById('likeMsg').innerHTML = '<div class="ads-msg err">ما زبط — حدّث الصفحة وجرّب.</div>'; });
+  }
+  adsOnUser(function(user, fb) {
+    fbRef = fb;
+    if (!fb) { box.innerHTML = 'صار خطأ بالتحميل.'; return; }
+    fb.db.collection('ads').doc(id).get().then(function(doc) {
+      if (!doc.exists) { box.innerHTML = 'الإعلان مش موجود أو لسا قيد المراجعة. <a href="jo/ads/">ارجع للإعلانات</a>'; return null; }
+      ad = doc.data();
+      return user ? doc.ref.collection('likes').doc(user.uid).get().then(function(l){ liked = l.exists; }) : null;
+    }).then(function() { if (ad) draw(); })
+      .catch(function() { box.innerHTML = 'الإعلان مش متاح. <a href="jo/ads/">ارجع للإعلانات</a>'; });
+  });
+});
+</script>
+</body></html>

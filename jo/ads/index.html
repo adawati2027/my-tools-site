@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>عنا الإعلانات — محلات ومشاريع أردنية | Adawati</title>
+<meta name="description" content="دليل إعلانات مجاني لمحلات ومشاريع وخدمات أردنية — كل إعلان مراجَع قبل النشر، مع لايكات وروابط صفحات أصحابها.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/jo/ads/">
+<meta property="og:title" content="عنا الإعلانات — محلات ومشاريع أردنية | Adawati">
+<meta property="og:description" content="دليل إعلانات مجاني لمحلات ومشاريع وخدمات أردنية — كل إعلان مراجَع قبل النشر، مع لايكات وروابط صفحات أصحابها.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/jo/ads/">
+<meta property="og:image" content="https://adawati.space/og/jo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},{"@type":"ListItem","position":2,"name":"أدوات الأردن","item":"https://adawati.space/jo/"},{"@type":"ListItem","position":3,"name":"عنا الإعلانات","item":"https://adawati.space/jo/ads/"}]}</script>
+<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="jo/ads/ads.css?v=1">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/ads/">عنا الإعلانات</a>
+    <a href="jo/">أدوات الأردن</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="jo/">→ العودة لأدوات الأردن</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#fef3c7;">📣</div>
+    <h1 class="card-title">عنا الإعلانات</h1>
+    <div class="card-subtitle">محلات ومشاريع وخدمات أردنية — كل إعلان مراجَع قبل ما ينزل</div>
+    <div class="divider"></div>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;">عندك محل أو مشروع أو صفحة؟ أعلن عندنا ببلاش، وبالمقابل انشر أدواتي على صفحتك. 🤝</p>
+    <div class="ads-row"><a class="ads-btn" href="jo/ads/submit/">➕ أضف إعلانك ببلاش</a></div>
+  </div>
+  <div class="card" style="margin-top:16px;">
+    <input id="adsSearch" type="text" placeholder="🔍 دوّر على محل أو مشروع أو مدينة..." style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font-size:16px;font-family:inherit;box-sizing:border-box;">
+    <div class="ads-row" id="adsCats"></div>
+  </div>
+  <div id="adsList" class="ads-grid"><div class="card" style="margin:0;">⏳ جاري التحميل...</div></div>
+  <p style="font-size:12px;color:var(--text-muted);margin-top:16px;text-align:center;">⚠️ الإعلانات مقدّمة من أصحابها ومراجَعة قبل النشر، لكن أدواتي مش مسؤول عن أي تعامل بينك وبين المعلن — تأكد بنفسك قبل أي دفع أو اتفاق.</p>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+<script src="i18n-lang-ar.js?v=2" defer></script>
+<script src="i18n.js?v=55" defer></script>
+<script src="jo/ads/ads.js?v=1" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  var all = [], cat = 'all';
+  var cats = document.getElementById('adsCats');
+  cats.innerHTML = '<button type="button" class="ads-btn" data-cat="all">الكل</button>' + Object.keys(ADS_CATS).map(function(k){ return '<button type="button" class="ads-btn secondary" data-cat="' + k + '">' + ADS_CATS[k] + '</button>'; }).join('');
+  cats.addEventListener('click', function(e) {
+    var b = e.target.closest('[data-cat]'); if (!b) return;
+    cat = b.getAttribute('data-cat');
+    cats.querySelectorAll('[data-cat]').forEach(function(x){ x.className = 'ads-btn' + (x === b ? '' : ' secondary'); });
+    render();
+  });
+  document.getElementById('adsSearch').addEventListener('input', render);
+  function render() {
+    var q = document.getElementById('adsSearch').value.trim().toLowerCase();
+    var list = all.filter(function(x) {
+      var a = x.d;
+      return (cat === 'all' || a.category === cat) && (!q || (a.title + ' ' + a.city + ' ' + a.description).toLowerCase().indexOf(q) !== -1);
+    });
+    document.getElementById('adsList').innerHTML = list.length ? list.map(function(x){ return adsCardHtml(x.id, x.d); }).join('')
+      : '<div class="card" style="margin:0;text-align:center;">' + (all.length ? 'ما في نتائج لبحثك.' : 'لسا ما في إعلانات — كن أول واحد! <a href="jo/ads/submit/">أضف إعلانك</a>') + '</div>';
+  }
+  adsFb().then(function(fb) {
+    return fb.db.collection('ads').where('status', '==', 'approved').get();
+  }).then(function(snap) {
+    all = snap.docs.map(function(d){ return { id: d.id, d: d.data() }; });
+    all.sort(function(a, b){ return (b.d.likeCount || 0) - (a.d.likeCount || 0) || ((b.d.createdAt && b.d.createdAt.seconds) || 0) - ((a.d.createdAt && a.d.createdAt.seconds) || 0); });
+    render();
+  }).catch(function() {
+    document.getElementById('adsList').innerHTML = '<div class="card" style="margin:0;">صار خطأ بالتحميل — جرّب تحدّث الصفحة.</div>';
+  });
+});
+</script>
+</body></html>
