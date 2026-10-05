@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
       '<div class="card-subtitle">' + (ad.ownerName ? 'من: ' + adsEsc(ad.ownerName) : '') + (ad.createdAt ? ' · ' + adsEsc(adsDate(ad.createdAt)) : '') + '</div>' +
       '<div class="divider"></div>' +
       '<p style="font-size:15px;line-height:1.9;white-space:pre-line;">' + adsEsc(ad.description) + '</p>' +
+      (ad.phone ? '<div style="margin-top:12px;font-size:15px;">📞 <a href="tel:' + adsEsc(ad.phone.replace(/s+/g, '')) + '" dir="ltr" style="color:var(--primary);font-weight:700;">' + adsEsc(ad.phone) + '</a></div>' : '') +
       '<div class="card-title" style="font-size:15px;margin-top:16px;">🔗 صفحات المعلن</div><div class="ads-links">' + adsLinksHtml(ad.links) + '</div>' +
       '<div class="ads-row" style="margin-top:16px;">' + likeBtn() + '<button type="button" class="ads-btn secondary" id="shareBtn">📤 شارك الإعلان</button></div><div id="likeMsg"></div>' +
       (isAdmin ? '<div class="ads-note" style="margin-top:16px;">🛡️ أدمن · ' + adsEsc(adsExpiryText(ad)) + '<div class="ads-row"><button type="button" class="ads-btn danger" id="adminDel">🗑️ احذف الإعلان</button><a class="ads-btn secondary" href="jo/ads/admin/">لوحة الإدارة</a></div></div>' : '');

@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return '<div class="card" style="margin-top:12px;" data-id="' + d.id + '">' +
           '<div class="ads-card-top"><span class="ads-cat">' + adsEsc(ADS_CATS[a.category] || '') + '</span><span>' + adsEsc(adsDate(a.updatedAt || a.createdAt)) + '</span></div>' +
           '<div class="ads-title" style="margin-top:8px;">' + adsEsc(a.title) + '</div>' +
-          '<div class="ads-meta">' + adsEsc(a.ownerName) + (a.city ? ' · 📍 ' + adsEsc(a.city) : '') + ' · ❤️ ' + (a.likeCount || 0) + '</div>' +
+          '<div class="ads-meta">' + adsEsc(a.ownerName) + (a.phone ? ' · 📞 <span dir="ltr">' + adsEsc(a.phone) + '</span>' : '') + (a.city ? ' · 📍 ' + adsEsc(a.city) : '') + ' · ❤️ ' + (a.likeCount || 0) + '</div>' +
           '<p style="font-size:14px;line-height:1.8;white-space:pre-line;margin-top:8px;">' + adsEsc(a.description) + '</p>' +
           '<div class="ads-links">' + adsLinksHtml(a.links) + '</div>' +
           (a.status === 'approved' ? '<div class="ads-meta" style="margin-top:8px;font-weight:700;">' + adsEsc(adsExpiryText(a)) + '</div>' : '') +

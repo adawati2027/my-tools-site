@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     '<input type="file" id="f_img" accept="image/*" style="margin-top:6px;">' +
     '<div id="f_imgprev" style="margin-top:8px;"></div>' +
     '<label for="f_name">اسمك أو اسم الجهة (بيظهر مع الإعلان)</label><input id="f_name" maxlength="40">' +
+    '<label for="f_phone">رقم الهاتف (اختياري — بيظهر مع الإعلان)</label><input id="f_phone" type="tel" maxlength="20" dir="ltr" placeholder="07XXXXXXXX">' +
     '<div class="ads-row"><button type="submit" class="ads-btn" id="f_submit">📤 أرسل للمراجعة</button><button type="button" class="ads-btn secondary" id="f_cancel" hidden>إلغاء التعديل</button></div>' +
     '<div id="f_msg"></div></form>';
   function val(id) { return document.getElementById(id).value.trim(); }
@@ -113,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
           document.getElementById('f_title').value = a.title; document.getElementById('f_cat').value = a.category;
           document.getElementById('f_city').value = a.city; document.getElementById('f_desc').value = a.description;
           document.getElementById('f_links').value = (a.links || []).join('\n'); document.getElementById('f_proof').value = a.shareProof || ''; document.getElementById('f_ig').value = a.igHandle || ''; document.getElementById('f_follow').checked = true; editHasImg = !!a.hasProofImage; proofImg = null; document.getElementById('f_imgprev').innerHTML = editHasImg ? '<div class="ads-hint">📎 في صورة مرفوعة من قبل — ارفع وحدة جديدة إذا بدك تغيّرها.</div>' : '';
-          document.getElementById('f_name').value = a.ownerName;
+          document.getElementById('f_name').value = a.ownerName; document.getElementById('f_phone').value = a.phone || '';
           document.getElementById('formTitle').textContent = '✏️ تعديل الإعلان';
           document.getElementById('f_cancel').hidden = false;
           card.scrollIntoView({ behavior: 'smooth' });
@@ -140,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var links = val('f_links').split(/\s+/).map(adsSafeUrl).filter(Boolean).slice(0, 4);
       var d = { title: val('f_title'), category: val('f_cat'), city: val('f_city'), description: val('f_desc'), links: links,
         shareProof: adsSafeUrl(val('f_proof')), hasProofImage: !!proofImg || editHasImg, igHandle: val('f_ig').replace(/s+/g, ''),
-        ownerName: val('f_name') || (user.displayName || '').slice(0, 40) };
+        phone: val('f_phone').replace(/[^0-9+ ]/g, '').slice(0, 20), ownerName: val('f_name') || (user.displayName || '').slice(0, 40) };
       if (d.title.length < 2) return msg('اكتب اسم الإعلان.');
       if (d.description.length < 20) return msg('احكي أكثر عن إعلانك (20 حرف على الأقل).');
       if (!links.length) return msg('حط رابط واحد على الأقل لصفحتك (يبلّش بـ https://).');

@@ -7,4 +7,5 @@ Owner's idea: users register, submit their shop/project/page ad for free and in 
 - Advertiser links use `rel="nofollow sponsored ugc noopener"` (avoid Google link-scheme penalty).
 - Claude cannot create accounts/sign in on production, so the end-to-end submit→approve flow is tested by the owner.
 - Expiry (added same day): admin picks a duration on approve (7/14/30/60/90 days or none) → `expiresAt`; "⏱️ تعديل المدة" extends it. Expired ads are hidden client-side (listing filter, view page message) — data stays until admin deletes. Admin also gets a delete button on the view page.
+- Proof + contact (2026-10-05): proof = post link OR story screenshot (client-compressed JPEG data-URL ≤600KB in `adProofs/{adId}`, readable by owner/admin only — Firebase Storage needs the paid plan); required Instagram follow of @adawati2027 (checkbox + `igHandle` the admin verifies by hand); optional `phone` shown on the ad page as a tel: link.
 - Phase 2 (not built yet): ratings, comments, report button.

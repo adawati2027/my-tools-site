@@ -91,3 +91,34 @@ function adsExpiryText(a) {
   if (!a.expiresAt) return '♾️ بدون تاريخ انتهاء';
   return adsExpired(a) ? '⌛ انتهت مدته بتاريخ ' + adsDate(a.expiresAt) : '⏱️ بينتهي بتاريخ ' + adsDate(a.expiresAt);
 }
+
+var ADS_IG_URL = 'https://www.instagram.com/adawati2027/';
+var ADS_IG_HANDLE = '@adawati2027';
+
+function adsCompressImage(file) {
+  return new Promise(function(resolve, reject) {
+    if (!file || !/^image\//.test(file.type)) return reject(new Error('type'));
+    var reader = new FileReader();
+    reader.onerror = function() { reject(new Error('read')); };
+    reader.onload = function() {
+      var img = new Image();
+      img.onerror = function() { reject(new Error('decode')); };
+      img.onload = function() {
+        var max = 900, w = img.width, h = img.height;
+        if (w > max || h > max) { var r = Math.min(max / w, max / h); w = Math.round(w * r); h = Math.round(h * r); }
+        var c = document.createElement('canvas'); c.width = w; c.height = h;
+        var ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h); ctx.drawImage(img, 0, 0, w, h);
+        var q = 0.7, out = c.toDataURL('image/jpeg', q);
+        while (out.length > 450000 && q > 0.3) { q -= 0.1; out = c.toDataURL('image/jpeg', q); }
+        out.length > 590000 ? reject(new Error('size')) : resolve(out);
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function adsIgProfileUrl(h) {
+  h = String(h || '').trim().replace(/^@/, '').replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/[/?#].*$/, '');
+  return /^[A-Za-z0-9._]{1,30}$/.test(h) ? 'https://www.instagram.com/' + h + '/' : '';
+}
