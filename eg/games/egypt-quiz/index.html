@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link rel="preload" as="font" type="font/woff2" href="../../../fonts/cairo-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../../../fonts/cairo-arabic.woff2" crossorigin>
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>شو بتعرف عن مصر؟ — تحدي 200 سؤال | Adawati</title>
+<meta name="description" content="تحدّى نفسك وأصحابك: 200 سؤال عن مصر — التاريخ، الجغرافيا، المعالم، الثقافة والرياضة. 12 سؤال عشوائي في كل تحدي.">
+<meta name="keywords" content="اسئلة عن مصر, مسابقة عن مصر, كويز مصر, معلومات عن مصر, Egypt trivia quiz">>
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/eg/games/egypt-quiz/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/eg/games/egypt-quiz/">
+<link rel="alternate" hreflang="ar-EG" href="https://adawati.space/eg/games/egypt-quiz/">
+<meta property="og:title" content="شو بتعرف عن مصر؟ | Adawati">
+<meta property="og:description" content="تحدّى أصحابك بأسئلة عشوائية من بنك 200 سؤال عن مصر.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/eg/games/egypt-quiz/">
+<meta property="og:image" content="https://adawati.space/og/eg.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="شو بتعرف عن مصر؟ | Adawati">
+<meta name="twitter:description" content="تحدّى أصحابك بأسئلة عشوائية من بنك 200 سؤال عن مصر.">
+<meta name="twitter:image" content="https://adawati.space/og/eg.jpg">
+<link rel="stylesheet" href="../../../style.css?v=3">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="eg/" class="nav-brand">Adawati 🇪🇬</a>
+  <div class="nav-links">
+    <a href="eg/">أدوات مصر</a>
+    <a href="index.html" data-qt="nav_global">عالمي</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="eg/" data-i18n="back">← العودة للرئيسية</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#fef2f2;">🇪🇬</div>
+    <h1 class="card-title" data-en="How Well Do You Know Egypt?">شو بتعرف عن مصر؟</h1>
+    <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div id="quizArabicNote" style="font-size:12px;color:var(--text-muted);margin-top:2px;"></div>
+    <div class="divider"></div>
+
+    <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;" data-qt="challenge_start_title">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;" data-qt="challenge_start_subtitle">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="creatorNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;font-size:16px;border:1px solid var(--border);border-radius:8px;">
+        <button id="createChallengeBtn" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_challenge_btn">ابدأ تحدي</button>
+      </div>
+    </div>
+
+    <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
+      <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <input id="joinerNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;font-size:16px;border:1px solid var(--border);border-radius:8px;">
+        <button id="joinChallengeBtn" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="accept_btn">قبول التحدي ✅</button>
+      </div>
+    </div>
+
+    <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div style="font-weight:700;" data-qt="joiner_waiting">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+    </div>
+
+    <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:8px;" data-qt="challenge_ready">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareWaitingLinkBtn" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
+      </div>
+      <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
+        <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
+        <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
+        <button id="creatorStartBtn" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_playing_btn">ابدأ اللعب 🚀</button>
+      </div>
+    </div>
+
+    <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;" data-qt="active_link_label">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareActiveLinkBtn" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
+      </div>
+    </div>
+
+    <div id="quizArea">
+      <div id="questionText" style="font-size:17px;font-weight:700;margin-bottom:16px;"></div>
+      <div id="optionsArea" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="resultArea" style="display:none;text-align:center;">
+      <div style="font-size:48px;margin-bottom:8px;" id="resultEmoji"></div>
+      <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
+      <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button id="shareResultBtn" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="share_result_btn">📤 شارك نتيجتك</button>
+        <button id="restartBtn" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="try_again_btn">🔄 جرّب مرة ثانية</button>
+      </div>
+
+      <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;" data-qt="share_challenge_title">📤 شارك التحدي مع أصحابك</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+          <button id="shareLinkBtn" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+          <button id="copyLinkBtn" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
+        </div>
+      </div>
+
+      <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;" data-qt="leaderboard_title">🏆 لوحة الترتيب</div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;" data-qt="leaderboard_name">الاسم</th><th style="padding:6px;text-align:right;" data-qt="leaderboard_score">النتيجة</th></tr></thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>أدوات مصر والكويزات الأخرى:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="omr-to-egp.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💱 تحويل الريال العُماني للجنيه</a>
+      <a href="om/games/oman-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇴🇲 شو بتعرف عن عُمان؟</a>
+      <a href="sa/games/saudi-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇸🇦 شو بتعرف عن السعودية؟</a>
+      <a href="ae/games/uae-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇦🇪 شو بتعرف عن الإمارات؟</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/islamic-history-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">☪️ كويز التاريخ الإسلامي</a>
+      <a href="jo/games/general-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌐 كويز المعلومات العامة</a>
+      <a href="eg/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇪🇬 كل أدوات مصر</a>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html" data-qt="nav_about">من نحن</a><a href="contact.html" data-qt="nav_contact">تواصل</a><a href="eg/">أدوات مصر</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" integrity="sha384-+65NgAKqXr1Nb7sBmV6O09pL8ASqZsi29OE718meKinGAWaa70VE5V6LNjXVBjIA" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" integrity="sha384-YHSscHG455M7b+d6r5ibTMznxrZxV272bMjXT9ndTgmx05fLR7HsdmcVklhpBSyt" crossorigin="anonymous"></script>
+<script>
+const QUESTIONS = [
+  {q:'ما هي عاصمة مصر؟', opts:['القاهرة','الإسكندرية','الجيزة','الأقصر'], correct:0, difficulty:'easy'},
+  {q:'ما هي عملة مصر؟', opts:['الجنيه المصري','الدينار المصري','الريال المصري','الليرة المصرية'], correct:0, difficulty:'easy'},
+  {q:'ما هو النهر الذي يجري في مصر؟', opts:['نهر النيل','نهر الفرات','نهر دجلة','نهر الأردن'], correct:0, difficulty:'easy'},
+  {q:'في أي محافظة تقع الأهرامات الشهيرة؟', opts:['الجيزة','الأقصر','أسوان','الفيوم'], correct:0, difficulty:'easy'},
+  {q:'ما هو أكبر أهرامات الجيزة؟', opts:['هرم خوفو','هرم خفرع','هرم منكاورع','هرم زوسر'], correct:0, difficulty:'easy'},
+  {q:'ما اسم التمثال الضخم برأس إنسان وجسم أسد قرب الأهرامات؟', opts:['أبو الهول','رمسيس الثاني','حورس','أنوبيس'], correct:0, difficulty:'easy'},
+  {q:'ما هي ثاني أكبر مدينة في مصر وتطل على البحر المتوسط؟', opts:['الإسكندرية','بورسعيد','دمياط','مرسى مطروح'], correct:0, difficulty:'easy'},
+  {q:'ما اسم القناة الملاحية الشهيرة التي تربط البحر المتوسط بالبحر الأحمر؟', opts:['قناة السويس','قناة بنما','قناة كيل','قناة كورنث'], correct:0, difficulty:'easy'},
+  {q:'من هو رئيس مصر الحالي؟', opts:['عبد الفتاح السيسي','حسني مبارك','محمد مرسي','أنور السادات'], correct:0, difficulty:'easy'},
+  {q:'ما هو لقب منتخب مصر لكرة القدم؟', opts:['الفراعنة','النسور','أسود الأطلس','النشامى'], correct:0, difficulty:'easy'},
+  {q:'في أي نادٍ إنجليزي اشتهر محمد صلاح؟', opts:['ليفربول','مانشستر يونايتد','تشيلسي','أرسنال'], correct:0, difficulty:'easy'},
+  {q:'ما هما الناديان الأكبر جماهيرياً في مصر؟', opts:['الأهلي والزمالك','الإسماعيلي والمصري','الأهلي والإسماعيلي','الزمالك والاتحاد'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الطبق الشعبي المصري من الأرز والعدس والمكرونة والصلصة؟', opts:['الكشري','المنسف','الكبسة','المقلوبة'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الطبق المصري الشعبي من الفول المطبوخ؟', opts:['الفول المدمس','الحمص بطحينة','المسبحة','الفتة الشامية'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الحلوى المصرية الشهيرة من العجين والحليب والمكسرات؟', opts:['أم علي','الكنافة النابلسية','البقلاوة','اللقيمات'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الطبق المصري الأخضر الذي يُطهى مع المرق؟', opts:['الملوخية','البامية','السبانخ','الكوسا'], correct:0, difficulty:'easy'},
+  {q:'ما اسم السوق التاريخي الشهير في القاهرة الإسلامية؟', opts:['خان الخليلي','سوق الحميدية','سوق واقف','سوق مطرح'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الجامع والجامعة الإسلامية العريقة في القاهرة؟', opts:['الأزهر','الزيتونة','القرويين','الأموي'], correct:0, difficulty:'easy'},
+  {q:'ما اسم البرج الشهير في جزيرة الزمالك بالقاهرة؟', opts:['برج القاهرة','برج العرب','برج خليفة','برج الساعة'], correct:0, difficulty:'easy'},
+  {q:'ما اسم القلعة الشهيرة التي بناها صلاح الدين في القاهرة؟', opts:['قلعة صلاح الدين','قلعة قايتباي','قلعة الجبل الأخضر','قلعة حلب'], correct:0, difficulty:'easy'},
+  {q:'ما اسم القلعة الشهيرة على شاطئ الإسكندرية في موقع المنارة القديمة؟', opts:['قلعة قايتباي','قلعة صلاح الدين','قلعة نخل','قلعة الكرك'], correct:0, difficulty:'easy'},
+  {q:'ما اسم المدينة المصرية الملقبة بأكبر متحف مفتوح في العالم؟', opts:['الأقصر','أسوان','الإسكندرية','المنيا'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الوادي الذي دُفن فيه ملوك الفراعنة في الأقصر؟', opts:['وادي الملوك','وادي الحيتان','وادي النطرون','وادي حلفا'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الفرعون الشاب الذي اشتهر قناعه الذهبي؟', opts:['توت عنخ آمون','رمسيس الثاني','خوفو','أخناتون'], correct:0, difficulty:'easy'},
+  {q:'ما اسم السد الضخم المبني على النيل في أسوان؟', opts:['السد العالي','سد النهضة','سد مأرب','سد الفرات'], correct:0, difficulty:'easy'},
+  {q:'ما اسم البحيرة الصناعية الكبرى التي تكوّنت خلف السد العالي؟', opts:['بحيرة ناصر','بحيرة قارون','بحيرة المنزلة','بحيرة البردويل'], correct:0, difficulty:'easy'},
+  {q:'ما اسم المعبد الشهير المنحوت في الصخر لرمسيس الثاني جنوب أسوان؟', opts:['معبد أبو سمبل','معبد الكرنك','معبد إدفو','معبد دندرة'], correct:0, difficulty:'easy'},
+  {q:'ما اسم شبه الجزيرة المصرية بين خليجي السويس والعقبة؟', opts:['سيناء','الدلتا','العلمين','سيوة'], correct:0, difficulty:'easy'},
+  {q:'ما اسم المدينة السياحية في جنوب سيناء الملقبة بمدينة السلام؟', opts:['شرم الشيخ','الغردقة','دهب','مرسى علم'], correct:0, difficulty:'easy'},
+  {q:'ما اسم المدينة السياحية الشهيرة على البحر الأحمر في محافظة البحر الأحمر؟', opts:['الغردقة','شرم الشيخ','العريش','مرسى مطروح'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الواحة الشهيرة في الصحراء الغربية قرب ليبيا؟', opts:['سيوة','الفرافرة','الخارجة','الداخلة'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الكتابة المصرية القديمة بالرموز والصور؟', opts:['الهيروغليفية','المسمارية','الفينيقية','اللاتينية'], correct:0, difficulty:'easy'},
+  {q:'ما هي الأعجوبة الوحيدة الباقية من عجائب الدنيا السبع القديمة؟', opts:['الهرم الأكبر بالجيزة','منارة الإسكندرية','حدائق بابل المعلقة','تمثال زيوس'], correct:0, difficulty:'easy'},
+  {q:'أي من عجائب الدنيا السبع القديمة كانت في الإسكندرية؟', opts:['المنارة (الفنار)','الحدائق المعلقة','تمثال رودس','ضريح موسولوس'], correct:0, difficulty:'easy'},
+  {q:'ما هو مفتاح الاتصال الدولي لمصر؟', opts:['+20','+202','+966','+962'], correct:0, difficulty:'easy'},
+  {q:'ما هو نطاق الإنترنت الخاص بمصر؟', opts:['.eg','.em','.ma','.ep'], correct:0, difficulty:'easy'},
+  {q:'ما هي ألوان علم مصر؟', opts:['الأحمر والأبيض والأسود','الأخضر والأبيض والأحمر','الأحمر والأبيض فقط','الأزرق والأبيض والأحمر'], correct:0, difficulty:'easy'},
+  {q:'ما هو الطائر الذهبي الذي يتوسط علم مصر؟', opts:['نسر صلاح الدين','الصقر حورس','الحمامة','الطاووس'], correct:0, difficulty:'easy'},
+  {q:'ما هي اللغة الرسمية في مصر؟', opts:['العربية','القبطية','الإنجليزية','الفرنسية'], correct:0, difficulty:'easy'},
+  {q:'ما اسم المطربة المصرية الملقبة بـ"كوكب الشرق"؟', opts:['أم كلثوم','فيروز','وردة','شادية'], correct:0, difficulty:'easy'},
+  {q:'من هو المطرب الملقب بـ"العندليب الأسمر"؟', opts:['عبد الحليم حافظ','محمد عبد الوهاب','فريد الأطرش','محمد منير'], correct:0, difficulty:'easy'},
+  {q:'من هو الممثل الكوميدي المصري الملقب بـ"الزعيم"؟', opts:['عادل إمام','محمد هنيدي','أحمد حلمي','فؤاد المهندس'], correct:0, difficulty:'easy'},
+  {q:'من هو الأديب المصري الحائز على جائزة نوبل للآداب؟', opts:['نجيب محفوظ','طه حسين','توفيق الحكيم','عباس العقاد'], correct:0, difficulty:'easy'},
+  {q:'ما اسم العيد الشعبي المصري في الربيع الذي يُؤكل فيه الفسيخ والبيض الملون؟', opts:['شم النسيم','عيد وفاء النيل','عيد الأم','عيد الحصاد'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الفانوس الذي يرتبط بشهر رمضان في مصر؟', opts:['فانوس رمضان','القنديل','المشكاة','المصباح'], correct:0, difficulty:'easy'},
+  {q:'ما اسم المتحف التاريخي الشهير في ميدان التحرير؟', opts:['المتحف المصري','المتحف القبطي','المتحف الإسلامي','متحف الحضارة'], correct:0, difficulty:'easy'},
+  {q:'أين يقع المتحف المصري الكبير؟', opts:['قرب أهرامات الجيزة','في الأقصر','في الإسكندرية','في أسوان'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الحجر الذي ساعد في فك رموز الهيروغليفية؟', opts:['حجر رشيد','حجر الكعبة','حجر بالرمو','حجر ميشع'], correct:0, difficulty:'easy'},
+  {q:'أين يُعرض حجر رشيد حالياً؟', opts:['المتحف البريطاني في لندن','المتحف المصري','متحف اللوفر','متحف برلين'], correct:0, difficulty:'easy'},
+  {q:'ما اسم المكتبة الحديثة الشهيرة في الإسكندرية؟', opts:['مكتبة الإسكندرية','دار الكتب','مكتبة القاهرة الكبرى','مكتبة الأزهر'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الملكة البطلمية الشهيرة آخر حكام مصر القديمة؟', opts:['كليوباترا','نفرتيتي','حتشبسوت','نفرتاري'], correct:0, difficulty:'easy'},
+  {q:'من هو القائد المقدوني الذي أسس الإسكندرية؟', opts:['الإسكندر الأكبر','يوليوس قيصر','بطليموس الأول','نابليون'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الصحابي الذي فتح مصر؟', opts:['عمرو بن العاص','خالد بن الوليد','سعد بن أبي وقاص','أبو عبيدة'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الجبل الذي يقع عنده دير سانت كاترين؟', opts:['جبل موسى (سيناء)','جبل المقطم','جبل عتاقة','جبل علبة'], correct:0, difficulty:'easy'},
+  {q:'أي دولة تحدّ مصر من الغرب؟', opts:['ليبيا','السودان','تونس','الجزائر'], correct:0, difficulty:'easy'},
+  {q:'أي دولة تحدّ مصر من الجنوب؟', opts:['السودان','ليبيا','إثيوبيا','تشاد'], correct:0, difficulty:'easy'},
+  {q:'على أي بحرين تطل مصر؟', opts:['البحر المتوسط والبحر الأحمر','بحر العرب والبحر الأحمر','البحر الأسود والمتوسط','بحر قزوين والأحمر'], correct:0, difficulty:'easy'},
+  {q:'ما اسم المنطقة الزراعية الخصبة التي يتفرع فيها النيل قبل البحر؟', opts:['الدلتا','الصعيد','سيناء','الواحات'], correct:0, difficulty:'easy'},
+  {q:'ما اسم جنوب مصر الذي يُطلق عليه شعبياً؟', opts:['الصعيد','الدلتا','الريف','البحري'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الرقصة الصوفية الدائرية بالتنورة الملونة؟', opts:['التنورة','الدبكة','العرضة','الرزحة'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الثوب التقليدي الفضفاض في مصر؟', opts:['الجلابية','الدشداشة','الكندورة','البشت'], correct:0, difficulty:'easy'},
+  {q:'ما هو تاريخ ثورة 23 يوليو؟', opts:['1952','1919','1973','2011'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الحرب التي عبر فيها الجيش المصري قناة السويس في 6 أكتوبر؟', opts:['حرب أكتوبر 1973','حرب 1967','العدوان الثلاثي 1956','حرب 1948'], correct:0, difficulty:'easy'},
+  {q:'متى قامت ثورة 25 يناير؟', opts:['2011','2013','2005','2001'], correct:0, difficulty:'easy'},
+  {q:'من هو العالم المصري الحائز على جائزة نوبل في الكيمياء؟', opts:['أحمد زويل','مجدي يعقوب','فاروق الباز','مصطفى مشرفة'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الطبق المصري من العجين الرقيق المورّق بالسمن؟', opts:['الفطير المشلتت','الكنافة','البسبوسة','القطايف'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الحلوى المصرية من السميد والقطر؟', opts:['البسبوسة','الكنافة','البقلاوة','أم علي'], correct:0, difficulty:'easy'},
+  {q:'ما اسم القطار تحت الأرض في القاهرة؟', opts:['مترو أنفاق القاهرة','ترام الإسكندرية فقط','قطار الحرمين','مترو دبي'], correct:0, difficulty:'easy'},
+  {q:'ما هي ديانة أغلبية المصريين؟', opts:['الإسلام','المسيحية','اليهودية','البوذية'], correct:0, difficulty:'easy'},
+  {q:'ما اسم الكنيسة المسيحية الأكبر في مصر؟', opts:['الكنيسة القبطية الأرثوذكسية','الكنيسة الكاثوليكية الرومانية','الكنيسة الأنجليكانية','الكنيسة اللوثرية'], correct:0, difficulty:'easy'},
+  {q:'كم مرة فازت مصر بكأس الأمم الأفريقية؟', opts:['7 مرات','3 مرات','5 مرات','مرة واحدة'], correct:0, difficulty:'medium'},
+  {q:'في أي كأس عالم شاركت مصر لأول مرة؟', opts:['1934','1990','1970','1958'], correct:0, difficulty:'medium'},
+  {q:'في أي كؤوس عالم شارك منتخب مصر؟', opts:['1934 و1990 و2018','1954 و1986 و2014','1970 و1998 و2010','1934 و1974 و2006'], correct:0, difficulty:'medium'},
+  {q:'في أي عام استضافت مصر كأس الأمم الأفريقية الأخيرة؟', opts:['2019','2006','2010','2023'], correct:0, difficulty:'medium'},
+  {q:'ما النادي الأكثر فوزاً بدوري أبطال أفريقيا؟', opts:['الأهلي','الزمالك','الترجي','مازيمبي'], correct:0, difficulty:'medium'},
+  {q:'في أي رياضة يتفوق المصريون عالمياً ويُعد علي فرج من أبطالها؟', opts:['الإسكواش','التنس','الجولف','البادمنتون'], correct:0, difficulty:'medium'},
+  {q:'في أي عام افتُتحت قناة السويس للملاحة؟', opts:['1869','1956','1900','1820'], correct:0, difficulty:'medium'},
+  {q:'من أمّم قناة السويس عام 1956؟', opts:['جمال عبد الناصر','أنور السادات','محمد نجيب','الملك فاروق'], correct:0, difficulty:'medium'},
+  {q:'في أي عام افتُتحت قناة السويس الجديدة (التفريعة)؟', opts:['2015','2010','2019','2005'], correct:0, difficulty:'medium'},
+  {q:'من هو أول رئيس لجمهورية مصر؟', opts:['محمد نجيب','جمال عبد الناصر','أنور السادات','سعد زغلول'], correct:0, difficulty:'medium'},
+  {q:'من حكم مصر من 1970 إلى 1981؟', opts:['أنور السادات','جمال عبد الناصر','حسني مبارك','محمد نجيب'], correct:0, difficulty:'medium'},
+  {q:'من حكم مصر من 1981 إلى 2011؟', opts:['حسني مبارك','أنور السادات','عدلي منصور','محمد مرسي'], correct:0, difficulty:'medium'},
+  {q:'في أي عام تولّى الرئيس السيسي الحكم؟', opts:['2014','2011','2013','2016'], correct:0, difficulty:'medium'},
+  {q:'من هو آخر ملك حكم مصر فعلياً قبل ثورة 1952؟', opts:['الملك فاروق','الملك فؤاد الأول','الخديوي إسماعيل','الملك أحمد فؤاد الثاني'], correct:0, difficulty:'medium'},
+  {q:'من يُلقّب بمؤسس مصر الحديثة؟', opts:['محمد علي باشا','الخديوي إسماعيل','جمال عبد الناصر','إبراهيم باشا'], correct:0, difficulty:'medium'},
+  {q:'من قاد ثورة 1919 في مصر؟', opts:['سعد زغلول','أحمد عرابي','مصطفى كامل','محمد فريد'], correct:0, difficulty:'medium'},
+  {q:'في أي عام احتلت بريطانيا مصر؟', opts:['1882','1798','1914','1922'], correct:0, difficulty:'medium'},
+  {q:'من قاد الحملة الفرنسية على مصر عام 1798؟', opts:['نابليون بونابرت','لويس الرابع عشر','شارل ديغول','كليبر'], correct:0, difficulty:'medium'},
+  {q:'من فك رموز الهيروغليفية؟', opts:['شامبليون','هوارد كارتر','نابليون','بيتري'], correct:0, difficulty:'medium'},
+  {q:'من اكتشف مقبرة توت عنخ آمون عام 1922؟', opts:['هوارد كارتر','شامبليون','زاهي حواس','أوغست مارييت'], correct:0, difficulty:'medium'},
+  {q:'من هو المهندس الذي صمّم الهرم المدرّج لزوسر؟', opts:['إمحوتب','خوفو','سنفرو','أمنحتب'], correct:0, difficulty:'medium'},
+  {q:'أين يقع هرم زوسر المدرّج؟', opts:['سقارة','الجيزة','دهشور','ميدوم'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الهرم الشهير بزاويته المنحنية في دهشور؟', opts:['الهرم المنحني','الهرم الأحمر','الهرم الأسود','الهرم المدرج'], correct:0, difficulty:'medium'},
+  {q:'من هو الفرعون الذي وحّد مصر العليا والسفلى؟', opts:['مينا (نارمر)','خوفو','رمسيس الثاني','أحمس'], correct:0, difficulty:'medium'},
+  {q:'من هي الملكة الفرعونية التي حكمت كفرعون ومعبدها في الدير البحري؟', opts:['حتشبسوت','نفرتيتي','كليوباترا','نفرتاري'], correct:0, difficulty:'medium'},
+  {q:'من هو الفرعون الذي دعا لعبادة آتون؟', opts:['أخناتون','رمسيس الثاني','تحتمس الثالث','سيتي الأول'], correct:0, difficulty:'medium'},
+  {q:'من هو الفرعون الذي طرد الهكسوس من مصر؟', opts:['أحمس','مينا','خوفو','حور محب'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المعبد الضخم في الأقصر الذي يُعد أكبر مجمع ديني قديم؟', opts:['معبد الكرنك','معبد الأقصر','معبد حتشبسوت','معبد كوم أمبو'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المعبد المخصص للإلهة إيزيس في أسوان؟', opts:['معبد فيلة','معبد أبو سمبل','معبد إدفو','معبد دندرة'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المعبد المخصص لحورس في محافظة أسوان (إدفو)؟', opts:['معبد إدفو','معبد الكرنك','معبد فيلة','معبد سيتي'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المعبد المزدوج لسوبك وحورس على النيل؟', opts:['معبد كوم أمبو','معبد إسنا','معبد دندرة','معبد أبيدوس'], correct:0, difficulty:'medium'},
+  {q:'من أسس مدينة القاهرة عام 969م؟', opts:['جوهر الصقلي (الفاطميون)','عمرو بن العاص','صلاح الدين','أحمد بن طولون'], correct:0, difficulty:'medium'},
+  {q:'ما اسم أول عاصمة إسلامية لمصر أسسها عمرو بن العاص؟', opts:['الفسطاط','القطائع','العسكر','القاهرة'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الجامع الأقدم في مصر وأفريقيا؟', opts:['جامع عمرو بن العاص','جامع الأزهر','جامع ابن طولون','جامع الحسين'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الجامع الشهير ذي المئذنة الملوية في القاهرة؟', opts:['جامع أحمد بن طولون','جامع السلطان حسن','جامع محمد علي','جامع الرفاعي'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الجامع الذي بناه محمد علي داخل القلعة؟', opts:['جامع محمد علي (المرمر)','جامع السلطان حسن','جامع الرفاعي','جامع الأقمر'], correct:0, difficulty:'medium'},
+  {q:'في أي عام دخل العثمانيون مصر؟', opts:['1517','1453','1600','1250'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الدولة التي حكمت مصر قبل العثمانيين؟', opts:['المماليك','الأيوبيون','الفاطميون','الطولونيون'], correct:0, difficulty:'medium'},
+  {q:'متى اكتمل بناء السد العالي؟', opts:['1970','1956','1980','1964'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المعركة الشهيرة في الحرب العالمية الثانية على الساحل الشمالي المصري؟', opts:['العلمين','ستالينغراد','طبرق','نورماندي'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الاتفاقية التي وُقّعت بين مصر وإسرائيل عام 1978 برعاية أمريكية؟', opts:['كامب ديفيد','أوسلو','وادي عربة','مدريد'], correct:0, difficulty:'medium'},
+  {q:'في أي عام اغتيل الرئيس السادات؟', opts:['1981','1977','1985','1973'], correct:0, difficulty:'medium'},
+  {q:'ما أعلى جبل في مصر؟', opts:['جبل سانت كاترين','جبل موسى','جبل علبة','جبل المقطم'], correct:0, difficulty:'medium'},
+  {q:'ما أخفض نقطة في مصر؟', opts:['منخفض القطارة','بحيرة قارون','وادي النطرون','الفيوم'], correct:0, difficulty:'medium'},
+  {q:'ما اسم البحيرة المالحة الشهيرة في الفيوم؟', opts:['بحيرة قارون','بحيرة ناصر','بحيرة مريوط','بحيرة التمساح'], correct:0, difficulty:'medium'},
+  {q:'ما الموقع المصري الطبيعي المدرج في التراث العالمي بسبب حفريات الحيتان؟', opts:['وادي الحيتان','منخفض القطارة','وادي الريان','الصحراء البيضاء'], correct:0, difficulty:'medium'},
+  {q:'كم عدد مواقع مصر المدرجة في قائمة التراث العالمي لليونسكو؟', opts:['7','3','12','5'], correct:0, difficulty:'medium'},
+  {q:'أين يلتقي النيل الأبيض بالنيل الأزرق؟', opts:['الخرطوم','أسوان','جوبا','أديس أبابا'], correct:0, difficulty:'medium'},
+  {q:'ما اسم حقل الغاز البحري العملاق المكتشف في المتوسط عام 2015؟', opts:['حقل ظهر','حقل الشمال','حقل ليفياثان','حقل تمار'], correct:0, difficulty:'medium'},
+  {q:'في أي عام افتُتح أول خط لمترو القاهرة، الأول في أفريقيا والعالم العربي؟', opts:['1987','1975','1995','2000'], correct:0, difficulty:'medium'},
+  {q:'ما اسم العاصمة الجديدة التي تُبنى شرق القاهرة؟', opts:['العاصمة الإدارية الجديدة','مدينة السادات','العلمين الجديدة','مدينة نصر'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الموكب الذي نقل 22 مومياء ملكية إلى متحف الحضارة عام 2021؟', opts:['موكب المومياوات الملكية','موكب النيل','موكب الفراعنة الذهبي فقط','موكب الكرنك'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المتحف الذي استقبل المومياوات الملكية في الفسطاط؟', opts:['المتحف القومي للحضارة المصرية','المتحف المصري','المتحف الكبير','متحف الأقصر'], correct:0, difficulty:'medium'},
+  {q:'من هو الرئيس المصري الحائز على جائزة نوبل للسلام؟', opts:['أنور السادات','جمال عبد الناصر','حسني مبارك','محمد نجيب'], correct:0, difficulty:'medium'},
+  {q:'من هو المصري الحائز على نوبل للسلام عام 2005؟', opts:['محمد البرادعي','بطرس غالي','عمرو موسى','أحمد زويل'], correct:0, difficulty:'medium'},
+  {q:'في أي عام فاز نجيب محفوظ بجائزة نوبل؟', opts:['1988','1975','1999','1966'], correct:0, difficulty:'medium'},
+  {q:'ما اسم ثلاثية نجيب محفوظ الشهيرة؟', opts:['بين القصرين وقصر الشوق والسكرية','الأيام','عودة الروح','زقاق المدق فقط'], correct:0, difficulty:'medium'},
+  {q:'من هو عميد الأدب العربي صاحب كتاب "الأيام"؟', opts:['طه حسين','نجيب محفوظ','العقاد','المنفلوطي'], correct:0, difficulty:'medium'},
+  {q:'من هو الممثل المصري العالمي بطل فيلم "لورنس العرب"؟', opts:['عمر الشريف','أحمد زكي','رشدي أباظة','يوسف وهبي'], correct:0, difficulty:'medium'},
+  {q:'من هو جراح القلب المصري العالمي الشهير؟', opts:['مجدي يعقوب','أحمد زويل','فاروق الباز','مصطفى السيد'], correct:0, difficulty:'medium'},
+  {q:'من هو موسيقار الأجيال؟', opts:['محمد عبد الوهاب','سيد درويش','بليغ حمدي','رياض السنباطي'], correct:0, difficulty:'medium'},
+  {q:'من هو ملحن النشيد الوطني المصري "بلادي بلادي"؟', opts:['سيد درويش','محمد عبد الوهاب','بليغ حمدي','كمال الطويل'], correct:0, difficulty:'medium'},
+  {q:'ما اسم النشيد الوطني المصري؟', opts:['بلادي بلادي','موطني','عيشي بلادي','حماة الديار'], correct:0, difficulty:'medium'},
+  {q:'ما اسم مهرجان السينما الدولي الأعرق في مصر؟', opts:['مهرجان القاهرة السينمائي الدولي','مهرجان قرطاج','مهرجان الجونة فقط','مهرجان دبي'], correct:0, difficulty:'medium'},
+  {q:'كم قرشاً في الجنيه المصري؟', opts:['100','1000','10','50'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الخليج الذي يفصل سيناء عن البر الرئيسي من الغرب؟', opts:['خليج السويس','خليج العقبة','الخليج العربي','خليج عدن'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المدينة الواقعة عند المدخل الشمالي لقناة السويس؟', opts:['بورسعيد','السويس','الإسماعيلية','دمياط'], correct:0, difficulty:'medium'},
+  {q:'ما اسم المدينة الواقعة على منتصف قناة السويس وبحيرة التمساح؟', opts:['الإسماعيلية','بورسعيد','السويس','العريش'], correct:0, difficulty:'medium'},
+  {q:'ما اسم عاصمة محافظة شمال سيناء؟', opts:['العريش','الطور','شرم الشيخ','رفح'], correct:0, difficulty:'medium'},
+  {q:'ما اسم الدير الأرثوذكسي القديم المدرج في التراث العالمي بسيناء؟', opts:['دير سانت كاترين','دير الأنبا أنطونيوس','دير المحرق','دير السريان'], correct:0, difficulty:'medium'},
+  {q:'في أي عام نالت مصر استقلالها الرسمي (الاسمي) عن بريطانيا؟', opts:['1922','1952','1936','1956'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المعاهدة المصرية البريطانية الموقعة عام 1936؟', opts:['معاهدة 1936 (معاهدة الصداقة والتحالف)','معاهدة لندن','معاهدة كامب ديفيد','اتفاقية الجلاء 1954'], correct:0, difficulty:'hard'},
+  {q:'من قاد الثورة العرابية (1881–1882)؟', opts:['أحمد عرابي','سعد زغلول','مصطفى كامل','محمد كريم'], correct:0, difficulty:'hard'},
+  {q:'متى وُقّعت معاهدة السلام المصرية الإسرائيلية؟', opts:['1979','1978','1982','1973'], correct:0, difficulty:'hard'},
+  {q:'ما اسم العدوان الذي شنته بريطانيا وفرنسا وإسرائيل على مصر عام 1956؟', opts:['العدوان الثلاثي','حرب الاستنزاف','النكسة','حرب الأيام الستة'], correct:0, difficulty:'hard'},
+  {q:'ما الاسم الذي أُطلق على هزيمة 1967؟', opts:['النكسة','النكبة','العدوان الثلاثي','حرب العبور'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الحرب بين 1967 و1970 على جبهة القناة؟', opts:['حرب الاستنزاف','حرب أكتوبر','حرب اليمن','حرب الخليج'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الوحدة التي قامت بين مصر وسوريا (1958–1961)؟', opts:['الجمهورية العربية المتحدة','اتحاد الجمهوريات العربية','الاتحاد العربي','الهلال الخصيب'], correct:0, difficulty:'hard'},
+  {q:'من هو الخديوي الذي افتُتحت قناة السويس في عهده؟', opts:['الخديوي إسماعيل','الخديوي توفيق','محمد علي','عباس حلمي الثاني'], correct:0, difficulty:'hard'},
+  {q:'من هو المهندس الفرنسي صاحب امتياز حفر قناة السويس؟', opts:['فرديناند دي لسبس','غوستاف إيفل','نابليون','شامبليون'], correct:0, difficulty:'hard'},
+  {q:'في أي عام بُنيت دار الأوبرا الخديوية الأولى بالقاهرة؟', opts:['1869','1900','1952','1820'], correct:0, difficulty:'hard'},
+  {q:'من أسس الدولة الأيوبية في مصر؟', opts:['صلاح الدين الأيوبي','الملك الكامل','قطز','بيبرس'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المعركة التي هزم فيها المماليك المغول عام 1260؟', opts:['عين جالوت','حطين','المنصورة','مرج دابق'], correct:0, difficulty:'hard'},
+  {q:'من هو السلطان المملوكي الذي قاد معركة عين جالوت؟', opts:['سيف الدين قطز','الظاهر بيبرس','قلاوون','الناصر محمد'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المعركة التي أُسر فيها لويس التاسع عام 1250؟', opts:['المنصورة','حطين','عين جالوت','دمياط'], correct:0, difficulty:'hard'},
+  {q:'من بنى جامع الأزهر؟', opts:['جوهر الصقلي في عهد المعز لدين الله الفاطمي','صلاح الدين','عمرو بن العاص','أحمد بن طولون'], correct:0, difficulty:'hard'},
+  {q:'في أي قرن بُني جامع السلطان حسن؟', opts:['القرن الرابع عشر الميلادي','القرن العاشر','القرن السابع','القرن الثامن عشر'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الحاكم الذي أسس الدولة الطولونية في مصر؟', opts:['أحمد بن طولون','خمارويه','كافور الإخشيدي','محمد بن طغج'], correct:0, difficulty:'hard'},
+  {q:'في أي عام دخل الفاطميون مصر؟', opts:['969','641','1171','1250'], correct:0, difficulty:'hard'},
+  {q:'في أي عام فتح عمرو بن العاص مصر (الإسكندرية)؟', opts:['641م','711م','750م','600م'], correct:0, difficulty:'hard'},
+  {q:'في أي عام قبل الميلاد أسس الإسكندر مدينة الإسكندرية؟', opts:['331 ق.م','500 ق.م','100 ق.م','30 ق.م'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الأسرة التي حكمت مصر بعد الإسكندر حتى كليوباترا؟', opts:['البطالمة','الرعامسة','الهكسوس','السلوقيون'], correct:0, difficulty:'hard'},
+  {q:'من هو الفرعون صاحب معركة قادش ضد الحيثيين؟', opts:['رمسيس الثاني','تحتمس الثالث','سيتي الأول','مرنبتاح'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الوثيقة التي تُعد أقدم معاهدة سلام مكتوبة في التاريخ؟', opts:['معاهدة قادش','حجر رشيد','بردية تورين','لوح نارمر'], correct:0, difficulty:'hard'},
+  {q:'من هو الفرعون الذي بنى الهرم المنحني والهرم الأحمر؟', opts:['سنفرو','خوفو','زوسر','خفرع'], correct:0, difficulty:'hard'},
+  {q:'ما اسم والد الملك خوفو؟', opts:['سنفرو','زوسر','خفرع','منكاورع'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الملكة زوجة أخناتون صاحبة التمثال النصفي الشهير في برلين؟', opts:['نفرتيتي','نفرتاري','حتشبسوت','تي'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المدينة التي أسسها أخناتون عاصمة له؟', opts:['أخيتاتون (تل العمارنة)','طيبة','منف','تانيس'], correct:0, difficulty:'hard'},
+  {q:'ما الاسم القديم لمدينة الأقصر؟', opts:['طيبة','منف','أون','سايس'], correct:0, difficulty:'hard'},
+  {q:'ما الاسم القديم لعاصمة مصر في الدولة القديمة قرب سقارة؟', opts:['منف','طيبة','أبيدوس','هليوبوليس'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الإله المصري القديم برأس ابن آوى المرتبط بالتحنيط؟', opts:['أنوبيس','حورس','رع','تحوت'], correct:0, difficulty:'hard'},
+  {q:'ما اسم إله الشمس عند المصريين القدماء؟', opts:['رع','آمون فقط','أوزيريس','ست'], correct:0, difficulty:'hard'},
+  {q:'ما اسم اللغة التي تُعد المرحلة الأخيرة من اللغة المصرية القديمة؟', opts:['القبطية','الديموطيقية فقط','الهيراطيقية','الإغريقية'], correct:0, difficulty:'hard'},
+  {q:'كم نصاً كُتب على حجر رشيد؟', opts:['3 نصوص (هيروغليفي وديموطيقي ويوناني)','نصان','4 نصوص','نص واحد'], correct:0, difficulty:'hard'},
+  {q:'في أي عام اكتُشف حجر رشيد؟', opts:['1799','1822','1869','1922'], correct:0, difficulty:'hard'},
+  {q:'في أي عام أعلن شامبليون فك رموز الهيروغليفية؟', opts:['1822','1799','1850','1900'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المنخفض الذي يضم أخفض نقطة في مصر وعمقها؟', opts:['منخفض القطارة (-133 م تقريباً)','الفيوم (-45 م)','وادي الريان (-60 م)','سيوة (-18 م)'], correct:0, difficulty:'hard'},
+  {q:'كم يبلغ ارتفاع جبل سانت كاترين تقريباً؟', opts:['حوالي 2600 متر','حوالي 1200 متر','حوالي 4000 متر','حوالي 800 متر'], correct:0, difficulty:'hard'},
+  {q:'ما المساحة التقريبية لمصر؟', opts:['حوالي مليون كم²','حوالي 500 ألف كم²','حوالي مليوني كم²','حوالي 250 ألف كم²'], correct:0, difficulty:'hard'},
+  {q:'في أي عام تجاوز عدد سكان مصر 100 مليون نسمة؟', opts:['2020','2010','2015','2024'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الصحراء الواقعة بين النيل والبحر الأحمر؟', opts:['الصحراء الشرقية','الصحراء الغربية','صحراء النوبة','الصحراء البيضاء'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المحمية الشهيرة بتكويناتها الطباشيرية البيضاء قرب الفرافرة؟', opts:['الصحراء البيضاء','وادي الحيتان','رأس محمد','وادي دجلة'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المحمية الطبيعية البحرية الأولى في مصر بجنوب سيناء؟', opts:['رأس محمد','وادي الجمال','نبق','أبو جالوم'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الموقع الأثري المسيحي المدرج في التراث العالمي غرب الإسكندرية؟', opts:['أبو مينا','دير سانت كاترين','الكنيسة المعلقة','وادي النطرون'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الكنيسة الشهيرة في مصر القديمة المبنية فوق حصن بابليون؟', opts:['الكنيسة المعلقة','كنيسة أبو سرجة','الكاتدرائية المرقسية','دير المحرق'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المجموعة التي أُدرجت في التراث العالمي وتضم أبو سمبل وفيلة؟', opts:['آثار النوبة من أبو سمبل إلى فيلة','طيبة القديمة','منف وجبانتها','القاهرة التاريخية'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الحملة الدولية التي أنقذت معبد أبو سمبل ونقلته في الستينيات؟', opts:['حملة اليونسكو لإنقاذ آثار النوبة','حملة نابليون','مشروع السد العالي','مشروع توشكى'], correct:0, difficulty:'hard'},
+  {q:'ما اسم اللاعب المصري الفائز بذهبية المصارعة في أولمبياد أثينا 2004؟', opts:['كرم جابر','محمد إبراهيم','هشام مصباح','أحمد الأحمر'], correct:0, difficulty:'hard'},
+  {q:'من هو الهداف التاريخي لمنتخب مصر؟', opts:['حسام حسن','محمد صلاح','محمد أبو تريكة','حسن الشاذلي'], correct:0, difficulty:'hard'},
+  {q:'ما اللقب الذي منحه الاتحاد الأفريقي لكرة القدم للنادي الأهلي عام 2000؟', opts:['نادي القرن الأفريقي','أفضل نادٍ عربي','بطل الأبطال','نادي الألفية'], correct:0, difficulty:'hard'},
+  {q:'ما اسم النادي المصري من الإسماعيلية الملقب بـ"الدراويش"؟', opts:['الإسماعيلي','المصري البورسعيدي','الاتحاد السكندري','المقاولون العرب'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المدرب المصري الذي قاد مصر لثلاثة ألقاب أفريقية متتالية (2006–2010)؟', opts:['حسن شحاتة','محمود الجوهري','مانويل جوزيه','حسام البدري'], correct:0, difficulty:'hard'},
+  {q:'ما اسم ميناء مصر الرئيسي على البحر المتوسط غرب الدلتا؟', opts:['الإسكندرية','دمياط','بورسعيد','العريش'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المشروع الزراعي الكبير في جنوب الوادي غرب بحيرة ناصر؟', opts:['توشكى','الصالحية','مديرية التحرير','شرق العوينات فقط'], correct:0, difficulty:'hard'},
+  {q:'ما اسم البحيرة الساحلية الأكبر في دلتا النيل؟', opts:['بحيرة المنزلة','بحيرة البرلس','بحيرة إدكو','بحيرة مريوط'], correct:0, difficulty:'hard'},
+  {q:'ما اسم فرعي النيل في الدلتا؟', opts:['رشيد ودمياط','الأبيض والأزرق','الشرقي والغربي','السويس وبورسعيد'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المقياس الأثري لقياس منسوب النيل في جزيرة الروضة؟', opts:['مقياس النيل','نيلومتر أسوان','عمود السواري','مسلة المطرية'], correct:0, difficulty:'hard'},
+  {q:'ما اسم العمود الروماني الشهير في الإسكندرية؟', opts:['عمود السواري','مسلة كليوباترا','عمود تراجان','عمود الحرية'], correct:0, difficulty:'hard'},
+  {q:'ما اسم المقابر الرومانية الشهيرة المنحوتة تحت الأرض في الإسكندرية؟', opts:['كوم الشقافة','البجوات','الدير البحري','تل العمارنة'], correct:0, difficulty:'hard'},
+  {q:'ما اسم الجبانة المسيحية القديمة في الواحات الخارجة؟', opts:['البجوات','كوم الشقافة','الدير البحري','سقارة'], correct:0, difficulty:'hard'}
+];
+
+const QUIZ_CONFIG = {
+  gameId: 'egypt-quiz',
+  questionSeconds: 15,
+  shareTitle: 'شو بتعرف عن مصر؟ 🇪🇬',
+  challengeText: 'تحداك بكويز عن مصر، جاهز تنافسني؟',
+  resultText: function(score, total, pct) {
+    return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بتحدي "شو بتعرف عن مصر؟" 🇪🇬 جرب تتحداني!';
+  },
+  shareTitleEn: 'How Well Do You Know Egypt? 🇪🇬',
+  challengeTextEn: 'I challenge you to the Egypt quiz — ready to compete?',
+  resultTextEn: function(score, total, pct) {
+    return 'I scored ' + score + '/' + total + ' (' + pct + '%) on How Well Do You Know Egypt? 🇪🇬 Try to beat me!';
+  },
+  resultMessagesEn: [
+    {min:90, emoji:'🏆', msg:'A Egypt expert! Amazing score.'},
+    {min:70, emoji:'🇪🇬', msg:'Your knowledge of Egypt is excellent!'},
+    {min:50, emoji:'👍', msg:'Not bad, but there\'s room to improve.'},
+    {min:0, emoji:'📚', msg:'Time to learn a bit more about Egypt!'}
+  ],
+  resultMessages: [
+    {min:90, emoji:'🏆', msg:'خبير بـمصر! نتيجة رهيبة.'},
+    {min:70, emoji:'🇪🇬', msg:'معلوماتك عن مصر ممتازة!'},
+    {min:50, emoji:'👍', msg:'مش بطال، بس فيه مجال تتحسن.'},
+    {min:0,  emoji:'📚', msg:'وقتها نتعرف أكثر على مصر!'}
+  ]
+};
+
+</script>
+<script src="jo/games/quiz-engine.js?v=5"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('createChallengeBtn')?.addEventListener('click', createChallenge);
+  document.getElementById('joinChallengeBtn')?.addEventListener('click', joinChallenge);
+  document.getElementById('shareResultBtn')?.addEventListener('click', shareResult);
+  document.getElementById('restartBtn')?.addEventListener('click', restart);
+  document.getElementById('shareWaitingLinkBtn')?.addEventListener('click', function(){ shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn'); });
+  document.getElementById('copyWaitingLinkBtn')?.addEventListener('click', function(){ copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn'); });
+  document.getElementById('creatorStartBtn')?.addEventListener('click', creatorStartPlaying);
+  document.getElementById('shareActiveLinkBtn')?.addEventListener('click', function(){ shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn'); });
+  document.getElementById('copyActiveLinkBtn')?.addEventListener('click', function(){ copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn'); });
+  document.getElementById('shareLinkBtn')?.addEventListener('click', function(){ shareOrCopy('challengeShareLink','shareLinkBtn'); });
+  document.getElementById('copyLinkBtn')?.addEventListener('click', copyChallengeLink);
+});
+</script>
+
+</body></html>
