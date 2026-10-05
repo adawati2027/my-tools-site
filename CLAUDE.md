@@ -52,7 +52,7 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 
 ## Documentation index (read only when relevant)
 
-quiz-games · capacitor-app · bugs-fixed-registry · seo-growth · auth-accounts · i18n-language-bugs · export-image-feature · external-qa-reports (quick spot-check only, most were false) · technique-notes (raw CDP) · country-expansion · gold-price-worker · testing-infra · performance-security · onclick-csp-refactor · csp-worker · calculators-built · ads-board · i18n-split-project · pdf-export-saga · claude-md-archive — all under `docs/history/<name>.md`.
+quiz-games · capacitor-app · bugs-fixed-registry · seo-growth · auth-accounts · i18n-language-bugs · export-image-feature · external-qa-reports (quick spot-check only, most were false) · technique-notes (raw CDP) · country-expansion · gold-price-worker · testing-infra · performance-security · onclick-csp-refactor · csp-worker · calculators-built · ads-board · quran-section · i18n-split-project · pdf-export-saga · claude-md-archive — all under `docs/history/<name>.md`.
 
 ## Style
 
