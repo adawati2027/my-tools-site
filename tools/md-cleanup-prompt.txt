@@ -1,0 +1,10 @@
+Daily CLAUDE.md cleanup (scheduled task, runs unattended at 22:00). Owner's standing request: keep CLAUDE.md to the truly important things only, to save tokens every session.
+
+Do exactly this, then stop:
+1. Read CLAUDE.md and docs/history/claude-md-archive.md.
+2. In CLAUDE.md, remove anything that is finished, obsolete, duplicated, or overly detailed — especially items under "Open items" that are marked done/fixed/live with nothing left to do, and long explanations that belong in history.
+3. Keep: the token-saving rules, commands & helpers, deployment rules, the verification policy, site structure, the still-open items (one short line each), the documentation index, and style rules.
+4. Before deleting any text that still has historical value, append it verbatim to the end of docs/history/claude-md-archive.md under a heading "## Moved from CLAUDE.md on <today's date>". Never lose information.
+5. Keep CLAUDE.md under ~6 KB. Do not invent new facts or rules; only delete, shorten, or move.
+6. Only edit CLAUDE.md and docs/history/claude-md-archive.md. Do not run commands, do not deploy/push, do not touch any other file.
+7. If nothing needs removing, change nothing.
