@@ -375,7 +375,12 @@ function openAuthModal() {
     switchLink.textContent = isSignup ? (t.auth_switch_to_login || 'Already have an account? Sign in') : (t.auth_switch_to_signup || "Don't have an account? Sign up");
     switchLink.onclick = () => { _authMode = isSignup ? 'signin' : 'signup'; openAuthModal(); };
 
-    box.append(header, note, errBox, googleBtn, divider, ...fields, submitBtn, switchLink);
+    const forgotLink = document.createElement('div');
+    forgotLink.style.cssText = 'text-align:center;font-size:13px;color:#64748b;cursor:pointer;text-decoration:underline;margin-bottom:10px;';
+    forgotLink.textContent = authResetText(lang).link;
+    forgotLink.onclick = () => sendPasswordReset(lang);
+
+    box.append(header, note, errBox, googleBtn, divider, ...fields, submitBtn, ...(isSignup ? [] : [forgotLink]), switchLink);
   }
 
   modal.appendChild(box);
@@ -398,10 +403,35 @@ function showToast(msg, type) {
   setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.4s'; setTimeout(() => toast.remove(), 400); }, 2800);
 }
 
+function authResetText(lang) {
+  const m = {
+    ar: { link: 'نسيت كلمة السر؟', need: 'اكتب بريدك الإلكتروني فوق أول، وبعدين اكبس "نسيت كلمة السر؟"', sent: '📧 إذا الإيميل مسجّل عنا، بعتنالك رابط لتغيير كلمة السر — شيك على بريدك (والسبام كمان). إذا سجّلت قبل عن طريق Google، استخدم زر الدخول عبر Google.', bad: 'البريد الإلكتروني مش صحيح' },
+    en: { link: 'Forgot password?', need: 'Type your email above first, then tap "Forgot password?"', sent: '📧 If this email is registered, we sent a password reset link — check your inbox (and spam). If you signed up with Google, use the Google button.', bad: 'Invalid email address' },
+    fr: { link: 'Mot de passe oublié ?', need: "Saisissez d'abord votre e-mail ci-dessus.", sent: "📧 Si cet e-mail est enregistré, un lien de réinitialisation a été envoyé — vérifiez aussi les spams.", bad: 'Adresse e-mail invalide' },
+    es: { link: '¿Olvidaste tu contraseña?', need: 'Escribe primero tu correo arriba.', sent: '📧 Si este correo está registrado, enviamos un enlace para restablecer la contraseña — revisa también el spam.', bad: 'Correo no válido' },
+    de: { link: 'Passwort vergessen?', need: 'Gib zuerst oben deine E-Mail ein.', sent: '📧 Falls diese E-Mail registriert ist, haben wir einen Link zum Zurücksetzen gesendet — prüfe auch den Spam-Ordner.', bad: 'Ungültige E-Mail-Adresse' },
+    ru: { link: 'Забыли пароль?', need: 'Сначала введите email выше.', sent: '📧 Если этот email зарегистрирован, мы отправили ссылку для сброса пароля — проверьте и папку «Спам».', bad: 'Неверный email' }
+  };
+  return m[lang] || m.en;
+}
+
+function sendPasswordReset(lang) {
+  const tx = authResetText(lang);
+  const errBox = document.getElementById('authErrBox');
+  const show = (msg, ok) => { errBox.textContent = msg; errBox.style.color = ok ? '#16a34a' : '#ef4444'; errBox.style.display = 'block'; };
+  const email = ((document.getElementById('su_email') || {}).value || '').trim();
+  if (!email) { show(tx.need, false); document.getElementById('su_email').focus(); return; }
+  loadFirebaseAuth().then(function(fb) {
+    fb.auth.languageCode = lang === 'ar' ? 'ar' : lang;
+    return fb.auth.sendPasswordResetEmail(email);
+  }).then(function() { show(tx.sent, true); })
+    .catch(function(e) { show(e && e.code === 'auth/invalid-email' ? tx.bad : tx.sent, !(e && e.code === 'auth/invalid-email')); });
+}
+
 function submitAuthForm(mode, lang) {
   const t = T[lang] || T.ar;
   const errBox = document.getElementById('authErrBox');
-  const showErr = function(msg) { if (errBox) { errBox.textContent = msg; errBox.style.display = 'block'; } };
+  const showErr = function(msg) { if (errBox) { errBox.textContent = msg; errBox.style.color = '#ef4444'; errBox.style.display = 'block'; } };
   const email = (document.getElementById('su_email').value || '').trim();
   const pass = (document.getElementById('su_pass').value || '');
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -442,7 +472,7 @@ function submitAuthForm(mode, lang) {
 function signInGoogle(lang) {
   const t = T[lang] || T.ar;
   const errBox = document.getElementById('authErrBox');
-  const showErr = function(msg) { if (errBox) { errBox.textContent = msg; errBox.style.display = 'block'; } };
+  const showErr = function(msg) { if (errBox) { errBox.textContent = msg; errBox.style.color = '#ef4444'; errBox.style.display = 'block'; } };
   const finishSignIn = function(user) {
     return onAuthSuccessSync(user).then(function() {
       const modal = document.getElementById('signupModal');
