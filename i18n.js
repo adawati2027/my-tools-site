@@ -361,6 +361,12 @@ function openAuthModal() {
     googleBtn.style.cssText = 'width:100%;padding:13px;background:#fff;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;color:#334155;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px;';
     googleBtn.innerHTML = '<svg width="19" height="19" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.5 5.1 29.5 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.3-.1-2.5-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 16 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34.5 5.1 29.5 3 24 3 16.3 3 9.7 7.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 45c5.4 0 10.3-1.8 14.1-5l-6.5-5.5c-2.1 1.5-4.8 2.4-7.6 2.4-5.2 0-9.7-3.3-11.3-8l-6.5 5C9.6 40.5 16.3 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.5 5.5C41.4 36.4 44 30.8 44 24c0-1.3-.1-2.5-.4-3.5z"/></svg><span>' + (t.auth_google_btn || 'Sign in with Google') + '</span>';
     googleBtn.onclick = () => signInGoogle(lang);
+    if (!(window.firebase && firebase.apps && firebase.apps.length)) {
+      const gLabel = googleBtn.innerHTML;
+      googleBtn.disabled = true; googleBtn.style.opacity = '0.6';
+      googleBtn.textContent = lang === 'ar' ? '⏳ جاري التحميل…' : '⏳ Loading…';
+      loadFirebaseAuth().then(function() { googleBtn.innerHTML = gLabel; googleBtn.disabled = false; googleBtn.style.opacity = '1'; }).catch(function() { googleBtn.innerHTML = gLabel; googleBtn.disabled = false; googleBtn.style.opacity = '1'; });
+    }
 
     const divider = document.createElement('div');
     divider.style.cssText = 'display:flex;align-items:center;gap:10px;font-size:12px;color:#94a3b8;margin-bottom:18px;';
@@ -495,6 +501,14 @@ function submitAuthForm(mode, lang) {
   });
 }
 
+function googleErrText(lang, err) {
+  const code = (err && err.code) || 'unknown';
+  const ar = lang === 'ar';
+  if (code === 'auth/popup-blocked') return ar ? 'المتصفح منع نافذة Google — اكبس الزر مرة ثانية، أو اسمح بالنوافذ المنبثقة. (' + code + ')' : 'The browser blocked the Google window — tap again or allow pop-ups. (' + code + ')';
+  if (code === 'auth/network-request-failed') return ar ? 'مشكلة بالاتصال — تأكد من الإنترنت وجرّب مرة ثانية. (' + code + ')' : 'Network problem — check your connection and try again. (' + code + ')';
+  return ar ? 'ما زبط الدخول عبر Google — جرّب مرة ثانية أو سجّل بالإيميل. (' + code + ')' : 'Google sign-in failed — try again or use email. (' + code + ')';
+}
+
 function signInGoogle(lang) {
   const t = T[lang] || T.ar;
   const errBox = document.getElementById('authErrBox');
@@ -545,21 +559,23 @@ function signInGoogle(lang) {
   // (verified with a real account, session persists across reload).
   // signInWithRedirect is kept ONLY as a last-resort fallback for the
   // narrow case where the popup is actually blocked by the browser.
+  const onPopupErr = function(err) {
+    if (err && (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request')) return;
+    if (typeof gtag === 'function') gtag('event', 'login_error', { method: 'google', error_code: (err && err.code) || 'unknown' });
+    showErr(googleErrText(lang, err));
+  };
+  // Opening the popup must happen synchronously inside the tap (iOS WebKit
+  // drops user activation across an await), so call it directly once the SDK
+  // is ready; the modal keeps the button disabled until then.
+  if (window.firebase && firebase.apps && firebase.apps.length) {
+    let p;
+    try { p = firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()); } catch (e) { onPopupErr(e); return; }
+    p.then(function(cred) { return finishSignIn(cred.user); }).catch(onPopupErr);
+    return;
+  }
   loadFirebaseAuth().then(function(fb) {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    return fb.auth.signInWithPopup(provider).then(function(cred) { return finishSignIn(cred.user); });
-  }).catch(function(err) {
-    if (err && err.code === 'auth/popup-closed-by-user') return;
-    if (err && (err.code === 'auth/popup-blocked' || err.code === 'auth/operation-not-supported-in-this-environment')) {
-      loadFirebaseAuth().then(function(fb) {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        try { localStorage.setItem('adawati_google_redirect_pending', '1'); } catch (e) {}
-        return fb.auth.signInWithRedirect(provider);
-      }).catch(function() { showErr(t.generic_error || 'Something went wrong — try again'); });
-      return;
-    }
-    showErr(t.generic_error || 'Something went wrong — try again');
-  });
+    return fb.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(function(cred) { return finishSignIn(cred.user); });
+  }).catch(onPopupErr);
 }
 
 function checkGoogleRedirectResult() {
@@ -577,17 +593,16 @@ function checkGoogleRedirectResult() {
       // means the redirect round-trip didn't hand back a usable result —
       // tell the visitor rather than leaving them wondering if anything
       // happened (this used to fail completely silently).
-      showToast(t.generic_error || 'Something went wrong — try again', 'error');
+      showToast(googleErrText(lang, { code: 'auth/redirect-no-user' }), 'error');
       return;
     }
     return onAuthSuccessSync(result.user).then(function() {
       updateAuthBtn();
       showToast((t.signup_welcome || 'Welcome') + ', ' + (result.user.displayName || result.user.email).split(' ')[0] + '!', 'success');
     });
-  }).catch(function() {
+  }).catch(function(err) {
     const lang = localStorage.getItem('lang') || 'en';
-    const t = T[lang] || T.ar;
-    showToast(t.generic_error || 'Something went wrong — try again', 'error');
+    showToast(googleErrText(lang, err), 'error');
   });
 }
 
