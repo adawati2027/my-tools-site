@@ -204,3 +204,7 @@ User asked (بالتحديات بدي صورة مع كتابة حلوة وفيه
 ## Oman quiz — `om/games/oman-quiz/` (2026-10-05)
 
 "شو بتعرف عن سلطنة عُمان؟" — 200 questions (70 easy / 70 medium / 60 hard), built from `jo/games/jordan-quiz/` via a one-off script. First page to use the engine's existing `QUIZ_CONFIG.difficulties` + `#difficultySelectArea` (inside `challengeStartArea`, since play is challenge-only). Every question stores the correct answer at index 0 (`correct:0`); the engine shuffles options per game. Facts limited to well-established ones; contested numbers avoided or phrased approximately (area, coastline, Jebel Shams height). Linked from the `om/index.html` hub and added to `build-sitemap.js`.
+
+## Saudi quiz — `sa/games/saudi-quiz/` (2026-10-05)
+
+Same format as the Oman quiz (200 questions, 70/70/60). Built with the now-generic `tools/build-country-quiz.js config.json` (config: code, slug, names, flag, iconBg, questions JSON path, related links). A new country quiz costs only the questions JSON + one config + a hub card (`data-cat="challenges"`, first in the list) + `build-sitemap.js` entry + `node build-search-index.js`.
