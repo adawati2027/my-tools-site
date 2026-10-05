@@ -1,143 +1,59 @@
 # أدواتي (Adawati) — adawati.space
 
-Free multi-tool Arabic website (calculators, converters, games, daily-info tools). Owner: Ahmed Amawi. This file exists so a new Claude Code session can resume work with zero ramp-up if this session is lost.
-
-
-## Execution Strategy
-
-- Max sub-agents: 2 (Lead & Worker).
-- Do not spawn parallel background agents.
-- Keep agent context concise and execute tasks sequentially, not in parallel.
-
-
-## Quick Commands
-
-No `package.json`/npm here — this is a plain static site (no bundler, no `node_modules`). Real equivalents:
-
-- Deploy (full site): `node push-to-github.js "commit message"`
-- Deploy (specific files only): `node push-files.js <file1> <file2> ... --message "commit message"`
-- Regenerate sitemap (after adding a page): `node build-sitemap.js`
-- Rebuild search index: `node build-search-index.js`
-- Calculator correctness tests (needs headless Chrome via CDP first — see the script's own header comment for the exact launch command): `node test-calculators.js`
-- Browser end-to-end tests (same CDP setup): `node test-e2e.js`
-- No dev server — pages are plain HTML/CSS/JS, open the file directly or hit the live site; no lint command exists.
-
+Free multi-tool Arabic website (calculators, converters, games, daily-info tools). Owner: Ahmed Amawi. Plain static site — no npm, no bundler, no local git repo.
 
 ## Token-saving rules (owner's standing request — apply every task)
 
-- **Script/API first, browser last.** Before driving Chrome with screenshots, check whether an API or a script in `tools/` can answer it. Browser only for actions with no API (e.g. GSC "Request Indexing").
-- **GSC index status**: `node tools/gsc-inspect.js [url ...]` (no args = whole `sitemap.xml`, ~1.8s/URL, run in background) → prints only non-indexed URLs. Never page through the GSC report UI to find candidates.
-- **Reuse helpers in `tools/`**; if a one-off script will clearly be needed again, save it there instead of rewriting it next time.
-- **Read narrowly**: `grep`/`sed -n` the relevant lines, not whole large HTML/data files (the masters/bachelor guide data arrays are huge). Read `docs/history/*` only for the topic at hand.
-- **Screenshots**: zoom on the region needed; skip verification screenshots when a text/DOM read (`get_page_text`, `find`) suffices.
-- **Long jobs** (full-sitemap scans, bulk fetches) → `run_in_background`, don't poll.
-- **Deploy only touched files**: `node push-files.js <files> --message "..."` instead of a full-site push (also avoids GitHub rate limits).
-- **Terse replies**, no restating known context; one session per work thread, not multi-day marathons.
+- **Script/API first, browser last.** Browser only for actions with no API (e.g. GSC "Request Indexing").
+- **Reuse `tools/`** helpers; save a one-off script there if it will be needed again.
+- **Read narrowly** (`grep`/`sed -n`), never whole large data files. Read `docs/history/*` only for the topic at hand.
+- **Screenshots**: zoomed/scaled only; prefer a DOM/JS read when it answers the question.
+- **Long jobs** → `run_in_background`, don't poll. **Terse replies.** One session per work thread.
+- **Execution**: max 2 sub-agents, sequential; normally none are needed.
 
-## Testing & Quality Control
+## Commands & helpers
 
-- Always test functionally before pushing: run `node test-calculators.js` / `node test-e2e.js` after touching shared JS (`i18n.js`, `quiz-engine.js`, calculator logic) and manually verify in a browser — see the "Deterministic calculator test suite" entry in the documentation index below.
-- Use try/catch around network calls (e.g. the IP-geolocation fetch in `i18n.js`) and fail gracefully to a fallback rather than breaking the page.
-- Never hardcode API keys or secret credentials in any pushed file — `GITHUB_PAT` stays in the local, gitignored `.env` only (see Deployment below).
+- Deploy changed files (default): `node push-files.js <files...> --message "..."` · full site: `node push-to-github.js "msg"` (~300 files, rate-limit prone)
+- After adding a page: add URL to `build-sitemap.js` → `node build-sitemap.js` → `node build-search-index.js`
+- Language variants: edit root `<tool>.html` → `node build-lang-pages.js` (regenerates `/ar|fr|es|de|ru/<tool>/`; static translated blocks come from `lang-content/<lang>/<tool>.html`)
+- Tests (need headless Chrome via CDP, see script headers): `node test-calculators.js`, `node test-e2e.js`
+- `tools/gsc-inspect.js` (index status via API) · `tools/build-country-quiz.js` (country quiz from JSON) · `tools/js-syntax.js` (inline-JS syntax check) · `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/i18n-gaps.js` (translation helpers) · `tools/admhec-fetch.js`
+- Shared JS change (`i18n.js` etc.) → bump its `?v=N` in every referencing HTML (grep+sed) so browsers/Cloudflare pick it up.
 
+## Deployment
 
-## Deployment — READ THIS FIRST
+- `push-*.js` use the GitHub REST API (blobs → tree → commit → ref) with `GITHUB_PAT` from local `.env` (never pushed, never hardcode secrets). Repo `adawati2027/my-tools-site`, branch `main`, GitHub Pages + Cloudflare on `adawati.space`.
+- Live after ~30–90 s; verify with cache-busted `curl ...?x=$RANDOM | grep`. No Cloudflare purge access.
+- 401 = token expired → owner must create a new fine-grained PAT (Contents: read/write) and put it in `.env`.
+- 403 rate limit: don't trust `GET /rate_limit`; read `X-RateLimit-Reset` from a real failing call and `ScheduleWakeup` for that delay.
 
-**There is no local git repo.** Do not run `git init`, `git commit`, etc. — they will not work as expected and are not how this project deploys.
+## Verification policy — the load-bearing rule
 
-Deployment is via a custom script that talks to the GitHub REST API directly:
-
-```
-node push-to-github.js "commit message here"
-```
-
-- Reads `GITHUB_PAT` from a local `.env` file (`GITHUB_PAT=...`, gitignored/excluded from the pushed tree).
-- Repo: `adawati2027/my-tools-site`, branch `main`, pushed via blobs → tree → commit → ref update (not a real git working directory).
-- **Always pushes every file in the project** (no diffing) — pushing after any edit is normal and expected, don't wait to "batch" unless GitHub's rate limit forces it.
-- Site is served via GitHub Pages, custom domain `adawati.space` (CNAME on GitHub Pages auto-redirects `adawati2027.github.io/my-tools-site/` → `adawati.space/` with a real 301 — already verified working, don't re-verify).
-- Has retry logic built in for transient network errors (`ECONNRESET` etc.) — exponential backoff, 4 attempts.
-- After pushing, changes take roughly 30–90 seconds to actually go live; poll with `curl` + `grep` for a known string rather than assuming instant.
-
-### GitHub API rate limiting (hits this OFTEN with ~260 files/push)
-
-Two different things can fail with a 403:
-- A short secondary/abuse-detection throttle — usually clears in 1–3 minutes.
-- The real hourly quota (5000 req/hr) — tied to a fixed reset epoch.
-
-**`GET /rate_limit` is unreliable** — it has repeatedly shown "5000/5000 fresh" moments before/after real failures this project. Do not trust it.
-
-The correct way to get the real reset time: make one direct failing call (e.g. `POST /repos/adawati2027/my-tools-site/git/blobs`) and read the `X-RateLimit-Reset` response header from that actual call. Compute wait seconds from `epoch - now`, then use `ScheduleWakeup` for exactly that delay (capped at 3600s). Do not guess, do not poll in a tight loop, do not retry more than once without getting a fresh real reset time.
-
-
-## Verification policy — the load-bearing rule of this whole project
-
-**Never publish a legal/financial/religious fact without verifying it via WebSearch/WebFetch first.** This site has real calculators (taxes, zakat, customs, social security) that Jordanians and others actually rely on. If a fact can't be verified, or sources conflict, either:
-- Say so transparently in the UI (a disclaimer, not a fabricated number), or
-- Don't build that feature at all.
-
-Concrete precedent: an income-tax calculator bug was reported where "extra expense exemption" was a flat 5,000 JOD for everyone. Investigation found the real law (Article 9, Income Tax Law 34/2014, as amended 2020+) breaks it down as 1,000 self + 1,000 spouse + up to 1,000/child (max 3 kids) = up to 5,000. A different official government page ("الجديد في أحكام القانون" on istd.gov.jo) shows totally different numbers (28,000 cap, 7/14/20% brackets) — that page turned out to describe the law's *original 2014 enactment*, superseded by later amendments; it's just an outdated government page, not current law. This took 5+ rounds of WebFetch on conflicting sources to resolve. **Government pages are not automatically authoritative over other corroborated sources — cross-reference multiple sources and reason about which is actually current before trusting any single one, including official ones.**
-
-**This got re-flagged by external QA reviewers three separate times** (each citing the same superseded 7/14/20%/28,000 numbers) before being put to rest 2026-09-07 with a dedicated fresh re-verification fork: (1) istd.gov.jo's own laws listing explicitly confirms the law *currently in force* is "رقم 34 لسنة 2014 المعدّل بالقانون رقم 38 لسنة 2018", effective 1/1/2019 — direct proof the "الجديد في أحكام القانون" page describes the superseded original text, not current law; (2) a source quoting Article 9 directly; (3) PwC's Worldwide Tax Summaries for Jordan (tax-rates and deductions pages, last reviewed July 2026 — 2 months before this check) match the site's numbers exactly on both brackets (5/10/15/20/25/30%) and exemptions (9,000 + 9,000 + up to 5,000 = 23,000 cap). Three independent angles, one of them the regulator itself. **Do not re-investigate this from scratch again** if it resurfaces — point to this note and the on-page disclaimer (`jo/calculators/income-tax/index.html`) instead, unless the user has specific knowledge of a *new* legislative change (a real amendment, not a re-read of the same old istd.gov.jo page). One genuine gap found during this re-check — **added 2026-09-14**: a 1% "national contribution tax" applies to income over 200,000 JOD/year (very high earners only), introduced by Law 38/2018, effective 1/1/2019. Re-verified independently before publishing (WebSearch + a fresh PwC Worldwide Tax Summaries fetch, still last-reviewed July 2026) rather than trusting this note alone. Added as a transparent disclosure — a new bullet in the "معلومات مهمة" card, a new FAQ `<details>` entry, and a matching JSON-LD `Question` — explicitly stating the calculator does **not** apply this surcharge automatically (not a correctness bug in the existing brackets, which only go up to 30% and were never meant to include this separate surcharge).
-
-When genuinely unresolvable, say so in the page's own disclaimer text rather than picking a number with false confidence.
-
+Never publish a legal/financial/religious fact without verifying it (WebSearch/WebFetch, cross-checking several sources — government pages can be outdated). If unverifiable or conflicting: say so in the page's disclaimer, or don't build the feature. Jordan income-tax brackets/exemptions were re-verified 2026-09-07 — don't re-investigate unless a *new* amendment is cited (details: `docs/history/claude-md-archive.md`).
 
 ## Site structure
 
-- Root-level tool pages (English-first, generic): `age-calculator.html`, `bmi-calculator.html`, etc. — ~29 tools.
-- Language variants: `/ar/`, `/fr/`, `/es/`, `/de/`, `/ru/<tool>/`.
-- Country verticals: `/om/` (Oman, deepest/original), `/ae/`, `/sa/`, `/us/`, `/uk/`, `/jo/` (Jordan — actively being built out, now the second-deepest vertical, ~20+ pages across `calculators/`, `students/`, `games/`, `tools/`, plus daily-info pages like `prayer-times/`, `weather/`, `fuel-prices/`, `holidays/`, `emergency-numbers/`, `gold-price/`).
-- Shared `style.css`, shared `i18n.js` (site-wide translations, language switching, country auto-detection and the "📍 Recommended for X" / "✨ You might like" widgets on hub pages).
-- `build-sitemap.js` — regenerate `sitemap.xml` after adding any new page (`node build-sitemap.js`), then add the new URL to the `countryTools` array inside it first.
+- Root tools `<tool>.html` (English-first, 30 of them have `/ar|fr|es|de|ru/<tool>/` variants; picking a language redirects to the matching variant — `i18n.js` `_langVariantUrl`).
+- Country verticals `/jo/` (deepest), `/om/`, `/sa/`, `/ae/`, `/eg/`, `/us/`, `/uk/` (+ bd/in/pk/ph hubs). Country quizzes under `<code>/games/<slug>/` (jo, om, sa, ae, eg).
+- New `/jo/...` page: copy a similar existing page; keep `<base href="https://adawati.space/">`, GA + AdSense tags, JSON-LD (Breadcrumb + FAQPage), shared CSS classes, nav/footer, current `i18n.js?v=`.
+- English-only content pages (Oman guides, omr-to-*, remittance) have `<main dir="ltr">`.
 
-### Standard template for a new `/jo/...` page
-Copy `om/salary-calculator/index.html` as the reference. Must include: `<base href="https://adawati.space/">` in `<head>` (makes all relative links resolve from site root regardless of nesting depth), GA + AdSense script tags, JSON-LD (`BreadcrumbList` + `WebApplication` + `FAQPage`), shared CSS classes (`.card`, `.tool-page`, `.option-toggle`/`.option-btn`, `.result-box`, `.stat-grid`, `.row`), standard nav/footer.
+## Open items
 
+- **Translation**: Arabic content done for salary/eos/vat/bmi/loan (2026-10-05); fr/es/de/ru deliberately deferred (~0 traffic). See `docs/history/i18n-language-bugs.md`.
+- **bachelor-guide government universities**: `admhec.gov.jo` blocks automation (F5 bot defense) — needs owner's manually saved pages. See `docs/history/calculators-built.md`.
+- **masters-guide / bachelor-guide**: ongoing data collection with known dead-end universities — read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending.
+- **GSC indexing**: Claude submits ~10/day via browser (memory `gsc_indexing_queue`). AdSense "low value" — don't resubmit until organic traffic grows.
+- **Logo quiz** 263/~400 — owner said leave as is.
+- **parallel-results page** (`jo/students/parallel-results/`): re-check university links each admission season.
+- Minor/known: duplicate security headers from an old Cloudflare rule (harmless, needs dashboard access).
 
-## Known open items — check here first before a deep dive
+## Documentation index (read only when relevant)
 
-- **`GITHUB_PAT` in `.env` returned 401 Bad credentials on 2026-10-05** — owner needs to generate a new token. Unpushed local work from that day: Arabic translations (5 root pages + their 25 variants, `lang-content/`, `build-lang-pages.js`), `om/games/oman-quiz/`, `om/index.html`, `sitemap.xml`, `build-sitemap.js`, `tools/*`, docs. Push all of it once a valid token is in place (a full `node push-to-github.js` is simplest).
-- **bachelor-guide government universities**: `admhec.gov.jo` is behind F5 bot defense — automation is a dead end; needs manual saved pages from the owner. See calculators-built.md (2026-10-05 note).
+quiz-games · capacitor-app · bugs-fixed-registry · seo-growth · auth-accounts · i18n-language-bugs · export-image-feature · external-qa-reports (quick spot-check only, most were false) · technique-notes (raw CDP) · country-expansion · gold-price-worker · testing-infra · performance-security · onclick-csp-refactor · csp-worker · calculators-built · i18n-split-project · pdf-export-saga · claude-md-archive — all under `docs/history/<name>.md`.
 
-- **CSP oninput/onchange bug — DONE, not open.** A full site-wide sweep (2026-09-24) found and fixed the last 16 real instances (5 country hubs' search boxes — bd/eg/in/pk/ph, `ae`+`sa` vat-calculator, `us/tip-calculator`, `uk/percentage-calculator`, both `oman-*-guide.html` pages, all 5 `omr-to-*.html` converters), on top of the 9 `jo/` pages fixed earlier the same day. `grep -r "oninput=\|onchange=" --include=*.html` across the whole repo now returns zero. See [docs/history/onclick-csp-refactor.md](docs/history/onclick-csp-refactor.md) if this resurfaces (e.g. a new page copied from an old template).
-- **Duplicate security headers from an old Cloudflare Transform Rule** — harmless (verified via real CSP semantics + browser testing) but not cleaned up; needs Cloudflare dashboard access or a Rulesets-scoped API token this session doesn't have. See [docs/history/csp-worker.md](docs/history/csp-worker.md).
-- **No Cloudflare cache-purge access** — a push touching a shared CSS/JS file can take a few minutes to stop serving stale content from Cloudflare's edge; always verify with a cache-busted `curl`. See [docs/history/csp-worker.md](docs/history/csp-worker.md).
-- **GSC "Duplicate, Google chose different canonical than user"** — Request Indexing already resubmitted for the 2 affected URLs (2026-09-20); waiting on Google to re-crawl, not a code bug. See [docs/history/seo-growth.md](docs/history/seo-growth.md).
-- **AdSense "low value content" flag** — the "replicated content" half was fixed (2026-09-20); don't resubmit for review until real organic-traffic growth is confirmed in GSC. See [docs/history/seo-growth.md](docs/history/seo-growth.md).
-- **Logo quiz at 263/~400 target questions** (jumped from 218 via a 2026-09-23 large-scale Wikidata pass skewed toward Adobe/Google/Microsoft app-icon monograms — much higher yield than prior rounds). Still short of 400; further growth needs either more of that same app-icon vein or a genuinely new sourcing method — not a shortfall to force by loosening the visual-review bar. See [docs/history/quiz-games.md](docs/history/quiz-games.md).
-- **xlsx CVE, mammoth CVE** — both resolved/assessed-not-exploitable, see [docs/history/performance-security.md](docs/history/performance-security.md) if this resurfaces.
-- **i18n.js split project — DONE, not open.** Full core+lazy-load+static-tags rollout verified live 2026-09-21. See [docs/history/i18n-split-project.md](docs/history/i18n-split-project.md) only if extending it further.
-- **Translation gap — Arabic done for 5 key pages (2026-10-05), rest deliberately deferred (fr/es/de/ru get ~0 traffic)**. Original note: large sections (calculation examples, tables, FAQs) stay English on content-heavy pages like `salary-calculator` even when nav chrome is localized, worst confirmed on ar/de — real per-language content-writing work (potentially hundreds of paragraphs), not a code bug. (The hardcoded-English-subtitle bug from the same sweep, on ~16 root tool templates, was fixed 2026-09-26 — see [docs/history/i18n-language-bugs.md](docs/history/i18n-language-bugs.md)'s "Bug #3 fixed" section.) See that same file's "Full-site QA sweep" section for the full list of affected pages before starting on the remaining gap.
-- **`jo/students/masters-guide/` now has a second mode**: a top toggle switches between the 19-university Jordan on-campus catalog and a new **391-program online/global catalog** (`ONLINE_PROGRAMS` array, 88 universities/18 countries, mostly from `distancelearningportal.com` + direct ASU/Purdue Global/SNHU program lists). **Jordan's actual accreditation rule for online degrees IS now verified** (via `rce.mohe.gov.jo/DistanceEducation`, the real equivalency directorate — `mohe.gov.jo` works fine on retry, an earlier same-day attempt just hit a transient outage): distance-learning degree equivalency is legally restricted to **humanities/social-science fields only**, and searching the ministry's own tool for ASU/Purdue/the generic word "University" all returned zero results — no specific university could be confirmed recognized. Every non-humanities online card shows a red "⛔ خارج النطاق" badge (`specGroup !== 'humanities' && p.country`) and the disclaimer banner quotes the rule verbatim — never soften or remove this without a new, contradicting official source. **203 of 391 online entries have real per-credit-hour USD pricing** (ASU $605, Purdue Global $420/$485 split, SNHU $659 — via `tuitionPerHour`+`intlCurrency`, NOT `tuitionTotal` which means something different in this schema, mixing them up understates cost ~30-40x). Only 1 entry has a verified credit-hours figure (ASU's MCS = 30) — bulk-assigning hours across the rest was judged too risky since it varies too much per program. See [docs/history/calculators-built.md](docs/history/calculators-built.md) before extending this further.
-- **`jo/students/masters-guide/` Jordan-mode is an ongoing data-collection project, not done** — 19 universities in (GJU, PSUT, الهاشمية, البلقاء التطبيقية, JUST, اليرموك, عمّان الأهلية, الإسراء, فيلادلفيا, الشرق الأوسط, الزرقاء, عمان العربية, إربد الأهلية, عجلون الوطنية, جرش, الزيتونة, العلوم الإسلامية العالمية (WISE), العلوم التطبيقية الخاصة (ASU), جدارة — 309 programs, 238 with real verified credit-hour fees). This covers essentially every degree-granting Jordanian university (all 10 public + ~16 private) — further growth needs new capability, not more of the same WebFetch attempts. **Key technique**: `WebFetch`'s own text summary often fails on PDFs/images ("corrupted binary data"), but it still saves the raw file locally and reports the path — read that file directly with the `Read` tool (it's multimodal, handles PDF/image natively) instead of giving up. This environment's `Read` has no `pdftoppm`, though, so a `pages` range on a large multi-page PDF (e.g. Jadara's 161-page scanned guide) fails outright — only whole-document reads work, so a huge scanned PDF is a genuine dead end here. Several private universities publish a sticker price *and* a blanket discount; the after-discount price was used as the real `tuitionPerHour`. A few universities quote a separate non-Jordanian rate (`tuitionPerHourIntl`) — check `intlCurrency` before assuming JOD (Yarmouk's is USD, Al-Ahliyya's is JOD). Law/legal programs get their own `law` specGroup (not "humanities") — a real miscategorization bug already happened once, don't reintroduce it. **Universities confirmed genuinely dead-ended after 2 rounds of attempts (don't re-attempt without a fundamentally new approach)**: `ju.edu.jo` (WAF blocks every subdomain), Mutah (program list is behind a JS-driven UI, WebFetch can't execute JS), Petra (no graduate content reachable anywhere), Al al-Bayt (two attempts gave contradictory fee-unit interpretations of the same table — genuinely unreliable, not just unclear), Tafila Technical (login-gated), Al-Hussein Bin Talal + American University of Madaba (real SSL cert errors server-side). ASU and Jadara have real program names captured but no extractable pricing (flat fees / unreadable PDF respectively) — worth trying again only if a JS-capable fetch becomes available. No unified graduate-admission portal exists in Jordan (confirmed via `admhec.gov.jo`, which is bachelor's/diploma-only) — don't assume one and don't re-search for it. See [docs/history/calculators-built.md](docs/history/calculators-built.md) for exactly which URLs were tried and what worked, before re-attempting a university from scratch.
-- **New page `jo/students/bachelor-guide/`** — competitive (تنافسي) vs. parallel (موازي) minimum Tawjihi averages per major, with a personalized verdict badge from the user's own entered average, plus a sort dropdown (average/price/university) and tuition-fee/credit-hours display where known. **373 real entries across 12 universities, real gaps remain, don't assume full coverage**: government universities only cover **University of Jordan** (72 majors, competitive-track only, from `admhec.gov.jo/LeastAverages.aspx` — the real unified bachelor's admission portal). The other 9 public universities (Yarmouk, Mutah, JUST, Hashemite, Al al-Bayt, Balqa, Hussein Bin Talal, Tafila, WISE) are **not yet added**: that ASP.NET page only allowed one successful query for the entire browser session across many attempts (fresh tabs included, retried again later the same day) — every subsequent query returned either a stale duplicate or an empty table, a server-side limit not yet worked around. **Parallel-program (موازي) minimums are unknown for every government university** — that portal is competitive-track only by design (موازي is each public university's own separate self-funded track, outside the unified system), and a dedicated research pass for موازي across each university's own site stalled with zero results. Private-university coverage: 301 entries across 11 universities — Al-Ahliyya, Philadelphia, Middle East University, Zarqa, Amman Arab, Al-Zaytoonah, Applied Science Private University, PSUT, and Jerash have full or near-full coverage; GJU only has college-level (not per-major) minimums since that's the granularity its own PDF publishes; Irbid National is partial (4 of an estimated ~30+ majors). Isra and Ajloun National genuinely publish fee schedules but **no admission-average data at all** (confirmed by reading their fee images directly) — not a fetch failure, the data just isn't published. Jadara has given zero usable data across three independent research attempts spanning different sessions — treat as a confirmed dead end, not a technique problem. **Technique note**: prefixing a URL with `https://r.jina.ai/` (i.e. fetching `https://r.jina.ai/<original-url>`) successfully bypassed both an SSL certificate error and an HTTP 500 that blocked direct `WebFetch` — try this before giving up on a PDF/page that fails with a transport-level error (it does NOT help when the data simply isn't published, as Isra/Ajloun/Jadara confirm). A verified, citable fact used in the FAQ: Jordan's Ministry of Higher Education sets a national floor minimum average per field for every private university (Medicine 85%, Engineering/Pharmacy 80%, Sharia 75%, Nursing 70%, Law 65%, other 60%) via قرار مجلس التعليم العالي 2024/268. Tuition-fee/credit-hours data is a bonus field, not systematically collected — only ~40% of entries have it (mainly Al-Ahliyya, Philadelphia, Al-Zaytoonah, ASU, PSUT); University of Jordan has none at all since admhec.gov.jo only publishes admission averages, not fees. See [docs/history/calculators-built.md](docs/history/calculators-built.md) for the full data-gathering writeup before extending this page.
+## Style
 
-## Documentation index
-
-CLAUDE.md was split 2026-09-21 (it had grown to ~430KB / 1,284 lines, all reloaded into context on every session — a real, avoidable token cost). This file now holds only the standing operational rules + a pointer to detailed history. **Only read a file below when a task actually touches that topic** — don't load them all "just in case".
-
-- [Firebase quiz engine, 14-game arcade + logo-quiz history, result-sharing](docs/history/quiz-games.md)
-- [Android/iOS Capacitor native app (adawati-app)](docs/history/capacitor-app.md)
-- [Fixed content/UX bugs — reference so they are not reintroduced](docs/history/bugs-fixed-registry.md)
-- [SEO audits, GSC/search-index work, growth features, AdSense, canonical issue](docs/history/seo-growth.md)
-- [Firebase Auth, favorites/recent sync, Google Sign-In (desktop + mobile)](docs/history/auth-accounts.md)
-- [Mixed-language / untranslated-element bugs across country hubs and pages](docs/history/i18n-language-bugs.md)
-- [Branded result-image export/share feature — built, extended, and its bugs](docs/history/export-image-feature.md)
-- [Unsolicited external "QA report" pastes — verification pattern and outcomes](docs/history/external-qa-reports.md)
-- [Headless Chrome via raw CDP — reusable technique for testing without a browser tool](docs/history/technique-notes.md)
-- [Daily-info modules, 5-module expansion, emergency numbers — rolled out to all countries](docs/history/country-expansion.md)
-- [Gold-price accuracy investigation + Cloudflare Worker server-side fallback](docs/history/gold-price-worker.md)
-- [Deterministic calculator test suite + browser end-to-end test suite](docs/history/testing-infra.md)
-- [Lighthouse/performance, dependency & security audits, xlsx CVE fix](docs/history/performance-security.md)
-- [Inline onclick→addEventListener refactor + the active CSP oninput bug](docs/history/onclick-csp-refactor.md)
-- [CSP hardening via Cloudflare Worker + nonce, enforcement, edge-cache staleness](docs/history/csp-worker.md)
-- [New calculators built (Jordan pension, GOSI, gratuity, loan modes, etc.)](docs/history/calculators-built.md)
-- [i18n.js split into lazy-loaded per-language packs (DONE 2026-09-21)](docs/history/i18n-split-project.md)
-- [Loan-calculator amortization CSV/PDF export — the full 6-round mobile bug saga](docs/history/pdf-export-saga.md)
-
-## Style/tone conventions
-
-- All Jordan-vertical copy is in Jordanian-dialect Arabic (not MSA), casual and direct — match existing pages' voice, not formal Arabic.
-- Every calculator with a legal/financial figure gets a visible "ليست رسمية / أداة تقديرية" disclaimer and a link to the actual official source (istd.gov.jo, customs.gov.jo, ssc.gov.jo, etc.).
-- Don't add comments to code explaining what it does; this codebase has none and it should stay that way except where a genuinely non-obvious constraint needs recording (see existing sparse examples in the quiz JS for the bar this should clear).
-
+- Jordan pages: Jordanian-dialect Arabic, casual and direct.
+- Legal/financial calculators: visible "أداة تقديرية" disclaimer + link to the official source.
+- No explanatory code comments except genuinely non-obvious constraints.
