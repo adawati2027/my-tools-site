@@ -89,6 +89,7 @@ const countryTools = [
   `${BASE}/jo/students/scholarships-loans/`,
   `${BASE}/jo/students/masters-guide/`,
   `${BASE}/jo/students/bachelor-guide/`,
+  `${BASE}/jo/students/parallel-results/`,
   `${BASE}/jo/students/best-tools/`,
   `${BASE}/om/gold-price/`,
   `${BASE}/om/weather/`,

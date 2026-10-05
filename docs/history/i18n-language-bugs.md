@@ -106,3 +106,9 @@ Scope decided with the owner: **Arabic only** (GSC 3-month data: fr/es/de/ru com
 New mechanism in `build-lang-pages.js` (step h): `lang-content/<code>/<tool>.html` may hold `<!--block:NAME-->…<!--/block-->` pieces that replace `<!--i18n-block:NAME-->…<!--/i18n-block:NAME-->` regions in the root file, plus an optional `<!--map:{"exact text":"translation"}-->` applied to exact-match text nodes inside `<main>`. Output is static, crawlable Arabic (no JS needed, nothing added to the shared `i18n-lang-ar.js` pack). Arabic versions of the old English-only SEO cards drop `lang="en"`, so they are now visible on `/ar/`. Per-page JS objects (`SAL_T`/`EOS_T`/`BMI_T`/`LOAN_T` `.ar`) had English strings (info bodies, FAQ questions) — patched with `tools/set-lang-obj.js`. Helpers: `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/js-syntax.js`, `tools/i18n-gaps.js`.
 
 Still open: currency-converter (only JS-generated currency names, ~100 words), the Oman guide pages, and all non-Arabic languages (deliberately deferred).
+
+## Language choice now routes to the real variant page — 2026-10-05 (i18n.js v=55)
+
+User saw English content on root `end-of-service.html` with Arabic selected. Two fixes in `i18n.js`:
+1. `setLang()` first calls `_langVariantUrl(lang)`: on one of the 30 `LANG_VARIANT_TOOLS` (root `/<tool>.html` or `/<xx>/<tool>/`), a language that doesn't match the URL triggers `location.replace` to the matching page (`/ar/<tool>/`, or `/<tool>.html` for English). No loop: `detectDefaultLang()` step 1 makes a `/xx/` URL set its own language. Googlebot has no saved language, so it is never redirected.
+2. Pre-existing bug: `detectDefaultLang()` honoured a saved language only if `T[savedLang]` was already loaded — on root pages only the English pack is static, so a saved `ar` was ignored and then overwritten with `en` by `setLang('en')` on every root-page visit. Now checks `LABELS[savedLang]` instead.
