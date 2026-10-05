@@ -140,12 +140,12 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       var links = val('f_links').split(/\s+/).map(adsSafeUrl).filter(Boolean).slice(0, 4);
       var d = { title: val('f_title'), category: val('f_cat'), city: val('f_city'), description: val('f_desc'), links: links,
-        shareProof: adsSafeUrl(val('f_proof')), hasProofImage: !!proofImg || editHasImg, igHandle: adsIgHandle(val('f_ig')),
+        shareProof: adsSafeUrl(val('f_proof')), hasProofImage: !!proofImg || editHasImg, igHandle: (adsIgHandle(val('f_ig')) || val('f_ig')).slice(0, 40),
         phone: val('f_phone').replace(/[^0-9+ ]/g, '').slice(0, 20), ownerName: val('f_name') || (user.displayName || '').slice(0, 40) };
       if (d.title.length < 2) return msg('اكتب اسم الإعلان.');
       if (d.description.length < 20) return msg('احكي أكثر عن إعلانك (20 حرف على الأقل).');
       if (!links.length) return msg('حط رابط واحد على الأقل لصفحتك (يبلّش بـ https://).');
-      if (d.igHandle.length < 2) return msg('اكتب اسم حسابك على إنستغرام أو الصق رابطه (مثلاً @yourpage).');
+      if (d.igHandle.length < 2) return msg('اكتب حسابك على إنستغرام (الاسم أو الرابط).');
       if (!document.getElementById('f_follow').checked) return msg('لازم تتابع حساب أدواتي على إنستغرام وتعلّم على المربع.');
       if (val('f_proof') && !d.shareProof) return msg('رابط المنشور لازم يبلّش بـ https://');
       if (!d.shareProof && !d.hasProofImage) return msg('حط رابط المنشور أو ارفع صورة الستوري.');
