@@ -41,7 +41,8 @@
     <div class="divider"></div>
     <ol style="font-size:14px;color:var(--text-muted);line-height:2;padding-inline-start:18px;">
       <li>سجّل دخول على أدواتي (ببلاش).</li>
-      <li>انشر رابط أدواتي <strong>adawati.space</strong> على صفحتك أو حالتك أو جروبك، وانسخ رابط المنشور.</li>
+      <li>تابع حساب أدواتي على إنستغرام <a href="https://www.instagram.com/adawati2027/" target="_blank" rel="noopener" style="color:var(--primary);font-weight:700;">@adawati2027</a>.</li>
+      <li>انشر رابط أدواتي <strong>adawati.space</strong> على صفحتك أو ستوري أو جروب — وابعتلنا رابط المنشور أو صورة (سكرين شوت) للستوري.</li>
       <li>عبّي الفورم تحت: اسم إعلانك، لشو بيفيد الناس، وروابط صفحاتك.</li>
       <li>منراجع الإعلان — يا بننشره، يا بنطلب منك تعديل بسيط.</li>
     </ol>
@@ -60,12 +61,12 @@
   </div>
 </footer>
 <script src="i18n-lang-ar.js?v=2" defer></script>
-<script src="i18n.js?v=58" defer></script>
-<script src="jo/ads/ads.js?v=2" defer></script>
+<script src="i18n.js?v=59" defer></script>
+<script src="jo/ads/ads.js?v=3" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
-  var card = document.getElementById('adsFormCard'), editId = null, current = null;
+  var card = document.getElementById('adsFormCard'), editId = null, current = null, proofImg = null, editHasImg = false;
   var formHtml = '<form class="ads-form" id="adsForm" novalidate>' +
     '<div class="card-title" style="font-size:15px;" id="formTitle">📝 أضف إعلانك</div>' +
     '<label for="f_title">اسم الإعلان / المحل / المشروع *</label><input id="f_title" maxlength="80" required>' +
@@ -73,14 +74,21 @@ document.addEventListener('DOMContentLoaded', function() {
     '<label for="f_city">المدينة / المنطقة</label><input id="f_city" maxlength="30" placeholder="مثلاً: عمّان، إربد، الزرقاء...">' +
     '<label for="f_desc">لشو ممكن يفيد الناس؟ *</label><textarea id="f_desc" maxlength="800" placeholder="احكي عن شغلك، شو بتقدّم، وليش الناس بتستفيد منك (20 حرف على الأقل)"></textarea>' +
     '<label for="f_links">روابط صفحاتك * (رابط بكل سطر، لحد 4)</label><textarea id="f_links" style="min-height:80px;" placeholder="https://instagram.com/...&#10;https://wa.me/962..."></textarea><div class="ads-hint">إنستغرام، فيسبوك، واتساب، موقعك، أو لوكيشن على الخريطة — لازم يبلّش بـ https://</div>' +
-    '<label for="f_proof">رابط منشورك اللي نشرت فيه أدواتي *</label><input id="f_proof" maxlength="300" placeholder="https://...">' +
+    '<label>📸 تابعت أدواتي على إنستغرام؟ *</label><div class="ads-row" style="margin-top:0;"><a class="ads-btn secondary" href="' + ADS_IG_URL + '" target="_blank" rel="noopener">📸 تابع ' + ADS_IG_HANDLE + '</a></div>' +
+    '<label for="f_ig">اسم حسابك على إنستغرام * (عشان نتأكد من المتابعة)</label><input id="f_ig" maxlength="40" dir="ltr" placeholder="@yourpage">' +
+    '<label style="display:flex;gap:8px;align-items:center;font-weight:400;"><input type="checkbox" id="f_follow" style="width:auto;"> تابعت حساب أدواتي على إنستغرام ✅</label>' +
+    '<label>إثبات إنك نشرت أدواتي * (واحد منهم يكفي)</label>' +
+    '<input id="f_proof" maxlength="300" dir="ltr" placeholder="رابط المنشور https://...">' +
+    '<div class="ads-hint">أو إذا نشرت ستوري (ما إله رابط) ارفع صورة سكرين شوت:</div>' +
+    '<input type="file" id="f_img" accept="image/*" style="margin-top:6px;">' +
+    '<div id="f_imgprev" style="margin-top:8px;"></div>' +
     '<label for="f_name">اسمك أو اسم الجهة (بيظهر مع الإعلان)</label><input id="f_name" maxlength="40">' +
     '<div class="ads-row"><button type="submit" class="ads-btn" id="f_submit">📤 أرسل للمراجعة</button><button type="button" class="ads-btn secondary" id="f_cancel" hidden>إلغاء التعديل</button></div>' +
     '<div id="f_msg"></div></form>';
   function val(id) { return document.getElementById(id).value.trim(); }
   function msg(t, ok) { document.getElementById('f_msg').innerHTML = '<div class="ads-msg ' + (ok ? 'ok' : 'err') + '">' + adsEsc(t) + '</div>'; }
   function resetForm() {
-    editId = null; document.getElementById('adsForm').reset();
+    editId = null; proofImg = null; editHasImg = false; document.getElementById('adsForm').reset(); document.getElementById('f_imgprev').innerHTML = '';
     document.getElementById('formTitle').textContent = '📝 أضف إعلانك';
     document.getElementById('f_cancel').hidden = true;
     if (current) document.getElementById('f_name').value = current.displayName || '';
@@ -104,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
           editId = b.getAttribute('data-edit');
           document.getElementById('f_title').value = a.title; document.getElementById('f_cat').value = a.category;
           document.getElementById('f_city').value = a.city; document.getElementById('f_desc').value = a.description;
-          document.getElementById('f_links').value = (a.links || []).join('\n'); document.getElementById('f_proof').value = a.shareProof;
+          document.getElementById('f_links').value = (a.links || []).join('\n'); document.getElementById('f_proof').value = a.shareProof || ''; document.getElementById('f_ig').value = a.igHandle || ''; document.getElementById('f_follow').checked = true; editHasImg = !!a.hasProofImage; proofImg = null; document.getElementById('f_imgprev').innerHTML = editHasImg ? '<div class="ads-hint">📎 في صورة مرفوعة من قبل — ارفع وحدة جديدة إذا بدك تغيّرها.</div>' : '';
           document.getElementById('f_name').value = a.ownerName;
           document.getElementById('formTitle').textContent = '✏️ تعديل الإعلان';
           document.getElementById('f_cancel').hidden = false;
@@ -118,21 +126,36 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!user) { adsSignInPrompt(card, 'لازم تسجّل دخول عشان تضيف إعلانك — التسجيل ببلاش وبياخذ دقيقة.'); document.getElementById('myAdsCard').hidden = true; return; }
     card.innerHTML = formHtml; resetForm();
     document.getElementById('f_cancel').addEventListener('click', resetForm);
+    document.getElementById('f_img').addEventListener('change', function() {
+      var file = this.files && this.files[0], prev = document.getElementById('f_imgprev');
+      proofImg = null; if (!file) { prev.innerHTML = ''; return; }
+      prev.innerHTML = '<div class="ads-hint">⏳ جاري تجهيز الصورة...</div>';
+      adsCompressImage(file).then(function(dataUrl) {
+        proofImg = dataUrl;
+        prev.innerHTML = '<img src="' + dataUrl + '" alt="" style="max-width:160px;max-height:260px;border-radius:8px;border:1px solid var(--border);">';
+      }).catch(function() { prev.innerHTML = '<div class="ads-msg err">ما قدرنا نقرأ الصورة — جرّب صورة ثانية.</div>'; });
+    });
     document.getElementById('adsForm').addEventListener('submit', function(e) {
       e.preventDefault();
       var links = val('f_links').split(/\s+/).map(adsSafeUrl).filter(Boolean).slice(0, 4);
       var d = { title: val('f_title'), category: val('f_cat'), city: val('f_city'), description: val('f_desc'), links: links,
-        shareProof: adsSafeUrl(val('f_proof')), ownerName: val('f_name') || (user.displayName || '').slice(0, 40) };
+        shareProof: adsSafeUrl(val('f_proof')), hasProofImage: !!proofImg || editHasImg, igHandle: val('f_ig').replace(/s+/g, ''),
+        ownerName: val('f_name') || (user.displayName || '').slice(0, 40) };
       if (d.title.length < 2) return msg('اكتب اسم الإعلان.');
       if (d.description.length < 20) return msg('احكي أكثر عن إعلانك (20 حرف على الأقل).');
       if (!links.length) return msg('حط رابط واحد على الأقل لصفحتك (يبلّش بـ https://).');
-      if (!d.shareProof) return msg('حط رابط المنشور اللي نشرت فيه أدواتي (يبلّش بـ https://).');
+      if (d.igHandle.length < 2) return msg('اكتب اسم حسابك على إنستغرام.');
+      if (!document.getElementById('f_follow').checked) return msg('لازم تتابع حساب أدواتي على إنستغرام وتعلّم على المربع.');
+      if (val('f_proof') && !d.shareProof) return msg('رابط المنشور لازم يبلّش بـ https://');
+      if (!d.shareProof && !d.hasProofImage) return msg('حط رابط المنشور أو ارفع صورة الستوري.');
       var btn = document.getElementById('f_submit'); btn.disabled = true;
       var ts = firebase.firestore.FieldValue.serverTimestamp(), op;
       d.status = 'pending'; d.updatedAt = ts;
-      if (editId) op = fb.db.collection('ads').doc(editId).update(d);
-      else { d.ownerUid = user.uid; d.adminNote = ''; d.likeCount = 0; d.createdAt = ts; op = fb.db.collection('ads').add(d); }
-      op.then(function() {
+      if (editId) op = fb.db.collection('ads').doc(editId).update(d).then(function() { return editId; });
+      else { d.ownerUid = user.uid; d.adminNote = ''; d.likeCount = 0; d.createdAt = ts; op = fb.db.collection('ads').add(d).then(function(ref) { return ref.id; }); }
+      op.then(function(adId) {
+        return proofImg ? fb.db.collection('adProofs').doc(adId).set({ image: proofImg, ownerUid: user.uid, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }) : null;
+      }).then(function() {
         resetForm(); msg('✅ وصلنا إعلانك! رح نراجعه بأقرب وقت، وبتلاقي حالته تحت بـ"إعلاناتي".', true); loadMine(fb, user);
       }).catch(function() { msg('ما زبط الإرسال — تأكد من الروابط وجرّب مرة ثانية.'); })
         .then(function() { btn.disabled = false; });

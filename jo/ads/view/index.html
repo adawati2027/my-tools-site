@@ -46,8 +46,8 @@
   </div>
 </footer>
 <script src="i18n-lang-ar.js?v=2" defer></script>
-<script src="i18n.js?v=58" defer></script>
-<script src="jo/ads/ads.js?v=2" defer></script>
+<script src="i18n.js?v=59" defer></script>
+<script src="jo/ads/ads.js?v=3" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var b = this;
       if (b.getAttribute('data-sure') !== '1') { b.setAttribute('data-sure', '1'); b.textContent = '⚠️ متأكد؟ اكبس مرة ثانية'; return; }
       b.disabled = true;
-      fbRef.db.collection('ads').doc(id).delete().then(function() { box.innerHTML = '✅ انحذف الإعلان. <a href="jo/ads/">ارجع للإعلانات</a>'; })
+      fbRef.db.collection('adProofs').doc(id).delete().catch(function(){}).then(function() { return fbRef.db.collection('ads').doc(id).delete(); }).then(function() { box.innerHTML = '✅ انحذف الإعلان. <a href="jo/ads/">ارجع للإعلانات</a>'; })
         .catch(function() { b.disabled = false; b.textContent = 'ما زبط الحذف'; });
     });
     document.getElementById('likeBtn').addEventListener('click', toggleLike);

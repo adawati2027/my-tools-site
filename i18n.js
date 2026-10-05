@@ -539,8 +539,10 @@ function signInGoogle(lang) {
       });
     }).then(function(cred) { return finishSignIn(cred.user); })
     .catch(function(err) {
-      if (err && (err.code === 'auth/no-id-token' || String(err.message || '').indexOf('cancel') !== -1)) return;
-      showErr(t.generic_error || 'Something went wrong — try again');
+      if (err && (err.code === 'auth/no-id-token' || /cancel/i.test(String(err.message || '')))) return;
+      const nativeCode = (err && (err.code || err.message)) ? String(err.code || err.message).slice(0, 80) : 'native-unknown';
+      if (typeof gtag === 'function') gtag('event', 'login_error', { method: 'google_native', error_code: nativeCode });
+      showErr(googleErrText(lang, { code: nativeCode }));
     });
     return;
   }
