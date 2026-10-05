@@ -12,7 +12,7 @@
 <link rel="icon" href="/icon-192.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>شو بتعرف عن السعودية؟ — تحدي 200 سؤال | Adawati</title>
-<meta name="description" content="تحدّى نفسك وأصحابك: 200 سؤال عن السعودية بثلاث مستويات (سهل، متوسط، صعب) — التاريخ، الجغرافيا، المعالم، الثقافة والرياضة. 12 سؤال عشوائي في كل تحدي.">
+<meta name="description" content="تحدّى نفسك وأصحابك: 200 سؤال عن السعودية — التاريخ، الجغرافيا، المعالم، الثقافة والرياضة. 12 سؤال عشوائي في كل تحدي.">
 <meta name="keywords" content="اسئلة عن السعودية, مسابقة عن السعودية, كويز السعودية, معلومات عن السعودية, Saudi Arabia trivia quiz">>
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://adawati.space/sa/games/saudi-quiz/">
@@ -20,7 +20,7 @@
 <link rel="alternate" hreflang="ar" href="https://adawati.space/sa/games/saudi-quiz/">
 <link rel="alternate" hreflang="ar-SA" href="https://adawati.space/sa/games/saudi-quiz/">
 <meta property="og:title" content="شو بتعرف عن السعودية؟ | Adawati">
-<meta property="og:description" content="تحدّى أصحابك بـ200 سؤال عن السعودية بثلاث مستويات.">
+<meta property="og:description" content="تحدّى أصحابك بأسئلة عشوائية من بنك 200 سؤال عن السعودية.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adawati.space/sa/games/saudi-quiz/">
 <meta property="og:image" content="https://adawati.space/og/sa.jpg">
@@ -28,7 +28,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="شو بتعرف عن السعودية؟ | Adawati">
-<meta name="twitter:description" content="تحدّى أصحابك بـ200 سؤال عن السعودية بثلاث مستويات.">
+<meta name="twitter:description" content="تحدّى أصحابك بأسئلة عشوائية من بنك 200 سؤال عن السعودية.">
 <meta name="twitter:image" content="https://adawati.space/og/sa.jpg">
 <link rel="stylesheet" href="../../../style.css?v=3">
 </head>
@@ -54,8 +54,6 @@
     <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
       <div style="font-weight:700;margin-bottom:6px;" data-qt="challenge_start_title">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
       <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;" data-qt="challenge_start_subtitle">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
-      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">اختار المستوى:</div>
-      <div id="difficultySelectArea" style="display:none;gap:8px;flex-wrap:wrap;margin-bottom:10px;"></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <input id="creatorNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;font-size:16px;border:1px solid var(--border);border-radius:8px;">
         <button id="createChallengeBtn" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_challenge_btn">ابدأ تحدي</button>
@@ -139,8 +137,8 @@
       <a href="sa/fuel-prices/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⛽ أسعار الوقود</a>
       <a href="sa/holidays/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">📅 العطل الرسمية</a>
       <a href="om/games/oman-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇴🇲 شو بتعرف عن عُمان؟</a>
+      <a href="ae/games/uae-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇦🇪 شو بتعرف عن الإمارات؟</a>
       <a href="jo/games/geography-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌍 كويز الجغرافيا العالمية</a>
-      <a href="jo/games/islamic-history-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">☪️ كويز التاريخ الإسلامي</a>
       <a href="jo/games/general-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌐 كويز المعلومات العامة</a>
       <a href="sa/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇸🇦 كل أدوات السعودية</a>
     </div>
@@ -363,12 +361,6 @@ const QUESTIONS = [
 const QUIZ_CONFIG = {
   gameId: 'saudi-quiz',
   questionSeconds: 15,
-  difficulties: [
-    {key:'mix', label:'🎲 مشكّل', labelEn:'🎲 Mixed'},
-    {key:'easy', label:'🟢 سهل', labelEn:'🟢 Easy'},
-    {key:'medium', label:'🟡 متوسط', labelEn:'🟡 Medium'},
-    {key:'hard', label:'🔴 صعب', labelEn:'🔴 Hard'}
-  ],
   shareTitle: 'شو بتعرف عن السعودية؟ 🇸🇦',
   challengeText: 'تحداك بكويز عن السعودية، جاهز تنافسني؟',
   resultText: function(score, total, pct) {

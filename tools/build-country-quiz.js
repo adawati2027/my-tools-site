@@ -1,7 +1,7 @@
 // usage: node tools/build-country-quiz.js config.json
 // config: {code:"sa", slug:"saudi-quiz", nameAr:"السعودية", fullAr:"المملكة العربية السعودية", nameEn:"Saudi Arabia", flag:"🇸🇦",
 //          iconBg:"#dcfce7", questions:"path/to/q.json" ({easy:[[q,correct,w1,w2,w3]...],medium:[...],hard:[...]}),
-//          links:[[url,label],...]}
+//          links:[[url,label],...], levels:false}  (levels:true adds the easy/medium/hard selector; default = random mix)
 // Builds <code>/games/<slug>/index.html from jo/games/jordan-quiz/ (correct answer stored at index 0; the engine shuffles).
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
@@ -15,19 +15,19 @@ const url = `https://adawati.space/${c.code}/games/${c.slug}/`;
 const title = `شو بتعرف عن ${c.fullAr}؟`;
 
 must(/<title>[^<]*<\/title>/, `<title>${title} — تحدي ${total} سؤال | Adawati</title>`);
-must(/<meta name="description" content="[^"]*"/, `<meta name="description" content="تحدّى نفسك وأصحابك: ${total} سؤال عن ${c.fullAr} بثلاث مستويات (سهل، متوسط، صعب) — التاريخ، الجغرافيا، المعالم، الثقافة والرياضة. 12 سؤال عشوائي في كل تحدي."`);
+must(/<meta name="description" content="[^"]*"/, `<meta name="description" content="تحدّى نفسك وأصحابك: ${total} سؤال عن ${c.fullAr} — التاريخ، الجغرافيا، المعالم، الثقافة والرياضة. 12 سؤال عشوائي في كل تحدي."`);
 must(/<meta name="keywords" content="[^"]*"/, `<meta name="keywords" content="اسئلة عن ${c.nameAr}, مسابقة عن ${c.nameAr}, كويز ${c.nameAr}, معلومات عن ${c.nameAr}, ${c.nameEn} trivia quiz">`);
 h = h.split('https://adawati.space/jo/games/jordan-quiz/').join(url);
 must(/hreflang="ar-JO"/, `hreflang="ar-${c.code.toUpperCase()}"`);
 h = h.replace(/شو بتعرف عن الأردن؟ \| Adawati/g, `${title} | Adawati`);
-h = h.replace(/اختبر معلوماتك عن الأردن بـ12 سؤال ممتع\./g, `تحدّى أصحابك بـ${total} سؤال عن ${c.fullAr} بثلاث مستويات.`);
+h = h.replace(/اختبر معلوماتك عن الأردن بـ12 سؤال ممتع\./g, `تحدّى أصحابك بأسئلة عشوائية من بنك ${total} سؤال عن ${c.fullAr}.`);
 h = h.split('og/jo_games_jordan-quiz.jpg').join(`og/${c.code}.jpg`);
 must(/<a href="jo\/" class="nav-brand">Adawati 🇯🇴<\/a>/, `<a href="${c.code}/" class="nav-brand">Adawati ${c.flag}</a>`);
 h = h.replace(/<a href="jo\/" data-qt="nav_jordan">أدوات الأردن<\/a>/g, `<a href="${c.code}/">أدوات ${c.nameAr}</a>`);
 must(/<div class="page-header"><a href="jo\/"/, `<div class="page-header"><a href="${c.code}/"`);
 must(/<div class="card-icon" style="background:#fef3c7;">🇯🇴<\/div>/, `<div class="card-icon" style="background:${c.iconBg};">${c.flag}</div>`);
 must(/<h1 class="card-title" data-en="How Well Do You Know Jordan\?">شو بتعرف عن الأردن؟<\/h1>/, `<h1 class="card-title" data-en="How Well Do You Know ${c.nameEn}?">${title}</h1>`);
-must(/(<div style="font-size:13px;color:var\(--text-muted\);margin-bottom:8px;" data-qt="challenge_start_subtitle">[^\n]*<\/div>)/,
+if (c.levels) must(/(<div style="font-size:13px;color:var\(--text-muted\);margin-bottom:8px;" data-qt="challenge_start_subtitle">[^\n]*<\/div>)/,
   '$1' + NL + '      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">اختار المستوى:</div>' + NL + '      <div id="difficultySelectArea" style="display:none;gap:8px;flex-wrap:wrap;margin-bottom:10px;"></div>');
 
 const linkStyle = 'font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;';
@@ -48,13 +48,13 @@ h = h.slice(0, qs) + 'const QUESTIONS = [' + NL + rows.join(',' + NL) + h.slice(
 const cs = h.indexOf('const QUIZ_CONFIG = {'), ce = h.indexOf(NL + '};', cs) + NL.length + 2;
 const cfg = `const QUIZ_CONFIG = {
   gameId: '${c.slug}',
-  questionSeconds: 15,
+  questionSeconds: 15,${c.levels ? `
   difficulties: [
     {key:'mix', label:'🎲 مشكّل', labelEn:'🎲 Mixed'},
     {key:'easy', label:'🟢 سهل', labelEn:'🟢 Easy'},
     {key:'medium', label:'🟡 متوسط', labelEn:'🟡 Medium'},
     {key:'hard', label:'🔴 صعب', labelEn:'🔴 Hard'}
-  ],
+  ],` : ''}
   shareTitle: '${title} ${c.flag}',
   challengeText: 'تحداك بكويز عن ${c.nameAr}، جاهز تنافسني؟',
   resultText: function(score, total, pct) {

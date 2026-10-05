@@ -208,3 +208,5 @@ User asked (بالتحديات بدي صورة مع كتابة حلوة وفيه
 ## Saudi quiz — `sa/games/saudi-quiz/` (2026-10-05)
 
 Same format as the Oman quiz (200 questions, 70/70/60). Built with the now-generic `tools/build-country-quiz.js config.json` (config: code, slug, names, flag, iconBg, questions JSON path, related links). A new country quiz costs only the questions JSON + one config + a hub card (`data-cat="challenges"`, first in the list) + `build-sitemap.js` entry + `node build-search-index.js`.
+
+**2026-10-05 update — levels removed + UAE quiz**: owner asked for no difficulty levels ("خليهم عشوائي ب كل الدول"). `build-country-quiz.js` now omits the selector unless `levels:true`; Oman/Saudi rebuilt, UAE quiz added at `ae/games/uae-quiz/` (200 questions). Questions still carry a `difficulty` field (harmless, lets levels be re-enabled with one config flag). Build configs (`<code>-cfg.json`) + question JSONs lived in the session scratchpad — to edit questions later, edit the `QUESTIONS` array in the page directly.
