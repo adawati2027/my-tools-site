@@ -52,6 +52,8 @@
       </div>
     </div>
     <div class="q-head"><div class="nm" id="qName"></div><div class="mt" id="qMeta"></div></div>
+    <div class="q-bar" style="justify-content:center;"><select id="qReciter" class="q-btn" aria-label="اختر القارئ"><option value="mahmoud-husary/r1">محمود خليل الحصري</option><option value="mishary-alafasy/r1">مشاري العفاسي</option><option value="abdulbasit-abdulsamad/r3">عبدالباسط عبدالصمد</option><option value="muhammad-minshawi/r1">محمد صديق المنشاوي</option><option value="maher-muaiqly/r1">ماهر المعيقلي</option><option value="abdulrahman-sudais/r1">عبدالرحمن السديس</option><option value="saud-shuraim/r1">سعود الشريم</option><option value="saad-ghamdi/r1">سعد الغامدي</option><option value="yasser-dosari/r1">ياسر الدوسري</option><option value="nasser-qatami/r1">ناصر القطامي</option><option value="ahmad-ajmi/r1">أحمد بن علي العجمي</option><option value="ali-hudhaifi/r1">علي الحذيفي</option><option value="ibrahim-dosari/r2">إبراهيم الدوسري</option></select><a id="qListen" class="q-btn primary" target="_blank" rel="noopener">🎧 استمع للسورة</a></div>
+    <div style="font-size:12px;color:var(--text-muted);text-align:center;margin:-4px 0 10px;">التلاوة بتشتغل من موقع mp3quran.net بصفحة جديدة</div>
     <div class="ads-hint" style="font-size:12px;color:var(--text-muted);text-align:center;margin-bottom:8px;">💡 اكبس على أي آية لتشوف تفسيرها</div>
     <div class="q-basmala" id="qBasmala">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</div>
     <div class="q-ayat" id="qAyat"></div>
@@ -100,10 +102,15 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('qAyat').innerHTML = d.ayahs.map(function(a, i) {
         return '<span class="ay" data-i="' + i + '" style="cursor:pointer;">' + esc(a) + '</span><span class="an">﴿' + arNum(i + 1) + '﴾</span> ';
       }).join('');
+      setListen();
       document.getElementById('qPrev').disabled = n === 1; document.getElementById('qNext').disabled = n === 114;
       try { localStorage.setItem('q_last', String(n)); } catch (e) {}
       window.scrollTo(0, 0);
     }).catch(function() { document.getElementById('qAyat').textContent = 'صار خطأ بالتحميل — حدّث الصفحة.'; });
+  }
+  function setListen() {
+    var r = document.getElementById('qReciter').value;
+    document.getElementById('qListen').href = 'https://cdn.mp3quran.net/audio/' + r + '/' + ('00' + cur).slice(-3) + '.mp3';
   }
   function showList(push) {
     document.getElementById('qRead').hidden = true; document.getElementById('qList').hidden = false;
@@ -136,6 +143,8 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('qBigger').addEventListener('click', function() { fs = Math.min(44, fs + 2); applyFs(); try { localStorage.setItem('q_fs', fs); } catch (e) {} });
   document.getElementById('qSmaller').addEventListener('click', function() { fs = Math.max(18, fs - 2); applyFs(); try { localStorage.setItem('q_fs', fs); } catch (e) {} });
   document.getElementById('qSearch').addEventListener('input', renderList);
+  try { var sr = localStorage.getItem('q_reciter'); if (sr) document.getElementById('qReciter').value = sr; } catch (e) {}
+  document.getElementById('qReciter').addEventListener('change', function() { try { localStorage.setItem('q_reciter', this.value); } catch (e) {} setListen(); });
   window.addEventListener('popstate', function() { var s = parseInt(new URLSearchParams(location.search).get('s'), 10); s ? openSurah(s, false) : showList(false); });
   applyFs();
   fetch('quran/data/index.json').then(function(r) { return r.json(); }).then(function(d) {
