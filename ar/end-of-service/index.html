@@ -78,7 +78,7 @@
     <div class="card-icon" style="background:#f0f9ff;">📋</div>
     <h1 class="card-title" data-i18n="eos_title">End of Service Calculator — Sultanate of Oman 🇴🇲</h1>
     <div class="card-subtitle" id="eosCardSub">Results are indicative — depends on nationality, applicable system and contract terms</div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 4px;"><!--i18n-block:intro-->تختلف مكافأة نهاية الخدمة في عُمان حسب <strong>الجنسية</strong> (عُماني أو وافد)، و<strong>النظام المطبّق</strong> (قانون العمل أو SPF)، و<strong>سنوات الخدمة</strong>، وشروط عقد العمل. تعطيك هذه الحاسبة تقديراً أولياً وليست حساباً قانونياً نهائياً.<!--/i18n-block:intro--></p>
+    <p id="eosIntro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 4px;"><!--i18n-block:intro-->تختلف مكافأة نهاية الخدمة في عُمان حسب <strong>الجنسية</strong> (عُماني أو وافد)، و<strong>النظام المطبّق</strong> (قانون العمل أو SPF)، و<strong>سنوات الخدمة</strong>، وشروط عقد العمل. تعطيك هذه الحاسبة تقديراً أولياً وليست حساباً قانونياً نهائياً.<!--/i18n-block:intro--></p>
     <div class="divider"></div>
 
     <label id="eosNatLbl">Nationality</label>
@@ -272,6 +272,7 @@ let eosLang = 'en';
 
 const EOS_T = {
   ar: {
+    intro: 'تختلف مكافأة نهاية الخدمة في عُمان حسب <strong>الجنسية</strong> (عُماني أو وافد)، و<strong>النظام المطبّق</strong> (قانون العمل أو SPF)، و<strong>سنوات الخدمة</strong>، وشروط عقد العمل. تعطيك هذه الحاسبة تقديراً أولياً وليست حساباً قانونياً نهائياً.',
     sub: 'النتائج استرشادية — تعتمد على الجنسية والنظام المطبق وشروط العقد',
     nat_lbl: 'الجنسية',
     expat_btn: 'وافد / غير عماني',
@@ -308,6 +309,7 @@ const EOS_T = {
     reason_term: '<br><span style="color:#2563eb;">ملاحظة: في حالة الفصل التعسفي قد تستحق تعويضات إضافية — استشر محامياً مختصاً.</span>'
   },
   en: {
+    intro: 'End of service gratuity in Oman varies by <strong>nationality</strong> (Omani or expatriate), <strong>applicable system</strong> (Labor Law or SPF), <strong>years of service</strong>, and employment contract terms. This calculator provides an initial estimate and is not a definitive legal calculation.',
     sub: 'Indicative results — depends on nationality, applicable system and contract terms',
     nat_lbl: 'Nationality',
     expat_btn: 'Expat / Non-Omani',
@@ -354,6 +356,7 @@ function updateEosText() {
   var setH = function(id, html){ if(el(id)) el(id).innerHTML = html; };
 
   set('eosCardSub', t.sub);
+  if (t.intro) setH('eosIntro', t.intro);
   set('eosNatLbl', t.nat_lbl);
   el('natEosExpat').textContent = t.expat_btn;
   el('natEosOmani').textContent = t.omani_btn;
