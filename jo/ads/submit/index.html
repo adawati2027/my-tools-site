@@ -61,7 +61,7 @@
 </footer>
 <script src="i18n-lang-ar.js?v=2" defer></script>
 <script src="i18n.js?v=56" defer></script>
-<script src="jo/ads/ads.js?v=1" defer></script>
+<script src="jo/ads/ads.js?v=2" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var a = d.data(), canEdit = a.status === 'pending' || a.status === 'changes';
         return '<div style="border-top:1px solid var(--border);padding:12px 0;">' +
           '<div style="display:flex;justify-content:space-between;gap:8px;align-items:center;"><strong>' + adsEsc(a.title) + '</strong><span class="ads-status">' + adsEsc(ADS_STATUS[a.status] || a.status) + '</span></div>' +
+          (a.status === 'approved' ? '<div class="ads-meta" style="margin-top:6px;">' + adsEsc(adsExpiryText(a)) + '</div>' : '') +
           (a.adminNote ? '<div class="ads-note">💬 ملاحظة الإدارة: ' + adsEsc(a.adminNote) + '</div>' : '') +
           '<div class="ads-row">' + (a.status === 'approved' ? '<a class="ads-btn secondary" href="jo/ads/view/?id=' + d.id + '">👁️ شوف إعلانك</a>' : '') +
           (canEdit ? '<button type="button" class="ads-btn secondary" data-edit="' + d.id + '">✏️ تعديل</button>' : '') + '</div></div>';

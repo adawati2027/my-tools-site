@@ -47,14 +47,14 @@
 </footer>
 <script src="i18n-lang-ar.js?v=2" defer></script>
 <script src="i18n.js?v=56" defer></script>
-<script src="jo/ads/ads.js?v=1" defer></script>
+<script src="jo/ads/ads.js?v=2" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
   var box = document.getElementById('adView');
   var id = new URLSearchParams(location.search).get('id');
   if (!id) { box.innerHTML = 'الإعلان مش موجود. <a href="jo/ads/">ارجع للإعلانات</a>'; return; }
-  var fbRef, ad, liked = false;
+  var fbRef, ad, liked = false, isAdmin = false;
   function likeBtn() {
     return '<button type="button" class="ads-btn secondary ads-like' + (liked ? ' on' : '') + '" id="likeBtn">' + (liked ? '❤️' : '🤍') + ' ' + (ad.likeCount || 0) + '</button>';
   }
@@ -66,7 +66,15 @@ document.addEventListener('DOMContentLoaded', function() {
       '<div class="divider"></div>' +
       '<p style="font-size:15px;line-height:1.9;white-space:pre-line;">' + adsEsc(ad.description) + '</p>' +
       '<div class="card-title" style="font-size:15px;margin-top:16px;">🔗 صفحات المعلن</div><div class="ads-links">' + adsLinksHtml(ad.links) + '</div>' +
-      '<div class="ads-row" style="margin-top:16px;">' + likeBtn() + '<button type="button" class="ads-btn secondary" id="shareBtn">📤 شارك الإعلان</button></div><div id="likeMsg"></div>';
+      '<div class="ads-row" style="margin-top:16px;">' + likeBtn() + '<button type="button" class="ads-btn secondary" id="shareBtn">📤 شارك الإعلان</button></div><div id="likeMsg"></div>' +
+      (isAdmin ? '<div class="ads-note" style="margin-top:16px;">🛡️ أدمن · ' + adsEsc(adsExpiryText(ad)) + '<div class="ads-row"><button type="button" class="ads-btn danger" id="adminDel">🗑️ احذف الإعلان</button><a class="ads-btn secondary" href="jo/ads/admin/">لوحة الإدارة</a></div></div>' : '');
+    if (isAdmin) document.getElementById('adminDel').addEventListener('click', function() {
+      var b = this;
+      if (b.getAttribute('data-sure') !== '1') { b.setAttribute('data-sure', '1'); b.textContent = '⚠️ متأكد؟ اكبس مرة ثانية'; return; }
+      b.disabled = true;
+      fbRef.db.collection('ads').doc(id).delete().then(function() { box.innerHTML = '✅ انحذف الإعلان. <a href="jo/ads/">ارجع للإعلانات</a>'; })
+        .catch(function() { b.disabled = false; b.textContent = 'ما زبط الحذف'; });
+    });
     document.getElementById('likeBtn').addEventListener('click', toggleLike);
     document.getElementById('shareBtn').addEventListener('click', function() {
       if (navigator.share) navigator.share({ title: ad.title, url: location.href }).catch(function(){});
@@ -90,7 +98,11 @@ document.addEventListener('DOMContentLoaded', function() {
     fb.db.collection('ads').doc(id).get().then(function(doc) {
       if (!doc.exists) { box.innerHTML = 'الإعلان مش موجود أو لسا قيد المراجعة. <a href="jo/ads/">ارجع للإعلانات</a>'; return null; }
       ad = doc.data();
-      return user ? doc.ref.collection('likes').doc(user.uid).get().then(function(l){ liked = l.exists; }) : null;
+      return adsIsAdmin(fb, user).then(function(a) {
+        isAdmin = a;
+        if (adsExpired(ad) && !isAdmin) { box.innerHTML = '⌛ انتهت مدة هالإعلان. <a href="jo/ads/">شوف الإعلانات الحالية</a>'; ad = null; return null; }
+        return user ? doc.ref.collection('likes').doc(user.uid).get().then(function(l){ liked = l.exists; }) : null;
+      });
     }).then(function() { if (ad) draw(); })
       .catch(function() { box.innerHTML = 'الإعلان مش متاح. <a href="jo/ads/">ارجع للإعلانات</a>'; });
   });

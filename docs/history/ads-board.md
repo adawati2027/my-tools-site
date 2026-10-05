@@ -6,4 +6,5 @@ Owner's idea: users register, submit their shop/project/page ad for free and in 
 - Firestore: `ads/{id}` {title, category[shop|project|service|page|other], city, description, links[1-4], shareProof, ownerName, ownerUid, status[pending|changes|approved|rejected], adminNote, likeCount, createdAt, updatedAt}; `ads/{id}/likes/{uid}`; `admins/{uid}` (created by hand in the console — owner's doc exists). Rules copy: `docs/firestore.rules` (published via console by the owner; Claude is not permitted to click Publish).
 - Advertiser links use `rel="nofollow sponsored ugc noopener"` (avoid Google link-scheme penalty).
 - Claude cannot create accounts/sign in on production, so the end-to-end submit→approve flow is tested by the owner.
+- Expiry (added same day): admin picks a duration on approve (7/14/30/60/90 days or none) → `expiresAt`; "⏱️ تعديل المدة" extends it. Expired ads are hidden client-side (listing filter, view page message) — data stays until admin deletes. Admin also gets a delete button on the view page.
 - Phase 2 (not built yet): ratings, comments, report button.

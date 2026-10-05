@@ -69,3 +69,25 @@ function adsCardHtml(id, a) {
     '<div class="ads-desc">' + adsEsc((a.description || '').slice(0, 140)) + ((a.description || '').length > 140 ? '…' : '') + '</div>' +
     '<div class="ads-meta">❤️ ' + (a.likeCount || 0) + '</div></a>';
 }
+
+var ADS_DURATIONS = [[7, '7 أيام'], [14, 'أسبوعين'], [30, 'شهر'], [60, 'شهرين'], [90, '3 شهور'], [0, 'بدون حد']];
+
+function adsDurationSelect(def) {
+  return '<select class="dur" style="padding:9px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:15px;">' +
+    ADS_DURATIONS.map(function(d) { return '<option value="' + d[0] + '"' + (d[0] === def ? ' selected' : '') + '>⏱️ ' + d[1] + '</option>'; }).join('') + '</select>';
+}
+
+function adsExpiresFromDays(days) {
+  days = Number(days) || 0;
+  return days > 0 ? firebase.firestore.Timestamp.fromMillis(Date.now() + days * 86400000) : null;
+}
+
+function adsExpired(a) {
+  return !!(a.expiresAt && a.expiresAt.toMillis && a.expiresAt.toMillis() < Date.now());
+}
+
+function adsExpiryText(a) {
+  if (a.status !== 'approved') return '';
+  if (!a.expiresAt) return '♾️ بدون تاريخ انتهاء';
+  return adsExpired(a) ? '⌛ انتهت مدته بتاريخ ' + adsDate(a.expiresAt) : '⏱️ بينتهي بتاريخ ' + adsDate(a.expiresAt);
+}

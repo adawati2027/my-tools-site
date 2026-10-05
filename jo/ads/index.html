@@ -59,7 +59,7 @@
 </footer>
 <script src="i18n-lang-ar.js?v=2" defer></script>
 <script src="i18n.js?v=56" defer></script>
-<script src="jo/ads/ads.js?v=1" defer></script>
+<script src="jo/ads/ads.js?v=2" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
   adsFb().then(function(fb) {
     return fb.db.collection('ads').where('status', '==', 'approved').get();
   }).then(function(snap) {
-    all = snap.docs.map(function(d){ return { id: d.id, d: d.data() }; });
+    all = snap.docs.map(function(d){ return { id: d.id, d: d.data() }; }).filter(function(x){ return !adsExpired(x.d); });
     all.sort(function(a, b){ return (b.d.likeCount || 0) - (a.d.likeCount || 0) || ((b.d.createdAt && b.d.createdAt.seconds) || 0) - ((a.d.createdAt && a.d.createdAt.seconds) || 0); });
     render();
   }).catch(function() {

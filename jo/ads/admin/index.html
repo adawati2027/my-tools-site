@@ -48,7 +48,7 @@
 </footer>
 <script src="i18n-lang-ar.js?v=2" defer></script>
 <script src="i18n.js?v=56" defer></script>
-<script src="jo/ads/ads.js?v=1" defer></script>
+<script src="jo/ads/ads.js?v=2" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -61,8 +61,8 @@ document.addEventListener('DOMContentLoaded', function() {
     tabs.querySelectorAll('[data-t]').forEach(function(x){ x.className = 'ads-btn' + (x === b ? '' : ' secondary'); });
     load();
   });
-  function setStatus(id, status, note) {
-    var upd = { status: status, updatedAt: firebase.firestore.FieldValue.serverTimestamp() };
+  function setStatus(id, status, note, extra) {
+    var upd = Object.assign({ status: status, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, extra || {});
     if (note !== undefined) upd.adminNote = note;
     return fbRef.db.collection('ads').doc(id).update(upd);
   }
@@ -78,11 +78,12 @@ document.addEventListener('DOMContentLoaded', function() {
           '<div class="ads-meta">' + adsEsc(a.ownerName) + (a.city ? ' · 📍 ' + adsEsc(a.city) : '') + ' · ❤️ ' + (a.likeCount || 0) + '</div>' +
           '<p style="font-size:14px;line-height:1.8;white-space:pre-line;margin-top:8px;">' + adsEsc(a.description) + '</p>' +
           '<div class="ads-links">' + adsLinksHtml(a.links) + '</div>' +
+          (a.status === 'approved' ? '<div class="ads-meta" style="margin-top:8px;font-weight:700;">' + adsEsc(adsExpiryText(a)) + '</div>' : '') +
           '<div class="ads-note" style="background:#e0f2fe;color:#075985;">📢 منشور مشاركة أدواتي: ' + (proof ? '<a href="' + adsEsc(proof) + '" target="_blank" rel="nofollow noopener">' + adsEsc(proof) + '</a>' : '—') + '</div>' +
           (a.adminNote ? '<div class="ads-note">💬 آخر ملاحظة: ' + adsEsc(a.adminNote) + '</div>' : '') +
           '<textarea class="note" placeholder="ملاحظة للمعلن (مطلوبة عند طلب تعديل أو الرفض)" style="width:100%;margin-top:10px;padding:8px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:15px;box-sizing:border-box;"></textarea>' +
-          '<div class="ads-row">' +
-          (a.status !== 'approved' ? '<button type="button" class="ads-btn" data-act="approved">✅ موافقة ونشر</button>' : '') +
+          '<div class="ads-row">' + adsDurationSelect(30) +
+          (a.status !== 'approved' ? '<button type="button" class="ads-btn" data-act="approved">✅ موافقة ونشر</button>' : '<button type="button" class="ads-btn" data-act="extend">⏱️ تعديل المدة</button>') +
           '<button type="button" class="ads-btn warn" data-act="changes">✏️ اطلب تعديل</button>' +
           (a.status !== 'rejected' ? '<button type="button" class="ads-btn danger" data-act="rejected">⛔ رفض</button>' : '') +
           '<button type="button" class="ads-btn secondary" data-act="delete">🗑️ حذف</button></div><div class="res"></div></div>';
@@ -95,7 +96,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if ((act === 'changes' || act === 'rejected') && !note) { res.innerHTML = '<div class="ads-msg err">اكتب ملاحظة للمعلن أول.</div>'; return; }
     if (act === 'delete' && b.getAttribute('data-sure') !== '1') { b.setAttribute('data-sure', '1'); b.textContent = '⚠️ متأكد؟ اكبس مرة ثانية'; return; }
     b.disabled = true;
-    var op = act === 'delete' ? fbRef.db.collection('ads').doc(id).delete() : setStatus(id, act, act === 'approved' ? (note || '') : note);
+    var exp = adsExpiresFromDays(c.querySelector('.dur').value);
+    if (act === 'extend') {
+      fbRef.db.collection('ads').doc(id).update({ expiresAt: exp }).then(function() { b.disabled = false; res.innerHTML = '<div class="ads-msg ok">✅ ' + adsEsc(adsExpiryText({ status: 'approved', expiresAt: exp })) + '</div>'; })
+        .catch(function() { b.disabled = false; res.innerHTML = '<div class="ads-msg err">ما زبط.</div>'; });
+      return;
+    }
+    var op = act === 'delete' ? fbRef.db.collection('ads').doc(id).delete() : setStatus(id, act, act === 'approved' ? (note || '') : note, act === 'approved' ? { expiresAt: exp } : undefined);
     op.then(function() { c.remove(); if (!list.querySelector('[data-id]')) list.innerHTML = '<div class="card">✅ خلصت هالقائمة.</div>'; })
       .catch(function() { b.disabled = false; res.innerHTML = '<div class="ads-msg err">ما زبط — تأكد إنك مسجّل كأدمن.</div>'; });
   });
