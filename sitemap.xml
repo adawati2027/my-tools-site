@@ -343,6 +343,30 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://adawati.space/quran/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://adawati.space/quran/mushaf/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://adawati.space/quran/hadith/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://adawati.space/quran/tajweed/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://adawati.space/jo/ads/submit/</loc>
     <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
