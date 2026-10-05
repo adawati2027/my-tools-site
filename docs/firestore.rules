@@ -44,8 +44,22 @@ service cloud.firestore {
         && d.city is string && d.city.size() <= 30
         && d.description is string && d.description.size() >= 20 && d.description.size() <= 800
         && d.links is list && d.links.size() >= 1 && d.links.size() <= 4
-        && d.shareProof is string && d.shareProof.size() <= 300 && d.shareProof.matches('https?://.+')
+        && d.shareProof is string && d.shareProof.size() <= 300 && (d.shareProof.size() == 0 || d.shareProof.matches('https?://.+'))
+        && d.hasProofImage is bool && (d.shareProof.size() > 0 || d.hasProofImage)
+        && d.igHandle is string && d.igHandle.size() >= 2 && d.igHandle.size() <= 40
+        && d.phone is string && d.phone.size() <= 20
         && d.ownerName is string && d.ownerName.size() <= 40;
+    }
+
+    match /adProofs/{adId} {
+      allow read: if request.auth != null && (resource.data.ownerUid == request.auth.uid || isAdmin());
+      allow create, update: if request.auth != null
+        && request.resource.data.keys().hasOnly(['image','ownerUid','updatedAt'])
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.image is string && request.resource.data.image.size() < 600000
+        && get(/databases/$(database)/documents/ads/$(adId)).data.ownerUid == request.auth.uid
+        && get(/databases/$(database)/documents/ads/$(adId)).data.status in ['pending','changes'];
+      allow delete: if isAdmin() || (request.auth != null && resource.data.ownerUid == request.auth.uid);
     }
 
     match /ads/{adId} {
@@ -53,7 +67,7 @@ service cloud.firestore {
         || (request.auth != null && (resource.data.ownerUid == request.auth.uid || isAdmin()));
 
       allow create: if request.auth != null
-        && request.resource.data.keys().hasOnly(['title','category','city','description','links','shareProof','ownerName','ownerUid','status','adminNote','likeCount','createdAt','updatedAt'])
+        && request.resource.data.keys().hasOnly(['title','category','city','description','links','shareProof','hasProofImage','igHandle','phone','ownerName','ownerUid','status','adminNote','likeCount','createdAt','updatedAt'])
         && request.resource.data.ownerUid == request.auth.uid
         && request.resource.data.status == 'pending'
         && request.resource.data.adminNote == ''
@@ -66,7 +80,7 @@ service cloud.firestore {
         || (request.auth != null
             && resource.data.ownerUid == request.auth.uid
             && resource.data.status in ['pending','changes']
-            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['title','category','city','description','links','shareProof','ownerName','status','updatedAt'])
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['title','category','city','description','links','shareProof','hasProofImage','igHandle','phone','ownerName','status','updatedAt'])
             && request.resource.data.status == 'pending'
             && request.resource.data.updatedAt == request.time
             && validAd(request.resource.data))
