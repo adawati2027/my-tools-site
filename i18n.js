@@ -918,7 +918,7 @@ function detectDefaultLang() {
   //    to any country-based guess.
   try {
     var savedLang = localStorage.getItem('lang');
-    if (savedLang && T[savedLang]) return savedLang;
+    if (savedLang && LABELS[savedLang]) return savedLang;
   } catch(e) {}
   // 3. Country-specific pages — /om/ → ar, /sa/ → ar, /ae/ /us/ /uk/ → en
   var cmap = {om:'ar', sa:'ar', jo:'ar', ae:'en', us:'en', uk:'en'};
