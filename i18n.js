@@ -34,8 +34,30 @@ function loadLangPack(lang) {
 
 const LABELS = {ar:'عر', en:'EN', fr:'FR', es:'ES', de:'DE', ru:'RU'};
 
+// Tools that build-lang-pages.js generates as /<lang>/<tool>/ variants. Picking a
+// language on one of them must land on that language's real page — the root
+// English template only translates data-i18n chrome, so content sections stayed
+// English when Arabic was chosen there (user-reported, 2026-10-05).
+var LANG_VARIANT_TOOLS = ['age-calculator','bmi-calculator','compound-interest','currency-converter',
+  'date-diff','diet-plan','discount-calculator','end-of-service','file-converter','hijri-converter',
+  'image-compressor','loan-calculator','password-generator','percentage-calculator','qr-generator',
+  'random-number','salary-calculator','stopwatch','timezone-converter','tip-calculator','unit-converter',
+  'vat-calculator','word-counter','kids-learn','memory-game','number-guess','quick-math','reaction-test',
+  'car-game','jump-game'];
+function _langVariantUrl(lang) {
+  var p = location.pathname, m, tool;
+  if ((m = p.match(/^\/([a-z0-9-]+)\.html$/))) tool = m[1];
+  else if ((m = p.match(/^\/(?:ar|fr|es|de|ru)\/([a-z0-9-]+)\/(?:index\.html)?$/))) tool = m[1];
+  if (!tool || LANG_VARIANT_TOOLS.indexOf(tool) === -1) return null;
+  var target = lang === 'en' ? '/' + tool + '.html' : (LABELS[lang] ? '/' + lang + '/' + tool + '/' : null);
+  if (!target || target === p || (lang !== 'en' && p === target + 'index.html')) return null;
+  return target + location.search + location.hash;
+}
+
 function setLang(lang) {
   localStorage.setItem('lang', lang);
+  var variantUrl = _langVariantUrl(lang);
+  if (variantUrl) { location.replace(variantUrl); return; }
   if (!T[lang]) {
     loadLangPack(lang).then(function() { setLang(lang); }).catch(function() {
       if (lang !== 'en') loadLangPack('en').then(function() { setLang('en'); });
