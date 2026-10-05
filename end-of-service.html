@@ -77,7 +77,7 @@
     <div class="card-icon" style="background:#f0f9ff;">📋</div>
     <h1 class="card-title" data-i18n="eos_title">End of Service Calculator — Sultanate of Oman 🇴🇲</h1>
     <div class="card-subtitle" id="eosCardSub">Results are indicative — depends on nationality, applicable system and contract terms</div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 4px;">End of service gratuity in Oman varies by <strong>nationality</strong> (Omani or expatriate), <strong>applicable system</strong> (Labor Law or SPF), <strong>years of service</strong>, and employment contract terms. This calculator provides an initial estimate and is not a definitive legal calculation.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 4px;"><!--i18n-block:intro-->End of service gratuity in Oman varies by <strong>nationality</strong> (Omani or expatriate), <strong>applicable system</strong> (Labor Law or SPF), <strong>years of service</strong>, and employment contract terms. This calculator provides an initial estimate and is not a definitive legal calculation.<!--/i18n-block:intro--></p>
     <div class="divider"></div>
 
     <label id="eosNatLbl">Nationality</label>
@@ -164,20 +164,20 @@
   </div>
 
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;">📊 End of Service Gratuity Table — Expat (Article 61)</div>
-    <p style="font-size:13px;color:var(--text-muted);margin:6px 0 10px;">Formula: Basic salary × years of service (fractions pro-rated)</p>
+    <div class="card-title" style="font-size:15px;"><!--i18n-block:table-head-->📊 End of Service Gratuity Table — Expat (Article 61)</div>
+    <p style="font-size:13px;color:var(--text-muted);margin:6px 0 10px;">Formula: Basic salary × years of service (fractions pro-rated)</p><!--/i18n-block:table-head-->
     <div style="overflow-x:auto;">
       <table style="width:100%;border-collapse:collapse;font-size:12px;text-align:center;min-width:480px;">
         <thead>
           <tr style="background:var(--surface-2);font-weight:700;">
-            <th style="padding:9px 6px;border:1px solid var(--border);text-align:right;">Basic Salary</th>
+            <th style="padding:9px 6px;border:1px solid var(--border);<!--i18n-block:table-cols-->text-align:right;">Basic Salary</th>
             <th style="padding:9px 6px;border:1px solid var(--border);">1 Year</th>
             <th style="padding:9px 6px;border:1px solid var(--border);">2 Years</th>
             <th style="padding:9px 6px;border:1px solid var(--border);">3 Years</th>
             <th style="padding:9px 6px;border:1px solid var(--border);">5 Years</th>
             <th style="padding:9px 6px;border:1px solid var(--border);">10 Years</th>
             <th style="padding:9px 6px;border:1px solid var(--border);">15 Years</th>
-            <th style="padding:9px 6px;border:1px solid var(--border);">20 Years</th>
+            <th style="padding:9px 6px;border:1px solid var(--border);">20 Years</th><!--/i18n-block:table-cols-->
           </tr>
         </thead>
         <tbody>
@@ -191,7 +191,7 @@
         </tbody>
       </table>
     </div>
-    <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">Amounts in Omani Riyals (OMR) — indicative, based on Article 61 minimum</p>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:8px;"><!--i18n-block:table-note-->Amounts in Omani Riyals (OMR) — indicative, based on Article 61 minimum</p><!--/i18n-block:table-note-->
   </div>
 
   <div class="card" style="margin-top:16px;">
@@ -215,7 +215,7 @@
     </div>
   </div>
 
-  <div class="card" style="margin-top:16px;" lang="en" dir="ltr">
+  <!--i18n-block:seo--><div class="card" style="margin-top:16px;" lang="en" dir="ltr">
     <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">Oman End of Service Gratuity — How It's Calculated</h2>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">Under Article 61 of Oman's Labour Law (Royal Decree 53/2023), eligible employees not covered by the Social Protection Fund (SPF) receive <strong>at least one basic wage for each year of service</strong>, with partial years calculated proportionally. Omani nationals enrolled in SPF have their end-of-service managed through that programme instead; the Article 61 formula applies primarily to expatriate employees and Omanis not covered by SPF.</p>
     <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">Key factors affecting the calculation</h3>
@@ -249,7 +249,7 @@
       </div>
     </div>
     <p style="font-size:13px;color:var(--text-muted);margin-top:12px;">Enter your own salary and dates in the calculator above for your exact figure. For your net take-home pay, use the <a href="salary-calculator.html" style="color:var(--primary);">Salary Calculator</a>. Plan ahead with the <a href="loan-calculator.html" style="color:var(--primary);">Loan Calculator</a>.</p>
-  </div>
+  </div><!--/i18n-block:seo-->
 </div></main>
 
 <footer class="footer" style="padding:28px;">
@@ -283,20 +283,20 @@ const EOS_T = {
     info_note: '💡 ملاحظة: للخدمة فوق 5 سنوات، النظام القديم (30 يوم ÷ 26 = 1.15 شهر/سنة) قد يكون أعلى من الحد الأدنى الجديد. تحقق من عقدك الفردي.',
     disclaimer: '⚠️ هذه الأرقام استرشادية — للحسابات الرسمية راجع <a href="https://www.mol.gov.om" target="_blank" rel="noopener" style="color:var(--primary);">وزارة العمل</a> أو <a href="https://www.spf.gov.om" target="_blank" rel="noopener" style="color:var(--primary);">صندوق الحماية الاجتماعية</a> أو محامياً مختصاً | آخر تحديث: أغسطس 2026',
     example_title: '🧮 مثال توضيحي — كيف تُحسب المكافأة؟',
-    example_body: '<p style="margin-bottom:10px;">Expat employee, basic salary <strong>OMR 400</strong>, service period <strong>5 years and 6 months</strong> (= 5.5 years)</p><div style="background:var(--surface-2);border-radius:8px;padding:14px 16px;margin-top:8px;"><div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);"><span>Basic salary</span><strong>OMR 400 / month</strong></div><div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);"><span>Service period</span><strong>5 years and 6 months (5.5)</strong></div><div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);"><span>Formula (Article 61)</span><span>400 × 5.5 = <strong style="color:#16a34a;">OMR 2,200</strong></span></div><div style="display:flex;justify-content:space-between;padding:8px 0;font-size:16px;font-weight:700;color:#16a34a;"><span>Total Gratuity</span><span>OMR 2,200</span></div></div><p style="margin-top:10px;font-size:12px;color:var(--text-muted);">وفق المادة 61: شهر راتب أساسي كامل عن كل سنة خدمة، مع احتساب كسور السنة بنسبة مدتها. 6 أشهر = 0.5 شهر راتب إضافي.</p>',
+    example_body: '<p style="margin-bottom:10px;">موظف وافد، راتب أساسي <strong>400 ر.ع</strong>، مدة الخدمة <strong>5 سنوات و6 أشهر</strong> (= 5.5 سنة)</p><div style="background:var(--surface-2);border-radius:8px;padding:14px 16px;margin-top:8px;"><div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);"><span>الراتب الأساسي</span><strong>400 ر.ع / شهرياً</strong></div><div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);"><span>مدة الخدمة</span><strong>5 سنوات و6 أشهر (5.5)</strong></div><div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);"><span>المعادلة (المادة 61)</span><span>400 × 5.5 = <strong style="color:#16a34a;">2,200 ر.ع</strong></span></div><div style="display:flex;justify-content:space-between;padding:8px 0;font-size:16px;font-weight:700;color:#16a34a;"><span>إجمالي المكافأة</span><span>2,200 ر.ع</span></div></div><p style="margin-top:10px;font-size:12px;color:var(--text-muted);">وفق المادة 61: شهر راتب أساسي كامل عن كل سنة خدمة، مع احتساب كسور السنة بنسبة مدتها. 6 أشهر = 0.5 شهر راتب إضافي.</p>',
     faq_title: '❓ أسئلة شائعة',
     faq_source_note: 'المصدر: المادة 61 من قانون العمل العُماني الصادر بالمرسوم السلطاني | وزارة العمل: mol.gov.om | آخر تحديث للمحتوى: أغسطس 2026',
     faq: [
-      {q:'What is the difference between the new and old system?', a:'Old system: 15 days for years 1–3, 20 days for years 3–5, 30 days after 5 years (calculated from daily rate = basic÷26). New system (Article 61): minimum is one full month\'s salary per year with fractions pro-rated. The higher amount applies per the employment contract and applicable system.'},
-      {q:'Am I entitled to gratuity if I worked less than one year?', a:'Under the updated Omani Labor Law (Article 61), fractions of a year are calculated proportionally. An employee who completed 6 months is entitled to 0.5 months\' salary.'},
-      {q:'Is an expatriate entitled to end of service gratuity?', a:'Yes. Oman\'s Labor Law applies to both Omani nationals and expatriates. Expatriate employees are entitled to end of service gratuity under the stated provisions, and also have an SPF savings program funded by the employer.'},
-      {q:'Are allowances included in the gratuity calculation?', a:'Under labor law, gratuity is calculated on basic salary only. Some companies include allowances in the individual contract and use them in the calculation — check your contract to confirm.'},
-      {q:'What is the difference in end of service between Omani nationals and expatriates?', a:'For Omanis: end of service is managed through the SPF savings program with employer contributions of 11.5% monthly. For expatriates: calculated under Article 61 (minimum one month\'s salary per year of service).'},
-      {q:'When must end of service gratuity be paid?', a:'Under Article 91 of Oman\'s Labor Law, the employer must pay the employee\'s wages and all entitlements upon termination of employment. If the employee leaves voluntarily, entitlements must be paid within 7 days of the leaving date. In case of delay, the employee can file a complaint with the Ministry of Labour.'},
-      {q:'Is gratuity paid in case of resignation?', a:'Entitlements differ based on the reason for termination, the applicable legal system, and the employment contract. Specific circumstances may affect the entitlement. Check your contract and consult a specialist lawyer to confirm.'},
-      {q:'What is the minimum service period to claim gratuity?', a:'End of service gratuity is calculated per the provisions applicable to the employee, their contract, and the prevailing legal system. Do not use the 3-year rule as a general rule; entitlements may differ based on the termination reason and applicable system.'},
-      {q:'Am I entitled to full gratuity if I resign?', a:'Under the updated Article 61, gratuity is calculated proportionally for each year of service whether termination is employee- or employer-initiated. In case of disciplinary dismissal under Article 40, gratuity may be forfeited in whole or in part. Consult a specialist lawyer for your specific situation.'},
-      {q:'How is gratuity calculated for a partial year?', a:'وفق المادة 61، تُحتسب كسور السنة بالتناسب: 6 أشهر = 0.5 شهر من الراتب الأساسي. مثال: موظف وافد براتب أساسي 400 ر.ع وخدمة 5 سنوات و6 أشهر: 400 × 5.5 = 2,200 ر.ع.'}
+      {q:'ما الفرق بين النظام الجديد والقديم؟', a:'النظام القديم: 15 يوماً عن السنوات 1–3، و20 يوماً عن السنوات 3–5، و30 يوماً بعد 5 سنوات (محسوبة من الأجر اليومي = الأساسي÷26). النظام الجديد (المادة 61): الحد الأدنى راتب شهر كامل عن كل سنة مع احتساب الكسور بالتناسب. يُطبَّق المبلغ الأعلى وفق عقد العمل والنظام المطبّق.'},
+      {q:'هل أستحق مكافأة إذا عملت أقل من سنة؟', a:'وفق قانون العمل العُماني المحدّث (المادة 61)، تُحتسب كسور السنة بالتناسب. الموظف الذي أكمل 6 أشهر يستحق نصف شهر راتب.'},
+      {q:'هل يستحق الوافد مكافأة نهاية الخدمة؟', a:'نعم. قانون العمل العُماني يسري على المواطنين والوافدين. يستحق الموظف الوافد مكافأة نهاية الخدمة وفق الأحكام المذكورة، وله أيضاً برنامج ادخار في SPF يموّله صاحب العمل.'},
+      {q:'هل تدخل البدلات في حساب المكافأة؟', a:'وفق قانون العمل، تُحسب المكافأة على الراتب الأساسي فقط. بعض الشركات تُدخل البدلات في العقد الفردي وتعتمدها في الحساب — راجع عقدك للتأكد.'},
+      {q:'ما الفرق في نهاية الخدمة بين العُمانيين والوافدين؟', a:'للعُمانيين: تُدار نهاية الخدمة عبر برنامج الادخار في SPF بمساهمة شهرية من صاحب العمل بنسبة 11.5%. للوافدين: تُحسب وفق المادة 61 (حد أدنى راتب شهر عن كل سنة خدمة).'},
+      {q:'متى يجب دفع مكافأة نهاية الخدمة؟', a:'وفق المادة 91 من قانون العمل العُماني، يجب على صاحب العمل دفع أجر العامل وجميع مستحقاته عند انتهاء العلاقة التعاقدية. وإذا ترك العامل العمل من تلقاء نفسه، تُدفع المستحقات خلال 7 أيام من تاريخ الترك. وعند التأخير يمكن للعامل تقديم شكوى لدى وزارة العمل.'},
+      {q:'هل تُصرف المكافأة في حالة الاستقالة؟', a:'تختلف المستحقات حسب سبب انتهاء الخدمة والنظام القانوني المطبّق وعقد العمل، وقد تؤثر ظروف معينة على الاستحقاق. راجع عقدك واستشر محامياً مختصاً للتأكد.'},
+      {q:'ما الحد الأدنى لمدة الخدمة لاستحقاق المكافأة؟', a:'تُحسب مكافأة نهاية الخدمة وفق الأحكام المنطبقة على العامل وعقده والنظام القانوني السائد. لا تعتمد قاعدة الـ3 سنوات كقاعدة عامة؛ فالمستحقات قد تختلف حسب سبب الانتهاء والنظام المطبّق.'},
+      {q:'هل أستحق المكافأة كاملة إذا استقلت؟', a:'وفق المادة 61 المحدّثة، تُحسب المكافأة بالتناسب عن كل سنة خدمة سواء كان الإنهاء من العامل أو صاحب العمل. وفي حالة الفصل التأديبي وفق المادة 40 قد تسقط المكافأة كلياً أو جزئياً. استشر محامياً مختصاً لحالتك.'},
+      {q:'كيف تُحسب المكافأة عن جزء من السنة؟', a:'وفق المادة 61، تُحتسب كسور السنة بالتناسب: 6 أشهر = 0.5 شهر من الراتب الأساسي. مثال: موظف وافد براتب أساسي 400 ر.ع وخدمة 5 سنوات و6 أشهر: 400 × 5.5 = 2,200 ر.ع.'}
     ],
     curr: 'ر.ع',
     dur_months: function(m) { return 'مدة الخدمة: <strong>' + m + ' شهر</strong> (أقل من سنة — يُحسب بالتناسب)<br>'; },

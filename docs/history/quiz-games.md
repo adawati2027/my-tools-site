@@ -200,3 +200,7 @@ User asked (بالتحديات بدي صورة مع كتابة حلوة وفيه
 
 **Share call**: builds the canvas, converts to a PNG blob/File, and — when `navigator.canShare({files:[...]})` is supported — shares the image together with the existing leaderboard text and challenge URL in one `navigator.share()` call; falls back to the pre-existing text-only share (or clipboard-copy) path if file-sharing isn't supported, so no regression on browsers/platforms that can't take an image share.
 
+
+## Oman quiz — `om/games/oman-quiz/` (2026-10-05)
+
+"شو بتعرف عن سلطنة عُمان؟" — 200 questions (70 easy / 70 medium / 60 hard), built from `jo/games/jordan-quiz/` via a one-off script. First page to use the engine's existing `QUIZ_CONFIG.difficulties` + `#difficultySelectArea` (inside `challengeStartArea`, since play is challenge-only). Every question stores the correct answer at index 0 (`correct:0`); the engine shuffles options per game. Facts limited to well-established ones; contested numbers avoided or phrased approximately (area, coastline, Jebel Shams height). Linked from the `om/index.html` hub and added to `build-sitemap.js`.

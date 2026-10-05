@@ -98,3 +98,11 @@ Since 13 of the 16 tools' fix lives in the shared `i18n-lang-*.js` files, bumped
 
 Bug #4 above remains open.
 
+
+## Bug #4 partially fixed — Arabic content on 5 key pages, 2026-10-05
+
+Scope decided with the owner: **Arabic only** (GSC 3-month data: fr/es/de/ru combined 44 impressions / 0 clicks — not worth the token cost). Pages: salary-calculator, end-of-service, vat-calculator, bmi-calculator, loan-calculator. Measured real gaps on the live `/ar/` pages with a TreeWalker over visible text nodes (static HTML counts overstate it: `lang="en"` cards are hidden on non-English pages by `i18n.js` `setLang()`, and many ids are filled by per-page `X_T` objects).
+
+New mechanism in `build-lang-pages.js` (step h): `lang-content/<code>/<tool>.html` may hold `<!--block:NAME-->…<!--/block-->` pieces that replace `<!--i18n-block:NAME-->…<!--/i18n-block:NAME-->` regions in the root file, plus an optional `<!--map:{"exact text":"translation"}-->` applied to exact-match text nodes inside `<main>`. Output is static, crawlable Arabic (no JS needed, nothing added to the shared `i18n-lang-ar.js` pack). Arabic versions of the old English-only SEO cards drop `lang="en"`, so they are now visible on `/ar/`. Per-page JS objects (`SAL_T`/`EOS_T`/`BMI_T`/`LOAN_T` `.ar`) had English strings (info bodies, FAQ questions) — patched with `tools/set-lang-obj.js`. Helpers: `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/js-syntax.js`, `tools/i18n-gaps.js`.
+
+Still open: currency-converter (only JS-generated currency names, ~100 words), the Oman guide pages, and all non-Arabic languages (deliberately deferred).

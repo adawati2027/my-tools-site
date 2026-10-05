@@ -120,7 +120,7 @@
     <div class="card-subtitle" id="loan-main-sub">Calculate any loan or mortgage payment</div>
     <div class="divider"></div>
     <p id="loan-main-desc" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Free calculator for monthly loan payments on any personal, mortgage, or business loan. Enter the amount, interest rate, and term to instantly get the monthly payment, total interest, and a full month-by-month amortization schedule. Uses the standard bank amortization formula.</p>
-    <label for="amount" id="lbl-amount">Loan Amount</label>
+    <label for="amount" id="lbl-amount">مبلغ القرض</label>
     <input type="number" id="amount" placeholder="e.g. 50,000"  inputmode="decimal">
     <label for="rate" id="lbl-rate">Annual Interest Rate %</label>
     <input type="number" id="rate" placeholder="e.g. 6"  step="0.1" min="0" max="100" inputmode="decimal">
@@ -132,7 +132,7 @@
       <button class="option-btn" data-mode="flat" id="modeFlatBtn">Fixed (Flat Rate)</button>
     </div>
     <p style="font-size:12px;color:var(--text-muted);line-height:1.6;margin-top:6px;" id="mode-note">Reducing balance: interest is calculated monthly on the remaining balance (most common at banks). Flat rate: interest is calculated once on the full original amount for the whole term.</p>
-    <p style="font-size:12px;margin-top:4px;"><a href="flat-vs-reducing-balance-loan-guide.html" style="color:var(--primary);font-weight:700;">📚 Why does this choice matter? See a real cost comparison →</a></p>
+    <p style="font-size:12px;margin-top:4px;"><a href="flat-vs-reducing-balance-loan-guide.html" style="color:var(--primary);font-weight:700;">📚 لماذا يهم هذا الاختيار؟ شاهد مقارنة حقيقية للتكلفة ←</a></p>
     <div id="result" style="display:none;margin-top:20px;">
       <div class="result-box show success" style="margin-top:0;">
         <div class="result-value" id="monthlyPayment"></div>
@@ -199,13 +199,13 @@
 
   <!-- Reference table -->
   <div class="loan-section">
-    <h2 id="sec-ref-title">📋 Monthly Payment Table — 6% Annual Interest Rate</h2>
-    <p style="font-size:13px;color:#64748b;margin-bottom:10px;" id="sec-ref-note">Approximate monthly payment in your local currency — reference only</p>
+    <h2 id="sec-ref-title">📋 جدول القسط الشهري — فائدة سنوية 6%</h2>
+    <p style="font-size:13px;color:#64748b;margin-bottom:10px;" id="sec-ref-note">القسط الشهري التقريبي بعملتك المحلية — للاسترشاد فقط</p>
     <div style="overflow-x:auto;">
       <table style="width:100%;border-collapse:collapse;font-size:13px;text-align:center;min-width:400px;">
         <thead>
           <tr style="background:#f1f5f9;font-weight:700;">
-            <th style="padding:9px 8px;border:1px solid #e2e8f0;text-align:right;">Loan Amount</th>
+            <th style="padding:9px 8px;border:1px solid #e2e8f0;text-align:right;">مبلغ القرض</th>
             <th style="padding:9px 8px;border:1px solid #e2e8f0;">3 Years</th>
             <th style="padding:9px 8px;border:1px solid #e2e8f0;">5 Years</th>
             <th style="padding:9px 8px;border:1px solid #e2e8f0;">10 Years</th>
@@ -221,7 +221,7 @@
         </tbody>
       </table>
     </div>
-    <p style="font-size:12px;color:#94a3b8;margin-top:6px;">* 6% annual rate shown for comparison only. Use the calculator above for your actual rate.</p>
+    <p style="font-size:12px;color:#94a3b8;margin-top:6px;">* نسبة 6% سنوياً معروضة للمقارنة فقط. استخدم الحاسبة أعلاه لنسبتك الفعلية.</p>
   </div>
 
   <!-- FAQ -->
@@ -306,7 +306,7 @@
       </a>
       <a href="flat-vs-reducing-balance-loan-guide.html" class="related-card">
         <span class="rel-icon">📚</span>
-        <span>Flat vs Reducing Balance Guide</span>
+        <span>دليل الفائدة الثابتة مقابل المتناقصة</span>
       </a>
       <a href="om/" class="related-card" style="background:var(--primary);color:#fff;border-color:var(--primary);">
         <span class="rel-icon">🇴🇲</span>
@@ -385,18 +385,18 @@ var LOAN_T = {
     leg_principal:'أصل القرض',leg_interest:'الفائدة',
     amort_note_fn:function(n){return 'جدول السداد الكامل: '+n+' شهر';},
     sec_how:'كيف تعمل حاسبة القرض؟',
-    how_p1:'This calculator uses the equal installment (amortization) formula used by most banks. The monthly payment stays fixed throughout the loan term, but the split between principal and interest changes each month.',
-    how_p2:'Early on, most of each payment goes to interest. Over time, the principal portion grows and interest shrinks. The full amortization schedule shows this month by month.',
+    how_p1:'تستخدم هذه الحاسبة معادلة الأقساط المتساوية (الإطفاء) المعتمدة لدى معظم البنوك. يبقى القسط الشهري ثابتاً طوال مدة القرض، لكن توزيعه بين أصل الدين والفائدة يتغير كل شهر.',
+    how_p2:'في البداية يذهب معظم القسط للفائدة، ومع الوقت يكبر الجزء المخصص لأصل الدين وتتقلص الفائدة. جدول السداد الكامل يوضح ذلك شهراً بشهر.',
     how_p3:'الصيغة المستخدمة: القسط = المبلغ × (r × (1+r)ⁿ) / ((1+r)ⁿ - 1) حيث r = الفائدة الشهرية، n = عدد الأشهر.',
     sec_faq:'أسئلة شائعة عن القروض والتمويل',
     faq:[
-      {q:'What is the difference between simple and compound interest?',a:'الفائدة البسيطة تُحسب على المبلغ الأصلي فقط، أما الفائدة المركبة فتُحسب على المبلغ الأصلي مضافاً إليه الفوائد المتراكمة. معظم القروض تعمل بنظام الأقساط المتساوية الذي يوزع الفائدة على المبلغ المتبقي شهرياً.'},
-      {q:'How can I reduce total interest paid?',a:'ثلاث طرق: (1) تقليل مدة القرض. (2) السداد المبكر — دفع مبالغ إضافية على الأصل. (3) الحصول على معدل فائدة أقل بمقارنة العروض البنكية.'},
-      {q:'Does the calculator include insurance and admin fees?',a:'لا، الحاسبة تحسب القسط الأساسي فقط. البنوك قد تضيف رسوم تأمين ورسوم إدارية وعمولة فتح الملف. للحصول على القسط الفعلي، راجع البنك مباشرة.'},
+      {q:'ما الفرق بين الفائدة البسيطة والمركبة؟', a:'الفائدة البسيطة تُحسب على المبلغ الأصلي فقط، أما الفائدة المركبة فتُحسب على المبلغ الأصلي مضافاً إليه الفوائد المتراكمة. معظم القروض تعمل بنظام الأقساط المتساوية الذي يوزع الفائدة على المبلغ المتبقي شهرياً.'},
+      {q:'كيف أقلل إجمالي الفائدة المدفوعة؟', a:'ثلاث طرق: (1) تقليل مدة القرض. (2) السداد المبكر — دفع مبالغ إضافية على الأصل. (3) الحصول على معدل فائدة أقل بمقارنة العروض البنكية.'},
+      {q:'هل تشمل الحاسبة رسوم التأمين والرسوم الإدارية؟', a:'لا، الحاسبة تحسب القسط الأساسي فقط. البنوك قد تضيف رسوم تأمين ورسوم إدارية وعمولة فتح الملف. للحصول على القسط الفعلي، راجع البنك مباشرة.'},
       {q:'ما المقصود بجدول السداد؟',a:'جدول السداد يُظهر تفصيلاً شهرياً لكيفية توزيع كل قسط بين سداد أصل القرض وسداد الفائدة، مع تتبع المبلغ المتبقي بعد كل دفعة.'},
-      {q:'What is a healthy debt-to-income ratio?',a:'قد تختلف نسبة الاستقطاع المقبولة حسب البنك وظروف المقترض — لا توجد نسبة موحدة ملزمة. راجع الجهة الممولة لمعرفة الحد المسموح به في حالتك.'},
-      {q:'Does early repayment save interest?',a:'نعم. كل دفعة إضافية على الأصل تُقلل الرصيد المتبقي وبالتالي الفائدة في الأشهر التالية. مبلغ إضافي في السنوات الأولى يوفر أكثر من نفس المبلغ لاحقاً. تحقق من وجود غرامة سداد مبكر في عقدك.'},
-      {q:'What is the difference between Islamic finance and a conventional loan?',a:'في التمويل الإسلامي (مرابحة/إجارة) البنك يشتري الأصل ويبيعه بربح معلوم مسبقاً. في القرض التقليدي تُدفع فائدة على المبلغ المتبقي. الحاسبة تعمل للنظامين إذا أدخلت المعدل السنوي المكافئ.'}
+      {q:'ما هي نسبة الدين إلى الدخل الصحية؟', a:'قد تختلف نسبة الاستقطاع المقبولة حسب البنك وظروف المقترض — لا توجد نسبة موحدة ملزمة. راجع الجهة الممولة لمعرفة الحد المسموح به في حالتك.'},
+      {q:'هل السداد المبكر يوفّر الفائدة؟', a:'نعم. كل دفعة إضافية على الأصل تُقلل الرصيد المتبقي وبالتالي الفائدة في الأشهر التالية. مبلغ إضافي في السنوات الأولى يوفر أكثر من نفس المبلغ لاحقاً. تحقق من وجود غرامة سداد مبكر في عقدك.'},
+      {q:'ما الفرق بين التمويل الإسلامي والقرض التقليدي؟', a:'في التمويل الإسلامي (مرابحة/إجارة) البنك يشتري الأصل ويبيعه بربح معلوم مسبقاً. في القرض التقليدي تُدفع فائدة على المبلغ المتبقي. الحاسبة تعمل للنظامين إذا أدخلت المعدل السنوي المكافئ.'}
     ],
     sec_related:'أدوات ذات صلة',
     rel_salary:'💼 حاسبة الراتب',rel_eos:'📋 نهاية الخدمة',rel_vat:'🧾 حاسبة VAT',rel_currency:'💱 محول العملات'

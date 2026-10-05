@@ -145,6 +145,28 @@ TOOLS.forEach(tool => {
     // g. i18n-lang-en.js pack tag (from the English-default root file) → this variant's language pack
     html = html.replace(/i18n-lang-en\.js/, `i18n-lang-${code}.js`);
 
+    // h. Static translated content blocks: lang-content/<code>/<tool>.html holds
+    //    <!--block:NAME-->...<!--/block--> pieces that replace the root's
+    //    <!--i18n-block:NAME-->...<!--/i18n-block:NAME--> regions (crawlable, no JS needed).
+    const blockFile = path.join(SITE_DIR, 'lang-content', code, `${tool}.html`);
+    if (fs.existsSync(blockFile)) {
+      const blocks = fs.readFileSync(blockFile, 'utf8').replace(/\r\n/g, '\n');
+      for (const m of blocks.matchAll(/<!--block:([\w-]+)-->([\s\S]*?)<!--\/block-->/g)) {
+        const re = new RegExp(`(<!--i18n-block:${m[1]}-->)[\\s\\S]*?(<!--/i18n-block:${m[1]}-->)`);
+        if (!re.test(html)) { console.log(`  WARN: block "${m[1]}" not found in ${tool}.html`); continue; }
+        html = html.replace(re, (_, a, b) => a + m[2] + b);
+      }
+      //    <!--map:{"exact text":"translation"}--> replaces text nodes inside <main> whose trimmed text matches exactly
+      const mm = blocks.match(/<!--map:([\s\S]*?)-->/);
+      if (mm) {
+        const map = JSON.parse(mm[1]);
+        html = html.replace(/<main[\s\S]*?<\/main>/, main => main.replace(/>([^<>]+)</g, (all, t) => {
+          const k = t.trim();
+          return Object.prototype.hasOwnProperty.call(map, k) ? '>' + t.replace(k, map[k]) + '<' : all;
+        }));
+      }
+    }
+
     // Write to /lang/tool/index.html
     const outDir = path.join(SITE_DIR, code, tool);
     fs.mkdirSync(outDir, { recursive: true });
