@@ -119,6 +119,11 @@ function adsCompressImage(file) {
 }
 
 function adsIgProfileUrl(h) {
-  h = String(h || '').trim().replace(/^@/, '').replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/[/?#].*$/, '');
-  return /^[A-Za-z0-9._]{1,30}$/.test(h) ? 'https://www.instagram.com/' + h + '/' : '';
+  h = adsIgHandle(h).slice(1);
+  return h ? 'https://www.instagram.com/' + h + '/' : '';
+}
+
+function adsIgHandle(h) {
+  h = String(h || '').trim().replace(/^@/, '').replace(/^(https?:\/\/)?(www\.|m\.)?instagram\.com\//i, '').replace(/[/?#].*$/, '');
+  return /^[A-Za-z0-9._]{1,30}$/.test(h) ? '@' + h : '';
 }

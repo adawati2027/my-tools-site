@@ -62,7 +62,7 @@
 </footer>
 <script src="i18n-lang-ar.js?v=2" defer></script>
 <script src="i18n.js?v=59" defer></script>
-<script src="jo/ads/ads.js?v=3" defer></script>
+<script src="jo/ads/ads.js?v=4" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
     '<label for="f_desc">لشو ممكن يفيد الناس؟ *</label><textarea id="f_desc" maxlength="800" placeholder="احكي عن شغلك، شو بتقدّم، وليش الناس بتستفيد منك (20 حرف على الأقل)"></textarea>' +
     '<label for="f_links">روابط صفحاتك * (رابط بكل سطر، لحد 4)</label><textarea id="f_links" style="min-height:80px;" placeholder="https://instagram.com/...&#10;https://wa.me/962..."></textarea><div class="ads-hint">إنستغرام، فيسبوك، واتساب، موقعك، أو لوكيشن على الخريطة — لازم يبلّش بـ https://</div>' +
     '<label>📸 تابعت أدواتي على إنستغرام؟ *</label><div class="ads-row" style="margin-top:0;"><a class="ads-btn secondary" href="' + ADS_IG_URL + '" target="_blank" rel="noopener">📸 تابع ' + ADS_IG_HANDLE + '</a></div>' +
-    '<label for="f_ig">اسم حسابك على إنستغرام * (عشان نتأكد من المتابعة)</label><input id="f_ig" maxlength="40" dir="ltr" placeholder="@yourpage">' +
+    '<label for="f_ig">حسابك على إنستغرام * (اسم الحساب أو رابطه — عشان نتأكد من المتابعة)</label><input id="f_ig" maxlength="300" dir="ltr" placeholder="@yourpage أو https://www.instagram.com/yourpage">' +
     '<label style="display:flex;gap:8px;align-items:center;font-weight:400;"><input type="checkbox" id="f_follow" style="width:auto;"> تابعت حساب أدواتي على إنستغرام ✅</label>' +
     '<label>إثبات إنك نشرت أدواتي * (واحد منهم يكفي)</label>' +
     '<input id="f_proof" maxlength="300" dir="ltr" placeholder="رابط المنشور https://...">' +
@@ -140,12 +140,12 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       var links = val('f_links').split(/\s+/).map(adsSafeUrl).filter(Boolean).slice(0, 4);
       var d = { title: val('f_title'), category: val('f_cat'), city: val('f_city'), description: val('f_desc'), links: links,
-        shareProof: adsSafeUrl(val('f_proof')), hasProofImage: !!proofImg || editHasImg, igHandle: val('f_ig').replace(/s+/g, ''),
+        shareProof: adsSafeUrl(val('f_proof')), hasProofImage: !!proofImg || editHasImg, igHandle: adsIgHandle(val('f_ig')),
         phone: val('f_phone').replace(/[^0-9+ ]/g, '').slice(0, 20), ownerName: val('f_name') || (user.displayName || '').slice(0, 40) };
       if (d.title.length < 2) return msg('اكتب اسم الإعلان.');
       if (d.description.length < 20) return msg('احكي أكثر عن إعلانك (20 حرف على الأقل).');
       if (!links.length) return msg('حط رابط واحد على الأقل لصفحتك (يبلّش بـ https://).');
-      if (d.igHandle.length < 2) return msg('اكتب اسم حسابك على إنستغرام.');
+      if (d.igHandle.length < 2) return msg('اكتب اسم حسابك على إنستغرام أو الصق رابطه (مثلاً @yourpage).');
       if (!document.getElementById('f_follow').checked) return msg('لازم تتابع حساب أدواتي على إنستغرام وتعلّم على المربع.');
       if (val('f_proof') && !d.shareProof) return msg('رابط المنشور لازم يبلّش بـ https://');
       if (!d.shareProof && !d.hasProofImage) return msg('حط رابط المنشور أو ارفع صورة الستوري.');
