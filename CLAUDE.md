@@ -45,12 +45,13 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 - **masters-guide / bachelor-guide**: ongoing data collection with known dead-end universities — read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending.
 - **GSC indexing**: Claude submits ~10/day via browser (memory `gsc_indexing_queue`). AdSense "low value" — don't resubmit until organic traffic grows.
 - **Logo quiz** 263/~400 — owner said leave as is.
+- **Ads board** (`jo/ads/`): phase 1 live (submit → admin approve → listing + likes). Phase 2 = ratings + comments + report. See `docs/history/ads-board.md`.
 - **parallel-results page** (`jo/students/parallel-results/`): re-check university links each admission season.
 - Minor/known: duplicate security headers from an old Cloudflare rule (harmless, needs dashboard access).
 
 ## Documentation index (read only when relevant)
 
-quiz-games · capacitor-app · bugs-fixed-registry · seo-growth · auth-accounts · i18n-language-bugs · export-image-feature · external-qa-reports (quick spot-check only, most were false) · technique-notes (raw CDP) · country-expansion · gold-price-worker · testing-infra · performance-security · onclick-csp-refactor · csp-worker · calculators-built · i18n-split-project · pdf-export-saga · claude-md-archive — all under `docs/history/<name>.md`.
+quiz-games · capacitor-app · bugs-fixed-registry · seo-growth · auth-accounts · i18n-language-bugs · export-image-feature · external-qa-reports (quick spot-check only, most were false) · technique-notes (raw CDP) · country-expansion · gold-price-worker · testing-infra · performance-security · onclick-csp-refactor · csp-worker · calculators-built · ads-board · i18n-split-project · pdf-export-saga · claude-md-archive — all under `docs/history/<name>.md`.
 
 ## Style
 
