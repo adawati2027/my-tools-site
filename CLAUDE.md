@@ -40,7 +40,7 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 
 ## Open items
 
-- **Google sign-in on mobile**: v=58 (2026-10-05) waits for the SDK, opens the popup synchronously, and shows the real `auth/...` code in the error. If the owner still reports failure, ask for the code shown; likely next fix = same-origin authDomain (proxy `/__/auth/` via the Cloudflare Worker). See `docs/history/auth-accounts.md`.
+- **Google sign-in**: fixed 2026-10-05 (CSP frame-src was blocking `adawati-challenges.firebaseapp.com`). Any CSP change must be made in BOTH the Worker `adawati-csp-nonce` and the "security headers" Transform Rule. See `docs/history/auth-accounts.md`.
 - **Ads board phase 2**: ratings + comments + report (phase 1 + expiry + admin nav link are live). See `docs/history/ads-board.md`.
 - **bachelor-guide government universities**: `admhec.gov.jo` blocks automation — needs the owner's manually saved pages.
 - **masters/bachelor guides**: read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending (dead-end universities listed).
