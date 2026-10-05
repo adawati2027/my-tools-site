@@ -1,4 +1,4 @@
-const CACHE = 'adawati-v65';
+const CACHE = 'adawati-v66';
 const BASE = '';
 const STATIC = [
   BASE + '/',
@@ -115,6 +115,11 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
+  // Audio/video use HTTP Range requests; a cached full-body response stalls the
+  // <audio> element (readyState 0 forever), so media always goes to the network.
+  if (e.request.destination === 'audio' || e.request.destination === 'video' || e.request.headers.has('range') || /\.(mp3|m4a|ogg|mp4)$/i.test(url.pathname)) {
+    return;
+  }
   // Firebase Auth/Firestore + Google Sign-In: let the browser handle these natively.
   // Auth/Firestore calls are POSTs — Cache.put() throws on non-GET, and these must
   // never be served stale anyway.
