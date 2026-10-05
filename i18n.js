@@ -175,8 +175,34 @@ function mergeArraysUnion(a, b) {
   return Array.from(new Set([].concat(a || [], b || [])));
 }
 
+function injectAdminLink(user) {
+  if (!user || document.getElementById('adminNavLink')) return;
+  var key = 'adawati_admin_chk_' + user.uid, cached = null;
+  try { cached = JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) {}
+  if (cached && cached.v === false && Date.now() - cached.t < 86400000) return;
+  loadFirebaseAuth().then(function(fb) {
+    return fb.db.collection('admins').doc(user.uid).get().then(function(d) {
+      try { localStorage.setItem(key, JSON.stringify({ v: d.exists, t: Date.now() })); } catch (e) {}
+      if (!d.exists) return;
+      var nav = document.querySelector('.nav-links');
+      if (!nav || document.getElementById('adminNavLink')) return;
+      var a = document.createElement('a');
+      a.id = 'adminNavLink';
+      a.href = '/jo/ads/admin/';
+      a.textContent = '🛡️ إدارة الإعلانات';
+      a.style.cssText = 'font-weight:700;';
+      var authBtn = document.getElementById('authNavBtn');
+      if (authBtn) nav.insertBefore(a, authBtn); else nav.appendChild(a);
+      return fb.db.collection('ads').where('status', '==', 'pending').get().then(function(snap) {
+        if (snap.size) a.textContent = '🛡️ إدارة الإعلانات (' + snap.size + ')';
+      });
+    });
+  }).catch(function() {});
+}
+
 function onAuthSuccessSync(user) {
   try { localStorage.setItem('adawati_uid', user.uid); } catch (e) {}
+  injectAdminLink(user);
   return loadFirebaseAuth().then(function(fb) {
     const ref = fb.db.collection('users').doc(user.uid);
     return ref.get().then(function(snap) {
