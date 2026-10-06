@@ -156,11 +156,13 @@
     var label = btn.textContent; btn.textContent = '⏳';
     db.collection('challenges').doc(chId).collection('voices').doc(id).get().then(function(d) {
       var src = d.exists ? String(d.data().audio || '') : '';
-      var m = src.match(/^data:(audio\/[a-z0-9.+-]+(?:;codecs=[a-z0-9.]+)?);base64,(.+)$/i);
-      if (!m) { btn.textContent = 'ما في صوت'; return; }
-      var bin = atob(m[2]), arr = new Uint8Array(bin.length);
+      var comma = src.indexOf(','), head = src.slice(0, comma);
+      if (comma < 0 || !/^data:/i.test(head) || !/;base64$/i.test(head)) { btn.textContent = 'ما في صوت'; return; }
+      var type = (head.slice(5).split(';')[0] || '').trim().toLowerCase();
+      if (!/^audio\/|^video\//.test(type)) type = 'audio/mp4';
+      var bin = atob(src.slice(comma + 1)), arr = new Uint8Array(bin.length);
       for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
-      var a = new Audio(URL.createObjectURL(new Blob([arr], { type: m[1] })));
+      var a = new Audio(URL.createObjectURL(new Blob([arr], { type: type })));
       playing = { a: a, b: btn, id: id, label: label };
       a.onended = function() { btn.textContent = label; playing = null; };
       btn.textContent = '⏸️ إيقاف';
