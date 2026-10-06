@@ -18,7 +18,7 @@ Free multi-tool Arabic website (calculators, converters, games, daily-info tools
 - Language variants: edit root `<tool>.html` → `node build-lang-pages.js` (regenerates `/ar|fr|es|de|ru/<tool>/`; static translated blocks come from `lang-content/<lang>/<tool>.html`)
 - Tests (need headless Chrome via CDP, see script headers): `node test-calculators.js`, `node test-e2e.js`
 - `tools/gsc-inspect.js` (index status via API) · `tools/build-country-quiz.js` (country quiz from JSON) · `tools/js-syntax.js` (inline-JS syntax check) · `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/i18n-gaps.js` (translation helpers) · `tools/admhec-fetch.js` · `tools/indexnow.js` · `tools/quiz-levels.js`
-- Daily 22:00 Windows task "Adawati CLAUDE.md cleanup" runs `tools/md-cleanup.cmd` (headless `claude -p`, edits only CLAUDE.md + `docs/history/claude-md-archive.md`, no push; log `%LOCALAPPDATA%dawati-md-cleanup.log`).
+- Daily 22:00 Windows task "Adawati CLAUDE.md cleanup" runs `tools/md-cleanup.cmd` (headless `claude -p`, edits only CLAUDE.md + archive), then `tools/md-verify-deploy.js` sanity-checks and pushes those 2 files if changed; log `%LOCALAPPDATA%dawati-md-cleanup.log`).
 - Shared JS change (`i18n.js` etc.) → bump its `?v=N` in every referencing HTML (grep+sed) so browsers/Cloudflare pick it up.
 
 ## Deployment
