@@ -17,7 +17,7 @@ Free multi-tool Arabic website (calculators, converters, games, daily-info tools
 - After adding a page: add URL to `build-sitemap.js` → `node build-sitemap.js` → `node build-search-index.js`
 - Language variants: edit root `<tool>.html` → `node build-lang-pages.js` (regenerates `/ar|fr|es|de|ru/<tool>/`; static translated blocks come from `lang-content/<lang>/<tool>.html`)
 - Tests (need headless Chrome via CDP, see script headers): `node test-calculators.js`, `node test-e2e.js`
-- `tools/gsc-inspect.js` (index status via API) · `tools/build-country-quiz.js` (country quiz from JSON) · `tools/js-syntax.js` (inline-JS syntax check) · `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/i18n-gaps.js` (translation helpers) · `tools/admhec-fetch.js`
+- `tools/gsc-inspect.js` (index status via API) · `tools/build-country-quiz.js` (country quiz from JSON) · `tools/js-syntax.js` (inline-JS syntax check) · `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/i18n-gaps.js` (translation helpers) · `tools/admhec-fetch.js` · `tools/indexnow.js` · `tools/quiz-levels.js`
 - Daily 22:00 Windows task "Adawati CLAUDE.md cleanup" runs `tools/md-cleanup.cmd` (headless `claude -p`, edits only CLAUDE.md + `docs/history/claude-md-archive.md`, no push; log `%LOCALAPPDATA%dawati-md-cleanup.log`).
 - Shared JS change (`i18n.js` etc.) → bump its `?v=N` in every referencing HTML (grep+sed) so browsers/Cloudflare pick it up.
 
@@ -45,7 +45,7 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 - **Ads board**: phases 1+2 live (ratings, comments, reports).  See `docs/history/ads-board.md`.
 - **bachelor-guide government universities**: `admhec.gov.jo` blocks automation — needs the owner's manually saved pages.
 - **masters/bachelor guides**: read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending (dead-end universities listed).
-- **GSC indexing**: ~10 URLs/day via browser (memory `gsc_indexing_queue`). Don't resubmit AdSense until organic traffic grows.
+- **Indexing**: owner wants API, not UI (2026-10-06). `node tools/indexnow.js` (Bing/Yandex, all sitemap URLs). Google: sitemap resubmit via Search Console API needs the service account upgraded from Restricted to Full in GSC; Google has no legit API for "Request Indexing" (Indexing API is jobs/livestream only — don't use it). Don't resubmit AdSense until organic traffic grows.
 - **Quiz levels (medium/hard)**: done for om/sa/ae/eg country quizzes + cooking + jordan-quiz. Owner chose GRADUAL rollout for the other 12 `jo/games/*` quizzes — 1-2 per session via `node tools/quiz-levels.js list|apply <file> [hard-nums]`. Easy questions count as medium.
 - **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season.
 - Translations: only Arabic is maintained (fr/es/de/ru deliberately deferred, ~0 traffic).
