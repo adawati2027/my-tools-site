@@ -51,6 +51,31 @@ service cloud.firestore {
         && d.ownerName is string && d.ownerName.size() <= 40;
     }
 
+    function ratingDeltaOk(adId) {
+      let adPath = /databases/$(database)/documents/ads/$(adId);
+      let revPath = /databases/$(database)/documents/ads/$(adId)/reviews/$(request.auth.uid);
+      let before = get(adPath).data;
+      let after = getAfter(adPath).data;
+      let had = exists(revPath);
+      let has = existsAfter(revPath);
+      let oldR = had ? get(revPath).data.rating : 0;
+      let newR = has ? getAfter(revPath).data.rating : 0;
+      return after.get('ratingCount', 0) == before.get('ratingCount', 0) + (has ? 1 : 0) - (had ? 1 : 0)
+        && after.get('ratingSum', 0) == before.get('ratingSum', 0) + newR - oldR;
+    }
+
+    match /adReports/{reportId} {
+      allow read, delete: if isAdmin();
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['adId','reviewUid','reason','reporterUid','createdAt'])
+        && request.resource.data.reporterUid == request.auth.uid
+        && request.resource.data.adId is string && request.resource.data.adId.size() <= 40
+        && request.resource.data.reviewUid is string && request.resource.data.reviewUid.size() <= 128
+        && request.resource.data.reason is string && request.resource.data.reason.size() >= 2 && request.resource.data.reason.size() <= 300
+        && request.resource.data.createdAt == request.time;
+      allow update: if false;
+    }
+
     match /adProofs/{adId} {
       allow read: if request.auth != null && (resource.data.ownerUid == request.auth.uid || isAdmin());
       allow create, update: if request.auth != null
@@ -94,8 +119,25 @@ service cloud.firestore {
                  && exists(/databases/$(database)/documents/ads/$(adId)/likes/$(request.auth.uid))
                  && !existsAfter(/databases/$(database)/documents/ads/$(adId)/likes/$(request.auth.uid)))));
 
+      allow update: if request.auth != null
+        && resource.data.status == 'approved'
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['ratingSum','ratingCount'])
+        && ratingDeltaOk(adId);
+
       allow delete: if isAdmin()
         || (request.auth != null && resource.data.ownerUid == request.auth.uid && resource.data.status != 'approved');
+
+      match /reviews/{uid} {
+        allow read: if true;
+        allow create, update: if request.auth != null && request.auth.uid == uid
+          && request.resource.data.keys().hasOnly(['rating','text','name','createdAt','updatedAt'])
+          && request.resource.data.rating is int && request.resource.data.rating >= 1 && request.resource.data.rating <= 5
+          && request.resource.data.text is string && request.resource.data.text.size() <= 500
+          && request.resource.data.name is string && request.resource.data.name.size() <= 40
+          && request.resource.data.updatedAt == request.time
+          && ratingDeltaOk(adId);
+        allow delete: if isAdmin() || (request.auth != null && request.auth.uid == uid && ratingDeltaOk(adId));
+      }
 
       match /likes/{uid} {
         allow read: if true;
