@@ -16,7 +16,10 @@
 <meta property="og:description" content="اقرأ القرآن الكريم كاملاً بالرسم العثماني، واكبس على أي آية لتظهر لك تفسيرها من التفسير الميسّر. حجم خط قابل للتكبير ومتابعة آخر قراءة.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adawati.space/quran/mushaf/">
-<meta property="og:image" content="https://adawati.space/og/jo.jpg">
+<meta property="og:image" content="https://adawati.space/og/quran_mushaf.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://adawati.space/og/quran_mushaf.png">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"أدواتي","item":"https://adawati.space/"},{"@type":"ListItem","position":2,"name":"القرآن والحديث","item":"https://adawati.space/quran/"},{"@type":"ListItem","position":3,"name":"المصحف الشريف","item":"https://adawati.space/quran/mushaf/"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -162,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var fromTj = new URLSearchParams(location.search).get('from') === 'tajweed';
   if (fromTj) {
     document.getElementById('qBack').textContent = '→ رجوع للتجويد';
-    var ph = document.querySelector('.page-header a'); if (ph) { ph.href = 'quran/tajweed/'; ph.textContent = '→ رجوع للتجويد والتعليم'; }
+    var ph = document.querySelector('.page-header a'); if (ph) { ph.href = 'quran/tajweed/'; ph.textContent = '→ رجوع لتجويد القرآن الكريم'; }
   }
   applyFs();
   fetch('quran/data/index.json').then(function(r) { return r.json(); }).then(function(d) {
