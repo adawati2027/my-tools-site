@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
     n = Math.max(1, Math.min(114, n)); cur = n; tafsir = null;
     document.getElementById('qList').hidden = true; document.getElementById('qRead').hidden = false;
     document.getElementById('qAyat').innerHTML = '⏳ جاري التحميل...';
-    if (push) history.pushState({ s: n }, '', 'quran/mushaf/?s=' + n);
+    if (push) history.pushState({ s: n }, '', 'quran/mushaf/?s=' + n + (fromTj ? '&from=tajweed' : ''));
     fetch('quran/data/s/' + n + '.json').then(function(r) { return r.json(); }).then(function(d) {
       var nm = d.name.replace(/^سُورَةُ\s*/, '');
       document.title = 'سورة ' + nm + ' | المصحف الشريف | أدواتي';
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
       else fetch('quran/data/t/' + cur + '.json').then(function(r) { return r.json(); }).then(function(t) { tafsir = t; show(); });
     }
   });
-  document.getElementById('qBack').addEventListener('click', function() { showList(true); });
+  document.getElementById('qBack').addEventListener('click', function() { if (fromTj) { location.href = 'quran/tajweed/'; return; } showList(true); });
   document.getElementById('qPrev').addEventListener('click', function() { openSurah(cur - 1, true); });
   document.getElementById('qNext').addEventListener('click', function() { openSurah(cur + 1, true); });
   document.getElementById('qBigger').addEventListener('click', function() { fs = Math.min(44, fs + 2); applyFs(); try { localStorage.setItem('q_fs', fs); } catch (e) {} });
@@ -159,6 +159,11 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   document.getElementById('qReciter').addEventListener('change', function() { try { localStorage.setItem('q_reciter', this.value); } catch (e) {} setListen(); });
   window.addEventListener('popstate', function() { var s = parseInt(new URLSearchParams(location.search).get('s'), 10); s ? openSurah(s, false) : showList(false); });
+  var fromTj = new URLSearchParams(location.search).get('from') === 'tajweed';
+  if (fromTj) {
+    document.getElementById('qBack').textContent = '→ رجوع للتجويد';
+    var ph = document.querySelector('.page-header a'); if (ph) { ph.href = 'quran/tajweed/'; ph.textContent = '→ رجوع للتجويد والتعليم'; }
+  }
   applyFs();
   fetch('quran/data/index.json').then(function(r) { return r.json(); }).then(function(d) {
     idx = d; renderList();
