@@ -216,3 +216,6 @@ User was about to click "Request review" on the AdSense rejection notice (see th
 
 **Still not done — the "low value content" flag** is a separate issue (site traffic/maturity, not a content-depth problem) and wasn't addressed by this fix; don't assume clicking "Request review" is now safe just because this specific flag is resolved — recommend checking recent Search Console Performance data for real organic-traffic growth before resubmitting, and let the user make that call explicitly (this session flagged the risk but did not tell them to submit).
 
+
+## Key events check (2026-10-06)
+Owner saw "Key events 0" for today on the GA4 home card. Verified: key events config intact (Admin API), tag G-97DQT5FHPF on all pages, and a test `export_result` fired from Chrome appeared in Realtime → Key events within seconds. Standard reports lag 24–48 h for today. `quiz_completed` dropped to 0 from Oct 3 (code unchanged; joins also hung on Oct 6 until fixed). Added events + marked as key: `ad_submitted`, `review_added`, `chat_message`, `chat_voice` (also `ad_updated`, `review_updated`, `login{method:google_chat}`). GA Data API is NOT enabled on GCP project 360902823980 — enabling it would allow pulling counts via API.
