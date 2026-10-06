@@ -16,8 +16,7 @@
     return new Promise(function(res, rej) { var s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
   }
   function authReady() {
-    return (typeof firebase.auth === 'function' ? Promise.resolve() : loadScript('https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js'))
-      .then(function() { return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL); });
+    return typeof firebase.auth === 'function' ? Promise.resolve() : loadScript('https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js');
   }
   function signIn() {
     var nativeAuth = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.FirebaseAuthentication;
@@ -204,13 +203,24 @@
       var bn = e.target.closest('[data-ban]'); if (bn) { e.preventDefault(); ban(bn); return; }
       var pl = e.target.closest('[data-play]'); if (pl) { play(pl); return; }
     });
+    box.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;"><div style="font-weight:800;font-size:16px;">💬 شات التحدي</div>' +
+      '<button type="button" class="cc-open" style="padding:9px 16px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-weight:800;font-family:inherit;cursor:pointer;">💬 افتح الشات</button></div>' +
+      '<div style="font-size:12px;color:var(--text-muted);margin-top:6px;">احكي مع أصحابك بالتحدي — للمسجّلين فقط</div>';
+    box.querySelector('.cc-open').addEventListener('click', openChat);
+  }
+
+  function openChat() {
+    box.innerHTML = '⏳ جاري تحميل الشات...';
+    var done = false;
+    setTimeout(function() { if (!done) box.innerHTML = 'ما قدرنا نحمّل الشات على هالمتصفح — جرّب تحدّث الصفحة أو تفتحها من متصفح ثاني.'; }, 12000);
     authReady().then(function() {
       firebase.auth().onAuthStateChanged(function(u) {
+        done = true;
         user = u;
         if (!u) { isAdmin = false; if (unsub) { unsub(); unsub = null; } renderShell(); return; }
         db.collection('admins').doc(u.uid).get().then(function(d) { isAdmin = d.exists; }).catch(function() {}).then(renderShell);
       });
-    }).catch(function() { box.textContent = 'ما قدرنا نحمّل الشات.'; });
+    }).catch(function() { done = true; box.textContent = 'ما قدرنا نحمّل الشات.'; });
   }
 
   var tries = 0;
