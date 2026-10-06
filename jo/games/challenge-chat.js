@@ -1,0 +1,149 @@
+(function() {
+  var EMOJI = ['😂','🤣','😅','😎','🔥','👏','💪','🤔','😮','😭','😡','🥳','❤️','👍','👎','🙏','🎯','🏆','🥇','🤯','😴','🫡','✅','❌'];
+  var QUICK = ['😂 ما توقعتها!', '🔥 جاوبت صح', '🤔 السؤال صعب', '🏆 مين الأول؟', '💪 جاي أغلبكم', '👏 برافو عليك'];
+  var BAD = ['كلب','حمار','حيوان','زبالة','وسخ','قذر','تافه','غبي','حقير','واطي','fuck','shit','bitch','asshole','bastard','dick','idiot','stupid'];
+  var mounted = false, unsub = null, box, user = null, isAdmin = false, chId = null;
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function clean(t) {
+    BAD.forEach(function(w) {
+      var re = new RegExp('(^|[\\s.,!?؟،])(' + w + ')(?=$|[\\s.,!?؟،])', 'gi');
+      t = t.replace(re, function(m, a, b) { return a + '*'.repeat(b.length); });
+    });
+    return t;
+  }
+  function loadScript(src) {
+    return new Promise(function(res, rej) { var s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+  }
+  function authReady() {
+    return (typeof firebase.auth === 'function' ? Promise.resolve() : loadScript('https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js'))
+      .then(function() { return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL); });
+  }
+  function signIn() {
+    var nativeAuth = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.FirebaseAuthentication;
+    var msg = box.querySelector('.cc-msg');
+    if (nativeAuth) {
+      nativeAuth.signInWithGoogle().then(function(r) {
+        var tok = r && r.credential && r.credential.idToken;
+        if (tok) return firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(tok));
+      }).catch(function(e) { if (msg) msg.textContent = 'ما زبط الدخول (' + ((e && (e.code || e.message)) || '') + ')'; });
+      return;
+    }
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function(e) {
+      if (e && e.code === 'auth/popup-closed-by-user') return;
+      if (msg) msg.textContent = 'ما زبط الدخول (' + ((e && e.code) || '') + ') — جرّب مرة ثانية.';
+    });
+  }
+  function fmtTime(ts) { try { var d = ts && ts.toDate ? ts.toDate() : new Date(); return d.toLocaleTimeString('ar-JO', { hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } }
+
+  function renderShell() {
+    if (!user) {
+      box.innerHTML = '<div style="font-weight:800;font-size:16px;margin-bottom:6px;">💬 شات التحدي</div>' +
+        '<p style="font-size:14px;color:var(--text-muted);margin:0 0 10px;">الشات للمسجّلين بس — سجّل دخول عشان تشوف الرسائل وتحكي مع أصحابك.</p>' +
+        '<button type="button" class="cc-login" style="padding:10px 16px;border-radius:999px;border:1.5px solid var(--border);background:#fff;color:#334155;font-weight:700;font-family:inherit;font-size:15px;cursor:pointer;">🔐 الدخول عبر Google</button><div class="cc-msg" style="font-size:13px;color:#dc2626;margin-top:6px;"></div>';
+      box.querySelector('.cc-login').addEventListener('click', signIn);
+      return;
+    }
+    box.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;"><div style="font-weight:800;font-size:16px;">💬 شات التحدي</div><div style="font-size:12px;color:var(--text-muted);">👤 ' + esc((user.displayName || user.email || '').split(' ')[0]) + '</div></div>' +
+      '<div class="cc-list" style="height:280px;overflow-y:auto;border:1px solid var(--border);border-radius:10px;padding:8px;margin-top:8px;background:var(--surface-2);"></div>' +
+      '<div class="cc-quick" style="display:flex;gap:6px;overflow-x:auto;margin-top:8px;padding-bottom:4px;">' + QUICK.map(function(q) { return '<button type="button" data-q="' + esc(q) + '" style="white-space:nowrap;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:inherit;font-size:13px;cursor:pointer;">' + esc(q) + '</button>'; }).join('') + '</div>' +
+      '<div class="cc-emoji" hidden style="display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-top:6px;">' + EMOJI.map(function(e) { return '<button type="button" data-e="' + e + '" style="font-size:22px;border:none;background:none;cursor:pointer;">' + e + '</button>'; }).join('') + '</div>' +
+      '<div style="display:flex;gap:6px;margin-top:8px;"><button type="button" class="cc-emo" aria-label="إيموجي" style="font-size:22px;border:1px solid var(--border);border-radius:10px;background:var(--surface);cursor:pointer;padding:0 10px;">😊</button>' +
+      '<input class="cc-input" maxlength="300" placeholder="اكتب رسالة..." style="flex:1;min-width:0;padding:10px;border:1px solid var(--border);border-radius:10px;font-size:16px;font-family:inherit;background:var(--surface);color:var(--text);">' +
+      '<button type="button" class="cc-send" style="padding:0 16px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-weight:800;font-family:inherit;cursor:pointer;">إرسال</button></div>' +
+      '<div class="cc-msg" style="font-size:12px;color:#dc2626;margin-top:6px;min-height:14px;"></div>' +
+      '<div style="font-size:11px;color:var(--text-muted);">احترم غيرك 🤝 — أي رسالة مسيئة بتقدر تبلّغ عنها بـ🚩</div>';
+    var input = box.querySelector('.cc-input');
+    box.querySelector('.cc-send').addEventListener('click', function() { send(input.value); });
+    input.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); send(input.value); } });
+    box.querySelector('.cc-emo').addEventListener('click', function() { var p = box.querySelector('.cc-emoji'); p.hidden = !p.hidden; p.style.display = p.hidden ? 'none' : 'grid'; });
+    box.querySelector('.cc-emoji').style.display = 'none';
+    listen();
+  }
+
+  var msgs = [];
+  function listen() {
+    if (unsub) unsub();
+    unsub = db.collection('challenges').doc(chId).collection('messages').orderBy('createdAt').limitToLast(100).onSnapshot(function(snap) {
+      msgs = snap.docs.map(function(d) { return { id: d.id, d: d.data() }; });
+      var list = box.querySelector('.cc-list'); if (!list) return;
+      var atBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 60;
+      list.innerHTML = msgs.length ? msgs.map(function(m) {
+        var d = m.d, mine = d.uid === user.uid;
+        return '<div data-id="' + m.id + '" style="display:flex;flex-direction:column;align-items:' + (mine ? 'flex-start' : 'flex-end') + ';margin:6px 0;">' +
+          '<div style="max-width:85%;padding:7px 10px;border-radius:12px;background:' + (mine ? 'var(--primary)' : 'var(--surface)') + ';color:' + (mine ? '#fff' : 'var(--text)') + ';border:1px solid var(--border);font-size:15px;line-height:1.6;word-break:break-word;">' +
+          (mine ? '' : '<div style="font-size:11px;font-weight:800;opacity:.75;">' + esc(d.name) + '</div>') + esc(clean(d.text)) + '</div>' +
+          '<div style="font-size:10px;color:var(--text-muted);margin-top:2px;">' + esc(fmtTime(d.createdAt)) +
+          (mine ? ' · <a href="#" data-del="' + m.id + '" style="color:inherit;">حذف</a>' : ' · <a href="#" data-rep="' + m.id + '" style="color:inherit;">🚩 إبلاغ</a>') +
+          (isAdmin && !mine ? ' · <a href="#" data-del="' + m.id + '" style="color:#dc2626;">حذف</a> · <a href="#" data-ban="' + esc(d.uid) + '" data-name="' + esc(d.name) + '" style="color:#dc2626;">حظر</a>' : '') +
+          '</div></div>';
+      }).join('') : '<div style="text-align:center;color:var(--text-muted);font-size:13px;padding:30px 0;">لسا ما في رسائل — ابدأ الحكي 👋</div>';
+      if (atBottom || msgs.length && msgs[msgs.length - 1].d.uid === user.uid) list.scrollTop = list.scrollHeight;
+    }, function() { var m = box.querySelector('.cc-msg'); if (m) m.textContent = 'ما قدرنا نحمّل الشات.'; });
+  }
+
+  var lastSend = 0;
+  function send(text) {
+    var msg = box.querySelector('.cc-msg'), input = box.querySelector('.cc-input');
+    text = String(text || '').trim().slice(0, 300);
+    if (!text) return;
+    if (Date.now() - lastSend < 3000) { msg.textContent = '⏳ استنى ثواني قبل الرسالة الجاي.'; return; }
+    lastSend = Date.now(); msg.textContent = '';
+    var ts = firebase.firestore.FieldValue.serverTimestamp(), b = db.batch();
+    b.set(db.collection('chatMeta').doc(user.uid), { lastAt: ts });
+    b.set(db.collection('challenges').doc(chId).collection('messages').doc(), { uid: user.uid, name: (user.displayName || (user.email || '').split('@')[0] || 'لاعب').slice(0, 40), text: text, createdAt: ts });
+    input.value = '';
+    b.commit().catch(function(e) { msg.textContent = e && e.code === 'permission-denied' ? 'ما انبعتت — يمكن بسرعة كبيرة أو حسابك موقوف عن الشات.' : 'ما انبعتت الرسالة، جرّب مرة ثانية.'; input.value = text; });
+  }
+  function find(id) { return msgs.filter(function(m) { return m.id === id; })[0]; }
+  function report(a) {
+    var m = find(a.getAttribute('data-rep')); if (!m) return;
+    a.textContent = '⏳';
+    db.collection('chatReports').add({ challengeId: chId, msgId: m.id, text: String(m.d.text).slice(0, 300), offenderUid: m.d.uid, offenderName: String(m.d.name || '').slice(0, 40), reason: 'محتوى مسيء', reporterUid: user.uid, createdAt: firebase.firestore.FieldValue.serverTimestamp() })
+      .then(function() { a.textContent = '✅ وصل البلاغ'; }).catch(function() { a.textContent = 'ما زبط'; });
+  }
+  function del(a) {
+    db.collection('challenges').doc(chId).collection('messages').doc(a.getAttribute('data-del')).delete().catch(function() {});
+  }
+  function ban(a) {
+    if (a.getAttribute('data-sure') !== '1') { a.setAttribute('data-sure', '1'); a.textContent = 'متأكد؟'; return; }
+    db.collection('chatBans').doc(a.getAttribute('data-ban')).set({ name: a.getAttribute('data-name') || '', at: firebase.firestore.FieldValue.serverTimestamp() })
+      .then(function() { a.textContent = '⛔ انحظر'; }).catch(function() { a.textContent = 'ما زبط'; });
+  }
+
+  function mount() {
+    if (mounted) return;
+    mounted = true;
+    chId = challengeId;
+    var anchor = document.getElementById('leaderboardArea');
+    var card = anchor && (anchor.closest('.card') || anchor.parentElement);
+    box = document.createElement('div');
+    box.className = 'card';
+    box.style.marginTop = '16px';
+    box.innerHTML = '⏳';
+    if (card && card.parentNode) card.parentNode.insertBefore(box, card.nextSibling); else document.body.appendChild(box);
+    box.addEventListener('click', function(e) {
+      if (!user) return;
+      var input = box.querySelector('.cc-input');
+      var em = e.target.closest('[data-e]'); if (em && input) { input.value += em.getAttribute('data-e'); input.focus(); return; }
+      var q = e.target.closest('[data-q]'); if (q) { send(q.getAttribute('data-q')); return; }
+      var rp = e.target.closest('[data-rep]'); if (rp) { e.preventDefault(); report(rp); return; }
+      var dl = e.target.closest('[data-del]'); if (dl) { e.preventDefault(); del(dl); return; }
+      var bn = e.target.closest('[data-ban]'); if (bn) { e.preventDefault(); ban(bn); return; }
+    });
+    authReady().then(function() {
+      firebase.auth().onAuthStateChanged(function(u) {
+        user = u;
+        if (!u) { isAdmin = false; if (unsub) { unsub(); unsub = null; } renderShell(); return; }
+        db.collection('admins').doc(u.uid).get().then(function(d) { isAdmin = d.exists; }).catch(function() {}).then(renderShell);
+      });
+    }).catch(function() { box.textContent = 'ما قدرنا نحمّل الشات.'; });
+  }
+
+  var tries = 0;
+  var t = setInterval(function() {
+    tries++;
+    if (typeof challengeId !== 'undefined' && challengeId) { clearInterval(t); mount(); }
+    else if (tries > 3600) clearInterval(t);
+  }, 1000);
+})();

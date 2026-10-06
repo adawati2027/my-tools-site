@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var list = document.getElementById('adminList'), tab = 'pending', fbRef;
   var tabs = document.getElementById('tabs');
-  tabs.innerHTML = Object.keys(ADS_STATUS).map(function(k){ return '<button type="button" class="ads-btn' + (k === tab ? '' : ' secondary') + '" data-t="' + k + '">' + ADS_STATUS[k] + '</button>'; }).join('') + '<button type="button" class="ads-btn secondary" data-t="reports">🚩 البلاغات</button>';
+  tabs.innerHTML = Object.keys(ADS_STATUS).map(function(k){ return '<button type="button" class="ads-btn' + (k === tab ? '' : ' secondary') + '" data-t="' + k + '">' + ADS_STATUS[k] + '</button>'; }).join('') + '<button type="button" class="ads-btn secondary" data-t="reports">🚩 البلاغات</button><button type="button" class="ads-btn secondary" data-t="chatreports">💬 بلاغات الشات</button>';
   tabs.addEventListener('click', function(e) {
     var b = e.target.closest('[data-t]'); if (!b) return;
     tab = b.getAttribute('data-t');
@@ -83,9 +83,34 @@ document.addEventListener('DOMContentLoaded', function() {
     b.disabled = true;
     fbRef.db.collection('adReports').doc(b.getAttribute('data-done')).delete().then(function() { b.closest('[data-rep]').remove(); if (!list.querySelector('[data-rep]')) list.innerHTML = '<div class="card">✅ ما في بلاغات.</div>'; }).catch(function() { b.disabled = false; });
   });
+  function loadChatReports() {
+    fbRef.db.collection('chatReports').orderBy('createdAt', 'desc').limit(100).get().then(function(snap) {
+      if (snap.empty) { list.innerHTML = '<div class="card">✅ ما في بلاغات على الشات.</div>'; return; }
+      list.innerHTML = snap.docs.map(function(d) {
+        var r = d.data();
+        return '<div class="card" style="margin-top:12px;" data-crep="' + d.id + '" data-ch="' + adsEsc(r.challengeId) + '" data-msg="' + adsEsc(r.msgId) + '" data-off="' + adsEsc(r.offenderUid) + '" data-offname="' + adsEsc(r.offenderName) + '">' +
+          '<div class="ads-meta">' + adsEsc(adsDate(r.createdAt)) + ' · 👤 ' + adsEsc(r.offenderName) + '</div>' +
+          '<div style="margin:8px 0;padding:10px;background:var(--surface-2);border-radius:8px;white-space:pre-line;">' + adsEsc(r.text) + '</div>' +
+          '<div class="ads-row"><button type="button" class="ads-btn danger" data-cact="delmsg">🗑️ احذف الرسالة</button><button type="button" class="ads-btn danger" data-cact="ban">⛔ احظر من الشات</button><button type="button" class="ads-btn secondary" data-cact="dismiss">✅ تجاهل</button></div><div class="res"></div></div>';
+      }).join('');
+    }).catch(function() { list.innerHTML = '<div class="card">ما زبط تحميل بلاغات الشات.</div>'; });
+  }
+  list.addEventListener('click', function(e) {
+    var b = e.target.closest('[data-cact]'); if (!b) return;
+    var c = b.closest('[data-crep]'), act = b.getAttribute('data-cact'), res = c.querySelector('.res'), db = fbRef.db;
+    if (act === 'ban' && b.getAttribute('data-sure') !== '1') { b.setAttribute('data-sure', '1'); b.textContent = '⚠️ متأكد؟ اكبس مرة ثانية'; return; }
+    b.disabled = true;
+    var op = act === 'delmsg' ? db.collection('challenges').doc(c.getAttribute('data-ch')).collection('messages').doc(c.getAttribute('data-msg')).delete()
+      : act === 'ban' ? db.collection('chatBans').doc(c.getAttribute('data-off')).set({ name: c.getAttribute('data-offname') || '', at: firebase.firestore.FieldValue.serverTimestamp() })
+      : Promise.resolve();
+    op.then(function() { return act === 'ban' ? null : db.collection('chatReports').doc(c.getAttribute('data-crep')).delete(); })
+      .then(function() { if (act === 'ban') { res.innerHTML = '<div class="ads-msg ok">⛔ انحظر من الشات.</div>'; } else { c.remove(); if (!list.querySelector('[data-crep]')) list.innerHTML = '<div class="card">✅ ما في بلاغات على الشات.</div>'; } })
+      .catch(function() { b.disabled = false; res.innerHTML = '<div class="ads-msg err">ما زبط.</div>'; });
+  });
   function load() {
     list.innerHTML = '<div class="card">⏳ جاري التحميل...</div>';
     if (tab === 'reports') return loadReports();
+    if (tab === 'chatreports') return loadChatReports();
     fbRef.db.collection('ads').where('status', '==', tab).get().then(function(snap) {
       if (snap.empty) { list.innerHTML = '<div class="card">ما في إعلانات هون.</div>'; return; }
       list.innerHTML = snap.docs.map(function(d) {
