@@ -67,7 +67,14 @@ function adsCardHtml(id, a) {
     (a.city ? '<span class="ads-city">📍 ' + adsEsc(a.city) + '</span>' : '') + '</div>' +
     '<div class="ads-title">' + adsEsc(a.title) + '</div>' +
     '<div class="ads-desc">' + adsEsc((a.description || '').slice(0, 140)) + ((a.description || '').length > 140 ? '…' : '') + '</div>' +
-    '<div class="ads-meta">❤️ ' + (a.likeCount || 0) + '</div></a>';
+    '<div class="ads-meta">❤️ ' + (a.likeCount || 0) + (a.ratingCount ? ' · ' + adsStars(a) : '') + '</div></a>';
+}
+
+function adsStars(a) {
+  var n = a.ratingCount || 0;
+  if (!n) return '<span class="ads-meta">☆ لسا ما في تقييمات</span>';
+  var avg = (a.ratingSum || 0) / n;
+  return '<span style="color:#f59e0b;">★</span> <strong>' + avg.toFixed(1) + '</strong> <span class="ads-meta">(' + n + ' تقييم)</span>';
 }
 
 var ADS_DURATIONS = [[7, '7 أيام'], [14, 'أسبوعين'], [30, 'شهر'], [60, 'شهرين'], [90, '3 شهور'], [0, 'بدون حد']];

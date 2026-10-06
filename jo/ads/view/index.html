@@ -35,6 +35,7 @@
   <div class="page-header"><a href="jo/ads/">→ كل الإعلانات</a></div>
 
   <div class="card" id="adView"><div>⏳ جاري التحميل...</div></div>
+  <div class="card" id="adReviews" style="margin-top:16px;" hidden></div>
   <div style="margin-top:16px;text-align:center;"><a class="ads-btn secondary" href="jo/ads/submit/">➕ بدك تعلن كمان؟ أضف إعلانك ببلاش</a></div>
   <p style="font-size:12px;color:var(--text-muted);margin-top:16px;text-align:center;">⚠️ الإعلانات مقدّمة من أصحابها ومراجَعة قبل النشر، لكن أدواتي مش مسؤول عن أي تعامل بينك وبين المعلن — تأكد بنفسك قبل أي دفع أو اتفاق.</p>
 </div></main>
@@ -47,7 +48,7 @@
 </footer>
 <script src="i18n-lang-ar.js?v=2" defer></script>
 <script src="i18n.js?v=59" defer></script>
-<script src="jo/ads/ads.js?v=4" defer></script>
+<script src="jo/ads/ads.js?v=5" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -65,9 +66,10 @@ document.addEventListener('DOMContentLoaded', function() {
       '<div class="card-subtitle">' + (ad.ownerName ? 'من: ' + adsEsc(ad.ownerName) : '') + (ad.createdAt ? ' · ' + adsEsc(adsDate(ad.createdAt)) : '') + '</div>' +
       '<div class="divider"></div>' +
       '<p style="font-size:15px;line-height:1.9;white-space:pre-line;">' + adsEsc(ad.description) + '</p>' +
-      (ad.phone ? '<div style="margin-top:12px;font-size:15px;">📞 <a href="tel:' + adsEsc(ad.phone.replace(/s+/g, '')) + '" dir="ltr" style="color:var(--primary);font-weight:700;">' + adsEsc(ad.phone) + '</a></div>' : '') +
+      (ad.phone ? '<div style="margin-top:12px;font-size:15px;">📞 <a href="tel:' + adsEsc(ad.phone.replace(/\s+/g, '')) + '" dir="ltr" style="color:var(--primary);font-weight:700;">' + adsEsc(ad.phone) + '</a></div>' : '') +
       '<div class="card-title" style="font-size:15px;margin-top:16px;">🔗 صفحات المعلن</div><div class="ads-links">' + adsLinksHtml(ad.links) + '</div>' +
-      '<div class="ads-row" style="margin-top:16px;">' + likeBtn() + '<button type="button" class="ads-btn secondary" id="shareBtn">📤 شارك الإعلان</button></div><div id="likeMsg"></div>' +
+      '<div style="margin-top:14px;font-size:15px;">' + adsStars(ad) + '</div>' +
+      '<div class="ads-row" style="margin-top:12px;">' + likeBtn() + '<button type="button" class="ads-btn secondary" id="shareBtn">📤 شارك الإعلان</button><button type="button" class="ads-btn secondary" data-report="">🚩 إبلاغ</button></div><div id="likeMsg"></div><div class="rep-box"></div>' +
       (isAdmin ? '<div class="ads-note" style="margin-top:16px;">🛡️ أدمن · ' + adsEsc(adsExpiryText(ad)) + '<div class="ads-row"><button type="button" class="ads-btn danger" id="adminDel">🗑️ احذف الإعلان</button><a class="ads-btn secondary" href="jo/ads/admin/">لوحة الإدارة</a></div></div>' : '');
     if (isAdmin) document.getElementById('adminDel').addEventListener('click', function() {
       var b = this;
@@ -76,12 +78,92 @@ document.addEventListener('DOMContentLoaded', function() {
       fbRef.db.collection('adProofs').doc(id).delete().catch(function(){}).then(function() { return fbRef.db.collection('ads').doc(id).delete(); }).then(function() { box.innerHTML = '✅ انحذف الإعلان. <a href="jo/ads/">ارجع للإعلانات</a>'; })
         .catch(function() { b.disabled = false; b.textContent = 'ما زبط الحذف'; });
     });
+    loadReviews();
     document.getElementById('likeBtn').addEventListener('click', toggleLike);
     document.getElementById('shareBtn').addEventListener('click', function() {
       if (navigator.share) navigator.share({ title: ad.title, url: location.href }).catch(function(){});
       else if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(function(){ document.getElementById('likeMsg').innerHTML = '<div class="ads-msg ok">✅ انسخ الرابط</div>'; });
     });
   }
+  var reviews = [], myStars = 0;
+  var revBox = document.getElementById('adReviews');
+  function loadReviews() {
+    revBox.hidden = false;
+    fbRef.db.collection('ads').doc(id).collection('reviews').orderBy('updatedAt', 'desc').limit(100).get().then(function(s) {
+      reviews = s.docs.map(function(d) { return { uid: d.id, d: d.data() }; });
+      drawReviews();
+    }).catch(function() { revBox.innerHTML = 'ما قدرنا نحمّل التقييمات.'; });
+  }
+  function drawReviews() {
+    var user = fbRef.auth.currentUser, mine = user && reviews.filter(function(r) { return r.uid === user.uid; })[0];
+    myStars = mine ? mine.d.rating : myStars;
+    var form = !user
+      ? '<div style="margin-top:8px;"><button type="button" class="ads-btn secondary" id="revLogin">🔐 سجّل دخول عشان تقيّم وتعلّق</button></div>'
+      : '<div class="ads-form" style="margin-top:8px;"><div id="revStars" style="font-size:30px;cursor:pointer;letter-spacing:4px;">' + [1, 2, 3, 4, 5].map(function(i) { return '<span data-star="' + i + '">' + (i <= myStars ? '★' : '☆') + '</span>'; }).join('') + '</div>' +
+        '<textarea id="revText" maxlength="500" placeholder="اكتب تعليقك (اختياري)" style="min-height:70px;">' + (mine ? adsEsc(mine.d.text) : '') + '</textarea>' +
+        '<div class="ads-row"><button type="button" class="ads-btn" id="revSave">' + (mine ? '💾 عدّل تقييمي' : '⭐ أرسل التقييم') + '</button>' + (mine ? '<button type="button" class="ads-btn secondary" id="revDel">🗑️ احذف تقييمي</button>' : '') + '</div><div id="revMsg"></div></div>';
+    revBox.innerHTML = '<div class="card-title" style="font-size:16px;">⭐ التقييمات والتعليقات (' + reviews.length + ')</div>' + form +
+      reviews.map(function(r) {
+        var d = r.d;
+        return '<div style="border-top:1px solid var(--border);padding:10px 0;margin-top:10px;" data-ruid="' + adsEsc(r.uid) + '"><div style="display:flex;justify-content:space-between;gap:8px;"><strong>' + adsEsc(d.name || 'مستخدم') + '</strong><span style="color:#f59e0b;">' + '★★★★★'.slice(0, d.rating) + '<span style="color:var(--border);">' + '★★★★★'.slice(d.rating) + '</span></span></div>' +
+          (d.text ? '<p style="margin:6px 0;white-space:pre-line;font-size:14px;line-height:1.8;">' + adsEsc(d.text) + '</p>' : '') +
+          '<div class="ads-row" style="margin-top:4px;"><span class="ads-meta">' + adsEsc(adsDate(d.updatedAt)) + '</span><button type="button" class="ads-btn secondary" style="padding:4px 10px;font-size:12px;" data-report="' + adsEsc(r.uid) + '">🚩 إبلاغ</button>' +
+          (isAdmin ? '<button type="button" class="ads-btn danger" style="padding:4px 10px;font-size:12px;" data-adel="' + adsEsc(r.uid) + '">🗑️ حذف (أدمن)</button>' : '') + '</div><div class="rep-box"></div></div>';
+      }).join('');
+    var lb = document.getElementById('revLogin'); if (lb) lb.addEventListener('click', function() { openAuthModal(); });
+    var sb = document.getElementById('revSave'); if (sb) sb.addEventListener('click', saveReview);
+    var db2 = document.getElementById('revDel'); if (db2) db2.addEventListener('click', deleteMyReview);
+  }
+  function revMsg(t, ok) { var m = document.getElementById('revMsg'); if (m) m.innerHTML = '<div class="ads-msg ' + (ok ? 'ok' : 'err') + '">' + adsEsc(t) + '</div>'; }
+  function commitRating(batchFn, newCount, newSum) {
+    var adRef = fbRef.db.collection('ads').doc(id), batch = fbRef.db.batch();
+    batchFn(batch, adRef.collection('reviews').doc(fbRef.auth.currentUser.uid));
+    batch.update(adRef, { ratingCount: newCount, ratingSum: newSum });
+    return batch.commit().then(function() { ad.ratingCount = newCount; ad.ratingSum = newSum; });
+  }
+  function saveReview() {
+    var user = fbRef.auth.currentUser; if (!user) return openAuthModal();
+    if (!myStars) return revMsg('اختار عدد النجوم أول.');
+    var mine = reviews.filter(function(r) { return r.uid === user.uid; })[0], ts = firebase.firestore.FieldValue.serverTimestamp();
+    var cnt = ad.ratingCount || 0, sum = ad.ratingSum || 0;
+    var data = { rating: myStars, text: document.getElementById('revText').value.trim().slice(0, 500), name: (user.displayName || (user.email || '').split('@')[0] || 'مستخدم').slice(0, 40), updatedAt: ts, createdAt: mine ? (mine.d.createdAt || ts) : ts };
+    document.getElementById('revSave').disabled = true;
+    commitRating(function(b, ref) { b.set(ref, data); }, mine ? cnt : cnt + 1, sum + myStars - (mine ? mine.d.rating : 0))
+      .then(function() { draw(); }).catch(function() { revMsg('ما زبط — حدّث الصفحة وجرّب.'); document.getElementById('revSave').disabled = false; });
+  }
+  function deleteMyReview() {
+    var user = fbRef.auth.currentUser, mine = reviews.filter(function(r) { return r.uid === user.uid; })[0]; if (!mine) return;
+    commitRating(function(b, ref) { b.delete(ref); }, (ad.ratingCount || 1) - 1, (ad.ratingSum || 0) - mine.d.rating)
+      .then(function() { myStars = 0; draw(); }).catch(function() { revMsg('ما زبط الحذف.'); });
+  }
+  document.addEventListener('click', function(e) {
+    var st = e.target.closest('[data-star]');
+    if (st) { myStars = +st.getAttribute('data-star'); document.querySelectorAll('#revStars [data-star]').forEach(function(s) { s.textContent = +s.getAttribute('data-star') <= myStars ? '★' : '☆'; }); return; }
+    var rp = e.target.closest('[data-report]');
+    if (rp) {
+      if (!fbRef.auth.currentUser) return openAuthModal();
+      var holder = rp.parentElement.parentElement.querySelector('.rep-box') || rp.closest('[data-ruid]').querySelector('.rep-box');
+      holder.innerHTML = '<div class="ads-form" style="margin-top:6px;"><select class="rep-reason"><option>محتوى مسيء أو غير لائق</option><option>احتيال أو معلومات كاذبة</option><option>سبام أو إعلان مكرر</option><option>رابط ضار أو مشبوه</option><option>غير ذلك</option></select><div class="ads-row"><button type="button" class="ads-btn danger" data-send-rep="' + rp.getAttribute('data-report') + '">🚩 أرسل البلاغ</button></div></div>';
+      return;
+    }
+    var sr = e.target.closest('[data-send-rep]');
+    if (sr) {
+      var box2 = sr.closest('.rep-box');
+      sr.disabled = true;
+      fbRef.db.collection('adReports').add({ adId: id, reviewUid: sr.getAttribute('data-send-rep'), reason: box2.querySelector('.rep-reason').value, reporterUid: fbRef.auth.currentUser.uid, createdAt: firebase.firestore.FieldValue.serverTimestamp() })
+        .then(function() { box2.innerHTML = '<div class="ads-msg ok">✅ وصلنا البلاغ، شكراً إلك — رح نراجعه.</div>'; })
+        .catch(function() { box2.innerHTML = '<div class="ads-msg err">ما زبط إرسال البلاغ.</div>'; });
+      return;
+    }
+    var ad2 = e.target.closest('[data-adel]');
+    if (ad2 && isAdmin) {
+      var ruid = ad2.getAttribute('data-adel'), r = reviews.filter(function(x) { return x.uid === ruid; })[0]; if (!r) return;
+      ad2.disabled = true;
+      var adRef = fbRef.db.collection('ads').doc(id), b = fbRef.db.batch(), nc = Math.max(0, (ad.ratingCount || 1) - 1), ns = Math.max(0, (ad.ratingSum || 0) - r.d.rating);
+      b.delete(adRef.collection('reviews').doc(ruid)); b.update(adRef, { ratingCount: nc, ratingSum: ns });
+      b.commit().then(function() { ad.ratingCount = nc; ad.ratingSum = ns; draw(); }).catch(function() { ad2.disabled = false; });
+    }
+  });
   function toggleLike() {
     var user = fbRef.auth.currentUser;
     if (!user) { openAuthModal(); return; }

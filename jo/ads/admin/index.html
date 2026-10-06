@@ -48,13 +48,13 @@
 </footer>
 <script src="i18n-lang-ar.js?v=2" defer></script>
 <script src="i18n.js?v=59" defer></script>
-<script src="jo/ads/ads.js?v=4" defer></script>
+<script src="jo/ads/ads.js?v=5" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
   var list = document.getElementById('adminList'), tab = 'pending', fbRef;
   var tabs = document.getElementById('tabs');
-  tabs.innerHTML = Object.keys(ADS_STATUS).map(function(k){ return '<button type="button" class="ads-btn' + (k === tab ? '' : ' secondary') + '" data-t="' + k + '">' + ADS_STATUS[k] + '</button>'; }).join('');
+  tabs.innerHTML = Object.keys(ADS_STATUS).map(function(k){ return '<button type="button" class="ads-btn' + (k === tab ? '' : ' secondary') + '" data-t="' + k + '">' + ADS_STATUS[k] + '</button>'; }).join('') + '<button type="button" class="ads-btn secondary" data-t="reports">🚩 البلاغات</button>';
   tabs.addEventListener('click', function(e) {
     var b = e.target.closest('[data-t]'); if (!b) return;
     tab = b.getAttribute('data-t');
@@ -66,8 +66,26 @@ document.addEventListener('DOMContentLoaded', function() {
     if (note !== undefined) upd.adminNote = note;
     return fbRef.db.collection('ads').doc(id).update(upd);
   }
+  function loadReports() {
+    fbRef.db.collection('adReports').orderBy('createdAt', 'desc').limit(100).get().then(function(snap) {
+      if (snap.empty) { list.innerHTML = '<div class="card">✅ ما في بلاغات.</div>'; return; }
+      list.innerHTML = snap.docs.map(function(d) {
+        var r = d.data();
+        return '<div class="card" style="margin-top:12px;" data-rep="' + d.id + '"><div class="ads-meta">' + adsEsc(adsDate(r.createdAt)) + '</div>' +
+          '<div style="font-weight:800;margin:6px 0;">🚩 ' + adsEsc(r.reason) + '</div>' +
+          '<div class="ads-meta">' + (r.reviewUid ? '💬 بلاغ على تعليق بالإعلان' : '📣 بلاغ على الإعلان نفسه') + '</div>' +
+          '<div class="ads-row"><a class="ads-btn" href="jo/ads/view/?id=' + encodeURIComponent(r.adId) + '" target="_blank" rel="noopener">👁️ افتح الإعلان</a><button type="button" class="ads-btn secondary" data-done="' + d.id + '">✅ تمت المعالجة (احذف البلاغ)</button></div></div>';
+      }).join('');
+    }).catch(function() { list.innerHTML = '<div class="card">ما زبط تحميل البلاغات.</div>'; });
+  }
+  list.addEventListener('click', function(e) {
+    var b = e.target.closest('[data-done]'); if (!b) return;
+    b.disabled = true;
+    fbRef.db.collection('adReports').doc(b.getAttribute('data-done')).delete().then(function() { b.closest('[data-rep]').remove(); if (!list.querySelector('[data-rep]')) list.innerHTML = '<div class="card">✅ ما في بلاغات.</div>'; }).catch(function() { b.disabled = false; });
+  });
   function load() {
     list.innerHTML = '<div class="card">⏳ جاري التحميل...</div>';
+    if (tab === 'reports') return loadReports();
     fbRef.db.collection('ads').where('status', '==', tab).get().then(function(snap) {
       if (snap.empty) { list.innerHTML = '<div class="card">ما في إعلانات هون.</div>'; return; }
       list.innerHTML = snap.docs.map(function(d) {
