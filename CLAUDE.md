@@ -41,8 +41,7 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 
 ## Open items
 
-- **Google sign-in**: fixed 2026-10-05 (CSP frame-src was blocking `adawati-challenges.firebaseapp.com`). Any CSP change must be made in BOTH the Worker `adawati-csp-nonce` and the "security headers" Transform Rule. See `docs/history/auth-accounts.md`.
-- **Ads board**: phases 1+2 live (ratings, comments, reports).  See `docs/history/ads-board.md`.
+- **CSP**: any change must be made in BOTH the Worker `adawati-csp-nonce` and the "security headers" Transform Rule.
 - **bachelor-guide government universities**: `admhec.gov.jo` blocks automation — needs the owner's manually saved pages.
 - **masters/bachelor guides**: read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending (dead-end universities listed).
 - **Indexing**: owner wants API, not UI (2026-10-06). `node tools/indexnow.js` (Bing/Yandex, all sitemap URLs). Google: sitemap resubmit via Search Console API needs the service account upgraded from Restricted to Full in GSC; Google has no legit API for "Request Indexing" (Indexing API is jobs/livestream only — don't use it). Don't resubmit AdSense until organic traffic grows.
