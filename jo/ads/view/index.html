@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var data = { rating: myStars, text: document.getElementById('revText').value.trim().slice(0, 500), name: (user.displayName || (user.email || '').split('@')[0] || 'مستخدم').slice(0, 40), updatedAt: ts, createdAt: mine ? (mine.d.createdAt || ts) : ts };
     document.getElementById('revSave').disabled = true;
     commitRating(function(b, ref) { b.set(ref, data); }, mine ? cnt : cnt + 1, sum + myStars - (mine ? mine.d.rating : 0))
-      .then(function() { draw(); }).catch(function() { revMsg('ما زبط — حدّث الصفحة وجرّب.'); document.getElementById('revSave').disabled = false; });
+      .then(function() { if (typeof gtag === 'function') gtag('event', mine ? 'review_updated' : 'review_added', { rating: myStars }); draw(); }).catch(function() { revMsg('ما زبط — حدّث الصفحة وجرّب.'); document.getElementById('revSave').disabled = false; });
   }
   function deleteMyReview() {
     var user = fbRef.auth.currentUser, mine = reviews.filter(function(r) { return r.uid === user.uid; })[0]; if (!mine) return;

@@ -18,7 +18,9 @@
   function authReady() {
     return typeof firebase.auth === 'function' ? Promise.resolve() : loadScript('https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js');
   }
+  var signingIn = false;
   function signIn() {
+    signingIn = true;
     var nativeAuth = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.FirebaseAuthentication;
     var msg = box.querySelector('.cc-msg');
     if (nativeAuth) {
@@ -98,7 +100,7 @@
     b.set(db.collection('chatMeta').doc(user.uid), { lastAt: ts });
     b.set(db.collection('challenges').doc(chId).collection('messages').doc(), { uid: user.uid, name: (user.displayName || (user.email || '').split('@')[0] || 'لاعب').slice(0, 40), text: text, createdAt: ts });
     input.value = '';
-    b.commit().catch(function(e) { msg.textContent = e && e.code === 'permission-denied' ? 'ما انبعتت — يمكن بسرعة كبيرة أو حسابك موقوف عن الشات.' : 'ما انبعتت الرسالة، جرّب مرة ثانية.'; input.value = text; });
+    b.commit().then(function() { if (typeof gtag === 'function') gtag('event', 'chat_message', { game_id: typeof QUIZ_CONFIG !== 'undefined' ? QUIZ_CONFIG.gameId : '' }); }).catch(function(e) { msg.textContent = e && e.code === 'permission-denied' ? 'ما انبعتت — يمكن بسرعة كبيرة أو حسابك موقوف عن الشات.' : 'ما انبعتت الرسالة، جرّب مرة ثانية.'; input.value = text; });
   }
   var rec = null, recChunks = [], recStart = 0, recTimer = null, recStream = null, playing = null;
   function pickMime() {
@@ -172,7 +174,7 @@
       b.set(mref, { uid: user.uid, name: (user.displayName || (user.email || '').split('@')[0] || 'لاعب').slice(0, 40), text: '🎤', voice: true, dur: Math.round(dur * 10) / 10, createdAt: ts });
       b.set(db.collection('challenges').doc(chId).collection('voices').doc(mref.id), { uid: user.uid, audio: r.result, createdAt: ts });
       msg.textContent = '⏳ جاري الإرسال...';
-      b.commit().then(function() { msg.textContent = ''; }).catch(function() { msg.textContent = 'ما انبعتت الرسالة الصوتية، جرّب مرة ثانية.'; });
+      b.commit().then(function() { msg.textContent = ''; if (typeof gtag === 'function') gtag('event', 'chat_voice', { dur: Math.round(dur) }); }).catch(function() { msg.textContent = 'ما انبعتت الرسالة الصوتية، جرّب مرة ثانية.'; });
     };
     r.readAsDataURL(blob);
   }
@@ -249,6 +251,8 @@
         done = true;
         user = u;
         if (!u) { isAdmin = false; if (unsub) { unsub(); unsub = null; } renderShell(); return; }
+        if (signingIn && typeof gtag === 'function') gtag('event', 'login', { method: 'google_chat' });
+        signingIn = false;
         db.collection('admins').doc(u.uid).get().then(function(d) { isAdmin = d.exists; }).catch(function() {}).then(renderShell);
       });
     }).catch(function() { done = true; box.textContent = 'ما قدرنا نحمّل الشات.'; });

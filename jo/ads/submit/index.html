@@ -157,6 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
       op.then(function(adId) {
         return proofImg ? fb.db.collection('adProofs').doc(adId).set({ image: proofImg, ownerUid: user.uid, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }) : null;
       }).then(function() {
+        if (typeof gtag === 'function') gtag('event', editId ? 'ad_updated' : 'ad_submitted', { category: d.category });
         resetForm(); msg('✅ وصلنا إعلانك! رح نراجعه بأقرب وقت، وبتلاقي حالته تحت بـ"إعلاناتي".', true); loadMine(fb, user);
       }).catch(function() { msg('ما زبط الإرسال — تأكد من الروابط وجرّب مرة ثانية.'); })
         .then(function() { btn.disabled = false; });
