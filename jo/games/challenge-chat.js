@@ -28,8 +28,11 @@
       }).catch(function(e) { if (msg) msg.textContent = 'ما زبط الدخول (' + ((e && (e.code || e.message)) || '') + ')'; });
       return;
     }
+    var lb = box.querySelector('.cc-login');
+    if (lb) { if (lb.disabled) return; lb.disabled = true; lb.textContent = '⏳ جاري الدخول...'; }
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function(e) {
-      if (e && e.code === 'auth/popup-closed-by-user') return;
+      if (lb) { lb.disabled = false; lb.textContent = '🔐 الدخول عبر Google'; }
+      if (e && (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request')) return;
       if (msg) msg.textContent = 'ما زبط الدخول (' + ((e && e.code) || '') + ') — جرّب مرة ثانية.';
     });
   }
