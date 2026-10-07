@@ -45,7 +45,7 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 - **bachelor-guide government universities**: all 10 public universities done 2026-10-07 via owner-saved admhec pages + `tools/admhec-import.js` (re-run each admission season with new saved pages).
 - **masters/bachelor guides**: read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending (dead-end universities listed).
 - **Indexing**: owner wants API, not UI (2026-10-06). `node tools/indexnow.js` (Bing/Yandex, all sitemap URLs). Google: `node tools/gsc-sitemap.js` resubmits sitemap.xml via API (SA has Full since 2026-10-07) — run after adding pages; Google has no legit API for "Request Indexing" (Indexing API is jobs/livestream only — don't use it). Don't resubmit AdSense until organic traffic grows.
-- **Quiz levels (medium/hard)**: done for om/sa/ae/eg country quizzes + cooking + jordan-quiz + general + science + animals + culture. Owner chose GRADUAL rollout for the other 8 `jo/games/*` quizzes — 1-2 per session via `node tools/quiz-levels.js list|apply <file> [hard-nums]`. Easy questions count as medium.
+- **Quiz levels (medium/hard)**: DONE 2026-10-07 for all 18 quizzes (om/sa/ae/eg + 14 `jo/games/*`, logo-quiz excluded by owner). New quizzes: `node tools/quiz-levels.js list|apply <file> [hard-nums]`; easy counts as medium.
 - **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season.
 - Translations: only Arabic is maintained (fr/es/de/ru deliberately deferred, ~0 traffic).
 

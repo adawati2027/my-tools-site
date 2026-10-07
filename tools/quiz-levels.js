@@ -16,8 +16,8 @@ if (cmd === 'list') {
   for (const l of lines) {
     if (!/^\s*\{q:/.test(l)) continue;
     n++;
-    const q = (l.match(/q:'((?:[^'\\]|\\.)*)'/) || [])[1] || '';
-    const opts = [...((l.match(/opts:\[(.*?)\]\s*,\s*correct/) || [])[1] || '').matchAll(/'((?:[^'\\]|\\.)*)'/g)].map(m => m[1]);
+    const q = (l.match(/q:\s*'((?:[^'\\]|\\.)*)'/) || [])[1] || '';
+    const opts = [...((l.match(/opts:\s*\[(.*?)\]\s*,\s*correct/) || [])[1] || '').matchAll(/'((?:[^'\\]|\\.)*)'/g)].map(m => m[1]);
     const c = +((l.match(/correct:\s*(\d)/) || [])[1] || 0);
     console.log(n + '. ' + q.slice(0, 90) + ' | ' + (opts[c] || '').slice(0, 30));
   }
