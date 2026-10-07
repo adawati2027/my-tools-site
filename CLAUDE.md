@@ -17,7 +17,7 @@ Free multi-tool Arabic website (calculators, converters, games, daily-info tools
 - After adding a page: add URL to `build-sitemap.js` → `node build-sitemap.js` → `node build-search-index.js`
 - Language variants: edit root `<tool>.html` → `node build-lang-pages.js` (regenerates `/ar|fr|es|de|ru/<tool>/`; static translated blocks come from `lang-content/<lang>/<tool>.html`)
 - Tests (need headless Chrome via CDP, see script headers): `node test-calculators.js`, `node test-e2e.js`
-- `tools/gsc-inspect.js` (index status via API) · `tools/build-country-quiz.js` (country quiz from JSON) · `tools/js-syntax.js` (inline-JS syntax check) · `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/i18n-gaps.js` (translation helpers) · `tools/admhec-fetch.js` · `tools/indexnow.js` · `tools/gsc-sitemap.js` · `tools/quiz-levels.js list|apply <file> [hard-nums]` (new quizzes; easy counts as medium)
+- `tools/gsc-inspect.js` (index status via API) · `tools/build-country-quiz.js` (country quiz from JSON) · `tools/js-syntax.js` (inline-JS syntax check) · `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/i18n-gaps.js` (translation helpers) · `tools/indexnow.js` · `tools/gsc-sitemap.js` · `tools/quiz-levels.js list|apply <file> [hard-nums]` (new quizzes; easy counts as medium)
 - Daily 22:00 Windows task "Adawati CLAUDE.md cleanup" runs `tools/md-cleanup.cmd` (headless `claude -p`, edits only CLAUDE.md + archive), then `tools/md-verify-deploy.js` sanity-checks and pushes those 2 files if changed; log `%LOCALAPPDATA%\adawati-md-cleanup.log`).
 - Shared JS change (`i18n.js` etc.) → bump its `?v=N` in every referencing HTML (grep+sed) so browsers/Cloudflare pick it up.
 
@@ -44,7 +44,8 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 - **CSP**: any change must be made in BOTH the Worker `adawati-csp-nonce` and the "security headers" Transform Rule.
 - **masters/bachelor guides**: read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending (dead-end universities listed).
 - **Indexing**: owner wants API, not UI (2026-10-06). `node tools/indexnow.js` (Bing/Yandex, all sitemap URLs). Google: `node tools/gsc-sitemap.js` resubmits sitemap.xml via API (SA has Full since 2026-10-07) — run after adding pages; Google has no legit API for "Request Indexing" (Indexing API is jobs/livestream only — don't use it). Don't resubmit AdSense until organic traffic grows.
-- **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season; re-run `tools/admhec-import.js` with new owner-saved admhec pages (bachelor-guide).
+- **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season; re-run `tools/admhec-import.js` with new owner-saved admhec pages (bachelor-guide), then `tools/build-admission-data.js <same pages>` (what-can-i-study).
+- **Student tools data gaps**: University of Jordan has 2025 only (no 2021–24 history — needs owner-saved admhec page, code 100). Some private entries in bachelor-guide list minimums below the national floor (e.g. AAU engineering 65 vs 80) — what-can-i-study applies the floor; the guide itself still shows the raw value (needs audit).
 - Translations: only Arabic is maintained (fr/es/de/ru deliberately deferred, ~0 traffic).
 
 ## Documentation index (read only when relevant)
