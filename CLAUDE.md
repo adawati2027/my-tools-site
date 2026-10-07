@@ -17,7 +17,7 @@ Free multi-tool Arabic website (calculators, converters, games, daily-info tools
 - After adding a page: add URL to `build-sitemap.js` → `node build-sitemap.js` → `node build-search-index.js`
 - Language variants: edit root `<tool>.html` → `node build-lang-pages.js` (regenerates `/ar|fr|es|de|ru/<tool>/`; static translated blocks come from `lang-content/<lang>/<tool>.html`)
 - Tests (need headless Chrome via CDP, see script headers): `node test-calculators.js`, `node test-e2e.js`
-- `tools/gsc-inspect.js` (index status via API) · `tools/build-country-quiz.js` (country quiz from JSON) · `tools/js-syntax.js` (inline-JS syntax check) · `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/i18n-gaps.js` (translation helpers) · `tools/admhec-fetch.js` · `tools/indexnow.js` · `tools/gsc-sitemap.js` · `tools/quiz-levels.js`
+- `tools/gsc-inspect.js` (index status via API) · `tools/build-country-quiz.js` (country quiz from JSON) · `tools/js-syntax.js` (inline-JS syntax check) · `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/i18n-gaps.js` (translation helpers) · `tools/admhec-fetch.js` · `tools/indexnow.js` · `tools/gsc-sitemap.js` · `tools/quiz-levels.js list|apply <file> [hard-nums]` (new quizzes; easy counts as medium)
 - Daily 22:00 Windows task "Adawati CLAUDE.md cleanup" runs `tools/md-cleanup.cmd` (headless `claude -p`, edits only CLAUDE.md + archive), then `tools/md-verify-deploy.js` sanity-checks and pushes those 2 files if changed; log `%LOCALAPPDATA%dawati-md-cleanup.log`).
 - Shared JS change (`i18n.js` etc.) → bump its `?v=N` in every referencing HTML (grep+sed) so browsers/Cloudflare pick it up.
 
@@ -42,11 +42,9 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 ## Open items
 
 - **CSP**: any change must be made in BOTH the Worker `adawati-csp-nonce` and the "security headers" Transform Rule.
-- **bachelor-guide government universities**: all 10 public universities done 2026-10-07 via owner-saved admhec pages + `tools/admhec-import.js` (re-run each admission season with new saved pages).
 - **masters/bachelor guides**: read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending (dead-end universities listed).
 - **Indexing**: owner wants API, not UI (2026-10-06). `node tools/indexnow.js` (Bing/Yandex, all sitemap URLs). Google: `node tools/gsc-sitemap.js` resubmits sitemap.xml via API (SA has Full since 2026-10-07) — run after adding pages; Google has no legit API for "Request Indexing" (Indexing API is jobs/livestream only — don't use it). Don't resubmit AdSense until organic traffic grows.
-- **Quiz levels (medium/hard)**: DONE 2026-10-07 for all 18 quizzes (om/sa/ae/eg + 14 `jo/games/*`, logo-quiz excluded by owner). New quizzes: `node tools/quiz-levels.js list|apply <file> [hard-nums]`; easy counts as medium.
-- **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season.
+- **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season; re-run `tools/admhec-import.js` with new owner-saved admhec pages (bachelor-guide).
 - Translations: only Arabic is maintained (fr/es/de/ru deliberately deferred, ~0 traffic).
 
 ## Documentation index (read only when relevant)

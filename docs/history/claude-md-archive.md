@@ -39,3 +39,8 @@ When genuinely unresolvable, say so in the page's own disclaimer text rather tha
 
 - **Google sign-in**: fixed 2026-10-05 (CSP frame-src was blocking `adawati-challenges.firebaseapp.com`). Any CSP change must be made in BOTH the Worker `adawati-csp-nonce` and the "security headers" Transform Rule. See `docs/history/auth-accounts.md`.
 - **Ads board**: phases 1+2 live (ratings, comments, reports).  See `docs/history/ads-board.md`.
+
+## Moved from CLAUDE.md on 2026-10-07
+
+- **bachelor-guide government universities**: all 10 public universities done 2026-10-07 via owner-saved admhec pages + `tools/admhec-import.js` (re-run each admission season with new saved pages).
+- **Quiz levels (medium/hard)**: DONE 2026-10-07 for all 18 quizzes (om/sa/ae/eg + 14 `jo/games/*`, logo-quiz excluded by owner). New quizzes: `node tools/quiz-levels.js list|apply <file> [hard-nums]`; easy counts as medium.
