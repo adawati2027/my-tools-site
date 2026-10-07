@@ -160,6 +160,16 @@
     }
     return plan;
   }
+  function spread(left, next, summers, regCap, sumCap) {
+    var types = seq(next, summers, 40), n = 0, cap = 0;
+    while (cap < left) { cap += types[n] === 's' ? sumCap : regCap; n++; }
+    types = types.slice(0, n);
+    var w = types.map(function(t) { return t === 's' ? sumCap : regCap; }), W = cap;
+    var plan = types.map(function(t, i) { return { t: t, h: Math.floor(left * w[i] / W) }; });
+    var rest = left - plan.reduce(function(x, p) { return x + p.h; }, 0);
+    for (var i = 0; rest > 0; i = (i + 1) % plan.length) { if (plan[i].t !== 's' || plan[i].h < SUM) { plan[i].h++; rest--; } }
+    return plan;
+  }
   function even(left, next) {
     var n = Math.ceil(left / REG), types = seq(next, false, n), base = Math.floor(left / n), extra = left - base * n;
     return types.map(function(t, i) { return { t: t, h: base + (i < extra ? 1 : 0) }; });
@@ -220,7 +230,7 @@
     var next = $('hpNext').value, summers = $('hpSummer').checked;
     var res = [
       evaluate('🚀 أسرع تخرج', greedy(ctx.left, next, summers, REG, SUM), ctx),
-      evaluate('⚖️ متوازنة (15 بالعادي)', greedy(ctx.left, next, summers, LIGHT, summers ? 6 : SUM), ctx),
+      evaluate('⚖️ متوازنة', spread(ctx.left, next, summers, LIGHT, summers ? 6 : SUM), ctx),
       evaluate('📅 بدون صيفي', even(ctx.left, next === 's' ? '1' : next), ctx)
     ];
     var a = parsePlan($('hpA').value), b = parsePlan($('hpB').value);
