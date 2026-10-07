@@ -14,10 +14,10 @@ Free multi-tool Arabic website (calculators, converters, games, daily-info tools
 ## Commands & helpers
 
 - Deploy changed files (default): `node push-files.js <files...> --message "..."` · full site: `node push-to-github.js "msg"` (~300 files, rate-limit prone)
-- After adding a page: add URL to `build-sitemap.js` → `node build-sitemap.js` → `node build-search-index.js`
+- After adding a page: add URL to `build-sitemap.js` → `node build-sitemap.js` → `node build-search-index.js` → `node tools/indexnow.js <url>` + `node tools/gsc-sitemap.js`. OG images: headless `chrome --headless=new --screenshot --window-size=1200,630` of a small HTML card (templates in scratchpad `og/`).
 - Language variants: edit root `<tool>.html` → `node build-lang-pages.js` (regenerates `/ar|fr|es|de|ru/<tool>/`; static translated blocks come from `lang-content/<lang>/<tool>.html`)
 - Tests (need headless Chrome via CDP, see script headers): `node test-calculators.js`, `node test-e2e.js`
-- `tools/gsc-inspect.js` (index status via API) · `tools/build-country-quiz.js` (country quiz from JSON) · `tools/js-syntax.js` (inline-JS syntax check) · `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/i18n-gaps.js` (translation helpers) · `tools/indexnow.js` · `tools/gsc-sitemap.js` · `tools/quiz-levels.js list|apply <file> [hard-nums]` (new quizzes; easy counts as medium)
+- `tools/gsc-inspect.js` (index status via API) · `tools/build-country-quiz.js` (country quiz from JSON) · `tools/js-syntax.js` (inline-JS syntax check) · `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/i18n-gaps.js` (translation helpers) · `tools/build-admission-data.js` · `tools/build-tajweed-test-data.js` · `tools/quiz-levels.js list|apply <file> [hard-nums]` (new quizzes; easy counts as medium)
 - Daily 22:00 Windows task "Adawati CLAUDE.md cleanup" runs `tools/md-cleanup.cmd` (headless `claude -p`, edits only CLAUDE.md + archive), then `tools/md-verify-deploy.js` sanity-checks and pushes those 2 files if changed; log `%LOCALAPPDATA%\adawati-md-cleanup.log`).
 - Shared JS change (`i18n.js` etc.) → bump its `?v=N` in every referencing HTML (grep+sed) so browsers/Cloudflare pick it up.
 
