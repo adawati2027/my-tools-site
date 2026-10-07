@@ -223,7 +223,7 @@
     if (p === 10) return ['🏆 شهادة تميّز', 'ما شاء الله تبارك الله! علامة كاملة', 'نسأل الله أن يجعلك من أهل القرآن'];
     if (p >= 8) return ['🌟 شهادة تميّز', 'أحسنت وبارك الله فيك!', 'زادك الله علماً ونوراً'];
     if (p >= 6) return ['🎖️ شهادة إتمام', 'جميل جداً! كمّل وراجع الدروس', 'الله يفتح عليك ويثبّتك'];
-    return ['💪 بطاقة تشجيع', 'بداية حلوة! راجع الدروس وجرّب كمان مرة', 'خيركم من تعلّم القرآن وعلّمه'];
+    return ['💪 بطاقة تشجيع', 'بداية حلوة! راجع الدروس وجرّب كمان مرة', 'الله يفتح عليك ويجعلك من أهل القرآن'];
   }
   function wrap(ctx, text, x, y, maxW, lh) {
     var words = text.split(' '), line = '', lines = [];
@@ -242,7 +242,7 @@
     x.fillStyle = '#ffffff'; x.font = '600 40px Cairo, sans-serif'; x.fillText('تُمنح هذه الشهادة لـ', W / 2, 320);
     x.fillStyle = '#f6e7b8'; x.font = '700 104px Amiri, serif'; x.fillText(nm, W / 2, 460);
     x.fillStyle = '#ffffff'; x.font = '600 38px Cairo, sans-serif'; x.fillText('في اختبار التجويد — ' + LV[lv].replace(/^\S+\s/, ''), W / 2, 560);
-    x.font = '800 150px Cairo, sans-serif'; x.fillStyle = '#d4b26a'; x.fillText(score + ' / ' + Q.length, W / 2, 740);
+    x.font = '800 150px Cairo, sans-serif'; x.fillStyle = '#d4b26a'; x.fillText(score + ' من ' + Q.length, W / 2, 740);
     var stars = Math.round(score / 2); x.font = '64px sans-serif'; x.fillText('⭐'.repeat(stars) + '☆'.repeat(5 - stars), W / 2, 840);
     x.fillStyle = '#ffffff'; x.font = '700 48px Cairo, sans-serif';
     var n = wrap(x, b[1] + ' يا ' + nm + ' 🤍', W / 2, 960, W - 200, 64);
