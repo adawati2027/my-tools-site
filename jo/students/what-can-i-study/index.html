@@ -37,7 +37,10 @@
 .wc-input>div{flex:1;min-width:160px;}
 .wc-big{font-size:22px !important;font-weight:800;text-align:center;}
 .wc-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px;}
-.wc-sum div{border-radius:12px;padding:12px 6px;text-align:center;}
+.wc-sum div{border-radius:12px;padding:12px 6px;text-align:center;cursor:pointer;border:3px solid transparent;transition:transform .1s;}
+.wc-sum div:active{transform:scale(.97);}
+.wc-sum div.on{border-color:currentColor;}
+.wc-sum div.off{opacity:.45;}
 .wc-sum b{display:block;font-size:24px;line-height:1.2;}
 .wc-sum span{font-size:12px;font-weight:700;}
 .s-ok{background:#dcfce7;color:#166534;}
@@ -105,10 +108,11 @@
   <div class="card" id="wcOut" style="margin-top:16px;" hidden>
     <div id="wcHead" style="font-size:15px;font-weight:800;margin-bottom:10px;"></div>
     <div class="wc-sum">
-      <div class="s-ok"><b id="nOk">0</b><span>فرصتك عالية</span></div>
-      <div class="s-mid"><b id="nMid">0</b><span>على الحد</span></div>
-      <div class="s-near"><b id="nNear">0</b><span>قريبة (ناقصك شوي)</span></div>
+      <div class="s-ok" data-st="ok" role="button" tabindex="0"><b id="nOk">0</b><span>فرصتك عالية</span></div>
+      <div class="s-mid" data-st="mid" role="button" tabindex="0"><b id="nMid">0</b><span>على الحد</span></div>
+      <div class="s-near" data-st="near" role="button" tabindex="0"><b id="nNear">0</b><span>قريبة (ناقصك شوي)</span></div>
     </div>
+    <p id="wcHint" style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:8px;">👆 اكبس على أي مربع عشان تشوف تخصصاته بس</p>
     <button type="button" id="wcShare" class="btn btn-primary" style="width:100%;margin-top:12px;">📸 شارك نتيجتك كصورة</button>
     <div id="wcList"></div>
   </div>
@@ -144,7 +148,7 @@
 (function() {
   var D = window.ADM_DATA || [], Y = window.ADM_YEARS || [];
   var GROUPS = { health: 'طبي وصحي', engineering: 'هندسة', computing: 'حاسوب وتكنولوجيا', science: 'علوم', business: 'أعمال', humanities: 'آداب وإنسانيات', education: 'تربية', law: 'قانون' };
-  var state = { type: 'all', group: '', city: '', q: '' }, last = null;
+  var state = { type: 'all', group: '', city: '', q: '', st: '' }, last = null;
   var $ = function(id) { return document.getElementById(id); };
   var esc = function(s) { return String(s).replace(/[&<>"]/g, function(c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var gw = $('wcGroups');
@@ -163,7 +167,8 @@
   function card(e) {
     var h = '';
     if (e.h) {
-      h = '<div class="wc-hist">' + e.h.map(function(v, i) { return '<span>' + Y[i] + ': <b>' + (v == null ? '—' : v) + '</b></span>'; }).join('') + '</div>';
+      h = '<div class="wc-hist">' + e.h.map(function(v, i) { return v == null ? '' : '<span>' + Y[i] + ': <b>' + v + '</b></span>'; }).join('') + '</div>';
+      if (e.h.filter(function(v) { return v != null; }).length === 1) h += '<div class="wc-badges"><span class="wc-b">🆕 تخصص جديد — سنة وحدة بس</span></div>';
       var f = e.h.find(function(v) { return v != null; });
       if (f != null && f !== e.m) h += '<div class="wc-badges"><span class="wc-b">' + (e.m > f ? '📈 طالع ' : '📉 نازل ') + Math.abs(e.m - f).toFixed(2) + ' من ' + Y[e.h.indexOf(f)] + '</span></div>';
     }
@@ -197,7 +202,9 @@
     last = { a: a, by: by };
     $('nOk').textContent = by.ok.length; $('nMid').textContent = by.mid.length; $('nNear').textContent = by.near.length;
     $('wcHead').textContent = 'بمعدل ' + a + '٪ — هاي التخصصات المتاحة إلك:';
-    $('wcList').innerHTML = section('✅ فرصتك عالية', by.ok, 'ok') + section('⚖️ على الحد', by.mid, 'mid') + section('🔸 قريبة — ممكن إذا نزل الحد', by.near, 'near') ||
+    var only = function(k) { return !state.st || state.st === k; };
+    document.querySelectorAll('.wc-sum [data-st]').forEach(function(x) { x.classList.toggle('on', state.st === x.dataset.st); x.classList.toggle('off', !!state.st && state.st !== x.dataset.st); });
+    $('wcList').innerHTML = (only('ok') ? section('✅ فرصتك عالية', by.ok, 'ok') : '') + (only('mid') ? section('⚖️ على الحد', by.mid, 'mid') : '') + (only('near') ? section('🔸 قريبة — ممكن إذا نزل الحد', by.near, 'near') : '') ||
       '<p style="text-align:center;color:var(--text-muted);padding:18px;">ما لقينا تخصصات بهالفلترة — جرّب توسّع الفلاتر.</p>';
     $('wcOut').hidden = false;
     if (track) {
@@ -210,6 +217,11 @@
     $('sec' + b.dataset.sec).innerHTML = last.by[b.dataset.sec].map(card).join(''); b.remove();
   });
   $('wcGo').addEventListener('click', function() { run(true); });
+  document.querySelector('.wc-sum').addEventListener('click', function(ev) {
+    var b = ev.target.closest('[data-st]'); if (!b || !last) return;
+    state.st = state.st === b.dataset.st ? '' : b.dataset.st; run(false);
+    $('wcList').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
   $('wcAvg').addEventListener('keydown', function(ev) { if (ev.key === 'Enter') run(true); });
   $('wcType').addEventListener('click', function(ev) {
     var b = ev.target.closest('.option-btn'); if (!b) return;
