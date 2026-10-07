@@ -45,7 +45,7 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 - **masters/bachelor guides**: read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending (dead-end universities listed).
 - **Indexing**: owner wants API, not UI (2026-10-06). `node tools/indexnow.js` (Bing/Yandex, all sitemap URLs). Google: `node tools/gsc-sitemap.js` resubmits sitemap.xml via API (SA has Full since 2026-10-07) — run after adding pages; Google has no legit API for "Request Indexing" (Indexing API is jobs/livestream only — don't use it). Don't resubmit AdSense until organic traffic grows.
 - **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season; re-run `tools/admhec-import.js` with new owner-saved admhec pages (bachelor-guide), then `tools/build-admission-data.js <same pages>` (what-can-i-study).
-- **Student tools data gaps**: University of Jordan has 2025 only (no 2021–24 history — needs owner-saved admhec page, code 100). Some private entries in bachelor-guide list minimums below the national floor (e.g. AAU engineering 65 vs 80) — what-can-i-study applies the floor; the guide itself still shows the raw value (needs audit).
+- **Student tools data gaps**: Some private entries in bachelor-guide list minimums below the national floor (e.g. AAU engineering 65 vs 80) — what-can-i-study applies the floor; the guide itself still shows the raw value (needs audit).
 - Translations: only Arabic is maintained (fr/es/de/ru deliberately deferred, ~0 traffic).
 
 ## Documentation index (read only when relevant)
