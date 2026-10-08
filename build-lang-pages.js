@@ -164,6 +164,16 @@ TOOLS.forEach(tool => {
           const k = t.trim();
           return Object.prototype.hasOwnProperty.call(map, k) ? '>' + t.replace(k, map[k]) + '<' : all;
         }));
+        const dec = s => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+        const jmap = {};
+        for (const k of Object.keys(map)) jmap[dec(k)] = dec(map[k]);
+        html = html.replace(/(<script type="application\/ld\+json"[^>]*>)([\s\S]*?)(<\/script>)/g, (all, a, body, c) => {
+          try {
+            const walk = v => typeof v === 'string' ? (Object.prototype.hasOwnProperty.call(jmap, v.trim()) ? jmap[v.trim()] : v)
+              : Array.isArray(v) ? v.map(walk) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k2, x]) => [k2, walk(x)])) : v;
+            return a + JSON.stringify(walk(JSON.parse(body))).replace(/</g, '\\u003c') + c;
+          } catch (e) { return all; }
+        });
       }
     }
 
