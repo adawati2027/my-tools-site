@@ -137,6 +137,49 @@
   ING.forEach(function(g) { g[1].forEach(function(i) { LBL[i[0]] = i[2]; EMO[i[0]] = i[1]; }); });
   var sel = new Set(), last = null, shareRows = null;
   function setShare(rows) { shareRows = rows && rows.length ? rows : null; $('ckShare').style.display = shareRows ? '' : 'none'; }
+  function recipeCanvas(r) {
+    var W = 1080, P = 70, CW = W - 2 * P, IN = 50, TW = CW - 2 * IN, F = 'Cairo, Tajawal, "Segoe UI", Tahoma, sans-serif';
+    var c = document.createElement('canvas'), x = c.getContext('2d');
+    function wrap(t, font, max) { x.font = font; var w = String(t).split(' '), L = [], l = ''; w.forEach(function(p) { var tt = l ? l + ' ' + p : p; if (x.measureText(tt).width > max && l) { L.push(l); l = p; } else l = tt; }); if (l) L.push(l); return L; }
+    var fI = '500 34px ' + F, fS = '500 33px ' + F, mI = (r.m || []).map(function(t) { return wrap(t, fI, TW - 50); }), mS = r.s.map(function(t) { return wrap(t, fS, TW - 70); });
+    var h = 300 + 130 + 80;
+    h += 80 + mI.reduce(function(a, L) { return a + L.length * 48 + 12; }, 0);
+    h += 90 + mS.reduce(function(a, L) { return a + L.length * 50 + 18; }, 0);
+    h += 150;
+    c.width = W; c.height = h;
+    var g = x.createLinearGradient(0, 0, W, h); g.addColorStop(0, '#2563eb'); g.addColorStop(1, '#7c3aed'); x.fillStyle = g; x.fillRect(0, 0, W, h);
+    x.direction = 'rtl'; x.textAlign = 'center'; x.fillStyle = '#fff';
+    x.font = '800 46px ' + F; x.fillText('⚡ أدواتي', W / 2, 95);
+    x.font = '600 34px ' + F; x.globalAlpha = .9; x.fillText('شو أطبخ اليوم؟ 🍲', W / 2, 150); x.globalAlpha = 1;
+    var top = 200, ch = h - top - 110;
+    x.fillStyle = '#fff'; x.beginPath(); if (x.roundRect) x.roundRect(P, top, CW, ch, 36); else x.rect(P, top, CW, ch); x.fill();
+    var R0 = W - P - IN, y = top + 95;
+    x.textAlign = 'right'; x.fillStyle = '#1e1b4b'; x.font = '800 54px ' + F; x.fillText(r.e + ' ' + r.n, R0, y);
+    y += 62; x.font = '600 30px ' + F; x.fillStyle = '#64748b';
+    x.fillText('⏱️ ' + (r.t >= 60 ? (r.t / 60).toFixed(r.t % 60 ? 1 : 0) + ' ساعة' : r.t + ' دقيقة') + '  ·  ' + REG[r.r] + '  ·  ' + KIND[r.k] + '  ·  لـ 4 أشخاص تقريباً', R0, y);
+    y += 40; x.fillStyle = '#e2e8f0'; x.fillRect(P + IN, y, TW, 3);
+    y += 75; x.fillStyle = '#ea580c'; x.font = '800 40px ' + F; x.fillText('🧾 المقادير', R0, y); y += 20;
+    mI.forEach(function(L) { y += 48; x.fillStyle = '#ea580c'; x.font = '800 34px ' + F; x.fillText('•', R0, y); x.fillStyle = '#1e293b'; x.font = fI; L.forEach(function(l, i) { x.fillText(l, R0 - 40, y + i * 48); }); y += (L.length - 1) * 48 + 12; });
+    y += 80; x.fillStyle = '#2563eb'; x.font = '800 40px ' + F; x.fillText('👩‍🍳 طريقة التحضير', R0, y); y += 22;
+    mS.forEach(function(L, n) {
+      y += 50; x.fillStyle = '#2563eb'; x.beginPath(); x.arc(R0 - 22, y - 12, 22, 0, 7); x.fill();
+      x.fillStyle = '#fff'; x.textAlign = 'center'; x.font = '800 26px ' + F; x.fillText(String(n + 1), R0 - 22, y - 2); x.textAlign = 'right';
+      x.fillStyle = '#1e293b'; x.font = fS; L.forEach(function(l, i) { x.fillText(l, R0 - 62, y + i * 50); }); y += (L.length - 1) * 50 + 18;
+    });
+    x.textAlign = 'center'; x.fillStyle = '#fff'; x.font = '700 32px ' + F; x.fillText('adawati.space/jo/tools/what-to-cook', W / 2, h - 45);
+    return c;
+  }
+  function shareRecipe(r) {
+    var url = recipeCanvas(r).toDataURL('image/png');
+    try {
+      var bin = atob(url.split(',')[1]), arr = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+      var file = new File([arr], 'wasfa.png', { type: 'image/png' });
+      var show = function() { var o = document.createElement('div'); o.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:10px;'; o.innerHTML = '<img src="' + url + '" style="max-width:100%;max-height:80vh;border-radius:12px;"><div style="color:#fff;font-size:14px;">اضغط مطولاً على الصورة واختر «حفظ الصورة»</div><button type="button" style="padding:10px 22px;border-radius:999px;border:none;font-weight:800;font-family:inherit;">إغلاق</button>'; o.querySelector('button').onclick = function() { o.remove(); }; document.body.appendChild(o); };
+      if (navigator.canShare && navigator.canShare({ files: [file] })) navigator.share({ files: [file], title: r.n, text: 'وصفة ' + r.n + ' — ' + location.href }).catch(function(e) { if (!e || e.name !== 'AbortError') show(); });
+      else show();
+    } catch (e) {}
+    if (typeof gtag === 'function') gtag('event', 'export_result', { tool_name: 'what_to_cook_recipe' });
+  }
   function recipeRows(r) { return [{ label: r.e + ' ' + r.n, value: '⏱️ ' + r.t + ' د', highlight: true }].concat((r.m || []).slice(0, 7).map(function(x) { return { label: '• ' + x, value: '' }; })); }
   var dishes = function(n) { return n + (n >= 3 && n <= 10 ? ' أكلات' : ' أكلة'); };
   try { (JSON.parse(localStorage.getItem('ckSel') || '[]')).forEach(function(x) { if (LBL[x]) sel.add(x); }); } catch (e) {}
@@ -163,7 +206,7 @@
     var ings = plain ? r.q.map(function(x) { return '<span class="ck-ing">' + name(x) + '</span>'; }).join('') + r.o.map(function(x) { return '<span class="ck-ing opt">+ ' + LBL[x] + '</span>'; }).join('') : r.q.map(function(x) { return '<span class="ck-ing' + (has(x) ? '' : ' miss') + '">' + (has(x) ? '✓ ' : '✗ ') + name(x) + '</span>'; }).join('') +
       r.o.map(function(x) { return '<span class="ck-ing' + (sel.has(x) ? '' : ' opt') + '">' + (sel.has(x) ? '✓ ' : '+ ') + LBL[x] + '</span>'; }).join('');
     return '<div class="ck-card"><div class="ck-top"><span class="ck-emo">' + r.e + '</span><div><div class="ck-name">' + r.n + '</div><div class="ck-meta">⏱️ ' + (r.t >= 60 ? (r.t / 60).toFixed(r.t % 60 ? 1 : 0) + ' ساعة' : r.t + ' دقيقة') + ' · ' + REG[r.r] + ' · ' + KIND[r.k] + '</div></div></div>' +
-      '<div class="ck-ings">' + ings + '</div><details><summary>المقادير وطريقة التحضير</summary>' + (r.m ? '<div class="ck-m"><b>🧾 المقادير</b> <span style="font-size:12px;color:var(--text-muted);">(لـ 4 أشخاص تقريباً — 1 كوب = 250 مل)</span><ul>' + r.m.map(function(x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>' : '') + '<h4>👩‍🍳 طريقة التحضير</h4><ol>' + r.s.map(function(x) { return '<li>' + x + '</li>'; }).join('') + '</ol></details></div>';
+      '<div class="ck-ings">' + ings + '</div><details><summary>المقادير وطريقة التحضير</summary>' + (r.m ? '<div class="ck-m"><b>🧾 المقادير</b> <span style="font-size:12px;color:var(--text-muted);">(لـ 4 أشخاص تقريباً — 1 كوب = 250 مل)</span><ul>' + r.m.map(function(x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>' : '') + '<h4>👩‍🍳 طريقة التحضير</h4><ol>' + r.s.map(function(x) { return '<li>' + x + '</li>'; }).join('') + '</ol><button type="button" class="btn btn-primary" data-sh="' + R.indexOf(r) + '" style="width:100%;margin-top:10px;">📸 شارك الوصفة كصورة</button></details></div>';
   }
   function run(scroll) {
     if (!sel.size) {
@@ -197,7 +240,7 @@
     }
   }
   $('ckGo').addEventListener('click', function() { run(true); });
-  $('ckList').addEventListener('click', function(ev) { if (ev.target.id === 'ckMore') run(true); });
+  $('ckList').addEventListener('click', function(ev) { var sh = ev.target.closest('[data-sh]'); if (sh) { shareRecipe(R[+sh.getAttribute('data-sh')]); return; } if (ev.target.id === 'ckMore') run(true); });
   ['ckRegion', 'ckKind', 'ckTime'].forEach(function(id) { $(id).addEventListener('change', function() { if (last) run(false); }); });
   $('ckClear').addEventListener('click', function() {
     sel.clear(); document.querySelectorAll('.ck-chip.on').forEach(function(b) { b.classList.remove('on'); }); save(); $('ckOut').hidden = true; last = null;
@@ -214,12 +257,13 @@
     if (!ok.length) { $('ckHead').textContent = 'ما لقينا أكلة من اللي اخترته — زيد مكونات (زي رز، بصل، بندورة) أو غيّر الفلتر'; $('ckList').innerHTML = ''; setShare(null); $('ckOut').hidden = false; last = null; return; }
     var r = ok[Math.floor(Math.random() * ok.length)];
     $('ckHead').textContent = note;
-    $('ckList').innerHTML = card(r); setShare(recipeRows(r)); $('ckOut').hidden = false; last = null;
+    $('ckList').innerHTML = card(r); setShare([{ recipe: r }]); $('ckOut').hidden = false; last = null;
     var d = $('ckList').querySelector('details'); if (d) d.open = true;
     $('ckOut').scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (typeof gtag === 'function') gtag('event', 'cook_random', { ingredients: sel.size });
   });
   $('ckShare').addEventListener('click', function() {
+    if (shareRows && shareRows[0].recipe) return shareRecipe(shareRows[0].recipe);
     if (!shareRows || typeof exportResultImage !== 'function') return;
     exportResultImage('شو أطبخ اليوم؟ 🍲', shareRows);
     if (typeof gtag === 'function') gtag('event', 'export_result', { tool_name: 'what_to_cook' });
