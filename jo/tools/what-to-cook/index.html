@@ -77,12 +77,12 @@
   <div class="card">
     <div class="card-icon" style="background:#fff7ed;">🍲</div>
     <h1 class="card-title">شو أطبخ اليوم؟ 🍲</h1>
-    <div class="card-subtitle">اختار اللي عندك بالبيت، وبنقلّك شو بتقدر تطبخ هلأ — أكلات أردنية وشامية وخليجية ومصرية</div>
+    <div class="card-subtitle">اختار اللي عندك بالبيت، وبنقلّك شو بتقدر تطبخ هلأ — أكثر من 240 أكلة من 12 مطبخ: أردني وشامي، خليجي، مصري، عراقي، مغربي، تونسي، تركي، هندي، إيطالي، يمني، سوداني</div>
     <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">🧂 بنفترض عندك: ملح، بهارات، زيت، سكر، ومي.</p>
     <div class="divider"></div>
     <div class="ck-step">1️⃣ شو بدك تطبخ؟</div>
     <div class="ck-filters" style="margin-top:6px;">
-      <select id="ckRegion" aria-label="المطبخ"><option value="">كل المطابخ</option><option value="lev">أردني وشامي</option><option value="gulf">خليجي</option><option value="eg">مصري</option></select>
+      <select id="ckRegion" aria-label="المطبخ"><option value="">كل المطابخ</option><option value="lev">أردني وشامي</option><option value="gulf">خليجي</option><option value="eg">مصري</option><option value="iq">عراقي</option><option value="ma">مغربي</option><option value="tn">تونسي وجزائري</option><option value="tr">تركي</option><option value="in">هندي</option><option value="it">إيطالي</option><option value="ye">يمني</option><option value="sd">سوداني</option></select>
       <select id="ckKind" aria-label="النوع"><option value="">كل الأنواع</option><option value="main">طبخة رئيسية</option><option value="light">خفيف (فطور/عشا)</option><option value="sweet">حلو</option></select>
       <select id="ckTime" aria-label="الوقت"><option value="">أي وقت</option><option value="30">نص ساعة أو أقل</option><option value="60">ساعة أو أقل</option></select>
     </div>
@@ -128,12 +128,12 @@
   </div>
 </footer>
 
-<script src="jo/tools/what-to-cook/data.js?v=3"></script>
+<script src="jo/tools/what-to-cook/data.js?v=4"></script>
 <script nonce="qJusKIcjpjCC6KiWIOeAOg==">
 (function() {
   var ING = window.COOK_ING || [], R = window.COOK || [];
   var $ = function(id) { return document.getElementById(id); };
-  var LBL = {}, EMO = {}, REG = { lev: 'أردني وشامي', gulf: 'خليجي', eg: 'مصري', all: 'عام' }, KIND = { main: 'رئيسية', light: 'خفيف', sweet: 'حلو' };
+  var LBL = {}, EMO = {}, REG = { lev: 'أردني وشامي', gulf: 'خليجي', eg: 'مصري', iq: 'عراقي', ma: 'مغربي', tn: 'تونسي وجزائري', tr: 'تركي', in: 'هندي', it: 'إيطالي', ye: 'يمني', sd: 'سوداني', all: 'عام' }, KIND = { main: 'رئيسية', light: 'خفيف', sweet: 'حلو' };
   ING.forEach(function(g) { g[1].forEach(function(i) { LBL[i[0]] = i[2]; EMO[i[0]] = i[1]; }); });
   var sel = new Set(), last = null, shareRows = null;
   function setShare(rows) { shareRows = rows && rows.length ? rows : null; $('ckShare').style.display = shareRows ? '' : 'none'; }
