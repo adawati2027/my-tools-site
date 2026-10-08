@@ -43,11 +43,11 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 
 - **CSP**: any change must be made in BOTH the Worker `adawati-csp-nonce` and the "security headers" Transform Rule.
 - **masters/bachelor guides**: read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending (dead-end universities listed).
-- **AdSense** (rejected 2026-10-08: replicated + low-value content): duplicate pairs cut 550 → 13, thin pages padded with real content (quiz `tools/quiz-static.js`, wedding `tools/fill-data-t.js`, games/kids/about/contact). Left: holidays/gold/prayer pages for ae/uk/us/om/sa ~60–80% alike (need verified country facts). Request review only after organic traffic grows.
-- **Indexing**: owner wants API, not UI (2026-10-06). `node tools/indexnow.js` (Bing/Yandex, all sitemap URLs). Google: `node tools/gsc-sitemap.js` resubmits sitemap.xml via API (SA has Full since 2026-10-07) — run after adding pages; Google has no legit API for "Request Indexing" (Indexing API is jobs/livestream only — don't use it).
+- **AdSense** (rejected 2026-10-08): duplicates 550→13, thin pages fixed (see seo-growth.md). Left: holidays/gold/prayer pages ae/uk/us/om/sa ~60–80% alike. Review only after organic traffic grows.
+- **Indexing** via API only: `node tools/indexnow.js` + `node tools/gsc-sitemap.js` after adding pages. Never Google's Indexing API (jobs/livestream only).
 - **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season; re-run `tools/admhec-import.js` with new owner-saved admhec pages (bachelor-guide), then `tools/build-admission-data.js <same pages>` (what-can-i-study).
-- **Student tools data gaps**: Some private entries in bachelor-guide list minimums below the national floor (e.g. AAU engineering 65 vs 80) — what-can-i-study applies the floor; the guide itself still shows the raw value (needs audit).
-- **Translations**: ar/fr/es/de/ru body + JSON-LD for all 30 root tools are static maps (`node tools/lang-map.js extract|write|merge|status` → `lang-content/<lang>/<tool>.html` → `node build-lang-pages.js`). Editing a root tool's English text = update its maps or the changed strings fall back to English.
+- **Data audit**: some private bachelor-guide minimums are below the national floor (e.g. AAU engineering 65 vs 80); what-can-i-study applies the floor, the guide doesn't yet.
+- **Translations**: 30 root tools × ar/fr/es/de/ru are static maps — `node tools/lang-map.js extract|write|merge|status` → `node build-lang-pages.js`. Edit English text = update maps too.
 
 ## Documentation index (read only when relevant)
 
