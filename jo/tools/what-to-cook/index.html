@@ -142,7 +142,7 @@
     var c = document.createElement('canvas'), x = c.getContext('2d');
     function wrap(t, font, max) { x.font = font; var w = String(t).split(' '), L = [], l = ''; w.forEach(function(p) { var tt = l ? l + ' ' + p : p; if (x.measureText(tt).width > max && l) { L.push(l); l = p; } else l = tt; }); if (l) L.push(l); return L; }
     var fI = '500 34px ' + F, fS = '500 33px ' + F, mI = (r.m || []).map(function(t) { return wrap(t, fI, TW - 50); }), mS = r.s.map(function(t) { return wrap(t, fS, TW - 70); });
-    var h = 300 + 130 + 80;
+    var h = 300 + 130 + 10;
     h += 80 + mI.reduce(function(a, L) { return a + L.length * 48 + 12; }, 0);
     h += 90 + mS.reduce(function(a, L) { return a + L.length * 50 + 18; }, 0);
     h += 150;
