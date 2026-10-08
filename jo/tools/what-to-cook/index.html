@@ -55,6 +55,7 @@
 .ck-card summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--primary);}
 .ck-card ol{margin:8px 0 0;padding-right:20px;font-size:14px;line-height:1.9;color:var(--text);}
 .ck-filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.ck-step{font-weight:800;font-size:15px;margin-bottom:4px;}
 .ck-filters select{flex:1;min-width:130px;}
 </style>
 </head>
@@ -76,12 +77,14 @@
     <div class="card-subtitle">اختار اللي عندك بالبيت، وبنقلّك شو بتقدر تطبخ هلأ — أكلات أردنية وشامية وخليجية ومصرية</div>
     <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">🧂 بنفترض عندك: ملح، بهارات، زيت، سكر، ومي.</p>
     <div class="divider"></div>
-    <div id="ckChips"></div>
-    <div class="ck-filters" style="margin-top:14px;">
+    <div class="ck-step">1️⃣ شو بدك تطبخ؟</div>
+    <div class="ck-filters" style="margin-top:6px;">
       <select id="ckRegion" aria-label="المطبخ"><option value="">كل المطابخ</option><option value="lev">أردني وشامي</option><option value="gulf">خليجي</option><option value="eg">مصري</option></select>
       <select id="ckKind" aria-label="النوع"><option value="">كل الأنواع</option><option value="main">طبخة رئيسية</option><option value="light">خفيف (فطور/عشا)</option><option value="sweet">حلو</option></select>
       <select id="ckTime" aria-label="الوقت"><option value="">أي وقت</option><option value="30">نص ساعة أو أقل</option><option value="60">ساعة أو أقل</option></select>
     </div>
+    <div class="ck-step" style="margin-top:16px;">2️⃣ شو عندك بالبيت؟ <span style="font-weight:600;color:var(--text-muted);font-size:12px;">(اختياري — إذا ما اخترت إشي بنقترح عليك)</span></div>
+    <div id="ckChips"></div>
     <div class="ck-bar">
       <button type="button" id="ckGo" class="btn btn-primary">شو بقدر أطبخ؟ 🍳 <span id="ckCount"></span></button>
       <button type="button" id="ckRandom" class="btn" style="background:var(--surface-2);border:2px solid var(--border);color:var(--text);">🎲 فاجئني</button>
@@ -122,7 +125,7 @@
   </div>
 </footer>
 
-<script src="jo/tools/what-to-cook/data.js?v=1"></script>
+<script src="jo/tools/what-to-cook/data.js?v=2"></script>
 <script nonce="qJusKIcjpjCC6KiWIOeAOg==">
 (function() {
   var ING = window.COOK_ING || [], R = window.COOK || [];
@@ -151,14 +154,24 @@
     var rg = $('ckRegion').value, kd = $('ckKind').value, tm = +$('ckTime').value;
     return R.filter(function(r) { return (!rg || r.r === rg || r.r === 'all') && (!kd || r.k === kd) && (!tm || r.t <= tm); });
   }
-  function card(r) {
-    var ings = r.q.map(function(x) { return '<span class="ck-ing' + (has(x) ? '' : ' miss') + '">' + (has(x) ? '✓ ' : '✗ ') + name(x) + '</span>'; }).join('') +
+  function card(r, plain) {
+    var ings = plain ? r.q.map(function(x) { return '<span class="ck-ing">' + name(x) + '</span>'; }).join('') + r.o.map(function(x) { return '<span class="ck-ing opt">+ ' + LBL[x] + '</span>'; }).join('') : r.q.map(function(x) { return '<span class="ck-ing' + (has(x) ? '' : ' miss') + '">' + (has(x) ? '✓ ' : '✗ ') + name(x) + '</span>'; }).join('') +
       r.o.map(function(x) { return '<span class="ck-ing' + (sel.has(x) ? '' : ' opt') + '">' + (sel.has(x) ? '✓ ' : '+ ') + LBL[x] + '</span>'; }).join('');
     return '<div class="ck-card"><div class="ck-top"><span class="ck-emo">' + r.e + '</span><div><div class="ck-name">' + r.n + '</div><div class="ck-meta">⏱️ ' + (r.t >= 60 ? (r.t / 60).toFixed(r.t % 60 ? 1 : 0) + ' ساعة' : r.t + ' دقيقة') + ' · ' + REG[r.r] + ' · ' + KIND[r.k] + '</div></div></div>' +
       '<div class="ck-ings">' + ings + '</div><details><summary>طريقة التحضير</summary><ol>' + r.s.map(function(x) { return '<li>' + x + '</li>'; }).join('') + '</ol></details></div>';
   }
   function run(scroll) {
-    if (!sel.size) { $('ckChips').scrollIntoView({ behavior: 'smooth' }); return; }
+    if (!sel.size) {
+      var pool = filtered().slice();
+      for (var i = pool.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
+      var pick = pool.slice(0, 12);
+      last = 'sug';
+      $('ckHead').textContent = pool.length ? '💡 اقتراحاتنا إلك (' + pick.length + ' من ' + dishes(pool.length) + ' بتناسب اختيارك)' : 'ما في أكلات بهالفلتر — جرّب تغيّر الاختيار';
+      $('ckList').innerHTML = pick.map(function(r) { return card(r, true); }).join('') + (pool.length > 12 ? '<button type="button" id="ckMore" class="btn" style="width:100%;margin:6px 0;background:var(--surface-2);border:2px solid var(--border);color:var(--text);">🔄 اقتراحات غيرها</button>' : '');
+      $('ckShare').hidden = true; $('ckOut').hidden = false;
+      if (scroll) { $('ckOut').scrollIntoView({ behavior: 'smooth', block: 'start' }); if (typeof gtag === 'function') gtag('event', 'cook_search', { ingredients: 0, can_cook: pool.length }); }
+      return;
+    }
     var rows = filtered().map(function(r) {
       var miss = r.q.filter(function(x) { return !has(x); }).length, opt = r.o.filter(function(x) { return sel.has(x); }).length;
       return { r: r, miss: miss, opt: opt };
@@ -179,6 +192,7 @@
     }
   }
   $('ckGo').addEventListener('click', function() { run(true); });
+  $('ckList').addEventListener('click', function(ev) { if (ev.target.id === 'ckMore') run(true); });
   ['ckRegion', 'ckKind', 'ckTime'].forEach(function(id) { $(id).addEventListener('change', function() { if (last) run(false); }); });
   $('ckClear').addEventListener('click', function() {
     sel.clear(); document.querySelectorAll('.ck-chip.on').forEach(function(b) { b.classList.remove('on'); }); save(); $('ckOut').hidden = true; last = null;
@@ -187,12 +201,12 @@
     var pool = filtered(); if (sel.size) { var ok = pool.filter(function(r) { return r.q.every(has); }); if (ok.length) pool = ok; }
     var r = pool[Math.floor(Math.random() * pool.length)]; if (!r) return;
     $('ckHead').textContent = '🎲 اقتراحنا إلك اليوم:';
-    $('ckList').innerHTML = card(r); $('ckShare').hidden = true; $('ckOut').hidden = false; last = null;
+    $('ckList').innerHTML = card(r, !sel.size); $('ckShare').hidden = true; $('ckOut').hidden = false; last = null;
     $('ckOut').scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (typeof gtag === 'function') gtag('event', 'cook_random', {});
   });
   $('ckShare').addEventListener('click', function() {
-    if (!last || !last[0].length || typeof exportResultImage !== 'function') return;
+    if (!last || last === 'sug' || !last[0].length || typeof exportResultImage !== 'function') return;
     var rows = [{ label: 'عندي بالبيت', value: sel.size + ' مكوّن' }, { label: 'بقدر أطبخ', value: dishes(last[0].length), highlight: true }];
     last[0].slice(0, 6).forEach(function(r) { rows.push({ label: r.e + ' ' + r.n, value: '⏱️ ' + r.t + ' د' }); });
     exportResultImage('شو أطبخ اليوم؟ 🍲', rows);
