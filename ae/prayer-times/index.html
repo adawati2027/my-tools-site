@@ -85,7 +85,7 @@
 
     <div class="card" style="margin-top:16px;">
     <div class="card-title" style="font-size:15px;">💡 How Prayer Times Are Calculated — and Why Sources Can Differ Slightly</div>
-    <p style="font-size:13px;color:var(--text-muted);margin-top:8px;line-height:1.8;">Prayer times are calculated astronomically based on the sun's angle below the horizon at Fajr and Isha, and that angle depends on the "calculation method" used — this page uses the Gulf Region method, the one most widely adopted in the UAE. Because of this, you may see a small difference (a few minutes) between sources using different calculation methods — both can be correct, just based on different conventions.</p>
+    <p style="font-size:13px;color:var(--text-muted);margin-top:8px;line-height:1.8;">Prayer times are calculated astronomically based on the sun's angle below the horizon at Fajr and Isha, and that angle depends on the "calculation method" used — this page uses the 18.2° method (Fajr and Isha at 18.2° below the horizon) that UAE prayer-time sources commonly use. Because of this, you may see a small difference (a few minutes) between sources using different calculation methods — both can be correct, just based on different conventions.</p>
     <p style="font-size:13px;color:var(--text-muted);margin-top:10px;line-height:1.8;">Times shift daily as the Earth's tilt and orbit gradually change sunrise and sunset throughout the year. Some local mosques add a small safety margin of a few minutes to the calculated times as a precaution — that's not a calculation error, just an additional local practice.</p>
   </div>
 
@@ -111,6 +111,16 @@
       <a href="ae/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇦🇪 All UAE Tools</a>
     </div>
   </div>
+<!--country-facts-->
+  <div class="card" style="margin-top:16px;">
+    <h2 class="card-title" style="font-size:16px;">🇦🇪 Prayer times in the UAE — what to know</h2>
+    <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-left:18px;margin-top:8px;">
+      <li>This page uses the 18.2° method for both Fajr and Isha, the convention UAE prayer-time sources commonly follow. Times shown in mosques are published by the General Authority of Islamic Affairs and Endowments (Awqaf), which may add a precautionary margin of a few minutes.</li>
+      <li>Times differ between emirates: cities further east (such as Fujairah) reach each prayer a few minutes earlier than Abu Dhabi.</li>
+      <li>The UAE does not use daylight saving time, so prayer times change only gradually through the year.</li>
+    </ul>
+  </div>
+<!--/country-facts-->
 </div></main>
 
 <footer class="footer" style="padding:28px;">
@@ -146,7 +156,7 @@ function fetchTimes() {
   document.getElementById('timesGrid').style.display = 'none';
   document.getElementById('errorMsg').style.display = 'none';
 
-  const url = 'https://api.aladhan.com/v1/timingsByCity?city=' + city + '&country=United%20Arab%20Emirates&method=8';
+  const url = 'https://api.aladhan.com/v1/timingsByCity?city=' + city + '&country=United%20Arab%20Emirates&method=16';
   const controller = new AbortController();
   const timeoutId = setTimeout(function() { controller.abort(); }, 6000);
   fetch(url, { signal: controller.signal })
