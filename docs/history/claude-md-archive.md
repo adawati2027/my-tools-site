@@ -50,3 +50,9 @@ When genuinely unresolvable, say so in the page's own disclaimer text rather tha
 - Language variants: edit root `<tool>.html` → `node build-lang-pages.js` (regenerates `/ar|fr|es|de|ru/<tool>/`; static translated blocks come from `lang-content/<lang>/<tool>.html`)
 - `tools/gsc-inspect.js` (index status via API) · `tools/build-country-quiz.js` (country quiz from JSON) · `tools/js-syntax.js` (inline-JS syntax check) · `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/i18n-gaps.js` (translation helpers) · `tools/build-admission-data.js` · `tools/build-tajweed-test-data.js` · `tools/quiz-levels.js list|apply <file> [hard-nums]` (new quizzes; easy counts as medium)
 - **Translations**: 30 root tools × ar/fr/es/de/ru are static maps — `node tools/lang-map.js extract|write|merge|status` → `node build-lang-pages.js`. Edit English text = update maps too.
+
+## Moved from CLAUDE.md on 2026-10-08 (2)
+
+- **Script/API first, browser last.** Browser only for actions with no API (e.g. GSC "Request Indexing").
+- **Indexing** via API only: `node tools/indexnow.js` + `node tools/gsc-sitemap.js` after adding pages. Never Google's Indexing API (jobs/livestream only).
+- **AdSense** (rejected 2026-10-08): duplicate pairs 550→1, thin pages fixed, country fact sections on holidays/gold/prayer/weather (see seo-growth.md). Request review only after organic traffic grows (~2–3 weeks of recrawl).
