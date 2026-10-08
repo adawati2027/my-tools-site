@@ -36,6 +36,12 @@
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function(e) {
       if (lb) { lb.disabled = false; lb.textContent = '🔐 الدخول عبر Google'; }
       if (e && (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request')) return;
+      if (e && /popup-blocked|operation-not-supported|web-storage-unsupported/.test(e.code || '')) {
+        if (msg) msg.textContent = '↪️ رح نوديك لصفحة Google للدخول وبترجع لهون...';
+        try { sessionStorage.setItem('ccReopen', '1'); } catch (x) {}
+        firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider()).catch(function(e2) { if (msg) msg.textContent = 'ما زبط الدخول (' + ((e2 && e2.code) || '') + ') — جرّب من Safari.'; });
+        return;
+      }
       if (msg) msg.textContent = 'ما زبط الدخول (' + ((e && e.code) || '') + ') — جرّب مرة ثانية.';
     });
   }
@@ -245,6 +251,8 @@
       '<button type="button" class="cc-open" style="padding:9px 16px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-weight:800;font-family:inherit;cursor:pointer;">💬 افتح الشات</button></div>' +
       '<div style="font-size:12px;color:var(--text-muted);margin-top:6px;">احكي مع أصحابك بالتحدي — أي حدا بيقدر يتفرّج، والكتابة للمسجّلين</div>';
     box.querySelector('.cc-open').addEventListener('click', openChat);
+    var reopen = false; try { reopen = sessionStorage.getItem('ccReopen') === '1'; sessionStorage.removeItem('ccReopen'); } catch (x) {}
+    if (reopen) openChat();
   }
 
   function openChat() {
