@@ -46,7 +46,7 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 - **Indexing**: owner wants API, not UI (2026-10-06). `node tools/indexnow.js` (Bing/Yandex, all sitemap URLs). Google: `node tools/gsc-sitemap.js` resubmits sitemap.xml via API (SA has Full since 2026-10-07) — run after adding pages; Google has no legit API for "Request Indexing" (Indexing API is jobs/livestream only — don't use it). Don't resubmit AdSense until organic traffic grows.
 - **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season; re-run `tools/admhec-import.js` with new owner-saved admhec pages (bachelor-guide), then `tools/build-admission-data.js <same pages>` (what-can-i-study).
 - **Student tools data gaps**: Some private entries in bachelor-guide list minimums below the national floor (e.g. AAU engineering 65 vs 80) — what-can-i-study applies the floor; the guide itself still shows the raw value (needs audit).
-- Translations: only Arabic is maintained (fr/es/de/ru deliberately deferred, ~0 traffic).
+- **Translations**: fr/es/de/ru body text + JSON-LD for all 30 root tools translated 2026-10-08 (AdSense 'replicated content' fix) via `node tools/lang-map.js extract|write|status` → `lang-content/<lang>/<tool>.html` maps → `node build-lang-pages.js`. When editing a root tool's English text, re-run extract and update the 4 maps (changed strings fall back to English). **Open: `/ar/` still ~90% English for 25 tools** (only salary/eos/vat/bmi/loan have Arabic blocks).
 
 ## Documentation index (read only when relevant)
 
