@@ -47,7 +47,7 @@
 .tt-fb.no{background:#fef3c7;color:#92400e;}
 .tt-kids .tt-q{font-size:20px;}
 .tt-kids .tt-opts button{font-size:17px;padding:15px;}
-#ttCanvas{width:100%;max-width:420px;display:block;margin:12px auto 0;border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.15);}
+#ttImg{width:100%;max-width:420px;display:block;margin:12px auto 0;border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.15);}
 </style>
 </head>
 <body>
@@ -91,8 +91,10 @@
 
   <div class="card" id="ttDone" hidden>
     <div id="ttMsg" style="text-align:center;font-size:17px;font-weight:800;line-height:1.8;"></div>
-    <canvas id="ttCanvas" width="1080" height="1350"></canvas>
-    <button type="button" id="ttShare" class="btn btn-primary" style="width:100%;margin-top:14px;">📤 شارك الشهادة</button>
+    <canvas id="ttCanvas" width="1080" height="1350" hidden></canvas>
+    <img id="ttImg" alt="شهادة اختبار التجويد" style="width:100%;max-width:420px;display:block;margin:12px auto 0;border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.15);">
+    <p style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:6px;">💡 على الجوال: اضغط مطولاً على الشهادة واختر «حفظ الصورة»</p>
+    <div style="display:flex;gap:8px;margin-top:14px;"><button type="button" id="ttShare" class="btn btn-primary" style="flex:1;">📤 شارك الشهادة</button><button type="button" id="ttSave" class="btn" style="flex:1;background:#16a34a;color:#fff;">💾 حفظ الصورة</button></div>
     <div style="display:flex;gap:8px;margin-top:10px;">
       <button type="button" id="ttAgain" class="btn" style="flex:1;background:var(--surface-2);border:2px solid var(--border);color:var(--text);">🔁 اختبار جديد</button>
       <a href="quran/tajweed/" class="btn" style="flex:1;background:var(--surface-2);border:2px solid var(--border);color:var(--text);text-align:center;">📚 راجع الدروس</a>
@@ -179,7 +181,9 @@
   var SUR = null;
   fetch('quran/data/index.json').then(function(r) { return r.json(); }).then(function(d) { SUR = {}; d.forEach(function(x) { SUR[x[0]] = x[1]; }); }).catch(function() {});
   var shuffle = function(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; };
-  var lv = 'kids', Q = [], cur = 0, score = 0, nm = '';
+  var lv = 'kids', Q = [], cur = 0, score = 0, nm = '', certBlob = null;
+  var qlv = (location.search.match(/[?&]lv=(kids|l1|l2|l3|all)/) || [])[1];
+  if (qlv) { lv = qlv; document.querySelectorAll('#ttLevels button').forEach(function(x) { x.classList.toggle('on', x.dataset.lv === qlv); }); }
   function build(level) {
     var inLv = function(l) { return level === 'all' || l === level; };
     var bank = F.filter(function(f) { return inLv(f[0]); }).map(function(f) { return { q: f[1], o: f[2], c: f[2][0], e: f[3] }; });
@@ -263,6 +267,9 @@
     x.fillStyle = 'rgba(255,255,255,.75)'; x.font = '500 26px Cairo, sans-serif';
     x.fillText(new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' }) + ' · شهادة تشجيعية', W / 2, H - 150);
     x.fillStyle = '#d4b26a'; x.font = '800 34px Cairo, sans-serif'; x.fillText('⚡ أدواتي · adawati.space', W / 2, H - 95);
+    $('ttImg').src = c.toDataURL('image/png');
+    certBlob = null;
+    c.toBlob(function(b) { certBlob = b; }, 'image/png');
   }
   function finish() {
     $('ttBar').style.width = '100%'; $('ttQuiz').hidden = true; $('ttDone').hidden = false;
@@ -272,17 +279,19 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (typeof gtag === 'function') gtag('event', 'tajweed_test_done', { level: lv, score: score });
   }
+  function saveImg() {
+    var a = document.createElement('a'); a.href = $('ttImg').src; a.download = 'shahada-tajweed.png'; document.body.appendChild(a); a.click(); a.remove();
+  }
   $('ttShare').addEventListener('click', function() {
-    $('ttCanvas').toBlob(function(blob) {
-      var file = new File([blob], 'shahada-tajweed.png', { type: 'image/png' });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        navigator.share({ files: [file], title: 'شهادة اختبار التجويد', text: 'جرّب اختبار التجويد: https://adawati.space/quran/tajweed/test/' }).catch(function() {});
-      } else {
-        var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'shahada-tajweed.png'; document.body.appendChild(a); a.click(); a.remove();
-      }
-      if (typeof gtag === 'function') gtag('event', 'export_result', { tool_name: 'tajweed_test' });
-    }, 'image/png');
+    var file = certBlob ? new File([certBlob], 'shahada-tajweed.png', { type: 'image/png' }) : null;
+    if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: 'شهادة اختبار التجويد', text: 'جرّب اختبار التجويد: https://adawati.space/quran/tajweed/test/' }).catch(function() {});
+    } else if (navigator.share) {
+      navigator.share({ title: 'شهادة اختبار التجويد', text: 'جبت ' + score + ' من ' + Q.length + ' باختبار التجويد 🌟', url: 'https://adawati.space/quran/tajweed/test/' }).catch(function() {});
+    } else saveImg();
+    if (typeof gtag === 'function') gtag('event', 'export_result', { tool_name: 'tajweed_test' });
   });
+  $('ttSave').addEventListener('click', function() { saveImg(); if (typeof gtag === 'function') gtag('event', 'export_result', { tool_name: 'tajweed_test_save' }); });
   $('ttAgain').addEventListener('click', function() { $('ttDone').hidden = true; $('ttStart').hidden = false; window.scrollTo({ top: 0, behavior: 'smooth' }); });
 })();
 </script>
