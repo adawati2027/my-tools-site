@@ -99,7 +99,6 @@ const countryTools = [
   `${BASE}/quran/hadith/`,
   `${BASE}/quran/tajweed/`,
   `${BASE}/quran/tajweed/test/`,
-  `${BASE}/jo/ads/submit/`,
   `${BASE}/jo/students/best-tools/`,
   `${BASE}/om/gold-price/`,
   `${BASE}/om/weather/`,

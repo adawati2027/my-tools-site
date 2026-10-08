@@ -39,6 +39,21 @@ if (cmd === 'extract') {
     fs.writeFileSync(f, src);
     console.log(lang, tool, Object.keys(map).length, 'entries');
   }
+} else if (cmd === 'merge') {
+  // node tools/lang-map.js merge <tool> <file.json>  → file.json = {"fr":{"English text":"traduction",...},"ar":{...}} (adds/overrides entries)
+  const tr = JSON.parse(fs.readFileSync(file, 'utf8'));
+  for (const lang of Object.keys(tr)) {
+    const f = path.join(ROOT, 'lang-content', lang, tool + '.html');
+    let src = fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : '';
+    const old = src.match(/<!--map:([\s\S]*?)-->/);
+    const map = old ? JSON.parse(old[1]) : {};
+    for (const [k, v] of Object.entries(tr[lang])) map[k] = esc(v);
+    const block = '<!--map:' + JSON.stringify(map, null, 0).replace(/","/g, '",\n"') + '-->';
+    src = old ? src.replace(old[0], () => block) : (src ? src + '\n' : '') + block + '\n';
+    fs.mkdirSync(path.dirname(f), { recursive: true });
+    fs.writeFileSync(f, src);
+    console.log(lang, tool, Object.keys(map).length, 'entries');
+  }
 } else if (cmd === 'status') {
   const tools = fs.readFileSync(path.join(ROOT, 'build-lang-pages.js'), 'utf8').match(/const TOOLS = \[([\s\S]*?)\]/)[1].match(/'[^']+'/g).map(s => s.slice(1, -1));
   for (const t of tools) {
