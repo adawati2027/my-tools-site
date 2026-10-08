@@ -20,6 +20,7 @@
   }
   var signingIn = false;
   function signIn() {
+    if (typeof firebase.auth !== 'function') { var m0 = box.querySelector('.cc-msg'); if (m0) m0.textContent = '⏳ لحظة، لسا بنجهّز الدخول — جرّب كمان ثانيتين.'; return; }
     signingIn = true;
     var nativeAuth = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.FirebaseAuthentication;
     var msg = box.querySelector('.cc-msg');
@@ -247,20 +248,20 @@
   }
 
   function openChat() {
-    box.innerHTML = '⏳ جاري تحميل الشات...';
-    var done = false;
-    setTimeout(function() { if (!done) box.innerHTML = 'ما قدرنا نحمّل الشات على هالمتصفح — جرّب تحدّث الصفحة أو تفتحها من متصفح ثاني.'; }, 12000);
+    user = null; isAdmin = false;
+    renderShell();
     authReady().then(function() {
       firebase.auth().onAuthStateChanged(function(u) {
-        done = true;
+        if (!u && !user) return;
         user = u;
-        if (!u) { isAdmin = false; if (unsub) { unsub(); unsub = null; } renderShell(); return; }
+        if (!u) { isAdmin = false; renderShell(); return; }
         if (signingIn && typeof gtag === 'function') gtag('event', 'login', { method: 'google_chat' });
         signingIn = false;
         db.collection('admins').doc(u.uid).get().then(function(d) { isAdmin = d.exists; }).catch(function() {}).then(renderShell);
       });
-    }).catch(function() { done = true; box.textContent = 'ما قدرنا نحمّل الشات.'; });
+    }).catch(function() { var m = box.querySelector('.cc-msg'); if (m) m.textContent = 'ما قدرنا نحمّل الدخول — بتقدر تتفرّج على الرسائل بس.'; });
   }
+
 
   var tries = 0;
   var t = setInterval(function() {
