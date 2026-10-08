@@ -1043,4 +1043,4 @@ if (urlChallengeId) {
   initDifficultySelector();
 }
 
-(function() { var s = document.createElement("script"); s.src = "/jo/games/challenge-chat.js?v=7"; s.defer = true; document.body.appendChild(s); })();
+(function() { var s = document.createElement("script"); s.src = "/jo/games/challenge-chat.js?v=8"; s.defer = true; document.body.appendChild(s); })();

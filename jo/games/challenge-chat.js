@@ -42,10 +42,13 @@
 
   function renderShell() {
     if (!user) {
-      box.innerHTML = '<div style="font-weight:800;font-size:16px;margin-bottom:6px;">💬 شات التحدي</div>' +
-        '<p style="font-size:14px;color:var(--text-muted);margin:0 0 10px;">الشات للمسجّلين بس — سجّل دخول عشان تشوف الرسائل وتحكي مع أصحابك.</p>' +
-        '<button type="button" class="cc-login" style="padding:10px 16px;border-radius:999px;border:1.5px solid var(--border);background:#fff;color:#334155;font-weight:700;font-family:inherit;font-size:15px;cursor:pointer;">🔐 الدخول عبر Google</button><div class="cc-msg" style="font-size:13px;color:#dc2626;margin-top:6px;"></div>';
+      box.innerHTML = '<div style="font-weight:800;font-size:16px;">💬 شات التحدي</div>' +
+        '<div class="cc-list" style="height:240px;overflow-y:auto;border:1px solid var(--border);border-radius:10px;padding:8px;margin-top:8px;background:var(--surface-2);"></div>' +
+        '<div style="margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--surface-2);border:1px dashed var(--border);">' +
+        '<p style="font-size:14px;color:var(--text-muted);margin:0 0 8px;">👀 إنت بتتفرّج بس — سجّل دخول عشان تكتب وتبعت صوت وتشارك بالشات.</p>' +
+        '<button type="button" class="cc-login" style="padding:10px 16px;border-radius:999px;border:1.5px solid var(--border);background:#fff;color:#334155;font-weight:700;font-family:inherit;font-size:15px;cursor:pointer;">🔐 الدخول عبر Google</button><div class="cc-msg" style="font-size:13px;color:#dc2626;margin-top:6px;"></div></div>';
       box.querySelector('.cc-login').addEventListener('click', signIn);
+      listen();
       return;
     }
     box.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;"><div style="font-weight:800;font-size:16px;">💬 شات التحدي</div><div style="font-size:12px;color:var(--text-muted);">👤 ' + esc((user.displayName || user.email || '').split(' ')[0]) + '</div></div>' +
@@ -75,17 +78,17 @@
       var list = box.querySelector('.cc-list'); if (!list) return;
       var atBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 60;
       list.innerHTML = msgs.length ? msgs.map(function(m) {
-        var d = m.d, mine = d.uid === user.uid;
+        var d = m.d, mine = !!user && d.uid === user.uid;
         return '<div data-id="' + m.id + '" style="display:flex;flex-direction:column;align-items:' + (mine ? 'flex-start' : 'flex-end') + ';margin:6px 0;">' +
           '<div style="max-width:85%;padding:7px 10px;border-radius:12px;background:' + (mine ? 'var(--primary)' : 'var(--surface)') + ';color:' + (mine ? '#fff' : 'var(--text)') + ';border:1px solid var(--border);font-size:15px;line-height:1.6;word-break:break-word;">' +
           (mine ? '' : '<div style="font-size:11px;font-weight:800;opacity:.75;">' + esc(d.name) + '</div>') +
           (d.voice ? '<button type="button" data-play="' + m.id + '" style="border:none;background:none;color:inherit;font-family:inherit;font-size:15px;cursor:pointer;padding:0;">▶️ رسالة صوتية · ' + Math.round(d.dur || 0) + ' ث</button>' : esc(clean(d.text))) + '</div>' +
           '<div style="font-size:10px;color:var(--text-muted);margin-top:2px;">' + esc(fmtTime(d.createdAt)) +
-          (mine ? ' · <a href="#" data-del="' + m.id + '" style="color:inherit;">حذف</a>' : ' · <a href="#" data-rep="' + m.id + '" style="color:inherit;">🚩 إبلاغ</a>') +
+          (!user ? '' : mine ? ' · <a href="#" data-del="' + m.id + '" style="color:inherit;">حذف</a>' : ' · <a href="#" data-rep="' + m.id + '" style="color:inherit;">🚩 إبلاغ</a>') +
           (isAdmin && !mine ? ' · <a href="#" data-del="' + m.id + '" style="color:#dc2626;">حذف</a> · <a href="#" data-ban="' + esc(d.uid) + '" data-name="' + esc(d.name) + '" style="color:#dc2626;">حظر</a>' : '') +
           '</div></div>';
-      }).join('') : '<div style="text-align:center;color:var(--text-muted);font-size:13px;padding:30px 0;">لسا ما في رسائل — ابدأ الحكي 👋</div>';
-      if (atBottom || msgs.length && msgs[msgs.length - 1].d.uid === user.uid) list.scrollTop = list.scrollHeight;
+      }).join('') : '<div style="text-align:center;color:var(--text-muted);font-size:13px;padding:30px 0;">' + (user ? 'لسا ما في رسائل — ابدأ الحكي 👋' : 'لسا ما في رسائل.') + '</div>';
+      if (atBottom || msgs.length && user && msgs[msgs.length - 1].d.uid === user.uid) list.scrollTop = list.scrollHeight;
     }, function() { var m = box.querySelector('.cc-msg'); if (m) m.textContent = 'ما قدرنا نحمّل الشات.'; });
   }
 
@@ -227,6 +230,7 @@
     box.innerHTML = '⏳';
     if (card && card.parentNode) card.parentNode.insertBefore(box, card.nextSibling); else document.body.appendChild(box);
     box.addEventListener('click', function(e) {
+      var pl0 = e.target.closest('[data-play]'); if (pl0) { play(pl0); return; }
       if (!user) return;
       var input = box.querySelector('.cc-input');
       var em = e.target.closest('[data-e]'); if (em && input) { input.value += em.getAttribute('data-e'); input.focus(); return; }
@@ -238,7 +242,7 @@
     });
     box.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;"><div style="font-weight:800;font-size:16px;">💬 شات التحدي</div>' +
       '<button type="button" class="cc-open" style="padding:9px 16px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-weight:800;font-family:inherit;cursor:pointer;">💬 افتح الشات</button></div>' +
-      '<div style="font-size:12px;color:var(--text-muted);margin-top:6px;">احكي مع أصحابك بالتحدي — للمسجّلين فقط</div>';
+      '<div style="font-size:12px;color:var(--text-muted);margin-top:6px;">احكي مع أصحابك بالتحدي — أي حدا بيقدر يتفرّج، والكتابة للمسجّلين</div>';
     box.querySelector('.cc-open').addEventListener('click', openChat);
   }
 
