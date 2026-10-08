@@ -15,9 +15,9 @@ Free multi-tool Arabic website (calculators, converters, games, daily-info tools
 
 - Deploy changed files (default): `node push-files.js <files...> --message "..."` · full site: `node push-to-github.js "msg"` (~300 files, rate-limit prone)
 - After adding a page: add URL to `build-sitemap.js` → `node build-sitemap.js` → `node build-search-index.js` → `node tools/indexnow.js <url>` + `node tools/gsc-sitemap.js`. OG images: headless `chrome --headless=new --screenshot --window-size=1200,630` of a small HTML card (templates in `tools/og-templates/`, local only).
-- Language variants: edit root `<tool>.html` → `node build-lang-pages.js` (regenerates `/ar|fr|es|de|ru/<tool>/`; static translated blocks come from `lang-content/<lang>/<tool>.html`)
+- Language variants: root `<tool>.html` + per-language maps (`node tools/lang-map.js extract|write|merge|status` → `lang-content/<lang>/<tool>.html`) → `node build-lang-pages.js` regenerates `/ar|fr|es|de|ru/<tool>/` (body + JSON-LD). Editing English text = update the maps too.
 - Tests (need headless Chrome via CDP, see script headers): `node test-calculators.js`, `node test-e2e.js`
-- `tools/gsc-inspect.js` (index status via API) · `tools/build-country-quiz.js` (country quiz from JSON) · `tools/js-syntax.js` (inline-JS syntax check) · `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/i18n-gaps.js` (translation helpers) · `tools/build-admission-data.js` · `tools/build-tajweed-test-data.js` · `tools/quiz-levels.js list|apply <file> [hard-nums]` (new quizzes; easy counts as medium)
+- Other `tools/`: gsc-inspect (index status) · build-country-quiz (then re-run quiz-static) · quiz-static (quiz about/sample Q&A) · quiz-levels list|apply · fill-data-t (WT-object pages) · js-syntax · build-admission-data · build-tajweed-test-data · admhec-import · i18n-gaps/wrap-block/set-lang-obj.
 - Daily 22:00 Windows task "Adawati CLAUDE.md cleanup" runs `tools/md-cleanup.cmd` (headless `claude -p`, edits only CLAUDE.md + archive), then `tools/md-verify-deploy.js` sanity-checks and pushes those 2 files if changed; log `%LOCALAPPDATA%\adawati-md-cleanup.log`).
 - Shared JS change (`i18n.js` etc.) → bump its `?v=N` in every referencing HTML (grep+sed) so browsers/Cloudflare pick it up.
 
@@ -47,7 +47,6 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 - **Indexing** via API only: `node tools/indexnow.js` + `node tools/gsc-sitemap.js` after adding pages. Never Google's Indexing API (jobs/livestream only).
 - **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season; re-run `tools/admhec-import.js` with new owner-saved admhec pages (bachelor-guide), then `tools/build-admission-data.js <same pages>` (what-can-i-study).
 - **Data audit**: some private bachelor-guide minimums are below the national floor (e.g. AAU engineering 65 vs 80); what-can-i-study applies the floor, the guide doesn't yet.
-- **Translations**: 30 root tools × ar/fr/es/de/ru are static maps — `node tools/lang-map.js extract|write|merge|status` → `node build-lang-pages.js`. Edit English text = update maps too.
 
 ## Documentation index (read only when relevant)
 

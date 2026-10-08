@@ -44,3 +44,9 @@ When genuinely unresolvable, say so in the page's own disclaimer text rather tha
 
 - **bachelor-guide government universities**: all 10 public universities done 2026-10-07 via owner-saved admhec pages + `tools/admhec-import.js` (re-run each admission season with new saved pages).
 - **Quiz levels (medium/hard)**: DONE 2026-10-07 for all 18 quizzes (om/sa/ae/eg + 14 `jo/games/*`, logo-quiz excluded by owner). New quizzes: `node tools/quiz-levels.js list|apply <file> [hard-nums]`; easy counts as medium.
+
+## Moved from CLAUDE.md on 2026-10-08
+
+- Language variants: edit root `<tool>.html` → `node build-lang-pages.js` (regenerates `/ar|fr|es|de|ru/<tool>/`; static translated blocks come from `lang-content/<lang>/<tool>.html`)
+- `tools/gsc-inspect.js` (index status via API) · `tools/build-country-quiz.js` (country quiz from JSON) · `tools/js-syntax.js` (inline-JS syntax check) · `tools/wrap-block.js`, `tools/set-lang-obj.js`, `tools/i18n-gaps.js` (translation helpers) · `tools/build-admission-data.js` · `tools/build-tajweed-test-data.js` · `tools/quiz-levels.js list|apply <file> [hard-nums]` (new quizzes; easy counts as medium)
+- **Translations**: 30 root tools × ar/fr/es/de/ru are static maps — `node tools/lang-map.js extract|write|merge|status` → `node build-lang-pages.js`. Edit English text = update maps too.
