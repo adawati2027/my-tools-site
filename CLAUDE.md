@@ -43,7 +43,7 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 
 - **CSP**: any change must be made in BOTH the Worker `adawati-csp-nonce` and the "security headers" Transform Rule.
 - **masters/bachelor guides**: read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending (dead-end universities listed).
-- **AdSense** (rejected 2026-10-08): duplicates 550→13, thin pages fixed (see seo-growth.md). Left: holidays/gold/prayer pages ae/uk/us/om/sa ~60–80% alike. Review only after organic traffic grows.
+- **AdSense** (rejected 2026-10-08): duplicate pairs 550→1, thin pages fixed, country fact sections on holidays/gold/prayer/weather (see seo-growth.md). Request review only after organic traffic grows (~2–3 weeks of recrawl).
 - **Indexing** via API only: `node tools/indexnow.js` + `node tools/gsc-sitemap.js` after adding pages. Never Google's Indexing API (jobs/livestream only).
 - **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season; re-run `tools/admhec-import.js` with new owner-saved admhec pages (bachelor-guide), then `tools/build-admission-data.js <same pages>` (what-can-i-study).
 - **Data audit**: some private bachelor-guide minimums are below the national floor (e.g. AAU engineering 65 vs 80); what-can-i-study applies the floor, the guide doesn't yet.
