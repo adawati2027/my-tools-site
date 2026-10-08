@@ -135,7 +135,9 @@
   var $ = function(id) { return document.getElementById(id); };
   var LBL = {}, EMO = {}, REG = { lev: 'أردني وشامي', gulf: 'خليجي', eg: 'مصري', all: 'عام' }, KIND = { main: 'رئيسية', light: 'خفيف', sweet: 'حلو' };
   ING.forEach(function(g) { g[1].forEach(function(i) { LBL[i[0]] = i[2]; EMO[i[0]] = i[1]; }); });
-  var sel = new Set(), last = null;
+  var sel = new Set(), last = null, shareRows = null;
+  function setShare(rows) { shareRows = rows && rows.length ? rows : null; $('ckShare').style.display = shareRows ? '' : 'none'; }
+  function recipeRows(r) { return [{ label: r.e + ' ' + r.n, value: '⏱️ ' + r.t + ' د', highlight: true }].concat((r.m || []).slice(0, 7).map(function(x) { return { label: '• ' + x, value: '' }; })); }
   var dishes = function(n) { return n + (n >= 3 && n <= 10 ? ' أكلات' : ' أكلة'); };
   try { (JSON.parse(localStorage.getItem('ckSel') || '[]')).forEach(function(x) { if (LBL[x]) sel.add(x); }); } catch (e) {}
   $('ckChips').innerHTML = ING.map(function(g) {
@@ -171,7 +173,7 @@
       last = 'sug';
       $('ckHead').textContent = pool.length ? '💡 اقتراحاتنا إلك (' + pick.length + ' من ' + dishes(pool.length) + ' بتناسب اختيارك)' : 'ما في أكلات بهالفلتر — جرّب تغيّر الاختيار';
       $('ckList').innerHTML = pick.map(function(r) { return card(r, true); }).join('') + (pool.length > 12 ? '<button type="button" id="ckMore" class="btn" style="width:100%;margin:6px 0;background:var(--surface-2);border:2px solid var(--border);color:var(--text);">🔄 اقتراحات غيرها</button>' : '');
-      $('ckShare').hidden = true; $('ckOut').hidden = false;
+      setShare(pick.slice(0, 7).map(function(r) { return { label: r.e + ' ' + r.n, value: '⏱️ ' + r.t + ' د' }; })); $('ckOut').hidden = false;
       if (scroll) { $('ckOut').scrollIntoView({ behavior: 'smooth', block: 'start' }); if (typeof gtag === 'function') gtag('event', 'cook_search', { ingredients: 0, can_cook: pool.length }); }
       return;
     }
@@ -187,7 +189,7 @@
     if (by[2].length) html += '<div class="ck-sec">🛍️ ناقصك مكوّنين (' + by[2].length + ')</div>' + by[2].map(card).join('');
     $('ckHead').textContent = by[0].length ? 'بتقدر تطبخ ' + dishes(by[0].length) + ' هلأ 😋' : 'ما في أكلة كاملة — بس شوف شو ناقصك:';
     $('ckList').innerHTML = html || '<p style="text-align:center;color:var(--text-muted);padding:18px;">اختار مكونات أكثر (زي رز، بصل، بندورة) عشان نلاقيلك أكلات.</p>';
-    $('ckShare').hidden = !by[0].length;
+    if (by[0].length) { var rr = [{ label: 'عندي بالبيت', value: sel.size + ' مكوّن' }, { label: 'بقدر أطبخ', value: dishes(by[0].length), highlight: true }]; by[0].slice(0, 6).forEach(function(r) { rr.push({ label: r.e + ' ' + r.n, value: '⏱️ ' + r.t + ' د' }); }); setShare(rr); } else setShare(null);
     $('ckOut').hidden = false;
     if (scroll) {
       $('ckOut').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -203,25 +205,23 @@
   $('ckRandom').addEventListener('click', function() {
     if (!sel.size) {
       $('ckHead').textContent = '🎲 اختار أول شو عندك بالبيت (فوق)، وبنفاجئك بأكلة من اللي عندك';
-      $('ckList').innerHTML = ''; $('ckShare').hidden = true; $('ckOut').hidden = false; last = null;
+      $('ckList').innerHTML = ''; setShare(null); $('ckOut').hidden = false; last = null;
       $('ckChips').scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
     var pool = filtered(), ok = pool.filter(function(r) { return r.q.every(has); }), note = '🎲 من اللي عندك بالبيت — اطبخ اليوم:';
     if (!ok.length) { ok = pool.filter(function(r) { return r.q.filter(function(x) { return !has(x); }).length === 1; }); note = '🎲 ناقصك مكوّن واحد بس لهاي الأكلة:'; }
-    if (!ok.length) { $('ckHead').textContent = 'ما لقينا أكلة من اللي اخترته — زيد مكونات (زي رز، بصل، بندورة) أو غيّر الفلتر'; $('ckList').innerHTML = ''; $('ckShare').hidden = true; $('ckOut').hidden = false; last = null; return; }
+    if (!ok.length) { $('ckHead').textContent = 'ما لقينا أكلة من اللي اخترته — زيد مكونات (زي رز، بصل، بندورة) أو غيّر الفلتر'; $('ckList').innerHTML = ''; setShare(null); $('ckOut').hidden = false; last = null; return; }
     var r = ok[Math.floor(Math.random() * ok.length)];
     $('ckHead').textContent = note;
-    $('ckList').innerHTML = card(r); $('ckShare').hidden = true; $('ckOut').hidden = false; last = null;
+    $('ckList').innerHTML = card(r); setShare(recipeRows(r)); $('ckOut').hidden = false; last = null;
     var d = $('ckList').querySelector('details'); if (d) d.open = true;
     $('ckOut').scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (typeof gtag === 'function') gtag('event', 'cook_random', { ingredients: sel.size });
   });
   $('ckShare').addEventListener('click', function() {
-    if (!last || last === 'sug' || !last[0].length || typeof exportResultImage !== 'function') return;
-    var rows = [{ label: 'عندي بالبيت', value: sel.size + ' مكوّن' }, { label: 'بقدر أطبخ', value: dishes(last[0].length), highlight: true }];
-    last[0].slice(0, 6).forEach(function(r) { rows.push({ label: r.e + ' ' + r.n, value: '⏱️ ' + r.t + ' د' }); });
-    exportResultImage('شو أطبخ اليوم؟ 🍲', rows);
+    if (!shareRows || typeof exportResultImage !== 'function') return;
+    exportResultImage('شو أطبخ اليوم؟ 🍲', shareRows);
     if (typeof gtag === 'function') gtag('event', 'export_result', { tool_name: 'what_to_cook' });
   });
 })();
