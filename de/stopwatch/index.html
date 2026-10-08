@@ -34,18 +34,7 @@
 <meta name="twitter:title" content="Stopwatch & Countdown Timer — Free Online | Adawati">
 <meta name="twitter:description" content="Professional stopwatch with lap recording and countdown timer. For workouts, study sessions and work. Free.">
 <meta name="twitter:image" content="https://adawati.space/og/stopwatch.jpg">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[
-{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},{"@type":"ListItem","position":2,"name":"Stopwatch & Timer","item":"https://adawati.space/stopwatch.html"}]},
-{"@type":"WebApplication","name":"Stopwatch & Countdown Timer — Free Online","url":"https://adawati.space/stopwatch.html","description":"ساعة إيقاف دقيقة مع تسجيل الجولات ومؤقت عد تنازلي. مناسبة للتمارين الرياضية وإدارة الوقت والدراسة.","applicationCategory":"UtilitiesApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
-{"@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"هل ساعة الإيقاف دقيقة؟","acceptedAnswer":{"@type":"Answer","text":"نعم، تستخدم الساعة Date.now() للمتصفح مع تحديث كل 10 ميلي ثانية، مما يوفر دقة تصل إلى جزء من المئة من الثانية (centisecond) مناسبة للاستخدام اليومي والرياضي."}},
-{"@type":"Question","name":"هل يمكن تسجيل أوقات الجولات؟","acceptedAnswer":{"@type":"Answer","text":"نعم، في وضع ساعة الإيقاف اضغط 'دورة' أثناء العدّ لتسجيل وقت الجولة الحالية مع الاستمرار في التوقيت. يمكن تسجيل عدة جولات متتالية."}},
-{"@type":"Question","name":"كيف يعمل المؤقت العكسي؟","acceptedAnswer":{"@type":"Answer","text":"حدِّد عدد الدقائق والثواني ثم اضغط ابدأ. يعدّ المؤقت تنازلياً حتى يصل للصفر ويصدر صوت تنبيه عند الانتهاء."}},
-{"@type":"Question","name":"هل يعمل في الخلفية؟","acceptedAnswer":{"@type":"Answer","text":"المؤقت يعمل ما دامت علامة تبويب المتصفح مفتوحة ونشطة. تقليص نشاط الخلفية بواسطة المتصفح قد يسبب تأخيرات بسيطة."}},
-{"@type":"Question","name":"Does the stopwatch work offline?","acceptedAnswer":{"@type":"Answer","text":"Yes. The stopwatch and countdown timer are fully client-side and work without an internet connection."}}
-]}]}
-</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},{"@type":"ListItem","position":2,"name":"Stopwatch & Timer","item":"https://adawati.space/stopwatch.html"}]},{"@type":"WebApplication","name":"Stopwatch & Countdown Timer — Free Online","url":"https://adawati.space/stopwatch.html","description":"ساعة إيقاف دقيقة مع تسجيل الجولات ومؤقت عد تنازلي. مناسبة للتمارين الرياضية وإدارة الوقت والدراسة.","applicationCategory":"UtilitiesApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"هل ساعة الإيقاف دقيقة؟","acceptedAnswer":{"@type":"Answer","text":"نعم، تستخدم الساعة Date.now() للمتصفح مع تحديث كل 10 ميلي ثانية، مما يوفر دقة تصل إلى جزء من المئة من الثانية (centisecond) مناسبة للاستخدام اليومي والرياضي."}},{"@type":"Question","name":"هل يمكن تسجيل أوقات الجولات؟","acceptedAnswer":{"@type":"Answer","text":"نعم، في وضع ساعة الإيقاف اضغط 'دورة' أثناء العدّ لتسجيل وقت الجولة الحالية مع الاستمرار في التوقيت. يمكن تسجيل عدة جولات متتالية."}},{"@type":"Question","name":"كيف يعمل المؤقت العكسي؟","acceptedAnswer":{"@type":"Answer","text":"حدِّد عدد الدقائق والثواني ثم اضغط ابدأ. يعدّ المؤقت تنازلياً حتى يصل للصفر ويصدر صوت تنبيه عند الانتهاء."}},{"@type":"Question","name":"هل يعمل في الخلفية؟","acceptedAnswer":{"@type":"Answer","text":"المؤقت يعمل ما دامت علامة تبويب المتصفح مفتوحة ونشطة. تقليص نشاط الخلفية بواسطة المتصفح قد يسبب تأخيرات بسيطة."}},{"@type":"Question","name":"Does the stopwatch work offline?","acceptedAnswer":{"@type":"Answer","text":"Yes. The stopwatch and countdown timer are fully client-side and work without an internet connection."}}]}]}</script>
 <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
@@ -107,47 +96,47 @@
     </div>
   </div>
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;">❓ Frequently Asked Questions</div>
+    <div class="card-title" style="font-size:15px;">❓ Häufige Fragen</div>
     <details style="margin-top:12px;border:1px solid var(--border);border-radius:8px;padding:12px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Is the stopwatch accurate?</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Yes — the stopwatch uses <code>Date.now()</code> with updates every 10 milliseconds, providing centisecond accuracy suitable for everyday and sports use.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Ist die Stoppuhr genau?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Ja — die Stoppuhr verwendet <code>Date.now()</code> und aktualisiert alle 10 Millisekunden. Das ergibt eine Genauigkeit auf die Hundertstelsekunde, die für Alltag und Sport ausreicht.</p>
     </details>
     <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Can I record lap times?</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Yes — in stopwatch mode, press "Lap" while running to record the current lap time while the main clock keeps going. Multiple consecutive laps can be recorded.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Kann ich Rundenzeiten erfassen?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Ja — im Stoppuhr-Modus drückst du während der Messung auf „Runde“, um die aktuelle Rundenzeit zu speichern, während die Hauptuhr weiterläuft. Mehrere Runden hintereinander sind möglich.</p>
     </details>
     <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">How does the countdown timer work?</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Set the number of minutes and seconds then press "Start". The timer counts down to zero and plays an alert sound when it finishes.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Wie funktioniert der Countdown-Timer?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Stelle Minuten und Sekunden ein und drücke „Start“. Der Timer zählt bis null herunter und gibt am Ende einen Signalton aus.</p>
     </details>
     <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Does it work offline?</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Yes — the stopwatch and timer run entirely in the browser and need no internet connection.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Funktioniert sie offline?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Ja — Stoppuhr und Timer laufen komplett im Browser und brauchen keine Internetverbindung.</p>
     </details>
     <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Does the stopwatch work in the background?</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">The timer runs as long as the browser tab is open. Background tab throttling by the browser may cause slight delays on long-running timers.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Läuft die Stoppuhr im Hintergrund weiter?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Der Timer läuft, solange der Browser-Tab geöffnet ist. Weil Browser Hintergrund-Tabs drosseln, kann es bei langen Timern zu kleinen Verzögerungen kommen.</p>
     </details>
   </div>
 
   <div class="card" style="margin-top:16px;" lang="en" dir="ltr">
-    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">Stopwatch & Timer — Productivity Techniques</h2>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">A stopwatch measures elapsed time forward; a countdown timer counts down to zero. Both are essential for timed study sessions, interval training, cooking, and professional presentations. This tool runs entirely in your browser with no setup required.</p>
-    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">The Pomodoro Technique</h3>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">Set the timer to 25 minutes and work on a single task without interruption. When it rings, take a 5-minute break. After 4 cycles, take a longer 15-30 minute break. This rhythm reduces mental fatigue and improves sustained focus — popular among students and remote workers worldwide.</p>
-    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">Using lap times for interval training</h3>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:0;">The lap button records split times without stopping the main clock. Use it to track individual lap times while monitoring total elapsed time — ideal for running intervals, swimming laps or any repeated-effort training protocol.</p>
+    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">Stoppuhr &amp; Timer — Produktivitätstechniken</h2>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">Eine Stoppuhr misst die verstrichene Zeit; ein Countdown-Timer zählt bis null herunter. Beide sind unverzichtbar für zeitlich begrenzte Lerneinheiten, Intervalltraining, Kochen und Präsentationen. Dieses Tool läuft komplett im Browser – ohne Einrichtung.</p>
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">Die Pomodoro-Technik</h3>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">Stelle den Timer auf 25 Minuten und arbeite ohne Unterbrechung an einer einzigen Aufgabe. Wenn er klingelt, mach 5 Minuten Pause. Nach 4 Durchgängen folgt eine längere Pause von 15–30 Minuten. Dieser Rhythmus verringert geistige Ermüdung und verbessert die Konzentration – beliebt bei Studierenden und im Homeoffice weltweit.</p>
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">Rundenzeiten für das Intervalltraining nutzen</h3>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:0;">Die Runden-Taste speichert Zwischenzeiten, ohne die Hauptuhr anzuhalten. So verfolgst du jede einzelne Runde und behältst gleichzeitig die Gesamtzeit im Blick – ideal für Laufintervalle, Schwimmbahnen oder jedes Training mit wiederholten Belastungen.</p>
   </div>
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;">🎮 More Games</div>
+    <div class="card-title" style="font-size:15px;">🎮 Weitere Spiele</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
-      <a href="car-game.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🚗 Car Race</a>
-      <a href="jump-game.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🦸 Jump Game</a>
-      <a href="memory-game.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧠 Memory Game</a>
-      <a href="number-guess.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎯 Number Guess</a>
-      <a href="quick-math.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔢 Quick Math</a>
-      <a href="random-number.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎲 Random Number</a>
-      <a href="reaction-test.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚡ Reaction Test</a>
+      <a href="car-game.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🚗 Autorennen</a>
+      <a href="jump-game.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🦸 Sprungspiel</a>
+      <a href="memory-game.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧠 Memory-Spiel</a>
+      <a href="number-guess.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎯 Zahlenraten</a>
+      <a href="quick-math.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔢 Kopfrechnen</a>
+      <a href="random-number.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎲 Zufallszahl</a>
+      <a href="reaction-test.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚡ Reaktionstest</a>
     </div>
   </div>
 </div></main>

@@ -34,18 +34,7 @@
 <meta name="twitter:title" content="Random Number Generator — Draws, Games & Decisions | Adawati">
 <meta name="twitter:description" content="Generate random numbers in any range. Perfect for lotteries, games, and random decisions. Free, instant.">
 <meta name="twitter:image" content="https://adawati.space/og/random-number.jpg">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[
-{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},{"@type":"ListItem","position":2,"name":"Random Number Generator","item":"https://adawati.space/random-number.html"}]},
-{"@type":"WebApplication","name":"Random Number Generator — Free Online","url":"https://adawati.space/random-number.html","description":"ولّد أرقاماً عشوائية حقيقية في أي نطاق. مناسب للقرعات والمسابقات والألعاب واتخاذ القرارات.","applicationCategory":"UtilitiesApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
-{"@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"كيف يُولّد المولد أرقاماً عشوائية؟","acceptedAnswer":{"@type":"Answer","text":"يستخدم المولد واجهة Web Crypto API المدمجة في المتصفح (crypto.getRandomValues) — وهي مُصمَّمة لتوليد بيانات عشوائية آمنة مشفرة، أكثر موثوقية من الدوال الرياضية التقليدية."}},
-{"@type":"Question","name":"هل يصلح للقرعات والمسابقات الرسمية؟","acceptedAnswer":{"@type":"Answer","text":"نعم، المولد يستخدم خوارزمية مشفرة (Web Crypto API) مناسبة للقرعات العادلة. للقرعات ذات الطابع القانوني أو المؤسسي يُنصح بمراجعة الجهة المختصة للمتطلبات الإضافية."}},
-{"@type":"Question","name":"كم رقماً يمكن توليده في كل مرة؟","acceptedAnswer":{"@type":"Answer","text":"Up to 20 numbers can be generated per operation. Use the slider to set the minimum, maximum and desired count."}},
-{"@type":"Question","name":"هل تُحفظ الأرقام المولّدة؟","acceptedAnswer":{"@type":"Answer","text":"The generator keeps the last 10 results in the current browser session only — no data is saved to any server or outside the browser."}},
-{"@type":"Question","name":"What range of numbers is supported?","acceptedAnswer":{"@type":"Answer","text":"Any integer range is supported. The minimum must be less than the maximum. Up to 20 numbers can be generated per click."}}
-]}]}
-</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},{"@type":"ListItem","position":2,"name":"Random Number Generator","item":"https://adawati.space/random-number.html"}]},{"@type":"WebApplication","name":"Random Number Generator — Free Online","url":"https://adawati.space/random-number.html","description":"ولّد أرقاماً عشوائية حقيقية في أي نطاق. مناسب للقرعات والمسابقات والألعاب واتخاذ القرارات.","applicationCategory":"UtilitiesApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"كيف يُولّد المولد أرقاماً عشوائية؟","acceptedAnswer":{"@type":"Answer","text":"يستخدم المولد واجهة Web Crypto API المدمجة في المتصفح (crypto.getRandomValues) — وهي مُصمَّمة لتوليد بيانات عشوائية آمنة مشفرة، أكثر موثوقية من الدوال الرياضية التقليدية."}},{"@type":"Question","name":"هل يصلح للقرعات والمسابقات الرسمية؟","acceptedAnswer":{"@type":"Answer","text":"نعم، المولد يستخدم خوارزمية مشفرة (Web Crypto API) مناسبة للقرعات العادلة. للقرعات ذات الطابع القانوني أو المؤسسي يُنصح بمراجعة الجهة المختصة للمتطلبات الإضافية."}},{"@type":"Question","name":"كم رقماً يمكن توليده في كل مرة؟","acceptedAnswer":{"@type":"Answer","text":"Hasta 20 números por operación. Usa el control deslizante para fijar el mínimo, el máximo y la cantidad deseada."}},{"@type":"Question","name":"هل تُحفظ الأرقام المولّدة؟","acceptedAnswer":{"@type":"Answer","text":"El generador conserva solo los últimos 10 resultados en la sesión actual del navegador; no se guarda ningún dato en servidores ni fuera del navegador."}},{"@type":"Question","name":"¿Qué rango de números admite?","acceptedAnswer":{"@type":"Answer","text":"Admite cualquier rango de números enteros. El mínimo debe ser menor que el máximo. Se pueden generar hasta 20 números por clic."}}]}]}</script>
 <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
@@ -88,53 +77,53 @@
     </div>
   </div>
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;">❓ Frequently Asked Questions</div>
+    <div class="card-title" style="font-size:15px;">❓ Preguntas frecuentes</div>
     <details style="margin-top:12px;border:1px solid var(--border);border-radius:8px;padding:12px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">How does the generator produce random numbers?</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">The generator uses the browser-built-in Web Crypto API (<code>crypto.getRandomValues</code>) — designed for cryptographically secure random data, more reliable than traditional mathematical functions.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">¿Cómo genera el generador los números aleatorios?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">El generador usa la API Web Crypto integrada en el navegador (<code>crypto.getRandomValues</code>), diseñada para datos aleatorios criptográficamente seguros y más fiable que las funciones matemáticas tradicionales.</p>
     </details>
     <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Is it suitable for official raffles and competitions?</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Yes — the generator uses a cryptographic algorithm suitable for fair draws. For legally binding or institutional raffles, consult the relevant authority for any additional requirements.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">¿Sirve para sorteos y concursos oficiales?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Sí: el generador usa un algoritmo criptográfico adecuado para sorteos justos. Para sorteos con validez legal o institucional, consulta a la autoridad competente por si hay requisitos adicionales.</p>
     </details>
     <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">How many numbers can be generated at once?</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Up to 20 numbers can be generated per operation. Use the slider to set the minimum, maximum and desired count.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">¿Cuántos números se pueden generar a la vez?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Hasta 20 números por operación. Usa el control deslizante para fijar el mínimo, el máximo y la cantidad deseada.</p>
     </details>
     <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Are generated numbers saved?</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">The generator keeps the last 10 results in the current browser session only — no data is saved to any server or outside the browser.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">¿Se guardan los números generados?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">El generador conserva solo los últimos 10 resultados en la sesión actual del navegador; no se guarda ningún dato en servidores ni fuera del navegador.</p>
     </details>
     <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">What range of numbers is supported?</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Any integer range is supported. The minimum must be less than the maximum. Up to 20 numbers can be generated per click.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">¿Qué rango de números admite?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Admite cualquier rango de números enteros. El mínimo debe ser menor que el máximo. Se pueden generar hasta 20 números por clic.</p>
     </details>
   </div>
 
   <div class="card" style="margin-top:16px;" lang="en" dir="ltr">
-    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">Random Number Generator — Common Uses</h2>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">This generator uses the browser's built-in <code>Math.random()</code> which produces pseudo-random numbers suitable for raffles, games and sampling. Numbers are generated entirely in your browser — nothing is sent to any server.</p>
-    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">Practical uses</h3>
+    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">Generador de números aleatorios — usos habituales</h2>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">Este generador usa la función integrada del navegador <code>crypto.getRandomValues()</code> (API Web Crypto), una fuente de aleatoriedad criptográficamente robusta adecuada para sorteos, juegos y muestreos. Los números se generan por completo en tu navegador: no se envía nada a ningún servidor.</p>
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">Usos prácticos</h3>
     <ul style="font-size:14px;color:var(--text-muted);line-height:2;padding-inline-start:18px;margin-bottom:12px;">
-      <li>Raffle and giveaway winner selection</li>
-      <li>Classroom random student picker</li>
-      <li>Board game dice replacement</li>
-      <li>Random sample selection for surveys</li>
-      <li>A/B test group assignment</li>
+      <li>Elegir ganadores de sorteos y concursos</li>
+      <li>Elegir al azar a un alumno en clase</li>
+      <li>Sustituir los dados en juegos de mesa</li>
+      <li>Seleccionar muestras aleatorias para encuestas</li>
+      <li>Asignar grupos en pruebas A/B</li>
     </ul>
-    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">Is it truly random?</h3>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:0;">Mathematically it is pseudo-random — generated by an algorithm rather than a physical process. For everyday uses like raffles and games this is perfectly adequate. For cryptographic applications (encryption keys, secure tokens), use a dedicated cryptographically secure RNG and not this tool.</p>
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">¿Es realmente aleatorio?</h3>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:0;">Usa la fuente de aleatoriedad criptográficamente segura del navegador (API Web Crypto), el mismo tipo de aleatoriedad que se usa con fines de seguridad, así que es muy adecuado para sorteos, juegos y extracciones justas. En sorteos con validez legal o institucional, cumple además los requisitos de la autoridad competente.</p>
   </div>
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;">🎮 More Games</div>
+    <div class="card-title" style="font-size:15px;">🎮 Más juegos</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
-      <a href="car-game.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🚗 Car Race</a>
-      <a href="jump-game.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🦸 Jump Game</a>
-      <a href="memory-game.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧠 Memory Game</a>
-      <a href="number-guess.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎯 Number Guess</a>
-      <a href="quick-math.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔢 Quick Math</a>
-      <a href="reaction-test.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚡ Reaction Test</a>
-      <a href="stopwatch.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⏱️ Stopwatch</a>
+      <a href="car-game.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🚗 Carrera de coches</a>
+      <a href="jump-game.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🦸 Juego de saltos</a>
+      <a href="memory-game.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧠 Juego de memoria</a>
+      <a href="number-guess.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎯 Adivina el número</a>
+      <a href="quick-math.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔢 Cálculo rápido</a>
+      <a href="reaction-test.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚡ Prueba de reacción</a>
+      <a href="stopwatch.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⏱️ Cronómetro</a>
     </div>
   </div>
 </div></main>
