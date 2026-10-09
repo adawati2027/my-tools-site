@@ -280,6 +280,16 @@
     if (typeof gtag === 'function') gtag('event', 'tajweed_test_done', { level: lv, score: score });
   }
   function saveImg() {
+    // iOS Safari never honors <a download> (a longstanding WebKit limitation,
+    // not a bug here) — the click silently does nothing there. Route through
+    // the same navigator.share file-sharing path the Share button already
+    // uses instead: iOS's own share sheet exposes "Save Image" directly, so
+    // this reaches the same result through a path proven to actually work.
+    var file = certBlob ? new File([certBlob], 'shahada-tajweed.png', { type: 'image/png' }) : null;
+    if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: 'شهادة اختبار التجويد' }).catch(function() {});
+      return;
+    }
     var a = document.createElement('a'); a.href = $('ttImg').src; a.download = 'shahada-tajweed.png'; document.body.appendChild(a); a.click(); a.remove();
   }
   $('ttShare').addEventListener('click', function() {
