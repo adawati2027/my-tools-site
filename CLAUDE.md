@@ -21,6 +21,15 @@ Free multi-tool Arabic website (calculators, converters, games, daily-info tools
 - Daily 22:00 Windows task "Adawati CLAUDE.md cleanup" runs `tools/md-cleanup.cmd` (headless `claude -p`, edits only CLAUDE.md + archive), then `tools/md-verify-deploy.js` sanity-checks and pushes those 2 files if changed; log `%LOCALAPPDATA%\adawati-md-cleanup.log`).
 - Shared JS change (`i18n.js` etc.) → bump its `?v=N` in every referencing HTML (grep+sed) so browsers/Cloudflare pick it up.
 
+## Social posting (Facebook/Instagram) — daily, via browser
+
+- Image templates: `tools/social-templates/*.html` (1080×1080 feed post, 1080×1920 story) → render to PNG with headless Chrome: `chrome --headless=new --window-size=W,H --screenshot=out.png "file:///...html"`.
+- Facebook: post to **both** the Page (Adawati2027) and the personal profile (Adawati Adawati) — switch between them via the top-right avatar → pick profile. Confirm with the owner before each publish (don't auto-publish).
+- Facebook Page Stories support a real clickable link: Create story → upload image → sidebar "Add button" → "Web link button" → pick a label (e.g. "Learn more") → paste the URL. **Personal-profile Stories do NOT support link buttons** — Pages only. For the profile, bake "🔗 الرابط بالبايو" into the image instead and keep the real link in the profile's About → **Links** tab (not the Social-media/Instagram field) — one-time setup, already done for Adawati Adawati.
+- A Story's in-image hint text should name the real button ("اضغط هنا Learn more 👇") — a generic "دوس تحت" or a bare arrow glyph reads as its own (dead) button and confuses viewers into tapping the wrong spot.
+- Instagram: **no Story posting is possible from the desktop browser** — confirmed dead end two ways: plain instagram.com's Create menu only offers Post/Live video/Ad (no Story), and Meta Business Suite's Create-story composer's "Add photo/video" button has no accessible `<input type=file>` (`document.querySelectorAll('input[type=file]').length === 0`, confirmed via JS). Feed posts *can* be published via instagram.com (Create → Post → crop → filters → caption → Share), with an optional "Share to Facebook" toggle. For Instagram **Stories**, send the rendered PNG to the owner via `SendUserFile` and have them post from their phone (Stickers tray → search "Link").
+- Instagram (adawati2027) is linked to Meta Business Suite (done 2026-10-10) — doesn't unlock web Story posting, but keeps both platforms manageable from one place for anything else.
+
 ## Deployment
 
 - `push-*.js` use the GitHub REST API (blobs → tree → commit → ref) with `GITHUB_PAT` from local `.env` (never pushed, never hardcode secrets). Repo `adawati2027/my-tools-site`, branch `main`, GitHub Pages + Cloudflare on `adawati.space`.
