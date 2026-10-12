@@ -239,8 +239,8 @@ See [[feedback_gsc_indexing_self_drive]]-style standing routine note: this group
 ```
 
 1. ❌ تعليق — جامعة الزرقاء الخاصة (https://www.facebook.com/groups/zpuuni) — محاولة 2026-10-12 (بعد نجاح "جامعة العلوم التطبيقية الخاصة" بشوي): "You Can't Use This Feature Right Now" من جديد. القيد لسا متقطع — سمح بعملية وحدة بس. وقفنا فوراً.
-2. ⏳ تعليق — جامعة آل البيت (دور عليها: `facebook.com/search/groups/?q=جامعة آل البيت`، منضمين فيها مسبقاً) — استخدم inline comment box بالفيد مباشرة، مش الـ modal الموسّع
-3. ⏳ بوست — جامعة آل البيت
+2. ❌ تعليق — ملتقى طلاب جامعة ( آل البيت ) (https://www.facebook.com/groups/118499440178013) — انضممنا من جديد (جروب تاني أنشط من قبل)، جربنا تعليق inline صحيح، نفس "You Can't Use This Feature Right Now" فوراً. وقفنا.
+3. ⏳ بوست — نفس الجروب (118499440178013)
 4. ⏳ تعليق — تجمع طلاب جامعة البلقاء التطبيقية (https://www.facebook.com/groups/1734868496860512/)
 5. ⏳ بوست — تجمع طلاب جامعة البلقاء التطبيقية
 6. ⏳ تعليق — University of Islamic Sciences جامعة العلوم الاسلامية (https://www.facebook.com/groups/230674883343058/)
