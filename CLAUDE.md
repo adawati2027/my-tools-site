@@ -1,15 +1,18 @@
 # أدواتي (Adawati) — adawati.space
 
-Free multi-tool Arabic website (calculators, converters, games, daily-info tools). Owner: Ahmed Amawi. Plain static site — no npm, no bundler, no local git repo.
+Multi-tool Arabic site (calculators/converters/games). Owner: Ahmed Amawi. Static, no npm/bundler/local-git.
 
 ## Token-saving rules (owner's standing request — apply every task)
 
-- **Script/API first, browser last.** Browser only for actions with no API (e.g. enabling a GCP API, Cloudflare dashboard).
-- **Reuse `tools/`** helpers; save a one-off script there if it will be needed again.
-- **Read narrowly** (`grep`/`sed -n`), never whole large data files. Read `docs/history/*` only for the topic at hand.
-- **Screenshots**: zoomed/scaled only; prefer a DOM/JS read when it answers the question.
-- **Long jobs** → `run_in_background`, don't poll. **Terse replies.** One session per work thread.
-- **Execution**: max 2 sub-agents, sequential; normally none are needed.
+- **API/script > browser.** Browser only when no API exists (e.g. GCP console, Cloudflare dashboard).
+- **Reuse `tools/`**; save one-offs there if reusable later.
+- **Partial reads only** (`grep`/`sed -n`/line-range) — never whole large files.
+- **Reference, don't inline.** Point to `docs/history/<name>.md` by name (see index below); don't paste its contents here or re-explain it in replies unless asked.
+- **Daily/in-progress task status → memory** (`~/.claude/.../memory/*.md`), not CLAUDE.md. Only a *stable, reusable method* graduates to `docs/history/` + a one-line index pointer here.
+- **Screenshots**: zoomed only; prefer DOM/JS reads.
+- **Long jobs** → background, no polling.
+- **Replies**: terse — the change itself, not a recap of unchanged code or theory.
+- **Sub-agents**: max 2, sequential; usually none needed.
 
 ## Commands & helpers
 
