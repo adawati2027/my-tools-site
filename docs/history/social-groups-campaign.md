@@ -238,7 +238,7 @@ See [[feedback_gsc_indexing_self_drive]]-style standing routine note: this group
 🔗 https://adawati.space/jo/students/credit-hours-planner/
 ```
 
-1. ⏳ تعليق — جامعة الزرقاء الخاصة (https://www.facebook.com/groups/zpuuni) — آخر بوست بالفيد (مو بوستنا احنا)
+1. ❌ تعليق — جامعة الزرقاء الخاصة (https://www.facebook.com/groups/zpuuni) — محاولة 2026-10-12 (بعد نجاح "جامعة العلوم التطبيقية الخاصة" بشوي): "You Can't Use This Feature Right Now" من جديد. القيد لسا متقطع — سمح بعملية وحدة بس. وقفنا فوراً.
 2. ⏳ تعليق — جامعة آل البيت (دور عليها: `facebook.com/search/groups/?q=جامعة آل البيت`، منضمين فيها مسبقاً) — استخدم inline comment box بالفيد مباشرة، مش الـ modal الموسّع
 3. ⏳ بوست — جامعة آل البيت
 4. ⏳ تعليق — تجمع طلاب جامعة البلقاء التطبيقية (https://www.facebook.com/groups/1734868496860512/)
