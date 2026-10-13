@@ -53,7 +53,7 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 
 ## Documentation index (read only when relevant)
 
-quiz-games · capacitor-app · bugs-fixed-registry · seo-growth · auth-accounts · i18n-language-bugs · export-image-feature · external-qa-reports (quick spot-check only, most were false) · technique-notes (raw CDP) · country-expansion · gold-price-worker · testing-infra · performance-security · onclick-csp-refactor · csp-worker · calculators-built · ads-board · quran-section · i18n-split-project · pdf-export-saga · claude-md-archive · social-groups-campaign (FB student-group posting method + target list) · joined-university-groups (89 already-joined uni groups) · joined-groups-by-category (~158 of 358 joined groups, all categories) · social-posting (FB/IG daily Story/post routine, Page vs profile link-button quirks) — all under `docs/history/<name>.md`.
+quiz-games · capacitor-app · bugs-fixed-registry · seo-growth · auth-accounts · i18n-language-bugs · export-image-feature · external-qa-reports (quick spot-check only, most were false) · technique-notes (raw CDP) · country-expansion · gold-price-worker · testing-infra · performance-security · onclick-csp-refactor · csp-worker · calculators-built · ads-board · quran-section · i18n-split-project · pdf-export-saga · claude-md-archive · social-groups-campaign (FB student-group posting method + target list) · joined-university-groups · joined-groups-by-category (already-joined FB groups) · social-posting (FB/IG daily Story/post routine, Page vs profile link-button quirks) — all under `docs/history/<name>.md`.
 
 ## Style
 

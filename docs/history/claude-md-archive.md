@@ -56,3 +56,7 @@ When genuinely unresolvable, say so in the page's own disclaimer text rather tha
 - **Script/API first, browser last.** Browser only for actions with no API (e.g. GSC "Request Indexing").
 - **Indexing** via API only: `node tools/indexnow.js` + `node tools/gsc-sitemap.js` after adding pages. Never Google's Indexing API (jobs/livestream only).
 - **AdSense** (rejected 2026-10-08): duplicate pairs 550→1, thin pages fixed, country fact sections on holidays/gold/prayer/weather (see seo-growth.md). Request review only after organic traffic grows (~2–3 weeks of recrawl).
+
+## Moved from CLAUDE.md on 2026-10-13
+
+- Documentation index counts (as of 2026-10-13): joined-university-groups (89 already-joined uni groups) · joined-groups-by-category (~158 of 358 joined groups, all categories)
