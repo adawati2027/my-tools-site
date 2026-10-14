@@ -134,6 +134,12 @@ function main() {
     for (const s of skipNorm) {
       if (norm.includes(s) || s.includes(norm)) return false;
     }
+    // Bidirectional containment: catches both a shorter used-name inside a longer
+    // candidate (e.g. candidate adds a bilingual suffix) and vice versa.
+    for (const usedName of usedNames) {
+      if (usedName.length < 4) continue;
+      if (norm.includes(usedName) || usedName.includes(norm)) return false;
+    }
     for (const line of usedLines) {
       if (line.includes(norm)) return false;
     }
