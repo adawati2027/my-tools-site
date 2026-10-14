@@ -36,14 +36,26 @@ const EMOJI_MISC = /[\u{2600}-\u{27BF}]/gu; // misc symbols & dingbats
 const VARIATION_ZWJ_MOJIBAKE = /[️‍�]/g;
 const PUNCT = /[()[\]{}|~*_#"'.,!؟?؛:«»“”\-–—]/g;
 const ARABIC_DIACRITICS = /[ً-ٟؐ-ؚۖ-ۭ]/g;
+// Visually-identical Arabic letter variants that commonly differ by codepoint
+// depending on keyboard/source (e.g. يرقى vs ارقۍ) — fold to one canonical form
+// so near-duplicate group names still match.
+const ARABIC_LETTER_VARIANTS = [
+  [/[أإآا]/g, 'ا'],
+  [/[ۍئ]/g, 'ي'],
+  [/ى/g, 'ي'],
+  [/ؤ/g, 'و'],
+  [/ة/g, 'ه'],
+];
 
 function normalize(name) {
-  return name
+  let s = name
     .replace(ARABIC_DIACRITICS, '')
     .replace(EMOJI_MAIN, '')
     .replace(EMOJI_MISC, '')
     .replace(VARIATION_ZWJ_MOJIBAKE, '')
-    .replace(PUNCT, ' ')
+    .replace(PUNCT, ' ');
+  for (const [re, rep] of ARABIC_LETTER_VARIANTS) s = s.replace(re, rep);
+  return s
     .replace(/\s+/g, ' ')
     .trim()
     .toLowerCase();
