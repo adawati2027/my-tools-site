@@ -31,11 +31,19 @@ const SKIP_LIST = [
   'طلاب جامعة آل البيت',
 ];
 
+const EMOJI_MAIN = /[\u{1F000}-\u{1FFFF}]/gu; // emoji incl. flags (regional indicators)
+const EMOJI_MISC = /[\u{2600}-\u{27BF}]/gu; // misc symbols & dingbats
+const VARIATION_ZWJ_MOJIBAKE = /[️‍�]/g;
+const PUNCT = /[()[\]{}|~*_#"'.,!؟?؛:«»“”\-–—]/g;
+const ARABIC_DIACRITICS = /[ً-ٟؐ-ؚۖ-ۭ]/g;
+
 function normalize(name) {
   return name
-    .replace(/[ً-ٟؐ-ؚۖ-ۭ]/g, '') // Arabic diacritics
-    .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}❤️]/gu, '') // emoji
-    .replace(/[()[\]{}|~*_#"'.,!؟?؛:«»"“”\-–—]/g, ' ')
+    .replace(ARABIC_DIACRITICS, '')
+    .replace(EMOJI_MAIN, '')
+    .replace(EMOJI_MISC, '')
+    .replace(VARIATION_ZWJ_MOJIBAKE, '')
+    .replace(PUNCT, ' ')
     .replace(/\s+/g, ' ')
     .trim()
     .toLowerCase();
