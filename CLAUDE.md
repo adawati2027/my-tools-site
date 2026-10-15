@@ -20,8 +20,8 @@ Multi-tool Arabic site (calculators/converters/games). Owner: Ahmed Amawi. Stati
 - After adding a page: add URL to `build-sitemap.js` → `node build-sitemap.js` → `node build-search-index.js` → `node tools/indexnow.js <url>` + `node tools/gsc-sitemap.js`. OG images: headless `chrome --headless=new --screenshot --window-size=1200,630` of a small HTML card (templates in `tools/og-templates/`, local only).
 - Language variants: root `<tool>.html` + per-language maps (`node tools/lang-map.js extract|write|merge|status` → `lang-content/<lang>/<tool>.html`) → `node build-lang-pages.js` regenerates `/ar|fr|es|de|ru/<tool>/` (body + JSON-LD). Editing English text = update the maps too.
 - Tests (need headless Chrome via CDP, see script headers): `node test-calculators.js`, `node test-e2e.js`
-- Other `tools/`: ga-report [days] (GA4 Data API: channels, sources, top pages, events) · gsc-inspect (index status) · build-country-quiz (then re-run quiz-static) · quiz-static (quiz about/sample Q&A) · quiz-levels list|apply · fill-data-t (WT-object pages) · js-syntax · build-admission-data · build-tajweed-test-data · admhec-import · i18n-gaps/wrap-block/set-lang-obj · fb-fresh-groups [n] (lists unused FB groups from joined-*.md vs social-groups-campaign.md/comment.md, for the comment-campaign batches — run before opening the browser).
-- Daily 22:00 Windows task "Adawati CLAUDE.md cleanup" runs `tools/md-cleanup.cmd` (headless `claude -p`, edits only CLAUDE.md + archive), then `tools/md-verify-deploy.js` sanity-checks and pushes those 2 files if changed; log `%LOCALAPPDATA%\adawati-md-cleanup.log`).
+- Other `tools/`: ga-report [days] (GA4 Data API: channels, sources, top pages, events) · gsc-inspect (index status) · build-country-quiz (then re-run quiz-static) · quiz-static (quiz about/sample Q&A) · quiz-levels list|apply · fill-data-t (WT-object pages) · js-syntax · build-admission-data · build-tajweed-test-data · admhec-import · i18n-gaps/wrap-block/set-lang-obj · fb-fresh-groups [n] (unused FB groups for comment batches; run before opening the browser).
+- Daily 22:00 task: `tools/md-cleanup.cmd` (this CLAUDE.md cleanup) → `tools/md-verify-deploy.js` pushes if changed; log `%LOCALAPPDATA%\adawati-md-cleanup.log`.
 - Shared JS change (`i18n.js` etc.) → bump its `?v=N` in every referencing HTML (grep+sed) so browsers/Cloudflare pick it up.
 
 ## Deployment
@@ -46,7 +46,7 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 
 - **CSP**: any change must be made in BOTH the Worker `adawati-csp-nonce` and the "security headers" Transform Rule.
 - **masters/bachelor guides**: read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending (dead-end universities listed).
-- **AdSense** (rejected 2026-10-08; fixes done, see seo-growth.md). Traffic is ~70% Facebook, organic search small — request review only after organic grows. ~2026-10-15: `node tools/ga-report.js 7`, check whether /jo/students/parallel-results/ engagement (was 2 s) improved after the next-step links.
+- **AdSense** (rejected 2026-10-08; fixes in seo-growth.md): request review only after organic grows (traffic ~70% FB). Due ~2026-10-15: `ga-report 7` → did /jo/students/parallel-results/ engagement (was 2 s) improve?
 - **Indexing** via API only (commands above); never Google's Indexing API (jobs/livestream only).
 - **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season; re-run `tools/admhec-import.js` with new owner-saved admhec pages (bachelor-guide), then `tools/build-admission-data.js <same pages>` (what-can-i-study).
 - **Data audit**: some private bachelor-guide minimums are below the national floor (e.g. AAU engineering 65 vs 80); what-can-i-study applies the floor, the guide doesn't yet.

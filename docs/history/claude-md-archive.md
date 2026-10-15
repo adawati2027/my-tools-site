@@ -60,3 +60,9 @@ When genuinely unresolvable, say so in the page's own disclaimer text rather tha
 ## Moved from CLAUDE.md on 2026-10-13
 
 - Documentation index counts (as of 2026-10-13): joined-university-groups (89 already-joined uni groups) · joined-groups-by-category (~158 of 358 joined groups, all categories)
+
+## Moved from CLAUDE.md on 2026-10-15
+
+- Other `tools/`: ... · fb-fresh-groups [n] (lists unused FB groups from joined-*.md vs social-groups-campaign.md/comment.md, for the comment-campaign batches — run before opening the browser).
+- Daily 22:00 Windows task "Adawati CLAUDE.md cleanup" runs `tools/md-cleanup.cmd` (headless `claude -p`, edits only CLAUDE.md + archive), then `tools/md-verify-deploy.js` sanity-checks and pushes those 2 files if changed; log `%LOCALAPPDATA%\adawati-md-cleanup.log`).
+- **AdSense** (rejected 2026-10-08; fixes done, see seo-growth.md). Traffic is ~70% Facebook, organic search small — request review only after organic grows. ~2026-10-15: `node tools/ga-report.js 7`, check whether /jo/students/parallel-results/ engagement (was 2 s) improved after the next-step links.
