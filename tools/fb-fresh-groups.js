@@ -89,6 +89,9 @@ function extractUsed(text) {
   while ((m = boldRe.exec(text))) names.add(normalize(m[1]));
   const quoteRe = /"([^"]{3,80})"/g;
   while ((m = quoteRe.exec(text))) names.add(normalize(m[1]));
+  // Bullet/numbered lines without bold, e.g. "- Name (id) — topic" or "1. Name (id) — topic"
+  const bulletRe = /^(?:[-*]|\d+\.)\s+([^(\n]{2,80}?)\s*\(/gm;
+  while ((m = bulletRe.exec(text))) names.add(normalize(m[1]));
 
   // Fallback: any whole line mentioning a groups/ URL — used as a substring-search
   // blob below, to catch group names written as plain text (no bold/quotes) in

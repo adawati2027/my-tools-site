@@ -399,3 +399,18 @@
 🔗 https://adawati.space/jo/fuel-prices/"
 
 **النتيجة: 8/8 نشروا بنجاح، صفر حظر فيسبوك طول الدفعة.**
+
+## دفعة تاسعة (2026-10-15) — أول دفعة بـ UTM tracking (?utm_source=fb&utm_medium=groups&utm_campaign=<group-id>)
+
+نفس 8 جروبات دفعة سابعة لكن كل جروب أخد موضوع مختلف عن اللي أخده قبل (rotation)، عدا #3 (askuniversity كان عالق تحميل، استبدلناه بـ"احكام تجويد القران" من دفعة ثامنة).
+
+1. justudents1 — شو بقدر أدرس — utm_campaign=justudents1
+2. 528984538350725 — دليل البكالوريوس — utm_campaign=528984538350725
+3. 219646314813092 (احكام تجويد القران، بديل عن askuniversity العالق) — دليل الماجستير — utm_campaign=219646314813092
+4. askuniversities — حاسبة الساعات المعتمدة — utm_campaign=askuniversities
+5. 656002234806010 (مبرمجين الاردن) — حاسبة تكلفة الجامعة — utm_campaign=656002234806010
+6. trainings.in.jordan (دورات في الاردن) — حاسبة المعدل الجامعي — utm_campaign=trainings.in.jordan
+7. JoDevelopersGuild (رابطة المبرمجين) — المنح والقروض — utm_campaign=jodevguild (محاولة أولى فسدت: Return فعّل autocomplete بدل الإرسال ومسخ جزء من الرابط — مسحنا وأعدنا الكتابة ونجحت. كمان ظهر سؤال "Participation review" بعد النشر، جاوبنا عليه (نعم/نعم) بنجاح.)
+8. 572171006669323 (إعلانات الكورسات) — نتائج الموازي — utm_campaign=572171006669323
+
+**النتيجة: 8/8 نجحوا، صفر حظر فيسبوك. أول دفعة فيها tracking لكل جروب — بعد كم يوم نقدر نشوف GA4 sessionCampaignName ونعرف فعلياً أي جروب بيجيب زوار.**
