@@ -92,6 +92,12 @@ function extractUsed(text) {
   // Bullet/numbered lines without bold, e.g. "- Name (id) — topic" or "1. Name (id) — topic"
   const bulletRe = /^(?:[-*]|\d+\.)\s+([^(\n]{2,80}?)\s*\(/gm;
   while ((m = bulletRe.exec(text))) names.add(normalize(m[1]));
+  // Bullet/numbered lines starting with the ID/slug itself, e.g. "1. 287462498043674 (name) — topic"
+  const idFirstRe = /^\d+\.\s+([A-Za-z0-9_.]{4,30})\s*[\(—]/gm;
+  while ((m = idFirstRe.exec(text))) ids.add(m[1]);
+  // Bare ID in parens anywhere, e.g. "تعئبة وتغليف... (8216220035157196)"
+  const parenIdRe = /\((\d{6,})\)/g;
+  while ((m = parenIdRe.exec(text))) ids.add(m[1]);
 
   // Fallback: any whole line mentioning a groups/ URL — used as a substring-search
   // blob below, to catch group names written as plain text (no bold/quotes) in
