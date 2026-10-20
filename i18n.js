@@ -27,6 +27,32 @@
   } catch (e) {}
 })();
 
+// Native app ads go through AdMob instead (see block above for why). Uses
+// Google's UMP flow (requestConsentInfo -> showConsentForm if required) so
+// EU/UK users get the same consent gate as the web version, handled by
+// Google's own geography detection rather than our own.
+(function() {
+  try {
+    if (!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform())) return;
+    var AdMob = window.Capacitor.Plugins && window.Capacitor.Plugins.AdMob;
+    if (!AdMob) return;
+    var isIOS = window.Capacitor.getPlatform && window.Capacitor.getPlatform() === 'ios';
+    var BANNER_ID = isIOS ? 'ca-app-pub-3337905412116301/7979469818' : 'ca-app-pub-3337905412116301/5684478962';
+
+    AdMob.initialize().then(function() { return AdMob.requestConsentInfo(); }).then(function(info) {
+      var showBannerNow = function() {
+        if (!info.canRequestAds) return;
+        AdMob.showBanner({ adId: BANNER_ID, position: 'BOTTOM_CENTER' }).catch(function() {});
+      };
+      if (info.isConsentFormAvailable && info.status === 'REQUIRED') {
+        AdMob.showConsentForm().then(function(updated) { info = updated; showBannerNow(); }).catch(function() {});
+      } else {
+        showBannerNow();
+      }
+    }).catch(function() {});
+  } catch (e) {}
+})();
+
 // EU/UK ad-consent gate (Google's EU User Consent Policy requires this before
 // any personalized ad can serve). Default is non-personalized until the user
 // actively accepts — any current/future adsbygoogle.push() call respects this
