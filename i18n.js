@@ -9,6 +9,80 @@
   } catch (e) {}
 })();
 
+// AdSense is web-only per Google's policy — never serve/render it inside the
+// native app's WebView (that's AdMob's job instead). Disable push() so any
+// adsbygoogle.push({}) call on the page becomes a no-op, and hide the ad slots.
+(function() {
+  try {
+    if (window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()) {
+      window.adsbygoogle = [];
+      window.adsbygoogle.push = function() {};
+      var hideAdSlots = function() {
+        var ads = document.querySelectorAll('ins.adsbygoogle');
+        for (var i = 0; i < ads.length; i++) ads[i].style.display = 'none';
+      };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hideAdSlots);
+      else hideAdSlots();
+    }
+  } catch (e) {}
+})();
+
+// EU/UK ad-consent gate (Google's EU User Consent Policy requires this before
+// any personalized ad can serve). Default is non-personalized until the user
+// actively accepts — any current/future adsbygoogle.push() call respects this
+// via window.adsbygoogle.requestNonPersonalizedAds. Skipped inside the native
+// app (ads are already fully disabled there, see block above).
+(function() {
+  try {
+    if (window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()) return;
+    var KEY = 'adawati_ad_consent';
+    var choice = localStorage.getItem(KEY);
+    window.adsbygoogle = window.adsbygoogle || [];
+    window.adsbygoogle.requestNonPersonalizedAds = (choice === 'personalized') ? 0 : 1;
+    if (choice) return; // already decided, don't show the banner again
+
+    var isAr = (document.documentElement.lang || '').indexOf('ar') === 0;
+    var text = isAr
+      ? 'بنستخدم كوكيز لعرض إعلانات، بعضها مخصصة حسب اهتماماتك. تقدر توافق أو تكتفي بإعلانات غير مخصصة.'
+      : "We use cookies to show ads, some personalized to your interests. You can accept, or stick to non-personalized ads only.";
+    var acceptLabel = isAr ? 'موافق' : 'Accept';
+    var rejectLabel = isAr ? 'إعلانات غير مخصصة فقط' : 'Non-personalized only';
+
+    var render = function() {
+      var bar = document.createElement('div');
+      bar.setAttribute('dir', isAr ? 'rtl' : 'ltr');
+      bar.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:99999;background:var(--surface,#fff);border-top:1px solid var(--border,#e5e7eb);box-shadow:0 -2px 10px rgba(0,0,0,.08);padding:14px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;font-size:13px;line-height:1.6;color:var(--text,#111);';
+      var p = document.createElement('span');
+      p.style.cssText = 'flex:1;min-width:220px;';
+      p.textContent = text;
+      var btnRow = document.createElement('div');
+      btnRow.style.cssText = 'display:flex;gap:8px;flex-shrink:0;';
+      var mkBtn = function(label, primary) {
+        var b = document.createElement('button');
+        b.textContent = label;
+        b.style.cssText = 'padding:9px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid ' + (primary ? 'transparent' : 'var(--border,#e5e7eb)') + ';background:' + (primary ? 'var(--primary,#2563eb)' : 'var(--surface-2,#f3f4f6)') + ';color:' + (primary ? '#fff' : 'var(--text,#111)') + ';';
+        return b;
+      };
+      var acceptBtn = mkBtn(acceptLabel, true);
+      var rejectBtn = mkBtn(rejectLabel, false);
+      var decide = function(value) {
+        try { localStorage.setItem(KEY, value); } catch (e) {}
+        window.adsbygoogle.requestNonPersonalizedAds = (value === 'personalized') ? 0 : 1;
+        bar.remove();
+      };
+      acceptBtn.onclick = function() { decide('personalized'); };
+      rejectBtn.onclick = function() { decide('non-personalized'); };
+      btnRow.appendChild(rejectBtn);
+      btnRow.appendChild(acceptBtn);
+      bar.appendChild(p);
+      bar.appendChild(btnRow);
+      document.body.appendChild(bar);
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);
+    else render();
+  } catch (e) {}
+})();
+
 var T = window.T = window.T || {};
 var I18N_BASE = (function() {
   try {
