@@ -46,7 +46,8 @@ const TOOLS = [
   'password-generator','percentage-calculator','qr-generator','random-number',
   'salary-calculator','stopwatch','timezone-converter','tip-calculator',
   'unit-converter','vat-calculator','word-counter','kids-learn',
-  'memory-game','number-guess','quick-math','reaction-test','car-game','jump-game'
+  'memory-game','number-guess','quick-math','reaction-test','car-game','jump-game',
+  'video-compressor'
 ];
 
 // ── 5 non-English languages to generate ──

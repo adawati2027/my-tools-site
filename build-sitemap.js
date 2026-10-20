@@ -13,7 +13,7 @@ const TOOLS = [
   'salary-calculator','stopwatch','timezone-converter','tip-calculator',
   'unit-converter','vat-calculator','word-counter',
   'kids-learn','memory-game','number-guess','quick-math','reaction-test',
-  'car-game','jump-game'
+  'car-game','jump-game','video-compressor'
 ];
 
 const LANGS = ['ar','fr','es','de','ru'];

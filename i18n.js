@@ -43,7 +43,7 @@ var LANG_VARIANT_TOOLS = ['age-calculator','bmi-calculator','compound-interest',
   'image-compressor','loan-calculator','password-generator','percentage-calculator','qr-generator',
   'random-number','salary-calculator','stopwatch','timezone-converter','tip-calculator','unit-converter',
   'vat-calculator','word-counter','kids-learn','memory-game','number-guess','quick-math','reaction-test',
-  'car-game','jump-game'];
+  'car-game','jump-game','video-compressor'];
 function _langVariantUrl(lang) {
   var p = location.pathname, m, tool;
   if ((m = p.match(/^\/([a-z0-9-]+)\.html$/))) tool = m[1];
@@ -790,6 +790,10 @@ const PAGE_META = {
   'image-compressor': {
     title:{en:'Free Image Compressor — Reduce Photo Size Online | Adawati',ar:'ضاغط الصور المجاني — تقليل حجم الصور أونلاين | أدواتي',fr:'Compresseur d\'images — Réduire la taille en ligne | Adawati',es:'Compresor de imágenes gratis — Reducir tamaño en línea | Adawati',de:'Bildkompressor — Fotogröße online reduzieren | Adawati',ru:'Компрессор изображений — Уменьшить размер онлайн | Adawati'},
     desc:{en:'Compress images online for free without quality loss. Reduce JPG, PNG and WebP sizes instantly. No upload to servers — all in your browser. No signup.',ar:'اضغط الصور أونلاين مجاناً بدون فقدان الجودة. قلل حجم JPG وPNG وWebP فوراً. لا رفع لخوادم — كل شيء في متصفحك.',fr:'Compressez des images en ligne gratuitement sans perte de qualité. Réduisez JPG, PNG et WebP instantanément.',es:'Comprime imágenes en línea gratis sin pérdida de calidad. Reduce JPG, PNG y WebP al instante.',de:'Bilder kostenlos online komprimieren ohne Qualitätsverlust. JPG, PNG und WebP sofort reduzieren.',ru:'Сжимайте изображения онлайн бесплатно без потери качества. Уменьшайте JPG, PNG и WebP мгновенно.'}
+  },
+  'video-compressor': {
+    title:{en:'Free Video Compressor — Reduce Video Size Online | Adawati',ar:'ضاغط الفيديو المجاني — تقليل حجم الفيديو أونلاين | أدواتي',fr:'Compresseur vidéo gratuit — Réduire la taille en ligne | Adawati',es:'Compresor de vídeo gratis — Reducir tamaño en línea | Adawati',de:'Kostenloser Video-Kompressor — Größe online reduzieren | Adawati',ru:'Бесплатный компрессор видео — Уменьшить размер онлайн | Adawati'},
+    desc:{en:'Compress video online for free. Reduce MP4, MOV and WebM sizes instantly. No upload to servers — all processing in your browser. No signup.',ar:'اضغط الفيديو أونلاين مجاناً. قلل حجم MP4 وMOV وWebM فوراً. لا رفع لخوادم — كل المعالجة في متصفحك.',fr:'Compressez des vidéos en ligne gratuitement. Réduisez MP4, MOV et WebM instantanément. Traitement dans le navigateur, sans inscription.',es:'Comprime vídeos en línea gratis. Reduce MP4, MOV y WebM al instante. Procesamiento en el navegador, sin registro.',de:'Videos kostenlos online komprimieren. MP4, MOV und WebM sofort reduzieren. Verarbeitung im Browser, ohne Anmeldung.',ru:'Сжимайте видео онлайн бесплатно. Уменьшайте MP4, MOV и WebM мгновенно. Обработка в браузере, без регистрации.'}
   },
   'password-generator': {
     title:{en:'Free Password Generator — Strong & Secure Passwords | Adawati',ar:'مولّد كلمات المرور المجاني — كلمات مرور قوية وآمنة | أدواتي',fr:'Générateur de mots de passe — Mots de passe forts | Adawati',es:'Generador de contraseñas — Contraseñas fuertes | Adawati',de:'Passwort-Generator — Starke & sichere Passwörter | Adawati',ru:'Генератор паролей — Надёжные и безопасные пароли | Adawati'},
@@ -1629,6 +1633,7 @@ const TOOL_META = {
   'date-diff':           {icon:'📆', bg:'#fff7ed', titleKey:'dd_card_title', descKey:'dd_card_desc'},
   'file-converter':      {icon:'📂', bg:'#f0fdf4', titleKey:'fc_card_title', descKey:'fc_card_desc'},
   'image-compressor':    {icon:'🖼️', bg:'#f0f9ff', titleKey:'ic_card_title', descKey:'ic_card_desc'},
+  'video-compressor':    {icon:'🎬', bg:'#f0f9ff', titleKey:'vc_card_title', descKey:'vc_card_desc'},
   'number-guess':        {icon:'🎯', bg:'#fdf4ff', titleKey:'guess_card_title', descKey:'guess_card_desc'},
   'memory-game':         {icon:'🃏', bg:'#fef9c3', titleKey:'memory_card_title', descKey:'memory_card_desc'},
   'quick-math':          {icon:'🔢', bg:'#fef3c7', titleKey:'qmath_card_title', descKey:'qmath_card_desc'},
