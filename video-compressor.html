@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>Video Compressor (Test) | Adawati</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="style.css?v=4">
+<style>
+.drop-zone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  margin-bottom: 16px;
+}
+.drop-zone:hover, .drop-zone.drag-over {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+.drop-zone-icon { font-size: 40px; margin-bottom: 8px; }
+.drop-zone-text { font-size: 15px; color: var(--text-muted); }
+.drop-zone-sub { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+.vc-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; gap:10px; }
+.vc-row select { flex:1; padding:8px; border-radius:8px; border:1px solid var(--border); font-family:inherit; font-size:14px; background:var(--surface); color:var(--text); }
+video { width:100%; border-radius:8px; background:#000; max-height:360px; }
+.vc-progress-wrap { background:var(--surface-2); border-radius:8px; height:10px; overflow:hidden; margin-top:10px; }
+.vc-progress-bar { background:var(--primary); height:100%; width:0%; transition:width 0.2s; }
+</style>
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="index.html" class="nav-brand">Adawati</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="index.html">← Back to Home</a></div>
+  <div class="card">
+    <div class="card-icon" style="background:#f0f9ff;">🎬</div>
+    <h1 class="card-title">Video Compressor <span style="font-size:13px;font-weight:400;color:var(--text-muted);">(experimental test)</span></h1>
+    <div class="card-subtitle">Works in your browser — your video is never uploaded ✅</div>
+    <div class="divider"></div>
+    <p style="font-size:13px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;background:#fef9c3;padding:10px 12px;border-radius:8px;">
+      ⚠️ This is an experimental test page (not linked from the site, not indexed). It re-encodes your video client-side using Canvas + MediaRecorder — no ffmpeg, no server upload. Speed = roughly the length of your video. Browser support varies (works best on recent Chrome/Android and Safari/iOS).
+    </p>
+
+    <div class="drop-zone" id="dropZone">
+      <div class="drop-zone-icon">📁</div>
+      <div class="drop-zone-text">Click here or drag your video</div>
+      <div class="drop-zone-sub">MP4, MOV, WebM — any size (processed on your device)</div>
+    </div>
+    <input type="file" id="vidInput" accept="video/*" style="display:none">
+
+    <div id="controls" style="display:none;margin-top:14px;">
+      <video id="srcVideo" controls muted playsinline></video>
+
+      <div class="vc-row" style="margin-top:14px;">
+        <span style="font-size:14px;">Target width</span>
+        <select id="widthSelect">
+          <option value="360">360px (smallest, fastest)</option>
+          <option value="480" selected>480px (recommended)</option>
+          <option value="640">640px</option>
+          <option value="854">854px (720p-ish)</option>
+        </select>
+      </div>
+      <div class="vc-row">
+        <span style="font-size:14px;">Video bitrate</span>
+        <select id="bitrateSelect">
+          <option value="400">400 kbps (smallest)</option>
+          <option value="800" selected>800 kbps (recommended)</option>
+          <option value="1500">1500 kbps</option>
+          <option value="2500">2500 kbps (higher quality)</option>
+        </select>
+      </div>
+
+      <div class="stat-grid" style="margin-top:14px;">
+        <div class="stat-box">
+          <div class="stat-val" id="origSize" style="font-size:16px;">—</div>
+          <div class="stat-lbl">Original size</div>
+        </div>
+        <div class="stat-box" style="background:#f0fdf4;">
+          <div class="stat-val" id="compSize" style="font-size:16px;color:#16a34a;">—</div>
+          <div class="stat-lbl">Compressed</div>
+        </div>
+        <div class="stat-box" style="background:#fefce8;">
+          <div class="stat-val" id="savings" style="font-size:16px;color:#ca8a04;">—</div>
+          <div class="stat-lbl">Savings</div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="startBtn" style="margin-top:16px;width:100%;">▶️ Start Compression</button>
+
+      <div id="progressWrap" style="display:none;margin-top:12px;">
+        <div style="font-size:13px;color:var(--text-muted);" id="progressText">Processing… 0:00 / 0:00</div>
+        <div class="vc-progress-wrap"><div class="vc-progress-bar" id="progressBar"></div></div>
+      </div>
+
+      <div id="resultWrap" style="display:none;margin-top:16px;">
+        <video id="outVideo" controls playsinline></video>
+        <button class="btn btn-primary" id="downloadBtn" style="margin-top:12px;width:100%;">⬇️ Download Compressed Video</button>
+      </div>
+
+      <button id="anotherBtn" style="width:100%;margin-top:8px;padding:10px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:inherit;font-size:14px;color:var(--text);">
+        🔄 Choose Another Video
+      </button>
+    </div>
+  </div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+    <div class="footer-copy-simple">© 2026 Adawati</div>
+  </div>
+</footer>
+
+<script>
+let originalFile = null;
+let outputBlob = null;
+let outputMime = 'video/webm';
+
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}
+function formatTime(s) {
+  s = Math.max(0, s|0);
+  const m = Math.floor(s/60), sec = s%60;
+  return m + ':' + (sec<10?'0':'') + sec;
+}
+
+function loadVideo(input) {
+  const file = input.files[0];
+  if (!file) return;
+  originalFile = file;
+  document.getElementById('origSize').textContent = formatSize(file.size);
+  document.getElementById('compSize').textContent = '—';
+  document.getElementById('savings').textContent = '—';
+  document.getElementById('resultWrap').style.display = 'none';
+  document.getElementById('progressWrap').style.display = 'none';
+  const video = document.getElementById('srcVideo');
+  video.src = URL.createObjectURL(file);
+  document.getElementById('controls').style.display = 'block';
+}
+
+function pickMime() {
+  const candidates = [
+    'video/mp4;codecs=avc1',
+    'video/mp4',
+    'video/webm;codecs=vp9',
+    'video/webm;codecs=vp8',
+    'video/webm'
+  ];
+  for (const c of candidates) {
+    if (window.MediaRecorder && MediaRecorder.isTypeSupported(c)) return c;
+  }
+  return '';
+}
+
+function startCompression() {
+  const video = document.getElementById('srcVideo');
+  const startBtn = document.getElementById('startBtn');
+  startBtn.disabled = true;
+  startBtn.textContent = '⏳ Processing…';
+  document.getElementById('progressWrap').style.display = 'block';
+  document.getElementById('resultWrap').style.display = 'none';
+
+  const targetWidth = parseInt(document.getElementById('widthSelect').value, 10);
+  const bitrate = parseInt(document.getElementById('bitrateSelect').value, 10) * 1000;
+
+  const canvas = document.createElement('canvas');
+  const vw = video.videoWidth || 640, vh = video.videoHeight || 360;
+  const scale = targetWidth / vw;
+  canvas.width = targetWidth;
+  canvas.height = Math.round((vh * scale) / 2) * 2;
+  const ctx = canvas.getContext('2d');
+
+  const fps = 24;
+  const canvasStream = canvas.captureStream(fps);
+  const tracks = canvasStream.getVideoTracks().slice();
+
+  let audioStream = null;
+  try {
+    audioStream = video.captureStream ? video.captureStream() : (video.mozCaptureStream ? video.mozCaptureStream() : null);
+  } catch (e) { audioStream = null; }
+  if (audioStream) {
+    audioStream.getAudioTracks().forEach(t => tracks.push(t));
+  }
+
+  const combined = new MediaStream(tracks);
+  const mime = pickMime();
+  outputMime = mime || 'video/webm';
+  let recorder;
+  try {
+    recorder = mime
+      ? new MediaRecorder(combined, { mimeType: mime, videoBitsPerSecond: bitrate })
+      : new MediaRecorder(combined, { videoBitsPerSecond: bitrate });
+  } catch (e) {
+    alert('MediaRecorder is not supported on this browser: ' + e.message);
+    startBtn.disabled = false;
+    startBtn.textContent = '▶️ Start Compression';
+    return;
+  }
+
+  const chunks = [];
+  recorder.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
+  recorder.onstop = function () {
+    outputBlob = new Blob(chunks, { type: outputMime });
+    document.getElementById('compSize').textContent = formatSize(outputBlob.size);
+    const saved = originalFile.size - outputBlob.size;
+    const pct = ((saved / originalFile.size) * 100).toFixed(0);
+    document.getElementById('savings').textContent = (saved > 0 ? '−' : '+') + formatSize(Math.abs(saved)) + ' (' + Math.abs(pct) + '%)';
+    document.getElementById('savings').style.color = saved > 0 ? '#ca8a04' : '#dc2626';
+    const outVideo = document.getElementById('outVideo');
+    outVideo.src = URL.createObjectURL(outputBlob);
+    document.getElementById('resultWrap').style.display = 'block';
+    document.getElementById('progressWrap').style.display = 'none';
+    startBtn.disabled = false;
+    startBtn.textContent = '▶️ Start Compression';
+  };
+
+  let rafId;
+  function draw() {
+    if (video.paused || video.ended) return;
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const dur = video.duration || 1;
+    const pct = Math.min(100, (video.currentTime / dur) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressText').textContent = 'Processing… ' + formatTime(video.currentTime) + ' / ' + formatTime(dur);
+    rafId = requestAnimationFrame(draw);
+  }
+
+  video.onplay = function () { rafId = requestAnimationFrame(draw); };
+  video.onended = function () {
+    cancelAnimationFrame(rafId);
+    setTimeout(function () { recorder.stop(); }, 150);
+  };
+
+  recorder.start(250);
+  video.currentTime = 0;
+  video.muted = true;
+  video.play();
+}
+
+function downloadCompressed() {
+  if (!outputBlob) return;
+  const ext = outputMime.indexOf('mp4') !== -1 ? 'mp4' : 'webm';
+  const name = (originalFile.name.replace(/\.[^.]+$/, '') || 'video') + '_compressed.' + ext;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(outputBlob);
+  a.download = name;
+  a.click();
+}
+
+const dz = document.getElementById('dropZone');
+dz.addEventListener('click', function () { document.getElementById('vidInput').click(); });
+dz.addEventListener('dragover', function (e) { e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', function () { dz.classList.remove('drag-over'); });
+dz.addEventListener('drop', function (e) {
+  e.preventDefault();
+  dz.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('video/')) {
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    const inp = document.getElementById('vidInput');
+    inp.files = dt.files;
+    loadVideo(inp);
+  }
+});
+document.getElementById('vidInput').addEventListener('change', function () { loadVideo(this); });
+document.getElementById('startBtn').addEventListener('click', startCompression);
+document.getElementById('downloadBtn').addEventListener('click', downloadCompressed);
+document.getElementById('anotherBtn').addEventListener('click', function () { document.getElementById('vidInput').click(); });
+</script>
+</body></html>
