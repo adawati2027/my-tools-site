@@ -2,8 +2,10 @@
 // Calculation engine: self-hosted vendor/praytime-3.2.js (praytimes.org, MIT).
 // Method parameters (fajr/isha angles) verified 2026-09-25 against Aladhan's own
 // live /v1/methods endpoint so fallback output matches the primary source.
-// 'Gulf' is not a built-in praytime.js method (Oman/UAE use Aladhan method 8,
+// 'Gulf' is not a built-in praytime.js method (Oman uses Aladhan method 8,
 // "Gulf Region": Fajr 19.5°, Isha 90 min after Maghrib) so it's set explicitly.
+// UAE uses Aladhan method 16, "Dubai (experimental)": Fajr 18.2°, Isha 18.2°
+// (both angle-based, not the Gulf fixed-interval Isha) — also set explicitly.
 
 const PRAYER_CITY_DATA = {
   Jordan: {
@@ -34,7 +36,7 @@ const PRAYER_CITY_DATA = {
     }
   },
   'United Arab Emirates': {
-    method: 'Gulf',
+    method: 'Dubai',
     cities: {
       Dubai:        { lat: 25.2048, lng: 55.2708, tz: 'Asia/Dubai' },
       'Abu%20Dhabi': { lat: 24.4539, lng: 54.3773, tz: 'Asia/Dubai' },
@@ -87,8 +89,9 @@ function getLocalPrayerTimes(country, city) {
   const loc = countryData.cities[city];
   if (!loc) throw new Error('Unknown city: ' + city);
 
-  const pt = new PrayTime(countryData.method === 'Gulf' ? 'MWL' : countryData.method);
+  const pt = new PrayTime((countryData.method === 'Gulf' || countryData.method === 'Dubai') ? 'MWL' : countryData.method);
   if (countryData.method === 'Gulf') pt.adjust({ fajr: 19.5, isha: '90 min' });
+  if (countryData.method === 'Dubai') pt.adjust({ fajr: 18.2, isha: 18.2 });
   pt.location([loc.lat, loc.lng]).timezone(loc.tz).format('24h');
 
   const { y, m, d } = ptLocalDateParts(loc.tz);
