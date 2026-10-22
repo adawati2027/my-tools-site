@@ -1,4 +1,4 @@
-const CACHE = 'adawati-v66';
+const CACHE = 'adawati-v67';
 const BASE = '';
 const STATIC = [
   BASE + '/',
@@ -10,6 +10,8 @@ const STATIC = [
   BASE + '/manifest.json',
   BASE + '/icon-192.svg',
   BASE + '/icon-512.svg',
+  BASE + '/icon-192.png',
+  BASE + '/icon-512.png',
   BASE + '/bmi-calculator.html',
   BASE + '/diet-plan.html',
   BASE + '/currency-converter.html',
