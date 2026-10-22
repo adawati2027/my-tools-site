@@ -626,7 +626,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" integrity="sha384-+65NgAKqXr1Nb7sBmV6O09pL8ASqZsi29OE718meKinGAWaa70VE5V6LNjXVBjIA" crossorigin="anonymous"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" integrity="sha384-YHSscHG455M7b+d6r5ibTMznxrZxV272bMjXT9ndTgmx05fLR7HsdmcVklhpBSyt" crossorigin="anonymous"></script>
-<script src="race-engine.js"></script>
+<script src="race-engine.js?v=2"></script>
 <script>
 let raceId=null, raceMyName=null, raceSubmitted=false, racePending=null, raceUnsub=null;
 
@@ -674,6 +674,7 @@ document.addEventListener('DOMContentLoaded', function(){
   async function raceConfirmName(){
     const name=document.getElementById('raceNameInput').value.trim();
     if(!name) return;
+    if(raceNameHasBlockedWord(name)){ alert('الاسم غير مسموح، جرب اسم ثاني 🙂'); return; }
     raceMyName=name;
     if(racePending!=='accept'){
       raceId=await raceCreateChallenge('number-guess', name);

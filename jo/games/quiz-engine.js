@@ -30,6 +30,7 @@ const quizLang = (function() {
 const QT = {
   ar: {
     enter_name: 'اكتب اسمك الأول 🙂',
+    invalid_name: 'الاسم غير مسموح، جرب اسم ثاني 🙂',
     creating: 'جاري الإنشاء...',
     create_error: 'صار خطأ بإنشاء التحدي، جرب مرة ثانية.',
     start_challenge_btn: 'ابدأ تحدي',
@@ -82,6 +83,7 @@ const QT = {
   },
   en: {
     enter_name: 'Enter your name first 🙂',
+    invalid_name: "This name isn't allowed, try another one 🙂",
     creating: 'Creating...',
     create_error: 'Something went wrong creating the challenge — try again.',
     start_challenge_btn: 'Start Challenge',
@@ -235,9 +237,19 @@ function escapeHtml(s) {
   });
 }
 
+const BLOCKED_NAME_WORDS = [
+  'fuck','shit','bitch','cunt','asshole','nigger','nigga','whore','slut','dick','pussy','rape','porn','faggot','retard',
+  'كس','طيز','زب','شرموط','شرموطة','عرص','قحبة','قحب','منيك','منيوك','خول','متناك','كسمك'
+];
+function nameHasBlockedWord(raw) {
+  const s = String(raw).toLowerCase();
+  return BLOCKED_NAME_WORDS.some(function(w) { return s.indexOf(w) !== -1; });
+}
+
 async function createChallenge() {
   const name = document.getElementById('creatorNameInput').value.trim();
   if (!name) { alert(qt('enter_name')); return; }
+  if (nameHasBlockedWord(name)) { alert(qt('invalid_name')); return; }
   const btn = document.querySelector('#challengeStartArea button');
   document.getElementById('creatorNameInput').disabled = true;
   btn.disabled = true; btn.textContent = qt('creating');
@@ -400,6 +412,7 @@ async function showChallengeJoinIntro(id) {
 async function joinChallenge() {
   const name = document.getElementById('joinerNameInput').value.trim();
   if (!name) { alert(qt('enter_name')); return; }
+  if (nameHasBlockedWord(name)) { alert(qt('invalid_name')); return; }
   const btn = document.querySelector('#challengeJoinForm button');
   if (btn.disabled) return;
   document.getElementById('joinerNameInput').disabled = true;

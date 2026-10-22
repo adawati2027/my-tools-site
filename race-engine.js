@@ -14,6 +14,15 @@ function raceEscapeHtml(s) {
   });
 }
 
+const RACE_BLOCKED_NAME_WORDS = [
+  'fuck','shit','bitch','cunt','asshole','nigger','nigga','whore','slut','dick','pussy','rape','porn','faggot','retard',
+  'كس','طيز','زب','شرموط','شرموطة','عرص','قحبة','قحب','منيك','منيوك','خول','متناك','كسمك'
+];
+function raceNameHasBlockedWord(raw) {
+  const s = String(raw).toLowerCase();
+  return RACE_BLOCKED_NAME_WORDS.some(function(w) { return s.indexOf(w) !== -1; });
+}
+
 function raceGetIdFromURL() {
   try { return new URLSearchParams(location.search).get('race'); } catch(e) { return null; }
 }
