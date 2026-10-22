@@ -35,7 +35,7 @@ const entries = [];
 entries.push(urlEntry(`${BASE}/`, '1.0', 'weekly'));
 
 // Country pages
-for (const code of ['om','ae','sa','us','uk','jo']) {
+for (const code of ['om','ae','sa','us','uk','jo','bd','eg','in','ph','pk']) {
   entries.push(urlEntry(`${BASE}/${code}/`, '0.8', 'weekly'));
 }
 
