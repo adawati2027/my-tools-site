@@ -93,6 +93,7 @@
         <div class="result-label" data-t="resultLbl">مكافأة نهاية الخدمة التقديرية</div>
       </div>
       <div id="eDetail" style="margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2;"></div>
+      <button id="eExportBtn" data-t="exportBtn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
     </div>
 
     <div class="result-box show" id="notEligBox" style="display:none;margin-top:20px;background:#fef2f2;">
@@ -146,6 +147,7 @@
 
 <script>
 let eosReason = 'termination';
+let lastEosResult = null;
 let curLang = 'ar';
 const CUR = { ar: 'ر.س', en: 'SAR' };
 
@@ -218,10 +220,24 @@ function calc() {
   }
   document.getElementById('eDetail').innerHTML = detail;
   resultBox.style.display = 'block';
+  lastEosResult = { years: years, salary: salary, cur: cur, reason: eosReason, final: final };
 }
 
-const LANG_AR = {"navHome":"أدوات السعودية","navGlobal":"عالمي","backLink":"→ العودة لأدوات السعودية","title":"حاسبة مكافأة نهاية الخدمة 🇸🇦","subtitle":"تقديرية وفق نظام العمل السعودي، المادتين 84 و85","lblYears":"سنوات الخدمة المتواصلة","lblSalary":"آخر أجر شهري (ر.س)","lblReasonHeader":"سبب انتهاء الخدمة","btnTerm":"فصل / انتهاء عقد","btnResign":"استقالة","resultLbl":"مكافأة نهاية الخدمة التقديرية","disclaimer":"⚠️ أداة تقديرية غير رسمية بناءً على المادتين 84 و85 من نظام العمل السعودي. لا تغطي حالات الفصل التأديبي (المادة 80) التي قد تُسقط المكافأة، أو الاستقالة لأسباب تعطي حق المكافأة الكاملة استثناءً (المادة 81). راجع <a href=\"https://hrsd.gov.sa\" target=\"_blank\" rel=\"noopener\">hrsd.gov.sa</a> لحالتك الدقيقة.","faqHeader":"❓ أسئلة شائعة","faq1q":"كيف تُحسب المكافأة؟","faq1a":"نصف شهر أجر عن كل سنة من أول 5 سنوات، وشهر كامل عن كل سنة بعد ذلك، على أساس آخر أجر. كسور السنة تُحسب بالتناسب.","faq2q":"هل المكافأة نفسها بالاستقالة؟","faq2a":"لا. بالاستقالة تطبّق المادة 85: أقل من سنتين = لا شيء، 2-5 سنوات = الثلث، 5-10 سنوات = الثلثين، 10 سنوات فأكثر = كاملة.","faq3q":"شو لو استقلت قبل سنتين؟","faq3a":"ما تستحق أي مكافأة، حسب المادة 85.","faq4q":"على الأساسي ولا الإجمالي؟","faq4a":"راجع عقدك — الممارسة قد تختلف بين الشركات بخصوص شمول البدلات الثابتة.","faq5q":"هل هذي بديل عن تقدير رسمي؟","faq5a":"لا، هذي أداة تقديرية بس. للحالات المتنازع عليها راجع منصة العمل أو محامي مختص.","otherToolsHeader":"أدوات السعودية الأخرى:","linkGosi":"👴 معاش التقاعد GOSI","linkCar":"🚗 تكلفة السيارة الشهرية","linkVat":"🧾 حاسبة ضريبة القيمة المضافة","linkAll":"🇸🇦 كل أدوات السعودية"};
-const LANG_EN = {"navHome":"Saudi Arabia Tools","navGlobal":"Global","backLink":"← Back to Saudi Arabia Tools","title":"End-of-Service Benefit Calculator 🇸🇦","subtitle":"Estimate under Saudi Labor Law, Articles 84 & 85","lblYears":"Years of continuous service","lblSalary":"Last monthly wage (SAR)","lblReasonHeader":"Reason for leaving","btnTerm":"Termination / contract end","btnResign":"Resignation","resultLbl":"Your estimated end-of-service benefit","disclaimer":"⚠️ Unofficial estimate based on Articles 84 and 85 of the Saudi Labor Law. Does not cover disciplinary dismissal (Article 80), which can forfeit the benefit, or resignation for specific reasons that grant the full benefit as an exception (Article 81). Check <a href=\"https://hrsd.gov.sa\" target=\"_blank\" rel=\"noopener\">hrsd.gov.sa</a> for your exact case.","faqHeader":"❓ FAQ","faq1q":"How is it calculated?","faq1a":"Half a month's wage per year for the first 5 years, then a full month's wage per year after that, based on the last wage. Fractions of a year are pro-rated.","faq2q":"Is it the same amount if I resign?","faq2a":"No. On resignation, Article 85 applies: under 2 years = nothing, 2-5 years = one-third, 5-10 years = two-thirds, 10+ years = full amount.","faq3q":"What if I resign before 2 years?","faq3a":"You're not entitled to any benefit, per Article 85.","faq4q":"Basic wage or total wage?","faq4a":"Check your contract — practice can vary between companies on whether fixed allowances are included.","faq5q":"Is this a substitute for an official estimate?","faq5a":"No, this is only an estimate. For disputed cases, check the labor platform or a specialist lawyer.","otherToolsHeader":"Other Saudi Arabia Tools:","linkGosi":"👴 GOSI Retirement Pension","linkCar":"🚗 Monthly Car Cost","linkVat":"🧾 VAT Calculator","linkAll":"🇸🇦 All Saudi Arabia Tools"};
+function exportEosResult() {
+  if (!lastEosResult) return;
+  const t = curLang === 'ar' ? LANG_AR : LANG_EN;
+  const r = lastEosResult;
+  const rows = [
+    { label: t.lblYears, value: r.years + (curLang === 'ar' ? ' سنة' : ' yrs') },
+    { label: t.lblSalary, value: r.salary.toFixed(2) + ' ' + r.cur },
+    { label: t.lblReasonHeader, value: r.reason === 'resignation' ? t.btnResign : t.btnTerm },
+    { label: t.resultLbl, value: r.final.toFixed(2) + ' ' + r.cur, highlight: true }
+  ];
+  if (typeof exportResultImage === 'function') exportResultImage(t.title.replace(/\uD83C[\uDDE6-\uDDFF]/g, '').trim(), rows);
+}
+
+const LANG_AR = {"navHome":"أدوات السعودية","navGlobal":"عالمي","backLink":"→ العودة لأدوات السعودية","title":"حاسبة مكافأة نهاية الخدمة 🇸🇦","subtitle":"تقديرية وفق نظام العمل السعودي، المادتين 84 و85","lblYears":"سنوات الخدمة المتواصلة","lblSalary":"آخر أجر شهري (ر.س)","lblReasonHeader":"سبب انتهاء الخدمة","btnTerm":"فصل / انتهاء عقد","btnResign":"استقالة","resultLbl":"مكافأة نهاية الخدمة التقديرية","disclaimer":"⚠️ أداة تقديرية غير رسمية بناءً على المادتين 84 و85 من نظام العمل السعودي. لا تغطي حالات الفصل التأديبي (المادة 80) التي قد تُسقط المكافأة، أو الاستقالة لأسباب تعطي حق المكافأة الكاملة استثناءً (المادة 81). راجع <a href=\"https://hrsd.gov.sa\" target=\"_blank\" rel=\"noopener\">hrsd.gov.sa</a> لحالتك الدقيقة.","faqHeader":"❓ أسئلة شائعة","faq1q":"كيف تُحسب المكافأة؟","faq1a":"نصف شهر أجر عن كل سنة من أول 5 سنوات، وشهر كامل عن كل سنة بعد ذلك، على أساس آخر أجر. كسور السنة تُحسب بالتناسب.","faq2q":"هل المكافأة نفسها بالاستقالة؟","faq2a":"لا. بالاستقالة تطبّق المادة 85: أقل من سنتين = لا شيء، 2-5 سنوات = الثلث، 5-10 سنوات = الثلثين، 10 سنوات فأكثر = كاملة.","faq3q":"شو لو استقلت قبل سنتين؟","faq3a":"ما تستحق أي مكافأة، حسب المادة 85.","faq4q":"على الأساسي ولا الإجمالي؟","faq4a":"راجع عقدك — الممارسة قد تختلف بين الشركات بخصوص شمول البدلات الثابتة.","faq5q":"هل هذي بديل عن تقدير رسمي؟","faq5a":"لا، هذي أداة تقديرية بس. للحالات المتنازع عليها راجع منصة العمل أو محامي مختص.","exportBtn":"📸 صدّر النتيجة كصورة","otherToolsHeader":"أدوات السعودية الأخرى:","linkGosi":"👴 معاش التقاعد GOSI","linkCar":"🚗 تكلفة السيارة الشهرية","linkVat":"🧾 حاسبة ضريبة القيمة المضافة","linkAll":"🇸🇦 كل أدوات السعودية"};
+const LANG_EN = {"navHome":"Saudi Arabia Tools","navGlobal":"Global","backLink":"← Back to Saudi Arabia Tools","title":"End-of-Service Benefit Calculator 🇸🇦","subtitle":"Estimate under Saudi Labor Law, Articles 84 & 85","lblYears":"Years of continuous service","lblSalary":"Last monthly wage (SAR)","lblReasonHeader":"Reason for leaving","btnTerm":"Termination / contract end","btnResign":"Resignation","resultLbl":"Your estimated end-of-service benefit","disclaimer":"⚠️ Unofficial estimate based on Articles 84 and 85 of the Saudi Labor Law. Does not cover disciplinary dismissal (Article 80), which can forfeit the benefit, or resignation for specific reasons that grant the full benefit as an exception (Article 81). Check <a href=\"https://hrsd.gov.sa\" target=\"_blank\" rel=\"noopener\">hrsd.gov.sa</a> for your exact case.","faqHeader":"❓ FAQ","faq1q":"How is it calculated?","faq1a":"Half a month's wage per year for the first 5 years, then a full month's wage per year after that, based on the last wage. Fractions of a year are pro-rated.","faq2q":"Is it the same amount if I resign?","faq2a":"No. On resignation, Article 85 applies: under 2 years = nothing, 2-5 years = one-third, 5-10 years = two-thirds, 10+ years = full amount.","faq3q":"What if I resign before 2 years?","faq3a":"You're not entitled to any benefit, per Article 85.","faq4q":"Basic wage or total wage?","faq4a":"Check your contract — practice can vary between companies on whether fixed allowances are included.","faq5q":"Is this a substitute for an official estimate?","faq5a":"No, this is only an estimate. For disputed cases, check the labor platform or a specialist lawyer.","exportBtn":"📸 Export Result as Image","otherToolsHeader":"Other Saudi Arabia Tools:","linkGosi":"👴 GOSI Retirement Pension","linkCar":"🚗 Monthly Car Cost","linkVat":"🧾 VAT Calculator","linkAll":"🇸🇦 All Saudi Arabia Tools"};
 
 function toggleLang() {
   curLang = curLang === 'ar' ? 'en' : 'ar';
@@ -246,6 +262,7 @@ document.addEventListener('DOMContentLoaded', function(){
   ['eYears','eSalary'].forEach(function(id){
     document.getElementById(id).addEventListener('input', calc);
   });
+  document.getElementById('eExportBtn')?.addEventListener('click', exportEosResult);
 });
 </script>
 <script src="i18n-lang-ar.js?v=3" defer></script>
