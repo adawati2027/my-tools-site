@@ -114,6 +114,17 @@
   </div>
 
   <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;">📊 قارن سيناريوهين</div>
+    <p style="font-size:13px;color:var(--text-muted);margin-top:6px;line-height:1.7;">احفظ أي حساب كسيناريو A أو B لتقارنه مع الآخر. البيانات تُحفظ على جهازك فقط داخل المتصفح ولا تُرسل لأي خادم.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+      <button id="saveA" type="button" style="font-size:13px;padding:9px 14px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:8px;cursor:pointer;font-family:inherit;">💾 احفظ كسيناريو A</button>
+      <button id="saveB" type="button" style="font-size:13px;padding:9px 14px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:8px;cursor:pointer;font-family:inherit;">💾 احفظ كسيناريو B</button>
+      <button id="clearCmp" type="button" style="font-size:13px;padding:9px 14px;border:1px solid var(--border);background:transparent;color:var(--text-muted);border-radius:8px;cursor:pointer;font-family:inherit;">🗑️ امسح المحفوظ</button>
+    </div>
+    <div id="cmpBox" style="margin-top:12px;overflow-x:auto;"></div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
     <div class="card-title" style="font-size:15px;">📋 جدول الرواتب الصافية — عماني (SPF 8%)</div>
     <div style="overflow-x:auto;">
       <table style="width:100%;border-collapse:collapse;font-size:13px;text-align:center;">
@@ -221,16 +232,66 @@ function setNat(n) {
   document.getElementById('spfLbl').textContent = n === 'omani' ? 'خصم SPF (8%)' : 'خصم SPF';
   calc();
 }
+const CMP_KEY = 'adawati_om_salary_v1';
+const CMP_FIELDS = ['basic', 'housing', 'transport', 'other'];
+function loadCmp() { try { return JSON.parse(localStorage.getItem(CMP_KEY)) || {}; } catch (e) { return {}; } }
+function saveCmp(p) { try { localStorage.setItem(CMP_KEY, JSON.stringify(p)); } catch (e) {} }
+function readInputs() {
+  return {
+    nat,
+    basic: document.getElementById('basic').value,
+    housing: document.getElementById('housing').value,
+    transport: document.getElementById('transport').value,
+    other: document.getElementById('other').value
+  };
+}
+function compute(s) {
+  const basic = parseFloat(s.basic) || 0;
+  const gross = basic + (parseFloat(s.housing) || 0) + (parseFloat(s.transport) || 0) + (parseFloat(s.other) || 0);
+  const spf = s.nat === 'omani' ? basic * 0.08 : 0;
+  return { basic, gross, spf, net: gross - spf, annual: (gross - spf) * 12 };
+}
+function saveScenario(slot) {
+  const s = readInputs();
+  if (!CMP_FIELDS.some(id => parseFloat(s[id]) > 0)) return;
+  const p = loadCmp();
+  p[slot] = Object.assign({}, s, compute(s));
+  saveCmp(p);
+  renderCmp();
+}
+function renderCmp() {
+  const box = document.getElementById('cmpBox');
+  if (!box) return;
+  const p = loadCmp();
+  if (!p.A && !p.B) { box.innerHTML = '<p style="font-size:13px;color:var(--text-muted);margin:0;">لم تحفظ أي سيناريو بعد.</p>'; return; }
+  const th = 'padding:8px;border:1px solid var(--border);';
+  const td = 'padding:8px;border:1px solid var(--border);';
+  const cell = (sc, key) => sc && typeof sc[key] === 'number' ? sc[key].toFixed(3) : '—';
+  const row = (label, key, bold) => '<tr><td style="' + td + 'text-align:right;">' + label + '</td><td style="' + td + '">' + (bold ? '<strong>' : '') + cell(p.A, key) + (bold ? '</strong>' : '') + '</td><td style="' + td + '">' + (bold ? '<strong>' : '') + cell(p.B, key) + (bold ? '</strong>' : '') + '</td></tr>';
+  let html = '<table style="width:100%;border-collapse:collapse;font-size:13px;text-align:center;">' +
+    '<thead><tr style="background:var(--surface-2);font-weight:700;"><th style="' + th + 'text-align:right;">البند</th><th style="' + th + '">A</th><th style="' + th + '">B</th></tr></thead><tbody>' +
+    row('الأساسي', 'basic') + row('الإجمالي', 'gross') + row('خصم SPF', 'spf') + row('الصافي (ر.ع/شهر)', 'net', true) +
+    '</tbody></table>';
+  if (p.A && p.B) {
+    const diff = p.B.net - p.A.net;
+    const sign = diff > 0 ? '+' : '';
+    html += '<p style="font-size:13px;margin-top:8px;">الفرق في الصافي (B − A): <strong style="color:' + (diff >= 0 ? '#16a34a' : '#dc2626') + ';">' + sign + diff.toFixed(3) + ' ر.ع/شهر</strong></p>';
+  } else {
+    html += '<p style="font-size:12px;color:var(--text-muted);margin-top:8px;">' + (p.A ? 'احفظ كسيناريو B للمقارنة.' : 'احفظ كسيناريو A للمقارنة.') + '</p>';
+  }
+  box.innerHTML = html;
+}
 function calc() {
-  const basic = parseFloat(document.getElementById('basic').value) || 0;
-  const housing = parseFloat(document.getElementById('housing').value) || 0;
-  const transport = parseFloat(document.getElementById('transport').value) || 0;
-  const other = parseFloat(document.getElementById('other').value) || 0;
+  const s = readInputs();
+  const store = loadCmp();
+  store.last = s;
+  saveCmp(store);
+  const basic = parseFloat(s.basic) || 0;
+  const housing = parseFloat(s.housing) || 0;
+  const transport = parseFloat(s.transport) || 0;
+  const other = parseFloat(s.other) || 0;
   if (!basic && !housing && !transport && !other) { document.getElementById('salResult').style.display = 'none'; return; }
-  const gross = basic + housing + transport + other;
-  const spf = nat === 'omani' ? basic * 0.08 : 0;
-  const net = gross - spf;
-  const annual = net * 12;
+  const { gross, spf, net, annual } = compute(s);
   document.getElementById('netDisplay').textContent = net.toFixed(3) + ' ر.ع';
   document.getElementById('grossDisplay').textContent = gross.toFixed(3);
   document.getElementById('spfDisplay').textContent = nat === 'omani' ? ('− ' + spf.toFixed(3)) : '0.000';
@@ -272,6 +333,15 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById(id).addEventListener('input', calc);
   });
   document.getElementById('salExportBtn')?.addEventListener('click', exportSalResult);
+  document.getElementById('saveA')?.addEventListener('click', function(){ saveScenario('A'); });
+  document.getElementById('saveB')?.addEventListener('click', function(){ saveScenario('B'); });
+  document.getElementById('clearCmp')?.addEventListener('click', function(){ const p = loadCmp(); delete p.A; delete p.B; saveCmp(p); renderCmp(); });
+  const last = loadCmp().last;
+  if (last) {
+    CMP_FIELDS.forEach(id => { document.getElementById(id).value = last[id] || ''; });
+    setNat(last.nat === 'expat' ? 'expat' : 'omani');
+  }
+  renderCmp();
 });
 </script>
 <script src="i18n-lang-ar.js?v=3" defer></script>
