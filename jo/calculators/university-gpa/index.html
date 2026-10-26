@@ -96,6 +96,11 @@
         <div class="stat-box"><div class="stat-val" id="totalHoursDisplay"></div><div class="stat-lbl">إجمالي الساعات المنجزة</div></div>
       </div>
       <button id="gpaExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button type="button" id="gpaCopyBtn" style="flex:1;padding:11px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;cursor:pointer;">📋 انسخ النتيجة</button>
+        <button type="button" id="gpaShareBtn" style="flex:1;padding:11px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;cursor:pointer;">🔗 شارك</button>
+      </div>
+      <p style="margin-top:12px;font-size:13px;color:var(--text-muted);line-height:1.8;">المعدل التراكمي هو متوسط كل ساعاتك المنجزة، فالفصل الواحد يأثر عليه حسب عدد ساعاته. هذا الرقم تقدير مبني على جدول التحويل في الأسفل، وجامعتك قد تستخدم جدولًا مختلفًا.</p>
     </div>
   </div>
 
@@ -448,6 +453,20 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('planRemainingHours')?.addEventListener('input', calcPlan);
   document.getElementById('planTargetGpa')?.addEventListener('input', calcPlan);
   document.getElementById('gpaExportBtn')?.addEventListener('click', exportUniGpaResult);
+  function gpaShareText() {
+    return 'معدل هذا الفصل: ' + document.getElementById('semGpaDisplay').textContent + '\nالمعدل التراكمي الجديد: ' + document.getElementById('cumGpaDisplay').textContent + '\nhttps://adawati.space/jo/calculators/university-gpa/';
+  }
+  document.getElementById('gpaCopyBtn').addEventListener('click', function(e) {
+    const btn = e.currentTarget;
+    navigator.clipboard.writeText(gpaShareText()).then(function() {
+      btn.textContent = '✅ تم النسخ';
+      setTimeout(function() { btn.textContent = '📋 انسخ النتيجة'; }, 1600);
+    });
+  });
+  document.getElementById('gpaShareBtn').addEventListener('click', function() {
+    if (navigator.share) navigator.share({ text: gpaShareText() }).catch(function() {});
+    else navigator.clipboard.writeText(gpaShareText());
+  });
 });
 </script>
 <script src="i18n-lang-ar.js?v=3" defer></script>
