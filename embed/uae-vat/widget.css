@@ -1,0 +1,21 @@
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:#0f172a;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{padding:16px;max-width:420px}
+.w-title{font-size:16px;margin:0 0 12px}
+.w-toggle{display:flex;gap:6px;margin-bottom:12px}
+.w-toggle button{flex:1;padding:8px;border:1px solid #cbd5e1;background:#f8fafc;border-radius:8px;cursor:pointer;font:inherit}
+.w-toggle button.on{background:#2563eb;color:#fff;border-color:#2563eb}
+label{display:block;font-size:13px;color:#475569;margin-bottom:4px}
+input{width:100%;padding:9px 10px;border:1px solid #cbd5e1;border-radius:8px;font:inherit}
+.w-out{margin-top:12px;padding:12px;background:#f1f5f9;border-radius:8px}
+.w-out div{display:flex;justify-content:space-between;padding:3px 0}
+.w-out span{color:#475569}
+.w-foot{font-size:11px;color:#64748b;margin:12px 0 0;line-height:1.5}
+.w-foot a{color:#2563eb}
+@media (prefers-color-scheme:dark){
+  html,body{background:#0f172a;color:#e2e8f0}
+  .w-toggle button{background:#1e293b;border-color:#334155;color:#e2e8f0}
+  input{background:#1e293b;border-color:#334155;color:#e2e8f0}
+  .w-out{background:#1e293b}
+  .w-out span,label{color:#94a3b8}
+}

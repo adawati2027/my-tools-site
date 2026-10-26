@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>UAE VAT Calculator — 5% | Adawati</title>
+<link rel="stylesheet" href="widget.css?v=1">
+</head>
+<body>
+<main class="w">
+  <h1 class="w-title">UAE VAT Calculator (5%)</h1>
+  <div class="w-toggle" role="group" aria-label="Mode">
+    <button type="button" id="modeAdd" class="on">Add VAT (+5%)</button>
+    <button type="button" id="modeEx">Remove VAT (÷1.05)</button>
+  </div>
+  <label id="lbl" for="amt">Amount before VAT (AED)</label>
+  <input id="amt" type="number" inputmode="decimal" min="0" step="any" placeholder="0.00">
+  <div id="out" class="w-out" hidden>
+    <div><span>VAT (5%)</span><strong id="vat"></strong></div>
+    <div><span id="totLbl">Total incl. VAT</span><strong id="tot"></strong></div>
+  </div>
+  <p class="w-foot">Estimate only. Check the rules with the <a href="https://tax.gov.ae" target="_blank" rel="noopener">UAE Federal Tax Authority</a>. Powered by <a href="https://adawati.space/ae/vat-calculator/" target="_blank" rel="noopener">Adawati</a>.</p>
+</main>
+<script src="widget.js?v=1" defer></script>
+</body>
+</html>
