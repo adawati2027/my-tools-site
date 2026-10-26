@@ -171,85 +171,78 @@
 
     <div class="tools-search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="toolSearch" data-i18n-ph="search_placeholder" placeholder="Search for a tool..." autocomplete="off" spellcheck="false">
+      <input type="text" id="toolSearch" data-i18n-ph="search_placeholder" placeholder="What do you want to calculate?" autocomplete="off" spellcheck="false">
     </div>
 
     <div id="smartAnswer" class="result-box success" style="display:none;margin-bottom:16px;"></div>
 
-    <div class="cat-tabs" id="catTabs">
-      <button class="cat-tab active" data-cat="all" data-i18n="cat_all">All</button>
-      <button class="cat-tab" data-cat="money" data-i18n="cat_money">💰 Money</button>
-      <button class="cat-tab" data-cat="health" data-i18n="cat_health">💪 Health</button>
-      <button class="cat-tab" data-cat="productivity" data-i18n="cat_productivity">⚙️ Productivity</button>
-      <button class="cat-tab" data-cat="quick" data-i18n="cat_quick">⚡ Quick</button>
-      <button class="cat-tab" data-cat="games" data-i18n="cat_games">🎮 Games</button>
-      <button class="cat-tab" data-cat="challenges" data-i18n="cat_challenges">🏆 Challenges</button>
-      <button class="cat-tab" data-cat="education" data-i18n="cat_education">🧒 Kids</button>
-      <a href="om/" class="cat-tab" style="text-decoration:none;" title="Oman-specific tools">🇴🇲 Oman →</a>
+    <!-- Favorites section -->
+    <div id="favSection" style="display:none;margin-bottom:24px;">
+      <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;" data-i18n="fav_title">⭐ Favorites</div>
+      <div class="tools-grid" id="favGrid"></div>
     </div>
 
-    <!-- Country geo-recommendations -->
-    <div id="countrySection" style="display:none;margin-bottom:28px;">
-      <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;" id="countrySectionLabel"></div>
-      <div class="tools-grid" id="countryGrid"></div>
+    <!-- Recent section -->
+    <div id="recentSection" style="display:none;margin-bottom:24px;">
+      <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;" data-i18n="recent_title">✨ Continue where you left off</div>
+      <div class="tools-grid" id="recentGrid"></div>
     </div>
 
-    <!-- Daily Tools -->
+    <!-- Most used (site-wide, from GA top pages) -->
     <div id="popularSection" style="margin-bottom:28px;">
-      <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">⚡ <span data-i18n="popular_title">Tools You May Need Today</span></div>
+      <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">🔥 <span data-i18n="popular_title">Most used</span></div>
       <div class="tools-grid">
-        <a href="currency-converter.html" class="tool-card" style="position:relative;">
-          <div class="tool-icon-wrap" style="background:#fefce8;">💱</div>
-          <div class="tool-card-title" data-i18n="currency_card_title">Currency Converter</div>
-          <div class="tool-card-desc" data-i18n="currency_card_desc">Convert between 30+ world currencies with live rates</div>
+        <a href="jo/students/parallel-results/" class="tool-card">
+          <div class="tool-icon-wrap" style="background:#eff6ff;">📋</div>
+          <div class="tool-card-title">نتائج القبول الموازي</div>
+          <div class="tool-card-desc">روابط قوائم المقبولين في الجامعات الرسمية</div>
           <div class="tool-card-arrow" data-i18n="start">Start →</div>
         </a>
-        <a href="date-diff.html" class="tool-card" style="position:relative;">
-          <div class="tool-icon-wrap" style="background:#fff7ed;">📆</div>
-          <div class="tool-card-title" data-i18n="dd_card_title">Date Difference</div>
-          <div class="tool-card-desc" data-i18n="dd_card_desc">Calculate days, weeks and months between any two dates</div>
+        <a href="jo/calculators/university-cost/" class="tool-card">
+          <div class="tool-icon-wrap" style="background:#f0fdf4;">💰</div>
+          <div class="tool-card-title">حاسبة تكلفة الجامعة</div>
+          <div class="tool-card-desc">الكلفة الكاملة لكل فصل وسنة في الأردن</div>
           <div class="tool-card-arrow" data-i18n="start">Start →</div>
         </a>
-        <a href="percentage-calculator.html" class="tool-card" style="position:relative;">
-          <div class="tool-icon-wrap" style="background:#fef2f2;">💯</div>
-          <div class="tool-card-title" data-i18n="pct_card_title">Percentage &amp; Discount</div>
-          <div class="tool-card-desc" data-i18n="pct_card_desc">Calculate percentages, discounts and changes easily</div>
+        <a href="jo/students/masters-guide/" class="tool-card">
+          <div class="tool-icon-wrap" style="background:#faf5ff;">🎓</div>
+          <div class="tool-card-title">دليل الماجستير في الأردن</div>
+          <div class="tool-card-desc">فلترة حسب التخصص والجامعة</div>
           <div class="tool-card-arrow" data-i18n="start">Start →</div>
         </a>
-        <a href="loan-calculator.html" class="tool-card" style="position:relative;">
-          <div class="tool-icon-wrap" style="background:#faf5ff;">🧮</div>
-          <div class="tool-card-title" data-i18n="loan_card_title">Loan Calculator</div>
-          <div class="tool-card-desc" data-i18n="loan_card_desc">Calculate monthly payment for any loan</div>
+        <a href="jo/students/scholarships-loans/" class="tool-card">
+          <div class="tool-icon-wrap" style="background:#fefce8;">🏅</div>
+          <div class="tool-card-title">المنح والقروض الجامعية</div>
+          <div class="tool-card-desc">دليل شامل للمنح والقروض 2026</div>
           <div class="tool-card-arrow" data-i18n="start">Start →</div>
         </a>
-        <a href="bmi-calculator.html" class="tool-card" style="position:relative;">
-          <div class="tool-icon-wrap" style="background:#eff6ff;">⚖️</div>
-          <div class="tool-card-title" data-i18n="bmi_card_title">BMI Calculator</div>
-          <div class="tool-card-desc" data-i18n="bmi_card_desc">Calculate your Body Mass Index and health status</div>
+        <a href="jo/students/bachelor-guide/" class="tool-card">
+          <div class="tool-icon-wrap" style="background:#f0f9ff;">📘</div>
+          <div class="tool-card-title">دليل قبول البكالوريوس</div>
+          <div class="tool-card-desc">معدلات التنافسي والموازي</div>
           <div class="tool-card-arrow" data-i18n="start">Start →</div>
         </a>
-        <a href="timezone-converter.html" class="tool-card" style="position:relative;">
-          <div class="tool-icon-wrap" style="background:#fff7ed;">🕐</div>
-          <div class="tool-card-title" data-i18n="tz_card_title">Timezone Converter</div>
-          <div class="tool-card-desc" data-i18n="tz_card_desc">Find the time in any city around the world</div>
+        <a href="jo/students/credit-hours-planner/" class="tool-card">
+          <div class="tool-icon-wrap" style="background:#fff7ed;">🗓️</div>
+          <div class="tool-card-title">قسّم ساعاتك</div>
+          <div class="tool-card-desc">توزيع الساعات المعتمدة وأثرها على معدلك</div>
           <div class="tool-card-arrow" data-i18n="start">Start →</div>
         </a>
-        <a href="unit-converter.html" class="tool-card" style="position:relative;">
-          <div class="tool-icon-wrap" style="background:#f0f9ff;">🔄</div>
-          <div class="tool-card-title" data-i18n="unit_card_title">Unit Converter</div>
-          <div class="tool-card-desc" data-i18n="unit_card_desc">Convert length, weight, temperature and more</div>
+        <a href="jo/calculators/university-gpa/" class="tool-card">
+          <div class="tool-icon-wrap" style="background:#fdf4ff;">🧮</div>
+          <div class="tool-card-title">حساب معدل الجامعة</div>
+          <div class="tool-card-desc">المعدل الفصلي والتراكمي</div>
           <div class="tool-card-arrow" data-i18n="start">Start →</div>
         </a>
-        <a href="tip-calculator.html" class="tool-card" style="position:relative;">
-          <div class="tool-icon-wrap" style="background:#fdf4ff;">🤝</div>
-          <div class="tool-card-title" data-i18n="tip_card_title">Tip Calculator</div>
-          <div class="tool-card-desc" data-i18n="tip_card_desc">Calculate tip and split the bill among friends</div>
+        <a href="jo/students/what-can-i-study/" class="tool-card">
+          <div class="tool-icon-wrap" style="background:#fef2f2;">🔎</div>
+          <div class="tool-card-title">شو بتدخل بمعدلك؟</div>
+          <div class="tool-card-desc">التخصصات المتاحة حسب معدل التوجيهي</div>
           <div class="tool-card-arrow" data-i18n="start">Start →</div>
         </a>
       </div>
     </div>
 
-    <!-- Tool Bundles -->
     <div id="bundlesSection" style="margin-bottom:28px;">
       <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">🧩 Not Sure Where to Start? Pick Your Situation</div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
@@ -292,16 +285,22 @@
       <div id="bundle-student-more" style="display:none;margin-top:10px;"><a href="#toolsGrid" style="font-size:13px;font-weight:700;color:var(--primary);text-decoration:none;">See all tools →</a></div>
     </div>
 
-    <!-- Favorites section -->
-    <div id="favSection" style="display:none;margin-bottom:24px;">
-      <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;" data-i18n="fav_title">⭐ Favorites</div>
-      <div class="tools-grid" id="favGrid"></div>
+    <div class="cat-tabs" id="catTabs">
+      <button class="cat-tab active" data-cat="all" data-i18n="cat_all">All</button>
+      <button class="cat-tab" data-cat="money" data-i18n="cat_money">💰 Money</button>
+      <button class="cat-tab" data-cat="health" data-i18n="cat_health">💪 Health</button>
+      <button class="cat-tab" data-cat="productivity" data-i18n="cat_productivity">⚙️ Productivity</button>
+      <button class="cat-tab" data-cat="quick" data-i18n="cat_quick">⚡ Quick</button>
+      <button class="cat-tab" data-cat="games" data-i18n="cat_games">🎮 Games</button>
+      <button class="cat-tab" data-cat="challenges" data-i18n="cat_challenges">🏆 Challenges</button>
+      <button class="cat-tab" data-cat="education" data-i18n="cat_education">🧒 Kids</button>
+      <a href="om/" class="cat-tab" style="text-decoration:none;" title="Oman-specific tools">🇴🇲 Oman →</a>
     </div>
 
-    <!-- Recent section -->
-    <div id="recentSection" style="display:none;margin-bottom:24px;">
-      <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;" data-i18n="recent_title">✨ May interest you</div>
-      <div class="tools-grid" id="recentGrid"></div>
+    <!-- Country geo-recommendations -->
+    <div id="countrySection" style="display:none;margin-bottom:28px;">
+      <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;" id="countrySectionLabel"></div>
+      <div class="tools-grid" id="countryGrid"></div>
     </div>
 
     <div class="tools-grid" id="toolsGrid">
@@ -1115,7 +1114,7 @@ document.addEventListener('click',function(e){
   document.addEventListener('DOMContentLoaded',function(){setTimeout(renderCountrySection,40);});
 })();
 </script>
-<script src="i18n-lang-en.js?v=3" defer></script>
+<script src="i18n-lang-en.js?v=4" defer></script>
 <script src="i18n.js?v=63" defer></script>
 <script>
 (function(){
