@@ -1,0 +1,7 @@
+name = "adawati-csp-nonce"
+main = "worker.js"
+compatibility_date = "2026-09-14"
+
+routes = [
+  { pattern = "adawati.space/*", zone_name = "adawati.space" }
+]
