@@ -101,6 +101,15 @@
         </table>
       </div>
       <div id="verdictBox" style="margin-top:14px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:1.9;"></div>
+      <div style="margin-top:12px;padding:12px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;line-height:1.9;">
+        <strong>كيف طلعت النتيجة؟</strong><br>
+        الراتب بالساعة = (الراتب الشهري × 12) ÷ (ساعات الأسبوع × 52)<br>
+        أيام العمل بالسنة = 365 − 104 (عطلة نهاية الأسبوع) − أيام الإجازة<br>
+        مثال توضيحي: حكومي 500 د.أ و35 ساعة و30 يوم إجازة ← 500 × 12 ÷ (35 × 52) = <strong>3.297 د.أ</strong>، وأيام العمل 231.<br>
+        خاص 700 د.أ و45 ساعة و14 يوم إجازة ← 700 × 12 ÷ (45 × 52) = <strong>3.590 د.أ</strong>، وأيام العمل 247. الفرق الخاص أعلى بحوالي 9%.<br>
+        <span style="color:var(--text-muted);">الحساب ما بيشمل العطل الرسمية، ولا البدلات، ولا المكافآت، ولا التأمين الصحي أو التقاعد.</span>
+      </div>
+      <button id="cmpCopyBtn" class="btn" style="width:100%;margin-top:8px;">📋 انسخ النتيجة</button>
       <button id="cmpExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
     </div>
   </div>
@@ -201,6 +210,15 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById(id).addEventListener('input', calc);
   });
   document.getElementById('cmpExportBtn')?.addEventListener('click', exportCompareResult);
+  document.getElementById('cmpCopyBtn')?.addEventListener('click', function() {
+    const btn = this;
+    const txt = 'الراتب الفعلي بالساعة — حكومي: ' + document.getElementById('cmpHourlyGov').textContent +
+      ' | خاص: ' + document.getElementById('cmpHourlyPriv').textContent + '\nhttps://adawati.space/jo/tools/government-vs-private/';
+    navigator.clipboard.writeText(txt).then(function() {
+      btn.textContent = '✅ تم النسخ';
+      setTimeout(function() { btn.textContent = '📋 انسخ النتيجة'; }, 1600);
+    }).catch(function() {});
+  });
 });
 </script>
 <script src="i18n-lang-ar.js?v=3" defer></script>
