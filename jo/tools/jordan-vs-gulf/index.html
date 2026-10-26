@@ -104,6 +104,15 @@
         </table>
       </div>
       <div id="verdictBox" style="margin-top:14px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:1.9;"></div>
+      <div style="margin-top:12px;padding:12px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;line-height:1.9;">
+        <strong>كيف طلعت النتيجة؟</strong><br>
+        المتبقي شهرياً = الراتب − (الإيجار + المواصلات + مصاريف أخرى)<br>
+        قدرتك على الادخار سنوياً = المتبقي الشهري × 12<br>
+        مثال توضيحي: الأردن 600 − (250 + 40 + 150) = <strong>160 د.أ</strong> شهرياً ← 1920 د.أ بالسنة.<br>
+        الخليج (بعد التحويل للدينار) 1000 − (450 + 80 + 200) = <strong>270 د.أ</strong> شهرياً ← 3240 د.أ بالسنة. الفرق 110 د.أ بالشهر.<br>
+        <span style="color:var(--text-muted);">الحساب ما بيشمل الضرائب، ولا تذاكر السفر، ولا التأمين، ولا مصاريف الانتقال الأولى.</span>
+      </div>
+      <button id="cmpCopyBtn" class="btn" style="width:100%;margin-top:8px;">📋 انسخ النتيجة</button>
       <button id="cmpExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
     </div>
   </div>
@@ -195,6 +204,15 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById(id).addEventListener('input', calc);
   });
   document.getElementById('cmpExportBtn')?.addEventListener('click', exportCompareResult);
+  document.getElementById('cmpCopyBtn')?.addEventListener('click', function() {
+    const btn = this;
+    const txt = 'المتبقي شهرياً — الأردن: ' + document.getElementById('cmpLeftJo').textContent +
+      ' | الخليج: ' + document.getElementById('cmpLeftGulf').textContent + '\nhttps://adawati.space/jo/tools/jordan-vs-gulf/';
+    navigator.clipboard.writeText(txt).then(function() {
+      btn.textContent = '✅ تم النسخ';
+      setTimeout(function() { btn.textContent = '📋 انسخ النتيجة'; }, 1600);
+    }).catch(function() {});
+  });
 });
 </script>
 <script src="i18n-lang-ar.js?v=3" defer></script>
