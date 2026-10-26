@@ -96,6 +96,16 @@
         <div class="stat-box"><div class="stat-val" id="perYear"></div><div class="stat-lbl">تقريباً بالسنة</div></div>
       </div>
       <button id="uniCostExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button type="button" id="uniCostCopyBtn" style="flex:1;padding:11px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;cursor:pointer;">📋 انسخ النتيجة</button>
+        <button type="button" id="uniCostShareBtn" style="flex:1;padding:11px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;cursor:pointer;">🔗 شارك</button>
+      </div>
+      <div style="margin-top:14px;padding:14px;border-radius:12px;background:var(--surface-2);font-size:14px;line-height:1.9;">
+        <b>كيف انحسبت؟</b><br>
+        التكلفة الكاملة = (سعر الساعة × عدد الساعات) + (المصاريف السنوية × عدد السنين)<br>
+        مثال: 25 × 132 = 3,300 د.أ رسوم، و1,500 × 4 = 6,000 د.أ مصاريف، والمجموع 9,300 د.أ.<br>
+        <span style="color:var(--text-muted);font-size:13px;">هذا تقدير من الأرقام اللي دخلتها، بدون خصومات أو منح أو إعادة مواد. الرقم الفعلي بيختلف حسب الجامعة ومسارك.</span>
+      </div>
     </div>
   </div>
 <!--next-step-->
@@ -189,6 +199,16 @@ function calc() {
   document.getElementById('costResult').style.display = 'block';
 }
 
+function uniCostShareText() {
+  return 'تكلفة الدرجة الجامعية المتوقعة: ' + document.getElementById('totalCost').textContent + '\nhttps://adawati.space/jo/calculators/university-cost/';
+}
+
+function flashCopied(btn) {
+  const old = btn.textContent;
+  btn.textContent = '✅ تم النسخ';
+  setTimeout(function() { btn.textContent = old; }, 1600);
+}
+
 function exportUniCostResult() {
   const val = function(id) { return document.getElementById(id).value || '0'; };
   const rows = [
@@ -210,6 +230,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById(id).addEventListener('input', calc);
   });
   document.getElementById('uniCostExportBtn')?.addEventListener('click', exportUniCostResult);
+  document.getElementById('uniCostCopyBtn').addEventListener('click', function(e) {
+    navigator.clipboard.writeText(uniCostShareText()).then(function() { flashCopied(e.currentTarget); });
+  });
+  document.getElementById('uniCostShareBtn').addEventListener('click', function() {
+    if (navigator.share) navigator.share({ text: uniCostShareText() }).catch(function() {});
+    else navigator.clipboard.writeText(uniCostShareText());
+  });
 
   document.getElementById('programTrackToggle').addEventListener('click', function(e) {
     const btn = e.target.closest('.option-btn[data-track]');
