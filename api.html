@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<link rel="preload" as="font" type="font/woff2" href="fonts/cairo-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/cairo-arabic.woff2" crossorigin>
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script>try{(window.adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=(localStorage.getItem("adawati_ad_consent")==="personalized")?0:1;}catch(e){}</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2563eb">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>Adawati Public API — Gold and Exchange Rates JSON</title>
+<meta name="description" content="Free public JSON API for gold spot price converted to any currency and USD exchange rates. Endpoints, parameters, errors, caching and sources.">
+<meta name="keywords" content="adawati api, gold price api, gold price json, exchange rate api, usd exchange rates json, free currency api">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/api.html">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/api.html">
+<meta property="og:title" content="Adawati Public API — Gold and Exchange Rates JSON">
+<meta property="og:description" content="Free JSON endpoints for gold spot price in any currency and USD exchange rates.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://adawati.space/api.html">
+<meta property="og:image" content="https://adawati.space/og/remittance-comparison.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Adawati Public API — Gold and Exchange Rates JSON">
+<meta name="twitter:description" content="Free JSON endpoints for gold spot price in any currency and USD exchange rates.">
+<meta name="twitter:image" content="https://adawati.space/og/remittance-comparison.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"Public API","item":"https://adawati.space/api.html"}
+]},
+{"@type":"Article","headline":"Adawati Public API — Gold and Exchange Rates JSON","url":"https://adawati.space/api.html","dateModified":"2026-10-26","author":{"@type":"Organization","name":"Adawati"},"publisher":{"@type":"Organization","name":"Adawati"}},
+{"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Is the API free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Both endpoints are free to call with GET requests and return JSON. Requests are rate limited per IP address."}},
+  {"@type":"Question","name":"Is the gold price a local market price?","acceptedAnswer":{"@type":"Answer","text":"No. The gold price is the international XAU/USD spot price converted to the requested currency at the current exchange rate. Local dealers add their own prices and margins."}},
+  {"@type":"Question","name":"How often is the data updated?","acceptedAnswer":{"@type":"Answer","text":"Gold responses are cached for up to 60 seconds. Exchange rate responses are cached for up to 1 hour. Check the fetched_at and updated fields in each response."}}
+]}
+]}
+</script>
+<link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="index.html" class="nav-brand">Adawati</a>
+  <div class="nav-links">
+    <a href="index.html" data-i18n="nav_home">Home</a>
+    <a href="about.html" data-i18n="nav_about">About</a>
+    <a href="contact.html" data-i18n="nav_contact">Contact</a>
+  </div>
+</div></nav>
+<main dir="ltr"><div class="tool-page">
+  <div class="page-header"><a href="index.html">← Adawati</a></div>
+  <article class="card">
+    <h1 class="card-title">Adawati Public API</h1>
+    <div class="card-subtitle">Gold spot price and USD exchange rates as free JSON</div>
+    <div class="divider"></div>
+
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Two read-only GET endpoints return JSON. They are free to use. Responses include a source and a timestamp so you can show where the data came from.</p>
+
+    <h2 style="font-size:17px;font-weight:700;margin:18px 0 8px;">Endpoints</h2>
+    <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-left:20px;">
+      <li><code>GET /api/v1/gold?currency=OMR</code> — 24-karat gold price per gram in the requested currency. <code>currency</code> is optional (default <code>USD</code>) and must be a 3-letter ISO code.</li>
+      <li><code>GET /api/v1/rates</code> — USD-based exchange rates for all supported currencies.</li>
+    </ul>
+
+    <h2 style="font-size:17px;font-weight:700;margin:18px 0 8px;">Example: gold in OMR</h2>
+    <pre style="font-size:13px;background:var(--surface-2);padding:12px;border-radius:var(--radius-sm);overflow-x:auto;line-height:1.6;"><code>{
+  "metal": "gold",
+  "karat": 24,
+  "unit": "gram",
+  "type": "spot",
+  "currency": "OMR",
+  "price": 0.00,
+  "usd_per_troy_oz": 0.00,
+  "rate": 0.000,
+  "fetched_at": "2026-10-26T12:00:00.000Z",
+  "source": "goldprice.dev (XAU/USD spot) + Exchange Rate API (open.er-api.com)",
+  "note": "International spot price converted to the requested currency. Not a local market price."
+}</code></pre>
+    <p style="font-size:13px;color:var(--text-muted);line-height:1.8;">The numbers above are placeholders. Live responses contain current values.</p>
+
+    <h2 style="font-size:17px;font-weight:700;margin:18px 0 8px;">Example: exchange rates</h2>
+    <pre style="font-size:13px;background:var(--surface-2);padding:12px;border-radius:var(--radius-sm);overflow-x:auto;line-height:1.6;"><code>{
+  "base": "USD",
+  "updated": "Sun, 26 Oct 2026 00:00:01 +0000",
+  "source": "Exchange Rate API (open.er-api.com)",
+  "provider_url": "https://www.exchangerate-api.com",
+  "rates": { "USD": 1, "EUR": 0.00, "OMR": 0.000, "INR": 0.00 }
+}</code></pre>
+
+    <h2 style="font-size:17px;font-weight:700;margin:18px 0 8px;">Gold response fields</h2>
+    <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-left:20px;">
+      <li><code>price</code> — gold price per gram in <code>currency</code>, rounded to 2 decimals.</li>
+      <li><code>usd_per_troy_oz</code> — the USD spot price per troy ounce before conversion.</li>
+      <li><code>rate</code> — USD to <code>currency</code> exchange rate used.</li>
+      <li><code>fetched_at</code> — time the values were fetched (ISO 8601, UTC).</li>
+    </ul>
+
+    <h2 style="font-size:17px;font-weight:700;margin:18px 0 8px;">Errors</h2>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;">Errors return JSON with an <code>error</code> field.</p>
+    <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-left:20px;">
+      <li><code>400 invalid_currency</code> — <code>currency</code> is not a 3-letter code.</li>
+      <li><code>400 unsupported_currency</code> — the code is well formed but no rate is available for it.</li>
+      <li><code>405 method_not_allowed</code> — only GET is supported.</li>
+      <li><code>502 upstream_failed</code> — the data sources could not be reached. Try again later.</li>
+    </ul>
+
+    <h2 style="font-size:17px;font-weight:700;margin:18px 0 8px;">Caching and limits</h2>
+    <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-left:20px;">
+      <li>Gold responses: cached up to 60 seconds.</li>
+      <li>Exchange rate responses: cached up to 1 hour.</li>
+      <li>CORS is open (<code>Access-Control-Allow-Origin: *</code>), so browser code on any site can call the API.</li>
+      <li>Rate limit: about 10 requests per 10 seconds per IP address. Going over the limit blocks further requests for a short time.</li>
+    </ul>
+
+    <h2 style="font-size:17px;font-weight:700;margin:18px 0 8px;">Sources and accuracy</h2>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;">Gold: <a href="https://api.goldprice.dev" target="_blank" rel="noopener">goldprice.dev</a> (XAU/USD spot). Exchange rates: <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">Exchange Rate API</a> via open.er-api.com. The gold figure is an international spot price converted to your currency. It is not a price from a local shop or dealer, and it does not include taxes or dealer margins.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;">The API is provided as is, without a guarantee of uptime or accuracy. Do not use it as the only basis for financial decisions.</p>
+
+    <h2 style="font-size:17px;font-weight:700;margin:18px 0 8px;">Using the data</h2>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;">Please keep the source attribution in the responses when you display the data. Cache results on your side rather than calling the API on every page view.</p>
+  </article>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title" style="font-size:15px;">❓ Frequently Asked Questions</div>
+    <details style="margin-top:12px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Is the API free?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Yes. Both endpoints are free to call with GET requests and return JSON. Requests are rate limited per IP address.</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Is the gold price a local market price?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">No. The gold price is the international XAU/USD spot price converted to the requested currency at the current exchange rate. Local dealers add their own prices and margins.</p>
+    </details>
+    <details style="margin-top:8px;border:1px solid var(--border);border-radius:8px;padding:12px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">How often is the data updated?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Gold responses are cached for up to 60 seconds. Exchange rate responses are cached for up to 1 hour. Check the <code>fetched_at</code> and <code>updated</code> fields in each response.</p>
+    </details>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong>Related Tools:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="omr-to-inr.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💱 OMR to INR</a>
+      <a href="remittance-comparison.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💸 Remittance Comparison</a>
+    </div>
+  </div>
+</div></main>
+<footer class="footer">
+  <div class="footer-links"><a href="about.html" data-i18n="footer_about">About</a><a href="contact.html" data-i18n="footer_contact">Contact</a></div>
+  <div class="footer-copy" data-i18n="footer_copy">© 2026 Adawati</div>
+</footer>
+<script src="i18n-lang-en.js?v=3" defer></script>
+<script src="i18n.js?v=63" defer></script>
+</body></html>

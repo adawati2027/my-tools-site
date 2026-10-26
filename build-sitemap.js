@@ -197,6 +197,7 @@ entries.push(urlEntry(`${BASE}/construction-calculator.html`, '0.7', 'monthly'))
 entries.push(urlEntry(`${BASE}/in/epf-calculator/`, '0.7', 'monthly'));
 entries.push(urlEntry(`${BASE}/remittance-comparison.html`, '0.7', 'monthly'));
 entries.push(urlEntry(`${BASE}/remittance-oman-to-india.html`, '0.6', 'monthly'));
+entries.push(urlEntry(`${BASE}/api.html`, '0.5', 'monthly'));
 entries.push(urlEntry(`${BASE}/remittance-uae-to-bangladesh.html`, '0.6', 'monthly'));
 entries.push(urlEntry(`${BASE}/flat-vs-reducing-balance-loan-guide.html`, '0.6', 'yearly'));
 
