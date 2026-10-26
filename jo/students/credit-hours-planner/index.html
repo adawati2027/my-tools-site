@@ -111,6 +111,13 @@
   <div class="card" id="hpOut" style="margin-top:16px;" hidden>
     <div id="hpHead" style="font-size:15px;font-weight:800;margin-bottom:12px;"></div>
     <div id="hpList"></div>
+    <div style="margin:12px 0;padding:12px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;line-height:1.9;">
+      <b>كيف طلعت الأرقام؟</b><br>
+      معدلك بالتخرج = (معدلك الحالي × الساعات المنجزة + مجموع معدل كل فصل × ساعاته) ÷ (الساعات المنجزة + الساعات الجديدة)<br>
+      مثال: معدلك 2.00 بعد 60 ساعة، وفصل واحد 15 ساعة بمعدل متوقع 3.00 ← (2.00×60 + 3.00×15) ÷ 75 = <b>2.20</b><br>
+      <span class="hp-note">الفصل اللي بيتجاوز 15 ساعة بنزّل معدله المتوقع حسب تقديرك للفصل الثقيل. الرقم تقدير شخصي، مش نتيجة رسمية.</span>
+    </div>
+    <button type="button" id="hpCopy" class="btn" hidden style="width:100%;margin-bottom:8px;">📋 انسخ الخلاصة</button>
     <button type="button" id="hpShare" class="btn btn-primary" style="width:100%;">📸 شارك الخطة الأفضل كصورة</button>
   </div>
 
@@ -138,6 +145,14 @@
   var arNum = function(s) { return String(s).replace(/[٠-٩]/g, function(d) { return '٠١٢٣٤٥٦٧٨٩'.indexOf(d); }).replace(/٫/g, '.'); };
   var num = function(id) { return parseFloat(arNum($(id).value)); };
   var fmt = function(v) { return scale === 4 ? v.toFixed(2) : v.toFixed(1); };
+
+  $('hpCopy').addEventListener('click', function() {
+    if (!lastBest) return;
+    var r = lastBest.r;
+    var txt = 'أفضل خطة: ' + r.plan.map(function(p) { return (p.t === 's' ? 'صيفي ' : '') + p.h; }).join(' + ') +
+      '\nمعدلي المتوقع بالتخرج: ' + fmt(r.final) + '\nhttps://adawati.space/jo/students/credit-hours-planner/';
+    navigator.clipboard.writeText(txt).catch(function() {});
+  });
 
   $('hpScale').addEventListener('click', function(ev) {
     var b = ev.target.closest('.option-btn'); if (!b) return;
@@ -245,6 +260,7 @@
     $('hpHead').textContent = 'ضايل عليك ' + ctx.left + ' ساعة — هاي الخطط:';
     $('hpList').innerHTML = res.map(function(r) { return render(r, r === best); }).join('');
     $('hpShare').hidden = !best;
+    $('hpCopy').hidden = !best;
     $('hpOut').hidden = false;
     $('hpOut').scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (typeof gtag === 'function') gtag('event', 'hours_plan', { scale: scale, left: ctx.left, compared: a.length || b.length ? 1 : 0 });
