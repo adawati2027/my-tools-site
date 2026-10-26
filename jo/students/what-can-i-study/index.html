@@ -116,7 +116,14 @@
       <div class="s-near" data-st="near" role="button" tabindex="0"><b id="nNear">0</b><span>قريبة (ناقصك شوي)</span></div>
     </div>
     <p id="wcHint" style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:8px;">👆 اكبس على أي مربع عشان تشوف تخصصاته بس</p>
+    <div style="margin-top:12px;padding:12px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;line-height:1.9;">
+      <b>كيف طلعت نتيجتك؟</b><br>
+      الحكومي (تنافسي): <b>فرصتك عالية</b> إذا معدلك أعلى من أعلى حد لآخر 3 سنين بنص علامة على الأقل. <b>على الحد</b> إذا معدلك ≥ حد 2025. <b>قريبة</b> إذا ناقصك علامتين أو أقل.<br>
+      الخاص: إذا معدلك ≥ الحد الأدنى المنشور (أو الحد الوطني للمجال) بتطلع بـ<b>فرصتك عالية</b>، وما بنعرض اللي معدلك تحته.<br>
+      مثال توضيحي (أرقام وهمية): معدلك 85.5، حد 2025 = 85.00، وأعلى حد بآخر 3 سنين = 86.00. «فرصتك عالية» بدها 86.50 وما وصلتها، بس 85.5 ≥ 85.00 فالنتيجة <b>على الحد</b>.
+    </div>
     <button type="button" id="wcShare" class="btn btn-primary" style="width:100%;margin-top:12px;">📸 شارك نتيجتك كصورة</button>
+    <button type="button" id="wcCopy" class="btn" style="width:100%;margin-top:8px;">📋 انسخ النتيجة</button>
     <div id="wcList"></div>
   </div>
 
@@ -247,6 +254,15 @@
     top.forEach(function(e) { rows.push({ label: e.s, value: e.u.replace(/^(جامعة|الجامعة) /, '') }); });
     exportResultImage('شو بتدخل بمعدلك؟ 🎓', rows);
     if (typeof gtag === 'function') gtag('event', 'export_result', { tool_name: 'what_can_i_study' });
+  });
+  $('wcCopy').addEventListener('click', function() {
+    if (!last) return;
+    var btn = this;
+    var txt = 'معدلي بالتوجيهي ' + last.a + '٪ — فرصتي عالية بـ ' + last.by.ok.length + ' تخصص، وعلى الحد بـ ' + last.by.mid.length + ' تخصص.\nhttps://adawati.space/jo/students/what-can-i-study/';
+    navigator.clipboard.writeText(txt).then(function() {
+      btn.textContent = '✅ تم النسخ';
+      setTimeout(function() { btn.textContent = '📋 انسخ النتيجة'; }, 1600);
+    }).catch(function() {});
   });
 })();
 </script>
