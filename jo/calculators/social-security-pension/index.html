@@ -144,7 +144,10 @@
           <span id="pExplainBody"></span><br>
           <span style="color:var(--text-muted);">تقدير حسب القانون النافذ للحالة المدنية العادية، والرقم الرسمي بتشوفه من حسابك على ssc.gov.jo.</span>
         </div>
-        <button id="pCopyBtn" class="btn" style="width:100%;margin-top:10px;">📋 انسخ النتيجة</button>
+        <div style="display:flex;gap:8px;margin-top:10px;">
+          <button type="button" id="pCopyBtn" style="flex:1;padding:11px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;cursor:pointer;">📋 انسخ النتيجة</button>
+          <button type="button" id="pShareBtn" style="flex:1;padding:11px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;cursor:pointer;">🔗 شارك</button>
+        </div>
         <button id="pExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
       </div>
     </div>
@@ -384,17 +387,27 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById(id).addEventListener('input', calc);
   });
   document.getElementById('pExportBtn')?.addEventListener('click', exportPensionResult);
-  document.getElementById('pCopyBtn')?.addEventListener('click', function () {
-    const btn = this;
+  function pensionShareText() {
     const parts = [];
     if (lastEarly) parts.push('التقاعد المبكر (~' + lastEarly.age.toFixed(1) + ' سنة): ' + lastEarly.final.toFixed(2) + ' د.أ');
     if (lastNormal) parts.push('تقاعد الشيخوخة (' + lastNormal.age.toFixed(1) + ' سنة): ' + lastNormal.final.toFixed(2) + ' د.أ');
-    if (!parts.length) return;
-    const txt = 'راتب تقاعدي التقديري من الضمان الاجتماعي\n' + parts.join('\n') + '\nhttps://adawati.space/jo/calculators/social-security-pension/';
+    if (!parts.length) return '';
+    return 'راتب تقاعدي التقديري من الضمان الاجتماعي\n' + parts.join('\n') + '\nhttps://adawati.space/jo/calculators/social-security-pension/';
+  }
+  document.getElementById('pCopyBtn')?.addEventListener('click', function () {
+    const btn = this;
+    const txt = pensionShareText();
+    if (!txt) return;
     navigator.clipboard.writeText(txt).then(function () {
       btn.textContent = '✅ تم النسخ';
       setTimeout(function () { btn.textContent = '📋 انسخ النتيجة'; }, 1600);
     }).catch(function () {});
+  });
+  document.getElementById('pShareBtn')?.addEventListener('click', function () {
+    const txt = pensionShareText();
+    if (!txt) return;
+    if (navigator.share) navigator.share({ text: txt }).catch(function () {});
+    else navigator.clipboard.writeText(txt).catch(function () {});
   });
 });
 </script>
