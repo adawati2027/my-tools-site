@@ -103,6 +103,14 @@
         <div class="stat-box"><div class="stat-val" id="y11Display"></div><div class="stat-lbl">مساهمة الحادي عشر (30%)</div></div>
         <div class="stat-box"><div class="stat-val" id="y12Display"></div><div class="stat-lbl">مساهمة الثاني عشر (70%)</div></div>
       </div>
+      <div style="margin-top:12px;padding:12px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;line-height:1.9;">
+        <strong>كيف طلعت نتيجتك؟</strong><br>
+        الحادي عشر = (عربي × 0.10) + (إنجليزي × 0.10) + (إسلامية × 0.06) + (تاريخ × 0.04)<br>
+        الثاني عشر = مجموع المباحث الأربعة × 0.175<br>
+        النهائي = الحادي عشر + الثاني عشر. مثال: مجموع التخصصي 333 ← 333 × 0.175 = 58.28، وبالإضافة لـ 26.8 بتطلع 85.08%.<br>
+        <span style="color:var(--text-muted);">هاد تقدير حسب الأوزان المنشورة، والمعدل الرسمي بيطلع على منصة سند.</span>
+      </div>
+      <button id="tawjihiCopyBtn" class="btn" style="width:100%;margin-top:8px;">📋 انسخ النتيجة</button>
       <button id="tawjihiExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
     </div>
   </div>
@@ -240,6 +248,15 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById(id).addEventListener('input', calc);
   });
   document.getElementById('tawjihiExportBtn')?.addEventListener('click', exportTawjihiResult);
+  document.getElementById('tawjihiCopyBtn')?.addEventListener('click', function() {
+    const btn = this;
+    const txt = 'معدلي التقديري بالتوجيهي: ' + document.getElementById('finalAvgDisplay').textContent +
+      ' (الحادي عشر ' + document.getElementById('y11Display').textContent + ' + الثاني عشر ' + document.getElementById('y12Display').textContent + ')\nhttps://adawati.space/jo/calculators/tawjihi-average/';
+    navigator.clipboard.writeText(txt).then(function() {
+      btn.textContent = '✅ تم النسخ';
+      setTimeout(function() { btn.textContent = '📋 انسخ النتيجة'; }, 1600);
+    }).catch(function() {});
+  });
 });
 </script>
 <script src="i18n-lang-ar.js?v=3" defer></script>
