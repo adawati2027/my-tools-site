@@ -1131,6 +1131,18 @@ function exportProgramImage(idx) {
   exportResultImage('دليل قبول البكالوريوس — أدواتي', rows);
 }
 
+function programShareText(p) {
+  const lines = [p.specialization + ' — ' + p.university + ' (' + p.city + ')'];
+  if (p.minAvgSingle != null) {
+    lines.push('الحد الأدنى للقبول: ' + p.minAvgSingle);
+  } else {
+    lines.push('تنافسي: ' + (p.minAvgCompetitive != null ? p.minAvgCompetitive : 'راجع الجامعة') + ' | موازي: ' + (p.minAvgParallel != null ? p.minAvgParallel : 'راجع الجامعة'));
+  }
+  if (p.tuitionPerHour) lines.push('سعر الساعة: ' + p.tuitionPerHour + ' د.أ');
+  lines.push('https://adawati.space/jo/students/bachelor-guide/');
+  return lines.join('\n');
+}
+
 function programCard(p, idx) {
   const typeBadgeClass = p.universityType === 'حكومية' ? 'type-gov' : 'type-priv';
   const avgInput = parseFloat(document.getElementById('bgAvg').value);
@@ -1152,6 +1164,8 @@ function programCard(p, idx) {
     '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">' +
       (p.officialUrl ? '<a href="' + p.officialUrl + '" target="_blank" rel="noopener" style="display:inline-block;padding:7px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:700;">🔗 المصدر الرسمي</a>' : '') +
       '<button type="button" class="bg-export-btn" data-export-idx="' + idx + '" style="padding:7px 14px;background:var(--surface-2);color:var(--text);border:2px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">🖼️ شارك كصورة</button>' +
+      '<button type="button" class="bg-copy-btn" data-export-idx="' + idx + '" style="padding:7px 14px;background:var(--surface-2);color:var(--text);border:2px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">📋 انسخ</button>' +
+      '<button type="button" class="bg-share-btn" data-export-idx="' + idx + '" style="padding:7px 14px;background:var(--surface-2);color:var(--text);border:2px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">🔗 شارك</button>' +
     '</div>' +
   '</div>';
 }
@@ -1241,6 +1255,21 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
   document.getElementById('bgResults').addEventListener('click', function(e){
+    const copyBtn = e.target.closest('.bg-copy-btn');
+    const shareBtn = e.target.closest('.bg-share-btn');
+    if (copyBtn || shareBtn) {
+      const p = lastFiltered[parseInt((copyBtn || shareBtn).dataset.exportIdx, 10)];
+      if (!p) return;
+      const txt = programShareText(p);
+      if (shareBtn && navigator.share) { navigator.share({ text: txt }).catch(function(){}); return; }
+      navigator.clipboard.writeText(txt).then(function(){
+        const b = copyBtn || shareBtn;
+        const old = b.textContent;
+        b.textContent = '✅ تم النسخ';
+        setTimeout(function(){ b.textContent = old; }, 1600);
+      }).catch(function(){});
+      return;
+    }
     const btn = e.target.closest('.bg-export-btn');
     if (!btn) return;
     exportProgramImage(parseInt(btn.dataset.exportIdx, 10));
