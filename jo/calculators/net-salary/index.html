@@ -79,6 +79,19 @@
     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;" id="hSt"><button type="button" class="option-btn active" data-v="single">أعزب / بدون إعالة</button><button type="button" class="option-btn" data-v="married">متزوج / معيل</button></div>
     <div class="card-title" style="font-size:15px;margin-top:12px;">🛡️ الضمان الاجتماعي</div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;" id="hSs"><button type="button" class="option-btn active" data-v="1">مشترك بالضمان</button><button type="button" class="option-btn" data-v="0">مش مشترك</button></div>
+    <div class="card-title" style="font-size:15px;margin-top:14px;">🧾 مصاريفك الشهرية (اختياري)</div>
+    <div class="row">
+      <div><label>🤝 جمعية</label><input type="number" inputmode="decimal" id="hE1" min="0" step="any" placeholder="0"></div>
+      <div><label>⚡ كهربا</label><input type="number" inputmode="decimal" id="hE2" min="0" step="any" placeholder="0"></div>
+    </div>
+    <div class="row" style="margin-top:8px;">
+      <div><label>💧 مي</label><input type="number" inputmode="decimal" id="hE3" min="0" step="any" placeholder="0"></div>
+      <div><label>🌐 انترنت</label><input type="number" inputmode="decimal" id="hE4" min="0" step="any" placeholder="0"></div>
+    </div>
+    <div class="row" style="margin-top:8px;">
+      <div><label>💳 قسط</label><input type="number" inputmode="decimal" id="hE5" min="0" step="any" placeholder="0"></div>
+      <div><label>➕ أخرى</label><input type="number" inputmode="decimal" id="hE6" min="0" step="any" placeholder="0"></div>
+    </div>
 
     <div id="hErr" style="display:none;margin-top:14px;padding:10px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-sm);font-size:13px;color:#991b1b;line-height:1.7;"></div>
 
@@ -217,11 +230,13 @@ function hCompute() {
   const ssBase = Math.min(g, 3733), ss = hSsV === '1' ? ssBase * 0.075 : 0;
   const ann = g * 12, ex = hStV === 'married' ? 18000 : 9000, taxable = Math.max(0, ann - ex);
   const tax = hTax(taxable), tm = tax / 12, net = g - ss - tm;
+  let ex2 = 0; for (let i = 1; i <= 6; i++) ex2 += parseFloat(document.getElementById('hE' + i).value) || 0;
+  const left = net - ex2;
   const e = 'راتبك ' + hJ(g) + '. الضمان: ' + (hSsV === '1' ? hJ(ssBase) + ' × 7.5% = ' + hJ(ss) : 'ما حسبنا ضمان') + '. الضريبة: الدخل السنوي ' + hJ(ann) + ' − الإعفاء ' + hJ(ex) + ' = ' + hJ(taxable) + ' خاضع، والضريبة السنوية ' + hJ(tax) + ' يعني ' + hJ(tm) + ' بالشهر. الصافي = ' + hJ(g) + ' − ' + hJ(ss) + ' − ' + hJ(tm) + ' = ' + hJ(net) + '.';
   return {
-    main: hJ(net) + ' دينار', lbl: 'صافي راتبك التقريبي بالشهر',
-    extra: '<div class="stat-grid">' + hStat(hJ(ss), 'ضمان (شهري)') + hStat(hJ(tm), 'ضريبة دخل (شهري)') + hStat(hJ(net * 12), 'صافي سنوي') + '</div>',
-    explain: e, share: 'صافي راتبي التقريبي ' + hJ(net) + ' دينار من ' + hJ(g) + ' إجمالي'
+    main: hJ(ex2 > 0 ? left : net) + ' دينار', lbl: ex2 > 0 ? 'اللي بيبقى معك بعد المصاريف' : 'صافي راتبك التقريبي بالشهر',
+    extra: '<div class="stat-grid">' + hStat(hJ(ss), 'ضمان (شهري)') + hStat(hJ(tm), 'ضريبة دخل (شهري)') + hStat(hJ(net), 'صافي الراتب') + (ex2 > 0 ? hStat(hJ(ex2), 'مصاريفك') + hStat(hF(ex2 / net * 100, 0) + '%', 'نسبة المصاريف من الصافي') : hStat(hF(net * 12, 0), 'صافي سنوي')) + '</div>' + (left < 0 ? '<div style="margin-top:8px;color:#b91c1c;font-size:13px;">⚠️ مصاريفك أكبر من صافي راتبك.</div>' : ''),
+    explain: e + (ex2 > 0 ? ' المصاريف ' + hJ(ex2) + '، فالباقي ' + hJ(net) + ' − ' + hJ(ex2) + ' = ' + hJ(left) + '.' : ''), share: 'صافي راتبي التقريبي ' + hJ(net) + ' دينار من ' + hJ(g) + ' إجمالي' + (ex2 > 0 ? '، وبيبقى ' + hJ(left) + ' بعد المصاريف' : '')
   };
 }
 </script>
