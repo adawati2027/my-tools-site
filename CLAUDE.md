@@ -57,6 +57,6 @@ quiz-games · capacitor-app · bugs-fixed-registry · seo-growth · auth-account
 
 ## Style
 
-- Jordan pages: Jordanian-dialect Arabic, casual and direct.
+- All Arabic pages (jo/om/sa/ae/eg, games, challenges): simple Modern Standard Arabic (فصحى), friendly not stiff — owner request 2026-10-27, replaces the old dialect rule. Quiz content that is itself dialect/proverbs stays as is. Number inputs on jo pages use `type="text" data-num inputmode="decimal"` + the inline Arabic-digit normalizer (so Arabic keyboards work).
 - Legal/financial calculators: visible "أداة تقديرية" disclaimer + link to the official source.
 - No explanatory code comments except genuinely non-obvious constraints.
