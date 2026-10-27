@@ -104,6 +104,7 @@
         <div class="stat-box" style="background:#f0fdf4;"><div class="stat-val" id="erShareDisplay" style="color:#16a34a;"></div><div class="stat-lbl">حصة صاحب العمل (14.25%)</div></div>
       </div>
       <div id="capNote" style="display:none;margin-top:10px;padding:10px 14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;color:var(--text-muted);"></div>
+      <div id="ssExplain" style="margin-top:12px;padding:12px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;line-height:1.9;"></div>
       <button id="ssExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
     </div>
   </div>
@@ -247,6 +248,15 @@ function calc() {
   } else {
     capNote.style.display = 'none';
   }
+
+  const f3 = function(n){ return n.toFixed(3); };
+  document.getElementById('ssExplain').innerHTML =
+    '<b>كيف طلعت نتيجتك؟</b><br>' +
+    'إجمالي الأجر = ' + f3(gross) + ' د.أ' + (gross > WAGE_CEILING ? ' (الاشتراك بينحسب على سقف ' + WAGE_CEILING + ' بس)' : '') + '<br>' +
+    'حصتك = ' + f3(contributable) + ' × 7.5% = ' + f3(empShare) + ' د.أ<br>' +
+    'حصة صاحب العمل = ' + f3(contributable) + ' × 14.25% = ' + f3(erShare) + ' د.أ (ما بتنخصم من راتبك)<br>' +
+    'الصافي = ' + f3(gross) + ' − ' + f3(empShare) + ' = <b>' + f3(net) + '</b> د.أ<br>' +
+    '<span style="color:var(--text-muted);">أداة تقديرية: ما بتحسب ضريبة الدخل ولا أي خصومات ثانية. المرجع: المؤسسة العامة للضمان الاجتماعي.</span>';
 
   document.getElementById('ssResult').style.display = 'block';
 }
