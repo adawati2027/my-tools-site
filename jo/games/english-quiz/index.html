@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link rel="preload" as="font" type="font/woff2" href="../../../fonts/cairo-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../../../fonts/cairo-arabic.woff2" crossorigin>
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script>try{(window.adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=(localStorage.getItem("adawati_ad_consent")==="personalized")?0:1;}catch(e){}</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2563eb">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>كويز اللغة الإنجليزية — قواعد ومفردات | Adawati</title>
+<meta name="description" content="اختبر إنجليزيتك: قواعد، أزمنة، حروف جر، إملاء، ومفردات. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، وتحدَّ أصحابك. مفيد لطلاب المدرسة والتوجيهي. مجاني وبدون تسجيل.">
+<meta name="keywords" content="كويز إنجليزي, اختبار قواعد انجليزي, أسئلة انجليزي توجيهي, English grammar quiz Arabic">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/jo/games/english-quiz/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/jo/games/english-quiz/">
+<link rel="alternate" hreflang="ar-JO" href="https://adawati.space/jo/games/english-quiz/">
+<meta property="og:title" content="كويز اللغة الإنجليزية | Adawati">
+<meta property="og:description" content="اختبر إنجليزيتك بـ12 سؤال قواعد ومفردات، وتحدَّ أصحابك.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/jo/games/english-quiz/">
+<meta property="og:image" content="https://adawati.space/og/jo_games_english-quiz.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="كويز اللغة الإنجليزية | Adawati">
+<meta name="twitter:description" content="اختبر إنجليزيتك بـ12 سؤال قواعد ومفردات، وتحدَّ أصحابك.">
+<meta name="twitter:image" content="https://adawati.space/og/jo_games_english-quiz.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Adawati","item":"https://adawati.space/"},
+  {"@type":"ListItem","position":2,"name":"أدوات الأردن","item":"https://adawati.space/jo/"},
+  {"@type":"ListItem","position":3,"name":"كويز اللغة الإنجليزية","item":"https://adawati.space/jo/games/english-quiz/"}
+]},
+{"@type":"WebApplication","name":"كويز اللغة الإنجليزية","url":"https://adawati.space/jo/games/english-quiz/","description":"اختبر إنجليزيتك: قواعد، أزمنة، حروف جر، إملاء، ومفردات، مع إمكانية تحدي أصحابك.","applicationCategory":"GameApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}}
+]}
+</script>
+<link rel="stylesheet" href="../../../style.css?v=4">
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/" data-qt="nav_jordan">أدوات الأردن</a>
+    <a href="/" data-qt="nav_global">عالمي</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="jo/" data-i18n="back">← العودة للرئيسية</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:#eff6ff;">🔤</div>
+    <h1 class="card-title" data-en="English Quiz">كويز اللغة الإنجليزية</h1>
+    <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
+    <div id="quizArabicNote" style="font-size:12px;color:var(--text-muted);margin-top:2px;"></div>
+    <div class="divider"></div>
+
+    <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;" data-qt="challenge_start_title">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;" data-qt="challenge_start_subtitle">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">اختار المستوى:</div>
+      <div id="difficultySelectArea" style="display:none;gap:8px;flex-wrap:wrap;margin-bottom:10px;"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="creatorNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;font-size:16px;border:1px solid var(--border);border-radius:8px;">
+        <button id="createChallengeBtn" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_challenge_btn">ابدأ تحدي</button>
+      </div>
+    </div>
+
+    <div id="challengeJoinArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div id="challengeJoinMsg" style="font-weight:700;margin-bottom:10px;">جاري تحميل التحدي...</div>
+      <div id="challengeJoinForm" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <input id="joinerNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;font-size:16px;border:1px solid var(--border);border-radius:8px;">
+        <button id="joinChallengeBtn" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="accept_btn">قبول التحدي ✅</button>
+      </div>
+    </div>
+
+    <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
+      <div style="font-weight:700;" data-qt="joiner_waiting">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+    </div>
+
+    <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:8px;" data-qt="challenge_ready">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareWaitingLinkBtn" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+        <button id="copyWaitingLinkBtn" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
+      </div>
+      <div id="challengeAcceptedBox" style="display:none;margin-top:14px;padding:12px;background:#dcfce7;border-radius:8px;text-align:center;">
+        <div style="font-weight:700;margin-bottom:6px;">🎮 انضم للتحدي: <span id="accepterNameSpan"></span></div>
+        <div id="acceptCountLabel" style="font-size:13px;color:var(--text-muted);margin-bottom:10px;"></div>
+        <button id="creatorStartBtn" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_playing_btn">ابدأ اللعب 🚀</button>
+      </div>
+    </div>
+
+    <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;" data-qt="active_link_label">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+        <button id="shareActiveLinkBtn" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+        <button id="copyActiveLinkBtn" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
+      </div>
+    </div>
+
+    <div id="quizArea">
+      <div id="questionText" style="font-size:17px;font-weight:700;margin-bottom:16px;"></div>
+      <div id="optionsArea" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <div id="resultArea" style="display:none;text-align:center;">
+      <div style="font-size:48px;margin-bottom:8px;" id="resultEmoji"></div>
+      <div style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px;" id="resultScore"></div>
+      <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button id="shareResultBtn" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="share_result_btn">📤 شارك نتيجتك</button>
+        <button id="restartBtn" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="try_again_btn">🔄 جرّب مرة ثانية</button>
+      </div>
+
+      <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;" data-qt="share_challenge_title">📤 شارك التحدي مع أصحابك</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input id="challengeShareLink" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
+          <button id="shareLinkBtn" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
+          <button id="copyLinkBtn" style="padding:8px 14px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="copy_link_btn">نسخ الرابط</button>
+        </div>
+      </div>
+
+      <div id="leaderboardArea" style="display:none;margin-top:16px;text-align:right;">
+        <div style="font-weight:700;margin-bottom:8px;" data-qt="leaderboard_title">🏆 لوحة الترتيب</div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">
+          <thead><tr style="border-bottom:2px solid var(--border);"><th style="padding:6px;text-align:right;">#</th><th style="padding:6px;text-align:right;" data-qt="leaderboard_name">الاسم</th><th style="padding:6px;text-align:right;" data-qt="leaderboard_score">النتيجة</th></tr></thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;text-align:center;">
+    <strong data-qt="other_games">أدوات الأردن الأخرى:</strong>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+      <a href="jo/games/culture-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎭 كويز الثقافة العامة</a>
+      <a href="jo/games/animals-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🦁 كويز الحيوانات والطبيعة</a>
+      <a href="jo/games/inventions-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💡 كويز الاختراعات والاكتشافات</a>
+      <a href="jo/games/science-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🔬 كويز العلوم والتكنولوجيا</a>
+      <a href="jo/games/geography-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌍 كويز الجغرافيا العالمية</a>
+      <a href="jo/games/islamic-history-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">☪️ كويز التاريخ الإسلامي</a>
+      <a href="jo/games/general-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌐 كويز المعلومات العامة</a>
+      <a href="jo/games/makeup-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💄 كويز المكياج</a>
+      <a href="jo/games/cooking-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🍳 كويز الطبخ</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/world-sports-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏆 كويز الرياضة العالمية</a>
+      <a href="jo/games/world-football-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚽ كويز كرة القدم العالمية</a>
+      <a href="jo/games/songs-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎵 كويز الأغاني</a>
+      <a href="jo/games/wordle/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🟩 كلمة اليوم</a>
+      <a href="jo/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب اليوم</a>
+      <a href="jo/students/scholarships-loans/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 منح وقروض الجامعة</a>
+      <a href="jo/games/arabic-language-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">📖 كويز اللغة العربية</a>
+      <a href="jo/calculators/tawjihi-target/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎯 معدل التوجيهي المطلوب</a>
+      <a href="jo/games/logo-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏢 خمّن الشعار</a>
+      <a href="jo/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;" data-qt="all_jordan_tools">🇯🇴 كل أدوات الأردن</a>
+    </div>
+  </div>
+<!--quiz-about-->
+  <div class="card" style="margin-top:16px;">
+    <h2 class="card-title" style="font-size:17px;">ℹ️ عن كويز اللغة الإنجليزية</h2>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">اختبر إنجليزيتك: قواعد، أزمنة، حروف جر، إملاء، ومفردات. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، وتحدَّ أصحابك. مفيد لطلاب المدرسة والتوجيهي. مجاني وبدون تسجيل.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">بنك الأسئلة فيه <b>66</b> سؤال، موزّعة على مستويين: <b>38</b> سؤال متوسط و<b>28</b> سؤال صعب. كل جولة بتختار 12 سؤال عشوائي، فكل مرة بتلعب بتطلعلك أسئلة مختلفة.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:10px;">🎮 اختار الصعوبة، وعندك 15 ثانية لكل سؤال — الأسرع والأصح بيجمع نقاط أكتر.</p>
+    <h3 style="font-size:15px;margin-top:14px;">📝 أمثلة من أسئلة الكويز</h3>
+    <ol style="font-size:14px;line-height:1.9;padding-right:22px;">
+      <li>‎She ___ to school every day‎<br><span style="color:var(--text-muted);">الجواب: <b>goes</b></span></li>
+      <li>‎The letter ___ yesterday‎<br><span style="color:var(--text-muted);">الجواب: <b>was written</b></span></li>
+      <li>‎The opposite of "ancient" is:‎<br><span style="color:var(--text-muted);">الجواب: <b>modern</b></span></li>
+      <li>‎This is ___ film I have ever seen‎<br><span style="color:var(--text-muted);">الجواب: <b>the most interesting</b></span></li>
+      <li>‎Which spelling is correct?‎<br><span style="color:var(--text-muted);">الجواب: <b>necessary</b></span></li>
+      <li>معنى كلمة "Neighbour" بالعربي:<br><span style="color:var(--text-muted);">الجواب: <b>جار</b></span></li>
+    </ol>
+  </div>
+<!--/quiz-about-->
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html" data-qt="nav_about">من نحن</a><a href="contact.html" data-qt="nav_contact">تواصل</a><a href="jo/" data-qt="nav_jordan">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" integrity="sha384-+65NgAKqXr1Nb7sBmV6O09pL8ASqZsi29OE718meKinGAWaa70VE5V6LNjXVBjIA" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" integrity="sha384-YHSscHG455M7b+d6r5ibTMznxrZxV272bMjXT9ndTgmx05fLR7HsdmcVklhpBSyt" crossorigin="anonymous"></script>
+<script>
+const QUESTIONS = [
+  {q:"‎She ___ to school every day‎",opts:["goes","go","going","gone"],correct:0,difficulty:"medium"},
+  {q:"‎They ___ playing football now‎",opts:["is","are","am","be"],correct:1,difficulty:"medium"},
+  {q:"‎I have lived here ___ 2010‎",opts:["for","during","since","from"],correct:2,difficulty:"medium"},
+  {q:"‎He is ___ than his brother‎",opts:["tall","tallest","more tall","taller"],correct:3,difficulty:"medium"},
+  {q:"‎If I were rich, I ___ travel the world‎",opts:["would","will","am going","did"],correct:0,difficulty:"hard"},
+  {q:"‎The past tense of \"go\" is:‎",opts:["goed","went","gone","goes"],correct:1,difficulty:"medium"},
+  {q:"‎The past participle of \"write\" is:‎",opts:["wrote","writed","written","writing"],correct:2,difficulty:"medium"},
+  {q:"‎The plural of \"child\" is:‎",opts:["childs","childes","childrens","children"],correct:3,difficulty:"medium"},
+  {q:"‎The plural of \"tooth\" is:‎",opts:["teeth","tooths","toothes","teeths"],correct:0,difficulty:"medium"},
+  {q:"‎She is the ___ student in the class‎",opts:["better","best","good","most good"],correct:1,difficulty:"medium"},
+  {q:"‎I ___ my homework yesterday‎",opts:["do","done","did","doing"],correct:2,difficulty:"medium"},
+  {q:"‎There ___ many books on the table‎",opts:["is","be","am","are"],correct:3,difficulty:"medium"},
+  {q:"‎He didn't ___ the film‎",opts:["see","saw","seen","sees"],correct:0,difficulty:"medium"},
+  {q:"‎The letter ___ yesterday‎",opts:["wrote","was written","is writing","writes"],correct:1,difficulty:"hard"},
+  {q:"‎She is ___ honest girl‎",opts:["a","the","an","some"],correct:2,difficulty:"medium"},
+  {q:"‎He lives ___ Amman‎",opts:["on","at","to","in"],correct:3,difficulty:"medium"},
+  {q:"‎I was born ___ 1999‎",opts:["in","on","at","by"],correct:0,difficulty:"medium"},
+  {q:"‎We meet ___ Monday‎",opts:["in","on","at","by"],correct:1,difficulty:"medium"},
+  {q:"‎The opposite of \"difficult\" is:‎",opts:["hard","tough","easy","heavy"],correct:2,difficulty:"medium"},
+  {q:"‎A synonym of \"big\" is:‎",opts:["tiny","thin","short","large"],correct:3,difficulty:"medium"},
+  {q:"‎The opposite of \"ancient\" is:‎",opts:["modern","old","historic","past"],correct:0,difficulty:"medium"},
+  {q:"‎Which word is a noun?‎",opts:["happy","happiness","happily","happier"],correct:1,difficulty:"medium"},
+  {q:"‎Which word is an adverb?‎",opts:["quick","quicker","quickly","quickness"],correct:2,difficulty:"medium"},
+  {q:"‎Which word is a verb?‎",opts:["decision","decisive","decisively","decide"],correct:3,difficulty:"hard"},
+  {q:"‎The past tense of \"buy\" is:‎",opts:["bought","buyed","boughten","buys"],correct:0,difficulty:"medium"},
+  {q:"‎The past tense of \"teach\" is:‎",opts:["teached","taught","tought","teaches"],correct:1,difficulty:"medium"},
+  {q:"‎The past participle of \"choose\" is:‎",opts:["chose","choosed","chosen","choosing"],correct:2,difficulty:"hard"},
+  {q:"‎The past tense of \"break\" is:‎",opts:["breaked","broken","braked","broke"],correct:3,difficulty:"hard"},
+  {q:"‎The past participle of \"begin\" is:‎",opts:["begun","began","beginned","begining"],correct:0,difficulty:"hard"},
+  {q:"‎You ___ smoke here. It is forbidden‎",opts:["needn't","mustn't","don't have to","ought"],correct:1,difficulty:"hard"},
+  {q:"‎This is ___ film I have ever seen‎",opts:["the more interesting","most interesting","the most interesting","the interesting"],correct:2,difficulty:"hard"},
+  {q:"‎Which sentence is correct?‎",opts:["He don't like coffee","He not like coffee","He doesn't likes coffee","He doesn't like coffee"],correct:3,difficulty:"medium"},
+  {q:"‎You are a student, ___?‎",opts:["aren't you","are you","don't you","isn't you"],correct:0,difficulty:"hard"},
+  {q:"‎He said, \"I am tired\" → He said that he ___ tired‎",opts:["is","was","were","has been"],correct:1,difficulty:"hard"},
+  {q:"‎I ___ play football when I was young‎",opts:["use to","am used to","used to","was used to"],correct:2,difficulty:"hard"},
+  {q:"‎The man ___ lives next door is a doctor‎",opts:["which","whose","whom","who"],correct:3,difficulty:"hard"},
+  {q:"‎The book ___ I bought is interesting‎",opts:["which","who","whose","where"],correct:0,difficulty:"hard"},
+  {q:"‎\"Give up\" means:‎",opts:["start","stop trying","win","buy"],correct:1,difficulty:"hard"},
+  {q:"‎\"Look after\" means:‎",opts:["look for","look at","take care of","wait for"],correct:2,difficulty:"hard"},
+  {q:"‎The opposite of \"turn on\" is:‎",opts:["turn up","turn in","turn over","turn off"],correct:3,difficulty:"medium"},
+  {q:"‎Which spelling is correct?‎",opts:["necessary","neccessary","necesary","neccesary"],correct:0,difficulty:"hard"},
+  {q:"‎Which spelling is correct?‎",opts:["recieve","receive","receeve","riceive"],correct:1,difficulty:"hard"},
+  {q:"‎Which spelling is correct?‎",opts:["definately","definitly","definitely","definetely"],correct:2,difficulty:"hard"},
+  {q:"‎Which spelling is correct?‎",opts:["tommorow","tomorow","tommorrow","tomorrow"],correct:3,difficulty:"hard"},
+  {q:"‎Which spelling is correct?‎",opts:["separate","seperate","seprate","separete"],correct:0,difficulty:"hard"},
+  {q:"‎Which spelling is correct?‎",opts:["beutiful","beautiful","beautifull","beatiful"],correct:1,difficulty:"medium"},
+  {q:"‎Which spelling is correct?‎",opts:["libary","liberry","library","librery"],correct:2,difficulty:"medium"},
+  {q:"‎I ___ him since last year‎",opts:["know","knew","am knowing","have known"],correct:3,difficulty:"hard"},
+  {q:"‎She ___ TV when I called her‎",opts:["was watching","watched","watches","has watched"],correct:0,difficulty:"hard"},
+  {q:"‎How ___ water do you drink every day?‎",opts:["many","much","few","a number of"],correct:1,difficulty:"medium"},
+  {q:"‎How ___ students are in your class?‎",opts:["much","little","many","a lot"],correct:2,difficulty:"medium"},
+  {q:"‎He ___ speak three languages‎",opts:["cans","is can","cann","can"],correct:3,difficulty:"medium"},
+  {q:"‎My brother is ___ engineer‎",opts:["an","a","the","one a"],correct:0,difficulty:"medium"},
+  {q:"‎I look forward to ___ you‎",opts:["see","seeing","saw","seen"],correct:1,difficulty:"hard"},
+  {q:"‎She is good ___ mathematics‎",opts:["in","on","at","for"],correct:2,difficulty:"hard"},
+  {q:"‎He is interested ___ history‎",opts:["at","on","of","in"],correct:3,difficulty:"hard"},
+  {q:"معنى كلمة \"Environment\" بالعربي:",opts:["البيئة","الحكومة","الاقتصاد","المجتمع"],correct:0,difficulty:"medium"},
+  {q:"معنى كلمة \"Government\" بالعربي:",opts:["البيئة","الحكومة","الصحة","الرحلة"],correct:1,difficulty:"medium"},
+  {q:"معنى كلمة \"Knowledge\" بالعربي:",opts:["الخبرة","الرحلة","المعرفة","النجاح"],correct:2,difficulty:"medium"},
+  {q:"معنى كلمة \"Experience\" بالعربي:",opts:["المعرفة","الرحلة","الجار","الخبرة"],correct:3,difficulty:"medium"},
+  {q:"معنى كلمة \"Neighbour\" بالعربي:",opts:["جار","صديق","ضيف","قريب"],correct:0,difficulty:"medium"},
+  {q:"معنى كلمة \"Journey\" بالعربي:",opts:["لغة","رحلة","طقس","مدينة"],correct:1,difficulty:"medium"},
+  {q:"معنى كلمة \"Population\" بالعربي:",opts:["الاقتصاد","المنحة","عدد السكان","الصحة"],correct:2,difficulty:"hard"},
+  {q:"معنى كلمة \"Scholarship\" بالعربي:",opts:["شهادة","امتحان","قرض","منحة دراسية"],correct:3,difficulty:"hard"},
+  {q:"معنى كلمة \"Achievement\" بالعربي:",opts:["إنجاز","إعلان","اتفاق","حادث"],correct:0,difficulty:"hard"},
+  {q:"معنى كلمة \"Weather\" بالعربي:",opts:["الفصل","الطقس","الحرارة","الغيم"],correct:1,difficulty:"medium"}
+];
+
+const QUIZ_CONFIG = {
+  gameId: 'english-quiz',
+  difficulties: [
+    {key:'mix', label:'🎲 مشكّل', labelEn:'🎲 Mixed'},
+    {key:'medium', label:'🟡 متوسط', labelEn:'🟡 Medium'},
+    {key:'hard', label:'🔴 صعب', labelEn:'🔴 Hard'}
+  ],
+  questionSeconds: 15,
+  shareTitle: 'كويز اللغة الإنجليزية \ud83d\udd24',
+  challengeText: 'تحداك بكويز اللغة الإنجليزية، جاهز تنافسني؟',
+  resultText: function(score, total, pct) {
+    return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز اللغة الإنجليزية \ud83d\udd24 جرب تتحداني!';
+  },
+    shareTitleEn: 'English Quiz 🔤',
+  challengeTextEn: 'I challenge you to the English quiz — ready to compete?',
+  resultTextEn: function(score, total, pct) {
+    return 'I scored ' + score + '/' + total + ' (' + pct + '%) on the English quiz 🔤 Try to beat me!';
+  },
+  resultMessagesEn: [
+    {min:90, emoji:'🥇', msg:'An English master! Amazing score.'},
+    {min:70, emoji:'🔤', msg:'Your English is excellent!'},
+    {min:50, emoji:'👍', msg:'Not bad, but there\'s room to improve.'},
+    {min:0, emoji:'📚', msg:'Time to brush up on your English a bit!'},
+  ],
+  resultMessages: [
+    {min:90, emoji:'\ud83e\udd47', msg:'إنجليزيتك نار! نتيجة رهيبة.'},
+    {min:70, emoji:'\ud83d\udd24', msg:'إنجليزيتك ممتازة!'},
+    {min:50, emoji:'\ud83d\udc4d', msg:'مش بطال، بس فيه مجال تتحسن.'},
+    {min:0,  emoji:'\ud83d\udcda', msg:'وقتها لازم تراجع شوي قواعد!'}
+  ]
+};
+</script>
+<script src="jo/games/quiz-engine.js?v=17"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('createChallengeBtn')?.addEventListener('click', createChallenge);
+  document.getElementById('joinChallengeBtn')?.addEventListener('click', joinChallenge);
+  document.getElementById('shareResultBtn')?.addEventListener('click', shareResult);
+  document.getElementById('restartBtn')?.addEventListener('click', restart);
+  document.getElementById('shareWaitingLinkBtn')?.addEventListener('click', function(){ shareOrCopy('challengeWaitingLinkInput','shareWaitingLinkBtn'); });
+  document.getElementById('copyWaitingLinkBtn')?.addEventListener('click', function(){ copyLinkGeneric('challengeWaitingLinkInput','copyWaitingLinkBtn'); });
+  document.getElementById('creatorStartBtn')?.addEventListener('click', creatorStartPlaying);
+  document.getElementById('shareActiveLinkBtn')?.addEventListener('click', function(){ shareOrCopy('challengeActiveLinkInput','shareActiveLinkBtn'); });
+  document.getElementById('copyActiveLinkBtn')?.addEventListener('click', function(){ copyLinkGeneric('challengeActiveLinkInput','copyActiveLinkBtn'); });
+  document.getElementById('shareLinkBtn')?.addEventListener('click', function(){ shareOrCopy('challengeShareLink','shareLinkBtn'); });
+  document.getElementById('copyLinkBtn')?.addEventListener('click', copyChallengeLink);
+});
+</script>
+
+</body></html>

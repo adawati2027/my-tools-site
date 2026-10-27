@@ -295,6 +295,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://adawati.space/jo/games/english-quiz/</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://adawati.space/jo/games/arabic-proverbs-quiz/</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://adawati.space/jo/games/general-quiz/</loc>
     <lastmod>2026-10-27</lastmod>
     <changefreq>monthly</changefreq>

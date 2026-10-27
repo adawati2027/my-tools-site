@@ -78,6 +78,8 @@ const countryTools = [
   `${BASE}/jo/games/makeup-quiz/`,
   `${BASE}/jo/games/math-quiz/`,
   `${BASE}/jo/games/arabic-language-quiz/`,
+  `${BASE}/jo/games/english-quiz/`,
+  `${BASE}/jo/games/arabic-proverbs-quiz/`,
   `${BASE}/jo/games/general-quiz/`,
   `${BASE}/jo/games/geography-quiz/`,
   `${BASE}/jo/games/islamic-history-quiz/`,
