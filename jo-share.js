@@ -68,7 +68,7 @@
   }
 
   function scan() {
-    document.querySelectorAll('button[data-i18n="export_img_btn"]').forEach(inject);
+    document.querySelectorAll('button[data-i18n="export_img_btn"], button#__exportBtn').forEach(inject);
   }
 
   function pageShare() {
