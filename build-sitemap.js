@@ -169,7 +169,7 @@ for (const lang of LANGS) {
 // an audit 2026-09-10 — these are all real, substantial pages that simply
 // fell through the cracks of the TOOLS list.
 const KIDS_ROOT_ONLY = [
-  'kids-alphabet','kids-clock','kids-flags','kids-math','kids-money',
+  'kids-alphabet','kids-colors-shapes','kids-first-words','kids-clock','kids-flags','kids-math','kids-money',
   'kids-science','kids-spelling','kids-times-tables','kids-typing',
 ];
 for (const tool of KIDS_ROOT_ONLY) {

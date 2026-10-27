@@ -1,4 +1,4 @@
-const CACHE = 'adawati-v67';
+const CACHE = 'adawati-v68';
 const BASE = '';
 const STATIC = [
   BASE + '/',
@@ -65,6 +65,8 @@ const STATIC = [
   BASE + '/kids-math.html',
   BASE + '/kids-times-tables.html',
   BASE + '/kids-alphabet.html',
+  BASE + '/kids-first-words.html',
+  BASE + '/kids-colors-shapes.html',
   BASE + '/kids-clock.html',
   BASE + '/kids-spelling.html',
   BASE + '/kids-flags.html',
