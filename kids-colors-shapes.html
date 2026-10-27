@@ -17,6 +17,9 @@
 <meta name="description" content="Free English page for KG children: learn colors, shapes, numbers 1–20 and school words. Tap to hear each word, then play the listen-and-pick quiz.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://adawati.space/kids-colors-shapes.html">
+<link rel="alternate" hreflang="en" href="https://adawati.space/kids-colors-shapes.html">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/ar/kids-colors-shapes/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/kids-colors-shapes.html">
 <meta property="og:title" content="Colors, Shapes & Numbers for KG — With Sound | Adawati">
 <meta property="og:description" content="Free English page for KG children: learn colors, shapes, numbers 1–20 and school words. Tap to hear each word, then play the listen-and-pick quiz.">
 <meta property="og:type" content="website">
@@ -47,8 +50,9 @@
 .fw-cat.active{border-color:var(--primary);background:var(--primary);color:#fff;}
 .fw-big{text-align:center;padding:18px 12px;background:linear-gradient(135deg,#fef9c3,#fde68a);border-radius:20px;margin-bottom:12px;cursor:pointer;min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 .fw-big:active{transform:scale(.98);}
-.fw-vis{font-size:96px;line-height:1.1;height:130px;display:flex;align-items:center;justify-content:center;}
-.fw-word{font-size:34px;font-weight:900;color:#1e293b;margin:6px 0 2px;text-transform:capitalize;}
+.fw-vis{font-size:96px;line-height:1.1;height:130px;display:flex;align-items:center;justify-content:center;direction:ltr;}
+.fw-word{font-size:34px;font-weight:900;color:#1e293b;margin:6px 0 2px;text-transform:capitalize;direction:ltr;}
+.fw-ar{font-size:24px;font-weight:800;color:#b45309;min-height:30px;}
 .fw-sub{font-size:14px;font-weight:700;color:#475569;min-height:20px;}
 .fw-acts{display:flex;gap:10px;justify-content:center;margin-bottom:12px;flex-wrap:wrap;}
 .fw-acts button{padding:10px 16px;border-radius:12px;border:2px solid var(--border);background:var(--surface-2);font-weight:800;font-size:14px;cursor:pointer;font-family:inherit;color:var(--text);}
@@ -57,7 +61,8 @@
 .fw-item{background:var(--surface-2);border-radius:12px;padding:8px 4px;text-align:center;cursor:pointer;border:2px solid transparent;font-weight:800;}
 .fw-item:hover,.fw-item.on{border-color:var(--primary);}
 .fw-item .iv{font-size:38px;line-height:1.2;height:48px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.fw-item .iw{font-size:12px;color:var(--text);margin-top:2px;text-transform:capitalize;}
+.fw-item .iw{font-size:12px;color:var(--text);margin-top:2px;text-transform:capitalize;direction:ltr;}
+.fw-item .ia{font-size:12px;color:#b45309;font-weight:700;}
 .fw-item.txt .iv{display:none;}
 .fw-item.txt{padding:14px 4px;}
 .fw-item.txt .iw{font-size:14px;margin:0;}
@@ -88,31 +93,32 @@
 <body>
 <nav class="navbar"><div class="nav-container">
   <a href="/" class="nav-brand">Adawati</a>
-  <div class="nav-links"><a href="kids-learn.html" id="navKids">🧒 Kids</a><a href="/" id="navHome">Home</a></div>
+  <div class="nav-links"><a href="kids-learn.html" id="navKids" data-t="kids">🧒 Kids</a><a href="/" id="navHome" data-t="home">Home</a></div>
 </div></nav>
 
 <main><div class="tool-page">
-  <div class="page-header"><a href="kids-learn.html" id="backToKids">← Back to Kids</a></div>
+  <div class="page-header"><a href="kids-learn.html" id="backToKids" data-t="back">← Back to Kids</a></div>
   <div class="card">
     <div class="card-icon" style="background:#fef9c3;">🎨</div>
-    <h1 class="card-title">Colors, Shapes &amp; Numbers</h1>
-    <div class="card-subtitle">Tap to hear — English for KG, Ages 3–7</div>
+    <h1 class="card-title" data-t="h1">Colors, Shapes &amp; Numbers</h1>
+    <div class="card-subtitle" data-t="sub">Tap to hear — English for KG, Ages 3–7</div>
     <div class="divider"></div>
 
     <div class="fw-tabs">
-      <button class="fw-tab active" data-mode="learn" id="tabLearn">📖 Learn</button>
-      <button class="fw-tab" data-mode="quiz" id="tabQuiz">🎯 Quiz</button>
+      <button class="fw-tab active" data-mode="learn" id="tabLearn" data-t="tabLearn">📖 Learn</button>
+      <button class="fw-tab" data-mode="quiz" id="tabQuiz" data-t="tabQuiz">🎯 Quiz</button>
     </div>
     <div class="fw-cats" id="cats"></div>
 
     <div id="learnMode">
-      <div class="fw-big" id="big" role="button" tabindex="0" aria-label="Tap to hear the word">
+      <div class="fw-big" id="big" role="button" tabindex="0">
         <div class="fw-vis" id="bigVis"></div>
         <div class="fw-word" id="bigWord"></div>
+        <div class="fw-ar" id="bigAr"></div>
         <div class="fw-sub" id="bigSub">🔊 Tap to hear!</div>
       </div>
       <div class="fw-acts">
-        <button id="btnSlow">🐢 Slow</button>
+        <button id="btnSlow" data-t="slow">🐢 Slow</button>
         <button id="btnPlayAll">▶ Play all</button>
       </div>
       <div class="fw-grid" id="grid"></div>
@@ -121,8 +127,8 @@
     <div id="quizMode" style="display:none;">
       <div id="qUI">
         <div style="font-size:14px;font-weight:700;color:var(--text-muted);text-align:center;margin-bottom:6px;" id="qScore"></div>
-        <div style="font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;">Listen and tap the right picture</div>
-        <div class="fw-acts"><button id="qHear">🔊 Hear again</button></div>
+        <div style="font-size:16px;font-weight:700;text-align:center;margin-bottom:8px;" data-t="quizPrompt">Listen and tap the right picture</div>
+        <div class="fw-acts"><button id="qHear" data-t="hearAgain">🔊 Hear again</button></div>
         <div class="q-vis" id="qChoices"></div>
         <div style="font-size:20px;font-weight:800;text-align:center;min-height:28px;" id="qFeedback"></div>
       </div>
@@ -132,44 +138,80 @@
 
   <div class="card" style="margin-top:16px;">
     <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
-      <a href="kids-first-words.html" class="btn" style="background:var(--surface-2);color:var(--text);text-decoration:none;">🗣️ English First Words</a>
-      <a href="kids-alphabet.html" class="btn" style="background:var(--surface-2);color:var(--text);text-decoration:none;">🔤 ABC Alphabet</a>
-      <a href="kids-learn.html" class="btn" style="background:var(--surface-2);color:var(--text);text-decoration:none;">🧒 All Kids Tools</a>
+      <a href="kids-first-words.html" class="btn" style="background:var(--surface-2);color:var(--text);text-decoration:none;" data-t="link0">🗣️ English First Words</a>
+      <a href="kids-alphabet.html" class="btn" style="background:var(--surface-2);color:var(--text);text-decoration:none;" data-t="link1">🔤 ABC Alphabet</a>
+      <a href="kids-learn.html" class="btn" style="background:var(--surface-2);color:var(--text);text-decoration:none;" data-t="link2">🧒 All Kids Tools</a>
     </div>
   </div>
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;">❓ Frequently Asked Questions</div>
+    <div class="card-title" style="font-size:15px;" data-t="faqTitle">❓ Frequently Asked Questions</div>
     <details style="margin-top:12px;border:1px solid var(--border);border-radius:8px;padding:12px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">What will my child learn here?</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Twelve basic colors, twelve shapes, the numbers 1 to 20 and common school words such as book, pencil and bag. Each one is shown clearly and read aloud in English.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;" data-t="faq0q">What will my child learn here?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;" data-t="faq0a">Twelve basic colors, twelve shapes, the numbers 1 to 20 and common school words such as book, pencil and bag. Each one is shown clearly and read aloud in English.</p>
     </details>
     <details style="margin-top:12px;border:1px solid var(--border);border-radius:8px;padding:12px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Do the numbers show the quantity too?</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Yes. Each number card shows the digit, the English word and a row of dots so the child connects the symbol, the sound and the amount.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;" data-t="faq1q">Do the numbers show the quantity too?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;" data-t="faq1a">Yes. Each number card shows the digit, the English word and a row of dots so the child connects the symbol, the sound and the amount.</p>
     </details>
     <details style="margin-top:12px;border:1px solid var(--border);border-radius:8px;padding:12px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">Can we practise without reading?</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Yes. In Quiz mode the voice says a word and the child taps the matching color, shape, number or object, so no reading is needed.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;" data-t="faq2q">Can we practise without reading?</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;" data-t="faq2a">Yes. In Quiz mode the voice says a word and the child taps the matching color, shape, number or object, so no reading is needed.</p>
     </details>
   </div>
 
 <!--kids-about-->
   <div class="card" style="margin-top:16px;">
-    <h2 class="card-title" style="font-size:16px;">👨‍👩‍👧 For parents & teachers</h2>
-    <h3 style="font-size:15px;margin-top:10px;">What your child learns</h3>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;">Colors, shapes and numbers are the first concepts in most KG English programs. Seeing the color or shape while hearing its English name helps children build vocabulary they can use straight away — “a red circle”, “three apples”.</p>
-    <h3 style="font-size:15px;margin-top:10px;">Tips for parents</h3>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;">Turn it into a game: ask your child to find something blue in the room, count the steps on the stairs in English, or spot a triangle on the way to school. Revisit the same group a few days in a row before moving on.</p>
-    <p style="font-size:13px;color:var(--text-muted);line-height:1.8;">All Adawati kids games are free, need no sign-up and run in the browser. Pictures are simple emoji and original drawings. Screen time is best kept short and shared — playing together and talking about the answers helps children learn more.</p>
+    <h2 class="card-title" style="font-size:16px;" data-t="aboutHead">👨‍👩‍👧 For parents & teachers</h2>
+    <h3 style="font-size:15px;margin-top:10px;" data-t="aboutLearnH">What your child learns</h3>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;" data-t="aboutLearn">Colors, shapes and numbers are the first concepts in most KG English programs. Seeing the color or shape while hearing its English name helps children build vocabulary they can use straight away — “a red circle”, “three apples”.</p>
+    <h3 style="font-size:15px;margin-top:10px;" data-t="aboutTipsH">Tips for parents</h3>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;" data-t="aboutTips">Turn it into a game: ask your child to find something blue in the room, count the steps on the stairs in English, or spot a triangle on the way to school. Revisit the same group a few days in a row before moving on.</p>
+    <p style="font-size:13px;color:var(--text-muted);line-height:1.8;" data-t="aboutNote">All Adawati kids games are free, need no sign-up and run in the browser. Pictures are simple emoji and original drawings. Screen time is best kept short and shared — playing together and talking about the answers helps children learn more.</p>
   </div>
 <!--/kids-about-->
 </div></main>
 
 <script>
-const CATS = [{"id":"colors","name":"🎨 Colors","items":[{"w":"red","v":"\u003cspan class=\"sw\" style=\"background:#ef4444;\">\u003c/span>"},{"w":"blue","v":"\u003cspan class=\"sw\" style=\"background:#2563eb;\">\u003c/span>"},{"w":"yellow","v":"\u003cspan class=\"sw\" style=\"background:#facc15;\">\u003c/span>"},{"w":"green","v":"\u003cspan class=\"sw\" style=\"background:#22c55e;\">\u003c/span>"},{"w":"orange","v":"\u003cspan class=\"sw\" style=\"background:#f97316;\">\u003c/span>"},{"w":"purple","v":"\u003cspan class=\"sw\" style=\"background:#8b5cf6;\">\u003c/span>"},{"w":"pink","v":"\u003cspan class=\"sw\" style=\"background:#ec4899;\">\u003c/span>"},{"w":"brown","v":"\u003cspan class=\"sw\" style=\"background:#92400e;\">\u003c/span>"},{"w":"black","v":"\u003cspan class=\"sw\" style=\"background:#111827;\">\u003c/span>"},{"w":"white","v":"\u003cspan class=\"sw\" style=\"background:#ffffff;border:2px solid #cbd5e1;\">\u003c/span>"},{"w":"gray","v":"\u003cspan class=\"sw\" style=\"background:#9ca3af;\">\u003c/span>"},{"w":"light blue","v":"\u003cspan class=\"sw\" style=\"background:#7dd3fc;\">\u003c/span>"}]},{"id":"shapes","name":"🔺 Shapes","items":[{"w":"circle","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003ccircle cx=\"50\" cy=\"50\" r=\"38\" fill=\"#3b82f6\"/>\u003c/svg>"},{"w":"square","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003crect x=\"14\" y=\"14\" width=\"72\" height=\"72\" fill=\"#ef4444\"/>\u003c/svg>"},{"w":"triangle","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpolygon points=\"50,10 92,88 8,88\" fill=\"#22c55e\"/>\u003c/svg>"},{"w":"rectangle","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003crect x=\"6\" y=\"26\" width=\"88\" height=\"48\" fill=\"#f97316\"/>\u003c/svg>"},{"w":"oval","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cellipse cx=\"50\" cy=\"50\" rx=\"44\" ry=\"28\" fill=\"#8b5cf6\"/>\u003c/svg>"},{"w":"star","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpolygon points=\"50,6 61,38 95,38 67,58 78,92 50,71 22,92 33,58 5,38 39,38\" fill=\"#facc15\"/>\u003c/svg>"},{"w":"heart","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpath d=\"M50 88 C10 56 6 30 26 20 C40 14 50 26 50 32 C50 26 60 14 74 20 C94 30 90 56 50 88Z\" fill=\"#ec4899\"/>\u003c/svg>"},{"w":"diamond","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpolygon points=\"50,6 92,50 50,94 8,50\" fill=\"#06b6d4\"/>\u003c/svg>"},{"w":"pentagon","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpolygon points=\"50,8 93,40 77,90 23,90 7,40\" fill=\"#84cc16\"/>\u003c/svg>"},{"w":"hexagon","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpolygon points=\"27,10 73,10 96,50 73,90 27,90 4,50\" fill=\"#a855f7\"/>\u003c/svg>"},{"w":"crescent","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpath d=\"M64 8 A42 42 0 1 0 64 92 A32 32 0 1 1 64 8Z\" fill=\"#f59e0b\"/>\u003c/svg>"},{"w":"cross","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpolygon points=\"36,8 64,8 64,36 92,36 92,64 64,64 64,92 36,92 36,64 8,64 8,36 36,36\" fill=\"#14b8a6\"/>\u003c/svg>"}]},{"id":"numbers","name":"🔢 Numbers","items":[{"w":"one","v":"\u003cspan class=\"num\">1\u003c/span>","say":"1. one.","sub":"\u003cspan class=\"dots\">●\u003c/span>"},{"w":"two","v":"\u003cspan class=\"num\">2\u003c/span>","say":"2. two.","sub":"\u003cspan class=\"dots\">●●\u003c/span>"},{"w":"three","v":"\u003cspan class=\"num\">3\u003c/span>","say":"3. three.","sub":"\u003cspan class=\"dots\">●●●\u003c/span>"},{"w":"four","v":"\u003cspan class=\"num\">4\u003c/span>","say":"4. four.","sub":"\u003cspan class=\"dots\">●●●●\u003c/span>"},{"w":"five","v":"\u003cspan class=\"num\">5\u003c/span>","say":"5. five.","sub":"\u003cspan class=\"dots\">●●●●●\u003c/span>"},{"w":"six","v":"\u003cspan class=\"num\">6\u003c/span>","say":"6. six.","sub":"\u003cspan class=\"dots\">●●●●●●\u003c/span>"},{"w":"seven","v":"\u003cspan class=\"num\">7\u003c/span>","say":"7. seven.","sub":"\u003cspan class=\"dots\">●●●●●●●\u003c/span>"},{"w":"eight","v":"\u003cspan class=\"num\">8\u003c/span>","say":"8. eight.","sub":"\u003cspan class=\"dots\">●●●●●●●●\u003c/span>"},{"w":"nine","v":"\u003cspan class=\"num\">9\u003c/span>","say":"9. nine.","sub":"\u003cspan class=\"dots\">●●●●●●●●●\u003c/span>"},{"w":"ten","v":"\u003cspan class=\"num\">10\u003c/span>","say":"10. ten.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003c/span>"},{"w":"eleven","v":"\u003cspan class=\"num\">11\u003c/span>","say":"11. eleven.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●\u003c/span>"},{"w":"twelve","v":"\u003cspan class=\"num\">12\u003c/span>","say":"12. twelve.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●\u003c/span>"},{"w":"thirteen","v":"\u003cspan class=\"num\">13\u003c/span>","say":"13. thirteen.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●\u003c/span>"},{"w":"fourteen","v":"\u003cspan class=\"num\">14\u003c/span>","say":"14. fourteen.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●●\u003c/span>"},{"w":"fifteen","v":"\u003cspan class=\"num\">15\u003c/span>","say":"15. fifteen.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●●●\u003c/span>"},{"w":"sixteen","v":"\u003cspan class=\"num\">16\u003c/span>","say":"16. sixteen.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●●●●\u003c/span>"},{"w":"seventeen","v":"\u003cspan class=\"num\">17\u003c/span>","say":"17. seventeen.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●●●●●\u003c/span>"},{"w":"eighteen","v":"\u003cspan class=\"num\">18\u003c/span>","say":"18. eighteen.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●●●●●●\u003c/span>"},{"w":"nineteen","v":"\u003cspan class=\"num\">19\u003c/span>","say":"19. nineteen.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●●●●●●●\u003c/span>"},{"w":"twenty","v":"\u003cspan class=\"num\">20\u003c/span>","say":"20. twenty.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●●●●●●●●\u003c/span>"}]},{"id":"school","name":"🎒 School","items":[{"w":"book","v":"📚"},{"w":"pencil","v":"✏️"},{"w":"crayon","v":"🖍️"},{"w":"school bag","v":"🎒"},{"w":"ruler","v":"📏"},{"w":"scissors","v":"✂️"},{"w":"notebook","v":"📒"},{"w":"pen","v":"🖊️"},{"w":"paint","v":"🎨"},{"w":"clock","v":"⏰"},{"w":"globe","v":"🌍"},{"w":"computer","v":"💻"},{"w":"bell","v":"🔔"},{"w":"abacus","v":"🧮"}]}];
+const CATS = [{"id":"colors","name":"🎨 Colors","items":[{"w":"red","v":"\u003cspan class=\"sw\" style=\"background:#ef4444;\">\u003c/span>","ar":"أحمر"},{"w":"blue","v":"\u003cspan class=\"sw\" style=\"background:#2563eb;\">\u003c/span>","ar":"أزرق"},{"w":"yellow","v":"\u003cspan class=\"sw\" style=\"background:#facc15;\">\u003c/span>","ar":"أصفر"},{"w":"green","v":"\u003cspan class=\"sw\" style=\"background:#22c55e;\">\u003c/span>","ar":"أخضر"},{"w":"orange","v":"\u003cspan class=\"sw\" style=\"background:#f97316;\">\u003c/span>","ar":"برتقالي"},{"w":"purple","v":"\u003cspan class=\"sw\" style=\"background:#8b5cf6;\">\u003c/span>","ar":"بنفسجي"},{"w":"pink","v":"\u003cspan class=\"sw\" style=\"background:#ec4899;\">\u003c/span>","ar":"وردي"},{"w":"brown","v":"\u003cspan class=\"sw\" style=\"background:#92400e;\">\u003c/span>","ar":"بني"},{"w":"black","v":"\u003cspan class=\"sw\" style=\"background:#111827;\">\u003c/span>","ar":"أسود"},{"w":"white","v":"\u003cspan class=\"sw\" style=\"background:#ffffff;border:2px solid #cbd5e1;\">\u003c/span>","ar":"أبيض"},{"w":"gray","v":"\u003cspan class=\"sw\" style=\"background:#9ca3af;\">\u003c/span>","ar":"رمادي"},{"w":"light blue","v":"\u003cspan class=\"sw\" style=\"background:#7dd3fc;\">\u003c/span>","ar":"أزرق فاتح"}]},{"id":"shapes","name":"🔺 Shapes","items":[{"w":"circle","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003ccircle cx=\"50\" cy=\"50\" r=\"38\" fill=\"#3b82f6\"/>\u003c/svg>","ar":"دائرة"},{"w":"square","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003crect x=\"14\" y=\"14\" width=\"72\" height=\"72\" fill=\"#ef4444\"/>\u003c/svg>","ar":"مربع"},{"w":"triangle","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpolygon points=\"50,10 92,88 8,88\" fill=\"#22c55e\"/>\u003c/svg>","ar":"مثلث"},{"w":"rectangle","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003crect x=\"6\" y=\"26\" width=\"88\" height=\"48\" fill=\"#f97316\"/>\u003c/svg>","ar":"مستطيل"},{"w":"oval","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cellipse cx=\"50\" cy=\"50\" rx=\"44\" ry=\"28\" fill=\"#8b5cf6\"/>\u003c/svg>","ar":"بيضاوي"},{"w":"star","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpolygon points=\"50,6 61,38 95,38 67,58 78,92 50,71 22,92 33,58 5,38 39,38\" fill=\"#facc15\"/>\u003c/svg>","ar":"نجمة"},{"w":"heart","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpath d=\"M50 88 C10 56 6 30 26 20 C40 14 50 26 50 32 C50 26 60 14 74 20 C94 30 90 56 50 88Z\" fill=\"#ec4899\"/>\u003c/svg>","ar":"قلب"},{"w":"diamond","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpolygon points=\"50,6 92,50 50,94 8,50\" fill=\"#06b6d4\"/>\u003c/svg>","ar":"معيّن"},{"w":"pentagon","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpolygon points=\"50,8 93,40 77,90 23,90 7,40\" fill=\"#84cc16\"/>\u003c/svg>","ar":"خماسي"},{"w":"hexagon","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpolygon points=\"27,10 73,10 96,50 73,90 27,90 4,50\" fill=\"#a855f7\"/>\u003c/svg>","ar":"سداسي"},{"w":"crescent","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpath d=\"M64 8 A42 42 0 1 0 64 92 A32 32 0 1 1 64 8Z\" fill=\"#f59e0b\"/>\u003c/svg>","ar":"هلال"},{"w":"plus sign","v":"\u003csvg viewBox=\"0 0 100 100\" class=\"shsvg\" aria-hidden=\"true\">\u003cpolygon points=\"36,8 64,8 64,36 92,36 92,64 64,64 64,92 36,92 36,64 8,64 8,36 36,36\" fill=\"#14b8a6\"/>\u003c/svg>","ar":"علامة الزائد"}]},{"id":"numbers","name":"🔢 Numbers","items":[{"w":"one","v":"\u003cspan class=\"num\">1\u003c/span>","say":"1. one.","sub":"\u003cspan class=\"dots\">●\u003c/span>","ar":"واحد"},{"w":"two","v":"\u003cspan class=\"num\">2\u003c/span>","say":"2. two.","sub":"\u003cspan class=\"dots\">●●\u003c/span>","ar":"اثنان"},{"w":"three","v":"\u003cspan class=\"num\">3\u003c/span>","say":"3. three.","sub":"\u003cspan class=\"dots\">●●●\u003c/span>","ar":"ثلاثة"},{"w":"four","v":"\u003cspan class=\"num\">4\u003c/span>","say":"4. four.","sub":"\u003cspan class=\"dots\">●●●●\u003c/span>","ar":"أربعة"},{"w":"five","v":"\u003cspan class=\"num\">5\u003c/span>","say":"5. five.","sub":"\u003cspan class=\"dots\">●●●●●\u003c/span>","ar":"خمسة"},{"w":"six","v":"\u003cspan class=\"num\">6\u003c/span>","say":"6. six.","sub":"\u003cspan class=\"dots\">●●●●●●\u003c/span>","ar":"ستة"},{"w":"seven","v":"\u003cspan class=\"num\">7\u003c/span>","say":"7. seven.","sub":"\u003cspan class=\"dots\">●●●●●●●\u003c/span>","ar":"سبعة"},{"w":"eight","v":"\u003cspan class=\"num\">8\u003c/span>","say":"8. eight.","sub":"\u003cspan class=\"dots\">●●●●●●●●\u003c/span>","ar":"ثمانية"},{"w":"nine","v":"\u003cspan class=\"num\">9\u003c/span>","say":"9. nine.","sub":"\u003cspan class=\"dots\">●●●●●●●●●\u003c/span>","ar":"تسعة"},{"w":"ten","v":"\u003cspan class=\"num\">10\u003c/span>","say":"10. ten.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003c/span>","ar":"عشرة"},{"w":"eleven","v":"\u003cspan class=\"num\">11\u003c/span>","say":"11. eleven.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●\u003c/span>","ar":"أحد عشر"},{"w":"twelve","v":"\u003cspan class=\"num\">12\u003c/span>","say":"12. twelve.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●\u003c/span>","ar":"اثنا عشر"},{"w":"thirteen","v":"\u003cspan class=\"num\">13\u003c/span>","say":"13. thirteen.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●\u003c/span>","ar":"ثلاثة عشر"},{"w":"fourteen","v":"\u003cspan class=\"num\">14\u003c/span>","say":"14. fourteen.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●●\u003c/span>","ar":"أربعة عشر"},{"w":"fifteen","v":"\u003cspan class=\"num\">15\u003c/span>","say":"15. fifteen.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●●●\u003c/span>","ar":"خمسة عشر"},{"w":"sixteen","v":"\u003cspan class=\"num\">16\u003c/span>","say":"16. sixteen.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●●●●\u003c/span>","ar":"ستة عشر"},{"w":"seventeen","v":"\u003cspan class=\"num\">17\u003c/span>","say":"17. seventeen.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●●●●●\u003c/span>","ar":"سبعة عشر"},{"w":"eighteen","v":"\u003cspan class=\"num\">18\u003c/span>","say":"18. eighteen.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●●●●●●\u003c/span>","ar":"ثمانية عشر"},{"w":"nineteen","v":"\u003cspan class=\"num\">19\u003c/span>","say":"19. nineteen.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●●●●●●●\u003c/span>","ar":"تسعة عشر"},{"w":"twenty","v":"\u003cspan class=\"num\">20\u003c/span>","say":"20. twenty.","sub":"\u003cspan class=\"dots\">●●●●●●●●●●\u003cbr>●●●●●●●●●●\u003c/span>","ar":"عشرون"}]},{"id":"school","name":"🎒 School","items":[{"w":"book","v":"📚","ar":"كتاب"},{"w":"pencil","v":"✏️","ar":"قلم رصاص"},{"w":"crayon","v":"🖍️","ar":"قلم تلوين"},{"w":"school bag","v":"🎒","ar":"حقيبة مدرسية"},{"w":"ruler","v":"📏","ar":"مسطرة"},{"w":"scissors","v":"✂️","ar":"مقص"},{"w":"notebook","v":"📒","ar":"دفتر"},{"w":"pen","v":"🖊️","ar":"قلم حبر"},{"w":"paint","v":"🎨","ar":"ألوان"},{"w":"clock","v":"⏰","ar":"ساعة"},{"w":"globe","v":"🌍","ar":"كرة أرضية"},{"w":"computer","v":"💻","ar":"حاسوب"},{"w":"bell","v":"🔔","ar":"جرس"},{"w":"abacus","v":"🧮","ar":"معداد"}]}];
+const TR = {"en":{"kids":"🧒 Kids","home":"Home","back":"← Back to Kids","tabLearn":"📖 Learn","tabQuiz":"🎯 Quiz","tap":"🔊 Tap to hear!","slow":"🐢 Slow","playAll":"▶ Play all","stop":"⏹ Stop","quizPrompt":"Listen and tap the right picture","hearAgain":"🔊 Hear again","qLine":"Question {a} of {b}  |  Score: {s}","correct":"✅ Correct!","itIs":"❌ It is","superstar":"🎉 Superstar!","great":"👍 Great effort!","keep":"💪 Keep practicing!","scoreLbl":"Score: {s} / {n}","again":"Play Again","faqTitle":"❓ Frequently Asked Questions","aboutHead":"👨‍👩‍👧 For parents & teachers","aboutLearnH":"What your child learns","aboutTipsH":"Tips for parents","aboutNote":"All Adawati kids games are free, need no sign-up and run in the browser. Pictures are simple emoji and original drawings. Screen time is best kept short and shared — playing together and talking about the answers helps children learn more.","tummy":"🔊 also called tummy"},"ar":{"kids":"🧒 الأطفال","home":"الرئيسية","back":"← رجوع للأطفال","tabLearn":"📖 تعلّم","tabQuiz":"🎯 اختبار","tap":"🔊 اضغط عشان تسمع!","slow":"🐢 ببطء","playAll":"▶ شغّل الكل","stop":"⏹ إيقاف","quizPrompt":"اسمع الكلمة واضغط على الصورة الصحيحة","hearAgain":"🔊 اسمع مرة ثانية","qLine":"السؤال {a} من {b}  |  النتيجة: {s}","correct":"✅ صح!","itIs":"❌ الجواب","superstar":"🎉 نجم كبير!","great":"👍 مجهود حلو!","keep":"💪 كمّل تدريب!","scoreLbl":"النتيجة: {s} / {n}","again":"العب مرة ثانية","faqTitle":"❓ أسئلة شائعة","aboutHead":"👨‍👩‍👧 للأهل والمعلمين","aboutLearnH":"شو بتعلّم طفلك","aboutTipsH":"نصائح للأهل","aboutNote":"كل ألعاب أدواتي للأطفال مجانية وبدون تسجيل وبتشتغل من المتصفح. الصور إيموجي بسيطة ورسومات أصلية. الأفضل تكون مدة الشاشة قصيرة ومشتركة — اللعب مع الطفل والحكي عن الإجابات بيساعده يتعلم أكثر.","tummy":"🔊 وبتنقال كمان tummy"},"fr":{"kids":"🧒 Enfants","home":"Accueil","back":"← Retour aux jeux enfants","tabLearn":"📖 Apprendre","tabQuiz":"🎯 Quiz","tap":"🔊 Touche pour écouter !","slow":"🐢 Lent","playAll":"▶ Tout écouter","stop":"⏹ Stop","quizPrompt":"Écoute et touche la bonne image","hearAgain":"🔊 Réécouter","qLine":"Question {a} sur {b}  |  Score : {s}","correct":"✅ Correct !","itIs":"❌ C'est","superstar":"🎉 Superstar !","great":"👍 Bel effort !","keep":"💪 Continue à t'entraîner !","scoreLbl":"Score : {s} / {n}","again":"Rejouer","faqTitle":"❓ Questions fréquentes","aboutHead":"👨‍👩‍👧 Pour les parents et enseignants","aboutLearnH":"Ce que votre enfant apprend","aboutTipsH":"Conseils aux parents","aboutNote":"Tous les jeux enfants d'Adawati sont gratuits, sans inscription, et fonctionnent dans le navigateur.","tummy":"🔊 aussi appelé tummy"},"es":{"kids":"🧒 Niños","home":"Inicio","back":"← Volver a juegos infantiles","tabLearn":"📖 Aprender","tabQuiz":"🎯 Quiz","tap":"🔊 ¡Toca para escuchar!","slow":"🐢 Lento","playAll":"▶ Escuchar todo","stop":"⏹ Parar","quizPrompt":"Escucha y toca la imagen correcta","hearAgain":"🔊 Escuchar otra vez","qLine":"Pregunta {a} de {b}  |  Puntaje: {s}","correct":"✅ ¡Correcto!","itIs":"❌ Es","superstar":"🎉 ¡Superestrella!","great":"👍 ¡Buen esfuerzo!","keep":"💪 ¡Sigue practicando!","scoreLbl":"Puntaje: {s} / {n}","again":"Jugar de nuevo","faqTitle":"❓ Preguntas frecuentes","aboutHead":"👨‍👩‍👧 Para padres y docentes","aboutLearnH":"Qué aprende tu hijo","aboutTipsH":"Consejos para padres","aboutNote":"Todos los juegos infantiles de Adawati son gratis, sin registro y funcionan en el navegador.","tummy":"🔊 también llamado tummy"},"de":{"kids":"🧒 Kinder","home":"Startseite","back":"← Zurück zu Kinderspielen","tabLearn":"📖 Lernen","tabQuiz":"🎯 Quiz","tap":"🔊 Zum Anhören tippen!","slow":"🐢 Langsam","playAll":"▶ Alle abspielen","stop":"⏹ Stopp","quizPrompt":"Hör zu und tippe auf das richtige Bild","hearAgain":"🔊 Nochmal hören","qLine":"Frage {a} von {b}  |  Punkte: {s}","correct":"✅ Richtig!","itIs":"❌ Es ist","superstar":"🎉 Superstar!","great":"👍 Toller Einsatz!","keep":"💪 Übe weiter!","scoreLbl":"Punkte: {s} / {n}","again":"Nochmal spielen","faqTitle":"❓ Häufige Fragen","aboutHead":"👨‍👩‍👧 Für Eltern und Lehrkräfte","aboutLearnH":"Was Ihr Kind lernt","aboutTipsH":"Tipps für Eltern","aboutNote":"Alle Kinderspiele von Adawati sind kostenlos, ohne Anmeldung und laufen im Browser.","tummy":"🔊 auch tummy genannt"},"ru":{"kids":"🧒 Детям","home":"Главная","back":"← Назад к детским играм","tabLearn":"📖 Учить","tabQuiz":"🎯 Квиз","tap":"🔊 Нажми, чтобы услышать!","slow":"🐢 Медленно","playAll":"▶ Слушать всё","stop":"⏹ Стоп","quizPrompt":"Послушай и нажми на правильную картинку","hearAgain":"🔊 Ещё раз","qLine":"Вопрос {a} из {b}  |  Счёт: {s}","correct":"✅ Правильно!","itIs":"❌ Это","superstar":"🎉 Суперзвезда!","great":"👍 Отличная попытка!","keep":"💪 Продолжай тренироваться!","scoreLbl":"Счёт: {s} / {n}","again":"Играть снова","faqTitle":"❓ Частые вопросы","aboutHead":"👨‍👩‍👧 Для родителей и учителей","aboutLearnH":"Чему учится ваш ребёнок","aboutTipsH":"Советы родителям","aboutNote":"Все детские игры Adawati бесплатны, без регистрации и работают в браузере.","tummy":"🔊 ещё говорят tummy"}};
+const CATN = {"body":{"ar":"الجسم","fr":"Corps","es":"Cuerpo","de":"Körper","ru":"Тело"},"wild":{"ar":"حيوانات برية","fr":"Animaux sauvages","es":"Animales salvajes","de":"Wildtiere","ru":"Дикие животные"},"farm":{"ar":"مزرعة وأليفة","fr":"Ferme et maison","es":"Granja y mascotas","de":"Bauernhof & Haustiere","ru":"Ферма и питомцы"},"birds":{"ar":"طيور","fr":"Oiseaux","es":"Aves","de":"Vögel","ru":"Птицы"},"sea":{"ar":"حيوانات البحر","fr":"Mer","es":"Mar","de":"Meer","ru":"Море"},"insects":{"ar":"حشرات","fr":"Insectes","es":"Insectos","de":"Insekten","ru":"Насекомые"},"flowers":{"ar":"زهور","fr":"Fleurs","es":"Flores","de":"Blumen","ru":"Цветы"},"fruits":{"ar":"فواكه","fr":"Fruits","es":"Frutas","de":"Obst","ru":"Фрукты"},"veg":{"ar":"خضار","fr":"Légumes","es":"Verduras","de":"Gemüse","ru":"Овощи"},"transport":{"ar":"مواصلات","fr":"Transports","es":"Transporte","de":"Fahrzeuge","ru":"Транспорт"},"colors":{"ar":"ألوان","fr":"Couleurs","es":"Colores","de":"Farben","ru":"Цвета"},"shapes":{"ar":"أشكال","fr":"Formes","es":"Formas","de":"Formen","ru":"Фигуры"},"numbers":{"ar":"أرقام","fr":"Nombres","es":"Números","de":"Zahlen","ru":"Числа"},"school":{"ar":"المدرسة","fr":"École","es":"Escuela","de":"Schule","ru":"Школа"}};
+const PT = {"en":{"title":"Colors, Shapes & Numbers in English for KG Kids — With Sound | Adawati","h1":"Colors, Shapes & Numbers","sub":"Tap to hear — English for KG, Ages 3–7","aboutLearn":"Colors, shapes and numbers are the first concepts in most KG English programs. Seeing the color or shape while hearing its English name helps children build vocabulary they can use straight away — “a red circle”, “three apples”.","aboutTips":"Turn it into a game: ask your child to find something blue in the room, count the steps on the stairs in English, or spot a triangle on the way to school. Revisit the same group a few days in a row before moving on.","faq0q":"What will my child learn here?","faq0a":"Twelve basic colors, twelve shapes, the numbers 1 to 20 and common school words such as book, pencil and bag. Each one is shown clearly and read aloud in English.","faq1q":"Do the numbers show the quantity too?","faq1a":"Yes. Each number card shows the digit, the English word and a row of dots so the child connects the symbol, the sound and the amount.","faq2q":"Can we practise without reading?","faq2a":"Yes. In Quiz mode the voice says a word and the child taps the matching color, shape, number or object, so no reading is needed.","link0":"🗣️ English First Words","link1":"🔤 ABC Alphabet","link2":"🧒 All Kids Tools"},"ar":{"title":"ألوان وأشكال وأرقام بالإنجليزي للروضة KG — بالصوت | أدواتي","h1":"ألوان وأشكال وأرقام","sub":"اضغط واسمع — انجليزي للروضة، من 3 إلى 7 سنوات","aboutLearn":"الألوان والأشكال والأرقام هي أول المفاهيم في معظم برامج الإنجليزي للـ KG. لما الطفل يشوف اللون أو الشكل ويسمع اسمه بالإنجليزي بيبني مفردات بيستخدمها على طول — \"a red circle\" و\"three apples\".","aboutTips":"حوّلها للعبة: خلي طفلك يدوّر على شي أزرق بالغرفة، أو يعدّ درجات الدرج بالإنجليزي، أو يلاقي مثلث بطريقه على المدرسة. كرّر نفس المجموعة كم يوم ورا بعض قبل ما تنتقل لغيرها.","faq0q":"شو رح يتعلم طفلي هون؟","faq0a":"12 لون أساسي، 12 شكل، الأرقام من 1 لـ 20، وكلمات المدرسة الشائعة زي book و pencil و bag. كل واحدة بتظهر بوضوح وبتنقرأ بالإنجليزي.","faq1q":"هل الأرقام بتبيّن الكمية كمان؟","faq1a":"أكيد. كل بطاقة رقم فيها الرقم والكلمة بالإنجليزي وصف نقاط عشان الطفل يربط الرمز بالصوت بالكمية.","faq2q":"بنقدر نتدرب بدون قراءة؟","faq2a":"أكيد. في الاختبار الصوت بيقول كلمة والطفل بيضغط على اللون أو الشكل أو الرقم أو الغرض المناسب، فما في حاجة للقراءة.","link0":"🗣️ كلمات انجليزي للـ KG","link1":"🔤 الحروف الأبجدية ABC","link2":"🧒 كل أدوات الأطفال"}};
+const SLUG = 'kids-colors-shapes';
+let lang = 'en', ready = false;
 let cat = CATS[0], idx = 0, mode = 'learn', playing = false;
 const $ = id => document.getElementById(id);
 const say = i => i.say || i.w;
+const ui = k => ((TR[lang] || TR.en)[k]) || TR.en[k];
+const fill = (s, o) => s.replace(/\{(\w+)\}/g, (m, k) => o[k]);
+const pt = k => ((PT[lang] || PT.en)[k]) || PT.en[k];
+
+function wantPath(l) { return l === 'ar' ? '/ar/' + SLUG + '/' : '/' + SLUG + '.html'; }
+window.onLangChange = function (l) {
+  if (!TR[l]) l = 'en';
+  const here = location.pathname.replace(/index\.html$/, '');
+  const want = wantPath(l);
+  if (/^https?:/.test(location.protocol) && here !== want) { location.replace(want + location.search + location.hash); return; }
+  lang = l;
+  if (ready) applyLang();
+};
+
+function catLabel(c) {
+  const e = c.name.split(' ')[0];
+  const n = (CATN[c.id] && CATN[c.id][lang]) || c.name.slice(e.length + 1);
+  return e + ' ' + n;
+}
+
+function applyLang() {
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-t]').forEach(el => { const k = el.dataset.t; const v = TR[lang] && TR[lang][k] !== undefined ? TR[lang][k] : (PT[lang] && PT[lang][k] !== undefined ? PT[lang][k] : (TR.en[k] !== undefined ? TR.en[k] : PT.en[k])); if (v !== undefined) el.textContent = v; });
+  document.title = pt('title');
+  const kidsHref = lang === 'ar' ? '/ar/kids-learn/' : '/kids-learn.html';
+  ['navKids', 'backToKids'].forEach(id => { const a = $(id); if (a) a.setAttribute('href', kidsHref); });
+  $('btnPlayAll').textContent = playing ? ui('stop') : ui('playAll');
+  buildCats(); buildGrid(); showBig();
+  if (mode === 'quiz') $('qScore').textContent = qLine();
+}
 
 function speak(text, rate, onend) {
   if (!window.speechSynthesis) { if (onend) onend(); return; }
@@ -184,19 +226,20 @@ function showBig() {
   const it = cat.items[idx];
   $('bigVis').innerHTML = it.v;
   $('bigWord').textContent = it.w;
-  $('bigSub').innerHTML = it.sub || '🔊 Tap to hear!';
+  $('bigAr').textContent = lang === 'ar' ? it.ar : '';
+  $('bigSub').innerHTML = it.sub || (it.subKey ? ui(it.subKey) : ui('tap'));
   document.querySelectorAll('.fw-item').forEach((el, n) => el.classList.toggle('on', n === idx));
 }
 
 function buildCats() {
-  $('cats').innerHTML = CATS.map(c => '<button class="fw-cat' + (c === cat ? ' active' : '') + '" data-id="' + c.id + '">' + c.name + '</button>').join('');
+  $('cats').innerHTML = CATS.map(c => '<button class="fw-cat' + (c === cat ? ' active' : '') + '" data-id="' + c.id + '">' + catLabel(c) + '</button>').join('');
 }
 
 function buildGrid() {
-  $('grid').innerHTML = cat.items.map((it, n) => '<div class="fw-item' + (it.v.indexOf('bsvg') > -1 ? ' txt' : '') + '" data-n="' + n + '"><div class="iv">' + (it.v.indexOf('bsvg') > -1 ? '' : it.v) + '</div><div class="iw">' + it.w + '</div></div>').join('');
+  $('grid').innerHTML = cat.items.map((it, n) => { const t = it.v.indexOf('bsvg') > -1; return '<div class="fw-item' + (t ? ' txt' : '') + '" data-n="' + n + '"><div class="iv">' + (t ? '' : it.v) + '</div><div class="iw">' + it.w + '</div>' + (lang === 'ar' ? '<div class="ia">' + it.ar + '</div>' : '') + '</div>'; }).join('');
 }
 
-function stopAll() { playing = false; $('btnPlayAll').textContent = '▶ Play all'; if (window.speechSynthesis) speechSynthesis.cancel(); }
+function stopAll() { playing = false; $('btnPlayAll').textContent = ui('playAll'); if (window.speechSynthesis) speechSynthesis.cancel(); }
 
 function pickCat(id) {
   stopAll();
@@ -208,7 +251,7 @@ function pickCat(id) {
 
 function playAll() {
   if (playing) { stopAll(); return; }
-  playing = true; $('btnPlayAll').textContent = '⏹ Stop';
+  playing = true; $('btnPlayAll').textContent = ui('stop');
   let n = 0;
   (function next() {
     if (!playing || n >= cat.items.length) { stopAll(); return; }
@@ -227,6 +270,7 @@ function setMode(m) {
 }
 
 let qOrder = [], qi = 0, qScore = 0, qAns = false, QN = 10;
+const qLine = () => fill(ui('qLine'), { a: qi + 1, b: QN, s: qScore });
 function startQuiz() {
   const pool = cat.items.slice().sort(() => Math.random() - .5);
   QN = Math.min(10, pool.length);
@@ -237,7 +281,7 @@ function renderQ() {
   if (qi >= QN) {
     const pct = Math.round(qScore / QN * 100);
     $('qUI').style.display = 'none';
-    $('qDone').innerHTML = '<div style="text-align:center;padding:24px;background:linear-gradient(135deg,#fef9c3,#fde68a);border-radius:16px;"><div style="font-size:60px;">🏆</div><div style="font-size:22px;font-weight:900;color:#1e293b;margin:10px 0;">' + (pct >= 80 ? '🎉 Superstar!' : pct >= 50 ? '👍 Great effort!' : '💪 Keep practicing!') + '</div><div style="font-size:15px;color:#475569;">Score: ' + qScore + ' / ' + QN + '</div><button class="btn btn-primary" id="qAgain" style="margin-top:16px;">Play Again</button></div>';
+    $('qDone').innerHTML = '<div style="text-align:center;padding:24px;background:linear-gradient(135deg,#fef9c3,#fde68a);border-radius:16px;"><div style="font-size:60px;">🏆</div><div style="font-size:22px;font-weight:900;color:#1e293b;margin:10px 0;">' + (pct >= 80 ? ui('superstar') : pct >= 50 ? ui('great') : ui('keep')) + '</div><div style="font-size:15px;color:#475569;">' + fill(ui('scoreLbl'), { s: qScore, n: QN }) + '</div><button class="btn btn-primary" id="qAgain" style="margin-top:16px;">' + ui('again') + '</button></div>';
     $('qDone').style.display = 'block';
     return;
   }
@@ -247,7 +291,7 @@ function renderQ() {
   const wrong = [];
   cat.items.slice().sort(() => Math.random() - .5).forEach(x => { if (wrong.length < 3 && !seen.has(x.w)) { seen.add(x.w); wrong.push(x); } });
   const ch = [a].concat(wrong).sort(() => Math.random() - .5);
-  $('qScore').textContent = 'Question ' + (qi + 1) + ' of ' + QN + '  |  Score: ' + qScore;
+  $('qScore').textContent = qLine();
   $('qChoices').innerHTML = ch.map(c => '<button class="q-ch" data-w="' + c.w + '">' + c.v + '</button>').join('');
   $('qFeedback').textContent = '';
   qAns = false;
@@ -256,11 +300,12 @@ function renderQ() {
 function answer(btn) {
   if (qAns) return; qAns = true;
   const a = qOrder[qi];
-  if (btn.dataset.w === a.w) { btn.classList.add('correct'); qScore++; $('qFeedback').textContent = '✅ Correct! ' + a.w; speak('Correct! ' + a.w, 0.9); }
+  const nm = a.w + (lang === 'ar' ? ' (' + a.ar + ')' : '');
+  if (btn.dataset.w === a.w) { btn.classList.add('correct'); qScore++; $('qFeedback').textContent = ui('correct') + ' ' + nm; speak('Correct! ' + a.w, 0.9); }
   else {
     btn.classList.add('wrong');
     document.querySelectorAll('.q-ch').forEach(b => { if (b.dataset.w === a.w) b.classList.add('correct'); });
-    $('qFeedback').textContent = '❌ It is ' + a.w; speak('It is ' + a.w, 0.8);
+    $('qFeedback').textContent = ui('itIs') + ' ' + nm; speak('It is ' + a.w, 0.8);
   }
   setTimeout(() => { qi++; renderQ(); }, 1700);
 }
@@ -283,7 +328,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.target.closest('#qAgain')) { startQuiz(); return; }
     const c = e.target.closest('.q-ch'); if (c) answer(c);
   });
-  buildCats(); buildGrid(); showBig();
+  ready = true;
+  applyLang();
 });
 </script>
 <script src="i18n-lang-en.js?v=3" defer></script>

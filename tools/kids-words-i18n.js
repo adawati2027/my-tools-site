@@ -1,0 +1,102 @@
+// Arabic meanings + UI strings for kids-first-words.html / kids-colors-shapes.html (used by tools/gen-kids-words.js)
+const AR_W = {
+  hair:'شعر',head:'رأس',forehead:'جبهة',eye:'عين',ear:'أذن',nose:'أنف',mouth:'فم',chin:'ذقن',neck:'رقبة',shoulder:'كتف',chest:'صدر',arm:'ذراع',elbow:'مرفق',wrist:'معصم',hand:'يد',finger:'إصبع',thumb:'إبهام',abdomen:'بطن',thigh:'فخذ',knee:'ركبة',leg:'ساق',ankle:'كاحل',foot:'قدم',heel:'كعب',toe:'إصبع القدم',
+  elephant:'فيل',lion:'أسد',tiger:'نمر',leopard:'فهد',bear:'دب',zebra:'حمار وحشي',giraffe:'زرافة',rhinoceros:'وحيد القرن',hippopotamus:'فرس النهر',monkey:'قرد',gorilla:'غوريلا',wolf:'ذئب',fox:'ثعلب',deer:'غزال',bison:'ثور البيسون',kangaroo:'كنغر',boar:'خنزير بري',snake:'ثعبان',crocodile:'تمساح',koala:'كوالا',panda:'باندا',squirrel:'سنجاب',frog:'ضفدع',tortoise:'سلحفاة برية',
+  dog:'كلب',cat:'قطة',cow:'بقرة',goat:'ماعز',sheep:'خروف',horse:'حصان',camel:'جمل',buffalo:'جاموس',donkey:'حمار',pig:'خنزير',rabbit:'أرنب',mouse:'فأر',hen:'دجاجة',chick:'كتكوت',duck:'بطة',rooster:'ديك',
+  parrot:'ببغاء',owl:'بومة',eagle:'نسر',peacock:'طاووس',penguin:'بطريق',swan:'بجعة',flamingo:'فلامنغو',dove:'حمامة',turkey:'ديك رومي',
+  fish:'سمكة','tropical fish':'سمكة استوائية',whale:'حوت',dolphin:'دلفين',shark:'قرش',octopus:'أخطبوط',crab:'سرطان البحر',lobster:'جراد البحر',shrimp:'جمبري',turtle:'سلحفاة بحرية',seal:'فقمة',shell:'صدفة',
+  bee:'نحلة',ant:'نملة',butterfly:'فراشة',ladybird:'دعسوقة',mosquito:'بعوضة',fly:'ذبابة',spider:'عنكبوت',cockroach:'صرصور',grasshopper:'جندب',caterpillar:'يرقة',snail:'حلزون',scorpion:'عقرب',
+  rose:'وردة',sunflower:'عباد الشمس',lotus:'لوتس',hibiscus:'خطمية',tulip:'توليب','cherry blossom':'زهر الكرز',daisy:'أقحوان',bouquet:'باقة ورد',seedling:'شتلة',tree:'شجرة',
+  apple:'تفاحة',banana:'موزة',orange:'برتقالة',grapes:'عنب',watermelon:'بطيخ',strawberry:'فراولة',pineapple:'أناناس',mango:'مانجو',peach:'خوخ',pear:'كمثرى',cherries:'كرز',lemon:'ليمون',coconut:'جوز الهند',kiwi:'كيوي',melon:'شمام',blueberries:'توت أزرق',
+  carrot:'جزرة',tomato:'بندورة',potato:'بطاطا',onion:'بصل',cucumber:'خيار',cabbage:'ملفوف',broccoli:'بروكلي',eggplant:'باذنجان',chilli:'فلفل حار',capsicum:'فلفل حلو',corn:'ذرة',garlic:'ثوم',mushroom:'فطر','sweet potato':'بطاطا حلوة',beans:'فاصولياء',
+  car:'سيارة',bus:'باص',train:'قطار',aeroplane:'طائرة',ship:'سفينة',bicycle:'دراجة هوائية',scooter:'سكوتر',motorcycle:'دراجة نارية',helicopter:'مروحية',ambulance:'سيارة إسعاف','fire engine':'سيارة إطفاء','police car':'سيارة شرطة',jeep:'جيب',tractor:'جرار',truck:'شاحنة',taxi:'تاكسي','auto rickshaw':'توك توك',rocket:'صاروخ',sailboat:'مركب شراعي',
+  red:'أحمر',blue:'أزرق',yellow:'أصفر',green:'أخضر',orange_c:'برتقالي',purple:'بنفسجي',pink:'وردي',brown:'بني',black:'أسود',white:'أبيض',gray:'رمادي','light blue':'أزرق فاتح',
+  circle:'دائرة',square:'مربع',triangle:'مثلث',rectangle:'مستطيل',oval:'بيضاوي',star:'نجمة',heart:'قلب',diamond:'معيّن',pentagon:'خماسي',hexagon:'سداسي',crescent:'هلال','plus sign':'علامة الزائد',
+  one:'واحد',two:'اثنان',three:'ثلاثة',four:'أربعة',five:'خمسة',six:'ستة',seven:'سبعة',eight:'ثمانية',nine:'تسعة',ten:'عشرة',eleven:'أحد عشر',twelve:'اثنا عشر',thirteen:'ثلاثة عشر',fourteen:'أربعة عشر',fifteen:'خمسة عشر',sixteen:'ستة عشر',seventeen:'سبعة عشر',eighteen:'ثمانية عشر',nineteen:'تسعة عشر',twenty:'عشرون',
+  book:'كتاب',pencil:'قلم رصاص',crayon:'قلم تلوين','school bag':'حقيبة مدرسية',ruler:'مسطرة',scissors:'مقص',notebook:'دفتر',pen:'قلم حبر',paint:'ألوان',clock:'ساعة',globe:'كرة أرضية',computer:'حاسوب',bell:'جرس',abacus:'معداد',
+};
+
+const TR = {
+  en: {kids:'🧒 Kids',home:'Home',back:'← Back to Kids',tabLearn:'📖 Learn',tabQuiz:'🎯 Quiz',tap:'🔊 Tap to hear!',slow:'🐢 Slow',playAll:'▶ Play all',stop:'⏹ Stop',
+    quizPrompt:'Listen and tap the right picture',hearAgain:'🔊 Hear again',qLine:'Question {a} of {b}  |  Score: {s}',correct:'✅ Correct!',itIs:'❌ It is',
+    superstar:'🎉 Superstar!',great:'👍 Great effort!',keep:'💪 Keep practicing!',scoreLbl:'Score: {s} / {n}',again:'Play Again',faqTitle:'❓ Frequently Asked Questions',
+    aboutHead:'👨‍👩‍👧 For parents & teachers',aboutLearnH:'What your child learns',aboutTipsH:'Tips for parents',
+    aboutNote:'All Adawati kids games are free, need no sign-up and run in the browser. Pictures are simple emoji and original drawings. Screen time is best kept short and shared — playing together and talking about the answers helps children learn more.',
+    tummy:'🔊 also called tummy'},
+  ar: {kids:'🧒 الأطفال',home:'الرئيسية',back:'← رجوع للأطفال',tabLearn:'📖 تعلّم',tabQuiz:'🎯 اختبار',tap:'🔊 اضغط عشان تسمع!',slow:'🐢 ببطء',playAll:'▶ شغّل الكل',stop:'⏹ إيقاف',
+    quizPrompt:'اسمع الكلمة واضغط على الصورة الصحيحة',hearAgain:'🔊 اسمع مرة ثانية',qLine:'السؤال {a} من {b}  |  النتيجة: {s}',correct:'✅ صح!',itIs:'❌ الجواب',
+    superstar:'🎉 نجم كبير!',great:'👍 مجهود حلو!',keep:'💪 كمّل تدريب!',scoreLbl:'النتيجة: {s} / {n}',again:'العب مرة ثانية',faqTitle:'❓ أسئلة شائعة',
+    aboutHead:'👨‍👩‍👧 للأهل والمعلمين',aboutLearnH:'شو بتعلّم طفلك',aboutTipsH:'نصائح للأهل',
+    aboutNote:'كل ألعاب أدواتي للأطفال مجانية وبدون تسجيل وبتشتغل من المتصفح. الصور إيموجي بسيطة ورسومات أصلية. الأفضل تكون مدة الشاشة قصيرة ومشتركة — اللعب مع الطفل والحكي عن الإجابات بيساعده يتعلم أكثر.',
+    tummy:'🔊 وبتنقال كمان tummy'},
+  fr: {kids:'🧒 Enfants',home:'Accueil',back:'← Retour aux jeux enfants',tabLearn:'📖 Apprendre',tabQuiz:'🎯 Quiz',tap:'🔊 Touche pour écouter !',slow:'🐢 Lent',playAll:'▶ Tout écouter',stop:'⏹ Stop',
+    quizPrompt:'Écoute et touche la bonne image',hearAgain:'🔊 Réécouter',qLine:'Question {a} sur {b}  |  Score : {s}',correct:'✅ Correct !',itIs:'❌ C\'est',
+    superstar:'🎉 Superstar !',great:'👍 Bel effort !',keep:'💪 Continue à t\'entraîner !',scoreLbl:'Score : {s} / {n}',again:'Rejouer',faqTitle:'❓ Questions fréquentes',
+    aboutHead:'👨‍👩‍👧 Pour les parents et enseignants',aboutLearnH:'Ce que votre enfant apprend',aboutTipsH:'Conseils aux parents',
+    aboutNote:'Tous les jeux enfants d\'Adawati sont gratuits, sans inscription, et fonctionnent dans le navigateur.',tummy:'🔊 aussi appelé tummy'},
+  es: {kids:'🧒 Niños',home:'Inicio',back:'← Volver a juegos infantiles',tabLearn:'📖 Aprender',tabQuiz:'🎯 Quiz',tap:'🔊 ¡Toca para escuchar!',slow:'🐢 Lento',playAll:'▶ Escuchar todo',stop:'⏹ Parar',
+    quizPrompt:'Escucha y toca la imagen correcta',hearAgain:'🔊 Escuchar otra vez',qLine:'Pregunta {a} de {b}  |  Puntaje: {s}',correct:'✅ ¡Correcto!',itIs:'❌ Es',
+    superstar:'🎉 ¡Superestrella!',great:'👍 ¡Buen esfuerzo!',keep:'💪 ¡Sigue practicando!',scoreLbl:'Puntaje: {s} / {n}',again:'Jugar de nuevo',faqTitle:'❓ Preguntas frecuentes',
+    aboutHead:'👨‍👩‍👧 Para padres y docentes',aboutLearnH:'Qué aprende tu hijo',aboutTipsH:'Consejos para padres',
+    aboutNote:'Todos los juegos infantiles de Adawati son gratis, sin registro y funcionan en el navegador.',tummy:'🔊 también llamado tummy'},
+  de: {kids:'🧒 Kinder',home:'Startseite',back:'← Zurück zu Kinderspielen',tabLearn:'📖 Lernen',tabQuiz:'🎯 Quiz',tap:'🔊 Zum Anhören tippen!',slow:'🐢 Langsam',playAll:'▶ Alle abspielen',stop:'⏹ Stopp',
+    quizPrompt:'Hör zu und tippe auf das richtige Bild',hearAgain:'🔊 Nochmal hören',qLine:'Frage {a} von {b}  |  Punkte: {s}',correct:'✅ Richtig!',itIs:'❌ Es ist',
+    superstar:'🎉 Superstar!',great:'👍 Toller Einsatz!',keep:'💪 Übe weiter!',scoreLbl:'Punkte: {s} / {n}',again:'Nochmal spielen',faqTitle:'❓ Häufige Fragen',
+    aboutHead:'👨‍👩‍👧 Für Eltern und Lehrkräfte',aboutLearnH:'Was Ihr Kind lernt',aboutTipsH:'Tipps für Eltern',
+    aboutNote:'Alle Kinderspiele von Adawati sind kostenlos, ohne Anmeldung und laufen im Browser.',tummy:'🔊 auch tummy genannt'},
+  ru: {kids:'🧒 Детям',home:'Главная',back:'← Назад к детским играм',tabLearn:'📖 Учить',tabQuiz:'🎯 Квиз',tap:'🔊 Нажми, чтобы услышать!',slow:'🐢 Медленно',playAll:'▶ Слушать всё',stop:'⏹ Стоп',
+    quizPrompt:'Послушай и нажми на правильную картинку',hearAgain:'🔊 Ещё раз',qLine:'Вопрос {a} из {b}  |  Счёт: {s}',correct:'✅ Правильно!',itIs:'❌ Это',
+    superstar:'🎉 Суперзвезда!',great:'👍 Отличная попытка!',keep:'💪 Продолжай тренироваться!',scoreLbl:'Счёт: {s} / {n}',again:'Играть снова',faqTitle:'❓ Частые вопросы',
+    aboutHead:'👨‍👩‍👧 Для родителей и учителей',aboutLearnH:'Чему учится ваш ребёнок',aboutTipsH:'Советы родителям',
+    aboutNote:'Все детские игры Adawati бесплатны, без регистрации и работают в браузере.',tummy:'🔊 ещё говорят tummy'},
+};
+
+const CATN = {
+  body:{ar:'الجسم',fr:'Corps',es:'Cuerpo',de:'Körper',ru:'Тело'},
+  wild:{ar:'حيوانات برية',fr:'Animaux sauvages',es:'Animales salvajes',de:'Wildtiere',ru:'Дикие животные'},
+  farm:{ar:'مزرعة وأليفة',fr:'Ferme et maison',es:'Granja y mascotas',de:'Bauernhof & Haustiere',ru:'Ферма и питомцы'},
+  birds:{ar:'طيور',fr:'Oiseaux',es:'Aves',de:'Vögel',ru:'Птицы'},
+  sea:{ar:'حيوانات البحر',fr:'Mer',es:'Mar',de:'Meer',ru:'Море'},
+  insects:{ar:'حشرات',fr:'Insectes',es:'Insectos',de:'Insekten',ru:'Насекомые'},
+  flowers:{ar:'زهور',fr:'Fleurs',es:'Flores',de:'Blumen',ru:'Цветы'},
+  fruits:{ar:'فواكه',fr:'Fruits',es:'Frutas',de:'Obst',ru:'Фрукты'},
+  veg:{ar:'خضار',fr:'Légumes',es:'Verduras',de:'Gemüse',ru:'Овощи'},
+  transport:{ar:'مواصلات',fr:'Transports',es:'Transporte',de:'Fahrzeuge',ru:'Транспорт'},
+  colors:{ar:'ألوان',fr:'Couleurs',es:'Colores',de:'Farben',ru:'Цвета'},
+  shapes:{ar:'أشكال',fr:'Formes',es:'Formas',de:'Formen',ru:'Фигуры'},
+  numbers:{ar:'أرقام',fr:'Nombres',es:'Números',de:'Zahlen',ru:'Числа'},
+  school:{ar:'المدرسة',fr:'École',es:'Escuela',de:'Schule',ru:'Школа'},
+};
+
+// Arabic page text (title/h1/sub/faq/about) per page file
+const PAGE_AR = {
+  'kids-first-words.html': {
+    title:'تعليم انجليزي للروضة KG — كلمات بالصوت والصور | أدواتي',
+    h1:'انجليزي للروضة — أول الكلمات',
+    sub:'اضغط على الصورة واسمع الكلمة — من 3 إلى 7 سنوات',
+    faq:[
+      ['لأي عمر هاي الصفحة؟','للأطفال في مرحلة الروضة (KG) من حوالي 3 لـ 7 سنوات وبلّشوا يتعلموا إنجليزي. كل كلمة إلها صورة وصوت، فحتى الطفل اللي ما بيقرأ لسا بيقدر يتعلم.'],
+      ['كيف بيشتغل الصوت؟','اضغط على أي صورة وجهازك بيقرأ الكلمة بالإنجليزي. زر "ببطء" بيعيدها أبطأ، وزر "شغّل الكل" بيقرأ المجموعة كلها كلمة ورا كلمة. الصوت جاي من تلفونك أو جهازك.'],
+      ['ما بسمع أي صوت، شو أعمل؟','تأكد إن الصوت عالي وإن التلفون مش على الصامت. بعض المتصفحات بدها ضغطة وحدة على الصفحة قبل ما تشغّل الصوت. إذا لسا ما اشتغل جرّب Chrome أو Safari — الصفحة بتستخدم الصوت الموجود في جهازك.'],
+      ['شو المواضيع الموجودة؟','أجزاء الجسم، الحيوانات البرية، حيوانات المزرعة والبيت، الطيور، حيوانات البحر، الحشرات، الزهور، الفواكه، الخضار والمواصلات. الألوان والأشكال والأرقام في صفحة ثانية.'],
+    ],
+    aboutLearn:'الأطفال بيتعلموا الكلمات أسرع لما يشوفوها ويسمعوها ويقولوها مع بعض. كل بطاقة فيها صورة وصوت الكلمة، ومقسّمة حسب المواضيع زي كتب الإنجليزي للـ KG، فالطفل بينتقل من "nose" و"hand" لـ "lion" و"apple" و"bus" بخطوات صغيرة وحلوة.',
+    aboutTips:'خلي الجلسة قصيرة (5–10 دقايق) وخذ موضوع واحد باليوم. خلي طفلك يعيد الكلمة وراء الصوت، وأشّر له على الشي الحقيقي بالبيت أو بالشارع، واستخدم "شغّل الكل" كتسخين قبل الاختبار. شجّع المحاولة مش بس الجواب الصح.',
+    links:['🎨 ألوان وأشكال وأرقام','🔤 الحروف الأبجدية ABC','🧒 كل أدوات الأطفال'],
+  },
+  'kids-colors-shapes.html': {
+    title:'ألوان وأشكال وأرقام بالإنجليزي للروضة KG — بالصوت | أدواتي',
+    h1:'ألوان وأشكال وأرقام',
+    sub:'اضغط واسمع — انجليزي للروضة، من 3 إلى 7 سنوات',
+    faq:[
+      ['شو رح يتعلم طفلي هون؟','12 لون أساسي، 12 شكل، الأرقام من 1 لـ 20، وكلمات المدرسة الشائعة زي book و pencil و bag. كل واحدة بتظهر بوضوح وبتنقرأ بالإنجليزي.'],
+      ['هل الأرقام بتبيّن الكمية كمان؟','أكيد. كل بطاقة رقم فيها الرقم والكلمة بالإنجليزي وصف نقاط عشان الطفل يربط الرمز بالصوت بالكمية.'],
+      ['بنقدر نتدرب بدون قراءة؟','أكيد. في الاختبار الصوت بيقول كلمة والطفل بيضغط على اللون أو الشكل أو الرقم أو الغرض المناسب، فما في حاجة للقراءة.'],
+    ],
+    aboutLearn:'الألوان والأشكال والأرقام هي أول المفاهيم في معظم برامج الإنجليزي للـ KG. لما الطفل يشوف اللون أو الشكل ويسمع اسمه بالإنجليزي بيبني مفردات بيستخدمها على طول — "a red circle" و"three apples".',
+    aboutTips:'حوّلها للعبة: خلي طفلك يدوّر على شي أزرق بالغرفة، أو يعدّ درجات الدرج بالإنجليزي، أو يلاقي مثلث بطريقه على المدرسة. كرّر نفس المجموعة كم يوم ورا بعض قبل ما تنتقل لغيرها.',
+    links:['🗣️ كلمات انجليزي للـ KG','🔤 الحروف الأبجدية ABC','🧒 كل أدوات الأطفال'],
+  },
+};
+
+module.exports = { AR_W, TR, CATN, PAGE_AR };

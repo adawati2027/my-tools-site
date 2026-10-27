@@ -178,6 +178,8 @@ TOOLS.forEach(tool => {
       }
     }
 
+    if (code === 'ar') html = html.replace(/href="(kids-first-words|kids-colors-shapes).html"/g, 'href="ar/$1/"');
+
     // Write to /lang/tool/index.html
     const outDir = path.join(SITE_DIR, code, tool);
     fs.mkdirSync(outDir, { recursive: true });

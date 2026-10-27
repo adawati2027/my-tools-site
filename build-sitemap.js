@@ -175,6 +175,9 @@ const KIDS_ROOT_ONLY = [
 for (const tool of KIDS_ROOT_ONLY) {
   entries.push(urlEntry(`${BASE}/${tool}.html`, '0.7', 'monthly'));
 }
+for (const tool of ['kids-first-words','kids-colors-shapes']) {
+  entries.push(urlEntry(`${BASE}/ar/${tool}/`, '0.7', 'monthly'));
+}
 
 const OMAN_GUIDES = [
   'oman-cost-of-living','oman-labour-law-guide','oman-loan-guide',
