@@ -78,6 +78,8 @@
     </div>
     <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">لو ما حطيتي طول الدورة بنحسب على 28 يوم.</p>
 
+    <div id="hErr" style="display:none;margin-top:14px;padding:10px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-sm);font-size:13px;color:#991b1b;line-height:1.7;"></div>
+
     <div id="hResult" style="display:none;margin-top:20px;">
       <div class="result-box show" style="margin-top:0;">
         <div class="result-value" id="hMain"></div>
@@ -154,7 +156,10 @@ function hF(n, d) { const p = Math.pow(10, d); return (Math.round(n * p) / p).to
 function hShow(r) {
   hLast = r;
   const box = document.getElementById('hResult');
-  if (!r) { box.style.display = 'none'; return; }
+  const er = document.getElementById('hErr');
+  er.style.display = r && r.err ? 'block' : 'none';
+  if (r && r.err) er.textContent = r.err;
+  if (!r || r.err) { box.style.display = 'none'; return; }
   document.getElementById('hMain').textContent = r.main;
   document.getElementById('hLbl').textContent = r.lbl;
   document.getElementById('hExtra').innerHTML = r.extra || '';
@@ -208,7 +213,8 @@ function hCompute() {
   if (isNaN(cyc) || cyc < 21 || cyc > 40) cyc = 28;
   const day = 86400000;
   const days = Math.round((today - lmp) / day);
-  if (days < 0 || days > 300) return null;
+  if (days < 0) return { err: 'التاريخ هاد بالمستقبل. دخّلي تاريخ أول يوم بآخر دورة إجتك، مش تاريخ قادم.' };
+  if (days > 300) return { err: 'التاريخ هاد قديم كتير (أكتر من 300 يوم). تأكدي من التاريخ.' };
   const adj = Math.round(cyc) - 28;
   const due = new Date(lmp.getTime() + (280 + adj) * day);
   const left = Math.round((due - today) / day);

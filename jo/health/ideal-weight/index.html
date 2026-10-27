@@ -77,6 +77,8 @@
       <div><label>وزنك الحالي (كغ) - اختياري</label><input type="number" inputmode="decimal" id="hW" min="25" max="300" step="any" placeholder="مثال: 82"></div>
     </div>
 
+    <div id="hErr" style="display:none;margin-top:14px;padding:10px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-sm);font-size:13px;color:#991b1b;line-height:1.7;"></div>
+
     <div id="hResult" style="display:none;margin-top:20px;">
       <div class="result-box show" style="margin-top:0;">
         <div class="result-value" id="hMain"></div>
@@ -153,7 +155,10 @@ function hF(n, d) { const p = Math.pow(10, d); return (Math.round(n * p) / p).to
 function hShow(r) {
   hLast = r;
   const box = document.getElementById('hResult');
-  if (!r) { box.style.display = 'none'; return; }
+  const er = document.getElementById('hErr');
+  er.style.display = r && r.err ? 'block' : 'none';
+  if (r && r.err) er.textContent = r.err;
+  if (!r || r.err) { box.style.display = 'none'; return; }
   document.getElementById('hMain').textContent = r.main;
   document.getElementById('hLbl').textContent = r.lbl;
   document.getElementById('hExtra').innerHTML = r.extra || '';
