@@ -184,7 +184,13 @@ function calc() {
       verdict = '💡 القسط الشهري أقل من إيجارك الحالي بـ' + Math.abs(diff).toFixed(0) + ' دينار — الشراء يبدو مجدي مالياً بهاي الشروط، تأكد بس من الدفعة الأولى والرسوم الإضافية.';
     }
   }
-  document.getElementById('verdictBox').innerHTML = verdict;
+  const f0 = function(n){ return n.toLocaleString('en-US', { maximumFractionDigits: 0 }); };
+  const explain = '<div style="margin-top:10px;font-size:13px;line-height:1.9;color:var(--text-muted);"><b>كيف طلعت نتيجتك؟</b><br>' +
+    'التمويل = سعر البيت ' + f0(price) + ' − الدفعة الأولى ' + f0(downPayment) + ' = ' + f0(loan) + ' د.أ<br>' +
+    'القسط محسوب بقانون القسط الثابت على ' + numPayments + ' دفعة شهرية وفائدة ' + annualRate + '% سنوياً = ' + monthlyPayment.toFixed(3) + ' د.أ<br>' +
+    'إجمالي المدفوع = القسط × ' + numPayments + ' = ' + f0(totalPaid) + '، منه فوائد ' + f0(totalInterest) + ' د.أ<br>' +
+    'ما فيه رسوم تسجيل ولا تأمين ولا صيانة ولا تغيّر بالفائدة، فالرقم تقديري وبتأكد منه من البنك.</div>';
+  document.getElementById('verdictBox').innerHTML = verdict + explain;
 
   document.getElementById('buyResult').style.display = 'block';
 }
