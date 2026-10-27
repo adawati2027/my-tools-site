@@ -14,7 +14,7 @@
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#2563eb">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<title>شو بتعرف عن الإمارات؟ — تحدي 200 سؤال | Adawati</title>
+<title>ماذا تعرف عن الإمارات؟ — تحدي 200 سؤال | Adawati</title>
 <meta name="description" content="تحدّى نفسك وأصحابك: 200 سؤال عن الإمارات — التاريخ، الجغرافيا، المعالم، الثقافة والرياضة. 12 سؤال عشوائي في كل تحدي.">
 <meta name="keywords" content="اسئلة عن الإمارات, مسابقة عن الإمارات, كويز الإمارات, معلومات عن الإمارات, the UAE trivia quiz">>
 <meta name="robots" content="index, follow">
@@ -22,7 +22,7 @@
 <link rel="alternate" hreflang="x-default" href="https://adawati.space/">
 <link rel="alternate" hreflang="ar" href="https://adawati.space/ae/games/uae-quiz/">
 <link rel="alternate" hreflang="ar-AE" href="https://adawati.space/ae/games/uae-quiz/">
-<meta property="og:title" content="شو بتعرف عن الإمارات؟ | Adawati">
+<meta property="og:title" content="ماذا تعرف عن الإمارات؟ | Adawati">
 <meta property="og:description" content="تحدّى أصحابك بأسئلة عشوائية من بنك 200 سؤال عن الإمارات.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adawati.space/ae/games/uae-quiz/">
@@ -30,7 +30,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="شو بتعرف عن الإمارات؟ | Adawati">
+<meta name="twitter:title" content="ماذا تعرف عن الإمارات؟ | Adawati">
 <meta name="twitter:description" content="تحدّى أصحابك بأسئلة عشوائية من بنك 200 سؤال عن الإمارات.">
 <meta name="twitter:image" content="https://adawati.space/og/ae.jpg">
 <link rel="stylesheet" href="../../../style.css?v=4">
@@ -49,19 +49,19 @@
 
   <div class="card">
     <div class="card-icon" style="background:#fef2f2;">🇦🇪</div>
-    <h1 class="card-title" data-en="How Well Do You Know the UAE?">شو بتعرف عن الإمارات؟</h1>
+    <h1 class="card-title" data-en="How Well Do You Know the UAE?">ماذا تعرف عن الإمارات؟</h1>
     <div class="card-subtitle" id="progressLabel">سؤال 1 من 12</div>
     <div id="quizArabicNote" style="font-size:12px;color:var(--text-muted);margin-top:2px;"></div>
     <div class="divider"></div>
 
     <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
       <div style="font-weight:700;margin-bottom:6px;" data-qt="challenge_start_title">🏆 تحدَّ أصحابك بنفس الأسئلة!</div>
-      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;" data-qt="challenge_start_subtitle">لازم صديق واحد ع الأقل يشارك (من 2 لـ20 شخص) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
-      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">اختار المستوى:</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;" data-qt="challenge_start_subtitle">يجب أن يشارك صديق واحد على الأقل (من 2 إلى 20 شخصاً) — اكتب اسمك، ابدأ التحدي، وشارك الرابط.</div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">اختر المستوى:</div>
       <div id="difficultySelectArea" style="display:none;gap:8px;flex-wrap:wrap;margin-bottom:10px;"></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <input id="creatorNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;font-size:16px;border:1px solid var(--border);border-radius:8px;">
-        <button id="createChallengeBtn" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_challenge_btn">ابدأ تحدي</button>
+        <button id="createChallengeBtn" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="start_challenge_btn">ابدأ التحدي</button>
       </div>
     </div>
 
@@ -74,11 +74,11 @@
     </div>
 
     <div id="joinerWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#fef3c7;border-radius:10px;text-align:center;">
-      <div style="font-weight:700;" data-qt="joiner_waiting">⏳ قبلت التحدي! بانتظار ما يبلش صاحبك اللعب... بتبلشوا مع بعض.</div>
+      <div style="font-weight:700;" data-qt="joiner_waiting">⏳ قبلتَ التحدي! بانتظار أن يبدأ صديقك اللعب... وستبدآن معاً.</div>
     </div>
 
     <div id="challengeWaitingArea" style="display:none;margin-bottom:16px;padding:14px;background:#dbeafe;border-radius:10px;">
-      <div style="font-weight:700;margin-bottom:8px;" data-qt="challenge_ready">⏳ التحدي جاهز! ابعت الرابط لصاحبك — بمجرد ما يقبل التحدي، رح تقدر تبلش تلعب انت كمان.</div>
+      <div style="font-weight:700;margin-bottom:8px;" data-qt="challenge_ready">⏳ التحدي جاهز! أرسل الرابط إلى صديقك — بمجرد أن يقبل التحدي، ستتمكن من بدء اللعب أنت أيضاً.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <input id="challengeWaitingLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
         <button id="shareWaitingLinkBtn" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
@@ -92,7 +92,7 @@
     </div>
 
     <div id="challengeActiveLink" style="display:none;margin-bottom:16px;padding:12px;background:#dbeafe;border-radius:10px;">
-      <div style="font-weight:700;margin-bottom:6px;font-size:13px;" data-qt="active_link_label">🔗 رابط التحدي — شاركه مع صاحبك قبل أو أثناء اللعب:</div>
+      <div style="font-weight:700;margin-bottom:6px;font-size:13px;" data-qt="active_link_label">🔗 رابط التحدي — شاركه مع صديقك قبل أو أثناء اللعب:</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <input id="challengeActiveLinkInput" readonly style="flex:1;min-width:140px;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:12px;">
         <button id="shareActiveLinkBtn" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap;" data-qt="share_btn">📤 مشاركة</button>
@@ -111,7 +111,7 @@
       <div style="font-size:15px;color:var(--text-muted);margin-bottom:20px;" id="resultMessage"></div>
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
         <button id="shareResultBtn" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="share_result_btn">📤 شارك نتيجتك</button>
-        <button id="restartBtn" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="try_again_btn">🔄 جرّب مرة ثانية</button>
+        <button id="restartBtn" style="padding:10px 20px;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;" data-qt="try_again_btn">🔄 جرّب مرة أخرى</button>
       </div>
 
       <div id="challengeShareArea" style="display:none;margin-top:20px;padding:14px;background:var(--surface-2);border-radius:10px;text-align:right;">
@@ -142,23 +142,23 @@
       <a href="ae/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب</a>
       <a href="ae/fuel-prices/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⛽ أسعار الوقود</a>
       <a href="ae/holidays/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">📅 العطل الرسمية</a>
-      <a href="sa/games/saudi-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇸🇦 شو بتعرف عن السعودية؟</a>
-      <a href="om/games/oman-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇴🇲 شو بتعرف عن عُمان؟</a>
+      <a href="sa/games/saudi-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇸🇦 ماذا تعرف عن السعودية؟</a>
+      <a href="om/games/oman-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇴🇲 ماذا تعرف عن عُمان؟</a>
       <a href="jo/games/general-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌐 كويز المعلومات العامة</a>
       <a href="ae/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇦🇪 كل أدوات الإمارات</a>
     </div>
   </div>
 <!--quiz-about-->
   <div class="card" style="margin-top:16px;">
-    <h2 class="card-title" style="font-size:17px;">ℹ️ عن شو بتعرف عن الإمارات؟</h2>
+    <h2 class="card-title" style="font-size:17px;">ℹ️ عن ماذا تعرف عن الإمارات؟</h2>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">تحدّى نفسك وأصحابك: 200 سؤال عن الإمارات — التاريخ، الجغرافيا، المعالم، الثقافة والرياضة. 12 سؤال عشوائي في كل تحدي.</p>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">بنك الأسئلة فيه <b>200</b> سؤال، موزّعة على مستويين: <b>140</b> سؤال متوسط و<b>60</b> سؤال صعب. كل جولة بتختار 12 سؤال عشوائي، فكل مرة بتلعب بتطلعلك أسئلة مختلفة.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>200</b> سؤالاً، موزّعة على مستويين: <b>140</b> سؤال متوسط و<b>60</b> سؤال صعب. تختار كل جولة 12 سؤالاً عشوائياً، فتظهر لك أسئلة مختلفة في كل مرة تلعب فيها.</p>
     <h3 style="font-size:15px;margin-top:14px;">🎮 كيف تلعب؟</h3>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;">
-      <li>اختار المستوى (متوسط، صعب، أو مشكّل) واضغط ابدأ.</li>
-      <li>عندك 15 ثانية لكل سؤال — كل ما جاوبت أسرع وصح بتجمع نقاط أكثر.</li>
-      <li>بعد كل جواب بتشوف الإجابة الصحيحة، فبتتعلّم حتى لو غلطت.</li>
-      <li>بالآخر بتطلعلك نتيجتك، وبتقدر تتحدّى أصحابك بنفس الأسئلة وتشوفوا مين الأول.</li>
+      <li>اختر المستوى (متوسط أو صعب أو مشكّل) ثم اضغط «ابدأ».</li>
+      <li>لديك 15 ثانية لكل سؤال — وكلما أجبت أسرع وبشكل صحيح جمعت نقاطاً أكثر.</li>
+      <li>بعد كل إجابة ترى الإجابة الصحيحة، فتتعلم حتى لو أخطأت.</li>
+      <li>في النهاية تظهر نتيجتك، ويمكنك تحدي أصدقائك بالأسئلة نفسها لمعرفة من الأول.</li>
     </ul>
     <h3 style="font-size:15px;margin-top:14px;">📝 أمثلة من أسئلة الكويز</h3>
     <ol style="font-size:14px;line-height:1.9;padding-right:22px;">
@@ -396,10 +396,10 @@ const QUIZ_CONFIG = {
     {key:'medium', label:'🟡 متوسط', labelEn:'🟡 Medium'},
     {key:'hard', label:'🔴 صعب', labelEn:'🔴 Hard'}
   ],
-  shareTitle: 'شو بتعرف عن الإمارات؟ 🇦🇪',
-  challengeText: 'تحداك بكويز عن الإمارات، جاهز تنافسني؟',
+  shareTitle: 'ماذا تعرف عن الإمارات؟ 🇦🇪',
+  challengeText: 'تحدّاك في اختبار عن الإمارات، هل أنت مستعد لمنافستي؟',
   resultText: function(score, total, pct) {
-    return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بتحدي "شو بتعرف عن الإمارات؟" 🇦🇪 جرب تتحداني!';
+    return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) في تحدي "ماذا تعرف عن الإمارات؟" 🇦🇪 جرّب أن تتحداني!';
   },
   shareTitleEn: 'How Well Do You Know the UAE? 🇦🇪',
   challengeTextEn: 'I challenge you to the the UAE quiz — ready to compete?',
@@ -415,8 +415,8 @@ const QUIZ_CONFIG = {
   resultMessages: [
     {min:90, emoji:'🏆', msg:'خبير بـالإمارات! نتيجة رهيبة.'},
     {min:70, emoji:'🇦🇪', msg:'معلوماتك عن الإمارات ممتازة!'},
-    {min:50, emoji:'👍', msg:'مش بطال، بس فيه مجال تتحسن.'},
-    {min:0,  emoji:'📚', msg:'وقتها نتعرف أكثر على الإمارات!'}
+    {min:50, emoji:'👍', msg:'ليس سيئاً، لكن أمامك مجال للتحسن.'},
+    {min:0,  emoji:'📚', msg:'حان وقت أن نتعرف أكثر على الإمارات!'}
   ]
 };
 

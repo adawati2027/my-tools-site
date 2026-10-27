@@ -67,7 +67,7 @@
     <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
       <div style="font-weight:700;margin-bottom:6px;" data-qt="challenge_start_title">🏆 تحدَّ أصحابك على الأسئلة نفسها!</div>
       <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;" data-qt="challenge_start_subtitle">يلزم أن يشارك صديق واحد على الأقل (من 2 إلى 20 شخصاً) — اكتب اسمك، وابدأ التحدي، وشارك الرابط.</div>
-      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">اختار المستوى:</div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">اختر المستوى:</div>
       <div id="difficultySelectArea" style="display:none;gap:8px;flex-wrap:wrap;margin-bottom:10px;"></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <input id="creatorNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;font-size:16px;border:1px solid var(--border);border-radius:8px;">
@@ -171,7 +171,13 @@
     <h2 class="card-title" style="font-size:17px;">ℹ️ عن كويز العلوم والتكنولوجيا</h2>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">اختبر معلوماتك بالعلوم والتكنولوجيا: فيزياء، كيمياء، أحياء، فضاء وتاريخ التقنية. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ أصحابك. مجاني وبدون تسجيل.</p>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>255</b> سؤالاً، موزّعة على مستويين: <b>147</b> سؤال متوسط و<b>108</b> سؤال صعب. تختار كل جولة 12 سؤالاً عشوائياً، فتظهر لك أسئلة مختلفة في كل مرة تلعب فيها.</p>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:10px;">🎮 اختر مستوى الصعوبة وأجب بأسرع وقت ممكن — لكل سؤال 15 ثانية، ويظهر الجواب الصحيح فوراً.</p>
+    <h3 style="font-size:15px;margin-top:14px;">🎮 كيف تلعب؟</h3>
+    <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;">
+      <li>اختر المستوى (متوسط أو صعب أو مشكّل) ثم اضغط «ابدأ».</li>
+      <li>لديك 15 ثانية لكل سؤال — وكلما أجبت أسرع وبشكل صحيح جمعت نقاطاً أكثر.</li>
+      <li>بعد كل إجابة ترى الإجابة الصحيحة، فتتعلم حتى لو أخطأت.</li>
+      <li>في النهاية تظهر نتيجتك، ويمكنك تحدي أصدقائك بالأسئلة نفسها لمعرفة من الأول.</li>
+    </ul>
     <h3 style="font-size:15px;margin-top:14px;">📝 أمثلة من أسئلة الكويز</h3>
     <ol style="font-size:14px;line-height:1.9;padding-right:22px;">
       <li>ما الرمز الكيميائي للصوديوم؟<br><span style="color:var(--text-muted);">الجواب: <b>Na</b></span></li>
@@ -183,13 +189,6 @@
       <li>ما تسمية عدد أفوغادرو التقريبي المستخدم بالكيمياء؟<br><span style="color:var(--text-muted);">الجواب: <b>6.022×10 أس 23</b></span></li>
       <li>كم تقريباً درجة حرارة لبّ (مركز) الشمس؟<br><span style="color:var(--text-muted);">الجواب: <b>حوالي 15 مليون درجة سيلزيوس</b></span></li>
     </ol>
-  </div>
-  <div class="card" style="margin-top:16px;">
-    <h2 class="card-title" style="font-size:17px;">🧠 هل تعلم؟</h2>
-    <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;margin-top:8px;">
-      <li>ضوء الشمس بياخذ حوالي 8 دقايق ليصل إلى الأرض.</li>
-      <li>جسم الإنسان فيه حوالي 37 تريليون خلية.</li>
-    </ul>
   </div>
 <!--/quiz-about-->
 </div></main>
@@ -471,7 +470,7 @@ const QUIZ_CONFIG = {
   ],
   questionSeconds: 15,
   shareTitle: 'كويز العلوم والتكنولوجيا \ud83d\udd2c',
-  challengeText: 'تحداك بكويز العلوم، جاهز تنافسني؟',
+  challengeText: 'تحداك بكويز العلوم، هل أنت مستعد للمنافسة؟',
   resultText: function(score, total, pct) {
     return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز العلوم \ud83d\udd2c جرب تتحداني!';
   },

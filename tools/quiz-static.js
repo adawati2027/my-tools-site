@@ -41,13 +41,13 @@ for (const f of files) {
   <div class="card" style="margin-top:16px;">
     <h2 class="card-title" style="font-size:17px;">ℹ️ عن ${esc(title)}</h2>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">${esc(desc)}</p>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">بنك الأسئلة فيه <b>${Q.length}</b> سؤال${levels}. كل جولة بتختار 12 سؤال عشوائي، فكل مرة بتلعب بتطلعلك أسئلة مختلفة.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>${Q.length}</b> سؤالاً${levels}. تختار كل جولة 12 سؤالاً عشوائياً، فتظهر لك أسئلة مختلفة في كل مرة تلعب فيها.</p>
     <h3 style="font-size:15px;margin-top:14px;">🎮 كيف تلعب؟</h3>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;">
-      <li>اختار المستوى (متوسط، صعب، أو مشكّل) واضغط ابدأ.</li>
-      <li>عندك ${secs} ثانية لكل سؤال — كل ما جاوبت أسرع وصح بتجمع نقاط أكثر.</li>
-      <li>بعد كل جواب بتشوف الإجابة الصحيحة، فبتتعلّم حتى لو غلطت.</li>
-      <li>بالآخر بتطلعلك نتيجتك، وبتقدر تتحدّى أصحابك بنفس الأسئلة وتشوفوا مين الأول.</li>
+      <li>اختر المستوى (متوسط أو صعب أو مشكّل) ثم اضغط «ابدأ».</li>
+      <li>لديك ${secs} ثانية لكل سؤال — وكلما أجبت أسرع وبشكل صحيح جمعت نقاطاً أكثر.</li>
+      <li>بعد كل إجابة ترى الإجابة الصحيحة، فتتعلم حتى لو أخطأت.</li>
+      <li>في النهاية تظهر نتيجتك، ويمكنك تحدي أصدقائك بالأسئلة نفسها لمعرفة من الأول.</li>
     </ul>
     <h3 style="font-size:15px;margin-top:14px;">📝 أمثلة من أسئلة الكويز</h3>
     <ol style="font-size:14px;line-height:1.9;padding-right:22px;">

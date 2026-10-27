@@ -57,7 +57,7 @@
     <div id="challengeStartArea" style="margin-bottom:16px;padding:14px;background:var(--surface-2);border-radius:10px;">
       <div style="font-weight:700;margin-bottom:6px;" data-qt="challenge_start_title">🏆 تحدَّ أصحابك على الأسئلة نفسها!</div>
       <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;" data-qt="challenge_start_subtitle">يلزم أن يشارك صديق واحد على الأقل (من 2 إلى 20 شخصاً) — اكتب اسمك، وابدأ التحدي، وشارك الرابط.</div>
-      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">اختار المستوى:</div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">اختر المستوى:</div>
       <div id="difficultySelectArea" style="display:none;gap:8px;flex-wrap:wrap;margin-bottom:10px;"></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <input id="creatorNameInput" placeholder="اسمك" data-qt-placeholder="name_placeholder" maxlength="30" style="flex:1;min-width:120px;padding:8px;font-size:16px;border:1px solid var(--border);border-radius:8px;">
@@ -159,10 +159,16 @@
   </div>
 <!--quiz-about-->
   <div class="card" style="margin-top:16px;">
-    <h2 class="card-title" style="font-size:17px;">ℹ️ عن كويز «ماذا تعرف عن الأردن؟»</h2>
+    <h2 class="card-title" style="font-size:17px;">ℹ️ عن ماذا تعرف عن الأردن؟</h2>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">اختبر معلوماتك عن الأردن: الجغرافيا، التاريخ، الثقافة والمعالم. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، شارك نتيجتك مع أصحابك. مجاني وبدون تسجيل.</p>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>301</b> سؤالاً، موزّعة على مستويين: <b>119</b> سؤال متوسط و<b>182</b> سؤال صعب. تختار كل جولة 12 سؤالاً عشوائياً، فتظهر لك أسئلة مختلفة في كل مرة تلعب فيها.</p>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:10px;">🎮 15 ثانية لكل سؤال، إجابة فورية، ونتيجة بالآخر تقدر تتحدى فيها أصحابك.</p>
+    <h3 style="font-size:15px;margin-top:14px;">🎮 كيف تلعب؟</h3>
+    <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;">
+      <li>اختر المستوى (متوسط أو صعب أو مشكّل) ثم اضغط «ابدأ».</li>
+      <li>لديك 15 ثانية لكل سؤال — وكلما أجبت أسرع وبشكل صحيح جمعت نقاطاً أكثر.</li>
+      <li>بعد كل إجابة ترى الإجابة الصحيحة، فتتعلم حتى لو أخطأت.</li>
+      <li>في النهاية تظهر نتيجتك، ويمكنك تحدي أصدقائك بالأسئلة نفسها لمعرفة من الأول.</li>
+    </ul>
     <h3 style="font-size:15px;margin-top:14px;">📝 أمثلة من أسئلة الكويز</h3>
     <ol style="font-size:14px;line-height:1.9;padding-right:22px;">
       <li>ما الاسم القديم لمدينة عمّان في العصر الروماني؟<br><span style="color:var(--text-muted);">الجواب: <b>فيلادلفيا</b></span></li>
@@ -174,13 +180,6 @@
       <li>الخطوط الملكية الأردنية انضمت لتحالف الطيران العالمي "ون ورلد" (oneworld) بأي سنة؟<br><span style="color:var(--text-muted);">الجواب: <b>2007</b></span></li>
       <li>كنيسة البتراء البيزنطية (التي اشتهرت بفسيفسائها) شُيّدت تقريباً بأي سنة ميلادية؟<br><span style="color:var(--text-muted);">الجواب: <b>450 م</b></span></li>
     </ol>
-  </div>
-  <div class="card" style="margin-top:16px;">
-    <h2 class="card-title" style="font-size:17px;">🧠 هل تعلم؟</h2>
-    <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;margin-top:8px;">
-      <li>البتراء، إحدى عجائب الدنيا السبع، نحتها الأنباط بالصخر الوردي قبل أكثر من 2000 سنة.</li>
-      <li>البحر الميت أخفض نقطة يابسة على سطح الأرض.</li>
-    </ul>
   </div>
 <!--/quiz-about-->
 </div></main>
@@ -518,7 +517,7 @@ const QUIZ_CONFIG = {
   ],
   questionSeconds: 15,
   shareTitle: 'ماذا تعرف عن الأردن؟ 🇯🇴',
-  challengeText: 'تحداك بكويز عن الأردن، جاهز تنافسني؟',
+  challengeText: 'يتحداك في اختبار عن الأردن، هل أنت مستعد للمنافسة؟',
   resultText: function(score, total, pct) {
     return 'حصلت على ' + score + '/' + total + ' (' + pct + '%) بكويز "ماذا تعرف عن الأردن؟" 🇯🇴 جرب تتحداني!';
   },
