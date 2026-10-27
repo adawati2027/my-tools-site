@@ -48,6 +48,7 @@ const countryTools = [
   `${BASE}/uk/percentage-calculator/`,
   `${BASE}/jo/calculators/university-gpa/`,
   `${BASE}/jo/calculators/tawjihi-average/`,
+  `${BASE}/jo/calculators/tawjihi-target/`,
   `${BASE}/jo/calculators/package-customs/`,
   `${BASE}/jo/emergency-numbers/`,
   `${BASE}/jo/prayer-times/`,
