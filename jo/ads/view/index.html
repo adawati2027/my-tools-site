@@ -37,8 +37,8 @@
 
   <div class="card" id="adView"><div>⏳ جاري التحميل...</div></div>
   <div class="card" id="adReviews" style="margin-top:16px;" hidden></div>
-  <div style="margin-top:16px;text-align:center;"><a class="ads-btn secondary" href="jo/ads/submit/">➕ بدك تعلن كمان؟ أضف إعلانك ببلاش</a></div>
-  <p style="font-size:12px;color:var(--text-muted);margin-top:16px;text-align:center;">⚠️ الإعلانات مقدّمة من أصحابها ومراجَعة قبل النشر، لكن أدواتي مش مسؤول عن أي تعامل بينك وبين المعلن — تأكد بنفسك قبل أي دفع أو اتفاق.</p>
+  <div style="margin-top:16px;text-align:center;"><a class="ads-btn secondary" href="jo/ads/submit/">➕ تريد أن تعلن أيضاً؟ أضف إعلانك مجاناً</a></div>
+  <p style="font-size:12px;color:var(--text-muted);margin-top:16px;text-align:center;">⚠️ الإعلانات مقدّمة من أصحابها ومراجَعة قبل النشر، لكن أدواتي غير مسؤول عن أي تعامل بينك وبين المعلن — فتأكد بنفسك قبل أي دفع أو اتفاق.</p>
 </div></main>
 
 <footer class="footer" style="padding:28px;">
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var box = document.getElementById('adView');
   var id = new URLSearchParams(location.search).get('id');
-  if (!id) { box.innerHTML = 'الإعلان مش موجود. <a href="jo/ads/">ارجع للإعلانات</a>'; return; }
+  if (!id) { box.innerHTML = 'الإعلان غير موجود. <a href="jo/ads/">ارجع للإعلانات</a>'; return; }
   var fbRef, ad, liked = false, isAdmin = false;
   function likeBtn() {
     return '<button type="button" class="ads-btn secondary ads-like' + (liked ? ' on' : '') + '" id="likeBtn">' + (liked ? '❤️' : '🤍') + ' ' + (ad.likeCount || 0) + '</button>';
@@ -74,16 +74,16 @@ document.addEventListener('DOMContentLoaded', function() {
       (isAdmin ? '<div class="ads-note" style="margin-top:16px;">🛡️ أدمن · ' + adsEsc(adsExpiryText(ad)) + '<div class="ads-row"><button type="button" class="ads-btn danger" id="adminDel">🗑️ احذف الإعلان</button><a class="ads-btn secondary" href="jo/ads/admin/">لوحة الإدارة</a></div></div>' : '');
     if (isAdmin) document.getElementById('adminDel').addEventListener('click', function() {
       var b = this;
-      if (b.getAttribute('data-sure') !== '1') { b.setAttribute('data-sure', '1'); b.textContent = '⚠️ متأكد؟ اكبس مرة ثانية'; return; }
+      if (b.getAttribute('data-sure') !== '1') { b.setAttribute('data-sure', '1'); b.textContent = '⚠️ متأكد؟ اضغط مرة أخرى'; return; }
       b.disabled = true;
-      fbRef.db.collection('adProofs').doc(id).delete().catch(function(){}).then(function() { return fbRef.db.collection('ads').doc(id).delete(); }).then(function() { box.innerHTML = '✅ انحذف الإعلان. <a href="jo/ads/">ارجع للإعلانات</a>'; })
-        .catch(function() { b.disabled = false; b.textContent = 'ما زبط الحذف'; });
+      fbRef.db.collection('adProofs').doc(id).delete().catch(function(){}).then(function() { return fbRef.db.collection('ads').doc(id).delete(); }).then(function() { box.innerHTML = '✅ تم حذف الإعلان. <a href="jo/ads/">ارجع للإعلانات</a>'; })
+        .catch(function() { b.disabled = false; b.textContent = 'تعذّر الحذف'; });
     });
     loadReviews();
     document.getElementById('likeBtn').addEventListener('click', toggleLike);
     document.getElementById('shareBtn').addEventListener('click', function() {
       if (navigator.share) navigator.share({ title: ad.title, url: location.href }).catch(function(){});
-      else if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(function(){ document.getElementById('likeMsg').innerHTML = '<div class="ads-msg ok">✅ انسخ الرابط</div>'; });
+      else if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(function(){ document.getElementById('likeMsg').innerHTML = '<div class="ads-msg ok">✅ تم نسخ الرابط</div>'; });
     });
   }
   var reviews = [], myStars = 0;
@@ -93,13 +93,13 @@ document.addEventListener('DOMContentLoaded', function() {
     fbRef.db.collection('ads').doc(id).collection('reviews').orderBy('updatedAt', 'desc').limit(100).get().then(function(s) {
       reviews = s.docs.map(function(d) { return { uid: d.id, d: d.data() }; });
       drawReviews();
-    }).catch(function() { revBox.innerHTML = 'ما قدرنا نحمّل التقييمات.'; });
+    }).catch(function() { revBox.innerHTML = 'لم نستطع تحميل التقييمات.'; });
   }
   function drawReviews() {
     var user = fbRef.auth.currentUser, mine = user && reviews.filter(function(r) { return r.uid === user.uid; })[0];
     myStars = mine ? mine.d.rating : myStars;
     var form = !user
-      ? '<div style="margin-top:8px;"><button type="button" class="ads-btn secondary" id="revLogin">🔐 سجّل دخول عشان تقيّم وتعلّق</button></div>'
+      ? '<div style="margin-top:8px;"><button type="button" class="ads-btn secondary" id="revLogin">🔐 سجّل الدخول لتقيّم وتعلّق</button></div>'
       : '<div class="ads-form" style="margin-top:8px;"><div id="revStars" style="font-size:30px;cursor:pointer;letter-spacing:4px;">' + [1, 2, 3, 4, 5].map(function(i) { return '<span data-star="' + i + '">' + (i <= myStars ? '★' : '☆') + '</span>'; }).join('') + '</div>' +
         '<textarea id="revText" maxlength="500" placeholder="اكتب تعليقك (اختياري)" style="min-height:70px;">' + (mine ? adsEsc(mine.d.text) : '') + '</textarea>' +
         '<div class="ads-row"><button type="button" class="ads-btn" id="revSave">' + (mine ? '💾 عدّل تقييمي' : '⭐ أرسل التقييم') + '</button>' + (mine ? '<button type="button" class="ads-btn secondary" id="revDel">🗑️ احذف تقييمي</button>' : '') + '</div><div id="revMsg"></div></div>';
@@ -124,18 +124,18 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   function saveReview() {
     var user = fbRef.auth.currentUser; if (!user) return openAuthModal();
-    if (!myStars) return revMsg('اختار عدد النجوم أول.');
+    if (!myStars) return revMsg('اختر عدد النجوم أولاً.');
     var mine = reviews.filter(function(r) { return r.uid === user.uid; })[0], ts = firebase.firestore.FieldValue.serverTimestamp();
     var cnt = ad.ratingCount || 0, sum = ad.ratingSum || 0;
     var data = { rating: myStars, text: document.getElementById('revText').value.trim().slice(0, 500), name: (user.displayName || (user.email || '').split('@')[0] || 'مستخدم').slice(0, 40), updatedAt: ts, createdAt: mine ? (mine.d.createdAt || ts) : ts };
     document.getElementById('revSave').disabled = true;
     commitRating(function(b, ref) { b.set(ref, data); }, mine ? cnt : cnt + 1, sum + myStars - (mine ? mine.d.rating : 0))
-      .then(function() { if (typeof gtag === 'function') gtag('event', mine ? 'review_updated' : 'review_added', { rating: myStars }); draw(); }).catch(function() { revMsg('ما زبط — حدّث الصفحة وجرّب.'); document.getElementById('revSave').disabled = false; });
+      .then(function() { if (typeof gtag === 'function') gtag('event', mine ? 'review_updated' : 'review_added', { rating: myStars }); draw(); }).catch(function() { revMsg('تعذّر الإجراء — حدّث الصفحة وحاول مجدداً.'); document.getElementById('revSave').disabled = false; });
   }
   function deleteMyReview() {
     var user = fbRef.auth.currentUser, mine = reviews.filter(function(r) { return r.uid === user.uid; })[0]; if (!mine) return;
     commitRating(function(b, ref) { b.delete(ref); }, (ad.ratingCount || 1) - 1, (ad.ratingSum || 0) - mine.d.rating)
-      .then(function() { myStars = 0; draw(); }).catch(function() { revMsg('ما زبط الحذف.'); });
+      .then(function() { myStars = 0; draw(); }).catch(function() { revMsg('تعذّر الحذف.'); });
   }
   document.addEventListener('click', function(e) {
     var st = e.target.closest('[data-star]');
@@ -152,8 +152,8 @@ document.addEventListener('DOMContentLoaded', function() {
       var box2 = sr.closest('.rep-box');
       sr.disabled = true;
       fbRef.db.collection('adReports').add({ adId: id, reviewUid: sr.getAttribute('data-send-rep'), reason: box2.querySelector('.rep-reason').value, reporterUid: fbRef.auth.currentUser.uid, createdAt: firebase.firestore.FieldValue.serverTimestamp() })
-        .then(function() { box2.innerHTML = '<div class="ads-msg ok">✅ وصلنا البلاغ، شكراً إلك — رح نراجعه.</div>'; })
-        .catch(function() { box2.innerHTML = '<div class="ads-msg err">ما زبط إرسال البلاغ.</div>'; });
+        .then(function() { box2.innerHTML = '<div class="ads-msg ok">✅ وصلنا البلاغ، شكراً لك — سنراجعه.</div>'; })
+        .catch(function() { box2.innerHTML = '<div class="ads-msg err">تعذّر إرسال البلاغ.</div>'; });
       return;
     }
     var ad2 = e.target.closest('[data-adel]');
@@ -174,21 +174,21 @@ document.addEventListener('DOMContentLoaded', function() {
     batch.update(adRef, { likeCount: (ad.likeCount || 0) + inc });
     document.getElementById('likeBtn').disabled = true;
     batch.commit().then(function() { liked = !liked; ad.likeCount = (ad.likeCount || 0) + inc; draw(); })
-      .catch(function() { document.getElementById('likeBtn').disabled = false; document.getElementById('likeMsg').innerHTML = '<div class="ads-msg err">ما زبط — حدّث الصفحة وجرّب.</div>'; });
+      .catch(function() { document.getElementById('likeBtn').disabled = false; document.getElementById('likeMsg').innerHTML = '<div class="ads-msg err">تعذّر الإجراء — حدّث الصفحة وحاول مجدداً.</div>'; });
   }
   adsOnUser(function(user, fb) {
     fbRef = fb;
-    if (!fb) { box.innerHTML = 'صار خطأ بالتحميل.'; return; }
+    if (!fb) { box.innerHTML = 'حدث خطأ أثناء التحميل.'; return; }
     fb.db.collection('ads').doc(id).get().then(function(doc) {
-      if (!doc.exists) { box.innerHTML = 'الإعلان مش موجود أو لسا قيد المراجعة. <a href="jo/ads/">ارجع للإعلانات</a>'; return null; }
+      if (!doc.exists) { box.innerHTML = 'الإعلان غير موجود أو ما زال قيد المراجعة. <a href="jo/ads/">ارجع للإعلانات</a>'; return null; }
       ad = doc.data();
       return adsIsAdmin(fb, user).then(function(a) {
         isAdmin = a;
-        if (adsExpired(ad) && !isAdmin) { box.innerHTML = '⌛ انتهت مدة هالإعلان. <a href="jo/ads/">شوف الإعلانات الحالية</a>'; ad = null; return null; }
+        if (adsExpired(ad) && !isAdmin) { box.innerHTML = '⌛ انتهت مدة هذا الإعلان. <a href="jo/ads/">شاهد الإعلانات الحالية</a>'; ad = null; return null; }
         return user ? doc.ref.collection('likes').doc(user.uid).get().then(function(l){ liked = l.exists; }) : null;
       });
     }).then(function() { if (ad) draw(); })
-      .catch(function() { box.innerHTML = 'الإعلان مش متاح. <a href="jo/ads/">ارجع للإعلانات</a>'; });
+      .catch(function() { box.innerHTML = 'الإعلان غير متاح. <a href="jo/ads/">ارجع للإعلانات</a>'; });
   });
 });
 </script>

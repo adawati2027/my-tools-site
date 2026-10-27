@@ -71,9 +71,9 @@
     <input type="text" data-num inputmode="decimal" id="cash" placeholder="0.000" min="0" step="any">
 
     <div class="divider"></div>
-    <label style="font-weight:700;">🪙 الذهب اللي تملكه</label>
+    <label style="font-weight:700;">🪙 الذهب الذي تملكه</label>
     <div class="row" style="margin-top:8px;">
-      <div><label>كم غرام ذهب عندك؟</label><input type="text" data-num inputmode="decimal" id="goldGrams" placeholder="0" min="0" step="any"></div>
+      <div><label>كم غراماً من الذهب لديك؟</label><input type="text" data-num inputmode="decimal" id="goldGrams" placeholder="0" min="0" step="any"></div>
       <div><label>عيار الذهب</label>
         <select id="goldKarat" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
           <option value="24">24 (خالص)</option>
@@ -115,50 +115,50 @@
   </div>
 
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;">🧮 مثال محسوب: ذهب أقل من نصابه لحاله بس النقد بيكمّله</div>
+    <div class="card-title" style="font-size:15px;">🧮 مثال محسوب: ذهب أقل من نصابه وحده لكن النقد يكمّله</div>
     <div style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">
-      <p>هاي الحالة كثير ناس بتلخبط فيها — عندك ذهب أقل من نصاب الذهب (85 غرام) لحاله، بس لما تجمعه مع نقدك بيوصل المجموع للنصاب.</p>
+      <p>هذه حالة يخطئ فيها كثير من الناس — لديك ذهب أقل من نصاب الذهب (85 غرام) وحده، لكن عندما تجمعه مع نقدك يبلغ المجموع النصاب.</p>
       <div style="margin-top:8px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2;">
-        الافتراض: عندك <strong>40 غرام ذهب</strong> (أقل بكثير من نصاب الـ85 غرام) + <strong>3,000 دينار نقد ومدخرات</strong>. بفرض سعر غرام الذهب عيار 24 وقتها 65 دينار (السعر بيتغير يومياً، هاي الحاسبة فوق بتجيبه لحظياً).<br><br>
+        الافتراض: لديك <strong>40 غرام ذهب</strong> (أقل بكثير من نصاب الـ85 غرام) + <strong>3,000 دينار نقد ومدخرات</strong>. بفرض سعر غرام الذهب عيار 24 وقتها 65 دينار (السعر يتغير يومياً، والحاسبة أعلاه تجلبه لحظياً).<br><br>
         قيمة الذهب: 40 × 65 = <strong>2,600 دينار</strong><br>
         إجمالي المال الزكوي: 2,600 + 3,000 = <strong>5,600 دينار</strong><br>
         قيمة النصاب (85 غرام × 65 دينار): 85 × 65 = <strong>5,525 دينار</strong><br>
-        <strong>5,600 &gt; 5,525</strong> — يعني المجموع بلغ النصاب رغم إنه الذهب لحاله (2,600) والنقد لحاله (3,000) كل وحدة منهم أقل من قيمة النصاب.<br>
+        <strong>5,600 &gt; 5,525</strong> — أي أن المجموع بلغ النصاب رغم أن الذهب وحده (2,600) والنقد وحده (3,000) كلاً منهما أقل من قيمة النصاب.<br>
         مقدار الزكاة الواجبة: 5,600 × 2.5% = <strong>140 دينار</strong>
       </div>
-      <p style="margin-top:12px;">لو كان عندك النقد بس (بدون الذهب)، ما كنت رح توجب عليك زكاة (3,000 أقل من 5,525). ولو كان عندك الذهب بس (بدون النقد)، بردو ما كانت توجب (2,600 أقل من 5,525، وأصلاً 40 غرام أقل من نصاب الذهب 85 غرام). بس لما تجمعهم مع بعض بنفس التاريخ، المجموع بيتجاوز النصاب — وهذا بالضبط اللي بتعمله الحاسبة فوق تلقائياً.</p>
+      <p style="margin-top:12px;">لو كان لديك النقد فقط (بدون الذهب)، لما وجبت عليك زكاة (3,000 أقل من 5,525). ولو كان لديك الذهب فقط (بدون النقد)، لما وجبت أيضاً (2,600 أقل من 5,525، وأصلاً 40 غرام أقل من نصاب الذهب 85 غرام). لكن عندما تجمعهما معاً في التاريخ نفسه، يتجاوز المجموع النصاب — وهذا بالضبط ما تفعله الحاسبة أعلاه تلقائياً.</p>
     </div>
   </div>
 
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;">🌙 ليش لازم "حول هجري كامل" بالتحديد؟</div>
+    <div class="card-title" style="font-size:15px;">🌙 لماذا يجب "حول هجري كامل" بالتحديد؟</div>
     <div style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">
-      <p>مصطلح "الحول" بالفقه معناه إنه المال لازم يضل فوق النصاب لمدة سنة هجرية (قمرية) كاملة متواصلة قبل ما تجب فيه الزكاة — مش لحظة وحدة بس. لو نزل مالك تحت النصاب بأي وقت خلال السنة ثم رجع طلع فوقه، الحول بيبلش يُحسب من جديد من تاريخ رجوعه فوق النصاب حسب رأي كثير من الفقهاء.</p>
-      <p style="margin-top:8px;"><strong>نقطة عملية مهمة</strong>: السنة الهجرية (القمرية) حوالي <strong>354 يوم</strong>، أقصر من السنة الميلادية (365 يوم) بحوالي <strong>10-11 يوم</strong>. يعني لو حسبت تاريخ زكاتك السنوي بالتقويم الميلادي (متل "كل أول يناير")، بعد كم سنة رح يصير فيه فرق ملحوظ عن تاريخك الهجري الحقيقي. لهيك النصيحة الأدق هي تثبيت تاريخ هجري واحد (متل أول رمضان أو أي تاريخ هجري تحفظه) بدل تاريخ ميلادي، عشان يضل حسابك متوافق مع المعيار الشرعي الفعلي مع مرور السنين.</p>
+      <p>معنى مصطلح "الحول" في الفقه أن المال يجب أن يبقى فوق النصاب مدة سنة هجرية (قمرية) كاملة متواصلة قبل أن تجب فيه الزكاة — لا لحظة واحدة فقط. فلو نزل مالك عن النصاب في أي وقت خلال السنة ثم عاد فارتفع فوقه، يبدأ الحول بالحساب من جديد من تاريخ عودته فوق النصاب بحسب رأي كثير من الفقهاء.</p>
+      <p style="margin-top:8px;"><strong>نقطة عملية مهمة</strong>: السنة الهجرية (القمرية) حوالي <strong>354 يوماً</strong>، أقصر من السنة الميلادية (365 يوم) بحوالي <strong>10-11 يوم</strong>. فلو حسبت تاريخ زكاتك السنوي بالتقويم الميلادي (مثل "كل أول يناير")، فبعد بضع سنين سيظهر فرق ملحوظ عن تاريخك الهجري الحقيقي. ولهذا فالنصيحة الأدق هي تثبيت تاريخ هجري واحد (مثل أول رمضان أو أي تاريخ هجري تحفظه) بدل تاريخ ميلادي، ليبقى حسابك موافقاً للمعيار الشرعي الفعلي مع مرور السنين.</p>
     </div>
   </div>
 
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;">📮 وين تدفع زكاتك فعلياً؟</div>
-    <p style="font-size:14px;color:var(--text-muted);margin-top:8px;line-height:1.8;">هاي الحاسبة بتوقفلك عند الرقم بس — إذا بدك توصلها لمستحقيها بشكل رسمي ومنظم بالأردن، <strong>صندوق الزكاة الأردني</strong> (جهة حكومية رسمية) بيوفر خدمة تبرع إلكتروني مباشر، وكمان خدمة لمن يستحق يقدّم طلب مساعدة من الزكاة.</p>
+    <div class="card-title" style="font-size:15px;">📮 أين تدفع زكاتك فعلياً؟</div>
+    <p style="font-size:14px;color:var(--text-muted);margin-top:8px;line-height:1.8;">هذه الحاسبة تتوقف عند الرقم فقط — وإذا أردت إيصالها إلى مستحقيها بشكل رسمي ومنظم في الأردن، فإن <strong>صندوق الزكاة الأردني</strong> (جهة حكومية رسمية) يوفر خدمة تبرع إلكتروني مباشر، وكذلك خدمة لمن يستحق تقديم طلب مساعدة من الزكاة.</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
       <a href="https://zakatfund.gov.jo/AR/List/%D8%A7%D9%84%D8%AE%D8%AF%D9%85%D8%A7%D8%AA_%D8%A7%D9%84%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A%D8%A9" target="_blank" rel="noopener" style="font-size:13px;padding:9px 16px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;font-weight:700;">💳 التبرع الإلكتروني (صندوق الزكاة الأردني)</a>
       <a href="https://zakatfund.gov.jo/" target="_blank" rel="noopener" style="font-size:13px;padding:9px 16px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">الموقع الرسمي zakatfund.gov.jo ↗</a>
     </div>
-    <p style="margin-top:10px;font-size:12px;color:var(--text-muted);">ممكن كمان تدفعها مباشرة لمستحقيها اللي تعرفهم، أو عبر أي مؤسسة زكاة موثوقة غير الصندوق الحكومي.</p>
+    <p style="margin-top:10px;font-size:12px;color:var(--text-muted);">ويمكنك أيضاً دفعها مباشرة إلى مستحقيها الذين تعرفهم، أو عبر أي مؤسسة زكاة موثوقة غير الصندوق الحكومي.</p>
   </div>
 
   <div class="card" style="margin-top:16px;">
     <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">💡 نصائح عملية لحساب ودفع زكاتك بدقة</h2>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">بعد ما تعرف مقدار الزكاة، هاي أشياء عملية تساعدك تنظم إخراجها:</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">بعد أن تعرف مقدار الزكاة، إليك أموراً عملية تساعدك على تنظيم إخراجها:</p>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-inline-start:20px;margin-top:6px;">
       <li><strong>ثبّت تاريخ سنوي واحد لحساب زكاتك</strong> (متل أول يوم برمضان أو أي تاريخ هجري تحفظه بسهولة) بدل ما تحاول تتبع تاريخ امتلاك كل مبلغ لحاله — هذا تسهيل عملي شائع بين الناس لتنظيم إخراج الزكاة كل سنة بدون تعقيد.</li>
-        <li><strong>اجمع كل أنواع مالك المستقر بنفس التاريخ</strong> (نقد، ذهب، استثمارات قابلة للتسييل) لمعرفة هل بلغ المجموع النصاب، مش كل نوع لحاله — هاي الحاسبة فوق بتعمل هذا الجمع تلقائياً إذا أدخلت كل البنود.</li>
-        <li><strong>لا تؤخر دفع الزكاة بعد ما تتأكد إنها وجبت عليك</strong> — كل ما أخرتها، كل ما زاد احتمال تنسى المبلغ الدقيق أو الموعد، وهذا غير مستحب شرعاً.</li>
-        <li><strong>زكاة الذهب المستخدم للزينة اليومية (مش للادخار) محل خلاف بين الفقهاء</strong> — إذا كانت هاي حالتك بالضبط، الأفضل تستفتي عالم شرعي موثوق بدل ما تعتمد على رأي واحد فقط.</li>
-        <li><strong>ممكن تدفع زكاتك مباشرة لمستحقيها اللي تعرفهم</strong>، أو عبر مؤسسة زكاة موثوقة لضمان وصولها بشكل منظم لمن يستحقها شرعاً.</li>
+        <li><strong>اجمع كل أنواع مالك المستقر في التاريخ نفسه</strong> (نقد، ذهب، استثمارات قابلة للتسييل) لمعرفة هل بلغ المجموع النصاب، لا كل نوع وحده — والحاسبة أعلاه تجري هذا الجمع تلقائياً إذا أدخلت كل البنود.</li>
+        <li><strong>لا تؤخر دفع الزكاة بعد أن تتأكد من وجوبها عليك</strong> — فكلما أخرتها زاد احتمال نسيان المبلغ الدقيق أو الموعد، وهذا غير مستحب شرعاً.</li>
+        <li><strong>زكاة الذهب المستخدم للزينة اليومية (لا للادخار) محل خلاف بين الفقهاء</strong> — فإذا كانت هذه حالتك بالضبط، فالأفضل أن تستفتي عالماً شرعياً موثوقاً بدل أن تعتمد على رأي واحد فقط.</li>
+        <li><strong>يمكنك دفع زكاتك مباشرة إلى مستحقيها الذين تعرفهم</strong>، أو عبر مؤسسة زكاة موثوقة لضمان وصولها بشكل منظم إلى من يستحقها شرعاً.</li>
       </ul>
-      <p style="margin-top:10px;font-size:12px;">📌 هاي إرشادات عملية عامة، مش فتوى — لأي حالة خاصة أو معقدة، استفتِ عالم شرعي مختص.</p>
+      <p style="margin-top:10px;font-size:12px;">📌 هذه إرشادات عملية عامة، وليست فتوى — ولأي حالة خاصة أو معقدة، استفتِ عالماً شرعياً مختصاً.</p>
   </div>
 
   <div class="card" style="margin-top:16px;">
@@ -176,10 +176,10 @@
   <div style="margin-top:16px;text-align:center;">
     <strong>أدوات الأردن الأخرى:</strong>
     <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
-      <a href="jo/calculators/rent-vs-buy/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏠 أأجر ولا أشتري؟</a>
+      <a href="jo/calculators/rent-vs-buy/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏠 أأستأجر أم أشتري؟</a>
       <a href="jo/prayer-times/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🕌 مواقيت الصلاة</a>
       <a href="jo/calculators/wedding-cost/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💍 حاسبة تكلفة الزواج</a>
-      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 ماذا تعرف عن الأردن؟</a>
       <a href="jo/games/wordle/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🟩 كلمة اليوم</a>
       <a href="jo/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب اليوم</a>
       <a href="jo/students/scholarships-loans/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 منح وقروض الجامعة</a>
@@ -256,10 +256,10 @@ function calc() {
     nisabStatus.textContent = '';
   } else if (goldGrams < NISAB_GOLD_GRAMS) {
     nisabStatus.style.color = '#16a34a';
-    nisabStatus.textContent = '✅ ذهبك (' + goldGrams + ' غرام) أقل من نصاب الذهب (85 غرام) — ما عليه زكاة لحاله (بيدخل بحساب باقي أموالك تحت لو موجودة).';
+    nisabStatus.textContent = '✅ ذهبك (' + goldGrams + ' غرام) أقل من نصاب الذهب (85 غرام) — لا زكاة عليه وحده (ويدخل في حساب بقية أموالك أدناه إن وُجدت).';
   } else {
     nisabStatus.style.color = '#16a34a';
-    nisabStatus.textContent = '✅ ذهبك (' + goldGrams + ' غرام) بلغ نصاب الذهب (85 غرام) — زكاته محسوبة ضمن إجمالي الزكاة بالدينار أسفل (مش بالغرام).';
+    nisabStatus.textContent = '✅ ذهبك (' + goldGrams + ' غرام) بلغ نصاب الذهب (85 غرام) — زكاته محسوبة ضمن إجمالي الزكاة بالدينار أدناه (لا بالغرام).';
   }
 
   const result = document.getElementById('zakatResult');
@@ -281,12 +281,12 @@ function calc() {
   if (cash) parts.push('نقد ' + fmt(cash));
   if (goldGrams) parts.push('ذهب ' + goldGrams + ' غرام عيار ' + karat + ' = ' + fmt(goldValue));
   if (investments) parts.push('استثمارات ' + fmt(investments));
-  let exLines = '<b>كيف طلعت نتيجتك؟</b><br>المال الزكوي = ' + parts.join(' + ') + (debts ? ' − ديون ' + fmt(debts) : '') + ' = <b>' + fmt(totalWealth) + '</b> د.أ<br>' +
+  let exLines = '<b>كيف ظهرت نتيجتك؟</b><br>المال الزكوي = ' + parts.join(' + ') + (debts ? ' − ديون ' + fmt(debts) : '') + ' = <b>' + fmt(totalWealth) + '</b> د.أ<br>' +
     'النصاب = 85 غرام ذهب عيار 24 × ' + fmt(goldPrice24) + ' د.أ للغرام = <b>' + fmt(nisabValue) + '</b> د.أ<br>';
   exLines += totalWealth < nisabValue
-    ? 'مالك أقل من النصاب، فما بتجب عليك الزكاة حالياً.'
+    ? 'مالك أقل من النصاب، فلا تجب عليك الزكاة حالياً.'
     : 'مالك بلغ النصاب، فالزكاة = ' + fmt(totalWealth) + ' × 2.5% = <b>' + fmt(totalWealth * 0.025) + '</b> د.أ.';
-  exLines += '<br><span style="color:var(--text-muted);">أداة تقديرية: ما بتحسب شرط مرور الحول على المال ولا الحالات الخاصة، وللتأكد اسأل أهل العلم.</span>';
+  exLines += '<br><span style="color:var(--text-muted);">أداة تقديرية: لا تحسب شرط مرور الحول على المال ولا الحالات الخاصة، وللتأكد اسأل أهل العلم.</span>';
   const exportBtnHtml = '<div style="margin-top:12px;padding:12px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;line-height:1.9;">' + exLines + '</div>' + exportBtnHtml0;
 
   if (totalWealth < nisabValue) {

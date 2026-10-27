@@ -42,8 +42,8 @@
 ]},
 {"@type":"WebApplication","name":"حاسبة تكلفة السيارة الشهرية","url":"https://adawati.space/jo/calculators/car-cost/","description":"تجمع كل مصاريف السيارة الشهرية (قسط، وقود، تأمين، صيانة، ترخيص) بحاسبة واحدة بسيطة.","applicationCategory":"FinanceApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}},
 {"@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"شو المصاريف اللي بينسوها الناس عادة بحساب تكلفة السيارة؟","acceptedAnswer":{"@type":"Answer","text":"كثير ناس بيحسبوا بس القسط الشهري والبنزين، وبينسوا: التأمين السنوي، رسوم الترخيص السنوية، الفحص الدوري، الصيانة الدورية، الغسيل، والباركنج. هاي المصاريف مجتمعة ممكن تشكل جزء كبير من التكلفة الحقيقية الشهرية للسيارة."}},
-{"@type":"Question","name":"كيف أقارن تكلفة سيارة بنزين مع سيارة كهربائية؟","acceptedAnswer":{"@type":"Answer","text":"لسيارة البنزين، احسب استهلاكها باللتر لكل 100كم مضروباً بسعر الوقود وعدد الكيلومترات الشهرية. للسيارة الكهربائية، قارن فاتورة الكهرباء قبل وبعد اقتناء السيارة وأدخل الفرق فقط — مش الفاتورة كاملة، لأن باقي الفاتورة يخص استهلاكك المنزلي العادي."}}
+{"@type":"Question","name":"ما المصاريف التي ينساها الناس عادةً عند حساب تكلفة السيارة؟","acceptedAnswer":{"@type":"Answer","text":"كثير من الناس يحسبون القسط الشهري والبنزين فقط، وينسون: التأمين السنوي، ورسوم الترخيص السنوية، والفحص الدوري، والصيانة الدورية، والغسيل، وأجرة المواقف. هذه المصاريف مجتمعةً قد تشكّل جزءاً كبيراً من التكلفة الشهرية الحقيقية للسيارة."}},
+{"@type":"Question","name":"كيف أقارن تكلفة سيارة بنزين مع سيارة كهربائية؟","acceptedAnswer":{"@type":"Answer","text":"لسيارة البنزين، احسب استهلاكها باللتر لكل 100كم مضروباً بسعر الوقود وعدد الكيلومترات الشهرية. للسيارة الكهربائية، قارن فاتورة الكهرباء قبل وبعد اقتناء السيارة وأدخل الفرق فقط، لا الفاتورة كاملة، لأن باقي الفاتورة يخص استهلاكك المنزلي المعتاد."}}
 ]}
 ]}
 </script>
@@ -63,12 +63,12 @@
 
   <div class="card">
     <div class="card-icon" style="background:#eff6ff;">🚗</div>
-    <h1 class="card-title">كم بتكلفك سيارتك فعلياً بالشهر؟ 🇯🇴</h1>
+    <h1 class="card-title">كم تكلّفك سيارتك فعلياً في الشهر؟ 🇯🇴</h1>
     <div class="card-subtitle">اجمع كل مصاريف سيارتك بمكان واحد</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">كثير أصحاب السيارات بيحسبوا بس القسط الشهري وينسوا باقي المصاريف. هاي الحاسبة بتجمعلك كل شي بمكان واحد عشان تشوف الصورة الكاملة.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">كثير من أصحاب السيارات يحسبون القسط الشهري فقط وينسون باقي المصاريف. تجمع لك هذه الحاسبة كل شيء في مكان واحد لترى الصورة الكاملة.</p>
 
-    <label>القسط الشهري (دينار) — اتركه فارغ لو سيارتك مدفوعة بالكامل</label>
+    <label>القسط الشهري (دينار) — اتركه فارغاً إذا كانت سيارتك مدفوعة بالكامل</label>
     <input type="text" data-num inputmode="decimal" id="installment" placeholder="0.000" min="0" step="any">
 
     <div class="divider"></div>
@@ -94,7 +94,7 @@
     <div id="electricSection" style="display:none;margin-top:10px;">
       <label>كم زادت فاتورة الكهرباء شهرياً بسبب شحن السيارة؟ (دينار)</label>
       <input type="text" data-num inputmode="decimal" id="electricBill" placeholder="مثال: 25" min="0" step="any">
-      <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">💡 قارن فاتورة كهربائك قبل وبعد اقتناء السيارة، وأدخل الفرق فقط — مش الفاتورة كاملة.</p>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">💡 قارن فاتورة كهربائك قبل وبعد اقتناء السيارة، وأدخل الفرق فقط، لا الفاتورة كاملة.</p>
     </div>
 
     <div class="divider"></div>
@@ -106,7 +106,7 @@
     <input type="text" data-num inputmode="decimal" id="maintenance" placeholder="0.000" min="0" step="any">
 
     <div class="divider"></div>
-    <label style="font-weight:700;">مصاريف تانية بتنسى غالباً (اختياري)</label>
+    <label style="font-weight:700;">مصاريف أخرى تُنسى غالباً (اختياري)</label>
     <div class="row" style="margin-top:8px;">
       <div><label>رسوم الفحص الدوري السنوي (دينار)</label><input type="text" data-num inputmode="decimal" id="inspection" placeholder="0.000" min="0" step="any"></div>
       <div><label>موقف/باركنج شهري (دينار)</label><input type="text" data-num inputmode="decimal" id="parking" placeholder="0.000" min="0" step="any"></div>
@@ -117,13 +117,13 @@
     </div>
     <label>متوسط المخالفات المرورية بالسنة (دينار)</label>
     <input type="text" data-num inputmode="decimal" id="fines" placeholder="0.000" min="0" step="any">
-    <p style="font-size:12px;color:var(--text-muted);margin-top:-4px;">💡 قدّر متوسط مخالفاتك بالسنة الماضية (سرعة، وقوف خاطئ، إلخ) — لو ما عندك مخالفات، سيبه فاضي.</p>
-    <p style="font-size:12px;color:var(--text-muted);margin-top:-4px;">💡 الإهلاك = مقدار ما تنقص قيمة سيارتك بالسوق كل سنة — لو ما بتعرفه بالضبط، قارن سعرها الحالي بسعرها قبل سنة بمواقع بيع السيارات المستعملة، أو سيبه فاضي.</p>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:-4px;">💡 قدّر متوسط مخالفاتك في السنة الماضية (سرعة، وقوف خاطئ، إلخ). وإذا لم تكن لديك مخالفات فاتركه فارغاً.</p>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:-4px;">💡 الإهلاك = مقدار ما تنقص قيمة سيارتك في السوق كل سنة. وإذا لم تعرفه بالضبط فقارن سعرها الحالي بسعرها قبل سنة في مواقع بيع السيارات المستعملة، أو اتركه فارغاً.</p>
 
     <div id="carResult" style="display:none;margin-top:20px;">
       <div class="result-box show success" style="margin-top:0;">
         <div class="result-value" id="totalMonthly"></div>
-        <div class="result-label">سيارتك تكلفك هيك بالشهر (تقديري)</div>
+        <div class="result-label">تكلفة سيارتك في الشهر (تقديري)</div>
       </div>
       <div class="stat-grid" style="margin-top:12px;">
         <div class="stat-box"><div class="stat-val" id="fuelMonthly"></div><div class="stat-lbl" id="fuelLbl">وقود/شهر</div></div>
@@ -141,26 +141,26 @@
 
   <div class="card" style="margin-top:16px;">
     <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">💡 كيف تقلل تكلفة سيارتك الشهرية الحقيقية</h2>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">بعد ما تشوف رقمك الحقيقي، هاي أفكار عملية لتنزيله:</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">بعد أن ترى رقمك الحقيقي، إليك أفكاراً عملية لتخفيضه:</p>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-inline-start:20px;margin-top:6px;">
-      <li><strong>قارن أسعار التأمين كل سنة عند التجديد</strong> — شركات التأمين بتختلف أسعارها كثير لنفس التغطية، وكثير ناس بيجددوا تلقائياً عند نفس الشركة بدون ما يقارنوا، وهاد ممكن يخسرهم عشرات الدنانير سنوياً.</li>
-        <li><strong>الصيانة الدورية أرخص من الإصلاح الطارئ</strong> — تجاهل تبديل الزيت أو الفلاتر بموعدها بيوفر مصاري بالمدى القصير، لكن بيزيد احتمال عطل أكبر وأغلى لاحقاً. حاول تحسب الصيانة الدورية كمصروف ثابت شهري بدل ما تتفاجأ فيها.</li>
-        <li><strong>طريقة القيادة بتأثر على استهلاك الوقود بشكل مباشر</strong> — التسارع المفاجئ، الفرملة القوية، وترك المحرك شغال بدون داعي كلها بتزيد الاستهلاك. قيادة هادئة ومتزنة ممكن تفرق بشكل ملموس على فاتورة الوقود الشهرية.</li>
-        <li><strong>قبل ما تشتري سيارة جديدة، احسب كلفتها الشهرية الكاملة مش بس القسط</strong> — سيارة بقسط أقل بس استهلاكها عالي أو تأمينها غالي (خصوصاً السيارات الحديثة أو ذات المحركات الكبيرة) ممكن تطلع أغلى بالمجمل من سيارة بقسط أعلى لكن مصاريف تشغيل أقل.</li>
-        <li><strong>الإهلاك عادة أكبر مصروف "غير مرئي" بالسيارة</strong> — السيارات الجديدة بتفقد جزء كبير من قيمتها بأول سنتين-ثلاث سنوات. إذا بدك تقلل هالخسارة، سيارة مستعملة بعمر معقول ممكن تكون قرار مالي أذكى من سيارة صفر.</li>
+      <li><strong>قارن أسعار التأمين كل سنة عند التجديد</strong> — تختلف أسعار شركات التأمين كثيراً لنفس التغطية، وكثير من الناس يجدّدون تلقائياً لدى الشركة نفسها دون مقارنة، وقد يكلّفهم ذلك عشرات الدنانير سنوياً.</li>
+        <li><strong>الصيانة الدورية أرخص من الإصلاح الطارئ</strong> — تجاهل تبديل الزيت أو الفلاتر في موعدها يوفّر المال على المدى القصير، لكنه يزيد احتمال حدوث عطل أكبر وأغلى لاحقاً. حاول احتساب الصيانة الدورية كمصروف شهري ثابت بدلاً من أن تفاجئك.</li>
+        <li><strong>طريقة القيادة تؤثر في استهلاك الوقود بشكل مباشر</strong> — التسارع المفاجئ، والفرملة القوية، وترك المحرك يعمل دون داعٍ، كلها تزيد الاستهلاك. والقيادة الهادئة المتزنة قد تُحدث فرقاً ملموساً في فاتورة الوقود الشهرية.</li>
+        <li><strong>قبل أن تشتري سيارة جديدة، احسب كلفتها الشهرية الكاملة لا القسط وحده</strong> — سيارة بقسط أقل لكن استهلاكها مرتفع أو تأمينها غالٍ (خصوصاً السيارات الحديثة أو ذات المحركات الكبيرة) قد تكون أغلى في المجمل من سيارة بقسط أعلى ومصاريف تشغيل أقل.</li>
+        <li><strong>الإهلاك عادةً أكبر مصروف "غير مرئي" في السيارة</strong> — تفقد السيارات الجديدة جزءاً كبيراً من قيمتها في أول سنتين أو ثلاث سنوات. وإذا أردت تقليل هذه الخسارة فقد تكون سيارة مستعملة بعمر معقول قراراً مالياً أذكى من سيارة جديدة.</li>
       </ul>
-      <p style="margin-top:10px;font-size:12px;">📌 هاي نصائح عامة لتخطيط ميزانيتك، مش أسعار أو توصيات محددة لشركة تأمين أو ماركة سيارة معينة.</p>
+      <p style="margin-top:10px;font-size:12px;">📌 هذه نصائح عامة لتخطيط ميزانيتك، وليست أسعاراً أو توصيات محددة لشركة تأمين أو ماركة سيارة بعينها.</p>
   </div>
 
   <div class="card" style="margin-top:16px;">
     <div class="card-title" style="font-size:15px;">❓ أسئلة شائعة</div>
     <details style="margin-top:10px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">شو المصاريف اللي بينسوها الناس عادة بحساب تكلفة السيارة؟</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">كثير ناس بيحسبوا بس القسط الشهري والبنزين، وبينسوا: التأمين السنوي، رسوم الترخيص السنوية، الفحص الدوري، الصيانة الدورية، الغسيل، والباركنج. هاي المصاريف مجتمعة ممكن تشكل جزء كبير من التكلفة الحقيقية الشهرية للسيارة.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">ما المصاريف التي ينساها الناس عادةً عند حساب تكلفة السيارة؟</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">كثير من الناس يحسبون القسط الشهري والبنزين فقط، وينسون: التأمين السنوي، ورسوم الترخيص السنوية، والفحص الدوري، والصيانة الدورية، والغسيل، وأجرة المواقف. هذه المصاريف مجتمعةً قد تشكّل جزءاً كبيراً من التكلفة الشهرية الحقيقية للسيارة.</p>
     </details>
     <details style="margin-top:10px;">
       <summary style="font-weight:700;cursor:pointer;font-size:14px;">كيف أقارن تكلفة سيارة بنزين مع سيارة كهربائية؟</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">لسيارة البنزين، احسب استهلاكها باللتر لكل 100كم مضروباً بسعر الوقود وعدد الكيلومترات الشهرية. للسيارة الكهربائية، قارن فاتورة الكهرباء قبل وبعد اقتناء السيارة وأدخل الفرق فقط — مش الفاتورة كاملة، لأن باقي الفاتورة يخص استهلاكك المنزلي العادي.</p>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">لسيارة البنزين، احسب استهلاكها باللتر لكل 100كم مضروباً بسعر الوقود وعدد الكيلومترات الشهرية. للسيارة الكهربائية، قارن فاتورة الكهرباء قبل وبعد اقتناء السيارة وأدخل الفرق فقط، لا الفاتورة كاملة، لأن باقي الفاتورة يخص استهلاكك المنزلي المعتاد.</p>
     </details>
   </div>
 
@@ -170,12 +170,12 @@
       <a href="jo/fuel-prices/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⛽ أسعار المحروقات</a>
       <a href="jo/calculators/package-customs/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">📦 حاسبة جمارك الطرود</a>
       <a href="jo/calculators/university-cost/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 حاسبة تكلفة الجامعة</a>
-      <a href="jo/tools/government-vs-private/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚖️ الحكومي ولا الخاص؟</a>
+      <a href="jo/tools/government-vs-private/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚖️ الحكومي أم الخاص؟</a>
       <a href="jo/tools/jordan-vs-gulf/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌍 الأردن أم الخليج؟</a>
-      <a href="jo/calculators/rent-vs-buy/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏠 أأجر ولا أشتري؟</a>
+      <a href="jo/calculators/rent-vs-buy/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏠 أأستأجر أم أشتري؟</a>
       <a href="jo/calculators/zakat/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🕌 حاسبة الزكاة</a>
       <a href="jo/calculators/wedding-cost/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💍 حاسبة تكلفة الزواج</a>
-      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 ماذا تعرف عن الأردن؟</a>
       <a href="jo/games/wordle/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🟩 كلمة اليوم</a>
       <a href="jo/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب اليوم</a>
       <a href="jo/students/scholarships-loans/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 منح وقروض الجامعة</a>
@@ -258,10 +258,10 @@ function calc() {
     (depreciationMonthly ? 'الإهلاك: <strong>' + depreciationMonthly.toFixed(3) + ' د.أ</strong><br>' : '') +
     (finesMonthly ? 'المخالفات: <strong>' + finesMonthly.toFixed(3) + ' د.أ</strong><br>' : '') +
     'الإجمالي الشهري: <strong style="color:var(--primary);font-size:16px;">' + totalMonthly.toFixed(3) + ' د.أ</strong>' +
-    '<div style="margin-top:8px;font-size:13px;line-height:1.9;color:var(--text-muted);"><b>كيف طلعت نتيجتك؟</b><br>' +
+    '<div style="margin-top:8px;font-size:13px;line-height:1.9;color:var(--text-muted);"><b>كيف ظهرت نتيجتك؟</b><br>' +
     (fuelMonthly && carType === 'fuel' ? 'الوقود = (المسافة ÷ 100) × الاستهلاك × سعر اللتر.<br>' : '') +
-    'المصاريف السنوية (تأمين، ترخيص، فحص، إهلاك، مخالفات) بتنقسم على 12 عشان تتحول لشهري، وبعدين بتنجمع كلها مع القسط والمصاريف الشهرية.<br>' +
-    'الإجمالي السنوي = ' + totalMonthly.toFixed(3) + ' × 12 = <b>' + totalYearly.toFixed(3) + ' د.أ</b>. الأرقام تقديرية وبتعتمد على اللي دخلته إنت.</div>';
+    'المصاريف السنوية (تأمين، ترخيص، فحص، إهلاك، مخالفات) تُقسَم على 12 لتتحول إلى شهرية، ثم تُجمع كلها مع القسط والمصاريف الشهرية.<br>' +
+    'الإجمالي السنوي = ' + totalMonthly.toFixed(3) + ' × 12 = <b>' + totalYearly.toFixed(3) + ' د.أ</b>. الأرقام تقديرية وتعتمد على ما أدخلته أنت.</div>';
 
   document.getElementById('carResult').style.display = 'block';
 }
@@ -271,10 +271,10 @@ function exportCarCostResult() {
     { label: carType === 'fuel' ? 'الوقود/شهر' : 'الكهرباء/شهر', value: document.getElementById('fuelMonthly').textContent + ' د.أ' },
     { label: 'التأمين/شهر', value: document.getElementById('insuranceMonthly').textContent + ' د.أ' },
     { label: 'الترخيص/شهر', value: document.getElementById('licenseMonthly').textContent + ' د.أ' },
-    { label: 'سيارتك تكلفك هيك بالشهر (تقديري)', value: document.getElementById('totalMonthly').textContent },
+    { label: 'تكلفة سيارتك في الشهر (تقديري)', value: document.getElementById('totalMonthly').textContent },
     { label: 'التكلفة السنوية الإجمالية التقديرية', value: document.getElementById('totalYearly').textContent, highlight: true }
   ];
-  exportResultImage('كم بتكلفك سيارتك فعلياً بالشهر؟', rows);
+  exportResultImage('كم تكلّفك سيارتك فعلياً في الشهر؟', rows);
 }
 </script>
 <script>

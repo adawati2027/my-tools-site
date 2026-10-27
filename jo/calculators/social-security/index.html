@@ -43,7 +43,7 @@
 {"@type":"WebApplication","name":"حاسبة الضمان الاجتماعي الأردني","url":"https://adawati.space/jo/calculators/social-security/","description":"احسب اشتراك الضمان الاجتماعي للقطاع الخاص في الأردن: حصة الموظف 7.5% وصاحب العمل 14.25%، بحد أعلى للأجر الخاضع للاشتراك 3733 دينار لعام 2026.","applicationCategory":"FinanceApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}},
 {"@type":"FAQPage","mainEntity":[
   {"@type":"Question","name":"كم نسبة اقتطاع الضمان الاجتماعي من راتب موظف القطاع الخاص بالأردن؟","acceptedAnswer":{"@type":"Answer","text":"7.5% من الأجر الخاضع للاشتراك يتحملها الموظف، و14.25% يتحملها صاحب العمل، أي 21.75% إجمالاً، وفق المؤسسة العامة للضمان الاجتماعي."}},
-  {"@type":"Question","name":"شو الحد الأعلى للأجر الخاضع للاشتراك؟","acceptedAnswer":{"@type":"Answer","text":"3733 ديناراً شهرياً لعام 2026 (يُعدَّل سنوياً حسب نسبة التضخم). أي جزء من الراتب يتجاوز هذا الحد لا تُحتسب عليه اشتراكات ضمان إضافية."}},
+  {"@type":"Question","name":"ما الحد الأعلى للأجر الخاضع للاشتراك؟","acceptedAnswer":{"@type":"Answer","text":"3733 ديناراً شهرياً لعام 2026 (يُعدَّل سنوياً حسب نسبة التضخم). أي جزء من الراتب يتجاوز هذا الحد لا تُحتسب عليه اشتراكات ضمان إضافية."}},
   {"@type":"Question","name":"هل نفس النسبة تنطبق على القطاع الحكومي؟","acceptedAnswer":{"@type":"Answer","text":"لا. القطاع الحكومي له نظام ضمان اجتماعي بنسبة إجمالية مختلفة (19.5%) وتفاصيل توزيع مختلفة بين الموظف والجهة الحكومية. هذه الحاسبة مخصصة للقطاع الخاص فقط — راجع دائرة الموارد البشرية لديك إذا كنت موظفاً حكومياً."}}
 ]}
 ]}
@@ -123,22 +123,22 @@
   </div>
 
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;">🧮 كيف بينحسب الاقتطاع فعلياً — مثالين</div>
+    <div class="card-title" style="font-size:15px;">🧮 كيف يُحتسب الاقتطاع فعلياً — مثالان</div>
     <div style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">
-      <p><strong>مثال 1 — راتب عادي تحت الحد الأعلى:</strong> موظف راتبه الأساسي 400 دينار + بدل سكن 80 دينار + بدل نقل 40 دينار = <strong>520 دينار أجر خاضع للاشتراك</strong> (أقل من الحد الأعلى 3733، فبينحسب كامل).</p>
+      <p><strong>مثال 1 — راتب عادي تحت الحد الأعلى:</strong> موظف راتبه الأساسي 400 دينار + بدل سكن 80 دينار + بدل نقل 40 دينار = <strong>520 دينار أجر خاضع للاشتراك</strong> (أقل من الحد الأعلى 3733، فيُحتسب كاملاً).</p>
       <div style="margin-top:8px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2;">
-        حصة الموظف: 520 × 7.5% = <strong>39.000 دينار</strong> (بتنقطع من راتبه)<br>
-        حصة صاحب العمل: 520 × 14.25% = <strong>74.100 دينار</strong> (يدفعها صاحب العمل إضافة لراتب الموظف، مش من جيب الموظف)<br>
+        حصة الموظف: 520 × 7.5% = <strong>39.000 دينار</strong> (تُقتطع من راتبه)<br>
+        حصة صاحب العمل: 520 × 14.25% = <strong>74.100 دينار</strong> (يدفعها صاحب العمل إضافةً إلى راتب الموظف، لا من راتب الموظف)<br>
         الراتب الصافي بعد الاقتطاع: 520 − 39 = <strong>481.000 دينار</strong>
       </div>
-      <p style="margin-top:14px;"><strong>مثال 2 — راتب فوق الحد الأعلى (٣٧٣٣):</strong> موظف براتب مرتفع، أساسي 3,500 + بدل سكن 500 + بدل نقل 200 = 4,200 دينار أجر إجمالي. هون المهم: الأجر <strong>الخاضع للاشتراك</strong> ما بيتجاوز 3,733 دينار مهما كان الراتب الفعلي أعلى — يعني الاقتطاع بينحسب على 3,733 بس، مش على الـ4,200 كاملة.</p>
+      <p style="margin-top:14px;"><strong>مثال 2 — راتب فوق الحد الأعلى (٣٧٣٣):</strong> موظف براتب مرتفع، أساسي 3,500 + بدل سكن 500 + بدل نقل 200 = 4,200 دينار أجر إجمالي. والمهم هنا أن الأجر <strong>الخاضع للاشتراك</strong> لا يتجاوز 3,733 ديناراً مهما كان الراتب الفعلي أعلى، أي أن الاقتطاع يُحتسب على 3,733 فقط لا على الـ4,200 كاملة.</p>
       <div style="margin-top:8px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2;">
-        الأجر الخاضع للاشتراك (بعد تطبيق السقف): <strong>3,733.000 دينار</strong> (مش 4,200)<br>
+        الأجر الخاضع للاشتراك (بعد تطبيق السقف): <strong>3,733.000 دينار</strong> (وليس 4,200)<br>
         حصة الموظف: 3,733 × 7.5% = <strong>279.975 دينار</strong><br>
         حصة صاحب العمل: 3,733 × 14.25% = <strong>531.953 دينار</strong> (تقريباً)<br>
-        الراتب الصافي بعد الاقتطاع: 4,200 − 279.975 = <strong>3,920.025 دينار</strong> (الموظف بياخذ راتبه الفعلي كامل 4,200 منقوص منه بس حصته من الاشتراك المحسوبة على السقف)
+        الراتب الصافي بعد الاقتطاع: 4,200 − 279.975 = <strong>3,920.025 دينار</strong> (يتقاضى الموظف راتبه الفعلي كاملاً 4,200 منقوصاً منه حصته من الاشتراك المحسوبة على السقف فقط)
       </div>
-      <p style="margin-top:12px;">هاي نقطة كثير ناس ما بتنتبهلها: أصحاب الرواتب العالية ما بيدفعوا اشتراك ضمان أعلى كلما زاد راتبهم فوق السقف — الاقتطاع بيثبت عند حد أقصى (حالياً 279.975 دينار شهرياً لحصة الموظف)، مهما كان الراتب الفعلي أعلى من 3,733 دينار.</p>
+      <p style="margin-top:12px;">هذه نقطة لا ينتبه لها كثير من الناس: أصحاب الرواتب العالية لا يدفعون اشتراك ضمان أعلى كلما زاد راتبهم فوق السقف؛ إذ يثبت الاقتطاع عند حد أقصى (حالياً 279.975 ديناراً شهرياً لحصة الموظف) مهما كان الراتب الفعلي أعلى من 3,733 ديناراً.</p>
     </div>
   </div>
 
@@ -150,15 +150,15 @@
   </div>
 
   <div class="card" style="margin-top:16px;">
-    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">💡 ليش اشتراك الضمان الاجتماعي مهم إلك على المدى الطويل</h2>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">اقتطاع الضمان مش بس رقم بينزل من راتبك كل شهر — هو استثمار بمستقبلك. شغلات مهم تنتبه إلها:</p>
+    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">💡 لماذا اشتراك الضمان الاجتماعي مهم لك على المدى الطويل</h2>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">اقتطاع الضمان ليس مجرد رقم يُخصم من راتبك كل شهر، بل هو استثمار في مستقبلك. وهذه أمور مهم أن تنتبه لها:</p>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-inline-start:20px;margin-top:6px;">
-      <li><strong>تأكد إن صاحب عملك يسجّل راتبك الفعلي (الأساسي + البدلات الثابتة)</strong> — بعض أصحاب العمل بيسجلوا للموظف أجر أقل من الحقيقي لتقليل كلفة الاشتراك عليهم، وهاد بيقلل مباشرة من قيمة راتب التقاعد المستقبلي والتعويضات (عجز، وفاة) المبنية على الأجر الخاضع للاشتراك المسجل.</li>
-      <li><strong>سجلك عند الضمان بيتراكم من صاحب عمل لصاحب عمل</strong> — إذا غيرت وظيفة، اشتراكاتك السابقة ما بتضيع، بس تأكد إن صاحب العمل الجديد يسجلك من أول يوم عمل فعلي حتى ما يصير فيه فجوة بسجلك.</li>
+      <li><strong>تأكد من أن صاحب عملك يسجّل راتبك الفعلي (الأساسي + البدلات الثابتة)</strong> — فبعض أصحاب العمل يسجّلون للموظف أجراً أقل من الحقيقي لتقليل كلفة الاشتراك عليهم، وهذا يقلل مباشرةً من قيمة راتب التقاعد المستقبلي والتعويضات (العجز، الوفاة) المبنية على الأجر الخاضع للاشتراك المسجَّل.</li>
+      <li><strong>سجلك لدى الضمان يتراكم من صاحب عمل إلى آخر</strong> — إذا غيّرت وظيفتك فلن تضيع اشتراكاتك السابقة، لكن تأكد من أن صاحب العمل الجديد يسجّلك من أول يوم عمل فعلي حتى لا تحدث فجوة في سجلك.</li>
       <li><strong>راجع كشف اشتراكاتك بشكل دوري</strong> عبر موقع أو تطبيق الضمان الاجتماعي، للتأكد إن صاحب عملك فعلاً حوّل الاشتراكات المستقطعة من راتبك بالوقت المحدد وما تأخر عليها.</li>
-      <li><strong>إذا كنت تشتغل لحالك (فريلانسر أو صاحب مشروع صغير)</strong>، في نظام اشتراك اختياري بالضمان الاجتماعي بيحميك من مخاطر الشيخوخة والعجز حتى لو ما إلك صاحب عمل يشترك عنك — راجع ssc.gov.jo لتفاصيل الشروط والاشتراك.</li>
+      <li><strong>إذا كنت تعمل لحسابك الخاص (مستقلاً أو صاحب مشروع صغير)</strong>، فهناك نظام اشتراك اختياري في الضمان الاجتماعي يحميك من مخاطر الشيخوخة والعجز حتى لو لم يكن لديك صاحب عمل يشترك عنك — راجع ssc.gov.jo لتفاصيل الشروط والاشتراك.</li>
     </ul>
-    <p style="font-size:13px;color:var(--text-muted);margin-top:10px;">📌 هاي نصائح عامة للتخطيط، مش استشارة رسمية بخصوص حقوقك التقاعدية — لأي استفسار محدد راجع المؤسسة العامة للضمان الاجتماعي مباشرة.</p>
+    <p style="font-size:13px;color:var(--text-muted);margin-top:10px;">📌 هذه نصائح عامة للتخطيط، وليست استشارة رسمية بخصوص حقوقك التقاعدية؛ ولأي استفسار محدد راجع المؤسسة العامة للضمان الاجتماعي مباشرة.</p>
   </div>
 
   <div class="card" style="margin-top:16px;">
@@ -184,14 +184,14 @@
       <a href="jo/calculators/tawjihi-average/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 حاسبة معدل التوجيهي</a>
       <a href="jo/calculators/university-gpa/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 حاسبة معدل الجامعة</a>
       <a href="jo/calculators/income-tax/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧾 حاسبة ضريبة الدخل</a>
-      <a href="jo/calculators/car-cost/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🚗 كم بتكلفك سيارتك؟</a>
+      <a href="jo/calculators/car-cost/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🚗 كم تكلّفك سيارتك؟</a>
       <a href="jo/calculators/university-cost/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 حاسبة تكلفة الجامعة</a>
-      <a href="jo/tools/government-vs-private/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚖️ الحكومي ولا الخاص؟</a>
+      <a href="jo/tools/government-vs-private/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚖️ الحكومي أم الخاص؟</a>
       <a href="jo/tools/jordan-vs-gulf/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🌍 الأردن أم الخليج؟</a>
-      <a href="jo/calculators/rent-vs-buy/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏠 أأجر ولا أشتري؟</a>
+      <a href="jo/calculators/rent-vs-buy/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🏠 أأستأجر أم أشتري؟</a>
       <a href="jo/calculators/zakat/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🕌 حاسبة الزكاة</a>
       <a href="jo/calculators/wedding-cost/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💍 حاسبة تكلفة الزواج</a>
-      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 ماذا تعرف عن الأردن؟</a>
       <a href="jo/games/wordle/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🟩 كلمة اليوم</a>
       <a href="jo/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب اليوم</a>
       <a href="jo/students/scholarships-loans/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 منح وقروض الجامعة</a>
@@ -252,11 +252,11 @@ function calc() {
   const f3 = function(n){ return n.toFixed(3); };
   document.getElementById('ssExplain').innerHTML =
     '<b>كيف طلعت نتيجتك؟</b><br>' +
-    'إجمالي الأجر = ' + f3(gross) + ' د.أ' + (gross > WAGE_CEILING ? ' (الاشتراك بينحسب على سقف ' + WAGE_CEILING + ' بس)' : '') + '<br>' +
+    'إجمالي الأجر = ' + f3(gross) + ' د.أ' + (gross > WAGE_CEILING ? ' (يُحتسب الاشتراك على سقف ' + WAGE_CEILING + ' فقط)' : '') + '<br>' +
     'حصتك = ' + f3(contributable) + ' × 7.5% = ' + f3(empShare) + ' د.أ<br>' +
-    'حصة صاحب العمل = ' + f3(contributable) + ' × 14.25% = ' + f3(erShare) + ' د.أ (ما بتنخصم من راتبك)<br>' +
+    'حصة صاحب العمل = ' + f3(contributable) + ' × 14.25% = ' + f3(erShare) + ' د.أ (لا تُخصم من راتبك)<br>' +
     'الصافي = ' + f3(gross) + ' − ' + f3(empShare) + ' = <b>' + f3(net) + '</b> د.أ<br>' +
-    '<span style="color:var(--text-muted);">أداة تقديرية: ما بتحسب ضريبة الدخل ولا أي خصومات ثانية. المرجع: المؤسسة العامة للضمان الاجتماعي.</span>';
+    '<span style="color:var(--text-muted);">أداة تقديرية: لا تحسب ضريبة الدخل ولا أي خصومات أخرى. المرجع: المؤسسة العامة للضمان الاجتماعي.</span>';
 
   document.getElementById('ssResult').style.display = 'block';
 }
