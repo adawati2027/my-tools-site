@@ -92,6 +92,7 @@
         <div class="stat-box" style="background:#eff6ff;"><div class="stat-val" id="monthlyTaxDisplay" style="color:#2563eb;"></div><div class="stat-lbl">الضريبة الشهرية التقديرية</div></div>
       </div>
       <div id="ncNote" style="display:none;margin-top:10px;padding:10px 14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;color:var(--text-muted);"></div>
+      <div id="taxExplain" style="margin-top:12px;padding:12px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;line-height:1.9;"></div>
       <button id="taxExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
     </div>
   </div>
@@ -272,6 +273,18 @@ function onKidsChange() {
   calc();
 }
 
+function taxBreakdown(taxable) {
+  const brackets = [[5000, 0.05], [5000, 0.10], [5000, 0.15], [5000, 0.20], [980000, 0.25], [Infinity, 0.30]];
+  let remaining = taxable, out = [];
+  for (const [size, rate] of brackets) {
+    if (remaining <= 0) break;
+    const part = Math.min(remaining, size);
+    out.push({ part: part, rate: rate, tax: part * rate });
+    remaining -= part;
+  }
+  return out;
+}
+
 function calcTax(taxable) {
   const brackets = [
     [5000, 0.05], [5000, 0.10], [5000, 0.15], [5000, 0.20],
@@ -319,6 +332,19 @@ function calc() {
   } else {
     ncNote.style.display = 'none';
   }
+
+  const fmt = n => n.toLocaleString('en-US', { maximumFractionDigits: 3 });
+  let ex = '<strong>كيف طلعت نتيجتك؟</strong><br>';
+  ex += 'الدخل السنوي ' + fmt(income) + ' − الإعفاءات ' + fmt(totalExemption) + ' (أساسي ' + fmt(baseExemption) + (extra ? ' + مصاريف موثقة ' + fmt(extra) : '') + (baseExemption + extra > 23000 ? '، والإعفاءات مقصوصة عند السقف 23,000' : '') + ') = دخل خاضع <strong>' + fmt(taxable) + '</strong> دينار.<br>';
+  if (taxable > 0) {
+    ex += taxBreakdown(taxable).map(b => '• ' + fmt(b.part) + ' × ' + (b.rate * 100) + '% = ' + fmt(b.tax)).join('<br>') + '<br>';
+    if (ncTax > 0) ex += '• ضريبة المساهمة الوطنية: (' + fmt(taxable) + ' − 200,000) × 1% = ' + fmt(ncTax) + '<br>';
+    ex += 'مجموع الضريبة = <strong>' + fmt(totalTax) + '</strong> دينار سنوياً (' + fmt(totalTax / 12) + ' بالشهر).';
+  } else {
+    ex += 'الدخل أقل من الإعفاءات، فما في ضريبة.';
+  }
+  ex += '<br><span style="color:var(--text-muted);">تقدير حسب الشرائح والإعفاءات المنشورة بالصفحة (قانون ضريبة الدخل رقم 34 لسنة 2014 وتعديلاته)، ولا يشمل أي خصومات أخرى. المرجع: دائرة ضريبة الدخل والمبيعات.</span>';
+  document.getElementById('taxExplain').innerHTML = ex;
 
   document.getElementById('taxResult').style.display = 'block';
 }
