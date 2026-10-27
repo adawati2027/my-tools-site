@@ -71,8 +71,37 @@
     document.querySelectorAll('button[data-i18n="export_img_btn"]').forEach(inject);
   }
 
+  function pageShare() {
+    var box = document.querySelector("[data-jo-page-share]");
+    if (!box || box.dataset.joDone) return;
+    box.dataset.joDone = "1";
+    var txt = box.getAttribute("data-jo-page-share") + "\n" + location.origin + location.pathname;
+    box.style.cssText = "display:flex;gap:8px;margin-top:14px;";
+    var c = document.createElement("button");
+    c.type = "button"; c.style.cssText = BTN_STYLE; c.textContent = "📋 انسخ الرابط";
+    var s = document.createElement("button");
+    s.type = "button"; s.style.cssText = BTN_STYLE; s.textContent = "🔗 ابعتها لصحابك";
+    box.appendChild(c); box.appendChild(s);
+    c.addEventListener("click", function () {
+      track("copy_page");
+      navigator.clipboard.writeText(txt).then(function () {
+        c.textContent = "✅ تم النسخ";
+        setTimeout(function () { c.textContent = "📋 انسخ الرابط"; }, 1600);
+      }).catch(function () {});
+    });
+    s.addEventListener("click", function () {
+      track("share_page");
+      if (navigator.share) navigator.share({ text: txt }).catch(function () {});
+      else navigator.clipboard.writeText(txt).then(function () {
+        s.textContent = "✅ تم النسخ";
+        setTimeout(function () { s.textContent = "🔗 ابعتها لصحابك"; }, 1600);
+      }).catch(function () {});
+    });
+  }
+
   function start() {
     scan();
+    pageShare();
     new MutationObserver(scan).observe(document.body, { childList: true, subtree: true });
   }
 
