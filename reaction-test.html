@@ -631,7 +631,7 @@ document.addEventListener('DOMContentLoaded', function(){
   async function raceConfirmName(){
     const name=document.getElementById('raceNameInput').value.trim();
     if(!name) return;
-    if(raceNameHasBlockedWord(name)){ alert('الاسم غير مسموح، جرب اسم ثاني 🙂'); return; }
+    if(raceNameHasBlockedWord(name)){ alert('الاسم غير مسموح، جرّب اسمًا آخر 🙂'); return; }
     raceMyName=name;
     if(racePending!=='accept'){
       raceId=await raceCreateChallenge('reaction-test', name);
