@@ -52,7 +52,7 @@ function adsIsAdmin(fb, user) {
 function adsSignInPrompt(el, text) {
   el.innerHTML = '<div style="text-align:center;padding:18px;">' +
     '<p style="font-size:14px;color:var(--text-muted);margin-bottom:12px;">' + adsEsc(text) + '</p>' +
-    '<button type="button" class="ads-btn ads-signin">🔐 سجّل دخول / أنشئ حساب</button></div>';
+    '<button type="button" class="ads-btn ads-signin">🔐 سجّل الدخول / أنشئ حسابًا</button></div>';
   el.querySelector('.ads-signin').addEventListener('click', function() { openAuthModal(); });
 }
 
@@ -72,12 +72,12 @@ function adsCardHtml(id, a) {
 
 function adsStars(a) {
   var n = a.ratingCount || 0;
-  if (!n) return '<span class="ads-meta">☆ لسا ما في تقييمات</span>';
+  if (!n) return '<span class="ads-meta">☆ لا توجد تقييمات بعد</span>';
   var avg = (a.ratingSum || 0) / n;
   return '<span style="color:#f59e0b;">★</span> <strong>' + avg.toFixed(1) + '</strong> <span class="ads-meta">(' + n + ' تقييم)</span>';
 }
 
-var ADS_DURATIONS = [[7, '7 أيام'], [14, 'أسبوعين'], [30, 'شهر'], [60, 'شهرين'], [90, '3 شهور'], [0, 'بدون حد']];
+var ADS_DURATIONS = [[7, '7 أيام'], [14, 'أسبوعين'], [30, 'شهر'], [60, 'شهرين'], [90, '3 أشهر'], [0, 'بدون حد']];
 
 function adsDurationSelect(def) {
   return '<select class="dur" style="padding:9px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:15px;">' +
@@ -96,7 +96,7 @@ function adsExpired(a) {
 function adsExpiryText(a) {
   if (a.status !== 'approved') return '';
   if (!a.expiresAt) return '♾️ بدون تاريخ انتهاء';
-  return adsExpired(a) ? '⌛ انتهت مدته بتاريخ ' + adsDate(a.expiresAt) : '⏱️ بينتهي بتاريخ ' + adsDate(a.expiresAt);
+  return adsExpired(a) ? '⌛ انتهت مدته بتاريخ ' + adsDate(a.expiresAt) : '⏱️ ينتهي بتاريخ ' + adsDate(a.expiresAt);
 }
 
 var ADS_IG_URL = 'https://www.instagram.com/adawati2027/';

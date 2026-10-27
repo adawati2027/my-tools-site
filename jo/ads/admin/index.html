@@ -27,13 +27,13 @@
 <nav class="navbar"><div class="nav-container">
   <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
   <div class="nav-links">
-    <a href="jo/ads/">عنا الإعلانات</a>
+    <a href="jo/ads/">إعلاناتنا</a>
     <a href="jo/">أدوات الأردن</a>
   </div>
 </div></nav>
 
 <main><div class="tool-page">
-  <div class="page-header"><a href="jo/ads/">→ عنا الإعلانات</a></div>
+  <div class="page-header"><a href="jo/ads/">→ إعلاناتنا</a></div>
 
   <div class="card">
     <h1 class="card-title">🛡️ إدارة الإعلانات</h1>
@@ -50,7 +50,7 @@
 </footer>
 <script src="i18n-lang-ar.js?v=3" defer></script>
 <script src="i18n.js?v=63" defer></script>
-<script src="jo/ads/ads.js?v=5" defer></script>
+<script src="jo/ads/ads.js?v=6" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   function loadReports() {
     fbRef.db.collection('adReports').orderBy('createdAt', 'desc').limit(100).get().then(function(snap) {
-      if (snap.empty) { list.innerHTML = '<div class="card">✅ ما في بلاغات.</div>'; return; }
+      if (snap.empty) { list.innerHTML = '<div class="card">✅ لا توجد بلاغات.</div>'; return; }
       list.innerHTML = snap.docs.map(function(d) {
         var r = d.data();
         return '<div class="card" style="margin-top:12px;" data-rep="' + d.id + '"><div class="ads-meta">' + adsEsc(adsDate(r.createdAt)) + '</div>' +
@@ -78,16 +78,16 @@ document.addEventListener('DOMContentLoaded', function() {
           '<div class="ads-meta">' + (r.reviewUid ? '💬 بلاغ على تعليق بالإعلان' : '📣 بلاغ على الإعلان نفسه') + '</div>' +
           '<div class="ads-row"><a class="ads-btn" href="jo/ads/view/?id=' + encodeURIComponent(r.adId) + '" target="_blank" rel="noopener">👁️ افتح الإعلان</a><button type="button" class="ads-btn secondary" data-done="' + d.id + '">✅ تمت المعالجة (احذف البلاغ)</button></div></div>';
       }).join('');
-    }).catch(function() { list.innerHTML = '<div class="card">ما زبط تحميل البلاغات.</div>'; });
+    }).catch(function() { list.innerHTML = '<div class="card">تعذّر تحميل البلاغات.</div>'; });
   }
   list.addEventListener('click', function(e) {
     var b = e.target.closest('[data-done]'); if (!b) return;
     b.disabled = true;
-    fbRef.db.collection('adReports').doc(b.getAttribute('data-done')).delete().then(function() { b.closest('[data-rep]').remove(); if (!list.querySelector('[data-rep]')) list.innerHTML = '<div class="card">✅ ما في بلاغات.</div>'; }).catch(function() { b.disabled = false; });
+    fbRef.db.collection('adReports').doc(b.getAttribute('data-done')).delete().then(function() { b.closest('[data-rep]').remove(); if (!list.querySelector('[data-rep]')) list.innerHTML = '<div class="card">✅ لا توجد بلاغات.</div>'; }).catch(function() { b.disabled = false; });
   });
   function loadChatReports() {
     fbRef.db.collection('chatReports').orderBy('createdAt', 'desc').limit(100).get().then(function(snap) {
-      if (snap.empty) { list.innerHTML = '<div class="card">✅ ما في بلاغات على الشات.</div>'; return; }
+      if (snap.empty) { list.innerHTML = '<div class="card">✅ لا توجد بلاغات على المحادثة.</div>'; return; }
       list.innerHTML = snap.docs.map(function(d) {
         var r = d.data();
         return '<div class="card" style="margin-top:12px;" data-crep="' + d.id + '" data-ch="' + adsEsc(r.challengeId) + '" data-msg="' + adsEsc(r.msgId) + '" data-off="' + adsEsc(r.offenderUid) + '" data-offname="' + adsEsc(r.offenderName) + '">' +
@@ -95,26 +95,26 @@ document.addEventListener('DOMContentLoaded', function() {
           '<div style="margin:8px 0;padding:10px;background:var(--surface-2);border-radius:8px;white-space:pre-line;">' + adsEsc(r.text) + '</div>' +
           '<div class="ads-row"><button type="button" class="ads-btn danger" data-cact="delmsg">🗑️ احذف الرسالة</button><button type="button" class="ads-btn danger" data-cact="ban">⛔ احظر من الشات</button><button type="button" class="ads-btn secondary" data-cact="dismiss">✅ تجاهل</button></div><div class="res"></div></div>';
       }).join('');
-    }).catch(function() { list.innerHTML = '<div class="card">ما زبط تحميل بلاغات الشات.</div>'; });
+    }).catch(function() { list.innerHTML = '<div class="card">تعذّر تنفيذ الإجراء تحميل بلاغات الشات.</div>'; });
   }
   list.addEventListener('click', function(e) {
     var b = e.target.closest('[data-cact]'); if (!b) return;
     var c = b.closest('[data-crep]'), act = b.getAttribute('data-cact'), res = c.querySelector('.res'), db = fbRef.db;
-    if (act === 'ban' && b.getAttribute('data-sure') !== '1') { b.setAttribute('data-sure', '1'); b.textContent = '⚠️ متأكد؟ اكبس مرة ثانية'; return; }
+    if (act === 'ban' && b.getAttribute('data-sure') !== '1') { b.setAttribute('data-sure', '1'); b.textContent = '⚠️ متأكد؟ اضغط مرة أخرى'; return; }
     b.disabled = true;
     var op = act === 'delmsg' ? db.collection('challenges').doc(c.getAttribute('data-ch')).collection('messages').doc(c.getAttribute('data-msg')).delete()
       : act === 'ban' ? db.collection('chatBans').doc(c.getAttribute('data-off')).set({ name: c.getAttribute('data-offname') || '', at: firebase.firestore.FieldValue.serverTimestamp() })
       : Promise.resolve();
     op.then(function() { return act === 'ban' ? null : db.collection('chatReports').doc(c.getAttribute('data-crep')).delete(); })
-      .then(function() { if (act === 'ban') { res.innerHTML = '<div class="ads-msg ok">⛔ انحظر من الشات.</div>'; } else { c.remove(); if (!list.querySelector('[data-crep]')) list.innerHTML = '<div class="card">✅ ما في بلاغات على الشات.</div>'; } })
-      .catch(function() { b.disabled = false; res.innerHTML = '<div class="ads-msg err">ما زبط.</div>'; });
+      .then(function() { if (act === 'ban') { res.innerHTML = '<div class="ads-msg ok">⛔ حُظر من المحادثة.</div>'; } else { c.remove(); if (!list.querySelector('[data-crep]')) list.innerHTML = '<div class="card">✅ لا توجد بلاغات على المحادثة.</div>'; } })
+      .catch(function() { b.disabled = false; res.innerHTML = '<div class="ads-msg err">تعذّر تنفيذ الإجراء.</div>'; });
   });
   function load() {
     list.innerHTML = '<div class="card">⏳ جاري التحميل...</div>';
     if (tab === 'reports') return loadReports();
     if (tab === 'chatreports') return loadChatReports();
     fbRef.db.collection('ads').where('status', '==', tab).get().then(function(snap) {
-      if (snap.empty) { list.innerHTML = '<div class="card">ما في إعلانات هون.</div>'; return; }
+      if (snap.empty) { list.innerHTML = '<div class="card">لا توجد إعلانات هنا.</div>'; return; }
       list.innerHTML = snap.docs.map(function(d) {
         var a = d.data(), proof = adsSafeUrl(a.shareProof);
         return '<div class="card" style="margin-top:12px;" data-id="' + d.id + '">' +
@@ -125,8 +125,8 @@ document.addEventListener('DOMContentLoaded', function() {
           '<div class="ads-links">' + adsLinksHtml(a.links) + '</div>' +
           (a.status === 'approved' ? '<div class="ads-meta" style="margin-top:8px;font-weight:700;">' + adsEsc(adsExpiryText(a)) + '</div>' : '') +
           '<div class="ads-note" style="background:#e0f2fe;color:#075985;">📢 منشور مشاركة أدواتي: ' + (proof ? '<a href="' + adsEsc(proof) + '" target="_blank" rel="nofollow noopener">' + adsEsc(proof) + '</a>' : '—') +
-          (a.hasProofImage ? '<div class="ads-row"><button type="button" class="ads-btn secondary" data-img="1">📎 شوف صورة الستوري</button></div><div class="imgbox"></div>' : '') + '</div>' +
-          '<div class="ads-note" style="background:#fce7f3;color:#9d174d;">📸 إنستغرام المعلن: ' + (adsIgProfileUrl(a.igHandle) ? '<a href="' + adsEsc(adsIgProfileUrl(a.igHandle)) + '" target="_blank" rel="nofollow noopener">' + adsEsc(a.igHandle) + '</a> — تأكد إنه بيتابع @adawati2027' : adsEsc(a.igHandle || '—')) + '</div>' +
+          (a.hasProofImage ? '<div class="ads-row"><button type="button" class="ads-btn secondary" data-img="1">📎 اعرض صورة الستوري</button></div><div class="imgbox"></div>' : '') + '</div>' +
+          '<div class="ads-note" style="background:#fce7f3;color:#9d174d;">📸 إنستغرام المعلن: ' + (adsIgProfileUrl(a.igHandle) ? '<a href="' + adsEsc(adsIgProfileUrl(a.igHandle)) + '" target="_blank" rel="nofollow noopener">' + adsEsc(a.igHandle) + '</a> — تأكد من أنه يتابع @adawati2027' : adsEsc(a.igHandle || '—')) + '</div>' +
           (a.adminNote ? '<div class="ads-note">💬 آخر ملاحظة: ' + adsEsc(a.adminNote) + '</div>' : '') +
           '<textarea class="note" placeholder="ملاحظة للمعلن (مطلوبة عند طلب تعديل أو الرفض)" style="width:100%;margin-top:10px;padding:8px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:15px;box-sizing:border-box;"></textarea>' +
           '<div class="ads-row">' + adsDurationSelect(30) +
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
           (a.status !== 'rejected' ? '<button type="button" class="ads-btn danger" data-act="rejected">⛔ رفض</button>' : '') +
           '<button type="button" class="ads-btn secondary" data-act="delete">🗑️ حذف</button></div><div class="res"></div></div>';
       }).join('');
-    }).catch(function() { list.innerHTML = '<div class="card">ما زبط التحميل.</div>'; });
+    }).catch(function() { list.innerHTML = '<div class="card">تعذّر تنفيذ الإجراء التحميل.</div>'; });
   }
   list.addEventListener('click', function(e) {
     var ib = e.target.closest('[data-img]');
@@ -144,30 +144,30 @@ document.addEventListener('DOMContentLoaded', function() {
       ib.disabled = true;
       fbRef.db.collection('adProofs').doc(ib.closest('[data-id]').getAttribute('data-id')).get().then(function(d) {
         var src = d.exists ? String(d.data().image || '') : '';
-        ibox.innerHTML = src.indexOf('data:image/jpeg;base64,') === 0 ? '<img src="' + src + '" alt="" style="max-width:100%;max-height:520px;border-radius:8px;margin-top:8px;">' : 'ما في صورة.';
-      }).catch(function() { ib.disabled = false; ibox.textContent = 'ما زبط تحميل الصورة.'; });
+        ibox.innerHTML = src.indexOf('data:image/jpeg;base64,') === 0 ? '<img src="' + src + '" alt="" style="max-width:100%;max-height:520px;border-radius:8px;margin-top:8px;">' : 'لا توجد صورة.';
+      }).catch(function() { ib.disabled = false; ibox.textContent = 'تعذّر تنفيذ الإجراء تحميل الصورة.'; });
       return;
     }
     var b = e.target.closest('[data-act]'); if (!b) return;
     var c = b.closest('[data-id]'), id = c.getAttribute('data-id'), act = b.getAttribute('data-act'), note = c.querySelector('.note').value.trim(), res = c.querySelector('.res');
     if ((act === 'changes' || act === 'rejected') && !note) { res.innerHTML = '<div class="ads-msg err">اكتب ملاحظة للمعلن أول.</div>'; return; }
-    if (act === 'delete' && b.getAttribute('data-sure') !== '1') { b.setAttribute('data-sure', '1'); b.textContent = '⚠️ متأكد؟ اكبس مرة ثانية'; return; }
+    if (act === 'delete' && b.getAttribute('data-sure') !== '1') { b.setAttribute('data-sure', '1'); b.textContent = '⚠️ متأكد؟ اضغط مرة أخرى'; return; }
     b.disabled = true;
     var exp = adsExpiresFromDays(c.querySelector('.dur').value);
     if (act === 'extend') {
       fbRef.db.collection('ads').doc(id).update({ expiresAt: exp }).then(function() { b.disabled = false; res.innerHTML = '<div class="ads-msg ok">✅ ' + adsEsc(adsExpiryText({ status: 'approved', expiresAt: exp })) + '</div>'; })
-        .catch(function() { b.disabled = false; res.innerHTML = '<div class="ads-msg err">ما زبط.</div>'; });
+        .catch(function() { b.disabled = false; res.innerHTML = '<div class="ads-msg err">تعذّر تنفيذ الإجراء.</div>'; });
       return;
     }
     var op = act === 'delete' ? fbRef.db.collection('adProofs').doc(id).delete().catch(function(){}).then(function() { return fbRef.db.collection('ads').doc(id).delete(); }) : setStatus(id, act, act === 'approved' ? (note || '') : note, act === 'approved' ? { expiresAt: exp } : undefined);
-    op.then(function() { c.remove(); if (!list.querySelector('[data-id]')) list.innerHTML = '<div class="card">✅ خلصت هالقائمة.</div>'; })
-      .catch(function() { b.disabled = false; res.innerHTML = '<div class="ads-msg err">ما زبط — تأكد إنك مسجّل كأدمن.</div>'; });
+    op.then(function() { c.remove(); if (!list.querySelector('[data-id]')) list.innerHTML = '<div class="card">✅ انتهت هذه القائمة.</div>'; })
+      .catch(function() { b.disabled = false; res.innerHTML = '<div class="ads-msg err">تعذّر تنفيذ الإجراء — تأكد إنك مسجّل كأدمن.</div>'; });
   });
   adsOnUser(function(user, fb) {
     fbRef = fb;
-    if (!user) { adsSignInPrompt(list, 'سجّل دخول بحساب الأدمن.'); return; }
+    if (!user) { adsSignInPrompt(list, 'سجّل الدخول بحساب الأدمن.'); return; }
     adsIsAdmin(fb, user).then(function(ok) {
-      if (!ok) { list.innerHTML = '<div class="card">⛔ هالحساب مش أدمن.<div class="ads-hint" style="margin-top:8px;">UID: ' + adsEsc(user.uid) + '</div></div>'; return; }
+      if (!ok) { list.innerHTML = '<div class="card">⛔ هذا الحساب ليس أدمن.<div class="ads-hint" style="margin-top:8px;">UID: ' + adsEsc(user.uid) + '</div></div>'; return; }
       load();
     });
   });
