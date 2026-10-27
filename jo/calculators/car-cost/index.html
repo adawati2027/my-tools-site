@@ -257,7 +257,11 @@ function calc() {
     (carwash ? 'الغسيل والمستلزمات: <strong>' + carwash.toFixed(3) + ' د.أ</strong><br>' : '') +
     (depreciationMonthly ? 'الإهلاك: <strong>' + depreciationMonthly.toFixed(3) + ' د.أ</strong><br>' : '') +
     (finesMonthly ? 'المخالفات: <strong>' + finesMonthly.toFixed(3) + ' د.أ</strong><br>' : '') +
-    'الإجمالي الشهري: <strong style="color:var(--primary);font-size:16px;">' + totalMonthly.toFixed(3) + ' د.أ</strong>';
+    'الإجمالي الشهري: <strong style="color:var(--primary);font-size:16px;">' + totalMonthly.toFixed(3) + ' د.أ</strong>' +
+    '<div style="margin-top:8px;font-size:13px;line-height:1.9;color:var(--text-muted);"><b>كيف طلعت نتيجتك؟</b><br>' +
+    (fuelMonthly && carType === 'fuel' ? 'الوقود = (المسافة ÷ 100) × الاستهلاك × سعر اللتر.<br>' : '') +
+    'المصاريف السنوية (تأمين، ترخيص، فحص، إهلاك، مخالفات) بتنقسم على 12 عشان تتحول لشهري، وبعدين بتنجمع كلها مع القسط والمصاريف الشهرية.<br>' +
+    'الإجمالي السنوي = ' + totalMonthly.toFixed(3) + ' × 12 = <b>' + totalYearly.toFixed(3) + ' د.أ</b>. الأرقام تقديرية وبتعتمد على اللي دخلته إنت.</div>';
 
   document.getElementById('carResult').style.display = 'block';
 }
