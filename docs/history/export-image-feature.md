@@ -110,3 +110,11 @@ Follow-up to the wrap fix above — user pointed at the bottom of the exported c
 
 **Fixed**: combined both pieces into one `value` string (`main + ' ' + ageSubText`) and added a proper new short label key `lbl_your_age` ("عمرك"/"Your Age"/etc., all 6 languages) instead of reusing `#ageSub`'s text as the label. Verified live on production (real fetched values, real events) — the row now renders as a clean heading ("عمرك") above the full wrapped phrase ("24 سنة و 0 شهر و 0 يوم"), matching the same stacked layout already used for the Hijri-age row right above it. Pushed as 6 files (root + 5 lang variants), verified live via blob-sha diff, `test-calculators.js` (20/20) re-run clean.
 
+
+
+## Jordan tool pages: export button + Arabic digits (2026-10-27)
+
+- Per-page `hExport()` builds rows from inputs/chips/`#hExtra .stat-box` + a highlighted result row and calls `exportResultImage(title, rows)` (i18n.js); duplicate input labels get a `.card-title` prefix. Button id `#hExpBtn`.
+- Test a page's export rows headless: `node tools/export-cdp/mkexp.js <page dir> "<JS that fills inputs>"` then `node "$TEMP/cdpexp.js"` (mkexp generates it; prints rows JSON, writes exp_out.png). Needs Chrome at the default path; scripts were written against `$TEMP` (cdph1.js is the template).
+- Arabic-keyboard digits: `tools/jo-numfix.js` converts `type="number"` inputs under `jo/` to `type="text" data-num inputmode="decimal"` and appends the inline normalizer (skips pages that already have `data-num`). Not yet applied outside `jo/`.
+- Fusha rule (2026-10-27): all Arabic copy is Modern Standard Arabic; generators `build-country-quiz.js` / `quiz-static.js` already emit it.
