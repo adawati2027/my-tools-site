@@ -68,29 +68,29 @@
     <div class="divider"></div>
 
     <div class="row">
-      <div><label>المهر المقدم</label><input type="number" inputmode="decimal" id="mahr" placeholder="0.000" min="0" step="any"></div>
-      <div><label>الذهب والشبكة</label><input type="number" inputmode="decimal" id="gold" placeholder="0.000" min="0" step="any"></div>
+      <div><label>المهر المقدم</label><input type="text" data-num inputmode="decimal" id="mahr" placeholder="0.000" min="0" step="any"></div>
+      <div><label>الذهب والشبكة</label><input type="text" data-num inputmode="decimal" id="gold" placeholder="0.000" min="0" step="any"></div>
     </div>
     <div class="row">
-      <div><label>قاعة الفرح والضيافة</label><input type="number" inputmode="decimal" id="venue" placeholder="0.000" min="0" step="any"></div>
-      <div><label>فستان العروس وبدلة العريس</label><input type="number" inputmode="decimal" id="attire" placeholder="0.000" min="0" step="any"></div>
+      <div><label>قاعة الفرح والضيافة</label><input type="text" data-num inputmode="decimal" id="venue" placeholder="0.000" min="0" step="any"></div>
+      <div><label>فستان العروس وبدلة العريس</label><input type="text" data-num inputmode="decimal" id="attire" placeholder="0.000" min="0" step="any"></div>
     </div>
     <div class="row">
-      <div><label>التصوير والفيديو</label><input type="number" inputmode="decimal" id="photography" placeholder="0.000" min="0" step="any"></div>
-      <div><label>تجهيز بيت الزوجية (أثاث)</label><input type="number" inputmode="decimal" id="furniture" placeholder="0.000" min="0" step="any"></div>
+      <div><label>التصوير والفيديو</label><input type="text" data-num inputmode="decimal" id="photography" placeholder="0.000" min="0" step="any"></div>
+      <div><label>تجهيز بيت الزوجية (أثاث)</label><input type="text" data-num inputmode="decimal" id="furniture" placeholder="0.000" min="0" step="any"></div>
     </div>
     <div class="row">
-      <div><label>الزفة</label><input type="number" inputmode="decimal" id="zaffa" placeholder="0.000" min="0" step="any"></div>
-      <div><label>المكياج والتجميل</label><input type="number" inputmode="decimal" id="makeup" placeholder="0.000" min="0" step="any"></div>
+      <div><label>الزفة</label><input type="text" data-num inputmode="decimal" id="zaffa" placeholder="0.000" min="0" step="any"></div>
+      <div><label>المكياج والتجميل</label><input type="text" data-num inputmode="decimal" id="makeup" placeholder="0.000" min="0" step="any"></div>
     </div>
     <div class="row">
-      <div><label>سهرة الشباب (منشية)</label><input type="number" inputmode="decimal" id="shababNight" placeholder="0.000" min="0" step="any"></div>
-      <div><label>بنود أخرى (دعوات، ورد...)</label><input type="number" inputmode="decimal" id="other" placeholder="0.000" min="0" step="any"></div>
+      <div><label>سهرة الشباب (منشية)</label><input type="text" data-num inputmode="decimal" id="shababNight" placeholder="0.000" min="0" step="any"></div>
+      <div><label>بنود أخرى (دعوات، ورد...)</label><input type="text" data-num inputmode="decimal" id="other" placeholder="0.000" min="0" step="any"></div>
     </div>
 
     <div class="divider"></div>
     <label>خلال كم شهر بدك تجمع المبلغ؟ (اختياري)</label>
-    <input type="number" inputmode="decimal" id="months" placeholder="مثال: 12" min="1" step="1">
+    <input type="text" data-num inputmode="decimal" id="months" placeholder="مثال: 12" min="1" step="1">
 
     <div id="weddingResult" style="display:none;margin-top:20px;">
       <div class="result-box show success" style="margin-top:0;">
@@ -225,4 +225,23 @@ document.addEventListener('DOMContentLoaded', function(){
 <script src="i18n-lang-ar.js?v=3" defer></script>
 <script src="i18n.js?v=63" defer></script>
 <script src="jo-share.js?v=5" defer></script>
+<script>
+(function () {
+  function fix(s) {
+    s = s.replace(/[\u0660-\u0669]/g, function (d) { return d.charCodeAt(0) - 1632; })
+         .replace(/[\u06F0-\u06F9]/g, function (d) { return d.charCodeAt(0) - 1776; })
+         .replace(/[\u066B\u060C]/g, '.')
+         .replace(/,(?=\d{1,2}$)/, '.').replace(/,/g, '');
+    return s.replace(/[^0-9.\-]/g, '');
+  }
+  function h(e) {
+    var t = e.target;
+    if (!t || t.tagName !== 'INPUT' || !t.hasAttribute('data-num')) return;
+    var v = fix(t.value);
+    if (v !== t.value) t.value = v;
+  }
+  document.addEventListener('input', h, true);
+  document.addEventListener('change', h, true);
+})();
+</script>
 </body></html>

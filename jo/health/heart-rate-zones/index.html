@@ -42,10 +42,10 @@
 ]},
 {"@type":"WebApplication","name":"حاسبة نبض القلب للرياضة","url":"https://adawati.space/jo/health/heart-rate-zones/","description":"احسب أقصى معدل لنبض القلب (220 − العمر) ومناطق النبض للتمرين المتوسط (50–70%) والعالي (70–85%) حسب إرشادات جمعية القلب الأمريكية.","applicationCategory":"HealthApplication","operatingSystem":"Any","inLanguage":"ar","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}},
 {"@type":"FAQPage","mainEntity":[
-  {"@type":"Question","name":"كيف أحسب أقصى نبض؟","acceptedAnswer":{"@type":"Answer","text":"بطريقة تقديرية: 220 ناقص عمرك. شخص عمره 30 سنة أقصى نبض له تقريباً 190 نبضة بالدقيقة."}},
-  {"@type":"Question","name":"شو نبض التمرين المناسب؟","acceptedAnswer":{"@type":"Answer","text":"حسب جمعية القلب الأمريكية، الشدة المتوسطة بين 50 و70% من أقصى نبض، والعالية بين 70 و85%."}},
-  {"@type":"Question","name":"هل المعادلة دقيقة؟","acceptedAnswer":{"@type":"Answer","text":"لا، هي تقدير وبتختلف من شخص لشخص. اختبار الجهد عند الدكتور أدق."}},
-  {"@type":"Question","name":"متى لازم أوقف التمرين؟","acceptedAnswer":{"@type":"Answer","text":"إذا حسيت بألم بالصدر أو دوخة شديدة أو ضيق نفس غير طبيعي، وقف وراجع دكتور."}}
+  {"@type":"Question","name":"كيف أحسب أقصى نبض؟","acceptedAnswer":{"@type":"Answer","text":"بطريقة تقديرية: 220 ناقص عمرك. شخص عمره 30 سنة أقصى نبض له تقريباً 190 نبضة في الدقيقة."}},
+  {"@type":"Question","name":"ما هو نبض التمرين المناسب؟","acceptedAnswer":{"@type":"Answer","text":"حسب جمعية القلب الأمريكية، الشدة المتوسطة بين 50 و70% من أقصى نبض، والعالية بين 70 و85%."}},
+  {"@type":"Question","name":"هل المعادلة دقيقة؟","acceptedAnswer":{"@type":"Answer","text":"لا، هي تقدير وتختلف من شخص لآخر. اختبار الجهد عند الطبيب أدق."}},
+  {"@type":"Question","name":"متى يجب أن أوقف التمرين؟","acceptedAnswer":{"@type":"Answer","text":"إذا شعرت بألم في الصدر أو دوخة شديدة أو ضيق نفس غير طبيعي، فتوقف وراجع الطبيب."}}
 ]}
 ]}
 </script>
@@ -65,15 +65,15 @@
 
   <div class="card">
     <div class="card-icon" style="background:#fee2e2;">❤️</div>
-    <h1 class="card-title">نبض قلبك وإنت تتمرن ❤️</h1>
-    <div class="card-subtitle">دخّل عمرك، وشوف أقصى نبض تقريبي ومدى النبض للتمرين المتوسط والعالي</div>
+    <h1 class="card-title">نبض قلبك وأنت تتمرن ❤️</h1>
+    <div class="card-subtitle">أدخل عمرك، وتعرّف على أقصى نبض تقريبي ومدى النبض للتمرين المتوسط والعالي</div>
     <div class="divider"></div>
     <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:#92400e;line-height:1.7;margin-bottom:14px;">
-      ⚠️ 220 − العمر معادلة تقديرية والخطأ فيها قد يصل لعشر نبضات أو أكتر. لو عندك مرض قلب أو بتاخد أدوية للضغط أو القلب، استشر دكتورك قبل التمرين.
+      ⚠️ 220 − العمر معادلة تقديرية، وقد يصل الخطأ فيها إلى عشر نبضات أو أكثر. إذا كان لديك مرض في القلب أو تتناول أدوية للضغط أو القلب، فاستشر طبيبك قبل التمرين.
     </div>
 
     <div class="row">
-      <div><label>عمرك (سنة)</label><input type="number" inputmode="decimal" id="hA" min="10" max="100" step="1" placeholder="مثال: 30"></div>
+      <div><label>عمرك (سنة)</label><input type="text" data-num inputmode="decimal" id="hA" min="10" max="100" step="1" placeholder="مثال: 30"></div>
     </div>
 
     <div id="hErr" style="display:none;margin-top:14px;padding:10px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-sm);font-size:13px;color:#991b1b;line-height:1.7;"></div>
@@ -85,7 +85,7 @@
       </div>
       <div id="hExtra" style="margin-top:12px;"></div>
       <div style="margin-top:12px;padding:12px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;line-height:1.9;">
-        <strong>كيف طلع الرقم؟</strong><br>
+        <strong>كيف حُسب الرقم؟</strong><br>
         <span id="hExplain"></span>
       </div>
       <div style="display:flex;gap:8px;margin-top:10px;">
@@ -97,12 +97,12 @@
   </div>
 
   <div class="card" style="margin-top:16px;">
-    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">💡 كيف بتشتغل؟</h2>
+    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">💡 كيف تعمل؟</h2>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-inline-start:20px;">
       <li>أقصى نبض تقريبي = 220 − عمرك.</li>
-      <li>جمعية القلب الأمريكية بتعتبر التمرين المتوسط الشدة بين 50% و70% من أقصى نبض، والعالي الشدة بين 70% و85%.</li>
-      <li>ممكن تقيس نبضك من الرسغ أو الرقبة لمدة 15 ثانية وتضربه بـ 4، أو بساعة ذكية.</li>
-      <li>بعض أدوية الضغط والقلب بتخفض النبض، فالأرقام ما بتنطبق عليها.</li>
+      <li>تعتبر جمعية القلب الأمريكية أن التمرين متوسط الشدة بين 50% و70% من أقصى نبض، وعالي الشدة بين 70% و85%.</li>
+      <li>يمكنك قياس نبضك من الرسغ أو الرقبة لمدة 15 ثانية وضربه في 4، أو باستخدام ساعة ذكية.</li>
+      <li>بعض أدوية الضغط والقلب تخفض النبض، فلا تنطبق عليها هذه الأرقام.</li>
     </ul>
   </div>
 
@@ -110,31 +110,31 @@
     <div class="card-title" style="font-size:15px;">❓ أسئلة شائعة</div>
     <details style="margin-top:10px;">
       <summary style="font-weight:700;cursor:pointer;font-size:14px;">كيف أحسب أقصى نبض؟</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">بطريقة تقديرية: 220 ناقص عمرك. شخص عمره 30 سنة أقصى نبض له تقريباً 190 نبضة بالدقيقة.</p>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">بطريقة تقديرية: 220 ناقص عمرك. شخص عمره 30 سنة أقصى نبض له تقريباً 190 نبضة في الدقيقة.</p>
     </details>
     <details style="margin-top:10px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">شو نبض التمرين المناسب؟</summary>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">ما هو نبض التمرين المناسب؟</summary>
       <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">حسب جمعية القلب الأمريكية، الشدة المتوسطة بين 50 و70% من أقصى نبض، والعالية بين 70 و85%.</p>
     </details>
     <details style="margin-top:10px;">
       <summary style="font-weight:700;cursor:pointer;font-size:14px;">هل المعادلة دقيقة؟</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">لا، هي تقدير وبتختلف من شخص لشخص. اختبار الجهد عند الدكتور أدق.</p>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">لا، هي تقدير وتختلف من شخص لآخر. اختبار الجهد عند الطبيب أدق.</p>
     </details>
     <details style="margin-top:10px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">متى لازم أوقف التمرين؟</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">إذا حسيت بألم بالصدر أو دوخة شديدة أو ضيق نفس غير طبيعي، وقف وراجع دكتور.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">متى يجب أن أوقف التمرين؟</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">إذا شعرت بألم في الصدر أو دوخة شديدة أو ضيق نفس غير طبيعي، فتوقف وراجع الطبيب.</p>
     </details>
   </div>
 
   <div style="margin-top:16px;text-align:center;">
-    <strong>أدوات صحة ثانية:</strong>
+    <strong>أدوات صحية أخرى:</strong>
     <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
-      <a href="jo/health/water-intake/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💧 كم مي أشرب</a>
+      <a href="jo/health/water-intake/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💧 كم ماء أشرب</a>
       <a href="jo/health/pregnancy-due-date/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🤰 موعد الولادة</a>
       <a href="jo/health/ideal-weight/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚖️ الوزن المثالي</a>
       <a href="jo/health/sleep-calculator/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">😴 حاسبة النوم</a>
       <a href="bmi-calculator.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⚖️ حاسبة BMI</a>
-      <a href="diet-plan.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🥗 السعرات والدايت</a>
+      <a href="diet-plan.html" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🥗 السعرات والحمية</a>
       <a href="jo/emergency-numbers/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🚑 أرقام الطوارئ</a>
       <a href="jo/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇯🇴 كل أدوات الأردن</a>
     </div>
@@ -244,4 +244,23 @@ function hCompute() {
 </script>
 <script src="i18n-lang-ar.js?v=3" defer></script>
 <script src="i18n.js?v=64" defer></script>
+<script>
+(function () {
+  function fix(s) {
+    s = s.replace(/[\u0660-\u0669]/g, function (d) { return d.charCodeAt(0) - 1632; })
+         .replace(/[\u06F0-\u06F9]/g, function (d) { return d.charCodeAt(0) - 1776; })
+         .replace(/[\u066B\u060C]/g, '.')
+         .replace(/,(?=\d{1,2}$)/, '.').replace(/,/g, '');
+    return s.replace(/[^0-9.\-]/g, '');
+  }
+  function h(e) {
+    var t = e.target;
+    if (!t || t.tagName !== 'INPUT' || !t.hasAttribute('data-num')) return;
+    var v = fix(t.value);
+    if (v !== t.value) t.value = v;
+  }
+  document.addEventListener('input', h, true);
+  document.addEventListener('change', h, true);
+})();
+</script>
 </body></html>

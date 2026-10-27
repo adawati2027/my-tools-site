@@ -67,24 +67,24 @@
       <div>
         <h3 style="font-size:14px;color:#16a34a;margin-bottom:8px;">🇯🇴 الأردن</h3>
         <label>الراتب الشهري (دينار)</label>
-        <input type="number" inputmode="decimal" id="joSalary" placeholder="0.000" min="0" step="any">
+        <input type="text" data-num inputmode="decimal" id="joSalary" placeholder="0.000" min="0" step="any">
         <label style="margin-top:8px;display:block;">الإيجار الشهري</label>
-        <input type="number" inputmode="decimal" id="joRent" placeholder="0.000" min="0" step="any">
+        <input type="text" data-num inputmode="decimal" id="joRent" placeholder="0.000" min="0" step="any">
         <label style="margin-top:8px;display:block;">المواصلات الشهرية</label>
-        <input type="number" inputmode="decimal" id="joTransport" placeholder="0.000" min="0" step="any">
+        <input type="text" data-num inputmode="decimal" id="joTransport" placeholder="0.000" min="0" step="any">
         <label style="margin-top:8px;display:block;">مصاريف أخرى شهرية</label>
-        <input type="number" inputmode="decimal" id="joOther" placeholder="0.000" min="0" step="any">
+        <input type="text" data-num inputmode="decimal" id="joOther" placeholder="0.000" min="0" step="any">
       </div>
       <div>
         <h3 style="font-size:14px;color:#2563eb;margin-bottom:8px;">🌍 الخليج (بالدينار بعد التحويل)</h3>
         <label>الراتب الشهري (دينار)</label>
-        <input type="number" inputmode="decimal" id="gulfSalary" placeholder="0.000" min="0" step="any">
+        <input type="text" data-num inputmode="decimal" id="gulfSalary" placeholder="0.000" min="0" step="any">
         <label style="margin-top:8px;display:block;">الإيجار الشهري</label>
-        <input type="number" inputmode="decimal" id="gulfRent" placeholder="0.000" min="0" step="any">
+        <input type="text" data-num inputmode="decimal" id="gulfRent" placeholder="0.000" min="0" step="any">
         <label style="margin-top:8px;display:block;">المواصلات الشهرية</label>
-        <input type="number" inputmode="decimal" id="gulfTransport" placeholder="0.000" min="0" step="any">
+        <input type="text" data-num inputmode="decimal" id="gulfTransport" placeholder="0.000" min="0" step="any">
         <label style="margin-top:8px;display:block;">مصاريف أخرى شهرية</label>
-        <input type="number" inputmode="decimal" id="gulfOther" placeholder="0.000" min="0" step="any">
+        <input type="text" data-num inputmode="decimal" id="gulfOther" placeholder="0.000" min="0" step="any">
       </div>
     </div>
 
@@ -217,4 +217,23 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script src="i18n-lang-ar.js?v=3" defer></script>
 <script src="i18n.js?v=63" defer></script>
+<script>
+(function () {
+  function fix(s) {
+    s = s.replace(/[\u0660-\u0669]/g, function (d) { return d.charCodeAt(0) - 1632; })
+         .replace(/[\u06F0-\u06F9]/g, function (d) { return d.charCodeAt(0) - 1776; })
+         .replace(/[\u066B\u060C]/g, '.')
+         .replace(/,(?=\d{1,2}$)/, '.').replace(/,/g, '');
+    return s.replace(/[^0-9.\-]/g, '');
+  }
+  function h(e) {
+    var t = e.target;
+    if (!t || t.tagName !== 'INPUT' || !t.hasAttribute('data-num')) return;
+    var v = fix(t.value);
+    if (v !== t.value) t.value = v;
+  }
+  document.addEventListener('input', h, true);
+  document.addEventListener('change', h, true);
+})();
+</script>
 </body></html>

@@ -79,8 +79,8 @@
   <div class="card" style="margin-top:16px;">
     <div class="card-title" style="font-size:15px;">🧮 حاسبة تكلفة الوقود لرحلتك</div>
     <div class="row" style="margin-top:10px;">
-      <div><label>المسافة (كم)</label><input type="number" inputmode="decimal" id="distance" placeholder="مثال: 100" min="0" step="any" ></div>
-      <div><label>استهلاك السيارة (لتر/100كم)</label><input type="number" inputmode="decimal" id="consumption" placeholder="مثال: 8" min="0" step="any" ></div>
+      <div><label>المسافة (كم)</label><input type="text" data-num inputmode="decimal" id="distance" placeholder="مثال: 100" min="0" step="any" ></div>
+      <div><label>استهلاك السيارة (لتر/100كم)</label><input type="text" data-num inputmode="decimal" id="consumption" placeholder="مثال: 8" min="0" step="any" ></div>
     </div>
     <label>نوع الوقود</label>
     <select id="fuelType" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
@@ -180,5 +180,24 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('consumption')?.addEventListener('input', calcTrip);
   document.getElementById('fuelType')?.addEventListener('change', calcTrip);
 });
+</script>
+<script>
+(function () {
+  function fix(s) {
+    s = s.replace(/[\u0660-\u0669]/g, function (d) { return d.charCodeAt(0) - 1632; })
+         .replace(/[\u06F0-\u06F9]/g, function (d) { return d.charCodeAt(0) - 1776; })
+         .replace(/[\u066B\u060C]/g, '.')
+         .replace(/,(?=\d{1,2}$)/, '.').replace(/,/g, '');
+    return s.replace(/[^0-9.\-]/g, '');
+  }
+  function h(e) {
+    var t = e.target;
+    if (!t || t.tagName !== 'INPUT' || !t.hasAttribute('data-num')) return;
+    var v = fix(t.value);
+    if (v !== t.value) t.value = v;
+  }
+  document.addEventListener('input', h, true);
+  document.addEventListener('change', h, true);
+})();
 </script>
 </body></html>

@@ -43,9 +43,9 @@
 {"@type":"WebApplication","name":"حاسبة كلفة بنزين الرحلة","url":"https://adawati.space/jo/calculators/fuel-trip-cost/","description":"احسب كلفة البنزين لأي رحلة حسب المسافة وصرف السيارة وسعر اللتر، وقسّمها على الركاب. أداة تقديرية.","applicationCategory":"FinanceApplication","operatingSystem":"Any","inLanguage":"ar","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}},
 {"@type":"FAQPage","mainEntity":[
   {"@type":"Question","name":"كيف أحسب كلفة البنزين لرحلة؟","acceptedAnswer":{"@type":"Answer","text":"عدد اللترات = المسافة × الصرف ÷ 100، والكلفة = اللترات × سعر اللتر."}},
-  {"@type":"Question","name":"كيف أعرف صرف سيارتي؟","acceptedAnswer":{"@type":"Answer","text":"عبّي تنك كامل، سوق، وعبّي تنك كامل مرة ثانية. اللترات ÷ الكيلومترات × 100 هي الصرف."}},
-  {"@type":"Question","name":"ليش الكلفة الفعلية أعلى؟","acceptedAnswer":{"@type":"Answer","text":"التكييف والحمولة والسرعة العالية والطلعات بتزود الصرف عن الرقم المعلن."}},
-  {"@type":"Question","name":"هل بتحسب كلفة السيارة كاملة؟","acceptedAnswer":{"@type":"Answer","text":"لا، بس البنزين. للكلفة الكاملة جرب حاسبة كم بكلفني عندي سيارة."}}
+  {"@type":"Question","name":"كيف أعرف صرف سيارتي؟","acceptedAnswer":{"@type":"Answer","text":"املأ الخزان بالكامل، وقُد السيارة، ثم املأه بالكامل مرة أخرى. اللترات ÷ الكيلومترات × 100 هي الصرف."}},
+  {"@type":"Question","name":"لماذا تكون الكلفة الفعلية أعلى؟","acceptedAnswer":{"@type":"Answer","text":"التكييف والحمولة والسرعة العالية والطلعات ترفع الصرف عن الرقم المعلن."}},
+  {"@type":"Question","name":"هل تحسب الأداة كلفة السيارة كاملة؟","acceptedAnswer":{"@type":"Answer","text":"لا، البنزين فقط. للكلفة الكاملة جرّب حاسبة كلفة امتلاك سيارة."}}
 ]}
 ]}
 </script>
@@ -65,20 +65,20 @@
 
   <div class="card">
     <div class="card-icon" style="background:#fee2e2;">⛽</div>
-    <h1 class="card-title">كم بكلفني بنزين الرحلة؟ ⛽</h1>
-    <div class="card-subtitle">دخّل المسافة وصرف سيارتك وسعر اللتر، وشوف الكلفة وكم على كل راكب</div>
+    <h1 class="card-title">كم تبلغ كلفة بنزين الرحلة؟ ⛽</h1>
+    <div class="card-subtitle">أدخل المسافة وصرف سيارتك وسعر اللتر، وانظر الكلفة وحصة كل راكب</div>
     <div class="divider"></div>
     <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:#92400e;line-height:1.7;margin-bottom:14px;">
-      ⚠️ أداة تقديرية. صرف سيارتك الفعلي بيتغير مع السرعة والتكييف والحمولة والطريق. سعر اللتر بتدخله إنت، شوفه من صفحة أسعار المحروقات.
+      ⚠️ أداة تقديرية. يتغير صرف سيارتك الفعلي مع السرعة والتكييف والحمولة والطريق. سعر اللتر تدخله أنت، فاطّلع عليه من صفحة أسعار المحروقات.
     </div>
 
     <div class="row">
-      <div><label>المسافة (كم)</label><input type="number" inputmode="decimal" id="hKm" min="0" step="any" placeholder="مثال: 330"></div>
-      <div><label>صرف سيارتك (لتر / 100 كم)</label><input type="number" inputmode="decimal" id="hC" min="0" step="any" placeholder="مثال: 8"></div>
+      <div><label>المسافة (كم)</label><input type="text" data-num inputmode="decimal" id="hKm" min="0" step="any" placeholder="مثال: 330"></div>
+      <div><label>صرف سيارتك (لتر / 100 كم)</label><input type="text" data-num inputmode="decimal" id="hC" min="0" step="any" placeholder="مثال: 8"></div>
     </div>
     <div class="row" style="margin-top:10px;">
-      <div><label>سعر اللتر (دينار)</label><input type="number" inputmode="decimal" id="hPr" min="0" step="any" placeholder="شوفه من أسعار المحروقات"></div>
-      <div><label>عدد الركاب (مع السايق)</label><input type="number" inputmode="decimal" id="hN" min="0" step="any" placeholder="1"></div>
+      <div><label>سعر اللتر (دينار)</label><input type="text" data-num inputmode="decimal" id="hPr" min="0" step="any" placeholder="راجع أسعار المحروقات"></div>
+      <div><label>عدد الركاب (مع السائق)</label><input type="text" data-num inputmode="decimal" id="hN" min="0" step="any" placeholder="1"></div>
     </div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;" id="hRt"><button type="button" class="option-btn active" data-v="1">ذهاب فقط</button><button type="button" class="option-btn" data-v="2">ذهاب وعودة</button></div>
 
@@ -91,7 +91,7 @@
       </div>
       <div id="hExtra" style="margin-top:12px;"></div>
       <div style="margin-top:12px;padding:12px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;line-height:1.9;">
-        <strong>كيف طلع الرقم؟</strong><br>
+        <strong>كيف حُسب الرقم؟</strong><br>
         <span id="hExplain"></span>
       </div>
       <div style="display:flex;gap:8px;margin-top:10px;">
@@ -103,12 +103,12 @@
   </div>
 
   <div class="card" style="margin-top:16px;">
-    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">💡 كيف بتقدر صرف سيارتك؟</h2>
+    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">💡 كيف تقدّر صرف سيارتك؟</h2>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-inline-start:20px;">
-      <li>عبّي التنك للآخر، سجل عداد الكيلومترات، سوق واستهلك تقريباً نص تنك، عبّي للآخر مرة ثانية وسجل عدد اللترات.</li>
+      <li>املأ الخزان حتى النهاية، وسجّل قراءة عداد الكيلومترات، ثم قُد السيارة واستهلك نحو نصف خزان، ثم املأه حتى النهاية مرة أخرى وسجّل عدد اللترات.</li>
       <li>الصرف = اللترات ÷ الكيلومترات × 100.</li>
-      <li>السواقة على الطريق السريع بسرعة ثابتة بتصرف أقل من داخل المدينة، والتكييف والحمولة بيزودوا الصرف.</li>
-      <li>سعر اللتر بيتغير شهرياً، شوفه من <a href="jo/fuel-prices/">أسعار المحروقات بالأردن</a>.</li>
+      <li>القيادة على الطريق السريع بسرعة ثابتة تستهلك أقل من داخل المدينة، والتكييف والحمولة يزيدان الصرف.</li>
+      <li>سعر اللتر يتغير شهرياً، راجعه من <a href="jo/fuel-prices/">أسعار المحروقات بالأردن</a>.</li>
     </ul>
   </div>
 
@@ -120,20 +120,20 @@
     </details>
     <details style="margin-top:10px;">
       <summary style="font-weight:700;cursor:pointer;font-size:14px;">كيف أعرف صرف سيارتي؟</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">عبّي تنك كامل، سوق، وعبّي تنك كامل مرة ثانية. اللترات ÷ الكيلومترات × 100 هي الصرف.</p>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">املأ الخزان بالكامل، وقُد السيارة، ثم املأه بالكامل مرة أخرى. اللترات ÷ الكيلومترات × 100 هي الصرف.</p>
     </details>
     <details style="margin-top:10px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">ليش الكلفة الفعلية أعلى؟</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">التكييف والحمولة والسرعة العالية والطلعات بتزود الصرف عن الرقم المعلن.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">لماذا تكون الكلفة الفعلية أعلى؟</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">التكييف والحمولة والسرعة العالية والطلعات ترفع الصرف عن الرقم المعلن.</p>
     </details>
     <details style="margin-top:10px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;">هل بتحسب كلفة السيارة كاملة؟</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">لا، بس البنزين. للكلفة الكاملة جرب حاسبة كم بكلفني عندي سيارة.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">هل تحسب الأداة كلفة السيارة كاملة؟</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">لا، البنزين فقط. للكلفة الكاملة جرّب حاسبة كلفة امتلاك سيارة.</p>
     </details>
   </div>
 
   <div style="margin-top:16px;text-align:center;">
-    <strong>أدوات ثانية ممكن تفيدك:</strong>
+    <strong>أدوات أخرى قد تفيدك:</strong>
     <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
       <a href="jo/fuel-prices/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">⛽ أسعار المحروقات</a>
       <a href="jo/calculators/car-cost/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🚘 كلفة امتلاك سيارة</a>
@@ -247,4 +247,23 @@ function hCompute() {
 </script>
 <script src="i18n-lang-ar.js?v=3" defer></script>
 <script src="i18n.js?v=64" defer></script>
+<script>
+(function () {
+  function fix(s) {
+    s = s.replace(/[\u0660-\u0669]/g, function (d) { return d.charCodeAt(0) - 1632; })
+         .replace(/[\u06F0-\u06F9]/g, function (d) { return d.charCodeAt(0) - 1776; })
+         .replace(/[\u066B\u060C]/g, '.')
+         .replace(/,(?=\d{1,2}$)/, '.').replace(/,/g, '');
+    return s.replace(/[^0-9.\-]/g, '');
+  }
+  function h(e) {
+    var t = e.target;
+    if (!t || t.tagName !== 'INPUT' || !t.hasAttribute('data-num')) return;
+    var v = fix(t.value);
+    if (v !== t.value) t.value = v;
+  }
+  document.addEventListener('input', h, true);
+  document.addEventListener('change', h, true);
+})();
+</script>
 </body></html>

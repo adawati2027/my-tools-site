@@ -77,12 +77,12 @@
     <div id="parallelHint" style="display:none;font-size:12px;color:#92400e;background:#fef3c7;border-radius:8px;padding:8px 10px;margin-bottom:14px;line-height:1.6;">⚠️ سعر الساعة بالبرنامج الموازي أعلى بشكل ملحوظ من العادي بنفس الجامعة والتخصص (بس الفرق مختلف من جامعة لثانية) — تأكد تاخذ سعر الساعة الخاص بالموازي تحديداً من الجامعة، مش سعر العادي.</div>
 
     <div class="row">
-      <div><label>سعر الساعة المعتمدة (دينار)</label><input type="number" inputmode="decimal" id="hourPrice" placeholder="مثال: 25" min="0" step="any"></div>
-      <div><label>عدد الساعات الكلية للتخصص</label><input type="number" inputmode="decimal" id="totalHours" placeholder="مثال: 132" min="0" step="1"></div>
+      <div><label>سعر الساعة المعتمدة (دينار)</label><input type="text" data-num inputmode="decimal" id="hourPrice" placeholder="مثال: 25" min="0" step="any"></div>
+      <div><label>عدد الساعات الكلية للتخصص</label><input type="text" data-num inputmode="decimal" id="totalHours" placeholder="مثال: 132" min="0" step="1"></div>
     </div>
     <div class="row">
-      <div><label>المدة المتوقعة للتخرج (سنوات)</label><input type="number" inputmode="decimal" id="years" placeholder="مثال: 4" min="0" step="any"></div>
-      <div><label>مصاريف سنوية أخرى (مواصلات + سكن + كتب)</label><input type="number" inputmode="decimal" id="annualOther" placeholder="مثال: 1500" min="0" step="any"></div>
+      <div><label>المدة المتوقعة للتخرج (سنوات)</label><input type="text" data-num inputmode="decimal" id="years" placeholder="مثال: 4" min="0" step="any"></div>
+      <div><label>مصاريف سنوية أخرى (مواصلات + سكن + كتب)</label><input type="text" data-num inputmode="decimal" id="annualOther" placeholder="مثال: 1500" min="0" step="any"></div>
     </div>
 
     <div id="costResult" style="display:none;margin-top:20px;">
@@ -251,4 +251,23 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script src="i18n-lang-ar.js?v=3" defer></script>
 <script src="i18n.js?v=63" defer></script>
+<script>
+(function () {
+  function fix(s) {
+    s = s.replace(/[\u0660-\u0669]/g, function (d) { return d.charCodeAt(0) - 1632; })
+         .replace(/[\u06F0-\u06F9]/g, function (d) { return d.charCodeAt(0) - 1776; })
+         .replace(/[\u066B\u060C]/g, '.')
+         .replace(/,(?=\d{1,2}$)/, '.').replace(/,/g, '');
+    return s.replace(/[^0-9.\-]/g, '');
+  }
+  function h(e) {
+    var t = e.target;
+    if (!t || t.tagName !== 'INPUT' || !t.hasAttribute('data-num')) return;
+    var v = fix(t.value);
+    if (v !== t.value) t.value = v;
+  }
+  document.addEventListener('input', h, true);
+  document.addEventListener('change', h, true);
+})();
+</script>
 </body></html>

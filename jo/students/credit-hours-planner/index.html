@@ -82,17 +82,17 @@
       <button class="option-btn" data-s="100">من 100</button>
     </div>
     <div class="hp-grid" style="margin-top:12px;">
-      <div><label for="hpGpa">معدلك التراكمي الحالي</label><input type="number" id="hpGpa" inputmode="decimal" step="0.01" placeholder="مثال: 2.39"></div>
-      <div><label for="hpDone">الساعات اللي خلصتها</label><input type="number" id="hpDone" inputmode="numeric" min="0" placeholder="مثال: 66"></div>
-      <div><label for="hpLeft">الساعات الضايلة عليك</label><input type="number" id="hpLeft" inputmode="numeric" min="1" placeholder="مثال: 79"></div>
-      <div><label for="hpExp">معدلك الفصلي المتوقع (بفصل مريح)</label><input type="number" id="hpExp" inputmode="decimal" step="0.01" placeholder="مثال: 3.0"></div>
-      <div><label for="hpTarget">المعدل اللي بدك توصله (اختياري)</label><input type="number" id="hpTarget" inputmode="decimal" step="0.01" placeholder="مثال: 2.75"></div>
+      <div><label for="hpGpa">معدلك التراكمي الحالي</label><input type="text" data-num id="hpGpa" inputmode="decimal" step="0.01" placeholder="مثال: 2.39"></div>
+      <div><label for="hpDone">الساعات اللي خلصتها</label><input type="text" data-num id="hpDone" inputmode="numeric" min="0" placeholder="مثال: 66"></div>
+      <div><label for="hpLeft">الساعات الضايلة عليك</label><input type="text" data-num id="hpLeft" inputmode="numeric" min="1" placeholder="مثال: 79"></div>
+      <div><label for="hpExp">معدلك الفصلي المتوقع (بفصل مريح)</label><input type="text" data-num id="hpExp" inputmode="decimal" step="0.01" placeholder="مثال: 3.0"></div>
+      <div><label for="hpTarget">المعدل اللي بدك توصله (اختياري)</label><input type="text" data-num id="hpTarget" inputmode="decimal" step="0.01" placeholder="مثال: 2.75"></div>
       <div><label for="hpNext">الفصل الجاي</label><select id="hpNext"><option value="1">الفصل الأول</option><option value="2">الفصل الثاني</option><option value="s">الفصل الصيفي</option></select></div>
     </div>
     <label style="display:flex;align-items:center;gap:8px;margin-top:12px;cursor:pointer;"><input type="checkbox" id="hpSummer" checked style="width:auto;margin:0;"> بقدر أنزل فصول صيفية</label>
     <details style="margin-top:10px;">
       <summary style="font-weight:700;cursor:pointer;font-size:13px;">⚙️ قديش الفصل الثقيل بيأثر عليك؟</summary>
-      <div style="margin-top:8px;"><label for="hpPen">كل ساعة فوق 15 بتنزّل معدلك الفصلي تقريباً</label><input type="number" id="hpPen" inputmode="decimal" step="0.01" value="0.05"></div>
+      <div style="margin-top:8px;"><label for="hpPen">كل ساعة فوق 15 بتنزّل معدلك الفصلي تقريباً</label><input type="text" data-num id="hpPen" inputmode="decimal" step="0.01" value="0.05"></div>
       <p class="hp-note" style="margin-top:6px;">هاد تقديرك إنت — حطّه 0 إذا الفصل الثقيل ما بيأثر عليك. القيمة الافتراضية 0.05 من 4 (أو 1 من 100).</p>
     </details>
     <button type="button" id="hpGo" class="btn btn-primary" style="width:100%;margin-top:14px;padding:14px;font-size:16px;">قسّملي ساعاتي 🚀</button>
@@ -279,5 +279,24 @@
 </script>
 <script src="i18n-lang-ar.js?v=3" defer></script>
 <script src="i18n.js?v=63" defer></script>
+<script>
+(function () {
+  function fix(s) {
+    s = s.replace(/[\u0660-\u0669]/g, function (d) { return d.charCodeAt(0) - 1632; })
+         .replace(/[\u06F0-\u06F9]/g, function (d) { return d.charCodeAt(0) - 1776; })
+         .replace(/[\u066B\u060C]/g, '.')
+         .replace(/,(?=\d{1,2}$)/, '.').replace(/,/g, '');
+    return s.replace(/[^0-9.\-]/g, '');
+  }
+  function h(e) {
+    var t = e.target;
+    if (!t || t.tagName !== 'INPUT' || !t.hasAttribute('data-num')) return;
+    var v = fix(t.value);
+    if (v !== t.value) t.value = v;
+  }
+  document.addEventListener('input', h, true);
+  document.addEventListener('change', h, true);
+})();
+</script>
 </body>
 </html>

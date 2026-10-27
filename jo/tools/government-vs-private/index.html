@@ -67,20 +67,20 @@
       <div>
         <h3 style="font-size:14px;color:#16a34a;margin-bottom:8px;">🏛️ الوظيفة الحكومية</h3>
         <label>الراتب الشهري الصافي (دينار)</label>
-        <input type="number" inputmode="decimal" id="govSalary" placeholder="0.000" min="0" step="any">
+        <input type="text" data-num inputmode="decimal" id="govSalary" placeholder="0.000" min="0" step="any">
         <label style="margin-top:8px;display:block;">ساعات العمل بالأسبوع</label>
-        <input type="number" inputmode="decimal" id="govHours" placeholder="مثال: 35" min="0" step="any">
+        <input type="text" data-num inputmode="decimal" id="govHours" placeholder="مثال: 35" min="0" step="any">
         <label style="margin-top:8px;display:block;">أيام الإجازة السنوية</label>
-        <input type="number" inputmode="decimal" id="govVacation" placeholder="مثال: 30" min="0" step="any">
+        <input type="text" data-num inputmode="decimal" id="govVacation" placeholder="مثال: 30" min="0" step="any">
       </div>
       <div>
         <h3 style="font-size:14px;color:#2563eb;margin-bottom:8px;">🏢 الوظيفة الخاصة</h3>
         <label>الراتب الشهري الصافي (دينار)</label>
-        <input type="number" inputmode="decimal" id="privSalary" placeholder="0.000" min="0" step="any">
+        <input type="text" data-num inputmode="decimal" id="privSalary" placeholder="0.000" min="0" step="any">
         <label style="margin-top:8px;display:block;">ساعات العمل بالأسبوع</label>
-        <input type="number" inputmode="decimal" id="privHours" placeholder="مثال: 45" min="0" step="any">
+        <input type="text" data-num inputmode="decimal" id="privHours" placeholder="مثال: 45" min="0" step="any">
         <label style="margin-top:8px;display:block;">أيام الإجازة السنوية</label>
-        <input type="number" inputmode="decimal" id="privVacation" placeholder="مثال: 14" min="0" step="any">
+        <input type="text" data-num inputmode="decimal" id="privVacation" placeholder="مثال: 14" min="0" step="any">
       </div>
     </div>
 
@@ -223,4 +223,23 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script src="i18n-lang-ar.js?v=3" defer></script>
 <script src="i18n.js?v=63" defer></script>
+<script>
+(function () {
+  function fix(s) {
+    s = s.replace(/[\u0660-\u0669]/g, function (d) { return d.charCodeAt(0) - 1632; })
+         .replace(/[\u06F0-\u06F9]/g, function (d) { return d.charCodeAt(0) - 1776; })
+         .replace(/[\u066B\u060C]/g, '.')
+         .replace(/,(?=\d{1,2}$)/, '.').replace(/,/g, '');
+    return s.replace(/[^0-9.\-]/g, '');
+  }
+  function h(e) {
+    var t = e.target;
+    if (!t || t.tagName !== 'INPUT' || !t.hasAttribute('data-num')) return;
+    var v = fix(t.value);
+    if (v !== t.value) t.value = v;
+  }
+  document.addEventListener('input', h, true);
+  document.addEventListener('change', h, true);
+})();
+</script>
 </body></html>

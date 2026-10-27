@@ -68,12 +68,12 @@
     <div class="divider"></div>
 
     <label>إجمالي النقد والمدخرات (دينار)</label>
-    <input type="number" inputmode="decimal" id="cash" placeholder="0.000" min="0" step="any">
+    <input type="text" data-num inputmode="decimal" id="cash" placeholder="0.000" min="0" step="any">
 
     <div class="divider"></div>
     <label style="font-weight:700;">🪙 الذهب اللي تملكه</label>
     <div class="row" style="margin-top:8px;">
-      <div><label>كم غرام ذهب عندك؟</label><input type="number" inputmode="decimal" id="goldGrams" placeholder="0" min="0" step="any"></div>
+      <div><label>كم غرام ذهب عندك؟</label><input type="text" data-num inputmode="decimal" id="goldGrams" placeholder="0" min="0" step="any"></div>
       <div><label>عيار الذهب</label>
         <select id="goldKarat" style="width:100%;padding:10px;font-size:15px;border:1px solid var(--border);border-radius:8px;">
           <option value="24">24 (خالص)</option>
@@ -88,9 +88,9 @@
 
     <div class="divider"></div>
     <label>قيمة استثمارات أو تجارة قابلة للتسييل (اختياري)</label>
-    <input type="number" inputmode="decimal" id="investments" placeholder="0.000" min="0" step="any">
+    <input type="text" data-num inputmode="decimal" id="investments" placeholder="0.000" min="0" step="any">
     <label style="margin-top:8px;display:block;">ديون مستحقة عليك تُخصم (اختياري)</label>
-    <input type="number" inputmode="decimal" id="debts" placeholder="0.000" min="0" step="any">
+    <input type="text" data-num inputmode="decimal" id="debts" placeholder="0.000" min="0" step="any">
 
     <div id="zakatResult" style="display:none;margin-top:20px;"></div>
   </div>
@@ -337,4 +337,23 @@ fetchGoldPrice();
 <script src="i18n-lang-ar.js?v=3" defer></script>
 <script src="i18n.js?v=63" defer></script>
 <script src="jo-share.js?v=5" defer></script>
+<script>
+(function () {
+  function fix(s) {
+    s = s.replace(/[\u0660-\u0669]/g, function (d) { return d.charCodeAt(0) - 1632; })
+         .replace(/[\u06F0-\u06F9]/g, function (d) { return d.charCodeAt(0) - 1776; })
+         .replace(/[\u066B\u060C]/g, '.')
+         .replace(/,(?=\d{1,2}$)/, '.').replace(/,/g, '');
+    return s.replace(/[^0-9.\-]/g, '');
+  }
+  function h(e) {
+    var t = e.target;
+    if (!t || t.tagName !== 'INPUT' || !t.hasAttribute('data-num')) return;
+    var v = fix(t.value);
+    if (v !== t.value) t.value = v;
+  }
+  document.addEventListener('input', h, true);
+  document.addEventListener('change', h, true);
+})();
+</script>
 </body></html>
