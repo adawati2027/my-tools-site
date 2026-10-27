@@ -109,6 +109,7 @@
         <button type="button" id="hCopyBtn" style="flex:1;padding:11px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;cursor:pointer;">📋 انسخ النتيجة</button>
         <button type="button" id="hShareBtn" style="flex:1;padding:11px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;cursor:pointer;">🔗 شارك</button>
       </div>
+      <button type="button" id="hExpBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
     </div>
   </div>
 
@@ -190,8 +191,37 @@ function hChips(id, cb) {
   });
 }
 function hStat(val, lbl) { return '<div class="stat-box"><div class="stat-val">' + val + '</div><div class="stat-lbl">' + lbl + '</div></div>'; }
+function hClean(s) { return (s || '').replace(/[^\u0600-\u06FF\w\s()%\/.\-،؟?:]/gu, '').replace(/\s+/g, ' ').trim(); }
+function hExport() {
+  if (!hLast || hLast.err || typeof exportResultImage !== 'function') return;
+  const rows = [];
+  document.querySelectorAll('input, select, .option-btn.active').forEach(function (el) {
+    if (el.classList.contains('option-btn')) {
+      const t = el.parentElement.previousElementSibling;
+      rows.push({ label: t && t.classList.contains('card-title') ? hClean(t.textContent) : 'الاختيار', value: hClean(el.textContent) });
+    } else {
+      const v = el.tagName === 'SELECT' ? (el.selectedOptions[0] || {}).textContent : el.value;
+      const l = el.parentElement.querySelector('label');
+      if (v && l) {
+        let lab = hClean(l.textContent);
+        if (rows.some(function (r) { return r.label === lab; })) {
+          let sec = null;
+          document.querySelectorAll('.card-title:not(h1)').forEach(function (t) { if (t.compareDocumentPosition(el) & 4) sec = t; });
+          if (sec) lab = hClean(sec.textContent) + ' - ' + lab;
+        }
+        rows.push({ label: lab, value: hClean(String(v)) || String(v) });
+      }
+    }
+  });
+  document.querySelectorAll('#hExtra .stat-box').forEach(function (b) {
+    rows.push({ label: hClean(b.querySelector('.stat-lbl').textContent), value: b.querySelector('.stat-val').textContent.trim() });
+  });
+  rows.push({ label: hClean(document.getElementById('hLbl').textContent), value: document.getElementById('hMain').textContent, highlight: true });
+  exportResultImage(hClean(document.querySelector('h1').textContent), rows);
+}
 document.addEventListener('DOMContentLoaded', function () {
   hInit();
+  document.getElementById('hExpBtn').addEventListener('click', hExport);
   document.querySelectorAll('input').forEach(function (i) { i.addEventListener('input', calc); i.addEventListener('change', calc); });
   document.getElementById('hCopyBtn').addEventListener('click', function () {
     const b = this, txt = hShareText();
