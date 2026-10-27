@@ -228,6 +228,10 @@ function calc() {
       '<div class="stat-box" style="background:#fefce8;"><div class="stat-val" style="color:#ca8a04;">' + totalNoShip.toFixed(3) + '</div><div class="stat-lbl">الإجمالي (قيمة + رسم)</div></div>' +
       '<div class="stat-box" style="background:#f0fdf4;"><div class="stat-val" style="color:#16a34a;">' + totalWithShip.toFixed(3) + '</div><div class="stat-lbl">الإجمالي مع الشحن</div></div>' +
     '</div>' +
+    '<div style="margin-top:12px;padding:12px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;line-height:1.9;"><b>كيف طلعت نتيجتك؟</b><br>' +
+      (curMode === 'usd' ? 'قيمة الطرد = ' + rawValue + ' $ × ' + USD_TO_JOD + ' = ' + valueJod.toFixed(3) + ' د.أ<br>' : '') +
+      'الرسم = ' + valueJod.toFixed(3) + ' × 16% = ' + (valueJod * 0.16).toFixed(3) + (valueJod * 0.16 < 5 ? '، وهو أقل من الحد الأدنى 5 فانحسب 5 دنانير' : '') + ' → <b>' + fee.toFixed(3) + '</b> د.أ<br>' +
+      'الإجمالي = ' + valueJod.toFixed(3) + ' + ' + fee.toFixed(3) + ' = ' + totalNoShip.toFixed(3) + (shipJod ? '، ومع الشحن ' + shipJod.toFixed(3) + ' = ' + totalWithShip.toFixed(3) : '') + ' د.أ</div>' +
     '<p style="margin-top:10px;font-size:12px;color:var(--text-muted);">⚠️ تقدير مبدئي وليس ملزماً — الرسم الفعلي قد يختلف حسب نوع السلعة، تصنيفها الجمركي، وأي إعفاءات مطبّقة على شحنتك أو حسابك.</p>' +
     '<button id="pkgExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>';
   result.style.display = 'block';

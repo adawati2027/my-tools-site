@@ -103,6 +103,7 @@
         </div>
       </div>
       <div style="margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2;" id="breakdown"></div>
+      <div id="weddingExplain" style="margin-top:10px;font-size:13px;line-height:1.9;color:var(--text-muted);"></div>
       <button id="weddingExportBtn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;">📸 صدّر النتيجة كصورة</button>
     </div>
   </div>
@@ -184,6 +185,9 @@ function calc() {
     (other ? 'أخرى: <strong>' + other.toFixed(3) + ' د.أ</strong><br>' : '') +
     'الإجمالي: <strong style="color:var(--primary);font-size:16px;">' + total.toFixed(3) + ' د.أ</strong>';
 
+  document.getElementById('weddingExplain').innerHTML = '<b>كيف طلعت نتيجتك؟</b><br>الإجمالي = مجموع البنود اللي دخلتها فقط، يعني أي بند تركته فاضي ما انحسب.' +
+    (months > 0 ? '<br>المبلغ الشهري = ' + total.toFixed(3) + ' ÷ ' + months + ' شهر = <b>' + (total / months).toFixed(3) + '</b> د.أ (بدون أي ربح أو فوائد على المدخرات).' : '') +
+    '<br>الأرقام من إدخالك إنت، وأسعار القاعات والذهب بتختلف من مكان لمكان.';
   const monthlyBox = document.getElementById('monthlyBox');
   if (months > 0) {
     document.getElementById('monthlySaving').textContent = (total / months).toFixed(3) + ' د.أ';
