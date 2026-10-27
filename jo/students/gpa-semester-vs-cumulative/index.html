@@ -15,7 +15,7 @@
 <meta name="theme-color" content="#2563eb">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>الفرق بين المعدل الفصلي والتراكمي + حاسبة | Adawati</title>
-<meta name="description" content="شو الفرق بين المعدل الفصلي والمعدل التراكمي؟ دخّل معدل كل فصل وساعاته وشوف تراكمي كل فصل، والفرق بينه وبين المتوسط البسيط. مجانية وبدون تسجيل.">
+<meta name="description" content="شو الفرق بين المعدل الفصلي والمعدل التراكمي؟ دخّل معدل كل فصل (أول، ثاني، صيفي) وساعاته وشوف تراكمي كل فصل، والفرق بينه وبين المتوسط البسيط. مجانية وبدون تسجيل.">
 <meta name="keywords" content="الفرق بين المعدل الفصلي والتراكمي, المعدل الفصلي, المعدل التراكمي, حساب المعدل التراكمي, معدل الفصل مقابل التراكمي, حاسبة المعدل الجامعة الأردن">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://adawati.space/jo/students/gpa-semester-vs-cumulative/">
@@ -66,7 +66,7 @@
     </div>
 
     <div id="svRows"></div>
-    <button type="button" id="svAdd" class="option-btn" style="margin-top:8px;">➕ أضف فصل</button>
+    <button type="button" id="svAdd" class="option-btn" style="margin-top:8px;">➕ أضف السنة الثانية</button>
     <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">💡 الحساب بنفس السلم اللي بتدخله (من 4.0 أو 4.2 أو من 100)، بس دخّل كل الفصول بنفس السلم.</p>
 
     <div id="svResult" style="display:none;margin-top:20px;">
@@ -162,21 +162,31 @@
 
 <script>
 let svLast = null;
-const SV_MAX = 12;
+const SV_YEARS = 6;
+const SV_YN = ["الأولى","الثانية","الثالثة","الرابعة","الخامسة","السادسة"];
+const SV_SEM = ["الفصل الأول","الفصل الثاني","الفصل الصيفي"];
+const SV_SHORT = ["أول","ثاني","صيفي"];
 
 function svFmt(n) { return (Math.round(n * 100) / 100).toFixed(2); }
 
-function svAddRow() {
-  const wrap = document.getElementById('svRows');
-  if (wrap.children.length >= SV_MAX) return;
-  const n = wrap.children.length + 1;
-  const d = document.createElement('div');
-  d.className = 'row';
-  d.innerHTML = '<div><label>معدل الفصل ' + n + '</label><input type="number" inputmode="decimal" class="svG" min="0" step="any" placeholder="مثال: 3.20"></div>' +
-    '<div><label>ساعاته</label><input type="number" inputmode="numeric" class="svH" min="1" max="30" step="1" placeholder="مثال: 15"></div>';
-  wrap.appendChild(d);
-  d.querySelectorAll('input').forEach(function (i) { i.addEventListener('input', calc); });
-  document.getElementById('svAdd').style.display = wrap.children.length >= SV_MAX ? 'none' : '';
+function svAddYear() {
+  const wrap = document.getElementById("svRows");
+  const y = wrap.querySelectorAll(".svYear").length;
+  if (y >= SV_YEARS) return;
+  const yd = document.createElement("div");
+  yd.className = "svYear";
+  yd.style.marginTop = y ? "18px" : "0";
+  let html = "<div style=\"font-weight:800;font-size:15px;margin-bottom:6px;\">📅 السنة " + SV_YN[y] + "</div>";
+  for (let k = 0; k < 3; k++) {
+    html += "<div class=\"row\" data-lbl=\"س" + (y + 1) + " " + SV_SHORT[k] + "\"><div><label>معدل " + SV_SEM[k] + (k === 2 ? " (اختياري)" : "") + "</label><input type=\"number\" inputmode=\"decimal\" class=\"svG\" min=\"0\" step=\"any\" placeholder=\"مثال: 3.20\"></div>" +
+      "<div><label>ساعاته</label><input type=\"number\" inputmode=\"numeric\" class=\"svH\" min=\"1\" max=\"30\" step=\"1\" placeholder=\"مثال: " + (k === 2 ? 6 : 15) + "\"></div></div>";
+  }
+  yd.innerHTML = html;
+  wrap.appendChild(yd);
+  yd.querySelectorAll("input").forEach(function (i) { i.addEventListener("input", calc); });
+  const btn = document.getElementById("svAdd");
+  if (y + 1 >= SV_YEARS) btn.style.display = "none";
+  else btn.textContent = "➕ أضف السنة " + SV_YN[y + 1];
 }
 
 function calc() {
@@ -187,7 +197,7 @@ function calc() {
   for (let i = 0; i < gs.length; i++) {
     const g = parseFloat(gs[i].value), h = parseFloat(hs[i].value);
     if (isNaN(g) || isNaN(h) || g < 0 || h < 1 || h > 30) continue;
-    sems.push({ n: i + 1, g: g, h: h });
+    sems.push({ n: gs[i].closest(".row").getAttribute("data-lbl"), g: g, h: h });
   }
   svLast = null;
   if (sems.length < 1) { box.style.display = 'none'; return; }
@@ -228,8 +238,8 @@ function svShareText() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  svAddRow(); svAddRow(); svAddRow();
-  document.getElementById('svAdd').addEventListener('click', function () { svAddRow(); });
+  svAddYear();
+  document.getElementById('svAdd').addEventListener('click', function () { svAddYear(); });
   document.getElementById('svCopyBtn').addEventListener('click', function () {
     const btn = this;
     const txt = svShareText();
