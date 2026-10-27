@@ -48,7 +48,7 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 - **masters/bachelor guides**: read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending (dead-end universities listed).
 - **AdSense** (rejected 2026-10-08; fixes in seo-growth.md): request review only after organic grows (traffic ~70% FB). Due ~2026-10-15: `ga-report 7` → did /jo/students/parallel-results/ engagement (was 2 s) improve?
 - **Indexing** via API only (commands above); never Google's Indexing API (jobs/livestream only).
-- **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season; re-run `tools/admhec-import.js` with new owner-saved admhec pages (bachelor-guide), then `tools/build-admission-data.js <same pages>` (what-can-i-study).
+- **Seasonal** (each admission season): re-check parallel-results links; re-run admhec-import → build-admission-data (steps in claude-md-archive.md).
 - **Data audit**: some private bachelor-guide minimums are below the national floor (e.g. AAU engineering 65 vs 80); what-can-i-study applies the floor, the guide doesn't yet.
 
 ## Documentation index (read only when relevant)
