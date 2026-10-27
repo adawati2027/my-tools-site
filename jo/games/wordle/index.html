@@ -88,7 +88,7 @@
   <div style="margin-top:16px;text-align:center;">
     <strong>أدوات الأردن الأخرى:</strong>
     <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
-      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز شو بتعرف عن الأردن؟</a>
+      <a href="jo/games/jordan-quiz/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇯🇴 كويز ماذا تعرف عن الأردن؟</a>
       <a href="jo/gold-price/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🪙 سعر الذهب اليوم</a>
       <a href="jo/students/scholarships-loans/" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🎓 منح وقروض الجامعة</a>
       <a href="jo/" style="font-size:13px;padding:8px 14px;background:var(--primary);color:#fff;text-decoration:none;border-radius:8px;">🇯🇴 كل أدوات الأردن</a>
@@ -99,14 +99,14 @@
     <h2 class="card-title" style="font-size:16px;">🟩 كيف تلعب «كلمة اليوم»؟</h2>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;margin-top:8px;">
       <li>عندك <b>6 محاولات</b> لتخمين كلمة عربية من <b>5 أحرف</b>.</li>
-      <li>بعد كل محاولة بيتلوّن كل حرف: <b style="color:#16a34a;">الأخضر</b> يعني الحرف صح وبمكانه الصح، <b style="color:#ca8a04;">الأصفر</b> يعني الحرف موجود بالكلمة بس بمكان ثاني، و<b style="color:#6b7280;">الرمادي</b> يعني الحرف مش موجود أصلاً.</li>
-      <li>الكلمة نفسها لكل الناس طول اليوم، وبتتغير كل يوم — فبتقدر تقارن نتيجتك مع أصحابك.</li>
+      <li>بعد كل محاولة يتلوّن كل حرف: <b style="color:#16a34a;">الأخضر</b> يعني الحرف صحيح وفي مكانه الصحيح، <b style="color:#ca8a04;">الأصفر</b> يعني الحرف موجود في الكلمة لكن في مكان آخر، و<b style="color:#6b7280;">الرمادي</b> يعني الحرف غير موجود في الكلمة أصلاً.</li>
+      <li>الكلمة نفسها لكل الناس طوال اليوم، وتتغير كل يوم — فيمكنك مقارنة نتيجتك مع أصحابك.</li>
     </ul>
     <h3 style="font-size:15px;margin-top:12px;">💡 نصائح للحل بأقل محاولات</h3>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;">
-      <li>ابدأ بكلمة فيها حروف شائعة ومختلفة (زي الألف واللام والميم والنون والراء) عشان تكشف أكبر عدد من الحروف.</li>
+      <li>ابدأ بكلمة فيها حروف شائعة ومختلفة (مثل الألف واللام والميم والنون والراء) لكي تكشف أكبر عدد من الحروف.</li>
       <li>لا تكرر حرف طلع رمادي، واستغل الحروف الصفراء بأماكن جديدة.</li>
-      <li>انتبه إنه الحرف ممكن يتكرر بالكلمة نفسها.</li>
+      <li>انتبه أنه الحرف يمكن أن يتكرر في الكلمة نفسها.</li>
     </ul>
   </div>
 <!--/seo-about-->
@@ -295,7 +295,7 @@ function shareResult() {
   attempts.forEach(function(a) {
     text += a.result.map(function(r) { return emojiMap[r]; }).join('') + '\n';
   });
-  text += '\nجرّب أنت كمان: ' + location.href;
+  text += '\nجرّب أنت أيضاً: ' + location.href;
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(function() { showMessage('📋 انسخت! الصقها بواتساب'); });
   }
