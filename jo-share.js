@@ -1,7 +1,7 @@
 (function () {
   var BTN_STYLE = 'flex:1;padding:11px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;font-size:14px;cursor:pointer;';
   var COPY = '📋 انسخ النتيجة';
-  var SHARE = '🔗 شارك';
+  var SHARE = '🔗 شارك النتيجة';
 
   function capture(exportBtn) {
     var got = null;
