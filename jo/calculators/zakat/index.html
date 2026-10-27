@@ -274,7 +274,20 @@ function calc() {
     return;
   }
 
-  const exportBtnHtml = '<button id="zakatExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>';
+  const exportBtnHtml0 = '<button id="zakatExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>';
+
+  const fmt = function(n){ return n.toFixed(3); };
+  const parts = [];
+  if (cash) parts.push('نقد ' + fmt(cash));
+  if (goldGrams) parts.push('ذهب ' + goldGrams + ' غرام عيار ' + karat + ' = ' + fmt(goldValue));
+  if (investments) parts.push('استثمارات ' + fmt(investments));
+  let exLines = '<b>كيف طلعت نتيجتك؟</b><br>المال الزكوي = ' + parts.join(' + ') + (debts ? ' − ديون ' + fmt(debts) : '') + ' = <b>' + fmt(totalWealth) + '</b> د.أ<br>' +
+    'النصاب = 85 غرام ذهب عيار 24 × ' + fmt(goldPrice24) + ' د.أ للغرام = <b>' + fmt(nisabValue) + '</b> د.أ<br>';
+  exLines += totalWealth < nisabValue
+    ? 'مالك أقل من النصاب، فما بتجب عليك الزكاة حالياً.'
+    : 'مالك بلغ النصاب، فالزكاة = ' + fmt(totalWealth) + ' × 2.5% = <b>' + fmt(totalWealth * 0.025) + '</b> د.أ.';
+  exLines += '<br><span style="color:var(--text-muted);">أداة تقديرية: ما بتحسب شرط مرور الحول على المال ولا الحالات الخاصة، وللتأكد اسأل أهل العلم.</span>';
+  const exportBtnHtml = '<div style="margin-top:12px;padding:12px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:13px;line-height:1.9;">' + exLines + '</div>' + exportBtnHtml0;
 
   if (totalWealth < nisabValue) {
     lastZakatResult = { due: false, totalWealth: totalWealth, nisabValue: nisabValue, zakatDue: 0 };
