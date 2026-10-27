@@ -123,7 +123,7 @@ function loadLangPack(lang) {
   if (_langPackPromises[lang]) return _langPackPromises[lang];
   var p = new Promise(function(resolve, reject) {
     var s = document.createElement('script');
-    s.src = I18N_BASE + 'i18n-lang-' + lang + '.js?v=1';
+    s.src = I18N_BASE + 'i18n-lang-' + lang + '.js?v=2';
     s.onload = function() { resolve(); };
     s.onerror = function() { reject(new Error('lang pack failed: ' + lang)); };
     document.head.appendChild(s);

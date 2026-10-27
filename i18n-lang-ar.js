@@ -237,6 +237,8 @@ cty_global:'العالمي', cty_om:'عمان', cty_ae:'الإمارات', cty_s
     kids_tt_card_title:'جدول الضرب', kids_tt_card_desc:'تمرين الضرب من 2× إلى 12× — من 7 إلى 12 سنة',
     kids_alpha_card_title:'الأبجدية ABC', kids_alpha_card_desc:'من A إلى Z بالصور والأصوات — من 4 إلى 8 سنوات',
     kids_clock_card_title:'قراءة الساعة', kids_clock_card_desc:'لعبة تفاعلية لقراءة الساعة — من 5 إلى 9 سنوات',
+    kids_first_card_title:'إنجليزي للـ KG', kids_first_card_desc:'كلمات إنجليزية بالصوت والصور — من 3 إلى 7 سنوات',
+    kids_colors_card_title:'ألوان وأشكال وأرقام', kids_colors_card_desc:'ألوان وأشكال وأرقام من 1 إلى 20 بالصوت — من 3 إلى 7 سنوات',
     kids_spell_card_title:'مسابقة التهجئة', kids_spell_card_desc:'استمع واكتب الكلمة — من 6 إلى 12 سنة',
     kids_flags_card_title:'مسابقة أعلام العالم', kids_flags_card_desc:'خمّن الدولة من علمها — من 7 إلى 13 سنة',
     kids_sci_card_title:'مستكشف العلوم', kids_sci_card_desc:'الكواكب وأجزاء الجسم والطبيعة — من 8 إلى 13 سنة',
