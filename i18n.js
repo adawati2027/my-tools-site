@@ -69,7 +69,7 @@
 
     var isAr = (document.documentElement.lang || '').indexOf('ar') === 0;
     var text = isAr
-      ? 'بنستخدم كوكيز لعرض إعلانات، بعضها مخصصة حسب اهتماماتك. تقدر توافق أو تكتفي بإعلانات غير مخصصة.'
+      ? 'نستخدم ملفات تعريف الارتباط (الكوكيز) لعرض الإعلانات، وبعضها مخصص حسب اهتماماتك. يمكنك الموافقة أو الاكتفاء بإعلانات غير مخصصة.'
       : "We use cookies to show ads, some personalized to your interests. You can accept, or stick to non-personalized ads only.";
     var acceptLabel = isAr ? 'موافق' : 'Accept';
     var rejectLabel = isAr ? 'إعلانات غير مخصصة فقط' : 'Non-personalized only';
@@ -537,7 +537,7 @@ function showToast(msg, type) {
 
 function authResetText(lang) {
   const m = {
-    ar: { link: 'نسيت كلمة السر؟', need: 'اكتب بريدك الإلكتروني فوق أول، وبعدين اكبس "نسيت كلمة السر؟"', sent: '📧 إذا الإيميل مسجّل عنا، بعتنالك رابط لتغيير كلمة السر — شيك على بريدك (والسبام كمان). إذا سجّلت قبل عن طريق Google، استخدم زر الدخول عبر Google.', bad: 'البريد الإلكتروني مش صحيح' },
+    ar: { link: 'نسيت كلمة السر؟', need: 'اكتب بريدك الإلكتروني في الأعلى أولاً، ثم انقر "نسيت كلمة السر؟"', sent: '📧 إذا كان البريد مسجّلاً لدينا، فقد أرسلنا إليك رابطاً لتغيير كلمة السر — تحقق من بريدك (ومن مجلد الرسائل غير المرغوبة أيضاً). وإذا سجّلت سابقاً عبر Google، فاستخدم زر الدخول عبر Google.', bad: 'البريد الإلكتروني غير صحيح' },
     en: { link: 'Forgot password?', need: 'Type your email above first, then tap "Forgot password?"', sent: '📧 If this email is registered, we sent a password reset link — check your inbox (and spam). If you signed up with Google, use the Google button.', bad: 'Invalid email address' },
     fr: { link: 'Mot de passe oublié ?', need: "Saisissez d'abord votre e-mail ci-dessus.", sent: "📧 Si cet e-mail est enregistré, un lien de réinitialisation a été envoyé — vérifiez aussi les spams.", bad: 'Adresse e-mail invalide' },
     es: { link: '¿Olvidaste tu contraseña?', need: 'Escribe primero tu correo arriba.', sent: '📧 Si este correo está registrado, enviamos un enlace para restablecer la contraseña — revisa también el spam.', bad: 'Correo no válido' },
@@ -604,9 +604,9 @@ function submitAuthForm(mode, lang) {
 function googleErrText(lang, err) {
   const code = (err && err.code) || 'unknown';
   const ar = lang === 'ar';
-  if (code === 'auth/popup-blocked') return ar ? 'المتصفح منع نافذة Google — اكبس الزر مرة ثانية، أو اسمح بالنوافذ المنبثقة. (' + code + ')' : 'The browser blocked the Google window — tap again or allow pop-ups. (' + code + ')';
-  if (code === 'auth/network-request-failed') return ar ? 'مشكلة بالاتصال — تأكد من الإنترنت وجرّب مرة ثانية. (' + code + ')' : 'Network problem — check your connection and try again. (' + code + ')';
-  return ar ? 'ما زبط الدخول عبر Google — جرّب مرة ثانية أو سجّل بالإيميل. (' + code + ')' : 'Google sign-in failed — try again or use email. (' + code + ')';
+  if (code === 'auth/popup-blocked') return ar ? 'المتصفح منع نافذة Google — انقر الزر مرة أخرى، أو اسمح بالنوافذ المنبثقة. (' + code + ')' : 'The browser blocked the Google window — tap again or allow pop-ups. (' + code + ')';
+  if (code === 'auth/network-request-failed') return ar ? 'مشكلة في الاتصال — تأكد من الإنترنت وجرّب مرة أخرى. (' + code + ')' : 'Network problem — check your connection and try again. (' + code + ')';
+  return ar ? 'تعذّر الدخول عبر Google — جرّب مرة أخرى أو سجّل بالبريد الإلكتروني. (' + code + ')' : 'Google sign-in failed — try again or use email. (' + code + ')';
 }
 
 function signInGoogle(lang) {

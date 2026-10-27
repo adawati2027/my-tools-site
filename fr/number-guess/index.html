@@ -676,7 +676,7 @@ document.addEventListener('DOMContentLoaded', function(){
   async function raceConfirmName(){
     const name=document.getElementById('raceNameInput').value.trim();
     if(!name) return;
-    if(raceNameHasBlockedWord(name)){ alert('الاسم غير مسموح، جرب اسم ثاني 🙂'); return; }
+    if(raceNameHasBlockedWord(name)){ alert('الاسم غير مسموح، جرّب اسمًا آخر 🙂'); return; }
     raceMyName=name;
     if(racePending!=='accept'){
       raceId=await raceCreateChallenge('number-guess', name);
@@ -698,5 +698,5 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 <script src="i18n-lang-fr.js?v=3" defer></script>
-<script src="i18n.js?v=63" defer></script>
+<script src="i18n.js?v=65" defer></script>
 </body></html>

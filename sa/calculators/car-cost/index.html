@@ -21,7 +21,7 @@
 <link rel="alternate" hreflang="x-default" href="https://adawati.space/">
 <link rel="alternate" hreflang="ar" href="https://adawati.space/sa/calculators/car-cost/">
 <meta property="og:title" content="حاسبة تكلفة السيارة الشهرية — السعودية | Adawati">
-<meta property="og:description" content="اجمع كل مصاريف سيارتك بمكان واحد.">
+<meta property="og:description" content="اجمع كل مصاريف سيارتك في مكان واحد.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adawati.space/sa/calculators/car-cost/">
 <meta property="og:image" content="https://adawati.space/og/sa_calculators_car-cost.jpg">
@@ -29,7 +29,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="حاسبة تكلفة السيارة الشهرية — السعودية | Adawati">
-<meta name="twitter:description" content="اجمع كل مصاريف سيارتك بمكان واحد.">
+<meta name="twitter:description" content="اجمع كل مصاريف سيارتك في مكان واحد.">
 <meta name="twitter:image" content="https://adawati.space/og/sa_calculators_car-cost.jpg">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
@@ -40,7 +40,7 @@
 ]},
 {"@type":"WebApplication","name":"حاسبة تكلفة السيارة الشهرية — السعودية","url":"https://adawati.space/sa/calculators/car-cost/","applicationCategory":"FinanceApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"SAR"}},
 {"@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"شو المصاريف اللي بينسوها الناس عادة بحساب تكلفة السيارة؟","acceptedAnswer":{"@type":"Answer","text":"كثير ناس بيحسبوا بس القسط الشهري والوقود، وبينسوا: التأمين، رسوم الترخيص السنوية، الصيانة الدورية، والمخالفات. هاي المصاريف مجتمعة ممكن تشكل جزء كبير من التكلفة الحقيقية الشهرية."}},
+{"@type":"Question","name":"ما المصاريف التي ينساها الناس عادةً بحساب تكلفة السيارة؟","acceptedAnswer":{"@type":"Answer","text":"يحسب كثير من الناس القسط الشهري والوقود فقط، وينسون: التأمين، رسوم الترخيص السنوية، الصيانة الدورية، والمخالفات. هذه المصاريف مجتمعة يمكن أن تشكّل جزءاً كبيراً من التكلفة الحقيقية الشهرية."}},
 {"@type":"Question","name":"هل السعر شامل الضريبة؟","acceptedAnswer":{"@type":"Answer","text":"ملاحظة: ضريبة القيمة المضافة بالسعودية 15% — عادة تكون محتسبة أصلاً بسعر السيارة المعلن."}}
 ]}
 ]}
@@ -66,11 +66,11 @@
   <div class="card">
     <button class="lang-toggle-btn" id="langBtn">English</button>
     <div class="card-icon" style="background:#eff6ff;">🚗</div>
-    <h1 class="card-title" data-t="title">كم بتكلفك سيارتك فعلياً بالشهر؟ 🇸🇦</h1>
-    <div class="card-subtitle" data-t="subtitle">اجمع كل مصاريف سيارتك بمكان واحد</div>
+    <h1 class="card-title" data-t="title">كم تكلّفك سيارتك فعلياً في الشهر؟ 🇸🇦</h1>
+    <div class="card-subtitle" data-t="subtitle">اجمع كل مصاريف سيارتك في مكان واحد</div>
     <div class="divider"></div>
 
-    <label data-t="lblInstallment">القسط الشهري (ر.س) — اتركه فارغ لو سيارتك مدفوعة بالكامل</label>
+    <label data-t="lblInstallment">القسط الشهري (ر.س) — اتركه فارغاً إذا كانت سيارتك مدفوعة بالكامل</label>
     <input type="number" inputmode="decimal" id="installment" placeholder="0.00" min="0" step="any">
 
     <div class="divider"></div>
@@ -82,7 +82,7 @@
 
     <div id="fuelSection" style="margin-top:10px;">
       <div class="row">
-        <div><label data-t="lblDistance">كم تسوق بالشهر (كم)</label><input type="number" inputmode="decimal" id="distance" placeholder="مثال: 1500" min="0" step="any"></div>
+        <div><label data-t="lblDistance">كم تقود شهرياً (كم)</label><input type="number" inputmode="decimal" id="distance" placeholder="مثال: 1500" min="0" step="any"></div>
         <div><label data-t="lblConsumption">استهلاك سيارتك (لتر/100كم)</label><input type="number" inputmode="decimal" id="consumption" placeholder="مثال: 8" min="0" step="any"></div>
       </div>
       <label data-t="lblFuelPrice">سعر اللتر (ر.س) — القيمة الافتراضية محدّثة 7 سبتمبر 2026</label>
@@ -105,18 +105,18 @@
     <input type="number" inputmode="decimal" id="maintenance" placeholder="0.00" min="0" step="any">
 
     <div class="divider"></div>
-    <label style="font-weight:700;" data-t="lblOtherHeader">مصاريف تانية بتنسى غالباً (اختياري)</label>
+    <label style="font-weight:700;" data-t="lblOtherHeader">مصاريف أخرى يُنسى حسابها غالباً (اختياري)</label>
     <div class="row" style="margin-top:8px;">
       <div><label data-t="lblParking">موقف/باركنج شهري (ر.س)</label><input type="number" inputmode="decimal" id="parking" placeholder="0.00" min="0" step="any"></div>
       <div><label data-t="lblDepreciation">الإهلاك السنوي التقديري (ر.س)</label><input type="number" inputmode="decimal" id="depreciation" placeholder="0.00" min="0" step="any"></div>
     </div>
-    <label data-t="lblFines">متوسط المخالفات المرورية بالسنة (ر.س)</label>
+    <label data-t="lblFines">متوسط المخالفات المرورية في السنة (ر.س)</label>
     <input type="number" inputmode="decimal" id="fines" placeholder="0.00" min="0" step="any">
 
     <div id="carResult" style="display:none;margin-top:20px;">
       <div class="result-box show success" style="margin-top:0;">
         <div class="result-value" id="totalMonthly"></div>
-        <div class="result-label" data-t="resultLbl">سيارتك تكلفك هيك بالشهر (تقديري)</div>
+        <div class="result-label" data-t="resultLbl">تكلفة سيارتك الشهرية (تقديري)</div>
       </div>
       <div style="margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2;" id="breakdown"></div>
       <div class="result-box show" style="margin-top:12px;background:#fefce8;">
@@ -130,8 +130,8 @@
   <div class="card" style="margin-top:16px;">
     <div class="card-title" style="font-size:15px;" data-t="faqHeader">❓ أسئلة شائعة</div>
     <details style="margin-top:10px;">
-      <summary style="font-weight:700;cursor:pointer;font-size:14px;" data-t="faq1q">شو المصاريف اللي بينسوها الناس عادة؟</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;" data-t="faq1a">كثير ناس بيحسبوا بس القسط والوقود، وبينسوا التأمين، الترخيص، الصيانة، والمخالفات.</p>
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;" data-t="faq1q">ما المصاريف التي ينساها الناس عادةً؟</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;" data-t="faq1a">يحسب كثير من الناس القسط والوقود فقط، وينسون التأمين، الترخيص، الصيانة، والمخالفات.</p>
     </details>
     <details style="margin-top:10px;">
       <summary style="font-weight:700;cursor:pointer;font-size:14px;" data-t="faq2q">هل السعر شامل الضريبة؟</summary>
@@ -152,10 +152,10 @@
   <div class="card" style="margin-top:16px;">
     <h2 class="card-title" style="font-size:16px;">💡 كيف تخفّف مصاريف السيارة الشهرية</h2>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;margin-top:8px;">
-      <li><b>الوقود:</b> القيادة الهادئة والمحافظة على ضغط الإطارات الصحيح بتخفض الاستهلاك بشكل ملحوظ، وتجميع المشاوير بمشوار واحد بيوفّر كمان.</li>
+      <li><b>الوقود:</b> القيادة الهادئة والمحافظة على ضغط الإطارات الصحيح تخفضان الاستهلاك بشكل ملحوظ، كما أن تجميع المشاوير في مشوار واحد يوفّر أيضاً.</li>
       <li><b>التأمين:</b> قارن عروض أكثر من شركة كل سنة قبل التجديد، واسأل عن خصومات عدم وجود حوادث.</li>
       <li><b>الصيانة:</b> الالتزام بمواعيد تغيير الزيت والفحص الدوري أرخص بكثير من الأعطال الكبيرة لاحقاً.</li>
-      <li><b>القسط:</b> قبل الشراء احسب التكلفة الشهرية الكاملة (قسط + وقود + تأمين + صيانة) هون، مش بس القسط — وخلّيها جزء معقول من راتبك.</li>
+      <li><b>القسط:</b> قبل الشراء احسب التكلفة الشهرية الكاملة (قسط + وقود + تأمين + صيانة) هنا، وليس القسط فقط — واجعلها جزءاً معقولاً من راتبك.</li>
     </ul>
   </div>
 <!--/plan-tips-->
@@ -264,7 +264,7 @@ function applyLang() {
     if (dict[key] !== undefined) el.innerHTML = dict[key];
   });
 }
-const LANG_AR = {"navHome":"أدوات السعودية","navGlobal":"عالمي","backLink":"→ العودة لأدوات السعودية","title":"كم بتكلفك سيارتك فعلياً بالشهر؟ 🇸🇦","subtitle":"اجمع كل مصاريف سيارتك بمكان واحد","lblInstallment":"القسط الشهري (ر.س) — اتركه فارغ لو سيارتك مدفوعة بالكامل","lblFuelHeader":"⛽ الوقود / الطاقة","btnFuel":"بنزين / ديزل","btnElectric":"كهربائية بالكامل","lblDistance":"كم تسوق بالشهر (كم)","lblConsumption":"استهلاك سيارتك (لتر/100كم)","lblFuelPrice":"سعر اللتر (ر.س) — القيمة الافتراضية محدّثة 7 سبتمبر 2026","fuelSourceNote":"المصدر: globalpetrolprices.com — عدّل السعر إذا تغيّر","lblElectricBill":"كم زادت فاتورة الكهرباء شهرياً بسبب شحن السيارة؟ (ر.س)","electricNote":"قارن فاتورة كهربائك قبل وبعد اقتناء السيارة، وأدخل الفرق فقط.","lblInsurance":"التأمين السنوي (ر.س)","lblLicense":"الترخيص/التسجيل السنوي (ر.س)","lblMaintenance":"الصيانة الشهرية التقديرية (ر.س)","lblOtherHeader":"مصاريف تانية بتنسى غالباً (اختياري)","lblParking":"موقف/باركنج شهري (ر.س)","lblDepreciation":"الإهلاك السنوي التقديري (ر.س)","lblFines":"متوسط المخالفات المرورية بالسنة (ر.س)","resultLbl":"سيارتك تكلفك هيك بالشهر (تقديري)","yearlyLbl":"التكلفة السنوية الإجمالية التقديرية","vatNote":"ملاحظة: ضريبة القيمة المضافة بالسعودية 15% — عادة تكون محتسبة أصلاً بسعر السيارة المعلن.","faqHeader":"❓ أسئلة شائعة","faq1q":"شو المصاريف اللي بينسوها الناس عادة؟","faq1a":"كثير ناس بيحسبوا بس القسط والوقود، وبينسوا التأمين، الترخيص، الصيانة، والمخالفات.","faq2q":"هل السعر شامل الضريبة؟","faq2a":"ملاحظة: ضريبة القيمة المضافة بالسعودية 15% — عادة تكون محتسبة أصلاً بسعر السيارة المعلن.","otherToolsHeader":"أدوات السعودية الأخرى:","linkFuel":"⛽ أسعار المحروقات","linkGold":"🪙 سعر الذهب اليوم","linkWeather":"🌤️ الطقس","linkAll":"🇸🇦 كل أدوات السعودية"};
+const LANG_AR = {"navHome":"أدوات السعودية","navGlobal":"عالمي","backLink":"→ العودة لأدوات السعودية","title":"كم تكلّفك سيارتك فعلياً في الشهر؟ 🇸🇦","subtitle":"اجمع كل مصاريف سيارتك في مكان واحد","lblInstallment":"القسط الشهري (ر.س) — اتركه فارغاً إذا كانت سيارتك مدفوعة بالكامل","lblFuelHeader":"⛽ الوقود / الطاقة","btnFuel":"بنزين / ديزل","btnElectric":"كهربائية بالكامل","lblDistance":"كم تقود شهرياً (كم)","lblConsumption":"استهلاك سيارتك (لتر/100كم)","lblFuelPrice":"سعر اللتر (ر.س) — القيمة الافتراضية محدّثة 7 سبتمبر 2026","fuelSourceNote":"المصدر: globalpetrolprices.com — عدّل السعر إذا تغيّر","lblElectricBill":"كم زادت فاتورة الكهرباء شهرياً بسبب شحن السيارة؟ (ر.س)","electricNote":"قارن فاتورة كهربائك قبل وبعد اقتناء السيارة، وأدخل الفرق فقط.","lblInsurance":"التأمين السنوي (ر.س)","lblLicense":"الترخيص/التسجيل السنوي (ر.س)","lblMaintenance":"الصيانة الشهرية التقديرية (ر.س)","lblOtherHeader":"مصاريف أخرى يُنسى حسابها غالباً (اختياري)","lblParking":"موقف/باركنج شهري (ر.س)","lblDepreciation":"الإهلاك السنوي التقديري (ر.س)","lblFines":"متوسط المخالفات المرورية في السنة (ر.س)","resultLbl":"تكلفة سيارتك الشهرية (تقديري)","yearlyLbl":"التكلفة السنوية الإجمالية التقديرية","vatNote":"ملاحظة: ضريبة القيمة المضافة بالسعودية 15% — عادة تكون محتسبة أصلاً بسعر السيارة المعلن.","faqHeader":"❓ أسئلة شائعة","faq1q":"ما المصاريف التي ينساها الناس عادةً؟","faq1a":"يحسب كثير من الناس القسط والوقود فقط، وينسون التأمين، الترخيص، الصيانة، والمخالفات.","faq2q":"هل السعر شامل الضريبة؟","faq2a":"ملاحظة: ضريبة القيمة المضافة بالسعودية 15% — عادة تكون محتسبة أصلاً بسعر السيارة المعلن.","otherToolsHeader":"أدوات السعودية الأخرى:","linkFuel":"⛽ أسعار المحروقات","linkGold":"🪙 سعر الذهب اليوم","linkWeather":"🌤️ الطقس","linkAll":"🇸🇦 كل أدوات السعودية"};
 const LANG_EN = {"navHome":"Saudi Arabia Tools","navGlobal":"Global","backLink":"← Back to Saudi Arabia Tools","title":"What's Your Car Really Costing You Monthly? 🇸🇦","subtitle":"Gather all your car expenses in one place","lblInstallment":"Monthly loan installment (SAR) — leave blank if fully paid off","lblFuelHeader":"⛽ Fuel / Energy","btnFuel":"Petrol / Diesel","btnElectric":"Fully Electric","lblDistance":"km driven per month","lblConsumption":"Consumption (L/100km)","lblFuelPrice":"Price per liter (SAR) — default updated 7 Sep 2026","fuelSourceNote":"Source: globalpetrolprices.com — adjust if the price has changed","lblElectricBill":"How much did your electric bill increase per month from charging? (SAR)","electricNote":"Compare your bill before and after getting the car, and enter only the difference.","lblInsurance":"Annual insurance (SAR)","lblLicense":"Annual registration (SAR)","lblMaintenance":"Estimated monthly maintenance (SAR)","lblOtherHeader":"Other often-forgotten costs (optional)","lblParking":"Monthly parking (SAR)","lblDepreciation":"Estimated annual depreciation (SAR)","lblFines":"Average annual traffic fines (SAR)","resultLbl":"Your car costs this much monthly (estimate)","yearlyLbl":"Estimated total annual cost","vatNote":"Note: Saudi VAT is 15% — usually already included in the advertised car price.","faqHeader":"❓ FAQ","faq1q":"What costs do people usually forget?","faq1a":"Most people only count the loan and fuel, forgetting insurance, registration, maintenance, and fines.","faq2q":"Is tax/VAT included?","faq2a":"Note: Saudi VAT is 15% — usually already included in the advertised car price.","otherToolsHeader":"Other Saudi Arabia Tools:","linkFuel":"⛽ Fuel Prices","linkGold":"🪙 Gold Price Today","linkWeather":"🌤️ Weather","linkAll":"🇸🇦 All Saudi Arabia Tools"};
 </script>
 <script>
@@ -274,8 +274,8 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('typeElectric')?.addEventListener('click', function(){ setCarType('electric'); });
 });
 </script>
-<script src="i18n-lang-ar.js?v=3" defer></script>
-<script src="i18n.js?v=63" defer></script>
+<script src="i18n-lang-ar.js?v=4" defer></script>
+<script src="i18n.js?v=65" defer></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function(){
