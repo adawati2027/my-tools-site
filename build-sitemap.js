@@ -92,6 +92,7 @@ const countryTools = [
   `${BASE}/jo/students/what-can-i-study/`,
   `${BASE}/jo/students/credit-hours-planner/`,
   `${BASE}/jo/students/final-exam-grade/`,
+  `${BASE}/jo/students/absence-calculator/`,
   `${BASE}/jo/students/target-gpa/`,
   `${BASE}/jo/students/gpa-semester-vs-cumulative/`,
   `${BASE}/jo/tools/what-to-cook/`,
