@@ -323,6 +323,12 @@
   }
   $('vcNew').addEventListener('click', reset);
 
+  function micError(e) {
+    var n = (e && e.name) || '', ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if (n === 'NotFoundError' || n === 'OverconstrainedError') { msg('لم نجد ميكروفوناً في هذا الجهاز.'); return; }
+    if (n === 'NotReadableError' || n === 'AbortError') { msg('الميكروفون مستخدم في تطبيق آخر. أغلق التطبيقات التي تستخدمه ثم أعد المحاولة.'); return; }
+    msg(ios ? 'الميكروفون محظور لهذا الموقع. اضغط على أيقونة «aA» في شريط العنوان، ثم «إعدادات الموقع»، واختر الميكروفون: سماح. وإن لم تظهر، افتح الإعدادات ثم Safari ثم الميكروفون واختر «سؤال» أو «سماح». بعدها أعد تحميل الصفحة.' : 'الميكروفون محظور لهذا الموقع. اضغط على أيقونة الإعدادات يسار عنوان الموقع واختر الميكروفون: سماح، ثم أعد تحميل الصفحة.');
+  }
   var mode = '', pcm = [], proc = null, msrc = null, mute = null, capRate = 44100;
   function releaseMic() {
     if (proc) { try { proc.onaudioprocess = null; proc.disconnect(); } catch (e) {} proc = null; }
@@ -401,7 +407,7 @@
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { msg('متصفحك لا يدعم التسجيل. جرّب Chrome أو Safari حديثاً.'); return; }
     var c;
     try { c = audioCtx(); stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
-    catch (e) { releaseMic(); msg('لم نستطع الوصول إلى الميكروفون. اسمح للموقع باستخدامه من أيقونة القفل بجانب العنوان ثم أعد المحاولة.'); return; }
+    catch (e) { releaseMic(); micError(e); return; }
     if (c.state !== 'running') { try { await Promise.race([c.resume(), new Promise(function (r) { setTimeout(r, 800); })]); } catch (e) {} }
     chunks = [];
     if (!usePcm()) {
