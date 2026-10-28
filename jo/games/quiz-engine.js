@@ -516,9 +516,10 @@ function renderChallengeHistory() {
     box = document.createElement('div');
     box.id = 'chalHistBox';
     box.style.cssText = 'margin-top:16px;text-align:right;';
-    var anchor = document.getElementById('leaderboardArea');
-    anchor.parentNode.insertBefore(box, anchor.nextSibling);
   }
+  var startArea = document.getElementById('challengeStartArea');
+  var anchor = (startArea && startArea.style.display !== 'none') ? startArea : document.getElementById('leaderboardArea');
+  anchor.parentNode.insertBefore(box, anchor.nextSibling);
   var en = quizLang === 'en';
   var o = '<div style="font-weight:700;margin-bottom:8px;">' + (en ? '📜 My previous results' : '📜 نتائجي السابقة') + '</div><table style="width:100%;border-collapse:collapse;font-size:13px;"><tbody>';
   list.slice(0, 10).forEach(function(x) {
@@ -1152,6 +1153,8 @@ if (urlChallengeId) {
 } else {
   initCategorySelector();
   initDifficultySelector();
+  renderChallengeHistory();
+  startChallengeHistorySync();
 }
 
 if ((siteCfg().chat || {}).enabled !== false) (function() { var s = document.createElement("script"); s.src = "/jo/games/challenge-chat.js?v=10"; s.defer = true; document.body.appendChild(s); })();
