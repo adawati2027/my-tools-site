@@ -66,6 +66,7 @@ const countryTools = [
   `${BASE}/jo/tools/savings-goal/`,
   `${BASE}/jo/tools/budget-split/`,
   `${BASE}/jo/tools/pomodoro-timer/`,
+  `${BASE}/jo/tools/voice-changer/`,
   `${BASE}/jo/tools/split-bill/`,
   `${BASE}/jo/tools/reading-goal/`,
   `${BASE}/jo/tools/event-countdown/`,

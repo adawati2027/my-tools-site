@@ -60,15 +60,17 @@
     var colors = { info: '#2563eb', warn: '#d97706', ok: '#059669' };
     var d = document.createElement('div');
     d.setAttribute('role', 'status');
-    d.style.cssText = 'background:' + (colors[b.style] || colors.info) + ';color:#fff;padding:10px 40px 10px 14px;text-align:center;font-size:14px;line-height:1.7;position:relative;font-weight:600;';
+    d.style.cssText = 'background:' + (colors[b.style] || colors.info) + ';color:#fff;padding:calc(10px + env(safe-area-inset-top)) 40px 10px 14px;text-align:center;font-size:14px;line-height:1.7;position:relative;font-weight:600;';
     d.appendChild(document.createTextNode(b.text + ' '));
     if (b.link && /^(https?:\/\/|\/)/.test(b.link)) {
       var a = document.createElement('a'); a.href = b.link; a.textContent = b.linkText || 'التفاصيل';
       a.style.cssText = 'color:#fff;text-decoration:underline;font-weight:800;'; d.appendChild(a);
     }
     var x = document.createElement('button'); x.type = 'button'; x.textContent = '×'; x.setAttribute('aria-label', 'إغلاق');
-    x.style.cssText = 'position:absolute;inset-inline-end:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1;';
-    x.onclick = function() { try { localStorage.setItem(id, '1'); } catch (e) {} d.remove(); };
+    x.style.cssText = 'position:absolute;inset-inline-end:8px;top:calc(50% + env(safe-area-inset-top) / 2);transform:translateY(-50%);background:none;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1;';
+    var nav = document.querySelector('.navbar'), io = null;
+    if (nav && window.IntersectionObserver) { io = new IntersectionObserver(function(en) { nav.style.paddingTop = en[0].isIntersecting ? '0' : ''; }); io.observe(d); }
+    x.onclick = function() { try { localStorage.setItem(id, '1'); } catch (e) {} if (io) io.disconnect(); if (nav) nav.style.paddingTop = ''; d.remove(); };
     d.appendChild(x);
     document.body.insertBefore(d, document.body.firstChild);
   }
