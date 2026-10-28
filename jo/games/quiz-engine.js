@@ -522,10 +522,32 @@ function renderChallengeHistory() {
   var en = quizLang === 'en';
   var o = '<div style="font-weight:700;margin-bottom:8px;">' + (en ? '📜 My previous results' : '📜 نتائجي السابقة') + '</div><table style="width:100%;border-collapse:collapse;font-size:13px;"><tbody>';
   list.slice(0, 10).forEach(function(x) {
-    o += '<tr style="border-top:1px solid var(--border);"><td style="padding:6px;">' + escapeHtml(String(x.d)) + '</td><td style="padding:6px;">' + escapeHtml(String(x.t)) + '</td><td style="padding:6px;white-space:nowrap;">' + escapeHtml(x.s + '/' + x.n) + '</td></tr>';
+    o += '<tr class="chalHistRow" data-cid="' + escapeHtml(String(x.id)) + '" style="border-top:1px solid var(--border);cursor:pointer;"><td style="padding:6px;">' + escapeHtml(String(x.d)) + '</td><td style="padding:6px;">' + escapeHtml(String(x.t)) + '</td><td style="padding:6px;white-space:nowrap;">' + escapeHtml(x.s + '/' + x.n) + ' ▾</td></tr><tr class="chalHistLb" data-lb="' + escapeHtml(String(x.id)) + '" style="display:none;"><td colspan="3" style="padding:4px 6px 10px;"></td></tr>';
   });
+  box.onclick = function(ev) { var r = ev.target.closest && ev.target.closest('.chalHistRow'); if (r) toggleHistLeaderboard(r.getAttribute('data-cid')); };
   box.innerHTML = o + '</tbody></table><div style="font-size:12px;color:var(--text-muted);margin-top:6px;">' + (en ? 'Scores only, no chat. Saved on this device and synced with your account if you are signed in.' : 'النتائج فقط من دون الدردشة. تُحفظ على جهازك وتتزامن مع حسابك إن سجّلت دخولك.') + '</div>';
   box.style.display = 'block';
+}
+
+function toggleHistLeaderboard(id) {
+  var en = quizLang === 'en';
+  var rows = document.querySelectorAll('#chalHistBox .chalHistLb');
+  var row = null;
+  for (var i = 0; i < rows.length; i++) if (rows[i].getAttribute('data-lb') === id) row = rows[i];
+  if (!row) return;
+  if (row.style.display !== 'none') { row.style.display = 'none'; return; }
+  row.style.display = '';
+  var cell = row.firstChild;
+  cell.innerHTML = '<span style="color:var(--text-muted);">' + qt('loading') + '</span>';
+  db.collection('challenges').doc(id).collection('players').orderBy('score', 'desc').orderBy('timeMs', 'asc').get().then(function(snap) {
+    var h = '<table style="width:100%;border-collapse:collapse;font-size:13px;background:var(--bg-card,transparent);"><tbody>', n = 1;
+    snap.forEach(function(doc) {
+      var d = doc.data(), mine = d.name === playerName;
+      h += '<tr' + (mine ? ' style="font-weight:800;color:var(--primary);"' : '') + '><td style="padding:4px 6px;width:28px;">' + n + '</td><td style="padding:4px 6px;">' + escapeHtml(d.name) + '</td><td style="padding:4px 6px;white-space:nowrap;">' + d.score + '/' + d.total + '</td></tr>';
+      n++;
+    });
+    cell.innerHTML = n === 1 ? qt('no_one_yet') : h + '</tbody></table>';
+  }).catch(function() { cell.innerHTML = qt('leaderboard_error'); });
 }
 
 var chalSyncStarted = false;

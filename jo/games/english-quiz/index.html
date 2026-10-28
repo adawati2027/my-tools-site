@@ -172,7 +172,7 @@
   <div class="card" style="margin-top:16px;">
     <h2 class="card-title" style="font-size:17px;">ℹ️ عن كويز اللغة الإنجليزية</h2>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">اختبر إنجليزيتك: قواعد، أزمنة، حروف جر، إملاء، ومفردات. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، وتحدَّ أصحابك. مفيد لطلاب المدرسة والتوجيهي. مجاني وبدون تسجيل.</p>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>300</b> سؤال، موزّعة على مستويين: <b>230</b> سؤال متوسط و<b>70</b> سؤال صعب. في كل جولة يُختار 12 سؤالاً عشوائياً، فتظهر لك في كل مرة أسئلة مختلفة.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>350</b> سؤال، موزّعة على مستويين: <b>280</b> سؤال متوسط و<b>70</b> سؤال صعب. في كل جولة يُختار 12 سؤالاً عشوائياً، فتظهر لك في كل مرة أسئلة مختلفة.</p>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:10px;">🎮 اختر الصعوبة، ولديك 15 ثانية لكل سؤال — الأسرع والأدق يجمع نقاطاً أكثر.</p>
     <h3 style="font-size:15px;margin-top:14px;">📝 أمثلة من أسئلة الكويز</h3>
     <ol style="font-size:14px;line-height:1.9;padding-right:22px;">
@@ -499,6 +499,56 @@ const QUESTIONS = [
   {q:"معنى كلمة \"Water\" بالعربية:",opts:["خبز","ماء","حليب","عصير"],correct:1,difficulty:"medium"},
   {q:"معنى كلمة \"School\" بالعربية:",opts:["مستشفى","سوق","مدرسة","حديقة"],correct:2,difficulty:"medium"},
   {q:"معنى كلمة \"Friend\" بالعربية:",opts:["عدو","جار","ضيف","صديق"],correct:3,difficulty:"medium"},
+  {q:"‎She ___ a teacher.‎",opts:["is","am","are","be"],correct:0,difficulty:"medium"},
+  {q:"‎They ___ my friends.‎",opts:["is","are","am","be"],correct:1,difficulty:"medium"},
+  {q:"‎He ___ football every Friday.‎",opts:["play","playing","plays","played"],correct:2,difficulty:"medium"},
+  {q:"‎We ___ to the park yesterday.‎",opts:["go","goes","going","went"],correct:3,difficulty:"medium"},
+  {q:"‎I ___ breakfast at 7 a.m. every day.‎",opts:["have","has","having","am have"],correct:0,difficulty:"medium"},
+  {q:"‎___ you like tea?‎",opts:["Does","Do","Are","Is"],correct:1,difficulty:"medium"},
+  {q:"‎___ she live in Amman?‎",opts:["Do","Is","Does","Are"],correct:2,difficulty:"medium"},
+  {q:"‎There ___ three cats in the garden.‎",opts:["is","am","be","are"],correct:3,difficulty:"medium"},
+  {q:"‎This is ___ apple.‎",opts:["an","a","the","two"],correct:0,difficulty:"medium"},
+  {q:"‎I have ___ umbrella.‎",opts:["a","an","two","some a"],correct:1,difficulty:"medium"},
+  {q:"‎My brother is ___ than me.‎",opts:["tall","tallest","taller","more tall"],correct:2,difficulty:"medium"},
+  {q:"‎This is the ___ book I have ever read.‎",opts:["good","better","goodest","best"],correct:3,difficulty:"medium"},
+  {q:"‎She is ___ than her sister.‎",opts:["older","old","oldest","more old"],correct:0,difficulty:"medium"},
+  {q:"‎I can ___ English well.‎",opts:["speaks","speak","speaking","spoke"],correct:1,difficulty:"medium"},
+  {q:"‎She ___ TV now.‎",opts:["watches","watched","is watching","watch"],correct:2,difficulty:"medium"},
+  {q:"‎Yesterday, I ___ my homework.‎",opts:["do","does","doing","did"],correct:3,difficulty:"medium"},
+  {q:"‎He ___ not at home now.‎",opts:["is","am","are","be"],correct:0,difficulty:"medium"},
+  {q:"‎The opposite of \"hot\" is ___.‎",opts:["warm","cold","big","slow"],correct:1,difficulty:"medium"},
+  {q:"‎The opposite of \"big\" is ___.‎",opts:["tall","long","small","fast"],correct:2,difficulty:"medium"},
+  {q:"‎The opposite of \"new\" is ___.‎",opts:["young","big","soft","old"],correct:3,difficulty:"medium"},
+  {q:"معنى كلمة \"Book\" بالعربية:",opts:["كتاب","قلم","باب","كرسي"],correct:0,difficulty:"medium"},
+  {q:"معنى كلمة \"Pen\" بالعربية:",opts:["كتاب","قلم","حقيبة","دفتر"],correct:1,difficulty:"medium"},
+  {q:"معنى كلمة \"Door\" بالعربية:",opts:["نافذة","طاولة","باب","جدار"],correct:2,difficulty:"medium"},
+  {q:"معنى كلمة \"Window\" بالعربية:",opts:["باب","سقف","أرض","نافذة"],correct:3,difficulty:"medium"},
+  {q:"معنى كلمة \"Milk\" بالعربية:",opts:["حليب","ماء","عصير","قهوة"],correct:0,difficulty:"medium"},
+  {q:"معنى كلمة \"Bread\" بالعربية:",opts:["أرز","خبز","لحم","جبن"],correct:1,difficulty:"medium"},
+  {q:"معنى كلمة \"Apple\" بالعربية:",opts:["موزة","برتقالة","تفاحة","عنب"],correct:2,difficulty:"medium"},
+  {q:"معنى كلمة \"Banana\" بالعربية:",opts:["تفاح","برتقال","فراولة","موز"],correct:3,difficulty:"medium"},
+  {q:"معنى كلمة \"Red\" بالعربية:",opts:["أحمر","أزرق","أخضر","أصفر"],correct:0,difficulty:"medium"},
+  {q:"معنى كلمة \"Blue\" بالعربية:",opts:["أحمر","أزرق","أخضر","أسود"],correct:1,difficulty:"medium"},
+  {q:"معنى كلمة \"Green\" بالعربية:",opts:["أصفر","أبيض","أخضر","بنفسجي"],correct:2,difficulty:"medium"},
+  {q:"معنى كلمة \"Yellow\" بالعربية:",opts:["أخضر","أحمر","أزرق","أصفر"],correct:3,difficulty:"medium"},
+  {q:"معنى كلمة \"Black\" بالعربية:",opts:["أسود","أبيض","أحمر","رمادي"],correct:0,difficulty:"medium"},
+  {q:"معنى كلمة \"White\" بالعربية:",opts:["أسود","أبيض","أخضر","أزرق"],correct:1,difficulty:"medium"},
+  {q:"معنى كلمة \"Mother\" بالعربية:",opts:["أب","أخت","أم","جدة"],correct:2,difficulty:"medium"},
+  {q:"معنى كلمة \"Father\" بالعربية:",opts:["أم","أخ","جد","أب"],correct:3,difficulty:"medium"},
+  {q:"معنى كلمة \"Brother\" بالعربية:",opts:["أخ","أخت","أب","عم"],correct:0,difficulty:"medium"},
+  {q:"معنى كلمة \"Sister\" بالعربية:",opts:["أخ","أخت","أم","عمة"],correct:1,difficulty:"medium"},
+  {q:"معنى كلمة \"Teacher\" بالعربية:",opts:["طبيب","طالب","معلم","مهندس"],correct:2,difficulty:"medium"},
+  {q:"معنى كلمة \"Doctor\" بالعربية:",opts:["معلم","شرطي","طيار","طبيب"],correct:3,difficulty:"medium"},
+  {q:"معنى كلمة \"House\" بالعربية:",opts:["بيت","سيارة","شارع","حديقة"],correct:0,difficulty:"medium"},
+  {q:"معنى كلمة \"Car\" بالعربية:",opts:["طائرة","سيارة","قطار","دراجة"],correct:1,difficulty:"medium"},
+  {q:"معنى كلمة \"Sun\" بالعربية:",opts:["قمر","نجمة","شمس","سحابة"],correct:2,difficulty:"medium"},
+  {q:"معنى كلمة \"Moon\" بالعربية:",opts:["شمس","نجمة","أرض","قمر"],correct:3,difficulty:"medium"},
+  {q:"معنى كلمة \"Tree\" بالعربية:",opts:["شجرة","زهرة","عشب","جبل"],correct:0,difficulty:"medium"},
+  {q:"معنى كلمة \"Dog\" بالعربية:",opts:["قطة","كلب","حصان","أرنب"],correct:1,difficulty:"medium"},
+  {q:"معنى كلمة \"Cat\" بالعربية:",opts:["كلب","طائر","قطة","سمكة"],correct:2,difficulty:"medium"},
+  {q:"معنى كلمة \"Bird\" بالعربية:",opts:["سمكة","حصان","قطة","طائر"],correct:3,difficulty:"medium"},
+  {q:"معنى كلمة \"Fish\" بالعربية:",opts:["سمكة","طائر","كلب","أسد"],correct:0,difficulty:"medium"},
+  {q:"معنى كلمة \"Happy\" بالعربية:",opts:["حزين","سعيد","غاضب","متعب"],correct:1,difficulty:"medium"},
 ];
 
 const QUIZ_CONFIG = {
@@ -533,7 +583,7 @@ const QUIZ_CONFIG = {
   ]
 };
 </script>
-<script src="jo/games/quiz-engine.js?v=20"></script>
+<script src="jo/games/quiz-engine.js?v=21"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('createChallengeBtn')?.addEventListener('click', createChallenge);
