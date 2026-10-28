@@ -9,6 +9,102 @@
   } catch (e) {}
 })();
 
+// Remote site config (Firestore config/site, read via REST, cached 30 min in
+// localStorage adawati_cfg_v1 — same cache tool-sync.js and quiz-engine.js use).
+// Drives: announcement banner, ads switch, maintenance mode, disabled pages.
+(function() {
+  var K = 'adawati_cfg_v1', TTL = 1800000;
+  var path = location.pathname.replace(/index\.html$/, '');
+  if (path.indexOf('/admin/') >= 0) return;
+  function rd() { try { var r = JSON.parse(localStorage.getItem(K)); return r && r.v ? r : null; } catch (e) { return null; } }
+  function dec(v) {
+    if (!v) return null;
+    if ('stringValue' in v) return v.stringValue;
+    if ('integerValue' in v) return +v.integerValue;
+    if ('doubleValue' in v) return v.doubleValue;
+    if ('booleanValue' in v) return v.booleanValue;
+    if ('arrayValue' in v) return (v.arrayValue.values || []).map(dec);
+    if ('mapValue' in v) { var o = {}, f = v.mapValue.fields || {}; for (var k in f) o[k] = dec(f[k]); return o; }
+    return null;
+  }
+  function norm(p) {
+    p = String(p || '').trim().replace(/^https?:\/\/[^/]+/, '').replace(/[?#].*$/, '').replace(/index\.html$/, '');
+    if (!p) return '';
+    if (p.charAt(0) !== '/') p = '/' + p;
+    if (!/\.html$/.test(p) && p.slice(-1) !== '/') p += '/';
+    return p;
+  }
+  function hit(c, p) {
+    var list = (c.pages && c.pages.disabled) || [];
+    for (var i = 0; i < list.length; i++) {
+      var n = norm(list[i]);
+      if (n && n !== '/' && (p === n || (n.slice(-1) === '/' && p.indexOf(n) === 0))) return true;
+    }
+    return false;
+  }
+  function wall(title, text, home) {
+    var d = document.createElement('div');
+    d.setAttribute('style', 'position:fixed;inset:0;z-index:2147483000;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;direction:rtl;font-family:system-ui,sans-serif;');
+    var b = document.createElement('div'); b.style.maxWidth = '460px';
+    var h = document.createElement('div'); h.style.cssText = 'font-size:22px;font-weight:800;margin-bottom:10px;'; h.textContent = title;
+    var p = document.createElement('div'); p.style.cssText = 'font-size:15px;line-height:1.9;opacity:.9;'; p.textContent = text;
+    b.appendChild(h); b.appendChild(p);
+    if (home) { var a = document.createElement('a'); a.href = '/'; a.textContent = 'العودة إلى الرئيسية'; a.style.cssText = 'display:inline-block;margin-top:16px;padding:10px 18px;border-radius:10px;background:#2563eb;color:#fff;text-decoration:none;font-weight:700;'; b.appendChild(a); }
+    d.appendChild(b); document.body.appendChild(d); document.documentElement.style.overflow = 'hidden';
+  }
+  function hash(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return String(h); }
+  function banner(b) {
+    if (!b || b.enabled !== true || !b.text) return;
+    var id = 'adawati_bn_' + hash(b.text);
+    try { if (localStorage.getItem(id)) return; } catch (e) {}
+    var colors = { info: '#2563eb', warn: '#d97706', ok: '#059669' };
+    var d = document.createElement('div');
+    d.setAttribute('role', 'status');
+    d.style.cssText = 'background:' + (colors[b.style] || colors.info) + ';color:#fff;padding:10px 40px 10px 14px;text-align:center;font-size:14px;line-height:1.7;position:relative;font-weight:600;';
+    d.appendChild(document.createTextNode(b.text + ' '));
+    if (b.link && /^(https?:\/\/|\/)/.test(b.link)) {
+      var a = document.createElement('a'); a.href = b.link; a.textContent = b.linkText || 'التفاصيل';
+      a.style.cssText = 'color:#fff;text-decoration:underline;font-weight:800;'; d.appendChild(a);
+    }
+    var x = document.createElement('button'); x.type = 'button'; x.textContent = '×'; x.setAttribute('aria-label', 'إغلاق');
+    x.style.cssText = 'position:absolute;inset-inline-end:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1;';
+    x.onclick = function() { try { localStorage.setItem(id, '1'); } catch (e) {} d.remove(); };
+    d.appendChild(x);
+    document.body.insertBefore(d, document.body.firstChild);
+  }
+  function apply(c) {
+    try {
+      if (c.ads && c.ads.enabled === false) {
+        var s = document.createElement('style'); s.textContent = 'ins.adsbygoogle{display:none!important}';
+        document.head.appendChild(s);
+      }
+      var go = function() {
+        if (c.maintenance && c.maintenance.enabled === true) { wall('🛠️ الموقع تحت الصيانة', c.maintenance.message || 'نعمل على تحسينات سريعة، وسنعود قريباً.', false); return; }
+        if (hit(c, path)) { wall('⏸️ هذه الأداة متوقفة مؤقتاً', (c.pages && c.pages.message) || 'سنعيدها قريباً. تفضّل بزيارة بقية الأدوات.', true); return; }
+        banner(c.banner);
+        if (c.pages && c.pages.disabled && c.pages.disabled.length) [].slice.call(document.querySelectorAll('a.tool-card')).forEach(function(a) {
+          if (hit(c, norm(a.pathname))) a.style.display = 'none';
+        });
+      };
+      if (document.body) go(); else document.addEventListener('DOMContentLoaded', go);
+    } catch (e) {}
+  }
+  try {
+    var r = rd();
+    if (r) apply(r.v);
+    if (!r || Date.now() - r.t >= TTL) {
+      fetch('https://firestore.googleapis.com/v1/projects/adawati-challenges/databases/(default)/documents/config/site?key=AIzaSyAO8ZKfiaKlqTIw8xUfEp5xHFy0ilBztKQ')
+        .then(function(x) { return x.ok ? x.json() : (x.status === 404 ? { fields: {} } : null); })
+        .then(function(j) {
+          if (!j) return;
+          var c = dec({ mapValue: { fields: j.fields || {} } }) || {};
+          try { localStorage.setItem(K, JSON.stringify({ v: c, t: Date.now() })); } catch (e) {}
+          if (!r) apply(c);
+        }).catch(function() {});
+    }
+  } catch (e) {}
+})();
+
 // AdSense is web-only per Google's policy — never serve/render it inside the
 // native app's WebView (that's AdMob's job instead). Disable push() so any
 // adsbygoogle.push({}) call on the page becomes a no-op, and hide the ad slots.

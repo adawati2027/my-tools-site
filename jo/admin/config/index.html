@@ -57,7 +57,7 @@
   </div>
 </footer>
 <script src="i18n-lang-ar.js?v=4" defer></script>
-<script src="i18n.js?v=65" defer></script>
+<script src="i18n.js?v=66" defer></script>
 <script src="jo/ads/ads.js?v=6" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function esc(s) { return adsEsc(s); }
 
   function build(c) {
-    var s = c.sync || {}, q = c.quiz || {}, ch = c.chat || {}, dis = s.disabledKeys || [];
+    var s = c.sync || {}, q = c.quiz || {}, ch = c.chat || {}, dis = s.disabledKeys || [], bn = c.banner || {}, ad = c.ads || {}, mt = c.maintenance || {}, pg = c.pages || {};
     var ret = [[0, 'بلا حد (احتفظ بكل شيء)'], [30, '30 يوماً'], [90, '90 يوماً'], [180, '180 يوماً'], [365, 'سنة'], [730, 'سنتان']];
     var h = '<div class="card cf-sec"><h2>🔄 مزامنة بيانات الأدوات مع الحساب</h2><div class="cf-h">تخص المستخدمين المسجّلين فقط.</div>' +
       '<div class="cf-row"><label for="cSyncOn">تفعيل المزامنة</label><input type="checkbox" id="cSyncOn"' + (s.enabled === false ? '' : ' checked') + '></div>' +
@@ -109,6 +109,20 @@ document.addEventListener('DOMContentLoaded', function () {
       QUIZZES.map(function (z) { var v = q.seconds && q.seconds[z[0]]; return '<label>' + esc(z[1]) + '<input type="number" data-s="' + esc(z[0]) + '" min="5" max="60" style="width:70px;margin-inline-start:auto;padding:6px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-size:15px;" value="' + (v >= 5 && v <= 60 ? v : '') + '"></label>'; }).join('') + '</div>' +
       '<div class="cf-row"><div><label for="cChat">دردشة التحديات</label><div class="cf-h">أوقفها مؤقتاً عند وجود إساءة، ويصل الأمر للمستخدمين خلال 30 دقيقة.</div></div><input type="checkbox" id="cChat"' + (ch.enabled === false ? '' : ' checked') + '></div></div>' +
 
+      '<div class="card cf-sec"><h2>📢 شريط إعلان أعلى الصفحات</h2><div class="cf-h">رسالة تظهر لكل الزوار، ويستطيع الزائر إغلاقها، ولا تعود له إلا إذا غيّرت النص.</div>' +
+      '<div class="cf-row"><label for="bOn">تفعيل الشريط</label><input type="checkbox" id="bOn"' + (bn.enabled === true ? ' checked' : '') + '></div>' +
+      '<div style="margin-top:6px;"><label class="cf-h" for="bTxt">النص</label><input type="text" id="bTxt" maxlength="160" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;" value="' + esc(bn.text || '') + '"></div>' +
+      '<div style="margin-top:6px;"><label class="cf-h" for="bLnk">رابط اختياري (يبدأ بـ https:// أو /)</label><input type="text" id="bLnk" dir="ltr" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;" value="' + esc(bn.link || '') + '"></div>' +
+      '<div style="margin-top:6px;"><label class="cf-h" for="bLt">نص الرابط</label><input type="text" id="bLt" maxlength="30" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;" value="' + esc(bn.linkText || '') + '"></div>' +
+      '<div class="cf-row"><label for="bSt">اللون</label><select id="bSt">' + [['info', 'أزرق (معلومة)'], ['warn', 'برتقالي (تنبيه)'], ['ok', 'أخضر (خبر سار)']].map(function (o) { return '<option value="' + o[0] + '"' + ((bn.style || 'info') === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></div></div>' +
+
+      '<div class="card cf-sec"><h2>🧰 التحكم بالموقع</h2>' +
+      '<div class="cf-row"><div><label for="aOn">عرض إعلانات AdSense</label><div class="cf-h">أطفئه لإخفاء كل الوحدات الإعلانية فوراً، مثلاً أثناء مراجعة جوجل أو عند ظهور مشكلة.</div></div><input type="checkbox" id="aOn"' + (ad.enabled === false ? '' : ' checked') + '></div>' +
+      '<div class="cf-row"><div><label for="mOn">وضع الصيانة</label><div class="cf-h">يغطي كل الصفحات برسالة، عدا صفحات المشرف (المسار فيه /admin/) حتى تستطيع إيقافه.</div></div><input type="checkbox" id="mOn"' + (mt.enabled === true ? ' checked' : '') + '></div>' +
+      '<div style="margin-top:6px;"><label class="cf-h" for="mTxt">رسالة الصيانة</label><input type="text" id="mTxt" maxlength="200" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;" value="' + esc(mt.message || '') + '"></div>' +
+      '<div style="margin-top:14px;"><label style="font-weight:700;font-size:14px;" for="pList">إيقاف صفحات أو أدوات مؤقتاً</label><div class="cf-h">مسار في كل سطر. المسار الذي ينتهي بـ / يشمل كل ما تحته. مثال: jo/games/jordan-quiz/ أو jo/calculators/tawjihi-average/. تُخفى بطاقتها من القوائم وتظهر رسالة بدل الصفحة.</div><textarea id="pList" dir="ltr" rows="4" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;">' + esc((pg.disabled || []).join('\n')) + '</textarea></div>' +
+      '<div style="margin-top:6px;"><label class="cf-h" for="pMsg">رسالة الصفحات الموقوفة (اختيارية)</label><input type="text" id="pMsg" maxlength="200" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;" value="' + esc(pg.message || '') + '"></div></div>' +
+
       '<div class="card cf-sec"><button type="button" class="ads-btn" id="cSave">💾 حفظ الإعدادات</button> <button type="button" class="ads-btn secondary" id="cReset">↩️ الافتراضي</button><div id="cMsg"></div></div>' +
 
       '<div class="card cf-sec"><h2>🧭 الخدمات والمنصات المرتبطة بالمشروع</h2><div class="cf-h">روابط سريعة إلى لوحات التحكم. بعضها قد يحتاج تسجيل الدخول بالحساب الذي أنشأ الخدمة.</div><div class="cf-svc">' +
@@ -120,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function msg(t, m) { var e = document.getElementById('cMsg'); if (e) e.innerHTML = '<div class="ads-msg ' + t + '">' + esc(m) + '</div>'; }
 
+  function v(id) { return document.getElementById(id).value.trim(); }
   function secOk(n) { n = parseInt(n, 10); return n >= 5 && n <= 60 ? n : 0; }
   function secAll() { return secOk(document.getElementById('cSecAll').value); }
   function secMap() { var o = {}; [].slice.call(document.querySelectorAll('[data-s]')).forEach(function (i) { var n = secOk(i.value); if (n) o[i.getAttribute('data-s')] = n; }); return o; }
@@ -133,6 +148,10 @@ document.addEventListener('DOMContentLoaded', function () {
       sync: { enabled: document.getElementById('cSyncOn').checked, retentionDays: parseInt(document.getElementById('cRet').value, 10) || 0, maxKeyKB: mx, disabledKeys: dis },
       quiz: { questionsPerGame: q, secondsDefault: secAll(), seconds: secMap() },
       chat: { enabled: document.getElementById('cChat').checked },
+      banner: { enabled: document.getElementById('bOn').checked, text: v('bTxt'), link: v('bLnk'), linkText: v('bLt'), style: v('bSt') },
+      ads: { enabled: document.getElementById('aOn').checked },
+      maintenance: { enabled: document.getElementById('mOn').checked, message: v('mTxt') },
+      pages: { disabled: v('pList').split(/\r?\n/).map(function (x) { return x.trim(); }).filter(Boolean).slice(0, 100), message: v('pMsg') },
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     };
     btn.disabled = true;
