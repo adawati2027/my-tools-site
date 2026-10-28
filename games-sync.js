@@ -28,6 +28,6 @@
   });
   window.__sync = cfg;
   var s = document.createElement('script');
-  s.src = '/tool-sync.js?v=2';
+  s.src = '/tool-sync.js?v=3';
   document.head.appendChild(s);
 })();

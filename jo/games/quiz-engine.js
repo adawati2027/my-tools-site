@@ -174,7 +174,19 @@ function applyQuizTranslations() {
 let currentQ = 0;
 let score = 0;
 let answered = false;
-const QUESTIONS_PER_GAME = 12;
+function siteCfg() {
+  try { var r = JSON.parse(localStorage.getItem('adawati_cfg_v1')); return (r && r.v) || {}; } catch (e) { return {}; }
+}
+function questionsPerGame() {
+  var n = parseInt((siteCfg().quiz || {}).questionsPerGame, 10);
+  return n >= 5 && n <= 20 ? n : 12;
+}
+(function() {
+  try { var r = JSON.parse(localStorage.getItem('adawati_cfg_v1')); if (r && r.v && Date.now() - r.t < 1800000) return; } catch (e) {}
+  db.collection('config').doc('site').get().then(function(d) {
+    try { localStorage.setItem('adawati_cfg_v1', JSON.stringify({ v: d.exists ? d.data() : {}, t: Date.now() })); } catch (e) {}
+  }).catch(function() {});
+})();
 let activeQuestions = [];
 
 let challengeId = null;
@@ -527,7 +539,7 @@ function startChallengeHistorySync() {
   a.src = 'https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js';
   a.onload = function() {
     var s = document.createElement('script');
-    s.src = '/tool-sync.js?v=2';
+    s.src = '/tool-sync.js?v=3';
     document.body.appendChild(s);
   };
   document.body.appendChild(a);
@@ -889,7 +901,7 @@ function pickQuestions() {
   if (QUIZ_CONFIG.difficulties && selectedDifficulty !== 'mix') {
     pool = pool.filter(function(q) { return q.difficulty === selectedDifficulty; });
   }
-  const selected = shuffle(pool).slice(0, QUESTIONS_PER_GAME);
+  const selected = shuffle(pool).slice(0, questionsPerGame());
   activeQuestions = selected.map(function(q) {
     const order = shuffle(q.opts.map(function(_, i) { return i; }));
     const item = {
@@ -1115,4 +1127,4 @@ if (urlChallengeId) {
   initDifficultySelector();
 }
 
-(function() { var s = document.createElement("script"); s.src = "/jo/games/challenge-chat.js?v=10"; s.defer = true; document.body.appendChild(s); })();
+if ((siteCfg().chat || {}).enabled !== false) (function() { var s = document.createElement("script"); s.src = "/jo/games/challenge-chat.js?v=10"; s.defer = true; document.body.appendChild(s); })();

@@ -395,7 +395,7 @@ function persistCode(slug, s) {
 function build(slug) {
   const s = SPECS[slug];
   const html = head(s, slug) + card(s, slug) + lower(s) + '</div></main>\n\n' + footer.replace(/^<\/main>\s*/, '') +
-    '<script>' + common + '\n\nfunction hInit() {}\nfunction hJ(n) { return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }\n\nfunction hCompute() {' + s.compute + '\n}\n' + (s.persist ? persistCode(slug, s) : '') + '</script>\n' + (s.persist ? '<script src="tool-sync.js?v=2"></script>\n' : '') + tail;
+    '<script>' + common + '\n\nfunction hInit() {}\nfunction hJ(n) { return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }\n\nfunction hCompute() {' + s.compute + '\n}\n' + (s.persist ? persistCode(slug, s) : '') + '</script>\n' + (s.persist ? '<script src="tool-sync.js?v=3"></script>\n' : '') + tail;
   out(slug, s, html);
 }
 
@@ -500,7 +500,7 @@ function buildPomo() {
   show();
 })();
 </script>
-<script src="tool-sync.js?v=2"></script>
+<script src="tool-sync.js?v=3"></script>
 `;
   const html = head(s, slug) + mainHtml + lower(s) + '</div></main>\n\n' + footer.replace(/^<\/main>\s*/, '') + script + tail;
   out(slug, s, html);
@@ -1109,7 +1109,7 @@ function buildGame(slug) {
     <div class="divider"></div>${s.main}
   </div>
 `;
-  const html = head(s, slug) + mainHtml + lower(s) + '</div></main>\n\n' + footer.replace(/^<\/main>\s*/, '') + '<script>' + s.script + '</script>\n' + (s.sync ? tail.replace('</body>', '<script src="tool-sync.js?v=2"></script>\n</body>') : tail);
+  const html = head(s, slug) + mainHtml + lower(s) + '</div></main>\n\n' + footer.replace(/^<\/main>\s*/, '') + '<script>' + s.script + '</script>\n' + (s.sync ? tail.replace('</body>', '<script src="tool-sync.js?v=3"></script>\n</body>') : tail);
   out(slug, s, html);
 }
 

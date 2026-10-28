@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2563eb">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>إعدادات الموقع | Adawati</title>
+<meta name="description" content="لوحة إعدادات الموقع للمشرف.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://adawati.space/jo/admin/config/">
+<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="jo/ads/ads.css?v=1">
+<style>
+.cf-sec{margin-top:16px}
+.cf-sec h2{font-size:17px;margin:0 0 4px}
+.cf-row{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 0;border-top:1px solid var(--border);flex-wrap:wrap}
+.cf-row label{font-weight:700;font-size:14px}
+.cf-row input[type=number],.cf-row select{padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:16px;width:130px;box-sizing:border-box}
+.cf-row input[type=checkbox]{width:22px;height:22px}
+.cf-keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px;margin-top:8px}
+.cf-keys label{display:flex;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:600}
+.cf-svc{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:10px}
+.cf-svc a{display:block;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);text-decoration:none;color:var(--text)}
+.cf-svc a:hover{border-color:var(--primary)}
+.cf-svc b{display:block;font-size:14px}
+.cf-svc span{display:block;font-size:12px;color:var(--text-muted);margin-top:3px;line-height:1.6}
+.cf-h{font-size:12px;color:var(--text-muted);line-height:1.7;margin-top:2px}
+</style>
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/ads/admin/">🛡️ إدارة الإعلانات</a>
+    <a href="jo/">أدوات الأردن</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="card">
+    <h1 class="card-title">⚙️ إعدادات الموقع</h1>
+    <div class="cf-h">للمشرف فقط. التغييرات تُحفظ في Firebase وتصل إلى المستخدمين خلال 30 دقيقة تقريباً، من دون تعديل الكود.</div>
+  </div>
+  <div id="cfBody"><div class="card" style="margin-top:16px;">⏳ جاري التحميل...</div></div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+<script src="i18n-lang-ar.js?v=4" defer></script>
+<script src="i18n.js?v=65" defer></script>
+<script src="jo/ads/ads.js?v=6" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var KEYS = [
+    ['adawati_split_v1', 'تقسيم الفاتورة'], ['adawati_todo_v1', 'قائمة المهام'], ['adawati_habits_v1', 'متتبع العادات'], ['adawati_shop_v1', 'قائمة التسوق'],
+    ['adawati_payday_v1', 'كم بقي للراتب'], ['adawati_hourly_wage_v1', 'قيمة ساعة العمل'], ['adawati_savings_goal_v1', 'هدف الادخار'], ['adawati_budget_split_v1', 'تقسيم الميزانية'],
+    ['adawati_reading_goal_v1', 'هدف القراءة'], ['adawati_events_v1', 'العد التنازلي للمناسبات'], ['adawati_pomo_v1', 'بومودورو'], ['ckSel', 'ماذا أطبخ'],
+    ['adawati_cur_pair', 'محوّل العملات'], ['adawati_chal_hist_v1', 'نتائج التحديات'],
+    ['adawati_car_lb', 'لعبة السيارات: الترتيب'], ['adawati_car_best', 'لعبة السيارات: الأفضل'], ['adawati_jump_lb', 'لعبة القفز: الترتيب'], ['adawati_jump_best', 'لعبة القفز: الأفضل'],
+    ['adawati_memory_lb', 'لعبة الذاكرة'], ['adawati_guess_lb', 'تخمين الرقم'], ['adawati_qmath_lb', 'الرياضيات السريعة'], ['adawati_react_lb', 'اختبار ردة الفعل']
+  ];
+  var SERVICES = [
+    ['Firebase (مشروع adawati-challenges)', 'الحسابات وقاعدة البيانات والقواعد. هنا تُنشر قواعد Firestore ويُنشأ مستند المشرف.', 'https://console.firebase.google.com/'],
+    ['Google Search Console', 'الفهرسة والنقرات ومخطط الموقع.', 'https://search.google.com/search-console'],
+    ['Google Analytics 4', 'الزوار والصفحات الأكثر زيارة (G-97DQT5FHPF).', 'https://analytics.google.com/'],
+    ['Google AdSense', 'إعلانات الموقع وحالة المراجعة (ca-pub-3337905412116301).', 'https://adsense.google.com/'],
+    ['Google AdMob', 'إعلانات تطبيقي أندرويد وآيفون.', 'https://admob.google.com/'],
+    ['Google Ads', 'حملات الإعلان المدفوع، إن وُجدت.', 'https://ads.google.com/'],
+    ['Google Cloud Console', 'مفاتيح الواجهات البرمجية وحسابات الخدمة.', 'https://console.cloud.google.com/'],
+    ['Google Play Console', 'تطبيق أندرويد: المراجعة والإصدارات.', 'https://play.google.com/console'],
+    ['App Store Connect', 'تطبيق آيفون: المراجعة والإصدارات.', 'https://appstoreconnect.apple.com/'],
+    ['Cloudflare', 'النطاق وقواعد الأمان والـ Worker.', 'https://dash.cloudflare.com/'],
+    ['GitHub', 'مستودع الموقع adawati2027/my-tools-site.', 'https://github.com/adawati2027/my-tools-site'],
+    ['Buttondown', 'النشرة البريدية والمشتركون.', 'https://buttondown.com/'],
+    ['Instagram', 'حساب @adawati2027.', 'https://www.instagram.com/adawati2027/'],
+    ['Meta للمطورين', 'تطبيقات فيسبوك وإنستغرام.', 'https://developers.facebook.com/'],
+    ['Bing Webmaster Tools', 'الفهرسة في Bing (IndexNow).', 'https://www.bing.com/webmasters']
+  ];
+  var DOC = ['config', 'site'];
+  var body = document.getElementById('cfBody'), fbRef = null;
+  function esc(s) { return adsEsc(s); }
+
+  function build(c) {
+    var s = c.sync || {}, q = c.quiz || {}, ch = c.chat || {}, dis = s.disabledKeys || [];
+    var ret = [[0, 'بلا حد (احتفظ بكل شيء)'], [30, '30 يوماً'], [90, '90 يوماً'], [180, '180 يوماً'], [365, 'سنة'], [730, 'سنتان']];
+    var h = '<div class="card cf-sec"><h2>🔄 مزامنة بيانات الأدوات مع الحساب</h2><div class="cf-h">تخص المستخدمين المسجّلين فقط.</div>' +
+      '<div class="cf-row"><label for="cSyncOn">تفعيل المزامنة</label><input type="checkbox" id="cSyncOn"' + (s.enabled === false ? '' : ' checked') + '></div>' +
+      '<div class="cf-row"><div><label for="cRet">مدة حفظ السجلّات القديمة</label><div class="cf-h">تُحذف من الحساب السجلّات الأقدم من المدة (سجلات الحاسبات، بومودورو، تقسيم الفاتورة، نتائج التحديات). الافتراضي: بلا حد.</div></div><select id="cRet">' +
+      ret.map(function (r) { return '<option value="' + r[0] + '"' + ((+s.retentionDays || 0) === r[0] ? ' selected' : '') + '>' + r[1] + '</option>'; }).join('') + '</select></div>' +
+      '<div class="cf-row"><div><label for="cMax">أقصى حجم لكل أداة (كيلوبايت)</label><div class="cf-h">حماية من تضخّم المستند، فحدّ Firestore للمستند ميغابايت واحد.</div></div><input type="number" id="cMax" min="20" max="500" value="' + (s.maxKeyKB > 0 ? s.maxKeyKB : 150) + '"></div>' +
+      '<div style="margin-top:10px;font-weight:700;font-size:14px;">الأدوات التي تُزامَن</div><div class="cf-keys">' +
+      KEYS.map(function (k) { return '<label><input type="checkbox" data-k="' + esc(k[0]) + '"' + (dis.indexOf(k[0]) < 0 ? ' checked' : '') + '> ' + esc(k[1]) + '</label>'; }).join('') + '</div></div>' +
+
+      '<div class="card cf-sec"><h2>🎮 الاختبارات والتحديات</h2>' +
+      '<div class="cf-row"><div><label for="cQ">عدد الأسئلة في كل جولة</label><div class="cf-h">من 5 إلى 20، والحد الأعلى 20 بسبب قواعد التحديات. الافتراضي 12.</div></div><input type="number" id="cQ" min="5" max="20" value="' + (q.questionsPerGame >= 5 && q.questionsPerGame <= 20 ? q.questionsPerGame : 12) + '"></div>' +
+      '<div class="cf-row"><div><label for="cChat">دردشة التحديات</label><div class="cf-h">أوقفها مؤقتاً عند وجود إساءة، ويصل الأمر للمستخدمين خلال 30 دقيقة.</div></div><input type="checkbox" id="cChat"' + (ch.enabled === false ? '' : ' checked') + '></div></div>' +
+
+      '<div class="card cf-sec"><button type="button" class="ads-btn" id="cSave">💾 حفظ الإعدادات</button> <button type="button" class="ads-btn secondary" id="cReset">↩️ الافتراضي</button><div id="cMsg"></div></div>' +
+
+      '<div class="card cf-sec"><h2>🧭 الخدمات والمنصات المرتبطة بالمشروع</h2><div class="cf-h">روابط سريعة إلى لوحات التحكم. بعضها قد يحتاج تسجيل الدخول بالحساب الذي أنشأ الخدمة.</div><div class="cf-svc">' +
+      SERVICES.map(function (x) { return '<a href="' + esc(x[2]) + '" target="_blank" rel="noopener"><b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span></a>'; }).join('') + '</div></div>';
+    body.innerHTML = h;
+    document.getElementById('cSave').addEventListener('click', save);
+    document.getElementById('cReset').addEventListener('click', function () { build({}); msg('ok', 'عُبّئت القيم الافتراضية. اضغط حفظ لتثبيتها.'); });
+  }
+
+  function msg(t, m) { var e = document.getElementById('cMsg'); if (e) e.innerHTML = '<div class="ads-msg ' + t + '">' + esc(m) + '</div>'; }
+
+  function save() {
+    var btn = document.getElementById('cSave');
+    var dis = [].slice.call(document.querySelectorAll('[data-k]')).filter(function (i) { return !i.checked; }).map(function (i) { return i.getAttribute('data-k'); });
+    var mx = Math.max(20, Math.min(500, parseInt(document.getElementById('cMax').value, 10) || 150));
+    var q = Math.max(5, Math.min(20, parseInt(document.getElementById('cQ').value, 10) || 12));
+    var data = {
+      sync: { enabled: document.getElementById('cSyncOn').checked, retentionDays: parseInt(document.getElementById('cRet').value, 10) || 0, maxKeyKB: mx, disabledKeys: dis },
+      quiz: { questionsPerGame: q },
+      chat: { enabled: document.getElementById('cChat').checked },
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    btn.disabled = true;
+    fbRef.db.collection(DOC[0]).doc(DOC[1]).set(data).then(function () {
+      try { localStorage.removeItem('adawati_cfg_v1'); } catch (e) {}
+      msg('ok', '✓ تم الحفظ.');
+    }).catch(function (e) {
+      msg('err', e && e.code === 'permission-denied' ? 'مرفوض: انشر قواعد Firestore الجديدة من docs/firestore.rules (قسم config) ثم أعد المحاولة.' : 'تعذّر الحفظ، حاول مرة أخرى.');
+    }).then(function () { btn.disabled = false; });
+  }
+
+  adsOnUser(function (user, fb) {
+    if (!user || !fb) { adsSignInPrompt(body, 'سجّل الدخول بحساب المشرف لفتح الإعدادات.'); return; }
+    fbRef = fb;
+    adsIsAdmin(fb, user).then(function (ok) {
+      if (!ok) { body.innerHTML = '<div class="card" style="margin-top:16px;">هذه الصفحة للمشرف فقط.</div>'; return; }
+      fb.db.collection(DOC[0]).doc(DOC[1]).get().then(function (d) { build(d.exists ? d.data() : {}); })
+        .catch(function () { build({}); });
+    });
+  });
+});
+</script>
+</body>
+</html>
