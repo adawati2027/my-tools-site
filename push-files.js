@@ -65,16 +65,28 @@ async function withRetry(fn, label, attempts = 5) {
 async function main() {
   const rawArgs = process.argv.slice(2);
   let commitMessage = 'Update site content (targeted push)';
+  let fileListPath = null;
   const relFiles = [];
+  const delFiles = [];
   for (let i = 0; i < rawArgs.length; i++) {
     if (rawArgs[i] === '--message' || rawArgs[i] === '-m') {
       commitMessage = rawArgs[i + 1];
+      i++;
+    } else if (rawArgs[i] === '--delete') {
+      delFiles.push(rawArgs[i + 1]);
+      i++;
+    } else if (rawArgs[i] === '--file-list') {
+      fileListPath = rawArgs[i + 1];
       i++;
     } else {
       relFiles.push(rawArgs[i]);
     }
   }
-  if (!relFiles.length) { console.error('Usage: node push-files.js <file1> <file2> ... [--message "commit message"]'); process.exit(1); }
+  if (fileListPath) {
+    const listed = fs.readFileSync(fileListPath, 'utf8').split('\n').map(s => s.trim()).filter(Boolean);
+    relFiles.push(...listed);
+  }
+  if (!relFiles.length && !delFiles.length) { console.error('Usage: node push-files.js <file1> <file2> ... [--message "commit message"] [--file-list <path>]'); process.exit(1); }
 
   console.log('Getting latest commit...');
   const refData = await withRetry(() => api('GET', `/git/ref/heads/${BRANCH}`), 'Get ref');
@@ -96,6 +108,8 @@ async function main() {
     console.log('Blobbed:', rel, blob.sha);
     await sleep(400);
   }
+
+  for (const rel of delFiles) treeItems.push({ path: rel, mode: '100644', type: 'blob', sha: null });
 
   console.log('Creating tree...');
   const newTree = await withRetry(() => api('POST', '/git/trees', { base_tree: baseTreeSha, tree: treeItems }), 'Create tree');

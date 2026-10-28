@@ -108,35 +108,6 @@ const SPECS = {
     ],
     rel: [['jo/tools/savings-goal/', '🎯 هدفي الادخاري'], ['jo/tools/days-to-payday/', '📅 كم تبقّى على الراتب'], ['jo/calculators/net-salary/', '💵 صافي الراتب']]
   },
-  'split-bill': {
-    icon: '🍽️', bg: '#ffedd5', grad: '#ea580c,#7c2d12', title: 'قسّم الحساب بين الأصدقاء', h1: 'قسّم الحساب بين الأصدقاء 🍽️',
-    sub: 'اكتب مبلغ الفاتورة وعدد الأشخاص وبقشيشاً إن أردت، وسنحسب حصة كل واحد',
-    desc: 'قسّم فاتورة المطعم أو السهرة بين الأصدقاء بالتساوي، مع إضافة بقشيش اختياري، واعرف حصة كل شخص بالدينار.',
-    kw: 'تقسيم الفاتورة, تقسيم الحساب, حصة كل شخص, بقشيش, حاسبة المطعم',
-    search: 'تقسيم الفاتورة الحساب الأصدقاء مطعم بقشيش split bill',
-    cardDesc: 'حصة كل شخص من فاتورة المطعم، مع بقشيش اختياري', cat: 'daily',
-    warn: 'القسمة بالتساوي بين الجميع. إن اختلفت طلباتكم كثيراً فاحسبوا كل طلب على حدة.',
-    fields: [
-      ['bill', 'مبلغ الفاتورة (دينار)', 'مثال: 48'],
-      ['ppl', 'عدد الأشخاص', 'مثال: 5'],
-      ['tip', 'بقشيش % (اختياري)', 'مثال: 10']
-    ],
-    compute: `
-  const t = parseFloat(bill.value), n = parseInt(ppl.value), tp = parseFloat(tip.value) || 0;
-  if (isNaN(t) || isNaN(n) || t <= 0 || n < 1 || n > 100 || tp < 0 || tp > 100) return null;
-  const ta = t * tp / 100, tot = t + ta, per = tot / n;
-  const ex = hStat(hJ(tot), 'المجموع مع البقشيش') + hStat(hJ(ta), 'البقشيش') + hStat(String(n), 'عدد الأشخاص');
-  return { main: hJ(per) + ' دينار للشخص', lbl: 'حصة كل شخص', extra: '<div class="stat-grid">' + ex + '</div>',
-    explain: '(' + hJ(t) + ' + ' + hJ(ta) + ' بقشيش) ÷ ' + n + ' = ' + hJ(per) + ' دينار.',
-    share: 'حصة كل واحد منا ' + hJ(per) + ' دينار من فاتورة ' + hJ(t) + ' دينار' };`,
-    how: ['البقشيش = الفاتورة × النسبة.', 'المجموع = الفاتورة + البقشيش.', 'الحصة = المجموع ÷ عدد الأشخاص.', 'اترك خانة البقشيش فارغة إن لم تردّ إضافته.'],
-    faq: [
-      ['كم نسبة البقشيش المناسبة؟', 'لا توجد نسبة ملزمة. اختر ما يناسبك، وتبقى الخانة اختيارية.'],
-      ['هل تناسب الأداة طلبات مختلفة؟', 'لا، فهي تقسم بالتساوي. للطلبات المختلفة احسب كل طلب وحده.'],
-      ['هل تحسب الضريبة والخدمة؟', 'لا تحسبها وحدها. أدخل المبلغ النهائي المكتوب في الفاتورة.']
-    ],
-    rel: [['tip-calculator.html', '💁 حاسبة البقشيش'], ['discount-calculator.html', '🏷️ حاسبة الخصم'], ['jo/tools/budget-split/', '🧮 توزيع الراتب']]
-  },
   'reading-goal': {
     icon: '📖', bg: '#e0f2fe', grad: '#0284c7,#0c4a6e', title: 'كم صفحة أقرأ كل يوم؟', h1: 'كم صفحة أقرأ كل يوم؟ 📖',
     sub: 'اكتب عدد صفحات الكتاب وكم يوماً تريد لإنهائه، وسنحسب ورد القراءة اليومي',
@@ -168,43 +139,6 @@ const SPECS = {
       ['هل تناسب الأداة الكتب الإلكترونية؟', 'نعم، استخدم عدد الصفحات الذي يظهر في تطبيق القراءة.']
     ],
     rel: [['jo/tools/pomodoro-timer/', '🍅 مؤقّت بومودورو'], ['jo/tools/days-to-payday/', '📅 كم تبقّى على الراتب'], ['jo/tools/event-countdown/', '⏳ العدّ التنازلي لمناسبتك']]
-  },
-  'days-lived': {
-    icon: '🎂', bg: '#fce7f3', grad: '#db2777,#500724', title: 'كم يوماً عشت؟', h1: 'كم يوماً عشت؟ 🎂',
-    sub: 'اكتب تاريخ ميلادك، وتعرّف على عدد الأيام والأسابيع التي عشتها ومتى عيد ميلادك القادم',
-    desc: 'اعرف كم يوماً وأسبوعاً وساعة عشت منذ ولادتك، وكم يوماً يتبقى على عيد ميلادك القادم.',
-    kw: 'كم يوم عشت, حساب العمر بالأيام, عمري بالأيام, عيد ميلادي القادم',
-    search: 'كم يوم عشت عمري بالأيام عيد ميلاد days alive',
-    cardDesc: 'عمرك بالأيام والأسابيع، ومتى عيد ميلادك القادم', cat: 'daily',
-    warn: 'يُحسب العمر بالتاريخ الميلادي وبتوقيت جهازك، وقد يختلف يوماً واحداً حسب ساعة ولادتك.',
-    fields: [
-      ['by', 'سنة الميلاد', 'مثال: 2000'],
-      ['bm', 'الشهر (1 إلى 12)', 'مثال: 5'],
-      ['bd', 'اليوم', 'مثال: 17']
-    ],
-    compute: `
-  const y = parseInt(by.value), m = parseInt(bm.value), d = parseInt(bd.value);
-  const I = function (n) { return Math.round(n).toLocaleString('en-US'); };
-  const now = new Date(), ty = now.getFullYear();
-  if (isNaN(y) || isNaN(m) || isNaN(d) || y < 1900 || y > ty || m < 1 || m > 12 || d < 1 || d > 31) return null;
-  const chk = new Date(Date.UTC(y, m - 1, d));
-  if (chk.getUTCMonth() !== m - 1) return { err: 'هذا التاريخ غير صحيح، تأكد من اليوم والشهر.' };
-  const today = Date.UTC(ty, now.getMonth(), now.getDate()), b = chk.getTime();
-  if (b > today) return { err: 'تاريخ الميلاد في المستقبل.' };
-  const days = Math.round((today - b) / 864e5);
-  let nb = Date.UTC(ty, m - 1, d); if (nb < today) nb = Date.UTC(ty + 1, m - 1, d);
-  const nxt = Math.round((nb - today) / 864e5);
-  const ex = hStat(I(days / 7), 'أسبوعاً') + hStat(I(days * 24), 'ساعة') + hStat(nxt === 0 ? 'اليوم 🎉' : I(nxt), 'يوماً على عيد ميلادك القادم');
-  return { main: I(days) + ' يوماً', lbl: 'عشت منذ ولادتك', extra: '<div class="stat-grid">' + ex + '</div>',
-    explain: 'عدد الأيام بين ' + y + '/' + m + '/' + d + ' واليوم = ' + I(days) + ' يوماً، أي نحو ' + I(days / 365.25) + ' سنة.',
-    share: 'عشت ' + I(days) + ' يوماً حتى الآن' };`,
-    how: ['نحسب عدد الأيام بين تاريخ ميلادك واليوم.', 'الأسابيع = الأيام ÷ 7، والساعات = الأيام × 24.', 'عيد الميلاد القادم هو أقرب تاريخ مستقبلي لليوم والشهر الذي ولدت فيهما.', 'من وُلد في 29 شباط يُحتسب عيده في 1 آذار في السنوات غير الكبيسة.'],
-    faq: [
-      ['هل تعمل الأداة بالتاريخ الهجري؟', 'لا، تعتمد التاريخ الميلادي فقط.'],
-      ['لماذا يختلف الناتج عن حاسبة أخرى بيوم؟', 'بسبب ساعة الولادة أو فرق التوقيت، فنحن نحسب الأيام الكاملة بتاريخ اليوم.'],
-      ['كيف أحسب عمري بالسنوات والأشهر؟', 'استخدم حاسبة العمر العامة في الموقع.']
-    ],
-    rel: [['age-calculator.html', '🎂 حاسبة العمر'], ['jo/tools/event-countdown/', '⏳ العدّ التنازلي لمناسبتك'], ['jo/tools/days-to-payday/', '📅 كم تبقّى على الراتب']]
   },
   'event-countdown': {
     icon: '⏳', bg: '#ccfbf1', grad: '#0d9488,#134e4a', title: 'العدّ التنازلي لمناسبتك', h1: 'العدّ التنازلي لمناسبتك ⏳',
@@ -241,7 +175,7 @@ const SPECS = {
       ['هل أستطيع استخدامه لامتحاناتي؟', 'نعم، اكتب تاريخ الامتحان وستعرف كم يوماً يتبقى لتنظم دراستك.'],
       ['هل يحفظ الموقع تاريخي؟', 'لا، كل شيء يُحسب في متصفحك ولا يُرسل لأي مكان.']
     ],
-    rel: [['jo/tools/pomodoro-timer/', '🍅 مؤقّت بومودورو'], ['jo/tools/days-lived/', '🎂 كم يوماً عشت'], ['jo/tools/reading-goal/', '📖 كم صفحة أقرأ كل يوم']]
+    rel: [['jo/tools/pomodoro-timer/', '🍅 مؤقّت بومودورو'], ['date-diff.html', '📆 الفرق بين تاريخين'], ['jo/tools/reading-goal/', '📖 كم صفحة أقرأ كل يوم']]
   }
 };
 
@@ -447,102 +381,235 @@ function buildPomo() {
 }
 
 const GAMES = {
-  'reaction-game': {
-    icon: '⚡', bg: '#fef9c3', grad: '#ca8a04,#422006', title: 'اختبار سرعة ردة الفعل', h1: 'اختبار سرعة ردة الفعل ⚡',
-    sub: 'اضغط بأسرع ما تستطيع عندما يتحول اللون إلى الأخضر، وانظر معدّلك بعد خمس جولات',
-    desc: 'لعبة سريعة تقيس سرعة ردة فعلك بالمللي ثانية: انتظر اللون الأخضر ثم اضغط. خمس جولات ومعدّل وأفضل نتيجة محفوظة على جهازك.',
-    kw: 'اختبار سرعة ردة الفعل, لعبة سرعة, قياس زمن رد الفعل, لعبة الضغط على الأخضر',
-    search: 'اختبار ردة الفعل سرعة لعبة مللي ثانية reaction time game',
-    cardDesc: 'اضغط عند اللون الأخضر وقِس سرعتك بالمللي ثانية', cat: 'games',
+  'split-bill': {
+    icon: '🍽️', bg: '#ffedd5', grad: '#ea580c,#7c2d12', title: 'قسّم الحساب بين الأصدقاء', h1: 'قسّم الحساب بين الأصدقاء 🍽️',
+    sub: 'سجّل مصاريف الرحلة أو السكن أو السهرة ومن دفع كل مصروف، وسنخبرك من يدفع لمن لتتساووا',
+    desc: 'تقسيم المصاريف بين الأصدقاء والسكن المشترك والرحلات: أضف الأشخاص والمصاريف ومن دفع، واعرف رصيد كل واحد ومن يدفع لمن بأقل عدد من التحويلات. مجاني وبدون تسجيل.',
+    kw: 'تقسيم المصاريف, تقسيم الحساب بين الأصدقاء, حساب الرحلة, مصاريف السكن المشترك, من يدفع لمن, بديل splitwise',
+    search: 'تقسيم المصاريف الحساب الأصدقاء رحلة سكن مشترك من يدفع لمن splitwise split bill expenses',
+    cardDesc: 'سجّل المصاريف ومن دفع، ونخبرك من يدفع لمن', cat: 'daily',
     faq: [
-      ['كيف تعمل اللعبة؟', 'اضغط على المربع ليبدأ الانتظار، وعندما يصبح أخضر اضغط بأسرع ما تستطيع. إن ضغطت قبل الأخضر تعاد المحاولة.'],
-      ['ما معنى النتيجة؟', 'هي الزمن بالمللي ثانية بين ظهور اللون الأخضر وضغطتك. كلما قلّت كانت ردة فعلك أسرع.'],
-      ['هل النتيجة دقيقة؟', 'هي تقدير للتسلية، وتتأثر بسرعة جهازك وشاشتك، فلا تعتمد عليها طبياً.']
+      ['كيف تعمل الأداة؟', 'أضف أسماء الأشخاص، ثم سجّل كل مصروف مع من دفعه ومن شارك فيه. تحسب الأداة رصيد كل شخص، وتقترح أقل عدد من التحويلات لتصفية الحسابات.'],
+      ['هل تحفظ الأداة بياناتي؟', 'تُحفظ في متصفحك فقط على هذا الجهاز، ولا تُرسل لأي مكان. لا تتزامن بين الأجهزة، فاستخدم زر النسخ لمشاركة الملخص مع أصدقائك.'],
+      ['هل أستطيع تقسيم مصروف بمبالغ مختلفة؟', 'نعم، اختر "مبالغ محددة" واكتب حصة كل شخص، بشرط أن يساوي مجموعها قيمة المصروف.'],
+      ['ماذا لو دفع شخص ولم يشارك في المصروف؟', 'لا مشكلة، اختره في خانة من دفع ولا تحدده بين المشاركين، فيصبح له رصيد على الآخرين.'],
+      ['ماذا يحدث للكسور في القسمة؟', 'نوزّع القرش الزائد على أول المشاركين، فيبقى مجموع الحصص مساوياً لقيمة المصروف تماماً.']
     ],
-    how: ['اضغط على المربع لتبدأ الجولة.', 'انتظر حتى يتحول إلى الأخضر دون أن تضغط.', 'اضغط فور رؤية الأخضر.', 'بعد خمس جولات ترى المعدّل وأفضل نتيجة لك.'],
-    rel: [['jo/tools/pomodoro-timer/', '🍅 مؤقّت بومودورو'], ['jo/tools/guess-number/', '🔢 خمّن الرقم'], ['jo/games/', '🎮 ألعاب الأردن']],
+    how: ['الرصيد = ما دفعه الشخص − مجموع حصصه من المصاريف.', 'من رصيده موجب فله مال عند الآخرين، ومن رصيده سالب فعليه أن يدفع.', 'نطابق أكبر دائن مع أكبر مدين مراراً، فنحصل على عدد قليل من التحويلات.', 'عند التصفية الفعلية، امسح الحسابات وابدأ من جديد.'],
+    rel: [['tip-calculator.html', '💁 حاسبة البقشيش'], ['jo/tools/budget-split/', '🧮 توزيع الراتب'], ['jo/tools/savings-goal/', '🎯 هدفي الادخاري']],
     main: `
-    <div id="rPad" role="button" tabindex="0" style="user-select:none;-webkit-user-select:none;cursor:pointer;border-radius:16px;padding:56px 16px;text-align:center;font-weight:800;font-size:22px;color:#fff;background:#2563eb;touch-action:manipulation;line-height:1.6;">اضغط هنا للبدء</div>
-    <div style="text-align:center;margin-top:14px;font-size:14px;">الجولة <strong id="rRound">0</strong> من 5 · آخر نتيجة: <strong id="rLast">—</strong></div>
-    <div class="stat-grid" id="rStats" style="margin-top:14px;"></div>`,
-    script: `
-(function () {
-  var $ = function (i) { return document.getElementById(i); };
-  var pad = $('rPad'), st = 'idle', t0 = 0, to = null, res = [], KEY = 'adawati_react_best', best = 0;
-  try { best = parseInt(localStorage.getItem(KEY)) || 0; } catch (e) {}
-  function box(v, l) { return '<div class="stat-box"><div class="stat-val">' + v + '</div><div class="stat-lbl">' + l + '</div></div>'; }
-  function paint(bg, txt) { pad.style.background = bg; pad.textContent = txt; }
-  function stats() { $('rStats').innerHTML = best ? box(best + ' ms', 'أفضل نتيجة لك') : ''; }
-  function rate(a) { return a < 250 ? 'سريع جداً' : a < 350 ? 'جيد' : 'عادي، جرّب مرة أخرى'; }
-  function press() {
-    if (st === 'idle' || st === 'done') {
-      if (st === 'done') { res = []; $('rRound').textContent = 0; $('rLast').textContent = '—'; stats(); }
-      st = 'wait'; paint('#dc2626', 'انتظر اللون الأخضر…');
-      to = setTimeout(function () { st = 'go'; paint('#16a34a', 'اضغط الآن!'); t0 = performance.now(); }, 1500 + Math.random() * 2500);
-    } else if (st === 'wait') {
-      clearTimeout(to); st = 'idle'; paint('#2563eb', 'ضغطت مبكراً! اضغط للمحاولة من جديد');
-    } else if (st === 'go') {
-      var ms = Math.round(performance.now() - t0); res.push(ms);
-      $('rRound').textContent = res.length; $('rLast').textContent = ms + ' ms';
-      if (!best || ms < best) { best = ms; try { localStorage.setItem(KEY, best); } catch (e) {} }
-      if (res.length >= 5) {
-        var avg = Math.round(res.reduce(function (a, b) { return a + b; }, 0) / res.length);
-        st = 'done'; paint('#7c3aed', 'معدّلك ' + avg + ' ms — ' + rate(avg) + '. اضغط للإعادة');
-        $('rStats').innerHTML = box(avg + ' ms', 'المعدّل') + box(Math.min.apply(null, res) + ' ms', 'أفضل جولة') + box(best + ' ms', 'أفضل نتيجة لك');
-      } else { st = 'idle'; paint('#2563eb', ms + ' ms — اضغط للجولة التالية'); stats(); }
-    }
-  }
-  pad.addEventListener('pointerdown', function (e) { e.preventDefault(); press(); });
-  pad.addEventListener('keydown', function (e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); press(); } });
-  stats();
-})();
-`
-  },
-  'guess-number': {
-    icon: '🔢', bg: '#dbeafe', grad: '#2563eb,#1e1b4b', title: 'لعبة خمّن الرقم', h1: 'لعبة خمّن الرقم 🔢',
-    sub: 'اخترت رقماً بين 1 و100، فخمّنه بأقل عدد من المحاولات',
-    desc: 'لعبة خمّن الرقم من 1 إلى 100: تلميح أكبر أو أصغر بعد كل محاولة، وعدّاد للمحاولات وأفضل نتيجة محفوظة على جهازك.',
-    kw: 'لعبة خمن الرقم, لعبة تخمين, لعبة أرقام, خمن الرقم من 1 الى 100',
-    search: 'خمن الرقم لعبة تخمين أرقام guess the number game',
-    cardDesc: 'خمّن الرقم بين 1 و100 بأقل عدد من المحاولات', cat: 'games',
-    faq: [
-      ['كيف ألعب؟', 'اكتب رقماً بين 1 و100 واضغط تخمين، وسنخبرك إن كان الرقم السري أكبر أو أصغر.'],
-      ['ما أفضل طريقة للفوز؟', 'ابدأ بالمنتصف 50، ثم نصّف المجال في كل مرة. بهذه الطريقة تصل في سبع محاولات على الأكثر.'],
-      ['هل تحفظ اللعبة نتائجي؟', 'تحفظ أفضل نتيجة على جهازك فقط، ولا ترسلها لأي مكان.']
-    ],
-    how: ['اللعبة تختار رقماً عشوائياً بين 1 و100.', 'اكتب تخمينك وسنقول لك أكبر أم أصغر.', 'حاول الوصول بأقل عدد من المحاولات.', 'نصيحة: نصّف المجال في كل تخمين.'],
-    rel: [['jo/tools/reaction-game/', '⚡ اختبار ردة الفعل'], ['jo/games/', '🎮 ألعاب الأردن'], ['jo/tools/pomodoro-timer/', '🍅 مؤقّت بومودورو']],
-    main: `
-    <div style="text-align:center;font-size:15px;margin-bottom:10px;">المحاولات: <strong id="gCnt">0</strong> · أفضل نتيجة: <strong id="gBest">—</strong></div>
-    <div id="gMsg" style="text-align:center;font-weight:800;font-size:18px;min-height:52px;padding:10px;border-radius:12px;background:var(--surface-2);line-height:1.6;">خمّن رقماً بين 1 و100</div>
-    <div style="display:flex;gap:8px;margin-top:14px;">
-      <input type="text" data-num inputmode="numeric" id="gIn" placeholder="تخمينك" style="flex:2;" autocomplete="off">
-      <button type="button" id="gGo" style="flex:1;padding:13px;border:none;border-radius:12px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;font-weight:800;font-family:inherit;font-size:16px;cursor:pointer;">تخمين</button>
+    <style>
+      .sb-h{font-size:15px;font-weight:800;margin:6px 0 10px;}
+      .sb-in{width:100%;padding:11px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;box-sizing:border-box;}
+      .sb-btn{padding:11px 16px;border:none;border-radius:10px;background:linear-gradient(135deg,#ea580c,#c2410c);color:#fff;font-weight:800;font-family:inherit;font-size:15px;cursor:pointer;white-space:nowrap;}
+      .sb-btn2{padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;font-size:14px;cursor:pointer;}
+      .sb-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 6px 6px 12px;margin:0 0 6px 6px;border-radius:999px;background:var(--surface-2);font-size:14px;font-weight:700;}
+      .sb-x{border:none;background:transparent;color:var(--text-muted);cursor:pointer;font-size:14px;padding:2px 6px;font-family:inherit;}
+      .sb-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+      .sb-part{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:10px;margin-bottom:6px;}
+      .sb-part label{flex:1;font-size:14px;cursor:pointer;}
+      .sb-part input[type=text]{width:90px;padding:7px 8px;}
+      .sb-seg{display:flex;gap:6px;margin:8px 0;}
+      .sb-seg button{flex:1;}
+      .sb-seg .on{background:#ea580c;color:#fff;border-color:#ea580c;}
+      .sb-item{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;}
+      .sb-item:last-child{border-bottom:none;}
+      .sb-sub{font-size:12px;color:var(--text-muted);margin-top:2px;line-height:1.6;}
+      .sb-pos{color:#16a34a;font-weight:800;}
+      .sb-neg{color:#dc2626;font-weight:800;}
+      .sb-msg{min-height:20px;font-size:13px;margin-top:8px;color:#dc2626;font-weight:700;}
+      .sb-empty{font-size:13px;color:var(--text-muted);padding:6px 0;}
+    </style>
+    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:#92400e;line-height:1.7;margin-bottom:14px;">
+      🔒 كل شيء يُحفظ في متصفحك على هذا الجهاز فقط ولا يُرسل لأي مكان. استخدم زر النسخ لمشاركة الملخص مع أصدقائك.
     </div>
-    <div id="gHist" style="margin-top:12px;font-size:13px;color:var(--text-muted);line-height:1.8;"></div>
-    <button type="button" id="gNew" style="margin-top:12px;width:100%;padding:11px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;cursor:pointer;">↺ لعبة جديدة</button>`,
+
+    <div class="sb-h">👥 1) الأشخاص</div>
+    <div class="sb-row"><input class="sb-in" id="sbName" type="text" maxlength="20" placeholder="اسم الشخص، مثال: أحمد" autocomplete="off"><button type="button" class="sb-btn" id="sbAdd">إضافة</button></div>
+    <div id="sbPeople"></div>
+  </div>
+
+  <div class="card" style="margin-top:16px;" id="sbExpCard">
+    <div class="sb-h">🧾 2) مصروف جديد</div>
+    <div id="sbNeed" class="sb-empty">أضف شخصين على الأقل لتبدأ تسجيل المصاريف.</div>
+    <div id="sbForm" hidden>
+      <div class="sb-row"><input class="sb-in" id="sbDesc" type="text" maxlength="40" placeholder="الوصف، مثال: عشاء" autocomplete="off" style="flex:2;"><input class="sb-in" id="sbAmt" type="text" inputmode="decimal" placeholder="المبلغ" autocomplete="off" style="flex:1;min-width:0;"></div>
+      <label style="font-size:13px;font-weight:700;display:block;margin:8px 0 4px;">من دفع؟</label>
+      <select class="sb-in" id="sbPayer"></select>
+      <label style="font-size:13px;font-weight:700;display:block;margin:12px 0 0;">كيف يُقسَّم؟</label>
+      <div class="sb-seg"><button type="button" class="sb-btn2 on" id="sbEq">بالتساوي</button><button type="button" class="sb-btn2" id="sbEx">مبالغ محددة</button></div>
+      <div id="sbParts"></div>
+      <div id="sbLeft" class="sb-sub" style="margin:4px 0 8px;"></div>
+      <button type="button" class="sb-btn" id="sbSave" style="width:100%;">➕ أضف المصروف</button>
+      <div class="sb-msg" id="sbMsg"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="sb-h">📋 المصاريف المسجّلة</div>
+    <div id="sbList"></div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="sb-h">⚖️ الأرصدة</div>
+    <div id="sbBal"></div>
+    <div class="sb-h" style="margin-top:16px;">🤝 التسوية المقترحة</div>
+    <div id="sbSet"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+      <button type="button" class="sb-btn" id="sbCopy" style="flex:2;">📋 نسخ الملخص</button>
+      <button type="button" class="sb-btn2" id="sbClear" style="flex:1;">🗑 مسح الكل</button>
+    </div>
+    <div class="sb-sub" id="sbCopied" style="margin-top:8px;min-height:18px;"></div>`,
     script: `
 (function () {
   var $ = function (i) { return document.getElementById(i); };
-  var KEY = 'adawati_guess_best', secret, cnt, over, best = 0, lo, hi;
-  try { best = parseInt(localStorage.getItem(KEY)) || 0; } catch (e) {}
-  function fresh() { secret = 1 + Math.floor(Math.random() * 100); cnt = 0; over = false; lo = 1; hi = 100; $('gCnt').textContent = 0; $('gBest').textContent = best || '—'; $('gMsg').textContent = 'خمّن رقماً بين 1 و100'; $('gHist').textContent = ''; $('gIn').value = ''; $('gIn').focus(); }
-  function guess() {
-    if (over) return;
-    var v = parseInt($('gIn').value.replace(/[٠-٩]/g, function (d) { return d.charCodeAt(0) - 1632; }));
-    if (isNaN(v) || v < 1 || v > 100) { $('gMsg').textContent = 'اكتب رقماً صحيحاً بين 1 و100'; return; }
-    cnt++; $('gCnt').textContent = cnt; $('gIn').value = '';
-    if (v === secret) {
-      over = true; $('gMsg').textContent = '🎉 أحسنت! الرقم ' + secret + ' بعد ' + (cnt === 1 ? 'محاولة واحدة' : cnt === 2 ? 'محاولتين' : cnt <= 10 ? cnt + ' محاولات' : cnt + ' محاولة');
-      if (!best || cnt < best) { best = cnt; try { localStorage.setItem(KEY, best); } catch (e) {} $('gBest').textContent = best; }
-    } else if (v < secret) { lo = Math.max(lo, v + 1); $('gMsg').textContent = '⬆️ الرقم أكبر من ' + v; }
-    else { hi = Math.min(hi, v - 1); $('gMsg').textContent = '⬇️ الرقم أصغر من ' + v; }
-    if (!over) $('gHist').textContent = 'المجال الآن: من ' + lo + ' إلى ' + hi;
+  var KEY = 'adawati_split_v1', S = { people: [], exps: [], nid: 1 }, mode = 'eq', sel = {}, exv = {};
+  try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.people && r.exps) S = r; } catch (e) {}
+  var NL = String.fromCharCode(10);
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function num(v) { return parseFloat(String(v).replace(/[٠-٩]/g, function (d) { return d.charCodeAt(0) - 1632; }).replace(/[٫،]/g, '.').replace(/,/g, '')); }
+  function fm(c) { return (Math.abs(c) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function nm(id) { for (var i = 0; i < S.people.length; i++) if (S.people[i].id === id) return S.people[i].name; return '؟'; }
+  function msg(t) { $('sbMsg').textContent = t || ''; }
+
+  function balances() {
+    var b = {}; S.people.forEach(function (p) { b[p.id] = 0; });
+    S.exps.forEach(function (e) { b[e.payer] = (b[e.payer] || 0) + e.amt; for (var k in e.shares) b[k] = (b[k] || 0) - e.shares[k]; });
+    return b;
   }
-  $('gGo').addEventListener('click', guess);
-  $('gIn').addEventListener('keydown', function (e) { if (e.key === 'Enter') guess(); });
-  $('gNew').addEventListener('click', fresh);
-  fresh();
+  function settle(b) {
+    var cr = [], db = [], out = [];
+    for (var k in b) { if (b[k] > 0) cr.push({ id: +k, v: b[k] }); else if (b[k] < 0) db.push({ id: +k, v: -b[k] }); }
+    while (cr.length && db.length) {
+      cr.sort(function (x, y) { return y.v - x.v; }); db.sort(function (x, y) { return y.v - x.v; });
+      var t = Math.min(cr[0].v, db[0].v);
+      out.push({ from: db[0].id, to: cr[0].id, v: t });
+      cr[0].v -= t; db[0].v -= t;
+      if (cr[0].v === 0) cr.shift(); if (db[0].v === 0) db.shift();
+    }
+    return out;
+  }
+
+  function renderPeople() {
+    var h = '';
+    S.people.forEach(function (p) { h += '<span class="sb-chip">' + esc(p.name) + '<button type="button" class="sb-x" data-rm="' + p.id + '" aria-label="حذف">✕</button></span>'; });
+    $('sbPeople').innerHTML = h || '<div class="sb-empty">لم تضف أحداً بعد.</div>';
+    var ok = S.people.length >= 2;
+    $('sbNeed').hidden = ok; $('sbForm').hidden = !ok;
+    var cur = $('sbPayer').value, o = '';
+    S.people.forEach(function (p) { o += '<option value="' + p.id + '">' + esc(p.name) + '</option>'; });
+    $('sbPayer').innerHTML = o; if (cur) $('sbPayer').value = cur;
+    renderParts();
+  }
+  function renderParts() {
+    var h = '';
+    S.people.forEach(function (p) {
+      if (sel[p.id] === undefined) sel[p.id] = true;
+      h += '<div class="sb-part"><input type="checkbox" id="sbc' + p.id + '" data-c="' + p.id + '"' + (sel[p.id] ? ' checked' : '') + '><label for="sbc' + p.id + '">' + esc(p.name) + '</label>' +
+        (mode === 'ex' ? '<input class="sb-in" type="text" inputmode="decimal" data-v="' + p.id + '" placeholder="0.00" value="' + esc(exv[p.id] || '') + '"' + (sel[p.id] ? '' : ' disabled') + '>' : '') + '</div>';
+    });
+    $('sbParts').innerHTML = h; updLeft();
+  }
+  function updLeft() {
+    if (mode !== 'ex') { $('sbLeft').textContent = ''; return; }
+    var tot = Math.round(num($('sbAmt').value) * 100) || 0, s = 0;
+    S.people.forEach(function (p) { if (sel[p.id]) s += Math.round(num(exv[p.id]) * 100) || 0; });
+    var d = tot - s;
+    $('sbLeft').textContent = d === 0 ? '✓ المجموع يطابق قيمة المصروف' : (d > 0 ? 'المتبقي لتوزيعه: ' : 'زيادة عن قيمة المصروف: ') + fm(d) + ' دينار';
+  }
+  function renderResults() {
+    var l = '';
+    S.exps.slice().reverse().forEach(function (e) {
+      var parts = []; for (var k in e.shares) parts.push(esc(nm(+k)) + ' ' + fm(e.shares[k]));
+      l += '<div class="sb-item"><div><strong>' + esc(e.desc) + '</strong> · ' + fm(e.amt) + ' دينار<div class="sb-sub">دفع: ' + esc(nm(e.payer)) + ' · الحصص: ' + parts.join('، ') + '</div></div><button type="button" class="sb-x" data-del="' + e.id + '" aria-label="حذف المصروف">✕</button></div>';
+    });
+    $('sbList').innerHTML = l || '<div class="sb-empty">لا توجد مصاريف بعد.</div>';
+    var b = balances(), bh = '', any = false;
+    S.people.forEach(function (p) {
+      var v = b[p.id] || 0; if (v !== 0) any = true;
+      bh += '<div class="sb-item"><span>' + esc(p.name) + '</span><span class="' + (v > 0 ? 'sb-pos' : v < 0 ? 'sb-neg' : '') + '">' + (v > 0 ? 'له ' + fm(v) : v < 0 ? 'عليه ' + fm(v) : 'متساوٍ') + ' دينار</span></div>';
+    });
+    $('sbBal').innerHTML = S.people.length ? bh : '<div class="sb-empty">أضف الأشخاص أولاً.</div>';
+    var st = settle(b), sh = '';
+    st.forEach(function (t) { sh += '<div class="sb-item"><span><strong>' + esc(nm(t.from)) + '</strong> يدفع إلى <strong>' + esc(nm(t.to)) + '</strong></span><span class="sb-pos">' + fm(t.v) + ' دينار</span></div>'; });
+    $('sbSet').innerHTML = sh || '<div class="sb-empty">' + (S.exps.length ? '✓ الحسابات متساوية، لا يوجد ما يُدفع.' : 'ستظهر هنا بعد تسجيل المصاريف.') + '</div>';
+  }
+  function renderAll() { renderPeople(); renderResults(); }
+
+  function addPerson() {
+    var n = $('sbName').value.trim().replace(/\\s+/g, ' ');
+    if (!n) return;
+    for (var i = 0; i < S.people.length; i++) if (S.people[i].name === n) { $('sbName').value = ''; return; }
+    if (S.people.length >= 20) return;
+    var id = S.nid++; S.people.push({ id: id, name: n }); sel[id] = true; $('sbName').value = ''; save(); renderAll(); $('sbName').focus();
+  }
+  function used(id) { return S.exps.some(function (e) { return e.payer === id || e.shares[id] !== undefined; }); }
+  function addExpense() {
+    var amt = Math.round(num($('sbAmt').value) * 100);
+    if (!amt || amt <= 0) { msg('اكتب مبلغاً صحيحاً أكبر من صفر.'); return; }
+    var payer = +$('sbPayer').value, ids = S.people.filter(function (p) { return sel[p.id]; }).map(function (p) { return p.id; });
+    if (!ids.length) { msg('اختر شخصاً واحداً على الأقل ليشارك في المصروف.'); return; }
+    var shares = {};
+    if (mode === 'eq') {
+      var base = Math.floor(amt / ids.length), rem = amt - base * ids.length;
+      ids.forEach(function (id, i) { shares[id] = base + (i < rem ? 1 : 0); });
+    } else {
+      var s = 0; ids.forEach(function (id) { var c = Math.round(num(exv[id]) * 100) || 0; shares[id] = c; s += c; });
+      if (s !== amt) { msg('مجموع الحصص ' + fm(s) + ' لا يساوي قيمة المصروف ' + fm(amt) + '.'); return; }
+      for (var k in shares) if (shares[k] === 0) delete shares[k];
+    }
+    S.exps.push({ id: S.nid++, desc: $('sbDesc').value.trim() || 'مصروف', amt: amt, payer: payer, shares: shares });
+    $('sbDesc').value = ''; $('sbAmt').value = ''; exv = {}; msg(''); save(); renderParts(); renderResults();
+  }
+  function summary() {
+    var b = balances(), L = ['تقسيم المصاريف (أدواتي - adawati.space/jo/tools/split-bill/)', ''];
+    S.exps.forEach(function (e) { L.push('• ' + e.desc + ': ' + fm(e.amt) + ' دينار، دفع ' + nm(e.payer)); });
+    L.push('', 'الأرصدة:');
+    S.people.forEach(function (p) { var v = b[p.id] || 0; L.push('- ' + p.name + ': ' + (v > 0 ? 'له ' : v < 0 ? 'عليه ' : 'متساوٍ ') + (v ? fm(v) : '') + (v ? ' دينار' : '')); });
+    var st = settle(b); L.push('', 'التسوية:');
+    if (!st.length) L.push('لا يوجد ما يُدفع.');
+    st.forEach(function (t) { L.push('- ' + nm(t.from) + ' يدفع إلى ' + nm(t.to) + ': ' + fm(t.v) + ' دينار'); });
+    return L.join(NL);
+  }
+
+  $('sbAdd').addEventListener('click', addPerson);
+  $('sbName').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); addPerson(); } });
+  $('sbPeople').addEventListener('click', function (e) {
+    var id = e.target.getAttribute && e.target.getAttribute('data-rm'); if (!id) return; id = +id;
+    if (used(id)) { $('sbCopied').textContent = 'لا يمكن حذف شخص مشارك في مصاريف مسجّلة. احذف مصاريفه أولاً.'; return; }
+    S.people = S.people.filter(function (p) { return p.id !== id; }); delete sel[id]; save(); renderAll();
+  });
+  $('sbList').addEventListener('click', function (e) {
+    var id = e.target.getAttribute && e.target.getAttribute('data-del'); if (!id) return;
+    S.exps = S.exps.filter(function (x) { return x.id !== +id; }); save(); renderResults();
+  });
+  $('sbParts').addEventListener('change', function (e) {
+    var c = e.target.getAttribute('data-c'); if (c) { sel[c] = e.target.checked; renderParts(); }
+  });
+  $('sbParts').addEventListener('input', function (e) {
+    var v = e.target.getAttribute('data-v'); if (v) { exv[v] = e.target.value; updLeft(); }
+  });
+  $('sbAmt').addEventListener('input', updLeft);
+  function setMode(m) { mode = m; $('sbEq').classList.toggle('on', m === 'eq'); $('sbEx').classList.toggle('on', m === 'ex'); renderParts(); }
+  $('sbEq').addEventListener('click', function () { setMode('eq'); });
+  $('sbEx').addEventListener('click', function () { setMode('ex'); });
+  $('sbSave').addEventListener('click', addExpense);
+  $('sbAmt').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); addExpense(); } });
+  $('sbCopy').addEventListener('click', function () {
+    var t = summary();
+    function done(ok) { $('sbCopied').textContent = ok ? '✓ تم نسخ الملخص، الصقه في واتساب أو أي محادثة.' : 'تعذّر النسخ تلقائياً.'; }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
+    else { var a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); var ok = false; try { ok = document.execCommand('copy'); } catch (e) {} document.body.removeChild(a); done(ok); }
+  });
+  var armed = null;
+  $('sbClear').addEventListener('click', function () {
+    var b = $('sbClear');
+    if (!armed) { b.textContent = 'اضغط للتأكيد'; armed = setTimeout(function () { armed = null; b.textContent = '🗑 مسح الكل'; }, 4000); return; }
+    clearTimeout(armed); armed = null; b.textContent = '🗑 مسح الكل';
+    S = { people: [], exps: [], nid: 1 }; sel = {}; exv = {}; save(); $('sbCopied').textContent = ''; renderAll();
+  });
+  renderAll();
 })();
 `
   }
