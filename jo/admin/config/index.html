@@ -59,7 +59,7 @@
   </div>
 </footer>
 <script src="i18n-lang-ar.js?v=4" defer></script>
-<script src="i18n.js?v=68" defer></script>
+<script src="i18n.js?v=69" defer></script>
 <script src="jo/ads/ads.js?v=6" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -93,7 +93,19 @@ document.addEventListener('DOMContentLoaded', function () {
   var body = document.getElementById('cfBody'), fbRef = null;
   function esc(s) { return adsEsc(s); }
 
+  var BN_C = [['jo', '🇯🇴 شريط الأردن'], ['sa', '🇸🇦 شريط السعودية'], ['ae', '🇦🇪 شريط الإمارات'], ['om', '🇴🇲 شريط عُمان'], ['eg', '🇪🇬 شريط مصر']];
+  var INP = 'width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;';
+  function bnBlock(x, bn) {
+    return '<div class="cf-row"><label for="bOn' + x + '">تفعيل الشريط</label><input type="checkbox" id="bOn' + x + '"' + (bn.enabled === true ? ' checked' : '') + '></div>' +
+      '<div style="margin-top:6px;"><label class="cf-h" for="bTxt' + x + '">النص</label><input type="text" id="bTxt' + x + '" maxlength="160" style="' + INP + '" value="' + esc(bn.text || '') + '"></div>' +
+      '<div style="margin-top:6px;"><label class="cf-h" for="bLnk' + x + '">رابط اختياري (يبدأ بـ https:// أو /)</label><input type="text" id="bLnk' + x + '" dir="ltr" style="' + INP + '" value="' + esc(bn.link || '') + '"></div>' +
+      '<div style="margin-top:6px;"><label class="cf-h" for="bLt' + x + '">نص الرابط</label><input type="text" id="bLt' + x + '" maxlength="30" style="' + INP + '" value="' + esc(bn.linkText || '') + '"></div>' +
+      '<div class="cf-row"><label for="bSt' + x + '">اللون</label><select id="bSt' + x + '">' + [['info', 'أزرق (معلومة)'], ['warn', 'برتقالي (تنبيه)'], ['ok', 'أخضر (خبر سار)']].map(function (o) { return '<option value="' + o[0] + '"' + ((bn.style || 'info') === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></div>';
+  }
+  function bnRead(x) { return { enabled: document.getElementById('bOn' + x).checked, text: v('bTxt' + x), link: v('bLnk' + x), linkText: v('bLt' + x), style: v('bSt' + x) }; }
+
   function build(c) {
+    BN_C.forEach(function (k) { k.banners = c.banners; });
     var s = c.sync || {}, q = c.quiz || {}, ch = c.chat || {}, dis = s.disabledKeys || [], bn = c.banner || {}, ad = c.ads || {}, mt = c.maintenance || {}, pg = c.pages || {};
     var ret = [[0, 'بلا حد (احتفظ بكل شيء)'], [30, '30 يوماً'], [90, '90 يوماً'], [180, '180 يوماً'], [365, 'سنة'], [730, 'سنتان']];
     var h = '<div class="card cf-sec"><h2>🔄 مزامنة بيانات الأدوات مع الحساب</h2><div class="cf-h">تخص المستخدمين المسجّلين فقط.</div>' +
@@ -111,12 +123,9 @@ document.addEventListener('DOMContentLoaded', function () {
       QUIZZES.map(function (z) { var v = q.seconds && q.seconds[z[0]]; return '<label>' + esc(z[1]) + '<input type="number" data-s="' + esc(z[0]) + '" min="5" max="60" style="width:70px;margin-inline-start:auto;padding:6px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-size:15px;" value="' + (v >= 5 && v <= 60 ? v : '') + '"></label>'; }).join('') + '</div>' +
       '<div class="cf-row"><div><label for="cChat">دردشة التحديات</label><div class="cf-h">أوقفها مؤقتاً عند وجود إساءة، ويصل الأمر للمستخدمين خلال 30 دقيقة.</div></div><input type="checkbox" id="cChat"' + (ch.enabled === false ? '' : ' checked') + '></div></div>' +
 
-      '<div class="card cf-sec"><h2>📢 شريط إعلان أعلى الصفحات</h2><div class="cf-h">رسالة تظهر لكل الزوار، ويستطيع الزائر إغلاقها، ولا تعود له إلا إذا غيّرت النص.</div>' +
-      '<div class="cf-row"><label for="bOn">تفعيل الشريط</label><input type="checkbox" id="bOn"' + (bn.enabled === true ? ' checked' : '') + '></div>' +
-      '<div style="margin-top:6px;"><label class="cf-h" for="bTxt">النص</label><input type="text" id="bTxt" maxlength="160" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;" value="' + esc(bn.text || '') + '"></div>' +
-      '<div style="margin-top:6px;"><label class="cf-h" for="bLnk">رابط اختياري (يبدأ بـ https:// أو /)</label><input type="text" id="bLnk" dir="ltr" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;" value="' + esc(bn.link || '') + '"></div>' +
-      '<div style="margin-top:6px;"><label class="cf-h" for="bLt">نص الرابط</label><input type="text" id="bLt" maxlength="30" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;" value="' + esc(bn.linkText || '') + '"></div>' +
-      '<div class="cf-row"><label for="bSt">اللون</label><select id="bSt">' + [['info', 'أزرق (معلومة)'], ['warn', 'برتقالي (تنبيه)'], ['ok', 'أخضر (خبر سار)']].map(function (o) { return '<option value="' + o[0] + '"' + ((bn.style || 'info') === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></div></div>' +
+      '<div class="card cf-sec"><h2>📢 شريط إعلان أعلى الصفحات</h2><div class="cf-h">رسالة تظهر للزوار، ويستطيع الزائر إغلاقها، ولا تعود له إلا إذا غيّرت النص. الشريط العام يظهر في كل الصفحات، وشريط الدولة (إن فعّلته) يحل محله في صفحات تلك الدولة فقط.</div>' +
+      '<h3 style="margin:12px 0 4px;font-size:15px;">🌍 الشريط العام</h3>' + bnBlock('', bn) +
+      BN_C.map(function (c) { var b = (c.banners || {})[c[0]] || {}; return '<h3 style="margin:16px 0 4px;font-size:15px;">' + c[1] + '</h3>' + bnBlock('_' + c[0], b); }).join('') + '</div>' +
 
       '<div class="card cf-sec"><h2>🧰 التحكم بالموقع</h2>' +
       '<div class="cf-row"><div><label for="aOn">عرض إعلانات AdSense</label><div class="cf-h">أطفئه لإخفاء كل الوحدات الإعلانية فوراً، مثلاً أثناء مراجعة جوجل أو عند ظهور مشكلة.</div></div><input type="checkbox" id="aOn"' + (ad.enabled === false ? '' : ' checked') + '></div>' +
@@ -150,7 +159,8 @@ document.addEventListener('DOMContentLoaded', function () {
       sync: { enabled: document.getElementById('cSyncOn').checked, retentionDays: parseInt(document.getElementById('cRet').value, 10) || 0, maxKeyKB: mx, disabledKeys: dis },
       quiz: { questionsPerGame: q, secondsDefault: secAll(), seconds: secMap() },
       chat: { enabled: document.getElementById('cChat').checked },
-      banner: { enabled: document.getElementById('bOn').checked, text: v('bTxt'), link: v('bLnk'), linkText: v('bLt'), style: v('bSt') },
+      banner: bnRead(''),
+      banners: BN_C.reduce(function (o, c) { o[c[0]] = bnRead('_' + c[0]); return o; }, {}),
       ads: { enabled: document.getElementById('aOn').checked },
       maintenance: { enabled: document.getElementById('mOn').checked, message: v('mTxt') },
       pages: { disabled: v('pList').split(/\r?\n/).map(function (x) { return x.trim(); }).filter(Boolean).slice(0, 100), message: v('pMsg') },

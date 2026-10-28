@@ -83,7 +83,8 @@
       var go = function() {
         if (c.maintenance && c.maintenance.enabled === true) { wall('🛠️ الموقع تحت الصيانة', c.maintenance.message || 'نعمل على تحسينات سريعة، وسنعود قريباً.', false); return; }
         if (hit(c, path)) { wall('⏸️ هذه الأداة متوقفة مؤقتاً', (c.pages && c.pages.message) || 'سنعيدها قريباً. تفضّل بزيارة بقية الأدوات.', true); return; }
-        banner(c.banner);
+        var cc = (path.split('/')[1] || ''), cb = c.banners && c.banners[cc];
+        banner(cb && cb.enabled === true && cb.text ? cb : c.banner);
         if (c.pages && c.pages.disabled && c.pages.disabled.length) [].slice.call(document.querySelectorAll('a.tool-card')).forEach(function(a) {
           if (hit(c, norm(a.pathname))) a.style.display = 'none';
         });
