@@ -914,7 +914,12 @@ function pickQuestions() {
   });
 }
 
-const QUESTION_SECONDS = QUIZ_CONFIG.questionSeconds || 10;
+function questionSeconds() {
+  var q = siteCfg().quiz || {}, per = q.seconds && parseInt(q.seconds[QUIZ_CONFIG.gameId], 10), all = parseInt(q.secondsDefault, 10);
+  if (per >= 5 && per <= 60) return per;
+  if (all >= 5 && all <= 60) return all;
+  return QUIZ_CONFIG.questionSeconds || 10;
+}
 let timerInterval = null;
 
 function clearQuestionTimer() {
@@ -935,7 +940,7 @@ function getTimerEl() {
 
 function startQuestionTimer() {
   clearQuestionTimer();
-  let remaining = QUESTION_SECONDS;
+  let remaining = questionSeconds();
   const el = getTimerEl();
   el.textContent = qt('time_left')(remaining);
   el.style.color = 'var(--text-muted)';

@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
     ['Meta للمطورين', 'تطبيقات فيسبوك وإنستغرام.', 'https://developers.facebook.com/'],
     ['Bing Webmaster Tools', 'الفهرسة في Bing (IndexNow).', 'https://www.bing.com/webmasters']
   ];
+  var QUIZZES = [['jordan-quiz', 'الأردن'], ['general-quiz', 'ثقافة عامة'], ['culture-quiz', 'الثقافة'], ['geography-quiz', 'الجغرافيا'], ['science-quiz', 'العلوم'], ['math-quiz', 'الرياضيات'], ['english-quiz', 'الإنجليزية'], ['arabic-language-quiz', 'اللغة العربية'], ['arabic-proverbs-quiz', 'الأمثال'], ['islamic-history-quiz', 'التاريخ الإسلامي'], ['animals-quiz', 'الحيوانات'], ['cooking-quiz', 'الطبخ'], ['inventions-quiz', 'الاختراعات'], ['logo-quiz', 'الشعارات'], ['makeup-quiz', 'المكياج'], ['songs-quiz', 'الأغاني'], ['world-football-quiz', 'كرة القدم'], ['world-sports-quiz', 'الرياضة'], ['oman-quiz', 'عُمان'], ['saudi-quiz', 'السعودية'], ['uae-quiz', 'الإمارات'], ['egypt-quiz', 'مصر']];
   var DOC = ['config', 'site'];
   var body = document.getElementById('cfBody'), fbRef = null;
   function esc(s) { return adsEsc(s); }
@@ -103,6 +104,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       '<div class="card cf-sec"><h2>🎮 الاختبارات والتحديات</h2>' +
       '<div class="cf-row"><div><label for="cQ">عدد الأسئلة في كل جولة</label><div class="cf-h">من 5 إلى 20، والحد الأعلى 20 بسبب قواعد التحديات. الافتراضي 12.</div></div><input type="number" id="cQ" min="5" max="20" value="' + (q.questionsPerGame >= 5 && q.questionsPerGame <= 20 ? q.questionsPerGame : 12) + '"></div>' +
+      '<div class="cf-row"><div><label for="cSecAll">وقت السؤال لكل الاختبارات (ثانية)</label><div class="cf-h">من 5 إلى 60. اتركه فارغاً لاستعمال وقت كل اختبار الافتراضي (15 ثانية). يُطبَّق على التحديات والعب الفردي.</div></div><input type="number" id="cSecAll" min="5" max="60" placeholder="15" value="' + (q.secondsDefault >= 5 && q.secondsDefault <= 60 ? q.secondsDefault : '') + '"></div>' +
+      '<div style="margin-top:10px;font-weight:700;font-size:14px;">وقت خاص بكل اختبار (يتفوق على الوقت العام، فارغ = العام)</div><div class="cf-keys">' +
+      QUIZZES.map(function (z) { var v = q.seconds && q.seconds[z[0]]; return '<label>' + esc(z[1]) + '<input type="number" data-s="' + esc(z[0]) + '" min="5" max="60" style="width:70px;margin-inline-start:auto;padding:6px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-size:15px;" value="' + (v >= 5 && v <= 60 ? v : '') + '"></label>'; }).join('') + '</div>' +
       '<div class="cf-row"><div><label for="cChat">دردشة التحديات</label><div class="cf-h">أوقفها مؤقتاً عند وجود إساءة، ويصل الأمر للمستخدمين خلال 30 دقيقة.</div></div><input type="checkbox" id="cChat"' + (ch.enabled === false ? '' : ' checked') + '></div></div>' +
 
       '<div class="card cf-sec"><button type="button" class="ads-btn" id="cSave">💾 حفظ الإعدادات</button> <button type="button" class="ads-btn secondary" id="cReset">↩️ الافتراضي</button><div id="cMsg"></div></div>' +
@@ -116,6 +120,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function msg(t, m) { var e = document.getElementById('cMsg'); if (e) e.innerHTML = '<div class="ads-msg ' + t + '">' + esc(m) + '</div>'; }
 
+  function secOk(n) { n = parseInt(n, 10); return n >= 5 && n <= 60 ? n : 0; }
+  function secAll() { return secOk(document.getElementById('cSecAll').value); }
+  function secMap() { var o = {}; [].slice.call(document.querySelectorAll('[data-s]')).forEach(function (i) { var n = secOk(i.value); if (n) o[i.getAttribute('data-s')] = n; }); return o; }
+
   function save() {
     var btn = document.getElementById('cSave');
     var dis = [].slice.call(document.querySelectorAll('[data-k]')).filter(function (i) { return !i.checked; }).map(function (i) { return i.getAttribute('data-k'); });
@@ -123,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var q = Math.max(5, Math.min(20, parseInt(document.getElementById('cQ').value, 10) || 12));
     var data = {
       sync: { enabled: document.getElementById('cSyncOn').checked, retentionDays: parseInt(document.getElementById('cRet').value, 10) || 0, maxKeyKB: mx, disabledKeys: dis },
-      quiz: { questionsPerGame: q },
+      quiz: { questionsPerGame: q, secondsDefault: secAll(), seconds: secMap() },
       chat: { enabled: document.getElementById('cChat').checked },
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     };
