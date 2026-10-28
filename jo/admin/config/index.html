@@ -59,7 +59,7 @@
   </div>
 </footer>
 <script src="i18n-lang-ar.js?v=4" defer></script>
-<script src="i18n.js?v=70" defer></script>
+<script src="i18n.js?v=71" defer></script>
 <script src="jo/ads/ads.js?v=6" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
       KEYS.map(function (k) { return '<label><input type="checkbox" data-k="' + esc(k[0]) + '"' + (dis.indexOf(k[0]) < 0 ? ' checked' : '') + '> ' + esc(k[1]) + '</label>'; }).join('') + '</div></div>' +
 
       '<div class="card cf-sec"><h2>🎮 الاختبارات والتحديات</h2>' +
+      '<div class="cf-row"><div><label for="cMp">أقصى عدد لاعبين في التحدي</label><div class="cf-h">من 2 إلى 100. الافتراضي 20. ينطبق على التحديات التي تُفتح بعد وصول الإعداد للمستخدمين.</div></div><input type="number" id="cMp" min="2" max="100" value="' + (parseInt((c.challenge || {}).maxPlayers, 10) || 20) + '"></div>' +
       '<div class="cf-row"><div><label for="cQ">عدد الأسئلة في كل جولة</label><div class="cf-h">من 5 إلى 20، والحد الأعلى 20 بسبب قواعد التحديات. الافتراضي 12.</div></div><input type="number" id="cQ" min="5" max="20" value="' + (q.questionsPerGame >= 5 && q.questionsPerGame <= 20 ? q.questionsPerGame : 12) + '"></div>' +
       '<div class="cf-row"><div><label for="cSecAll">وقت السؤال لكل الاختبارات (ثانية)</label><div class="cf-h">من 5 إلى 60. اتركه فارغاً لاستعمال وقت كل اختبار الافتراضي (15 ثانية). يُطبَّق على التحديات والعب الفردي.</div></div><input type="number" id="cSecAll" min="5" max="60" placeholder="15" value="' + (q.secondsDefault >= 5 && q.secondsDefault <= 60 ? q.secondsDefault : '') + '"></div>' +
       '<div style="margin-top:10px;font-weight:700;font-size:14px;">وقت خاص بكل اختبار (يتفوق على الوقت العام، فارغ = العام)</div><div class="cf-keys">' +
@@ -133,16 +134,38 @@ document.addEventListener('DOMContentLoaded', function () {
       '<div class="card cf-sec"><h2>🧰 التحكم بالموقع</h2>' +
       '<div class="cf-row"><div><label for="aOn">عرض إعلانات AdSense</label><div class="cf-h">أطفئه لإخفاء كل الوحدات الإعلانية فوراً، مثلاً أثناء مراجعة جوجل أو عند ظهور مشكلة.</div></div><input type="checkbox" id="aOn"' + (ad.enabled === false ? '' : ' checked') + '></div>' +
       '<div class="cf-row"><div><label for="mOn">وضع الصيانة</label><div class="cf-h">يغطي كل الصفحات برسالة، عدا صفحات المشرف (المسار فيه /admin/) حتى تستطيع إيقافه.</div></div><input type="checkbox" id="mOn"' + (mt.enabled === true ? ' checked' : '') + '></div>' +
+      '<div class="cf-row"><div><label for="mFr">تبدأ في (اختياري)</label><div class="cf-h">بتوقيت الأردن. إن حددت وقتاً فلن تعمل الصيانة إلا داخل المدة، بشرط أن يكون المفتاح أعلاه مفعّلاً. اترك الحقلين فارغين لتعمل فوراً وبلا نهاية.</div></div><input type="datetime-local" id="mFr" value="' + esc(mt.from || '') + '"></div>' +
+      '<div class="cf-row"><label for="mUn">تنتهي في (اختياري)</label><input type="datetime-local" id="mUn" value="' + esc(mt.until || '') + '"></div>' +
       '<div style="margin-top:6px;"><label class="cf-h" for="mTxt">رسالة الصيانة</label><input type="text" id="mTxt" maxlength="200" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;" value="' + esc(mt.message || '') + '"></div>' +
+      '<div style="margin-top:14px;"><label style="font-weight:700;font-size:14px;" for="pPick">إضافة صفحة من القائمة</label><div style="display:flex;gap:8px;margin-top:4px;"><input type="text" id="pPick" list="pDl" dir="ltr" placeholder="اكتب جزءاً من الاسم أو المسار" style="' + INP + '"><datalist id="pDl"></datalist><button type="button" class="ads-btn secondary" id="pAdd">أضف</button></div></div>' +
       '<div style="margin-top:14px;"><label style="font-weight:700;font-size:14px;" for="pList">إيقاف صفحات أو أدوات مؤقتاً</label><div class="cf-h">مسار في كل سطر. المسار الذي ينتهي بـ / يشمل كل ما تحته. مثال: jo/games/jordan-quiz/ أو jo/calculators/tawjihi-average/. تُخفى بطاقتها من القوائم وتظهر رسالة بدل الصفحة.</div><textarea id="pList" dir="ltr" rows="4" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;">' + esc((pg.disabled || []).join('\n')) + '</textarea></div>' +
       '<div style="margin-top:6px;"><label class="cf-h" for="pMsg">رسالة الصفحات الموقوفة (اختيارية)</label><input type="text" id="pMsg" maxlength="200" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;" value="' + esc(pg.message || '') + '"></div></div>' +
 
       '<div class="card cf-sec"><button type="button" class="ads-btn" id="cSave">💾 حفظ الإعدادات</button> <button type="button" class="ads-btn secondary" id="cReset">↩️ الافتراضي</button><div class="cf-h" style="margin-top:8px;">' + (c.updatedAt && c.updatedAt.toDate ? 'آخر حفظ: ' + esc(c.updatedAt.toDate().toLocaleString('ar')) : 'لم تُحفظ إعدادات بعد.') + '</div><div id="cMsg"></div></div>' +
+      '<div class="card cf-sec"><h2>💾 نسخة احتياطية</h2><div class="cf-h">انسخ الإعدادات الحالية كنص، أو الصق نصاً محفوظاً واضغط استيراد ثم احفظ.</div><textarea id="bkTxt" dir="ltr" rows="4" style="' + INP + 'margin-top:8px;"></textarea><div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;"><button type="button" class="ads-btn secondary" id="bkExp">📋 تصدير الحالي</button><button type="button" class="ads-btn secondary" id="bkImp">📥 استيراد</button></div></div>' +
 
       '<div class="card cf-sec"><h2>🧭 الخدمات والمنصات المرتبطة بالمشروع</h2><div class="cf-h">روابط سريعة إلى لوحات التحكم. بعضها قد يحتاج تسجيل الدخول بالحساب الذي أنشأ الخدمة.</div><div class="cf-svc">' +
       SERVICES.map(function (x) { return '<a href="' + esc(x[2]) + '" target="_blank" rel="noopener"><b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span></a>'; }).join('') + '</div></div>';
     body.innerHTML = h;
     document.getElementById('cSave').addEventListener('click', save);
+    var bk = document.getElementById('bkTxt');
+    document.getElementById('bkExp').addEventListener('click', function () { bk.value = JSON.stringify(collect(), null, 1); bk.select(); try { navigator.clipboard.writeText(bk.value); msg('ok', 'تم التصدير ونُسخ النص.'); } catch (e) { msg('ok', 'تم التصدير، انسخ النص يدوياً.'); } });
+    document.getElementById('bkImp').addEventListener('click', function () {
+      var o; try { o = JSON.parse(bk.value); } catch (e) { msg('err', 'النص ليس JSON صالحاً.'); return; }
+      if (!o || typeof o !== 'object' || Array.isArray(o)) { msg('err', 'صيغة غير صالحة.'); return; }
+      build(o); msg('ok', 'عُبّئت القيم من النسخة. اضغط حفظ لتثبيتها.');
+    });
+    document.getElementById('pAdd').addEventListener('click', function () {
+      var i = document.getElementById('pPick'), p = i.value.trim().replace(/^https?:\/\/adawati\.space\//, '').replace(/^\//, ''), t = document.getElementById('pList');
+      if (!p) return;
+      var cur = t.value.split(/\r?\n/).map(function (x) { return x.trim(); }).filter(Boolean);
+      if (cur.indexOf(p) < 0) cur.push(p);
+      t.value = cur.join('\n'); i.value = '';
+    });
+    fetch('/search-index.json').then(function (r) { return r.json(); }).then(function (a) {
+      var dl = document.getElementById('pDl'); if (!dl) return;
+      dl.innerHTML = a.map(function (x) { var p = String(x.u).replace(/^https?:\/\/adawati\.space\//, ''); return p ? '<option value="' + esc(p) + '">' + esc(String(x.t).slice(0, 60)) + '</option>' : ''; }).join('');
+    }).catch(function () {});
     document.getElementById('cReset').addEventListener('click', function () { build({}); msg('ok', 'عُبّئت القيم الافتراضية. اضغط حفظ لتثبيتها.'); });
   }
 
@@ -153,22 +176,26 @@ document.addEventListener('DOMContentLoaded', function () {
   function secAll() { return secOk(document.getElementById('cSecAll').value); }
   function secMap() { var o = {}; [].slice.call(document.querySelectorAll('[data-s]')).forEach(function (i) { var n = secOk(i.value); if (n) o[i.getAttribute('data-s')] = n; }); return o; }
 
-  function save() {
-    var btn = document.getElementById('cSave');
+  function collect() {
     var dis = [].slice.call(document.querySelectorAll('[data-k]')).filter(function (i) { return !i.checked; }).map(function (i) { return i.getAttribute('data-k'); });
     var mx = Math.max(20, Math.min(500, parseInt(document.getElementById('cMax').value, 10) || 150));
     var q = Math.max(5, Math.min(20, parseInt(document.getElementById('cQ').value, 10) || 12));
     var data = {
       sync: { enabled: document.getElementById('cSyncOn').checked, retentionDays: parseInt(document.getElementById('cRet').value, 10) || 0, maxKeyKB: mx, disabledKeys: dis },
       quiz: { questionsPerGame: q, secondsDefault: secAll(), seconds: secMap() },
+      challenge: { maxPlayers: Math.max(2, Math.min(100, parseInt(document.getElementById('cMp').value, 10) || 20)) },
       chat: { enabled: document.getElementById('cChat').checked },
       banner: bnRead(''),
       banners: BN_C.reduce(function (o, c) { o[c[0]] = bnRead('_' + c[0]); return o; }, {}),
       ads: { enabled: document.getElementById('aOn').checked },
-      maintenance: { enabled: document.getElementById('mOn').checked, message: v('mTxt') },
+      maintenance: { enabled: document.getElementById('mOn').checked, message: v('mTxt'), from: v('mFr'), until: v('mUn') },
       pages: { disabled: v('pList').split(/\r?\n/).map(function (x) { return x.trim(); }).filter(Boolean).slice(0, 100), message: v('pMsg') },
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     };
+    return data;
+  }
+  function save() {
+    var btn = document.getElementById('cSave'), data = collect();
+    data.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
     btn.disabled = true;
     fbRef.db.collection(DOC[0]).doc(DOC[1]).set(data).then(function () {
       try { localStorage.removeItem('adawati_cfg_v1'); } catch (e) {}
