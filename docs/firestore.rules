@@ -60,6 +60,7 @@ service cloud.firestore {
       allow read, write: if request.auth != null && request.auth.uid == userId
         && request.resource.data.favorites is list && request.resource.data.favorites.size() <= 200
         && request.resource.data.recent is list && request.resource.data.recent.size() <= 6;
+      allow delete: if request.auth != null && request.auth.uid == userId;
     }
 
     function isAdmin() {

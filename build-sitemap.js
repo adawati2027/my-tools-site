@@ -237,7 +237,7 @@ entries.push(urlEntry(`${BASE}/embed.html`, '0.5', 'monthly'));
 entries.push(urlEntry(`${BASE}/remittance-uae-to-bangladesh.html`, '0.6', 'monthly'));
 entries.push(urlEntry(`${BASE}/flat-vs-reducing-balance-loan-guide.html`, '0.6', 'yearly'));
 
-for (const page of ['privacy.html','terms.html']) {
+for (const page of ['privacy.html','terms.html','delete-account.html']) {
   entries.push(urlEntry(`${BASE}/${page}`, '0.3', 'yearly'));
 }
 

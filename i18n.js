@@ -166,7 +166,8 @@
     var isIOS = window.Capacitor.getPlatform && window.Capacitor.getPlatform() === 'ios';
     var BANNER_ID = isIOS ? 'ca-app-pub-3337905412116301/7979469818' : 'ca-app-pub-3337905412116301/5684478962';
 
-    AdMob.initialize().then(function() { return AdMob.requestConsentInfo(); }).then(function(info) {
+    var attStep = (isIOS && AdMob.requestTrackingAuthorization) ? new Promise(function(res) { setTimeout(function() { AdMob.requestTrackingAuthorization().then(res, res); }, 1500); }) : Promise.resolve();
+    attStep.then(function() { return AdMob.initialize(); }).then(function() { return AdMob.requestConsentInfo(); }).then(function(info) {
       var showBannerNow = function() {
         if (!info.canRequestAds) return;
         AdMob.showBanner({ adId: BANNER_ID, position: 'BOTTOM_CENTER' }).catch(function() {});
@@ -613,7 +614,12 @@ function openAuthModal() {
     closeBtn.style.cssText = 'width:100%;padding:12px;background:#f1f5f9;color:#334155;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;';
     closeBtn.textContent = '✕';
     closeBtn.onclick = () => document.getElementById('signupModal').remove();
-    box.append(avatar, greeting, emailEl, logoutBtn, closeBtn);
+    const delLink = document.createElement('button');
+    delLink.id = 'deleteAccountLink';
+    delLink.style.cssText = 'width:100%;padding:10px;margin-top:10px;background:none;color:#b91c1c;border:none;font-size:13px;text-decoration:underline;cursor:pointer;font-family:inherit;';
+    delLink.textContent = deleteAccountText(lang).btn;
+    delLink.onclick = function() { showDeleteAccountConfirm(box, lang); };
+    box.append(avatar, greeting, emailEl, logoutBtn, closeBtn, delLink);
   } else {
     box.dir = lang === 'ar' ? 'rtl' : 'ltr';
     const isSignup = _authMode === 'signup';
@@ -889,6 +895,105 @@ function checkGoogleRedirectResult() {
     const lang = localStorage.getItem('lang') || 'en';
     showToast(googleErrText(lang, err), 'error');
   });
+}
+
+function deleteAccountText(lang) {
+  const m = {
+    ar: { btn: 'حذف حسابي', title: 'حذف الحساب نهائياً', warn: 'سيُحذف حسابك وجميع بياناتك المرتبطة به (المفضلة، الأدوات المحفوظة، وإعلاناتك في لوحة الإعلانات) بشكل نهائي ولا يمكن التراجع عن ذلك.', pw: 'أدخل كلمة السر للتأكيد', google: 'سيُطلب منك تأكيد هويتك بحساب Google قبل الحذف.', ok: 'حذف نهائي', cancel: 'إلغاء', done: 'تم حذف حسابك وبياناتك.', badpw: 'كلمة السر غير صحيحة.', needpw: 'أدخل كلمة السر.', err: 'تعذّر حذف الحساب. حاول مرة أخرى أو راسلنا.', working: 'جارٍ الحذف...' },
+    en: { btn: 'Delete my account', title: 'Delete account permanently', warn: 'Your account and all data linked to it (favorites, saved tool data, and your ads-board listings) will be permanently deleted. This cannot be undone.', pw: 'Enter your password to confirm', google: 'You will be asked to confirm with your Google account before deleting.', ok: 'Delete permanently', cancel: 'Cancel', done: 'Your account and data have been deleted.', badpw: 'Wrong password.', needpw: 'Enter your password.', err: 'Could not delete the account. Try again or contact us.', working: 'Deleting...' },
+    fr: { btn: 'Supprimer mon compte', title: 'Supprimer définitivement le compte', warn: 'Votre compte et toutes les données associées (favoris, données d’outils, annonces) seront supprimés définitivement. Action irréversible.', pw: 'Saisissez votre mot de passe pour confirmer', google: 'Vous devrez confirmer avec votre compte Google avant la suppression.', ok: 'Supprimer définitivement', cancel: 'Annuler', done: 'Votre compte et vos données ont été supprimés.', badpw: 'Mot de passe incorrect.', needpw: 'Saisissez votre mot de passe.', err: 'Suppression impossible. Réessayez ou contactez-nous.', working: 'Suppression...' },
+    es: { btn: 'Eliminar mi cuenta', title: 'Eliminar la cuenta de forma permanente', warn: 'Tu cuenta y todos los datos asociados (favoritos, datos de herramientas y tus anuncios) se eliminarán de forma permanente. No se puede deshacer.', pw: 'Introduce tu contraseña para confirmar', google: 'Se te pedirá confirmar con tu cuenta de Google antes de eliminar.', ok: 'Eliminar definitivamente', cancel: 'Cancelar', done: 'Tu cuenta y tus datos se han eliminado.', badpw: 'Contraseña incorrecta.', needpw: 'Introduce tu contraseña.', err: 'No se pudo eliminar la cuenta. Inténtalo de nuevo o contáctanos.', working: 'Eliminando...' },
+    de: { btn: 'Mein Konto löschen', title: 'Konto endgültig löschen', warn: 'Dein Konto und alle verknüpften Daten (Favoriten, gespeicherte Tool-Daten und deine Anzeigen) werden endgültig gelöscht. Dies kann nicht rückgängig gemacht werden.', pw: 'Passwort zur Bestätigung eingeben', google: 'Vor dem Löschen musst du dich mit deinem Google-Konto bestätigen.', ok: 'Endgültig löschen', cancel: 'Abbrechen', done: 'Dein Konto und deine Daten wurden gelöscht.', badpw: 'Falsches Passwort.', needpw: 'Passwort eingeben.', err: 'Konto konnte nicht gelöscht werden. Versuche es erneut oder kontaktiere uns.', working: 'Wird gelöscht...' },
+    ru: { btn: 'Удалить мой аккаунт', title: 'Удалить аккаунт навсегда', warn: 'Ваш аккаунт и все связанные данные (избранное, данные инструментов, объявления) будут удалены навсегда. Это нельзя отменить.', pw: 'Введите пароль для подтверждения', google: 'Перед удалением потребуется подтверждение через аккаунт Google.', ok: 'Удалить навсегда', cancel: 'Отмена', done: 'Ваш аккаунт и данные удалены.', badpw: 'Неверный пароль.', needpw: 'Введите пароль.', err: 'Не удалось удалить аккаунт. Повторите попытку или свяжитесь с нами.', working: 'Удаление...' }
+  };
+  return m[lang] || m.en;
+}
+
+function showDeleteAccountConfirm(box, lang) {
+  const tx = deleteAccountText(lang);
+  const u = (typeof firebase !== 'undefined' && firebase.auth) ? firebase.auth().currentUser : null;
+  if (!u) return;
+  const hasPw = (u.providerData || []).some(function(p) { return p.providerId === 'password'; });
+  box.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  box.style.textAlign = lang === 'ar' ? 'right' : 'left';
+  box.textContent = '';
+  const title = document.createElement('div');
+  title.style.cssText = 'font-size:18px;font-weight:700;margin-bottom:10px;color:#b91c1c;';
+  title.textContent = tx.title;
+  const warn = document.createElement('div');
+  warn.style.cssText = 'font-size:14px;color:#334155;line-height:1.6;margin-bottom:14px;';
+  warn.textContent = tx.warn;
+  const note = document.createElement('div');
+  note.style.cssText = 'font-size:13px;color:#64748b;margin-bottom:12px;';
+  note.textContent = hasPw ? tx.pw : tx.google;
+  const pwInput = document.createElement('input');
+  pwInput.type = 'password';
+  pwInput.autocomplete = 'current-password';
+  pwInput.style.cssText = 'width:100%;box-sizing:border-box;padding:11px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;margin-bottom:12px;font-family:inherit;display:' + (hasPw ? 'block' : 'none') + ';';
+  const err = document.createElement('div');
+  err.style.cssText = 'font-size:13px;color:#ef4444;margin-bottom:10px;display:none;';
+  const okBtn = document.createElement('button');
+  okBtn.style.cssText = 'width:100%;padding:12px;background:#b91c1c;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;';
+  okBtn.textContent = tx.ok;
+  const cancelBtn = document.createElement('button');
+  cancelBtn.style.cssText = 'width:100%;padding:12px;background:#f1f5f9;color:#334155;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;';
+  cancelBtn.textContent = tx.cancel;
+  cancelBtn.onclick = function() { openAuthModal(); };
+  const fail = function(m) { err.textContent = m; err.style.display = 'block'; okBtn.disabled = false; okBtn.textContent = tx.ok; };
+  okBtn.onclick = function() {
+    err.style.display = 'none';
+    const cur = firebase.auth().currentUser;
+    if (!cur) return;
+    let reauth;
+    const nativeAuth = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.FirebaseAuthentication;
+    if (hasPw) {
+      if (!pwInput.value) { fail(tx.needpw); return; }
+      reauth = cur.reauthenticateWithCredential(firebase.auth.EmailAuthProvider.credential(cur.email, pwInput.value));
+    } else if (nativeAuth) {
+      reauth = nativeAuth.signInWithGoogle().then(function(r) {
+        const idToken = r && r.credential && r.credential.idToken;
+        if (!idToken) throw { code: 'auth/no-id-token' };
+        return cur.reauthenticateWithCredential(firebase.auth.GoogleAuthProvider.credential(idToken));
+      });
+    } else {
+      reauth = cur.reauthenticateWithPopup(new firebase.auth.GoogleAuthProvider());
+    }
+    okBtn.disabled = true;
+    okBtn.textContent = tx.working;
+    reauth.then(function() { return wipeUserCloudData(cur.uid); })
+      .then(function() { return cur.delete(); })
+      .then(function() {
+        try { localStorage.removeItem('adawati_uid'); } catch (e) {}
+        if (typeof gtag === 'function') gtag('event', 'delete_account');
+        const modal = document.getElementById('signupModal');
+        if (modal) modal.remove();
+        updateAuthBtn();
+        showToast(tx.done, 'success');
+      })
+      .catch(function(e) {
+        const c = e && e.code;
+        if (c === 'auth/wrong-password' || c === 'auth/invalid-credential' || c === 'auth/invalid-login-credentials') fail(tx.badpw);
+        else if (c === 'auth/popup-closed-by-user' || c === 'auth/cancelled-popup-request' || c === 'auth/no-id-token' || /cancel/i.test(String((e && e.message) || ''))) { okBtn.disabled = false; okBtn.textContent = tx.ok; }
+        else fail(tx.err);
+      });
+  };
+  box.append(title, warn, note, pwInput, err, okBtn, cancelBtn);
+}
+
+function wipeUserCloudData(uid) {
+  const db = firebase.firestore();
+  const quiet = function() {};
+  const wipeDoc = db.collection('users').doc(uid).delete()
+    .catch(function() { return db.collection('users').doc(uid).set({ favorites: [], recent: [] }); });
+  const wipeAds = db.collection('ads').where('ownerUid', '==', uid).get().then(function(snap) {
+    const jobs = [];
+    snap.forEach(function(d) {
+      jobs.push(db.collection('adProofs').doc(d.id).delete().catch(quiet));
+      jobs.push(d.ref.delete().catch(quiet));
+    });
+    return Promise.all(jobs);
+  }).catch(quiet);
+  return Promise.all([wipeDoc, wipeAds]);
 }
 
 function logoutUser() {
