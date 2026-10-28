@@ -46,7 +46,7 @@ Never publish a legal/financial/religious fact without verifying it (WebSearch/W
 
 - **CSP**: any change must be made in BOTH the Worker `adawati-csp-nonce` and the "security headers" Transform Rule.
 - **masters/bachelor guides**: read `docs/history/claude-md-archive.md` + `calculators-built.md` before extending (dead-end universities listed).
-- **AdSense** (rejected 2026-10-08; fixes in seo-growth.md): request review only after organic grows (traffic ~70% FB). Due ~2026-10-15: `ga-report 7` → did /jo/students/parallel-results/ engagement (was 2 s) improve?
+- **AdSense** (rejected 2026-10-08; fixes in seo-growth.md): request review only after organic grows (traffic ~70% FB).
 - **Indexing** via API only (commands above); never Google's Indexing API (jobs/livestream only).
 - **Seasonal** (each admission season): re-check parallel-results links; re-run admhec-import → build-admission-data (steps in claude-md-archive.md).
 - **Data audit**: some private bachelor-guide minimums are below the national floor (e.g. AAU engineering 65 vs 80); what-can-i-study applies the floor, the guide doesn't yet.
@@ -57,6 +57,6 @@ quiz-games · capacitor-app · bugs-fixed-registry · seo-growth · auth-account
 
 ## Style
 
-- All Arabic pages (jo/om/sa/ae/eg, games, challenges): simple Modern Standard Arabic (فصحى), friendly not stiff — owner request 2026-10-27, replaces the old dialect rule. Quiz content that is itself dialect/proverbs stays as is. Number inputs on jo pages use `type="text" data-num inputmode="decimal"` + the inline Arabic-digit normalizer (so Arabic keyboards work).
+- All Arabic pages (jo/om/sa/ae/eg, games, challenges): simple Modern Standard Arabic (فصحى), friendly not stiff. Quiz content that is itself dialect/proverbs stays as is. Number inputs on jo pages use `type="text" data-num inputmode="decimal"` + the inline Arabic-digit normalizer (so Arabic keyboards work).
 - Legal/financial calculators: visible "أداة تقديرية" disclaimer + link to the official source.
 - No explanatory code comments except genuinely non-obvious constraints.

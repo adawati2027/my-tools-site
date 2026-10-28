@@ -70,3 +70,8 @@ When genuinely unresolvable, say so in the page's own disclaimer text rather tha
 ## Moved from CLAUDE.md on 2026-10-27
 
 - **Seasonal**: re-check `jo/students/parallel-results/` university links each admission season; re-run `tools/admhec-import.js` with new owner-saved admhec pages (bachelor-guide), then `tools/build-admission-data.js <same pages>` (what-can-i-study).
+
+## Moved from CLAUDE.md on 2026-10-28
+
+- AdSense (overdue check): Due ~2026-10-15: `ga-report 7` → did /jo/students/parallel-results/ engagement (was 2 s) improve?
+- Style: Fusha rule — owner request 2026-10-27, replaces the old dialect rule.
