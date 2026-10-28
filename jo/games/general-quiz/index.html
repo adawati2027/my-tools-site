@@ -170,7 +170,7 @@
   <div class="card" style="margin-top:16px;">
     <h2 class="card-title" style="font-size:17px;">ℹ️ عن كويز المعلومات العامة</h2>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">اختبر معلوماتك العامة: عجائب الدنيا، أرقام قياسية، جغرافيا ومعالم عالمية. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ أصحابك. مجاني وبدون تسجيل.</p>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>255</b> سؤالاً، موزّعة على مستويين: <b>150</b> سؤال متوسط و<b>105</b> سؤال صعب. تختار كل جولة 12 سؤالاً عشوائياً، فتظهر لك أسئلة مختلفة في كل مرة تلعب فيها.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>300</b> سؤالاً، موزّعة على مستويين: <b>195</b> سؤال متوسط و<b>105</b> سؤال صعب. تختار كل جولة 12 سؤالاً عشوائياً، فتظهر لك أسئلة مختلفة في كل مرة تلعب فيها.</p>
     <h3 style="font-size:15px;margin-top:14px;">🎮 كيف تلعب؟</h3>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;">
       <li>اختر المستوى (متوسط أو صعب أو مشكّل) ثم اضغط «ابدأ».</li>
@@ -180,14 +180,14 @@
     </ul>
     <h3 style="font-size:15px;margin-top:14px;">📝 أمثلة من أسئلة الكويز</h3>
     <ol style="font-size:14px;line-height:1.9;padding-right:22px;">
-      <li>أكبر محيط بالعالم من ناحية المساحة؟<br><span style="color:var(--text-muted);">الجواب: <b>المحيط الهادئ</b></span></li>
-      <li>أطول شلال بالعالم (شلال أنجل) موجود بأي دولة؟<br><span style="color:var(--text-muted);">الجواب: <b>فنزويلا</b></span></li>
-      <li>عملة البرازيل الرسمية هي؟<br><span style="color:var(--text-muted);">الجواب: <b>الريال البرازيلي</b></span></li>
-      <li>الفاتيكان تُعتبر آخر نظام ملكي مطلق موجود بأي قارة؟<br><span style="color:var(--text-muted);">الجواب: <b>أوروبا</b></span></li>
-      <li>كم عدد الدول الأعضاء بجامعة الدول العربية؟<br><span style="color:var(--text-muted);">الجواب: <b>22</b></span></li>
-      <li>الثورة الفرنسية اندلعت بأي سنة؟<br><span style="color:var(--text-muted);">الجواب: <b>1789</b></span></li>
-      <li>مدة الحمل الطبيعية عند الإنسان تقريباً؟<br><span style="color:var(--text-muted);">الجواب: <b>40 أسبوع</b></span></li>
-      <li>كم عدد بطولات الغراند سلام بالتنس بالسنة؟<br><span style="color:var(--text-muted);">الجواب: <b>4</b></span></li>
+      <li>أكبر جزيرة بالعالم (غير قارية)؟<br><span style="color:var(--text-muted);">الجواب: <b>غرينلاند</b></span></li>
+      <li>وزن كبد الإنسان البالغ تقريباً؟<br><span style="color:var(--text-muted);">الجواب: <b>1.5 كغم</b></span></li>
+      <li>طول نفق المانش (تحت بحر المانش) تقريباً؟<br><span style="color:var(--text-muted);">الجواب: <b>50 كم</b></span></li>
+      <li>دار أوبرا سيدني افتتحت رسمياً بأي سنة؟<br><span style="color:var(--text-muted);">الجواب: <b>1973</b></span></li>
+      <li>سبوتنيك 1 (أول قمر صناعي) أُطلق بأي سنة؟<br><span style="color:var(--text-muted);">الجواب: <b>1957</b></span></li>
+      <li>الصفر المطلق (أبرد درجة حرارة ممكنة نظرياً) يساوي تقريباً؟<br><span style="color:var(--text-muted);">الجواب: <b>-273 درجة مئوية</b></span></li>
+      <li>الكمان (فيولين) القياسي فيه كم وتر؟<br><span style="color:var(--text-muted);">الجواب: <b>4</b></span></li>
+      <li>ما عاصمة سلطنة عُمان؟<br><span style="color:var(--text-muted);">الجواب: <b>مسقط</b></span></li>
     </ol>
   </div>
 <!--/quiz-about-->
@@ -460,6 +460,51 @@ const QUESTIONS = [
 {q:'أول لمبة كهربائية عملية لإديسون صدرت بأي سنة تقريباً؟', opts:['1879','1850','1900','1920'], correct:0, difficulty:'hard'},
 {q:'أول آيفون من شركة أبل صدر للسوق بأي سنة؟', opts:['2007','2000','2010','1995'], correct:0, difficulty:'medium'},
 {q:'من اخترع "الويب" (World Wide Web) الذي نستخدمه للتصفح؟', opts:['تيم بيرنرز لي','بيل غيتس','ستيف جوبز','مارك زوكربيرغ'], correct:0, difficulty:'medium'},
+  {q:'ما عاصمة الأردن؟', opts:['عمّان','دمشق','بغداد','القاهرة'], correct:0, difficulty:'medium'},
+  {q:'ما عاصمة فرنسا؟', opts:['لندن','باريس','روما','مدريد'], correct:1, difficulty:'medium'},
+  {q:'ما عاصمة بريطانيا؟', opts:['باريس','برلين','لندن','دبلن'], correct:2, difficulty:'medium'},
+  {q:'ما عاصمة إيطاليا؟', opts:['ميلانو','مدريد','أثينا','روما'], correct:3, difficulty:'medium'},
+  {q:'ما عاصمة إسبانيا؟', opts:['مدريد','برشلونة','لشبونة','روما'], correct:0, difficulty:'medium'},
+  {q:'ما عاصمة ألمانيا؟', opts:['ميونخ','برلين','فيينا','هامبورغ'], correct:1, difficulty:'medium'},
+  {q:'ما عاصمة اليابان؟', opts:['بكين','سيول','طوكيو','أوساكا'], correct:2, difficulty:'medium'},
+  {q:'ما عاصمة الصين؟', opts:['شنغهاي','طوكيو','هونغ كونغ','بكين'], correct:3, difficulty:'medium'},
+  {q:'ما عاصمة روسيا؟', opts:['موسكو','سان بطرسبرغ','كييف','مينسك'], correct:0, difficulty:'medium'},
+  {q:'ما عاصمة الولايات المتحدة؟', opts:['نيويورك','واشنطن','لوس أنجلوس','شيكاغو'], correct:1, difficulty:'medium'},
+  {q:'ما عاصمة كندا؟', opts:['تورنتو','فانكوفر','أوتاوا','مونتريال'], correct:2, difficulty:'medium'},
+  {q:'ما عاصمة مصر؟', opts:['الإسكندرية','الجيزة','أسوان','القاهرة'], correct:3, difficulty:'medium'},
+  {q:'ما عاصمة السعودية؟', opts:['الرياض','جدة','مكة المكرمة','الدمام'], correct:0, difficulty:'medium'},
+  {q:'ما عاصمة العراق؟', opts:['البصرة','بغداد','الموصل','أربيل'], correct:1, difficulty:'medium'},
+  {q:'ما عاصمة سوريا؟', opts:['حلب','حمص','دمشق','اللاذقية'], correct:2, difficulty:'medium'},
+  {q:'ما عاصمة لبنان؟', opts:['طرابلس','صيدا','زحلة','بيروت'], correct:3, difficulty:'medium'},
+  {q:'ما عاصمة المغرب؟', opts:['الرباط','الدار البيضاء','مراكش','فاس'], correct:0, difficulty:'medium'},
+  {q:'ما عاصمة الجزائر؟', opts:['وهران','الجزائر','قسنطينة','عنابة'], correct:1, difficulty:'medium'},
+  {q:'ما عاصمة تونس؟', opts:['صفاقس','سوسة','تونس','القيروان'], correct:2, difficulty:'medium'},
+  {q:'ما عاصمة الإمارات؟', opts:['دبي','الشارقة','عجمان','أبوظبي'], correct:3, difficulty:'medium'},
+  {q:'ما عاصمة قطر؟', opts:['الدوحة','الوكرة','الخور','الريان'], correct:0, difficulty:'medium'},
+  {q:'ما عاصمة الكويت؟', opts:['الأحمدي','مدينة الكويت','الجهراء','حولي'], correct:1, difficulty:'medium'},
+  {q:'ما عاصمة سلطنة عُمان؟', opts:['صلالة','صحار','مسقط','نزوى'], correct:2, difficulty:'medium'},
+  {q:'ما عاصمة البرازيل؟', opts:['ريو دي جانيرو','ساو باولو','بوينس آيرس','برازيليا'], correct:3, difficulty:'medium'},
+  {q:'ما عاصمة أستراليا؟', opts:['كانبيرا','سيدني','ملبورن','بيرث'], correct:0, difficulty:'medium'},
+  {q:'ما عاصمة الهند؟', opts:['مومباي','نيودلهي','كلكتا','بنغالور'], correct:1, difficulty:'medium'},
+  {q:'ما أكبر قارة في العالم من حيث المساحة؟', opts:['أفريقيا','أوروبا','آسيا','أمريكا الشمالية'], correct:2, difficulty:'medium'},
+  {q:'ما أصغر قارة في العالم؟', opts:['أوروبا','أنتاركتيكا','أمريكا الجنوبية','أستراليا'], correct:3, difficulty:'medium'},
+  {q:'كم عدد قارات العالم؟', opts:['سبع','خمس','ست','تسع'], correct:0, difficulty:'medium'},
+  {q:'ما أكبر محيط في العالم؟', opts:['المحيط الأطلسي','المحيط الهادئ','المحيط الهندي','المحيط المتجمد الشمالي'], correct:1, difficulty:'medium'},
+  {q:'ما أطول نهر في العالم؟', opts:['الأمازون','الفرات','النيل','دجلة'], correct:2, difficulty:'medium'},
+  {q:'ما أعلى جبل في العالم؟', opts:['كليمنجارو','جبل الشيخ','مون بلان','إيفرست'], correct:3, difficulty:'medium'},
+  {q:'ما أكبر صحراء حارة في العالم؟', opts:['الصحراء الكبرى','صحراء النفود','صحراء كالاهاري','صحراء الربع الخالي'], correct:0, difficulty:'medium'},
+  {q:'ما أكبر دولة في العالم مساحةً؟', opts:['الصين','روسيا','كندا','أمريكا'], correct:1, difficulty:'medium'},
+  {q:'ما أكثر الدول سكاناً (تقريباً) اليوم؟', opts:['الصين','أمريكا','الهند','إندونيسيا'], correct:2, difficulty:'medium'},
+  {q:'كم عدد كواكب المجموعة الشمسية؟', opts:['تسعة','سبعة','عشرة','ثمانية'], correct:3, difficulty:'medium'},
+  {q:'ما أقرب كوكب إلى الشمس؟', opts:['عطارد','الزهرة','الأرض','المريخ'], correct:0, difficulty:'medium'},
+  {q:'ما الكوكب الملقب بالكوكب الأحمر؟', opts:['الزهرة','المريخ','زحل','المشتري'], correct:1, difficulty:'medium'},
+  {q:'ما أكبر كوكب في المجموعة الشمسية؟', opts:['زحل','الأرض','المشتري','نبتون'], correct:2, difficulty:'medium'},
+  {q:'ما الكوكب الذي له حلقات واضحة؟', opts:['المريخ','الزهرة','عطارد','زحل'], correct:3, difficulty:'medium'},
+  {q:'ما الكوكب الذي نعيش عليه؟', opts:['الأرض','المريخ','القمر','الزهرة'], correct:0, difficulty:'medium'},
+  {q:'ما اسم القمر الطبيعي للأرض؟', opts:['المريخ','القمر','فوبوس','تيتان'], correct:1, difficulty:'medium'},
+  {q:'كم عدد أيام السنة العادية؟', opts:['366','360','365','350'], correct:2, difficulty:'medium'},
+  {q:'كم يوماً في شهر فبراير في السنة الكبيسة؟', opts:['28','30','31','29'], correct:3, difficulty:'medium'},
+  {q:'كم ساعة في اليوم؟', opts:['24','12','48','60'], correct:0, difficulty:'medium'},
 ];
 
 const QUIZ_CONFIG = {
