@@ -382,7 +382,7 @@ function buildPomo() {
 
 const GAMES = {
   'split-bill': {
-    icon: '🍽️', bg: '#ffedd5', grad: '#ea580c,#7c2d12', title: 'قسّم الحساب بين الأصدقاء', h1: 'قسّم الحساب بين الأصدقاء 🍽️',
+    sync: true, icon: '🍽️', bg: '#ffedd5', grad: '#ea580c,#7c2d12', title: 'قسّم الحساب بين الأصدقاء', h1: 'قسّم الحساب بين الأصدقاء 🍽️',
     sub: 'سجّل مصاريف الرحلة أو السكن أو السهرة ومن دفع كل مصروف، وسنخبرك من يدفع لمن لتتساووا',
     desc: 'تقسيم المصاريف بين الأصدقاء والسكن المشترك والرحلات: أضف الأشخاص والمصاريف ومن دفع، واعرف رصيد كل واحد ومن يدفع لمن بأقل عدد من التحويلات. مجاني وبدون تسجيل.',
     kw: 'تقسيم المصاريف, تقسيم الحساب بين الأصدقاء, حساب الرحلة, مصاريف السكن المشترك, من يدفع لمن, بديل splitwise',
@@ -390,12 +390,12 @@ const GAMES = {
     cardDesc: 'سجّل المصاريف ومن دفع، ونخبرك من يدفع لمن', cat: 'daily',
     faq: [
       ['كيف تعمل الأداة؟', 'أضف أسماء الأشخاص، ثم سجّل كل مصروف مع من دفعه ومن شارك فيه. تحسب الأداة رصيد كل شخص، وتقترح أقل عدد من التحويلات لتصفية الحسابات.'],
-      ['هل تحفظ الأداة بياناتي؟', 'تُحفظ في متصفحك فقط على هذا الجهاز، ولا تُرسل لأي مكان. لا تتزامن بين الأجهزة، فاستخدم زر النسخ لمشاركة الملخص مع أصدقائك.'],
+      ['هل تحفظ الأداة بياناتي؟', 'تُحفظ في متصفحك على هذا الجهاز. وإن سجّلت دخولك إلى حسابك في أدواتي تُزامَن مع الحساب لتجدها على أجهزتك الأخرى، وعند الاختلاف تُعتمد النسخة الأحدث. بدون تسجيل دخول لا تُرسل لأي مكان. استخدم زر النسخ لمشاركة الملخص مع أصدقائك.'],
       ['هل أستطيع تقسيم مصروف بمبالغ مختلفة؟', 'نعم، اختر "مبالغ محددة" واكتب حصة كل شخص، بشرط أن يساوي مجموعها قيمة المصروف.'],
       ['ماذا لو دفع شخص ولم يشارك في المصروف؟', 'لا مشكلة، اختره في خانة من دفع ولا تحدده بين المشاركين، فيصبح له رصيد على الآخرين.'],
       ['ماذا يحدث للكسور في القسمة؟', 'نوزّع القرش الزائد على أول المشاركين، فيبقى مجموع الحصص مساوياً لقيمة المصروف تماماً.']
     ],
-    how: ['الرصيد = ما دفعه الشخص − مجموع حصصه من المصاريف.', 'من رصيده موجب فله مال عند الآخرين، ومن رصيده سالب فعليه أن يدفع.', 'نطابق أكبر دائن مع أكبر مدين مراراً، فنحصل على عدد قليل من التحويلات.', 'عند التصفية الفعلية، امسح الحسابات وابدأ من جديد.'],
+    how: ['الرصيد = ما دفعه الشخص − مجموع حصصه من المصاريف.', 'من رصيده موجب فله مال عند الآخرين، ومن رصيده سالب فعليه أن يدفع.', 'نطابق أكبر دائن مع أكبر مدين مراراً، فنحصل على عدد قليل من التحويلات.', 'عند التصفية الفعلية اضغط "تصفية وبدء جديد"، فيُحفظ الحساب في السجل وتبدأ حساباً جديداً.'],
     rel: [['tip-calculator.html', '💁 حاسبة البقشيش'], ['jo/tools/budget-split/', '🧮 توزيع الراتب'], ['jo/tools/savings-goal/', '🎯 هدفي الادخاري']],
     main: `
     <style>
@@ -421,7 +421,7 @@ const GAMES = {
       .sb-empty{font-size:13px;color:var(--text-muted);padding:6px 0;}
     </style>
     <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:#92400e;line-height:1.7;margin-bottom:14px;">
-      🔒 كل شيء يُحفظ في متصفحك على هذا الجهاز فقط ولا يُرسل لأي مكان. استخدم زر النسخ لمشاركة الملخص مع أصدقائك.
+      🔒 تُحفظ بياناتك في متصفحك على هذا الجهاز، وإن سجّلت دخولك تُزامَن مع حسابك لتجدها على أجهزتك الأخرى. استخدم زر النسخ لمشاركة الملخص مع أصدقائك.
     </div>
 
     <div class="sb-h">👥 1) الأشخاص</div>
@@ -458,16 +458,20 @@ const GAMES = {
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
       <button type="button" class="sb-btn" id="sbImg" style="flex:2;">🖼️ تصدير كصورة</button>
       <button type="button" class="sb-btn2" id="sbCopy" style="flex:2;">📋 نسخ الملخص</button>
-      <button type="button" class="sb-btn2" id="sbClear" style="flex:1;">🗑 مسح الكل</button>
+      <button type="button" class="sb-btn2" id="sbClear" style="flex:1;">🗑 تصفية وبدء جديد</button>
     </div>
-    <div class="sb-sub" id="sbCopied" style="margin-top:8px;min-height:18px;"></div>`,
+    <div class="sb-sub" id="sbCopied" style="margin-top:8px;min-height:18px;"></div>
+    <div class="sb-h" style="margin-top:18px;">🕘 الحسابات السابقة</div>
+    <div class="sb-sub" id="sbHistNote">تُحفظ هنا الحسابات التي صفّيتها لتعود إليها، وتتزامن مع حسابك إن سجّلت دخولك.</div>
+    <div id="sbHist"></div>`,
     script: `
 (function () {
   var $ = function (i) { return document.getElementById(i); };
   var KEY = 'adawati_split_v1', S = { people: [], exps: [], nid: 1 }, mode = 'eq', sel = {}, exv = {};
   try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.people && r.exps) S = r; } catch (e) {}
+  if (!S.hist) S.hist = [];
   var NL = String.fromCharCode(10);
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} if (window.__syncPush) window.__syncPush(); }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function num(v) { return parseFloat(String(v).replace(/[٠-٩]/g, function (d) { return d.charCodeAt(0) - 1632; }).replace(/[٫،]/g, '.').replace(/,/g, '')); }
   function fm(c) { return (Math.abs(c) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
@@ -536,7 +540,23 @@ const GAMES = {
     st.forEach(function (t) { sh += '<div class="sb-item"><span>من <strong>' + esc(nm(t.from)) + '</strong> إلى <strong>' + esc(nm(t.to)) + '</strong></span><span class="sb-pos">' + fm(t.v) + ' دينار</span></div>'; });
     $('sbSet').innerHTML = sh || '<div class="sb-empty">' + (S.exps.length ? '✓ الحسابات متساوية، لا يوجد ما يُدفع.' : 'ستظهر هنا بعد تسجيل المصاريف.') + '</div>';
   }
-  function renderAll() { renderPeople(); renderResults(); }
+  function renderHist() {
+    var h = S.hist || [], o = '';
+    if (!h.length) { $('sbHist').innerHTML = '<div class="sb-sub" style="margin-top:8px;">لا توجد حسابات سابقة بعد.</div>'; return; }
+    h.forEach(function (x, i) {
+      o += '<div style="display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;"><div style="min-width:0;"><div style="font-weight:700;font-size:14px;">' + esc(x.d) + ' — ' + fm(x.tot) + ' دينار</div><div class="sb-sub">' + x.n + ' مصروف · ' + esc(x.names) + '</div></div><div style="display:flex;gap:6px;"><button type="button" class="sb-btn2" data-hr="' + i + '">استعادة</button><button type="button" class="sb-btn2" data-hd="' + i + '">حذف</button></div></div>';
+    });
+    $('sbHist').innerHTML = o;
+  }
+  function renderAll() { renderPeople(); renderResults(); renderHist(); }
+  function archive() {
+    if (!S.exps.length) return;
+    var tot = 0; S.exps.forEach(function (e) { tot += e.amt; });
+    var d = new Date(), ds = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    var nms = S.people.map(function (p) { return p.name; }).join('، ');
+    S.hist.unshift({ d: ds, tot: tot, n: S.exps.length, names: nms, snap: { people: S.people, exps: S.exps, nid: S.nid } });
+    if (S.hist.length > 20) S.hist.length = 20;
+  }
 
   function addPerson() {
     var n = $('sbName').value.trim().replace(/\\s+/g, ' ');
@@ -617,23 +637,33 @@ const GAMES = {
   var armed = null;
   $('sbClear').addEventListener('click', function () {
     var b = $('sbClear');
-    if (!armed) { b.textContent = 'اضغط للتأكيد'; armed = setTimeout(function () { armed = null; b.textContent = '🗑 مسح الكل'; }, 4000); return; }
-    clearTimeout(armed); armed = null; b.textContent = '🗑 مسح الكل';
-    S = { people: [], exps: [], nid: 1 }; sel = {}; exv = {}; save(); $('sbCopied').textContent = ''; renderAll();
+    if (!armed) { b.textContent = 'اضغط للتأكيد'; armed = setTimeout(function () { armed = null; b.textContent = '🗑 تصفية وبدء جديد'; }, 4000); return; }
+    clearTimeout(armed); armed = null; b.textContent = '🗑 تصفية وبدء جديد';
+    archive();
+    S = { people: [], exps: [], nid: 1, hist: S.hist }; sel = {}; exv = {}; save(); $('sbCopied').textContent = 'حُفظ الحساب في السجل أدناه.'; renderAll();
   });
+  $('sbHist').addEventListener('click', function (e) {
+    var r = e.target.getAttribute && e.target.getAttribute('data-hr'), d = e.target.getAttribute && e.target.getAttribute('data-hd');
+    if (d !== null && d !== '' && d !== undefined) { S.hist.splice(+d, 1); save(); renderHist(); return; }
+    if (r === null || r === undefined || r === '') return;
+    var x = S.hist[+r]; if (!x) return;
+    S.hist.splice(+r, 1); archive();
+    S.people = x.snap.people; S.exps = x.snap.exps; S.nid = x.snap.nid; sel = {}; exv = {}; save(); $('sbCopied').textContent = 'أُعيد الحساب. حُفظ الحساب السابق في السجل.'; renderAll();
+  });
+  window.__sync = { key: KEY, reload: function () { try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.people && r.exps) S = r; } catch (e) {} if (!S.hist) S.hist = []; sel = {}; exv = {}; renderAll(); } };
   renderAll();
 })();
 `
   },
   'todo-list': {
-    icon: '✅', bg: '#dbeafe', grad: '#2563eb,#1e1b4b', title: 'قائمة المهام', h1: 'قائمة المهام اليومية ✅',
+    sync: true, icon: '✅', bg: '#dbeafe', grad: '#2563eb,#1e1b4b', title: 'قائمة المهام', h1: 'قائمة المهام اليومية ✅',
     sub: 'اكتب مهامك، وعلّم المنجَز منها، وتابع نسبة إنجازك',
-    desc: 'قائمة مهام بسيطة: أضف مهامك، علّم ما أنجزته، وتابع شريط التقدّم. تُحفظ على جهازك فقط ولا تحتاج إلى حساب.',
+    desc: 'قائمة مهام بسيطة: أضف مهامك، علّم ما أنجزته، وتابع شريط التقدّم. تُحفظ على جهازك، وتتزامن مع حسابك إن سجّلت دخولك.',
     kw: 'قائمة مهام, قائمة المهام اليومية, todo list, تنظيم المهام, مهام اليوم',
     search: 'قائمة مهام todo list تنظيم اليوم مهام يومية انجاز',
     cardDesc: 'اكتب مهامك وعلّم ما أنجزته وتابع تقدّمك', cat: 'daily',
     faq: [
-      ['هل تُحفظ مهامي؟', 'نعم، تُحفظ في متصفحك على هذا الجهاز فقط، فتجدها عند عودتك. لا ترسلها الأداة لأي مكان، ولا تتزامن بين الأجهزة.'],
+      ['هل تُحفظ مهامي؟', 'نعم، تُحفظ في متصفحك على هذا الجهاز فتجدها عند عودتك. وإن سجّلت دخولك إلى حسابك في أدواتي تتزامن مع الحساب فتظهر على أجهزتك الأخرى (تُعتمد النسخة الأحدث). بدون تسجيل دخول لا تُرسل لأي مكان.'],
       ['كيف أعلّم المهمة منجزة؟', 'اضغط على المربع بجانب المهمة، فيُشطب النص وتزداد نسبة الإنجاز.'],
       ['هل أستطيع حذف المهام المنجزة دفعة واحدة؟', 'نعم، زر "حذف المنجَز" يزيل كل المهام المعلَّمة مرة واحدة.'],
       ['كم مهمة أستطيع إضافتها؟', 'حتى 200 مهمة، وهذا كافٍ للاستخدام اليومي.']
@@ -670,13 +700,13 @@ const GAMES = {
       <button type="button" class="pt-btn2" id="tdClr">🗑 حذف المنجَز</button>
       <button type="button" class="pt-btn2" id="tdCopy">📋 نسخ القائمة</button>
     </div>
-    <div style="font-size:12px;color:var(--text-muted);margin-top:10px;min-height:18px;" id="tdMsg">🔒 تُحفظ مهامك في متصفحك فقط ولا تُرسل لأي مكان.</div>`,
+    <div style="font-size:12px;color:var(--text-muted);margin-top:10px;min-height:18px;" id="tdMsg">🔒 تُحفظ مهامك في متصفحك، وتتزامن مع حسابك إن سجّلت دخولك.</div>`,
     script: `
 (function () {
   var $ = function (i) { return document.getElementById(i); };
   var KEY = 'adawati_todo_v1', S = { t: [], n: 1 }, f = 'all', NL = String.fromCharCode(10);
   try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.t) S = r; } catch (e) {}
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} if (window.__syncPush) window.__syncPush(); }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function msg(t) { $('tdMsg').textContent = t; }
   function render() {
@@ -719,21 +749,22 @@ const GAMES = {
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { ok(true); }, function () { ok(false); });
     else { var a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); var o = false; try { o = document.execCommand('copy'); } catch (e) {} document.body.removeChild(a); ok(o); }
   });
+  window.__sync = { key: KEY, reload: function () { try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.t) S = r; } catch (e) {} render(); } };
   render();
 })();
 `
   },
   'habit-tracker': {
-    icon: '🔥', bg: '#fee2e2', grad: '#dc2626,#450a0a', title: 'متتبّع العادات', h1: 'متتبّع العادات اليومية 🔥',
+    sync: true, icon: '🔥', bg: '#fee2e2', grad: '#dc2626,#450a0a', title: 'متتبّع العادات', h1: 'متتبّع العادات اليومية 🔥',
     sub: 'أضف عاداتك وعلّم كل يوم التزمت فيه، وشاهد سلسلة أيامك المتتالية',
-    desc: 'متتبّع عادات بسيط: علّم الأيام التي التزمت بها خلال آخر سبعة أيام، وتابع سلسلة الأيام المتتالية ونسبة الالتزام. يُحفظ على جهازك فقط.',
+    desc: 'متتبّع عادات بسيط: علّم الأيام التي التزمت بها خلال آخر سبعة أيام، وتابع سلسلة الأيام المتتالية ونسبة الالتزام. يُحفظ على جهازك، ويتزامن مع حسابك إن سجّلت دخولك.',
     kw: 'متتبع العادات, habit tracker, عادات يومية, سلسلة الايام, الالتزام اليومي',
     search: 'متتبع العادات habit tracker عادة يومية سلسلة أيام التزام streak',
     cardDesc: 'علّم أيام التزامك وتابع سلسلة أيامك المتتالية', cat: 'daily',
     faq: [
       ['ما هي السلسلة؟', 'هي عدد الأيام المتتالية التي التزمت فيها بالعادة وصولاً إلى اليوم. إن لم تعلّم اليوم بعد، نحسب السلسلة حتى أمس حتى لا تنقطع قبل انتهاء يومك.'],
       ['هل أستطيع تعديل الأيام السابقة؟', 'نعم، تظهر آخر سبعة أيام، واضغط على أي يوم منها لتعليمه أو إلغاء تعليمه.'],
-      ['أين تُحفظ بياناتي؟', 'في متصفحك على هذا الجهاز فقط. لا تتزامن بين الأجهزة، ولا تُرسل لأي مكان.'],
+      ['أين تُحفظ بياناتي؟', 'في متصفحك على هذا الجهاز. وإن سجّلت دخولك إلى حسابك في أدواتي تتزامن مع الحساب فتظهر على أجهزتك الأخرى (تُعتمد النسخة الأحدث). بدون تسجيل دخول لا تُرسل لأي مكان.'],
       ['ما أفضل عدد من العادات؟', 'ابدأ بعادة أو اثنتين فقط. الالتزام الصغير المستمر أفضل من قائمة طويلة تتركها بعد أيام.']
     ],
     how: ['اكتب العادة التي تريدها وأضفها.', 'اضغط على اليوم الذي التزمت فيه لتعليمه.', 'السلسلة = الأيام المتتالية الملتزم بها حتى اليوم.', 'نسبة الأسبوع = أيام الالتزام ÷ 7.'],
@@ -758,13 +789,13 @@ const GAMES = {
     </style>
     <div class="pt-row"><input class="pt-in" id="htIn" type="text" maxlength="40" placeholder="مثال: قراءة 10 صفحات" autocomplete="off"><button type="button" class="pt-btn" id="htAdd">إضافة</button></div>
     <div id="htList"></div>
-    <div style="font-size:12px;color:var(--text-muted);margin-top:12px;min-height:18px;" id="htMsg">🔒 تُحفظ عاداتك في متصفحك فقط ولا تُرسل لأي مكان. اليوم الحالي محاط بإطار برتقالي.</div>`,
+    <div style="font-size:12px;color:var(--text-muted);margin-top:12px;min-height:18px;" id="htMsg">🔒 تُحفظ عاداتك في متصفحك، وتتزامن مع حسابك إن سجّلت دخولك. اليوم الحالي محاط بإطار برتقالي.</div>`,
     script: `
 (function () {
   var $ = function (i) { return document.getElementById(i); };
   var KEY = 'adawati_habits_v1', S = { h: [], n: 1 }, armed = null, WD = ['أحد', 'اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'];
   try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.h) S = r; } catch (e) {}
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} if (window.__syncPush) window.__syncPush(); }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function p2(n) { return n < 10 ? '0' + n : '' + n; }
   function key(d) { return d.getFullYear() + '-' + p2(d.getMonth() + 1) + '-' + p2(d.getDate()); }
@@ -805,14 +836,15 @@ const GAMES = {
       armed = null; S.h = S.h.filter(function (h) { return h.id !== +x; }); save(); render();
     }
   });
+  window.__sync = { key: KEY, reload: function () { try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.h) S = r; } catch (e) {} render(); } };
   render();
 })();
 `
   },
   'shopping-list': {
-    icon: '🛒', bg: '#ccfbf1', grad: '#0d9488,#042f2e', title: 'قائمة التسوق بالأسعار', h1: 'قائمة التسوق بالأسعار 🛒',
+    sync: true, icon: '🛒', bg: '#ccfbf1', grad: '#0d9488,#042f2e', title: 'قائمة التسوق بالأسعار', h1: 'قائمة التسوق بالأسعار 🛒',
     sub: 'اكتب ما تريد شراءه مع سعره، واعرف المجموع وما تبقّى من ميزانيتك قبل أن تدفع',
-    desc: 'قائمة تسوق تحسب المجموع تلقائياً: أضف الأصناف بالكمية والسعر، علّم ما اشتريته، وحدّد ميزانية لتعرف ما تبقّى منها. تُحفظ على جهازك فقط.',
+    desc: 'قائمة تسوق تحسب المجموع تلقائياً: أضف الأصناف بالكمية والسعر، علّم ما اشتريته، وحدّد ميزانية لتعرف ما تبقّى منها. تُحفظ على جهازك، وتتزامن مع حسابك إن سجّلت دخولك.',
     kw: 'قائمة تسوق, قائمة مشتريات, حساب مجموع المشتريات, ميزانية التسوق, shopping list',
     search: 'قائمة تسوق مشتريات سوبرماركت مجموع ميزانية أسعار shopping list',
     cardDesc: 'اكتب أصنافك وأسعارها واعرف المجموع وما تبقّى من ميزانيتك', cat: 'daily',
@@ -820,7 +852,7 @@ const GAMES = {
       ['كيف يُحسب المجموع؟', 'سعر كل صنف مضروباً في كميته، ثم نجمع كل الأصناف. نعرض أيضاً مجموع ما اشتريته وما بقي لك شراؤه.'],
       ['ما فائدة الميزانية؟', 'اكتب المبلغ الذي تنوي إنفاقه، فنعرض كم بقي منه بعد مجموع القائمة، ونحذّرك إن تجاوزته.'],
       ['هل أستطيع كتابة كمية بالكسور؟', 'نعم، مثل 0.5 للنصف كيلو أو 1.5 للكيلو ونصف.'],
-      ['أين تُحفظ قائمتي؟', 'في متصفحك على هذا الجهاز فقط ولا تُرسل لأي مكان. استخدم زر النسخ لإرسالها لأحد أفراد أسرتك.']
+      ['أين تُحفظ قائمتي؟', 'في متصفحك على هذا الجهاز. وإن سجّلت دخولك إلى حسابك في أدواتي تتزامن مع الحساب فتظهر على أجهزتك الأخرى (تُعتمد النسخة الأحدث). بدون تسجيل دخول لا تُرسل لأي مكان. استخدم زر النسخ لمشاركتها مع أسرتك.']
     ],
     how: ['مجموع الصنف = السعر × الكمية.', 'المجموع = جمع كل الأصناف.', 'المتبقي من الميزانية = الميزانية − المجموع.', 'علّم الصنف عند شرائه لتتابع ما بقي.'],
     rel: [['jo/tools/budget-split/', '🧮 كيف أوزّع راتبي؟'], ['jo/tools/split-bill/', '🍽️ قسّم الحساب بين الأصدقاء'], ['jo/tools/todo-list/', '✅ قائمة المهام']],
@@ -868,13 +900,13 @@ const GAMES = {
       <button type="button" class="pt-btn2" id="shClr">🗑 حذف المشترى</button>
       <button type="button" class="pt-btn2" id="shCopy">📋 نسخ القائمة</button>
     </div>
-    <div style="font-size:12px;color:var(--text-muted);margin-top:10px;min-height:18px;" id="shMsg">🔒 تُحفظ قائمتك في متصفحك فقط ولا تُرسل لأي مكان.</div>`,
+    <div style="font-size:12px;color:var(--text-muted);margin-top:10px;min-height:18px;" id="shMsg">🔒 تُحفظ قائمتك في متصفحك، وتتزامن مع حسابك إن سجّلت دخولك.</div>`,
     script: `
 (function () {
   var $ = function (i) { return document.getElementById(i); };
   var KEY = 'adawati_shop_v1', S = { i: [], n: 1, b: '' }, NL = String.fromCharCode(10);
   try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.i) S = r; } catch (e) {}
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} if (window.__syncPush) window.__syncPush(); }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function num(v) { return parseFloat(String(v).replace(/[٠-٩]/g, function (d) { return d.charCodeAt(0) - 1632; }).replace(/[٫،]/g, '.').replace(/,/g, '')); }
   function fm(c) { return (c / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
@@ -932,6 +964,7 @@ const GAMES = {
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { ok(true); }, function () { ok(false); });
     else { var a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); var o = false; try { o = document.execCommand('copy'); } catch (e) {} document.body.removeChild(a); ok(o); }
   });
+  window.__sync = { key: KEY, reload: function () { try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.i) S = r; } catch (e) {} $('shB').value = S.b; render(); } };
   render();
 })();
 `
@@ -950,7 +983,7 @@ function buildGame(slug) {
     <div class="divider"></div>${s.main}
   </div>
 `;
-  const html = head(s, slug) + mainHtml + lower(s) + '</div></main>\n\n' + footer.replace(/^<\/main>\s*/, '') + '<script>' + s.script + '</script>\n' + tail;
+  const html = head(s, slug) + mainHtml + lower(s) + '</div></main>\n\n' + footer.replace(/^<\/main>\s*/, '') + '<script>' + s.script + '</script>\n' + (s.sync ? tail.replace('</body>', '<script src="tool-sync.js?v=1"></script>\n</body>') : tail);
   out(slug, s, html);
 }
 

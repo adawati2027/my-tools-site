@@ -245,7 +245,52 @@ function hCompute() {
     explain: e, share: 'تبقّى ' + days + ' يوم على الراتب ومصروفي اليومي ' + hJ(per) + ' دينار'
   };
 }
+
+(function () {
+  var KEY = 'adawati_payday_v1', S = { day: '', bal: '', bills: '', h: [] }, box = null, armed = null;
+  function el(i) { return document.getElementById(i); }
+  function load() { try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.h) S = r; } catch (e) {} }
+  function put() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} if (window.__syncPush) window.__syncPush(); }
+  function fill() { el('hDay').value = S.day || ''; el('hBal').value = S.bal || ''; el('hBills').value = S.bills || ''; }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function today() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function render() {
+    if (!box) return;
+    var o = '<div style="font-size:15px;font-weight:800;margin-bottom:6px;">🕘 سجلّ الأيام السابقة</div>';
+    if (!S.h.length) { box.innerHTML = o + '<div style="font-size:12px;color:var(--text-muted);line-height:1.7;">يُسجَّل هنا مصروفك اليومي المسموح كل يوم تحسب فيه، وتُحفظ بياناتك على جهازك وتتزامن مع حسابك إن سجّلت دخولك.</div>'; return; }
+    o += '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:13px;"><tr style="color:var(--text-muted);text-align:start;"><th style="padding:6px 4px;text-align:start;">التاريخ</th><th style="text-align:start;">المتبقي</th><th style="text-align:start;">المسموح يومياً</th></tr>';
+    S.h.forEach(function (x) { o += '<tr style="border-top:1px solid var(--border);"><td style="padding:7px 4px;">' + esc(x.d) + '</td><td>' + esc(x.b) + '</td><td>' + esc(x.p) + '</td></tr>'; });
+    o += '</table></div><button type="button" id="hHistClr" style="margin-top:10px;padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;">🗑 مسح السجل</button>';
+    box.innerHTML = o;
+    el('hHistClr').addEventListener('click', function () {
+      var b = this;
+      if (!armed) { b.textContent = 'اضغط للتأكيد'; armed = setTimeout(function () { armed = null; b.textContent = '🗑 مسح السجل'; }, 4000); return; }
+      clearTimeout(armed); armed = null; S.h = []; put(); render();
+    });
+  }
+  function track() {
+    S.day = el('hDay').value; S.bal = el('hBal').value; S.bills = el('hBills').value;
+    if (hLast && !hLast.err && hLast.main) {
+      var e = { d: today(), b: hJ(parseFloat(S.bal) || 0), p: hLast.main.split(' ')[0] };
+      if (S.h.length && S.h[0].d === e.d) S.h[0] = e; else S.h.unshift(e);
+      if (S.h.length > 30) S.h.length = 30;
+    }
+    put(); render();
+  }
+  window.__sync = { key: KEY, reload: function () { load(); fill(); calc(); render(); } };
+  document.addEventListener('DOMContentLoaded', function () {
+    load(); fill();
+    box = document.createElement('div');
+    box.className = 'card';
+    box.style.marginTop = '16px';
+    var rs = el('hResult'); rs.parentNode.insertBefore(box, rs.nextSibling);
+    if (S.day && S.bal) calc();
+    render();
+    ['hDay', 'hBal', 'hBills'].forEach(function (i) { el(i).addEventListener('input', track); el(i).addEventListener('change', track); });
+  });
+})();
 </script>
+<script src="tool-sync.js?v=1" defer></script>
 <script src="i18n-lang-ar.js?v=4" defer></script>
 <script src="i18n.js?v=65" defer></script>
 <script>

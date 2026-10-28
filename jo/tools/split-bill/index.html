@@ -43,7 +43,7 @@
 {"@type":"WebApplication","name":"قسّم الحساب بين الأصدقاء","url":"https://adawati.space/jo/tools/split-bill/","description":"تقسيم المصاريف بين الأصدقاء والسكن المشترك والرحلات: أضف الأشخاص والمصاريف ومن دفع، واعرف رصيد كل واحد ومن يدفع لمن بأقل عدد من التحويلات. مجاني وبدون تسجيل.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JOD"}},
 {"@type":"FAQPage","mainEntity":[
   {"@type":"Question","name":"كيف تعمل الأداة؟","acceptedAnswer":{"@type":"Answer","text":"أضف أسماء الأشخاص، ثم سجّل كل مصروف مع من دفعه ومن شارك فيه. تحسب الأداة رصيد كل شخص، وتقترح أقل عدد من التحويلات لتصفية الحسابات."}},
-  {"@type":"Question","name":"هل تحفظ الأداة بياناتي؟","acceptedAnswer":{"@type":"Answer","text":"تُحفظ في متصفحك فقط على هذا الجهاز، ولا تُرسل لأي مكان. لا تتزامن بين الأجهزة، فاستخدم زر النسخ لمشاركة الملخص مع أصدقائك."}},
+  {"@type":"Question","name":"هل تحفظ الأداة بياناتي؟","acceptedAnswer":{"@type":"Answer","text":"تُحفظ في متصفحك على هذا الجهاز. وإن سجّلت دخولك إلى حسابك في أدواتي تُزامَن مع الحساب لتجدها على أجهزتك الأخرى، وعند الاختلاف تُعتمد النسخة الأحدث. بدون تسجيل دخول لا تُرسل لأي مكان. استخدم زر النسخ لمشاركة الملخص مع أصدقائك."}},
   {"@type":"Question","name":"هل أستطيع تقسيم مصروف بمبالغ مختلفة؟","acceptedAnswer":{"@type":"Answer","text":"نعم، اختر \"مبالغ محددة\" واكتب حصة كل شخص، بشرط أن يساوي مجموعها قيمة المصروف."}},
   {"@type":"Question","name":"ماذا لو دفع شخص ولم يشارك في المصروف؟","acceptedAnswer":{"@type":"Answer","text":"لا مشكلة، اختره في خانة من دفع ولا تحدده بين المشاركين، فيصبح له رصيد على الآخرين."}},
   {"@type":"Question","name":"ماذا يحدث للكسور في القسمة؟","acceptedAnswer":{"@type":"Answer","text":"نوزّع القرش الزائد على أول المشاركين، فيبقى مجموع الحصص مساوياً لقيمة المصروف تماماً."}}
@@ -92,7 +92,7 @@
       .sb-empty{font-size:13px;color:var(--text-muted);padding:6px 0;}
     </style>
     <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:#92400e;line-height:1.7;margin-bottom:14px;">
-      🔒 كل شيء يُحفظ في متصفحك على هذا الجهاز فقط ولا يُرسل لأي مكان. استخدم زر النسخ لمشاركة الملخص مع أصدقائك.
+      🔒 تُحفظ بياناتك في متصفحك على هذا الجهاز، وإن سجّلت دخولك تُزامَن مع حسابك لتجدها على أجهزتك الأخرى. استخدم زر النسخ لمشاركة الملخص مع أصدقائك.
     </div>
 
     <div class="sb-h">👥 1) الأشخاص</div>
@@ -129,9 +129,12 @@
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
       <button type="button" class="sb-btn" id="sbImg" style="flex:2;">🖼️ تصدير كصورة</button>
       <button type="button" class="sb-btn2" id="sbCopy" style="flex:2;">📋 نسخ الملخص</button>
-      <button type="button" class="sb-btn2" id="sbClear" style="flex:1;">🗑 مسح الكل</button>
+      <button type="button" class="sb-btn2" id="sbClear" style="flex:1;">🗑 تصفية وبدء جديد</button>
     </div>
     <div class="sb-sub" id="sbCopied" style="margin-top:8px;min-height:18px;"></div>
+    <div class="sb-h" style="margin-top:18px;">🕘 الحسابات السابقة</div>
+    <div class="sb-sub" id="sbHistNote">تُحفظ هنا الحسابات التي صفّيتها لتعود إليها، وتتزامن مع حسابك إن سجّلت دخولك.</div>
+    <div id="sbHist"></div>
   </div>
 
   <div class="card" style="margin-top:16px;">
@@ -140,7 +143,7 @@
       <li>الرصيد = ما دفعه الشخص − مجموع حصصه من المصاريف.</li>
       <li>من رصيده موجب فله مال عند الآخرين، ومن رصيده سالب فعليه أن يدفع.</li>
       <li>نطابق أكبر دائن مع أكبر مدين مراراً، فنحصل على عدد قليل من التحويلات.</li>
-      <li>عند التصفية الفعلية، امسح الحسابات وابدأ من جديد.</li>
+      <li>عند التصفية الفعلية اضغط "تصفية وبدء جديد"، فيُحفظ الحساب في السجل وتبدأ حساباً جديداً.</li>
     </ul>
   </div>
 
@@ -152,7 +155,7 @@
     </details>
     <details style="margin-top:10px;">
       <summary style="font-weight:700;cursor:pointer;font-size:14px;">هل تحفظ الأداة بياناتي؟</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">تُحفظ في متصفحك فقط على هذا الجهاز، ولا تُرسل لأي مكان. لا تتزامن بين الأجهزة، فاستخدم زر النسخ لمشاركة الملخص مع أصدقائك.</p>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">تُحفظ في متصفحك على هذا الجهاز. وإن سجّلت دخولك إلى حسابك في أدواتي تُزامَن مع الحساب لتجدها على أجهزتك الأخرى، وعند الاختلاف تُعتمد النسخة الأحدث. بدون تسجيل دخول لا تُرسل لأي مكان. استخدم زر النسخ لمشاركة الملخص مع أصدقائك.</p>
     </details>
     <details style="margin-top:10px;">
       <summary style="font-weight:700;cursor:pointer;font-size:14px;">هل أستطيع تقسيم مصروف بمبالغ مختلفة؟</summary>
@@ -192,8 +195,9 @@
   var $ = function (i) { return document.getElementById(i); };
   var KEY = 'adawati_split_v1', S = { people: [], exps: [], nid: 1 }, mode = 'eq', sel = {}, exv = {};
   try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.people && r.exps) S = r; } catch (e) {}
+  if (!S.hist) S.hist = [];
   var NL = String.fromCharCode(10);
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} if (window.__syncPush) window.__syncPush(); }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function num(v) { return parseFloat(String(v).replace(/[٠-٩]/g, function (d) { return d.charCodeAt(0) - 1632; }).replace(/[٫،]/g, '.').replace(/,/g, '')); }
   function fm(c) { return (Math.abs(c) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
@@ -262,7 +266,23 @@
     st.forEach(function (t) { sh += '<div class="sb-item"><span>من <strong>' + esc(nm(t.from)) + '</strong> إلى <strong>' + esc(nm(t.to)) + '</strong></span><span class="sb-pos">' + fm(t.v) + ' دينار</span></div>'; });
     $('sbSet').innerHTML = sh || '<div class="sb-empty">' + (S.exps.length ? '✓ الحسابات متساوية، لا يوجد ما يُدفع.' : 'ستظهر هنا بعد تسجيل المصاريف.') + '</div>';
   }
-  function renderAll() { renderPeople(); renderResults(); }
+  function renderHist() {
+    var h = S.hist || [], o = '';
+    if (!h.length) { $('sbHist').innerHTML = '<div class="sb-sub" style="margin-top:8px;">لا توجد حسابات سابقة بعد.</div>'; return; }
+    h.forEach(function (x, i) {
+      o += '<div style="display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;"><div style="min-width:0;"><div style="font-weight:700;font-size:14px;">' + esc(x.d) + ' — ' + fm(x.tot) + ' دينار</div><div class="sb-sub">' + x.n + ' مصروف · ' + esc(x.names) + '</div></div><div style="display:flex;gap:6px;"><button type="button" class="sb-btn2" data-hr="' + i + '">استعادة</button><button type="button" class="sb-btn2" data-hd="' + i + '">حذف</button></div></div>';
+    });
+    $('sbHist').innerHTML = o;
+  }
+  function renderAll() { renderPeople(); renderResults(); renderHist(); }
+  function archive() {
+    if (!S.exps.length) return;
+    var tot = 0; S.exps.forEach(function (e) { tot += e.amt; });
+    var d = new Date(), ds = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    var nms = S.people.map(function (p) { return p.name; }).join('، ');
+    S.hist.unshift({ d: ds, tot: tot, n: S.exps.length, names: nms, snap: { people: S.people, exps: S.exps, nid: S.nid } });
+    if (S.hist.length > 20) S.hist.length = 20;
+  }
 
   function addPerson() {
     var n = $('sbName').value.trim().replace(/\s+/g, ' ');
@@ -343,10 +363,20 @@
   var armed = null;
   $('sbClear').addEventListener('click', function () {
     var b = $('sbClear');
-    if (!armed) { b.textContent = 'اضغط للتأكيد'; armed = setTimeout(function () { armed = null; b.textContent = '🗑 مسح الكل'; }, 4000); return; }
-    clearTimeout(armed); armed = null; b.textContent = '🗑 مسح الكل';
-    S = { people: [], exps: [], nid: 1 }; sel = {}; exv = {}; save(); $('sbCopied').textContent = ''; renderAll();
+    if (!armed) { b.textContent = 'اضغط للتأكيد'; armed = setTimeout(function () { armed = null; b.textContent = '🗑 تصفية وبدء جديد'; }, 4000); return; }
+    clearTimeout(armed); armed = null; b.textContent = '🗑 تصفية وبدء جديد';
+    archive();
+    S = { people: [], exps: [], nid: 1, hist: S.hist }; sel = {}; exv = {}; save(); $('sbCopied').textContent = 'حُفظ الحساب في السجل أدناه.'; renderAll();
   });
+  $('sbHist').addEventListener('click', function (e) {
+    var r = e.target.getAttribute && e.target.getAttribute('data-hr'), d = e.target.getAttribute && e.target.getAttribute('data-hd');
+    if (d !== null && d !== '' && d !== undefined) { S.hist.splice(+d, 1); save(); renderHist(); return; }
+    if (r === null || r === undefined || r === '') return;
+    var x = S.hist[+r]; if (!x) return;
+    S.hist.splice(+r, 1); archive();
+    S.people = x.snap.people; S.exps = x.snap.exps; S.nid = x.snap.nid; sel = {}; exv = {}; save(); $('sbCopied').textContent = 'أُعيد الحساب. حُفظ الحساب السابق في السجل.'; renderAll();
+  });
+  window.__sync = { key: KEY, reload: function () { try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.people && r.exps) S = r; } catch (e) {} if (!S.hist) S.hist = []; sel = {}; exv = {}; renderAll(); } };
   renderAll();
 })();
 </script>
@@ -371,4 +401,5 @@
   document.addEventListener('change', h, true);
 })();
 </script>
+<script src="tool-sync.js?v=1"></script>
 </body></html>
