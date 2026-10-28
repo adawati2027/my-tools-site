@@ -83,7 +83,8 @@
         document.head.appendChild(s);
       }
       var go = function() {
-        if (c.maintenance && c.maintenance.enabled === true) { wall('🛠️ الموقع تحت الصيانة', c.maintenance.message || 'نعمل على تحسينات سريعة، وسنعود قريباً.', false); return; }
+        var mt = c.maintenance, mNow = Date.now(), mOn = mt && mt.enabled === true && !(mt.from && mNow < Date.parse(mt.from + ':00+03:00')) && !(mt.until && mNow >= Date.parse(mt.until + ':00+03:00'));
+        if (mOn) { wall('🛠️ الموقع تحت الصيانة', c.maintenance.message || 'نعمل على تحسينات سريعة، وسنعود قريباً.', false); return; }
         if (hit(c, path)) { wall('⏸️ هذه الأداة متوقفة مؤقتاً', (c.pages && c.pages.message) || 'سنعيدها قريباً. تفضّل بزيارة بقية الأدوات.', true); return; }
         var cc = (path.split('/')[1] || ''), cb = c.banners && c.banners[cc];
         banner(cb && cb.enabled === true && cb.text ? cb : c.banner);
