@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Gold Price per Gram | Adawati</title>
+<link rel="stylesheet" href="widget.css?v=1">
+</head>
+<body>
+<main class="w">
+  <h1 class="w-title">Gold price per gram (spot)</h1>
+  <label for="cur">Currency</label>
+  <select id="cur">
+    <option>USD</option><option>JOD</option><option>AED</option><option>SAR</option><option>OMR</option><option>KWD</option><option>QAR</option><option>BHD</option><option>EGP</option><option>EUR</option><option>GBP</option>
+  </select>
+  <div class="w-out g-main" id="out" hidden>
+    <strong id="p24"></strong>
+    <span>24 karat per gram</span>
+    <div class="g-k"><div>21K<b id="p21"></b></div><div>18K<b id="p18"></b></div></div>
+  </div>
+  <p id="err" class="w-foot" hidden>Could not load the price. Try again later.</p>
+  <p class="w-foot"><span id="when"></span> International spot price converted at the current exchange rate, not a local market price. 21K and 18K are calculated from the 24K price. Powered by <a href="https://adawati.space/api.html" target="_blank" rel="noopener">Adawati</a>.</p>
+</main>
+<script src="widget.js?v=1" defer></script>
+</body>
+</html>
