@@ -512,7 +512,8 @@ function openAuthModal() {
     forgotLink.textContent = authResetText(lang).link;
     forgotLink.onclick = () => sendPasswordReset(lang);
 
-    box.append(header, note, errBox, googleBtn, divider, ...fields, submitBtn, ...(isSignup ? [] : [forgotLink]), switchLink);
+    const hideGoogle = window.Capacitor && window.Capacitor.getPlatform && window.Capacitor.getPlatform() === 'ios';
+    box.append(header, note, errBox, ...(hideGoogle ? [] : [googleBtn, divider]), ...fields, submitBtn, ...(isSignup ? [] : [forgotLink]), switchLink);
   }
 
   modal.appendChild(box);
