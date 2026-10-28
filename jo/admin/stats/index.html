@@ -68,7 +68,15 @@ document.addEventListener('DOMContentLoaded', function () {
   function grid(items) { return '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:10px;">' + items.join('') + '</div>'; }
   function get(db, col, fn) { return db.collection(col).limit(CAP).get().then(function (s) { return fn(s); }).catch(function () { return null; }); }
   function num(x) { return x === null ? '—' : String(x) + (x >= CAP ? '+' : ''); }
-  function load(db) {
+  function countUsers(user) {
+    return user.getIdToken().then(function (tk) {
+      return fetch('https://firestore.googleapis.com/v1/projects/adawati-challenges/databases/(default)/documents:runAggregationQuery', {
+        method: 'POST', headers: { 'Authorization': 'Bearer ' + tk, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ structuredAggregationQuery: { structuredQuery: { from: [{ collectionId: 'users' }] }, aggregations: [{ alias: 'n', count: {} }] } })
+      }).then(function (r) { return r.json(); }).then(function (j) { return +j[0].result.aggregateFields.n.integerValue; });
+    }).catch(function () { return null; });
+  }
+  function load(db, user) {
     var now = Date.now();
     Promise.all([
       get(db, 'challenges', function (s) { var a = 0, w = 0, d = 0; s.forEach(function (x) { var t = ts(x.data(), 'createdAt'); a++; if (now - t < 7 * DAY) w++; if (now - t < DAY) d++; }); return { a: a, w: w, d: d }; }),
@@ -76,9 +84,11 @@ document.addEventListener('DOMContentLoaded', function () {
       get(db, 'emailBans', function (s) { var n = 0; s.forEach(function (x) { var u = +x.data().until || 0; if (!u || u > now) n++; }); return n; }),
       get(db, 'chatBans', function (s) { var n = 0; s.forEach(function (x) { var u = +x.data().until || 0; if (!u || u > now) n++; }); return n; }),
       get(db, 'ads', function (s) { var o = { pending: 0, approved: 0, other: 0 }; s.forEach(function (x) { var st = x.data().status; o[st === 'pending' || st === 'approved' ? st : 'other']++; }); return o; }),
-      get(db, 'adReports', function (s) { return s.size; })
+      get(db, 'adReports', function (s) { return s.size; }),
+      countUsers(user)
     ]).then(function (r) {
       var c = r[0], ad = r[4], h = '';
+      h += '<div class="card cf-sec"><h2>👤 المسجّلون</h2>' + grid([box(r[6] === null ? '—' : r[6], 'حسابات مسجّلة', r[6] === null ? 'تحتاج نشر قواعد Firestore المحدّثة' : 'حسابات استخدمت المفضلة أو مزامنة الأدوات')]) + '</div>';
       h += '<div class="card cf-sec"><h2>🏁 التحديات</h2>' + grid([box(c ? num(c.a) : '—', 'كل التحديات'), box(c ? c.w : '—', 'آخر 7 أيام'), box(c ? c.d : '—', 'آخر 24 ساعة')]) + '</div>';
       h += '<div class="card cf-sec"><h2>💬 الشات والحظر</h2>' + grid([box(num(r[1]), 'بلاغات الشات', r[1] ? '<a href="jo/ads/admin/">راجعها</a>' : ''), box(num(r[2]), 'بريد محظور حالياً'), box(num(r[3]), 'حظر شات حالياً')]) + '<div class="cf-h" style="margin-top:8px;"><a href="jo/admin/bans/">إدارة الحظر</a></div></div>';
       h += '<div class="card cf-sec"><h2>📣 الإعلانات المجانية</h2>' + grid([box(ad ? ad.pending : '—', 'بانتظار الموافقة', ad && ad.pending ? '<a href="jo/ads/admin/">راجعها</a>' : ''), box(ad ? ad.approved : '—', 'منشورة'), box(num(r[5]), 'بلاغات على إعلانات')]) + '</div>';
@@ -90,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!user || !fb) { adsSignInPrompt(body, 'سجّل الدخول بحساب المشرف لفتح الإحصاءات.'); return; }
     adsIsAdmin(fb, user).then(function (ok) {
       if (!ok) { body.innerHTML = '<div class="card" style="margin-top:16px;">هذه الصفحة للمشرف فقط.</div>'; return; }
-      load(fb.db);
+      load(fb.db, user);
     });
   });
 });
