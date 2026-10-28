@@ -232,10 +232,12 @@ function hCompute() {
   const diff = Math.round((chk.getTime() - today) / 864e5), a = Math.abs(diff);
   const dd = function (k) { return k === 1 ? 'يوم واحد' : k === 2 ? 'يومان' : k <= 10 ? k + ' أيام' : k + ' يوماً'; };
   const w = Math.floor(a / 7), r = a % 7;
+  const wk = function (k) { return k === 1 ? 'أسبوع واحد' : k === 2 ? 'أسبوعان' : k <= 10 ? k + ' أسابيع' : k + ' أسبوعاً'; };
+  const span = wk(w) + (r ? ' و' + dd(r) : '');
   const ex = '<div class="stat-grid">' + hStat(String(w), 'أسبوع كامل') + hStat(String(r), 'يوم إضافي') + hStat(String(a * 24), 'ساعة') + '</div>';
   if (diff === 0) return { main: 'إنها اليوم 🎉', lbl: 'موعد مناسبتك هو اليوم', extra: '', explain: 'تاريخ المناسبة يساوي تاريخ اليوم.', share: 'مناسبتي اليوم' };
   if (diff < 0) return { main: 'مضى ' + dd(a), lbl: 'على تاريخ هذه المناسبة', extra: ex, explain: 'بين ' + y + '/' + m + '/' + d + ' واليوم ' + dd(a) + '.', share: 'مضى ' + dd(a) + ' على مناسبتي' };
-  return { main: 'باقي ' + dd(a), lbl: 'على مناسبتك', extra: ex, explain: 'بين اليوم و ' + y + '/' + m + '/' + d + ' ' + dd(a) + '، أي ' + w + ' أسبوعاً و ' + r + ' أيام.', share: 'باقي ' + dd(a) + ' على مناسبتي' };
+  return { main: 'باقي ' + dd(a), lbl: 'على مناسبتك', extra: ex, explain: 'بين اليوم و ' + y + '/' + m + '/' + d + ' ' + dd(a) + (w ? '، أي ' + span + '.' : '.'), share: 'باقي ' + dd(a) + ' على مناسبتي' };
 }
 </script>
 <script src="i18n-lang-ar.js?v=4" defer></script>
