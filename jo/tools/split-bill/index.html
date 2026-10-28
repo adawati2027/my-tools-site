@@ -258,7 +258,7 @@
     });
     $('sbBal').innerHTML = S.people.length ? bh : '<div class="sb-empty">أضف الأشخاص أولاً.</div>';
     var st = settle(b), sh = '';
-    st.forEach(function (t) { sh += '<div class="sb-item"><span><strong>' + esc(nm(t.from)) + '</strong> يدفع إلى <strong>' + esc(nm(t.to)) + '</strong></span><span class="sb-pos">' + fm(t.v) + ' دينار</span></div>'; });
+    st.forEach(function (t) { sh += '<div class="sb-item"><span>من <strong>' + esc(nm(t.from)) + '</strong> إلى <strong>' + esc(nm(t.to)) + '</strong></span><span class="sb-pos">' + fm(t.v) + ' دينار</span></div>'; });
     $('sbSet').innerHTML = sh || '<div class="sb-empty">' + (S.exps.length ? '✓ الحسابات متساوية، لا يوجد ما يُدفع.' : 'ستظهر هنا بعد تسجيل المصاريف.') + '</div>';
   }
   function renderAll() { renderPeople(); renderResults(); }
@@ -295,7 +295,7 @@
     S.people.forEach(function (p) { var v = b[p.id] || 0; L.push('- ' + p.name + ': ' + (v > 0 ? 'له ' : v < 0 ? 'عليه ' : 'متساوٍ ') + (v ? fm(v) : '') + (v ? ' دينار' : '')); });
     var st = settle(b); L.push('', 'التسوية:');
     if (!st.length) L.push('لا يوجد ما يُدفع.');
-    st.forEach(function (t) { L.push('- ' + nm(t.from) + ' يدفع إلى ' + nm(t.to) + ': ' + fm(t.v) + ' دينار'); });
+    st.forEach(function (t) { L.push('- من ' + nm(t.from) + ' إلى ' + nm(t.to) + ': ' + fm(t.v) + ' دينار'); });
     return L.join(NL);
   }
 
