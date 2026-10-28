@@ -290,18 +290,30 @@
   }
   function wavFile() { return new File([toWav(result)], 'adawati-voice-' + FX.filter(function (f) { return f.n === resultName; })[0].id + '.wav', { type: 'audio/wav' }); }
   $('vcPlay').addEventListener('click', play);
+  var CAP = window.Capacitor, PL = CAP && CAP.Plugins, native = !!(CAP && CAP.isNativePlatform && CAP.isNativePlatform() && PL && PL.Filesystem && PL.Share);
+  function nativeSend() {
+    var f = wavFile(), fr = new FileReader();
+    fr.onload = function () {
+      PL.Filesystem.writeFile({ path: f.name, data: String(fr.result).split(',')[1], directory: 'CACHE' })
+        .then(function (r) { return PL.Share.share({ title: 'صوتي بعد التغيير', url: r.uri, dialogTitle: 'حفظ أو مشاركة' }); })
+        .catch(function () {});
+    };
+    fr.readAsDataURL(f);
+  }
   $('vcDl').addEventListener('click', function () {
     if (!result) return;
+    if (native) { nativeSend(); return; }
     var f = wavFile(), u = URL.createObjectURL(f), a = document.createElement('a');
     a.href = u; a.download = f.name; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(u); }, 4000);
   });
   $('vcShare').addEventListener('click', function () {
     if (!result) return;
+    if (native) { nativeSend(); return; }
     var f = wavFile();
     navigator.share({ files: [f], title: 'صوتي بعد التغيير' }).catch(function () {});
   });
-  try { var tf = new File([new Blob(['x'])], 't.wav', { type: 'audio/wav' }); if (navigator.canShare && navigator.canShare({ files: [tf] })) $('vcShare').hidden = false; } catch (e) {}
+  try { var tf = new File([new Blob(['x'])], 't.wav', { type: 'audio/wav' }); if (native || (navigator.canShare && navigator.canShare({ files: [tf] }))) $('vcShare').hidden = false; } catch (e) {}
 
   function reset() {
     jobId++; stopPlay(); orig = null; result = null; chunks = [];
