@@ -127,7 +127,8 @@
     <div class="sb-h" style="margin-top:16px;">🤝 التسوية المقترحة</div>
     <div id="sbSet"></div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
-      <button type="button" class="sb-btn" id="sbCopy" style="flex:2;">📋 نسخ الملخص</button>
+      <button type="button" class="sb-btn" id="sbImg" style="flex:2;">🖼️ تصدير كصورة</button>
+      <button type="button" class="sb-btn2" id="sbCopy" style="flex:2;">📋 نسخ الملخص</button>
       <button type="button" class="sb-btn2" id="sbClear" style="flex:1;">🗑 مسح الكل</button>
     </div>
     <div class="sb-sub" id="sbCopied" style="margin-top:8px;min-height:18px;"></div>
@@ -327,6 +328,17 @@
     function done(ok) { $('sbCopied').textContent = ok ? '✓ تم نسخ الملخص، الصقه في واتساب أو أي محادثة.' : 'تعذّر النسخ تلقائياً.'; }
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
     else { var a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); var ok = false; try { ok = document.execCommand('copy'); } catch (e) {} document.body.removeChild(a); done(ok); }
+  });
+  $('sbImg').addEventListener('click', function () {
+    if (!S.exps.length) { $('sbCopied').textContent = 'سجّل مصروفاً واحداً على الأقل قبل التصدير.'; return; }
+    if (typeof exportResultImage !== 'function') { $('sbCopied').textContent = 'تعذّر التصدير، أعد تحميل الصفحة.'; return; }
+    var b = balances(), tot = 0, rows = [];
+    S.exps.forEach(function (e) { tot += e.amt; });
+    rows.push({ label: 'إجمالي المصاريف', value: fm(tot) + ' دينار' });
+    rows.push({ label: 'عدد المصاريف', value: String(S.exps.length) });
+    S.people.forEach(function (p) { var v = b[p.id] || 0; rows.push({ label: p.name, value: v > 0 ? 'له ' + fm(v) + ' دينار' : v < 0 ? 'عليه ' + fm(v) + ' دينار' : 'متساوٍ' }); });
+    settle(b).forEach(function (t) { rows.push({ label: 'من ' + nm(t.from) + ' إلى ' + nm(t.to), value: fm(t.v) + ' دينار', highlight: true }); });
+    exportResultImage('تقسيم المصاريف', rows);
   });
   var armed = null;
   $('sbClear').addEventListener('click', function () {
