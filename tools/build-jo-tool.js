@@ -107,6 +107,139 @@ const SPECS = {
       ['هل هذه نصيحة مالية؟', 'لا، هي أداة حسابية بسيطة، والقرار يعود لظروفك.']
     ],
     rel: [['jo/tools/savings-goal/', '🎯 هدفي الادخاري'], ['jo/tools/days-to-payday/', '📅 كم تبقّى على الراتب'], ['jo/calculators/net-salary/', '💵 صافي الراتب']]
+  },
+  'split-bill': {
+    icon: '🍽️', bg: '#ffedd5', grad: '#ea580c,#7c2d12', title: 'قسّم الحساب بين الأصدقاء', h1: 'قسّم الحساب بين الأصدقاء 🍽️',
+    sub: 'اكتب مبلغ الفاتورة وعدد الأشخاص وبقشيشاً إن أردت، وسنحسب حصة كل واحد',
+    desc: 'قسّم فاتورة المطعم أو السهرة بين الأصدقاء بالتساوي، مع إضافة بقشيش اختياري، واعرف حصة كل شخص بالدينار.',
+    kw: 'تقسيم الفاتورة, تقسيم الحساب, حصة كل شخص, بقشيش, حاسبة المطعم',
+    search: 'تقسيم الفاتورة الحساب الأصدقاء مطعم بقشيش split bill',
+    cardDesc: 'حصة كل شخص من فاتورة المطعم، مع بقشيش اختياري', cat: 'daily',
+    warn: 'القسمة بالتساوي بين الجميع. إن اختلفت طلباتكم كثيراً فاحسبوا كل طلب على حدة.',
+    fields: [
+      ['bill', 'مبلغ الفاتورة (دينار)', 'مثال: 48'],
+      ['ppl', 'عدد الأشخاص', 'مثال: 5'],
+      ['tip', 'بقشيش % (اختياري)', 'مثال: 10']
+    ],
+    compute: `
+  const t = parseFloat(bill.value), n = parseInt(ppl.value), tp = parseFloat(tip.value) || 0;
+  if (isNaN(t) || isNaN(n) || t <= 0 || n < 1 || n > 100 || tp < 0 || tp > 100) return null;
+  const ta = t * tp / 100, tot = t + ta, per = tot / n;
+  const ex = hStat(hJ(tot), 'المجموع مع البقشيش') + hStat(hJ(ta), 'البقشيش') + hStat(String(n), 'عدد الأشخاص');
+  return { main: hJ(per) + ' دينار للشخص', lbl: 'حصة كل شخص', extra: '<div class="stat-grid">' + ex + '</div>',
+    explain: '(' + hJ(t) + ' + ' + hJ(ta) + ' بقشيش) ÷ ' + n + ' = ' + hJ(per) + ' دينار.',
+    share: 'حصة كل واحد منا ' + hJ(per) + ' دينار من فاتورة ' + hJ(t) + ' دينار' };`,
+    how: ['البقشيش = الفاتورة × النسبة.', 'المجموع = الفاتورة + البقشيش.', 'الحصة = المجموع ÷ عدد الأشخاص.', 'اترك خانة البقشيش فارغة إن لم تردّ إضافته.'],
+    faq: [
+      ['كم نسبة البقشيش المناسبة؟', 'لا توجد نسبة ملزمة. اختر ما يناسبك، وتبقى الخانة اختيارية.'],
+      ['هل تناسب الأداة طلبات مختلفة؟', 'لا، فهي تقسم بالتساوي. للطلبات المختلفة احسب كل طلب وحده.'],
+      ['هل تحسب الضريبة والخدمة؟', 'لا تحسبها وحدها. أدخل المبلغ النهائي المكتوب في الفاتورة.']
+    ],
+    rel: [['tip-calculator.html', '💁 حاسبة البقشيش'], ['discount-calculator.html', '🏷️ حاسبة الخصم'], ['jo/tools/budget-split/', '🧮 توزيع الراتب']]
+  },
+  'reading-goal': {
+    icon: '📖', bg: '#e0f2fe', grad: '#0284c7,#0c4a6e', title: 'كم صفحة أقرأ كل يوم؟', h1: 'كم صفحة أقرأ كل يوم؟ 📖',
+    sub: 'اكتب عدد صفحات الكتاب وكم يوماً تريد لإنهائه، وسنحسب ورد القراءة اليومي',
+    desc: 'احسب كم صفحة تقرأ كل يوم لتنهي كتابك في المدة التي تريدها، وكم دقيقة تحتاج يومياً حسب سرعة قراءتك.',
+    kw: 'خطة القراءة, كم صفحة في اليوم, إنهاء كتاب, تحدي القراءة, ورد القراءة',
+    search: 'خطة قراءة كتاب صفحات يوم تحدي القراءة reading goal',
+    cardDesc: 'كم صفحة تقرأ يومياً لتنهي كتابك في الوقت الذي تريده', cat: 'daily',
+    warn: 'الحساب تقريبي، وسرعة القراءة تختلف من كتاب لآخر ومن يوم لآخر.',
+    fields: [
+      ['pg', 'عدد صفحات الكتاب', 'مثال: 320'],
+      ['dn', 'ما قرأته حتى الآن (صفحة)', 'مثال: 40'],
+      ['dy', 'كم يوماً تريد لإنهائه؟', 'مثال: 20'],
+      ['sp', 'سرعتك: صفحات في الساعة (اختياري)', 'مثال: 30']
+    ],
+    compute: `
+  const p = parseFloat(pg.value), d = parseFloat(dn.value) || 0, y = parseInt(dy.value), s = parseFloat(sp.value) || 0;
+  if (isNaN(p) || isNaN(y) || p <= 0 || y < 1 || d < 0 || s < 0) return null;
+  if (d >= p) return { main: 'أنهيت الكتاب', lbl: 'ما قرأته يساوي صفحات الكتاب أو يزيد', extra: '', explain: 'قرأت ' + hJ(d) + ' من ' + hJ(p) + ' صفحة.', share: 'أنهيت كتابي' };
+  const left = p - d, per = Math.ceil(left / y);
+  let ex = hStat(String(Math.round(left)), 'صفحة متبقية') + hStat(String(y), 'يوماً') + hStat(Math.round(d / p * 100) + '%', 'نسبة ما قرأته');
+  let e = '(' + Math.round(p) + ' − ' + Math.round(d) + ') ÷ ' + y + ' = ' + hJ(left / y) + '، نقرّبها إلى ' + per + ' صفحة يومياً.';
+  if (s > 0) { const mn = Math.round(per / s * 60); ex += hStat(String(mn), 'دقيقة قراءة يومياً'); e += ' وبسرعة ' + Math.round(s) + ' صفحة في الساعة تحتاج نحو ' + mn + ' دقيقة كل يوم.'; }
+  return { main: per + ' صفحة يومياً', lbl: 'ورد القراءة المطلوب', extra: '<div class="stat-grid">' + ex + '</div>', explain: e,
+    share: 'سأقرأ ' + per + ' صفحة كل يوم لأنهي كتابي خلال ' + y + ' يوماً' };`,
+    how: ['المتبقي = صفحات الكتاب − ما قرأته.', 'الورد اليومي = المتبقي ÷ الأيام، ويُقرَّب لأعلى.', 'الدقائق اليومية = الورد ÷ سرعتك في الساعة × 60.', 'إن لم تعرف سرعتك فاقرأ عشر دقائق وعدّ الصفحات، ثم اضرب في ستة.'],
+    faq: [
+      ['كيف أعرف سرعتي في القراءة؟', 'اقرأ عشر دقائق واحسب كم صفحة قرأت، ثم اضرب العدد في ستة لتحصل على صفحاتك في الساعة.'],
+      ['ماذا لو فاتني يوم؟', 'أعد الحساب بما قرأته حتى الآن وبالأيام المتبقية، فتتغير الحصة اليومية تلقائياً.'],
+      ['هل تناسب الأداة الكتب الإلكترونية؟', 'نعم، استخدم عدد الصفحات الذي يظهر في تطبيق القراءة.']
+    ],
+    rel: [['jo/tools/pomodoro-timer/', '🍅 مؤقّت بومودورو'], ['jo/tools/days-to-payday/', '📅 كم تبقّى على الراتب'], ['jo/tools/event-countdown/', '⏳ العدّ التنازلي لمناسبتك']]
+  },
+  'days-lived': {
+    icon: '🎂', bg: '#fce7f3', grad: '#db2777,#500724', title: 'كم يوماً عشت؟', h1: 'كم يوماً عشت؟ 🎂',
+    sub: 'اكتب تاريخ ميلادك، وتعرّف على عدد الأيام والأسابيع التي عشتها ومتى عيد ميلادك القادم',
+    desc: 'اعرف كم يوماً وأسبوعاً وساعة عشت منذ ولادتك، وكم يوماً يتبقى على عيد ميلادك القادم.',
+    kw: 'كم يوم عشت, حساب العمر بالأيام, عمري بالأيام, عيد ميلادي القادم',
+    search: 'كم يوم عشت عمري بالأيام عيد ميلاد days alive',
+    cardDesc: 'عمرك بالأيام والأسابيع، ومتى عيد ميلادك القادم', cat: 'daily',
+    warn: 'يُحسب العمر بالتاريخ الميلادي وبتوقيت جهازك، وقد يختلف يوماً واحداً حسب ساعة ولادتك.',
+    fields: [
+      ['by', 'سنة الميلاد', 'مثال: 2000'],
+      ['bm', 'الشهر (1 إلى 12)', 'مثال: 5'],
+      ['bd', 'اليوم', 'مثال: 17']
+    ],
+    compute: `
+  const y = parseInt(by.value), m = parseInt(bm.value), d = parseInt(bd.value);
+  const I = function (n) { return Math.round(n).toLocaleString('en-US'); };
+  const now = new Date(), ty = now.getFullYear();
+  if (isNaN(y) || isNaN(m) || isNaN(d) || y < 1900 || y > ty || m < 1 || m > 12 || d < 1 || d > 31) return null;
+  const chk = new Date(Date.UTC(y, m - 1, d));
+  if (chk.getUTCMonth() !== m - 1) return { err: 'هذا التاريخ غير صحيح، تأكد من اليوم والشهر.' };
+  const today = Date.UTC(ty, now.getMonth(), now.getDate()), b = chk.getTime();
+  if (b > today) return { err: 'تاريخ الميلاد في المستقبل.' };
+  const days = Math.round((today - b) / 864e5);
+  let nb = Date.UTC(ty, m - 1, d); if (nb < today) nb = Date.UTC(ty + 1, m - 1, d);
+  const nxt = Math.round((nb - today) / 864e5);
+  const ex = hStat(I(days / 7), 'أسبوعاً') + hStat(I(days * 24), 'ساعة') + hStat(nxt === 0 ? 'اليوم 🎉' : I(nxt), 'يوماً على عيد ميلادك القادم');
+  return { main: I(days) + ' يوماً', lbl: 'عشت منذ ولادتك', extra: '<div class="stat-grid">' + ex + '</div>',
+    explain: 'عدد الأيام بين ' + y + '/' + m + '/' + d + ' واليوم = ' + I(days) + ' يوماً، أي نحو ' + I(days / 365.25) + ' سنة.',
+    share: 'عشت ' + I(days) + ' يوماً حتى الآن' };`,
+    how: ['نحسب عدد الأيام بين تاريخ ميلادك واليوم.', 'الأسابيع = الأيام ÷ 7، والساعات = الأيام × 24.', 'عيد الميلاد القادم هو أقرب تاريخ مستقبلي لليوم والشهر الذي ولدت فيهما.', 'من وُلد في 29 شباط يُحتسب عيده في 1 آذار في السنوات غير الكبيسة.'],
+    faq: [
+      ['هل تعمل الأداة بالتاريخ الهجري؟', 'لا، تعتمد التاريخ الميلادي فقط.'],
+      ['لماذا يختلف الناتج عن حاسبة أخرى بيوم؟', 'بسبب ساعة الولادة أو فرق التوقيت، فنحن نحسب الأيام الكاملة بتاريخ اليوم.'],
+      ['كيف أحسب عمري بالسنوات والأشهر؟', 'استخدم حاسبة العمر العامة في الموقع.']
+    ],
+    rel: [['age-calculator.html', '🎂 حاسبة العمر'], ['jo/tools/event-countdown/', '⏳ العدّ التنازلي لمناسبتك'], ['jo/tools/days-to-payday/', '📅 كم تبقّى على الراتب']]
+  },
+  'event-countdown': {
+    icon: '⏳', bg: '#ccfbf1', grad: '#0d9488,#134e4a', title: 'العدّ التنازلي لمناسبتك', h1: 'العدّ التنازلي لمناسبتك ⏳',
+    sub: 'اكتب تاريخ امتحان أو سفر أو زواج أو أي مناسبة، وسنحسب كم يوماً يتبقى',
+    desc: 'اعرف كم يوماً وأسبوعاً يتبقى على امتحانك أو سفرك أو مناسبتك المهمة، بعدّ تنازلي بسيط وسريع.',
+    kw: 'عد تنازلي, كم يوم باقي, كم يوم على الامتحان, كم يوم على السفر, حاسبة الأيام',
+    search: 'عد تنازلي كم يوم باقي امتحان سفر مناسبة countdown',
+    cardDesc: 'كم يوماً يتبقى على امتحانك أو سفرك أو مناسبتك', cat: 'daily',
+    warn: 'يُحسب العدّ بالتاريخ الميلادي وبتوقيت جهازك.',
+    fields: [
+      ['ey', 'السنة', 'مثال: 2027'],
+      ['em', 'الشهر (1 إلى 12)', 'مثال: 6'],
+      ['ed', 'اليوم', 'مثال: 15']
+    ],
+    compute: `
+  const y = parseInt(ey.value), m = parseInt(em.value), d = parseInt(ed.value);
+  const now = new Date(), ty = now.getFullYear();
+  if (isNaN(y) || isNaN(m) || isNaN(d) || y < ty - 50 || y > ty + 50 || m < 1 || m > 12 || d < 1 || d > 31) return null;
+  const chk = new Date(Date.UTC(y, m - 1, d));
+  if (chk.getUTCMonth() !== m - 1) return { err: 'هذا التاريخ غير صحيح، تأكد من اليوم والشهر.' };
+  const today = Date.UTC(ty, now.getMonth(), now.getDate());
+  const diff = Math.round((chk.getTime() - today) / 864e5), a = Math.abs(diff);
+  const dd = function (k) { return k === 1 ? 'يوم واحد' : k === 2 ? 'يومان' : k <= 10 ? k + ' أيام' : k + ' يوماً'; };
+  const w = Math.floor(a / 7), r = a % 7;
+  const ex = '<div class="stat-grid">' + hStat(String(w), 'أسبوع كامل') + hStat(String(r), 'يوم إضافي') + hStat(String(a * 24), 'ساعة') + '</div>';
+  if (diff === 0) return { main: 'إنها اليوم 🎉', lbl: 'موعد مناسبتك هو اليوم', extra: '', explain: 'تاريخ المناسبة يساوي تاريخ اليوم.', share: 'مناسبتي اليوم' };
+  if (diff < 0) return { main: 'مضى ' + dd(a), lbl: 'على تاريخ هذه المناسبة', extra: ex, explain: 'بين ' + y + '/' + m + '/' + d + ' واليوم ' + dd(a) + '.', share: 'مضى ' + dd(a) + ' على مناسبتي' };
+  return { main: 'باقي ' + dd(a), lbl: 'على مناسبتك', extra: ex, explain: 'بين اليوم و ' + y + '/' + m + '/' + d + ' ' + dd(a) + '، أي ' + w + ' أسبوعاً و ' + r + ' أيام.', share: 'باقي ' + dd(a) + ' على مناسبتي' };`,
+    how: ['نحسب الأيام الكاملة بين تاريخ اليوم وتاريخ مناسبتك.', 'الأسابيع = الأيام ÷ 7 والباقي أيام إضافية.', 'الساعات = الأيام × 24.', 'إن كان التاريخ في الماضي نعرض كم يوماً مضى عليه.'],
+    faq: [
+      ['هل يُحسب يوم المناسبة نفسه؟', 'نحسب الفرق بين تاريخ اليوم وتاريخ المناسبة، فالأيام الباقية لا تشمل يوم اليوم.'],
+      ['هل أستطيع استخدامه لامتحاناتي؟', 'نعم، اكتب تاريخ الامتحان وستعرف كم يوماً يتبقى لتنظم دراستك.'],
+      ['هل يحفظ الموقع تاريخي؟', 'لا، كل شيء يُحسب في متصفحك ولا يُرسل لأي مكان.']
+    ],
+    rel: [['jo/tools/pomodoro-timer/', '🍅 مؤقّت بومودورو'], ['jo/tools/days-lived/', '🎂 كم يوماً عشت'], ['jo/tools/reading-goal/', '📖 كم صفحة أقرأ كل يوم']]
   }
 };
 
@@ -311,7 +444,126 @@ function buildPomo() {
   out(slug, s, html);
 }
 
+const GAMES = {
+  'reaction-game': {
+    icon: '⚡', bg: '#fef9c3', grad: '#ca8a04,#422006', title: 'اختبار سرعة ردة الفعل', h1: 'اختبار سرعة ردة الفعل ⚡',
+    sub: 'اضغط بأسرع ما تستطيع عندما يتحول اللون إلى الأخضر، وانظر معدّلك بعد خمس جولات',
+    desc: 'لعبة سريعة تقيس سرعة ردة فعلك بالمللي ثانية: انتظر اللون الأخضر ثم اضغط. خمس جولات ومعدّل وأفضل نتيجة محفوظة على جهازك.',
+    kw: 'اختبار سرعة ردة الفعل, لعبة سرعة, قياس زمن رد الفعل, لعبة الضغط على الأخضر',
+    search: 'اختبار ردة الفعل سرعة لعبة مللي ثانية reaction time game',
+    cardDesc: 'اضغط عند اللون الأخضر وقِس سرعتك بالمللي ثانية', cat: 'games',
+    faq: [
+      ['كيف تعمل اللعبة؟', 'اضغط على المربع ليبدأ الانتظار، وعندما يصبح أخضر اضغط بأسرع ما تستطيع. إن ضغطت قبل الأخضر تعاد المحاولة.'],
+      ['ما معنى النتيجة؟', 'هي الزمن بالمللي ثانية بين ظهور اللون الأخضر وضغطتك. كلما قلّت كانت ردة فعلك أسرع.'],
+      ['هل النتيجة دقيقة؟', 'هي تقدير للتسلية، وتتأثر بسرعة جهازك وشاشتك، فلا تعتمد عليها طبياً.']
+    ],
+    how: ['اضغط على المربع لتبدأ الجولة.', 'انتظر حتى يتحول إلى الأخضر دون أن تضغط.', 'اضغط فور رؤية الأخضر.', 'بعد خمس جولات ترى المعدّل وأفضل نتيجة لك.'],
+    rel: [['jo/tools/pomodoro-timer/', '🍅 مؤقّت بومودورو'], ['jo/tools/guess-number/', '🔢 خمّن الرقم'], ['jo/games/', '🎮 ألعاب الأردن']],
+    main: `
+    <div id="rPad" role="button" tabindex="0" style="user-select:none;-webkit-user-select:none;cursor:pointer;border-radius:16px;padding:56px 16px;text-align:center;font-weight:800;font-size:22px;color:#fff;background:#2563eb;touch-action:manipulation;line-height:1.6;">اضغط هنا للبدء</div>
+    <div style="text-align:center;margin-top:14px;font-size:14px;">الجولة <strong id="rRound">0</strong> من 5 · آخر نتيجة: <strong id="rLast">—</strong></div>
+    <div class="stat-grid" id="rStats" style="margin-top:14px;"></div>`,
+    script: `
+(function () {
+  var $ = function (i) { return document.getElementById(i); };
+  var pad = $('rPad'), st = 'idle', t0 = 0, to = null, res = [], KEY = 'adawati_react_best', best = 0;
+  try { best = parseInt(localStorage.getItem(KEY)) || 0; } catch (e) {}
+  function box(v, l) { return '<div class="stat-box"><div class="stat-val">' + v + '</div><div class="stat-lbl">' + l + '</div></div>'; }
+  function paint(bg, txt) { pad.style.background = bg; pad.textContent = txt; }
+  function stats() { $('rStats').innerHTML = best ? box(best + ' ms', 'أفضل نتيجة لك') : ''; }
+  function rate(a) { return a < 250 ? 'سريع جداً' : a < 350 ? 'جيد' : 'عادي، جرّب مرة أخرى'; }
+  function press() {
+    if (st === 'idle' || st === 'done') {
+      if (st === 'done') { res = []; $('rRound').textContent = 0; $('rLast').textContent = '—'; stats(); }
+      st = 'wait'; paint('#dc2626', 'انتظر اللون الأخضر…');
+      to = setTimeout(function () { st = 'go'; paint('#16a34a', 'اضغط الآن!'); t0 = performance.now(); }, 1500 + Math.random() * 2500);
+    } else if (st === 'wait') {
+      clearTimeout(to); st = 'idle'; paint('#2563eb', 'ضغطت مبكراً! اضغط للمحاولة من جديد');
+    } else if (st === 'go') {
+      var ms = Math.round(performance.now() - t0); res.push(ms);
+      $('rRound').textContent = res.length; $('rLast').textContent = ms + ' ms';
+      if (!best || ms < best) { best = ms; try { localStorage.setItem(KEY, best); } catch (e) {} }
+      if (res.length >= 5) {
+        var avg = Math.round(res.reduce(function (a, b) { return a + b; }, 0) / res.length);
+        st = 'done'; paint('#7c3aed', 'معدّلك ' + avg + ' ms — ' + rate(avg) + '. اضغط للإعادة');
+        $('rStats').innerHTML = box(avg + ' ms', 'المعدّل') + box(Math.min.apply(null, res) + ' ms', 'أفضل جولة') + box(best + ' ms', 'أفضل نتيجة لك');
+      } else { st = 'idle'; paint('#2563eb', ms + ' ms — اضغط للجولة التالية'); stats(); }
+    }
+  }
+  pad.addEventListener('pointerdown', function (e) { e.preventDefault(); press(); });
+  pad.addEventListener('keydown', function (e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); press(); } });
+  stats();
+})();
+`
+  },
+  'guess-number': {
+    icon: '🔢', bg: '#dbeafe', grad: '#2563eb,#1e1b4b', title: 'لعبة خمّن الرقم', h1: 'لعبة خمّن الرقم 🔢',
+    sub: 'اخترت رقماً بين 1 و100، فخمّنه بأقل عدد من المحاولات',
+    desc: 'لعبة خمّن الرقم من 1 إلى 100: تلميح أكبر أو أصغر بعد كل محاولة، وعدّاد للمحاولات وأفضل نتيجة محفوظة على جهازك.',
+    kw: 'لعبة خمن الرقم, لعبة تخمين, لعبة أرقام, خمن الرقم من 1 الى 100',
+    search: 'خمن الرقم لعبة تخمين أرقام guess the number game',
+    cardDesc: 'خمّن الرقم بين 1 و100 بأقل عدد من المحاولات', cat: 'games',
+    faq: [
+      ['كيف ألعب؟', 'اكتب رقماً بين 1 و100 واضغط تخمين، وسنخبرك إن كان الرقم السري أكبر أو أصغر.'],
+      ['ما أفضل طريقة للفوز؟', 'ابدأ بالمنتصف 50، ثم نصّف المجال في كل مرة. بهذه الطريقة تصل في سبع محاولات على الأكثر.'],
+      ['هل تحفظ اللعبة نتائجي؟', 'تحفظ أفضل نتيجة على جهازك فقط، ولا ترسلها لأي مكان.']
+    ],
+    how: ['اللعبة تختار رقماً عشوائياً بين 1 و100.', 'اكتب تخمينك وسنقول لك أكبر أم أصغر.', 'حاول الوصول بأقل عدد من المحاولات.', 'نصيحة: نصّف المجال في كل تخمين.'],
+    rel: [['jo/tools/reaction-game/', '⚡ اختبار ردة الفعل'], ['jo/games/', '🎮 ألعاب الأردن'], ['jo/tools/pomodoro-timer/', '🍅 مؤقّت بومودورو']],
+    main: `
+    <div style="text-align:center;font-size:15px;margin-bottom:10px;">المحاولات: <strong id="gCnt">0</strong> · أفضل نتيجة: <strong id="gBest">—</strong></div>
+    <div id="gMsg" style="text-align:center;font-weight:800;font-size:18px;min-height:52px;padding:10px;border-radius:12px;background:var(--surface-2);line-height:1.6;">خمّن رقماً بين 1 و100</div>
+    <div style="display:flex;gap:8px;margin-top:14px;">
+      <input type="text" data-num inputmode="numeric" id="gIn" placeholder="تخمينك" style="flex:2;" autocomplete="off">
+      <button type="button" id="gGo" style="flex:1;padding:13px;border:none;border-radius:12px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;font-weight:800;font-family:inherit;font-size:16px;cursor:pointer;">تخمين</button>
+    </div>
+    <div id="gHist" style="margin-top:12px;font-size:13px;color:var(--text-muted);line-height:1.8;"></div>
+    <button type="button" id="gNew" style="margin-top:12px;width:100%;padding:11px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;cursor:pointer;">↺ لعبة جديدة</button>`,
+    script: `
+(function () {
+  var $ = function (i) { return document.getElementById(i); };
+  var KEY = 'adawati_guess_best', secret, cnt, over, best = 0, lo, hi;
+  try { best = parseInt(localStorage.getItem(KEY)) || 0; } catch (e) {}
+  function fresh() { secret = 1 + Math.floor(Math.random() * 100); cnt = 0; over = false; lo = 1; hi = 100; $('gCnt').textContent = 0; $('gBest').textContent = best || '—'; $('gMsg').textContent = 'خمّن رقماً بين 1 و100'; $('gHist').textContent = ''; $('gIn').value = ''; $('gIn').focus(); }
+  function guess() {
+    if (over) return;
+    var v = parseInt($('gIn').value.replace(/[٠-٩]/g, function (d) { return d.charCodeAt(0) - 1632; }));
+    if (isNaN(v) || v < 1 || v > 100) { $('gMsg').textContent = 'اكتب رقماً صحيحاً بين 1 و100'; return; }
+    cnt++; $('gCnt').textContent = cnt; $('gIn').value = '';
+    if (v === secret) {
+      over = true; $('gMsg').textContent = '🎉 أحسنت! الرقم ' + secret + ' بعد ' + cnt + ' محاولة';
+      if (!best || cnt < best) { best = cnt; try { localStorage.setItem(KEY, best); } catch (e) {} $('gBest').textContent = best; }
+    } else if (v < secret) { lo = Math.max(lo, v + 1); $('gMsg').textContent = '⬆️ الرقم أكبر من ' + v; }
+    else { hi = Math.min(hi, v - 1); $('gMsg').textContent = '⬇️ الرقم أصغر من ' + v; }
+    if (!over) $('gHist').textContent = 'المجال الآن: من ' + lo + ' إلى ' + hi;
+  }
+  $('gGo').addEventListener('click', guess);
+  $('gIn').addEventListener('keydown', function (e) { if (e.key === 'Enter') guess(); });
+  $('gNew').addEventListener('click', fresh);
+  fresh();
+})();
+`
+  }
+};
+
+function buildGame(slug) {
+  const s = GAMES[slug];
+  const mainHtml = `<main><div class="tool-page">
+  <div class="page-header"><a href="jo/">→ العودة لأدوات الأردن</a></div>
+
+  <div class="card">
+    <div class="card-icon" style="background:${s.bg};">${s.icon}</div>
+    <h1 class="card-title">${s.h1}</h1>
+    <div class="card-subtitle">${s.sub}</div>
+    <div class="divider"></div>${s.main}
+  </div>
+`;
+  const html = head(s, slug) + mainHtml + lower(s) + '</div></main>\n\n' + footer.replace(/^<\/main>\s*/, '') + '<script>' + s.script + '</script>\n' + tail;
+  out(slug, s, html);
+}
+
 const arg = process.argv[2] || 'all';
-if (arg === 'all') { Object.keys(SPECS).forEach(build); buildPomo(); }
+if (arg === 'all') { Object.keys(SPECS).forEach(build); buildPomo(); Object.keys(GAMES).forEach(buildGame); }
 else if (arg === 'pomodoro-timer') buildPomo();
+else if (GAMES[arg]) buildGame(arg);
 else build(arg);
