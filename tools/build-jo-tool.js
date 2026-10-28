@@ -533,7 +533,7 @@ const GAMES = {
     if (isNaN(v) || v < 1 || v > 100) { $('gMsg').textContent = 'اكتب رقماً صحيحاً بين 1 و100'; return; }
     cnt++; $('gCnt').textContent = cnt; $('gIn').value = '';
     if (v === secret) {
-      over = true; $('gMsg').textContent = '🎉 أحسنت! الرقم ' + secret + ' بعد ' + cnt + ' محاولة';
+      over = true; $('gMsg').textContent = '🎉 أحسنت! الرقم ' + secret + ' بعد ' + (cnt === 1 ? 'محاولة واحدة' : cnt === 2 ? 'محاولتين' : cnt <= 10 ? cnt + ' محاولات' : cnt + ' محاولة');
       if (!best || cnt < best) { best = cnt; try { localStorage.setItem(KEY, best); } catch (e) {} $('gBest').textContent = best; }
     } else if (v < secret) { lo = Math.max(lo, v + 1); $('gMsg').textContent = '⬆️ الرقم أكبر من ' + v; }
     else { hi = Math.min(hi, v - 1); $('gMsg').textContent = '⬇️ الرقم أصغر من ' + v; }
