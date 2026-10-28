@@ -62,6 +62,10 @@ const countryTools = [
   `${BASE}/jo/tools/cash-vs-installment/`,
   `${BASE}/jo/tools/days-to-payday/`,
   `${BASE}/jo/tools/cheaper-pack/`,
+  `${BASE}/jo/tools/hourly-wage/`,
+  `${BASE}/jo/tools/savings-goal/`,
+  `${BASE}/jo/tools/budget-split/`,
+  `${BASE}/jo/tools/pomodoro-timer/`,
   `${BASE}/jo/calculators/package-customs/`,
   `${BASE}/jo/emergency-numbers/`,
   `${BASE}/jo/prayer-times/`,
@@ -222,6 +226,7 @@ entries.push(urlEntry(`${BASE}/in/epf-calculator/`, '0.7', 'monthly'));
 entries.push(urlEntry(`${BASE}/remittance-comparison.html`, '0.7', 'monthly'));
 entries.push(urlEntry(`${BASE}/remittance-oman-to-india.html`, '0.6', 'monthly'));
 entries.push(urlEntry(`${BASE}/api.html`, '0.5', 'monthly'));
+entries.push(urlEntry(`${BASE}/embed.html`, '0.5', 'monthly'));
 entries.push(urlEntry(`${BASE}/remittance-uae-to-bangladesh.html`, '0.6', 'monthly'));
 entries.push(urlEntry(`${BASE}/flat-vs-reducing-balance-loan-guide.html`, '0.6', 'yearly'));
 

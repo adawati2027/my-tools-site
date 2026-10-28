@@ -199,6 +199,30 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://adawati.space/jo/tools/hourly-wage/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://adawati.space/jo/tools/savings-goal/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://adawati.space/jo/tools/budget-split/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://adawati.space/jo/tools/pomodoro-timer/</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://adawati.space/jo/calculators/package-customs/</loc>
     <lastmod>2026-10-28</lastmod>
     <changefreq>monthly</changefreq>
