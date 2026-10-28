@@ -323,37 +323,96 @@
   }
   $('vcNew').addEventListener('click', reset);
 
-  function releaseMic() { if (stream) { stream.getTracks().forEach(function (t) { t.stop(); }); stream = null; } if (tick) { clearInterval(tick); tick = null; } }
-  function stopRec() { if (recorder && recorder.state !== 'inactive') recorder.stop(); }
-  async function decode(blob) {
-    msg('⏳ جاري تجهيز التسجيل...');
-    var ab = await blob.arrayBuffer(), c = audioCtx(), buf = await new Promise(function (ok, no) { c.decodeAudioData(ab, ok, no); });
-    var len = Math.max(1, Math.ceil(buf.duration * SR)), oc = new (window.OfflineAudioContext || window.webkitOfflineAudioContext)(1, len, SR), s = oc.createBufferSource();
-    s.buffer = buf; s.connect(oc.destination); s.start();
-    var r = await new Promise(function (ok) { var p = oc.startRendering(); if (p && p.then) p.then(ok); else oc.oncomplete = function (e) { ok(e.renderedBuffer); }; });
-    return new Float32Array(r.getChannelData(0));
+  var mode = '', pcm = [], proc = null, msrc = null, mute = null, capRate = 44100;
+  function releaseMic() {
+    if (proc) { try { proc.onaudioprocess = null; proc.disconnect(); } catch (e) {} proc = null; }
+    if (msrc) { try { msrc.disconnect(); } catch (e) {} msrc = null; }
+    if (mute) { try { mute.disconnect(); } catch (e) {} mute = null; }
+    if (stream) { stream.getTracks().forEach(function (t) { t.stop(); }); stream = null; }
+    if (tick) { clearInterval(tick); tick = null; }
   }
-  async function onStopped() {
-    releaseMic();
-    var blob = new Blob(chunks, { type: (recorder && recorder.mimeType) || 'audio/webm' }); chunks = [];
-    var dur = (Date.now() - t0) / 1000;
+  function stopRec() {
+    if (mode === 'pcm') { finishPcm(); return; }
+    if (recorder && recorder.state !== 'inactive') recorder.stop();
+  }
+  function toSR(buf) {
+    var len = Math.max(1, Math.ceil(buf.duration * SR)), oc = new (window.OfflineAudioContext || window.webkitOfflineAudioContext)(1, len, SR), s = oc.createBufferSource();
+    s.buffer = buf; s.connect(oc.destination); s.start(0);
+    return new Promise(function (ok, no) { var p = oc.startRendering(); if (p && p.then) p.then(ok, no); else oc.oncomplete = function (e) { ok(e.renderedBuffer); }; }).then(function (r) { return new Float32Array(r.getChannelData(0)); });
+  }
+  function readBlob(blob) {
+    if (blob.arrayBuffer) return blob.arrayBuffer();
+    return new Promise(function (ok, no) { var fr = new FileReader(); fr.onload = function () { ok(fr.result); }; fr.onerror = no; fr.readAsArrayBuffer(blob); });
+  }
+  async function decode(blob) {
+    var ab = await readBlob(blob), c = audioCtx(), buf = await new Promise(function (ok, no) { var p = c.decodeAudioData(ab, ok, no); if (p && p.catch) p.catch(no); });
+    return toSR(buf);
+  }
+  function captured(work, dur) {
     $('vcRec').classList.remove('on'); $('vcRec').textContent = '🎙️ ابدأ التسجيل';
     if (dur < 0.7) { msg('التسجيل قصير جداً، حاول مرة أخرى.'); return; }
-    try {
-      orig = await decode(blob);
+    msg('⏳ جاري تجهيز التسجيل...');
+    work().then(function (x) {
+      orig = x;
       $('vcStep1').hidden = true; $('vcStep2').hidden = false; $('vcProg').textContent = 'اضغط على أي صوت لتحويل تسجيلك.';
-    } catch (e) { orig = null; msg('تعذّر قراءة التسجيل. جرّب متصفحاً آخر أو سجّل مرة أخرى.'); }
+    }).catch(function (e) { orig = null; msg('تعذّر قراءة التسجيل (' + ((e && e.message) || e || 'خطأ') + '). سجّل مرة أخرى.'); });
+  }
+  function onStopped() {
+    releaseMic();
+    var blob = new Blob(chunks, { type: (recorder && recorder.mimeType) || 'audio/webm' }); chunks = [];
+    captured(function () { return decode(blob); }, (Date.now() - t0) / 1000);
+  }
+  function finishPcm() {
+    var parts = pcm, rate = capRate, dur = (Date.now() - t0) / 1000; pcm = []; mode = '';
+    releaseMic();
+    captured(function () {
+      var n = 0, i, k = 0; for (i = 0; i < parts.length; i++) n += parts[i].length;
+      if (!n) return Promise.reject(new Error('لا صوت'));
+      var all = new Float32Array(n); for (i = 0; i < parts.length; i++) { all.set(parts[i], k); k += parts[i].length; }
+      var buf = audioCtx().createBuffer(1, n, rate); buf.copyToChannel ? buf.copyToChannel(all, 0) : buf.getChannelData(0).set(all);
+      return toSR(buf);
+    }, dur);
+  }
+  function usePcm() {
+    var c = ctx;
+    if (!c || c.state !== 'running' || !c.createScriptProcessor) return false;
+    try {
+      capRate = c.sampleRate; pcm = [];
+      msrc = c.createMediaStreamSource(stream); proc = c.createScriptProcessor(4096, 1, 1); mute = c.createGain(); mute.gain.value = 0;
+      proc.onaudioprocess = function (e) { pcm.push(new Float32Array(e.inputBuffer.getChannelData(0))); };
+      msrc.connect(proc); proc.connect(mute); mute.connect(c.destination);
+      mode = 'pcm'; return true;
+    } catch (e) { releaseMicNodes(); return false; }
+  }
+  function releaseMicNodes() {
+    if (proc) { try { proc.disconnect(); } catch (e) {} proc = null; }
+    if (msrc) { try { msrc.disconnect(); } catch (e) {} msrc = null; }
+    if (mute) { try { mute.disconnect(); } catch (e) {} mute = null; }
+    mode = '';
+  }
+  function pickMime() {
+    var l = ['audio/webm;codecs=opus', 'audio/mp4', 'audio/ogg;codecs=opus', 'audio/webm'];
+    if (!window.MediaRecorder || !MediaRecorder.isTypeSupported) return '';
+    for (var i = 0; i < l.length; i++) if (MediaRecorder.isTypeSupported(l[i])) return l[i];
+    return '';
   }
   $('vcRec').addEventListener('click', async function () {
-    if (recorder && recorder.state === 'recording') { stopRec(); return; }
-    if (!navigator.mediaDevices || !window.MediaRecorder) { msg('متصفحك لا يدعم التسجيل. جرّب Chrome أو Safari حديثاً.'); return; }
-    try { audioCtx(); stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } }); }
-    catch (e) { msg('لم نستطع الوصول إلى الميكروفون. اسمح للموقع باستخدامه من أيقونة القفل بجانب العنوان ثم أعد المحاولة.'); return; }
+    if (mode === 'pcm' || (recorder && recorder.state === 'recording')) { stopRec(); return; }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { msg('متصفحك لا يدعم التسجيل. جرّب Chrome أو Safari حديثاً.'); return; }
+    var c;
+    try { c = audioCtx(); stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+    catch (e) { releaseMic(); msg('لم نستطع الوصول إلى الميكروفون. اسمح للموقع باستخدامه من أيقونة القفل بجانب العنوان ثم أعد المحاولة.'); return; }
+    if (c.state !== 'running') { try { await Promise.race([c.resume(), new Promise(function (r) { setTimeout(r, 800); })]); } catch (e) {} }
     chunks = [];
-    try { recorder = new MediaRecorder(stream); } catch (e) { releaseMic(); msg('تعذّر بدء التسجيل على هذا الجهاز.'); return; }
-    recorder.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
-    recorder.onstop = onStopped;
-    recorder.start(1000); t0 = Date.now();
+    if (!usePcm()) {
+      if (!window.MediaRecorder) { releaseMic(); msg('متصفحك لا يدعم التسجيل. جرّب Chrome أو Safari حديثاً.'); return; }
+      try { var mt = pickMime(); recorder = mt ? new MediaRecorder(stream, { mimeType: mt }) : new MediaRecorder(stream); }
+      catch (e) { try { recorder = new MediaRecorder(stream); } catch (e2) { releaseMic(); msg('تعذّر بدء التسجيل على هذا الجهاز.'); return; } }
+      recorder.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
+      recorder.onstop = onStopped;
+      recorder.start();
+    }
+    t0 = Date.now();
     $('vcRec').textContent = '⏹ إيقاف وتحويل'; $('vcRec').classList.add('on'); msg('🔴 جاري التسجيل...');
     tick = setInterval(function () {
       var s = (Date.now() - t0) / 1000;
