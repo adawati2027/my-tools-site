@@ -105,6 +105,35 @@
   } catch (e) {}
 })();
 
+// Saved-event reminder: small toast when a saved countdown event (adawati_events_v1) is within 3 days. Once per event per day.
+(function() {
+  try {
+    var S = JSON.parse(localStorage.getItem('adawati_events_v1'));
+    if (!S || !S.ev || !S.ev.length || location.pathname.indexOf('/admin/') >= 0) return;
+    var n = new Date(), today = Date.UTC(n.getFullYear(), n.getMonth(), n.getDate()), key = 'adawati_rem_' + n.getFullYear() + '-' + (n.getMonth() + 1) + '-' + n.getDate();
+    var done = JSON.parse(localStorage.getItem(key) || '[]'), msgs = [];
+    S.ev.forEach(function(e, i) {
+      var k = Math.round((Date.UTC(e.y, e.m - 1, e.d) - today) / 864e5);
+      if (k < 0 || k > 3 || done.indexOf(i) >= 0) return;
+      done.push(i);
+      msgs.push('🔔 ' + e.n + (k === 0 ? ': اليوم!' : k === 1 ? ': غداً' : ': بعد ' + k + ' أيام'));
+    });
+    if (!msgs.length) return;
+    localStorage.setItem(key, JSON.stringify(done));
+    var go = function() {
+      var d = document.createElement('div');
+      d.setAttribute('role', 'status');
+      d.style.cssText = 'position:fixed;bottom:76px;inset-inline:12px;z-index:9999;max-width:420px;margin:0 auto;background:#1e293b;color:#fff;border-radius:12px;padding:12px 40px 12px 14px;font-size:14px;line-height:1.8;font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.3);direction:rtl;';
+      d.textContent = msgs.join(' · ');
+      var x = document.createElement('button'); x.type = 'button'; x.textContent = '×'; x.setAttribute('aria-label', 'إغلاق');
+      x.style.cssText = 'position:absolute;inset-inline-end:8px;top:6px;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;';
+      x.onclick = function() { d.remove(); }; d.appendChild(x);
+      document.body.appendChild(d); setTimeout(function() { d.remove(); }, 12000);
+    };
+    if (document.body) go(); else document.addEventListener('DOMContentLoaded', go);
+  } catch (e) {}
+})();
+
 // AdSense is web-only per Google's policy — never serve/render it inside the
 // native app's WebView (that's AdMob's job instead). Disable push() so any
 // adsbygoogle.push({}) call on the page becomes a no-op, and hide the ad slots.
@@ -396,7 +425,61 @@ function injectAdminLink(user) {
   }).catch(function() {});
 }
 
+function banLeftMs(snap) {
+  if (!snap || !snap.exists) return null;
+  const u = +((snap.data() || {}).until) || 0;
+  if (u === 0) return Infinity;
+  return u > Date.now() ? u - Date.now() : null;
+}
+
+function banText(ms) {
+  if (ms === Infinity) return 'الإيقاف دائم.';
+  const d = Math.floor(ms / 86400000), h = Math.ceil((ms % 86400000) / 3600000);
+  if (d >= 1) return 'المدة المتبقية: ' + d + ' يوم' + (h > 0 && h < 24 ? ' و' + h + ' ساعة' : '') + '.';
+  return 'المدة المتبقية: ' + Math.max(1, Math.ceil(ms / 3600000)) + ' ساعة تقريباً.';
+}
+
+function showBanned(ms, reason) {
+  const old = document.getElementById('adawatiBanned');
+  if (old) old.remove();
+  const d = document.createElement('div');
+  d.id = 'adawatiBanned';
+  d.setAttribute('style', 'position:fixed;inset:0;z-index:2147483000;background:rgba(15,23,42,.88);display:flex;align-items:center;justify-content:center;padding:24px;direction:rtl;font-family:system-ui,sans-serif;');
+  const b = document.createElement('div');
+  b.style.cssText = 'max-width:420px;background:#fff;color:#0f172a;border-radius:16px;padding:22px;text-align:center;line-height:1.9;';
+  const t = document.createElement('div'); t.style.cssText = 'font-size:20px;font-weight:800;margin-bottom:8px;'; t.textContent = '⛔ تم إيقاف هذا الحساب';
+  const p = document.createElement('div'); p.style.fontSize = '15px';
+  p.textContent = 'لا يمكن تسجيل الدخول بهذا الحساب بسبب مخالفة شروط الاستخدام. ' + banText(ms) + (reason ? ' السبب: ' + reason : '') + ' يمكنك متابعة استخدام الأدوات والألعاب من دون تسجيل دخول.';
+  const x = document.createElement('button'); x.type = 'button'; x.textContent = 'حسناً';
+  x.style.cssText = 'margin-top:14px;padding:10px 24px;border:none;border-radius:10px;background:#2563eb;color:#fff;font-weight:700;font-family:inherit;font-size:15px;cursor:pointer;';
+  x.onclick = function() { d.remove(); };
+  b.appendChild(t); b.appendChild(p); b.appendChild(x); d.appendChild(b); document.body.appendChild(d);
+}
+
+function checkBan(user) {
+  return loadFirebaseAuth().then(function(fb) {
+    const em = String(user.email || '').toLowerCase();
+    const ps = [fb.db.collection('chatBans').doc(user.uid).get().catch(function() { return null; })];
+    if (em) ps.push(fb.db.collection('emailBans').doc(em).get().catch(function() { return null; }));
+    return Promise.all(ps).then(function(rs) {
+      let ms = null, reason = '';
+      rs.forEach(function(s) {
+        const m = banLeftMs(s);
+        if (m !== null && (ms === null || m > ms)) { ms = m; reason = (s.data() || {}).reason || ''; }
+      });
+      if (ms === null) return false;
+      try { localStorage.removeItem('adawati_uid'); } catch (e) {}
+      return fb.auth.signOut().catch(function() {}).then(function() { updateAuthBtn(); showBanned(ms, reason); return true; });
+    });
+  }).catch(function() { return false; });
+}
+if (typeof window !== 'undefined') window.adawatiCheckBan = checkBan;
+
 function onAuthSuccessSync(user) {
+  return checkBan(user).then(function(banned) { return banned ? null : onAuthSuccessSync0(user); });
+}
+
+function onAuthSuccessSync0(user) {
   try { localStorage.setItem('adawati_uid', user.uid); } catch (e) {}
   injectAdminLink(user);
   return loadFirebaseAuth().then(function(fb) {
@@ -682,6 +765,7 @@ function submitAuthForm(mode, lang) {
     return action;
   }).then(function(user) {
     return onAuthSuccessSync(user).then(function() {
+      if (!getCurrentAuthUser()) { const mb = document.getElementById('signupModal'); if (mb) mb.remove(); return; }
       const modal = document.getElementById('signupModal');
       if (modal) modal.remove();
       updateAuthBtn();

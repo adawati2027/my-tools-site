@@ -220,8 +220,16 @@
       .then(function() { return db.collection('challenges').doc(chId).collection('messages').doc(mid).delete(); }).catch(function() {});
   }
   function ban(a) {
-    if (a.getAttribute('data-sure') !== '1') { a.setAttribute('data-sure', '1'); a.textContent = 'متأكد؟'; return; }
-    db.collection('chatBans').doc(a.getAttribute('data-ban')).set({ name: a.getAttribute('data-name') || '', at: firebase.firestore.FieldValue.serverTimestamp() })
+    if (a.getAttribute('data-sure') !== '1') {
+      a.setAttribute('data-sure', '1'); a.textContent = 'تأكيد الحظر';
+      var s = document.createElement('select');
+      s.style.cssText = 'font-size:12px;margin:0 4px;';
+      [[2, 'يومان'], [5, '5 أيام'], [7, 'أسبوع'], [30, 'شهر'], [0, 'للأبد']].forEach(function(o) { var op = document.createElement('option'); op.value = o[0]; op.textContent = o[1]; s.appendChild(op); });
+      a.parentNode.insertBefore(s, a);
+      return;
+    }
+    var sel = a.previousSibling, days = sel && sel.tagName === 'SELECT' ? +sel.value : 0;
+    db.collection('chatBans').doc(a.getAttribute('data-ban')).set({ name: a.getAttribute('data-name') || '', at: firebase.firestore.FieldValue.serverTimestamp(), until: days ? Date.now() + days * 86400000 : 0 })
       .then(function() { a.textContent = '⛔ انحظر'; }).catch(function() { a.textContent = 'ما زبط'; });
   }
 
@@ -261,12 +269,19 @@
     authReady().then(function() {
       firebase.auth().onAuthStateChanged(function(u) {
         if (!u && !user) return;
+        if (u && window.adawatiCheckBan) {
+          window.adawatiCheckBan(u).then(function(banned) { if (!banned) enter(u); });
+          return;
+        }
+        enter(u);
+      });
+      function enter(u) {
         user = u;
         if (!u) { isAdmin = false; renderShell(); return; }
         if (signingIn && typeof gtag === 'function') gtag('event', 'login', { method: 'google_chat' });
         signingIn = false;
         db.collection('admins').doc(u.uid).get().then(function(d) { isAdmin = d.exists; }).catch(function() {}).then(renderShell);
-      });
+      }
     }).catch(function() { var m = box.querySelector('.cc-msg'); if (m) m.textContent = 'ما قدرنا نحمّل الدخول — بتقدر تتفرّج على الرسائل بس.'; });
   }
 

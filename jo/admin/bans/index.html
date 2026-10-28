@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2563eb">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>حظر المستخدمين | Adawati</title>
+<meta name="description" content="لوحة حظر المستخدمين للمشرف.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://adawati.space/jo/admin/bans/">
+<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="jo/ads/ads.css?v=1">
+<style>
+.cf-sec{margin-top:16px}
+.cf-sec h2{font-size:17px;margin:0 0 4px}
+.cf-row{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 0;border-top:1px solid var(--border);flex-wrap:wrap}
+.cf-row label{font-weight:700;font-size:14px}
+.cf-row input[type=number],.cf-row select{padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:16px;width:130px;box-sizing:border-box}
+.cf-row input[type=checkbox]{width:22px;height:22px}
+.cf-keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px;margin-top:8px}
+.cf-keys label{display:flex;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:600}
+.cf-svc{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:10px}
+.cf-svc a{display:block;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);text-decoration:none;color:var(--text)}
+.cf-svc a:hover{border-color:var(--primary)}
+.cf-svc b{display:block;font-size:14px}
+.cf-svc span{display:block;font-size:12px;color:var(--text-muted);margin-top:3px;line-height:1.6}
+.cf-h{font-size:12px;color:var(--text-muted);line-height:1.7;margin-top:2px}
+</style>
+</head>
+<body>
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links">
+    <a href="jo/admin/config/">⚙️ الإعدادات</a><a href="jo/ads/admin/">🛡️ إدارة الإعلانات</a>
+    <a href="jo/">أدوات الأردن</a>
+  </div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="card">
+    <h1 class="card-title">⛔ حظر المستخدمين</h1>
+    <div class="cf-h">للمشرف فقط. الحساب المحظور لا يستطيع تسجيل الدخول ولا الكتابة في الشات، لكنه يبقى قادراً على استخدام الأدوات والألعاب من دون حساب. الحظر يتبع البريد الإلكتروني، فقد يفتح الشخص حساباً ببريد آخر.</div>
+  </div>
+  <div id="bnBody"><div class="card" style="margin-top:16px;">⏳ جاري التحميل...</div></div>
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+<script src="i18n-lang-ar.js?v=4" defer></script>
+<script src="i18n.js?v=67" defer></script>
+<script src="jo/ads/ads.js?v=6" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var body = document.getElementById('bnBody'), fbRef = null, me = null;
+  var DUR = [[2, 'يومان'], [5, '5 أيام'], [7, 'أسبوع'], [30, 'شهر'], [0, 'للأبد']];
+  function esc(s) { return adsEsc(s); }
+  var IN = 'width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;';
+  function left(u) {
+    if (!u) return { live: true, t: 'للأبد' };
+    var ms = u - Date.now();
+    if (ms <= 0) return { live: false, t: 'انتهى' };
+    var d = Math.floor(ms / 86400000), hh = Math.ceil((ms % 86400000) / 3600000);
+    return { live: true, t: d >= 1 ? 'باقي ' + d + ' يوم' + (hh < 24 ? ' و' + hh + ' ساعة' : '') : 'باقي ' + Math.max(1, hh) + ' ساعة' };
+  }
+  function msg(kind, t) { var m = document.getElementById('bnMsg'); if (m) { m.style.color = kind === 'ok' ? '#059669' : '#dc2626'; m.textContent = t; } }
+  function render(rows) {
+    var h = '<div class="card cf-sec"><h2>➕ حظر بريد إلكتروني</h2>' +
+      '<div style="margin-top:8px;"><label class="cf-h" for="bnEm">البريد الإلكتروني (حساب Google)</label><input type="email" id="bnEm" dir="ltr" style="' + IN + '" placeholder="name@gmail.com"></div>' +
+      '<div class="cf-row"><label for="bnDur">المدة</label><select id="bnDur">' + DUR.map(function (o) { return '<option value="' + o[0] + '">' + o[1] + '</option>'; }).join('') + '</select></div>' +
+      '<div style="margin-top:6px;"><label class="cf-h" for="bnWhy">السبب (يظهر للمحظور، اختياري)</label><input type="text" id="bnWhy" maxlength="100" style="' + IN + '"></div>' +
+      '<div style="margin-top:12px;"><button type="button" class="ads-btn" id="bnAdd">حظر</button> <span id="bnMsg" style="font-size:13px;margin-inline-start:8px;"></span></div></div>' +
+      '<div class="card cf-sec"><h2>📋 قائمة المحظورين</h2><div class="cf-h">تشمل حظر الشات (بحسب المعرّف) وحظر البريد. الحظر المنتهي لا يؤثر، ويمكن حذفه من القائمة.</div>';
+    if (!rows.length) h += '<div style="padding:12px 0;font-size:14px;">لا يوجد محظورون.</div>';
+    rows.forEach(function (r, i) {
+      var l = left(r.until);
+      h += '<div class="cf-row"><div><b style="font-size:14px;' + (l.live ? '' : 'opacity:.55;') + '" dir="ltr">' + esc(r.label) + '</b>' +
+        '<div class="cf-h">' + (r.kind === 'email' ? 'بريد' : 'شات') + ' · ' + esc(l.t) + (r.reason ? ' · ' + esc(r.reason) : '') + '</div></div>' +
+        '<button type="button" class="ads-btn" data-un="' + i + '" style="background:#dc2626;">' + (l.live ? 'رفع الحظر' : 'حذف') + '</button></div>';
+    });
+    body.innerHTML = h + '</div>';
+    document.getElementById('bnAdd').onclick = add;
+    [].slice.call(body.querySelectorAll('[data-un]')).forEach(function (b) {
+      b.onclick = function () {
+        var r = rows[+b.getAttribute('data-un')]; b.disabled = true;
+        fbRef.db.collection(r.col).doc(r.id).delete().then(load).catch(function () { b.disabled = false; msg('err', 'تعذّر الحذف.'); });
+      };
+    });
+  }
+  function add() {
+    var em = document.getElementById('bnEm').value.trim().toLowerCase();
+    if (!/^[^s@/]+@[^s@/]+.[^s@/]+$/.test(em)) { msg('err', 'اكتب بريداً إلكترونياً صحيحاً.'); return; }
+    if (me && String(me.email || '').toLowerCase() === em) { msg('err', 'لا يمكنك حظر بريدك أنت.'); return; }
+    var days = +document.getElementById('bnDur').value;
+    var btn = document.getElementById('bnAdd'); btn.disabled = true;
+    fbRef.db.collection('emailBans').doc(em).set({ email: em, until: days ? Date.now() + days * 86400000 : 0, reason: document.getElementById('bnWhy').value.trim(), at: firebase.firestore.FieldValue.serverTimestamp() })
+      .then(load).catch(function (e) {
+        btn.disabled = false;
+        msg('err', e && e.code === 'permission-denied' ? 'مرفوض: انشر قواعد Firestore الجديدة من docs/firestore.rules (قسم emailBans) ثم أعد المحاولة.' : 'تعذّر الحفظ.');
+      });
+  }
+  function load() {
+    var rows = [];
+    Promise.all([
+      fbRef.db.collection('emailBans').get().then(function (s) { s.forEach(function (d) { var x = d.data(); rows.push({ col: 'emailBans', id: d.id, kind: 'email', label: x.email || d.id, until: +x.until || 0, reason: x.reason || '' }); }); }),
+      fbRef.db.collection('chatBans').get().then(function (s) { s.forEach(function (d) { var x = d.data(); rows.push({ col: 'chatBans', id: d.id, kind: 'chat', label: (x.name || '') + ' (' + d.id.slice(0, 6) + '…)', until: +x.until || 0, reason: '' }); }); })
+    ]).then(function () { render(rows); }).catch(function (e) {
+      body.innerHTML = '<div class="card" style="margin-top:16px;">' + (e && e.code === 'permission-denied' ? 'مرفوض: انشر قواعد Firestore الجديدة (قسم emailBans) ثم أعد تحميل الصفحة.' : 'تعذّر تحميل القائمة.') + '</div>';
+    });
+  }
+  adsOnUser(function (user, fb) {
+    if (!user || !fb) { adsSignInPrompt(body, 'سجّل الدخول بحساب المشرف لفتح الصفحة.'); return; }
+    fbRef = fb; me = user;
+    adsIsAdmin(fb, user).then(function (ok) {
+      if (!ok) { body.innerHTML = '<div class="card" style="margin-top:16px;">هذه الصفحة للمشرف فقط.</div>'; return; }
+      load();
+    });
+  });
+});
+</script>
+</body>
+</html>
