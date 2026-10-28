@@ -624,6 +624,317 @@ const GAMES = {
   renderAll();
 })();
 `
+  },
+  'todo-list': {
+    icon: '✅', bg: '#dbeafe', grad: '#2563eb,#1e1b4b', title: 'قائمة المهام', h1: 'قائمة المهام اليومية ✅',
+    sub: 'اكتب مهامك، وعلّم المنجَز منها، وتابع نسبة إنجازك',
+    desc: 'قائمة مهام بسيطة: أضف مهامك، علّم ما أنجزته، وتابع شريط التقدّم. تُحفظ على جهازك فقط ولا تحتاج إلى حساب.',
+    kw: 'قائمة مهام, قائمة المهام اليومية, todo list, تنظيم المهام, مهام اليوم',
+    search: 'قائمة مهام todo list تنظيم اليوم مهام يومية انجاز',
+    cardDesc: 'اكتب مهامك وعلّم ما أنجزته وتابع تقدّمك', cat: 'daily',
+    faq: [
+      ['هل تُحفظ مهامي؟', 'نعم، تُحفظ في متصفحك على هذا الجهاز فقط، فتجدها عند عودتك. لا ترسلها الأداة لأي مكان، ولا تتزامن بين الأجهزة.'],
+      ['كيف أعلّم المهمة منجزة؟', 'اضغط على المربع بجانب المهمة، فيُشطب النص وتزداد نسبة الإنجاز.'],
+      ['هل أستطيع حذف المهام المنجزة دفعة واحدة؟', 'نعم، زر "حذف المنجَز" يزيل كل المهام المعلَّمة مرة واحدة.'],
+      ['كم مهمة أستطيع إضافتها؟', 'حتى 200 مهمة، وهذا كافٍ للاستخدام اليومي.']
+    ],
+    how: ['اكتب المهمة واضغط إضافة أو زر Enter.', 'علّم المهمة عند إنجازها.', 'النسبة = المهام المنجزة ÷ كل المهام.', 'استخدم التصفية لعرض المتبقي فقط.'],
+    rel: [['jo/tools/pomodoro-timer/', '🍅 مؤقّت بومودورو'], ['jo/tools/habit-tracker/', '🔥 متتبّع العادات'], ['jo/tools/reading-goal/', '📖 كم صفحة أقرأ كل يوم؟']],
+    main: `
+    <style>
+      .pt-row{display:flex;gap:8px;align-items:center;}
+      .pt-in{flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;box-sizing:border-box;min-width:0;}
+      .pt-btn{padding:12px 16px;border:none;border-radius:10px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;font-weight:800;font-family:inherit;font-size:15px;cursor:pointer;white-space:nowrap;}
+      .pt-btn2{padding:9px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;font-size:13px;cursor:pointer;}
+      .pt-btn2.on{background:#2563eb;color:#fff;border-color:#2563eb;}
+      .pt-bar{height:12px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin:6px 0;}
+      .pt-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#16a34a,#22c55e);transition:width .25s;}
+      .pt-item{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);font-size:15px;}
+      .pt-item:last-child{border-bottom:none;}
+      .pt-item input{width:20px;height:20px;flex:none;cursor:pointer;}
+      .pt-item span{flex:1;line-height:1.6;word-break:break-word;}
+      .pt-item.done span{text-decoration:line-through;color:var(--text-muted);}
+      .pt-x{border:none;background:transparent;color:var(--text-muted);cursor:pointer;font-size:15px;padding:4px 8px;font-family:inherit;}
+      .pt-empty{font-size:13px;color:var(--text-muted);padding:12px 0;text-align:center;}
+    </style>
+    <div class="pt-row"><input class="pt-in" id="tdIn" type="text" maxlength="120" placeholder="مثال: مراجعة الفصل الثالث" autocomplete="off"><button type="button" class="pt-btn" id="tdAdd">إضافة</button></div>
+    <div style="margin-top:16px;font-size:14px;font-weight:700;">أنجزت <span id="tdDone">0</span> من <span id="tdAll">0</span> · <span id="tdPct">0%</span></div>
+    <div class="pt-bar"><i id="tdBar"></i></div>
+    <div id="tdF" style="display:flex;gap:6px;margin:12px 0 4px;flex-wrap:wrap;">
+      <button type="button" class="pt-btn2 on" data-f="all">الكل</button>
+      <button type="button" class="pt-btn2" data-f="open">المتبقي</button>
+      <button type="button" class="pt-btn2" data-f="done">المنجَز</button>
+    </div>
+    <div id="tdList"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;">
+      <button type="button" class="pt-btn2" id="tdClr">🗑 حذف المنجَز</button>
+      <button type="button" class="pt-btn2" id="tdCopy">📋 نسخ القائمة</button>
+    </div>
+    <div style="font-size:12px;color:var(--text-muted);margin-top:10px;min-height:18px;" id="tdMsg">🔒 تُحفظ مهامك في متصفحك فقط ولا تُرسل لأي مكان.</div>`,
+    script: `
+(function () {
+  var $ = function (i) { return document.getElementById(i); };
+  var KEY = 'adawati_todo_v1', S = { t: [], n: 1 }, f = 'all', NL = String.fromCharCode(10);
+  try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.t) S = r; } catch (e) {}
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function msg(t) { $('tdMsg').textContent = t; }
+  function render() {
+    var done = S.t.filter(function (x) { return x.d; }).length, all = S.t.length, p = all ? Math.round(done * 100 / all) : 0;
+    $('tdDone').textContent = done; $('tdAll').textContent = all; $('tdPct').textContent = p + '%'; $('tdBar').style.width = p + '%';
+    var h = '';
+    S.t.forEach(function (x) {
+      if (f === 'open' && x.d) return; if (f === 'done' && !x.d) return;
+      h += '<div class="pt-item' + (x.d ? ' done' : '') + '"><input type="checkbox" data-c="' + x.id + '"' + (x.d ? ' checked' : '') + ' aria-label="إنجاز المهمة"><span>' + esc(x.x) + '</span><button type="button" class="pt-x" data-x="' + x.id + '" aria-label="حذف المهمة">✕</button></div>';
+    });
+    $('tdList').innerHTML = h || '<div class="pt-empty">' + (all ? 'لا توجد مهام في هذا العرض.' : 'لا توجد مهام بعد، أضف أول مهمة.') + '</div>';
+    document.querySelectorAll('#tdF button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-f') === f); });
+  }
+  function add() {
+    var v = $('tdIn').value.trim().replace(/\\s+/g, ' ');
+    if (!v) return;
+    if (S.t.length >= 200) { msg('وصلت إلى الحد الأقصى: 200 مهمة.'); return; }
+    S.t.unshift({ id: S.n++, x: v, d: false }); $('tdIn').value = ''; save(); render(); $('tdIn').focus();
+  }
+  $('tdAdd').addEventListener('click', add);
+  $('tdIn').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); add(); } });
+  $('tdList').addEventListener('change', function (e) {
+    var id = e.target.getAttribute('data-c'); if (!id) return;
+    S.t.forEach(function (x) { if (x.id === +id) x.d = e.target.checked; }); save(); render();
+  });
+  $('tdList').addEventListener('click', function (e) {
+    var id = e.target.getAttribute('data-x'); if (!id) return;
+    S.t = S.t.filter(function (x) { return x.id !== +id; }); save(); render();
+  });
+  $('tdF').addEventListener('click', function (e) { var v = e.target.getAttribute('data-f'); if (v) { f = v; render(); } });
+  $('tdClr').addEventListener('click', function () {
+    var n = S.t.filter(function (x) { return x.d; }).length;
+    if (!n) { msg('لا توجد مهام منجزة لحذفها.'); return; }
+    S.t = S.t.filter(function (x) { return !x.d; }); save(); render(); msg('✓ حُذفت ' + n + ' من المهام المنجزة.');
+  });
+  $('tdCopy').addEventListener('click', function () {
+    if (!S.t.length) { msg('القائمة فارغة.'); return; }
+    var t = S.t.map(function (x) { return (x.d ? '✅ ' : '⬜ ') + x.x; }).join(NL);
+    function ok(v) { msg(v ? '✓ تم نسخ القائمة.' : 'تعذّر النسخ تلقائياً.'); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { ok(true); }, function () { ok(false); });
+    else { var a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); var o = false; try { o = document.execCommand('copy'); } catch (e) {} document.body.removeChild(a); ok(o); }
+  });
+  render();
+})();
+`
+  },
+  'habit-tracker': {
+    icon: '🔥', bg: '#fee2e2', grad: '#dc2626,#450a0a', title: 'متتبّع العادات', h1: 'متتبّع العادات اليومية 🔥',
+    sub: 'أضف عاداتك وعلّم كل يوم التزمت فيه، وشاهد سلسلة أيامك المتتالية',
+    desc: 'متتبّع عادات بسيط: علّم الأيام التي التزمت بها خلال آخر سبعة أيام، وتابع سلسلة الأيام المتتالية ونسبة الالتزام. يُحفظ على جهازك فقط.',
+    kw: 'متتبع العادات, habit tracker, عادات يومية, سلسلة الايام, الالتزام اليومي',
+    search: 'متتبع العادات habit tracker عادة يومية سلسلة أيام التزام streak',
+    cardDesc: 'علّم أيام التزامك وتابع سلسلة أيامك المتتالية', cat: 'daily',
+    faq: [
+      ['ما هي السلسلة؟', 'هي عدد الأيام المتتالية التي التزمت فيها بالعادة وصولاً إلى اليوم. إن لم تعلّم اليوم بعد، نحسب السلسلة حتى أمس حتى لا تنقطع قبل انتهاء يومك.'],
+      ['هل أستطيع تعديل الأيام السابقة؟', 'نعم، تظهر آخر سبعة أيام، واضغط على أي يوم منها لتعليمه أو إلغاء تعليمه.'],
+      ['أين تُحفظ بياناتي؟', 'في متصفحك على هذا الجهاز فقط. لا تتزامن بين الأجهزة، ولا تُرسل لأي مكان.'],
+      ['ما أفضل عدد من العادات؟', 'ابدأ بعادة أو اثنتين فقط. الالتزام الصغير المستمر أفضل من قائمة طويلة تتركها بعد أيام.']
+    ],
+    how: ['اكتب العادة التي تريدها وأضفها.', 'اضغط على اليوم الذي التزمت فيه لتعليمه.', 'السلسلة = الأيام المتتالية الملتزم بها حتى اليوم.', 'نسبة الأسبوع = أيام الالتزام ÷ 7.'],
+    rel: [['jo/tools/todo-list/', '✅ قائمة المهام'], ['jo/tools/pomodoro-timer/', '🍅 مؤقّت بومودورو'], ['jo/tools/reading-goal/', '📖 كم صفحة أقرأ كل يوم؟']],
+    main: `
+    <style>
+      .pt-row{display:flex;gap:8px;align-items:center;}
+      .pt-in{flex:1;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;box-sizing:border-box;min-width:0;}
+      .pt-btn{padding:12px 16px;border:none;border-radius:10px;background:linear-gradient(135deg,#dc2626,#ea580c);color:#fff;font-weight:800;font-family:inherit;font-size:15px;cursor:pointer;white-space:nowrap;}
+      .ht-card{border:1px solid var(--border);border-radius:14px;padding:12px;margin-top:12px;}
+      .ht-top{display:flex;justify-content:space-between;align-items:center;gap:8px;}
+      .ht-name{font-weight:800;font-size:15px;word-break:break-word;}
+      .ht-meta{font-size:12px;color:var(--text-muted);margin-top:2px;}
+      .ht-days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:10px;}
+      .ht-d{border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text-muted);font-family:inherit;font-size:11px;padding:8px 0;cursor:pointer;line-height:1.5;}
+      .ht-d b{display:block;font-size:16px;}
+      .ht-d.on{background:#16a34a;border-color:#16a34a;color:#fff;}
+      .ht-d.today{box-shadow:0 0 0 2px #f59e0b;}
+      .pt-x{border:none;background:transparent;color:var(--text-muted);cursor:pointer;font-size:13px;padding:4px 8px;font-family:inherit;}
+      .pt-x.arm{color:#dc2626;font-weight:800;}
+      .pt-empty{font-size:13px;color:var(--text-muted);padding:12px 0;text-align:center;}
+    </style>
+    <div class="pt-row"><input class="pt-in" id="htIn" type="text" maxlength="40" placeholder="مثال: قراءة 10 صفحات" autocomplete="off"><button type="button" class="pt-btn" id="htAdd">إضافة</button></div>
+    <div id="htList"></div>
+    <div style="font-size:12px;color:var(--text-muted);margin-top:12px;min-height:18px;" id="htMsg">🔒 تُحفظ عاداتك في متصفحك فقط ولا تُرسل لأي مكان. اليوم الحالي محاط بإطار برتقالي.</div>`,
+    script: `
+(function () {
+  var $ = function (i) { return document.getElementById(i); };
+  var KEY = 'adawati_habits_v1', S = { h: [], n: 1 }, armed = null, WD = ['أحد', 'اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'];
+  try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.h) S = r; } catch (e) {}
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function p2(n) { return n < 10 ? '0' + n : '' + n; }
+  function key(d) { return d.getFullYear() + '-' + p2(d.getMonth() + 1) + '-' + p2(d.getDate()); }
+  function back(n) { var d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() - n); return d; }
+  function dz(n) { return n === 1 ? 'يوم واحد' : n === 2 ? 'يومان' : n <= 10 ? n + ' أيام' : n + ' يوماً'; }
+  function streak(h) {
+    var i = h.d[key(back(0))] ? 0 : 1, c = 0;
+    while (i < 3700 && h.d[key(back(i))]) { c++; i++; }
+    return c;
+  }
+  function render() {
+    var out = '';
+    S.h.forEach(function (h) {
+      var cells = '', wk = 0;
+      for (var i = 0; i < 7; i++) {
+        var d = back(i), k = key(d), on = !!h.d[k]; if (on) wk++;
+        cells += '<button type="button" class="ht-d' + (on ? ' on' : '') + (i === 0 ? ' today' : '') + '" data-h="' + h.id + '" data-k="' + k + '" aria-pressed="' + on + '">' + WD[d.getDay()] + '<b>' + (on ? '✓' : d.getDate()) + '</b></button>';
+      }
+      var s = streak(h);
+      out += '<div class="ht-card"><div class="ht-top"><div><div class="ht-name">' + esc(h.x) + '</div><div class="ht-meta">🔥 السلسلة: ' + (s ? dz(s) : 'لم تبدأ بعد') + ' · هذا الأسبوع: ' + wk + ' من 7</div></div><button type="button" class="pt-x" data-x="' + h.id + '">حذف</button></div><div class="ht-days">' + cells + '</div></div>';
+    });
+    $('htList').innerHTML = out || '<div class="pt-empty">لا توجد عادات بعد، أضف أول عادة.</div>';
+  }
+  function add() {
+    var v = $('htIn').value.trim().replace(/\\s+/g, ' ');
+    if (!v) return;
+    if (S.h.length >= 20) { $('htMsg').textContent = 'وصلت إلى الحد الأقصى: 20 عادة.'; return; }
+    S.h.push({ id: S.n++, x: v, d: {} }); $('htIn').value = ''; save(); render();
+  }
+  $('htAdd').addEventListener('click', add);
+  $('htIn').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); add(); } });
+  $('htList').addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target.closest('button') : e.target; if (!t) return;
+    var hk = t.getAttribute('data-h'), k = t.getAttribute('data-k'), x = t.getAttribute('data-x');
+    if (hk) { S.h.forEach(function (h) { if (h.id === +hk) { if (h.d[k]) delete h.d[k]; else h.d[k] = 1; } }); save(); render(); return; }
+    if (x) {
+      if (armed !== x) { armed = x; t.textContent = 'اضغط للتأكيد'; t.classList.add('arm'); setTimeout(function () { if (armed === x) { armed = null; render(); } }, 4000); return; }
+      armed = null; S.h = S.h.filter(function (h) { return h.id !== +x; }); save(); render();
+    }
+  });
+  render();
+})();
+`
+  },
+  'shopping-list': {
+    icon: '🛒', bg: '#ccfbf1', grad: '#0d9488,#042f2e', title: 'قائمة التسوق بالأسعار', h1: 'قائمة التسوق بالأسعار 🛒',
+    sub: 'اكتب ما تريد شراءه مع سعره، واعرف المجموع وما تبقّى من ميزانيتك قبل أن تدفع',
+    desc: 'قائمة تسوق تحسب المجموع تلقائياً: أضف الأصناف بالكمية والسعر، علّم ما اشتريته، وحدّد ميزانية لتعرف ما تبقّى منها. تُحفظ على جهازك فقط.',
+    kw: 'قائمة تسوق, قائمة مشتريات, حساب مجموع المشتريات, ميزانية التسوق, shopping list',
+    search: 'قائمة تسوق مشتريات سوبرماركت مجموع ميزانية أسعار shopping list',
+    cardDesc: 'اكتب أصنافك وأسعارها واعرف المجموع وما تبقّى من ميزانيتك', cat: 'daily',
+    faq: [
+      ['كيف يُحسب المجموع؟', 'سعر كل صنف مضروباً في كميته، ثم نجمع كل الأصناف. نعرض أيضاً مجموع ما اشتريته وما بقي لك شراؤه.'],
+      ['ما فائدة الميزانية؟', 'اكتب المبلغ الذي تنوي إنفاقه، فنعرض كم بقي منه بعد مجموع القائمة، ونحذّرك إن تجاوزته.'],
+      ['هل أستطيع كتابة كمية بالكسور؟', 'نعم، مثل 0.5 للنصف كيلو أو 1.5 للكيلو ونصف.'],
+      ['أين تُحفظ قائمتي؟', 'في متصفحك على هذا الجهاز فقط ولا تُرسل لأي مكان. استخدم زر النسخ لإرسالها لأحد أفراد أسرتك.']
+    ],
+    how: ['مجموع الصنف = السعر × الكمية.', 'المجموع = جمع كل الأصناف.', 'المتبقي من الميزانية = الميزانية − المجموع.', 'علّم الصنف عند شرائه لتتابع ما بقي.'],
+    rel: [['jo/tools/budget-split/', '🧮 كيف أوزّع راتبي؟'], ['jo/tools/split-bill/', '🍽️ قسّم الحساب بين الأصدقاء'], ['jo/tools/todo-list/', '✅ قائمة المهام']],
+    main: `
+    <style>
+      .pt-in{padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;box-sizing:border-box;min-width:0;width:100%;}
+      .pt-btn{padding:12px 16px;border:none;border-radius:10px;background:linear-gradient(135deg,#0d9488,#0f766e);color:#fff;font-weight:800;font-family:inherit;font-size:15px;cursor:pointer;white-space:nowrap;width:100%;}
+      .pt-btn2{padding:9px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;font-size:13px;cursor:pointer;}
+      .sh-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin-bottom:8px;}
+      .sh-lbl{font-size:12px;color:var(--text-muted);margin-bottom:3px;}
+      .sh-item{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px;}
+      .sh-item:last-child{border-bottom:none;}
+      .sh-item input{width:20px;height:20px;flex:none;cursor:pointer;}
+      .sh-item .nm{flex:1;line-height:1.6;word-break:break-word;}
+      .sh-item .nm small{display:block;font-size:12px;color:var(--text-muted);}
+      .sh-item.done .nm b{text-decoration:line-through;color:var(--text-muted);}
+      .sh-tot{font-weight:800;white-space:nowrap;}
+      .pt-x{border:none;background:transparent;color:var(--text-muted);cursor:pointer;font-size:15px;padding:4px 8px;font-family:inherit;}
+      .pt-empty{font-size:13px;color:var(--text-muted);padding:12px 0;text-align:center;}
+      .sh-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;}
+      .sh-box{border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center;}
+      .sh-box div:first-child{font-size:12px;color:var(--text-muted);}
+      .sh-box div:last-child{font-weight:800;font-size:16px;margin-top:2px;}
+      @media (max-width:420px){.sh-grid{grid-template-columns:1fr 1fr;}.sh-grid>div:first-child{grid-column:1/-1;}.sh-sum{grid-template-columns:1fr;}}
+    </style>
+    <div class="sh-grid">
+      <div><div class="sh-lbl">الصنف</div><input class="pt-in" id="shN" type="text" maxlength="40" placeholder="مثال: أرز" autocomplete="off"></div>
+      <div><div class="sh-lbl">الكمية</div><input class="pt-in" id="shQ" type="text" data-num inputmode="decimal" value="1"></div>
+      <div><div class="sh-lbl">سعر الواحد (دينار)</div><input class="pt-in" id="shP" type="text" data-num inputmode="decimal" placeholder="0.00"></div>
+    </div>
+    <button type="button" class="pt-btn" id="shAdd">إضافة إلى القائمة</button>
+    <div style="font-size:12px;color:#dc2626;font-weight:700;min-height:18px;margin-top:6px;" id="shErr"></div>
+    <div id="shList" style="margin-top:6px;"></div>
+    <div class="sh-sum">
+      <div class="sh-box"><div>مجموع القائمة</div><div id="shTot">0.00</div></div>
+      <div class="sh-box"><div>اشتريته</div><div id="shBought">0.00</div></div>
+      <div class="sh-box"><div>بقي لك شراؤه</div><div id="shLeft">0.00</div></div>
+    </div>
+    <div style="margin-top:14px;">
+      <div class="sh-lbl">ميزانيتك (اختياري)</div>
+      <input class="pt-in" id="shB" type="text" data-num inputmode="decimal" placeholder="مثال: 50">
+      <div id="shBud" style="margin-top:8px;font-weight:800;font-size:14px;min-height:22px;"></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;">
+      <button type="button" class="pt-btn2" id="shClr">🗑 حذف المشترى</button>
+      <button type="button" class="pt-btn2" id="shCopy">📋 نسخ القائمة</button>
+    </div>
+    <div style="font-size:12px;color:var(--text-muted);margin-top:10px;min-height:18px;" id="shMsg">🔒 تُحفظ قائمتك في متصفحك فقط ولا تُرسل لأي مكان.</div>`,
+    script: `
+(function () {
+  var $ = function (i) { return document.getElementById(i); };
+  var KEY = 'adawati_shop_v1', S = { i: [], n: 1, b: '' }, NL = String.fromCharCode(10);
+  try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.i) S = r; } catch (e) {}
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function num(v) { return parseFloat(String(v).replace(/[٠-٩]/g, function (d) { return d.charCodeAt(0) - 1632; }).replace(/[٫،]/g, '.').replace(/,/g, '')); }
+  function fm(c) { return (c / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function line(x) { return Math.round(x.q * x.p); }
+  function msg(t) { $('shMsg').textContent = t; }
+  function render() {
+    var tot = 0, bt = 0, h = '';
+    S.i.forEach(function (x) {
+      var l = line(x); tot += l; if (x.d) bt += l;
+      h += '<div class="sh-item' + (x.d ? ' done' : '') + '"><input type="checkbox" data-c="' + x.id + '"' + (x.d ? ' checked' : '') + ' aria-label="تم الشراء"><div class="nm"><b>' + esc(x.n) + '</b><small>' + x.q + ' × ' + fm(x.p) + '</small></div><div class="sh-tot">' + fm(l) + '</div><button type="button" class="pt-x" data-x="' + x.id + '" aria-label="حذف الصنف">✕</button></div>';
+    });
+    $('shList').innerHTML = h || '<div class="pt-empty">القائمة فارغة، أضف أول صنف.</div>';
+    $('shTot').textContent = fm(tot); $('shBought').textContent = fm(bt); $('shLeft').textContent = fm(tot - bt);
+    var b = num(S.b), el = $('shBud');
+    if (S.b !== '' && b > 0) {
+      var rest = Math.round(b * 100) - tot;
+      el.textContent = rest >= 0 ? 'المتبقي من ميزانيتك: ' + fm(rest) + ' دينار' : '⚠️ تجاوزت ميزانيتك بمقدار ' + fm(-rest) + ' دينار';
+      el.style.color = rest >= 0 ? '#16a34a' : '#dc2626';
+    } else el.textContent = '';
+  }
+  function add() {
+    var n = $('shN').value.trim().replace(/\\s+/g, ' '), q = num($('shQ').value), p = num($('shP').value);
+    if (!n) { $('shErr').textContent = 'اكتب اسم الصنف.'; return; }
+    if (!(q > 0) || q > 100000) { $('shErr').textContent = 'اكتب كمية صحيحة أكبر من صفر.'; return; }
+    if (isNaN(p) || p < 0 || p > 10000000) { $('shErr').textContent = 'اكتب سعراً صحيحاً (يمكن أن يكون صفراً).'; return; }
+    if (S.i.length >= 200) { $('shErr').textContent = 'وصلت إلى الحد الأقصى: 200 صنف.'; return; }
+    $('shErr').textContent = '';
+    S.i.push({ id: S.n++, n: n, q: Math.round(q * 1000) / 1000, p: Math.round(p * 100), d: false });
+    $('shN').value = ''; $('shP').value = ''; $('shQ').value = '1'; save(); render(); $('shN').focus();
+  }
+  $('shAdd').addEventListener('click', add);
+  ['shN', 'shQ', 'shP'].forEach(function (id) { $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); add(); } }); });
+  $('shList').addEventListener('change', function (e) {
+    var id = e.target.getAttribute('data-c'); if (!id) return;
+    S.i.forEach(function (x) { if (x.id === +id) x.d = e.target.checked; }); save(); render();
+  });
+  $('shList').addEventListener('click', function (e) {
+    var id = e.target.getAttribute('data-x'); if (!id) return;
+    S.i = S.i.filter(function (x) { return x.id !== +id; }); save(); render();
+  });
+  $('shB').value = S.b;
+  $('shB').addEventListener('input', function () { S.b = $('shB').value; save(); render(); });
+  $('shClr').addEventListener('click', function () {
+    var n = S.i.filter(function (x) { return x.d; }).length;
+    if (!n) { msg('لا توجد أصناف معلَّمة كمشتراة.'); return; }
+    S.i = S.i.filter(function (x) { return !x.d; }); save(); render(); msg('✓ حُذف ' + n + ' من الأصناف المشتراة.');
+  });
+  $('shCopy').addEventListener('click', function () {
+    if (!S.i.length) { msg('القائمة فارغة.'); return; }
+    var tot = 0, L = ['قائمة التسوق (أدواتي - adawati.space/jo/tools/shopping-list/)', ''];
+    S.i.forEach(function (x) { tot += line(x); L.push((x.d ? '✅ ' : '⬜ ') + x.n + ' — ' + x.q + ' × ' + fm(x.p) + ' = ' + fm(line(x))); });
+    L.push('', 'المجموع: ' + fm(tot) + ' دينار');
+    var t = L.join(NL);
+    function ok(v) { msg(v ? '✓ تم نسخ القائمة.' : 'تعذّر النسخ تلقائياً.'); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { ok(true); }, function () { ok(false); });
+    else { var a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); var o = false; try { o = document.execCommand('copy'); } catch (e) {} document.body.removeChild(a); ok(o); }
+  });
+  render();
+})();
+`
   }
 };
 
