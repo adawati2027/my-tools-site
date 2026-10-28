@@ -9,7 +9,7 @@ const jstr = s => JSON.stringify(s);
 
 const SPECS = {
   'hourly-wage': {
-    icon: '⏱️', bg: '#dcfce7', grad: '#16a34a,#14532d', title: 'كم قيمة ساعة عملك؟', h1: 'كم قيمة ساعة عملك؟ ⏱️',
+    persist: 'hist', icon: '⏱️', bg: '#dcfce7', grad: '#16a34a,#14532d', title: 'كم قيمة ساعة عملك؟', h1: 'كم قيمة ساعة عملك؟ ⏱️',
     sub: 'اكتب راتبك وساعات عملك، وتعرّف على أجر الساعة وكم ساعة تعمل لتشتري ما تريد',
     desc: 'احسب أجر ساعة عملك من راتبك الشهري وساعات الدوام، وتعرّف على عدد ساعات العمل التي يكلّفك أي شيء تريد شراءه.',
     kw: 'أجر الساعة, قيمة ساعة العمل, حساب أجر الساعة من الراتب, كم ساعة عمل يكلفني الشراء',
@@ -39,7 +39,7 @@ const SPECS = {
     rel: [['jo/calculators/net-salary/', '💵 صافي الراتب'], ['jo/tools/job-offer-compare/', '⚖️ أي عرض وظيفي أفضل'], ['jo/tools/days-to-payday/', '📅 كم تبقّى على الراتب']]
   },
   'savings-goal': {
-    icon: '🎯', bg: '#fef3c7', grad: '#d97706,#78350f', title: 'متى أحقق هدفي الادخاري؟', h1: 'متى أحقق هدفي الادخاري؟ 🎯',
+    persist: 'hist', icon: '🎯', bg: '#fef3c7', grad: '#d97706,#78350f', title: 'متى أحقق هدفي الادخاري؟', h1: 'متى أحقق هدفي الادخاري؟ 🎯',
     sub: 'اكتب المبلغ الذي تريد جمعه وما ادخرته وكم توفّر شهرياً، وسنخبرك متى تصل',
     desc: 'احسب كم شهراً تحتاج لتجمع مبلغاً تريده (سيارة، سفر، زواج) وفي أي شهر تصل إليه حسب ما توفّره كل شهر.',
     kw: 'هدف ادخاري, كم أحتاج لأوفر مبلغ, حاسبة التوفير, متى أجمع المبلغ',
@@ -77,7 +77,7 @@ const SPECS = {
     rel: [['jo/tools/budget-split/', '🧮 توزيع الراتب'], ['jo/tools/days-to-payday/', '📅 كم تبقّى على الراتب'], ['compound-interest.html', '📈 الفائدة المركبة']]
   },
   'budget-split': {
-    icon: '🧮', bg: '#ede9fe', grad: '#7c3aed,#3b0764', title: 'كيف أوزّع راتبي؟', h1: 'كيف أوزّع راتبي؟ 🧮',
+    persist: 'hist', icon: '🧮', bg: '#ede9fe', grad: '#7c3aed,#3b0764', title: 'كيف أوزّع راتبي؟', h1: 'كيف أوزّع راتبي؟ 🧮',
     sub: 'وزّع راتبك بين الاحتياجات والرغبات والادخار حسب قاعدة 50/30/20 أو بنسب تختارها',
     desc: 'وزّع راتبك الشهري بين الاحتياجات والرغبات والادخار بقاعدة 50/30/20 الشهيرة، أو غيّر النسب كما يناسب ظروفك.',
     kw: 'توزيع الراتب, قاعدة 50/30/20, ميزانية شهرية, كيف أقسم راتبي',
@@ -109,7 +109,7 @@ const SPECS = {
     rel: [['jo/tools/savings-goal/', '🎯 هدفي الادخاري'], ['jo/tools/days-to-payday/', '📅 كم تبقّى على الراتب'], ['jo/calculators/net-salary/', '💵 صافي الراتب']]
   },
   'reading-goal': {
-    icon: '📖', bg: '#e0f2fe', grad: '#0284c7,#0c4a6e', title: 'كم صفحة أقرأ كل يوم؟', h1: 'كم صفحة أقرأ كل يوم؟ 📖',
+    persist: 'hist', icon: '📖', bg: '#e0f2fe', grad: '#0284c7,#0c4a6e', title: 'كم صفحة أقرأ كل يوم؟', h1: 'كم صفحة أقرأ كل يوم؟ 📖',
     sub: 'اكتب عدد صفحات الكتاب وكم يوماً تريد لإنهائه، وسنحسب ورد القراءة اليومي',
     desc: 'احسب كم صفحة تقرأ كل يوم لتنهي كتابك في المدة التي تريدها، وكم دقيقة تحتاج يومياً حسب سرعة قراءتك.',
     kw: 'خطة القراءة, كم صفحة في اليوم, إنهاء كتاب, تحدي القراءة, ورد القراءة',
@@ -141,7 +141,7 @@ const SPECS = {
     rel: [['jo/tools/pomodoro-timer/', '🍅 مؤقّت بومودورو'], ['jo/tools/days-to-payday/', '📅 كم تبقّى على الراتب'], ['jo/tools/event-countdown/', '⏳ العدّ التنازلي لمناسبتك']]
   },
   'event-countdown': {
-    icon: '⏳', bg: '#ccfbf1', grad: '#0d9488,#134e4a', title: 'العدّ التنازلي لمناسبتك', h1: 'العدّ التنازلي لمناسبتك ⏳',
+    persist: 'events', icon: '⏳', bg: '#ccfbf1', grad: '#0d9488,#134e4a', title: 'العدّ التنازلي لمناسبتك', h1: 'العدّ التنازلي لمناسبتك ⏳',
     sub: 'اكتب تاريخ امتحان أو سفر أو زواج أو أي مناسبة، وسنحسب كم يوماً يتبقى',
     desc: 'اعرف كم يوماً وأسبوعاً يتبقى على امتحانك أو سفرك أو مناسبتك المهمة، بعدّ تنازلي بسيط وسريع.',
     kw: 'عد تنازلي, كم يوم باقي, كم يوم على الامتحان, كم يوم على السفر, حاسبة الأيام',
@@ -296,10 +296,106 @@ ${rows.join('\n')}
     ${results}`;
 }
 
+const PERSIST_HIST = `
+(function () {
+  var S = { f: {}, h: [] }, box = null, armed = null;
+  function el(i) { return document.getElementById(i); }
+  function load() { try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.h) S = r; } catch (e) {} }
+  function put() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} if (window.__syncPush) window.__syncPush(); }
+  function fill() { IDS.forEach(function (i) { el(i).value = (S.f && S.f[i]) || ''; }); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function today() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function render() {
+    if (!box) return;
+    var o = '<div style="font-size:15px;font-weight:800;margin-bottom:6px;">🕘 سجلّ حساباتك السابقة</div>';
+    if (!S.h.length) { box.innerHTML = o + '<div style="font-size:12px;color:var(--text-muted);line-height:1.7;">يُسجَّل هنا ناتج كل يوم تحسب فيه، وتُحفظ بياناتك على جهازك وتتزامن مع حسابك إن سجّلت دخولك.</div>'; return; }
+    o += '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:13px;"><tr style="color:var(--text-muted);"><th style="padding:6px 4px;text-align:start;">التاريخ</th><th style="text-align:start;">الناتج</th></tr>';
+    S.h.forEach(function (x) { o += '<tr style="border-top:1px solid var(--border);"><td style="padding:7px 4px;">' + esc(x.d) + '</td><td>' + esc(x.r) + '</td></tr>'; });
+    o += '</table></div><button type="button" id="hHistClr" style="margin-top:10px;padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;">🗑 مسح السجل</button>';
+    box.innerHTML = o;
+    el('hHistClr').addEventListener('click', function () {
+      var b = this;
+      if (!armed) { b.textContent = 'اضغط للتأكيد'; armed = setTimeout(function () { armed = null; b.textContent = '🗑 مسح السجل'; }, 4000); return; }
+      clearTimeout(armed); armed = null; S.h = []; put(); render();
+    });
+  }
+  function track() {
+    S.f = {}; IDS.forEach(function (i) { S.f[i] = el(i).value; });
+    if (hLast && !hLast.err && hLast.main) {
+      var e = { d: today(), r: hLast.main };
+      if (S.h.length && S.h[0].d === e.d) S.h[0] = e; else S.h.unshift(e);
+      if (S.h.length > 30) S.h.length = 30;
+    }
+    put(); render();
+  }
+  window.__sync = { key: KEY, reload: function () { load(); fill(); calc(); render(); } };
+  document.addEventListener('DOMContentLoaded', function () {
+    load(); fill();
+    box = document.createElement('div'); box.className = 'card'; box.style.marginTop = '16px';
+    var rs = el('hResult'); rs.parentNode.insertBefore(box, rs.nextSibling);
+    if (IDS.some(function (i) { return el(i).value; })) calc();
+    render();
+    IDS.forEach(function (i) { el(i).addEventListener('input', track); el(i).addEventListener('change', track); });
+  });
+})();
+`;
+
+const PERSIST_EVENTS = `
+(function () {
+  var S = { ev: [] }, KEY = 'adawati_events_v1', box = null;
+  function el(i) { return document.getElementById(i); }
+  function load() { try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.ev) S = r; } catch (e) {} }
+  function put() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} if (window.__syncPush) window.__syncPush(); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function left(e) { var n = new Date(); return Math.round((Date.UTC(e.y, e.m - 1, e.d) - Date.UTC(n.getFullYear(), n.getMonth(), n.getDate())) / 864e5); }
+  function label(k) { return k === 0 ? 'اليوم 🎉' : k > 0 ? 'باقي ' + k + ' يوم' : 'مضى ' + (-k) + ' يوم'; }
+  function render() {
+    var l = el('evList'); if (!l) return;
+    if (!S.ev.length) { l.innerHTML = '<div style="font-size:12px;color:var(--text-muted);margin-top:8px;">لا توجد مناسبات محفوظة بعد. اكتب التاريخ في الأعلى ثم اسماً واضغط حفظ.</div>'; return; }
+    var idx = S.ev.map(function (e, i) { return i; }).sort(function (a, b) { return left(S.ev[a]) - left(S.ev[b]); });
+    l.innerHTML = idx.map(function (i) {
+      var e = S.ev[i];
+      return '<div style="display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;"><div style="min-width:0;"><div style="font-weight:700;font-size:14px;">' + esc(e.n) + '</div><div style="font-size:12px;color:var(--text-muted);">' + e.y + '/' + e.m + '/' + e.d + ' · ' + label(left(e)) + '</div></div><div style="display:flex;gap:6px;"><button type="button" data-ld="' + i + '" style="padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;">عرض</button><button type="button" data-rm="' + i + '" style="padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;">حذف</button></div></div>';
+    }).join('');
+  }
+  function msg(t) { el('evMsg').textContent = t || ''; }
+  window.__sync = { key: KEY, reload: function () { load(); render(); } };
+  document.addEventListener('DOMContentLoaded', function () {
+    load();
+    box = document.createElement('div'); box.className = 'card'; box.style.marginTop = '16px';
+    box.innerHTML = '<div style="font-size:15px;font-weight:800;margin-bottom:8px;">📌 مناسباتي المحفوظة</div><div style="display:flex;gap:8px;"><input type="text" id="evName" maxlength="40" placeholder="اسم المناسبة، مثل: امتحان الرياضيات" style="flex:1;min-width:0;padding:11px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);font-family:inherit;font-size:14px;box-sizing:border-box;"><button type="button" id="evSave" style="padding:11px 14px;border:none;border-radius:10px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;font-weight:800;font-family:inherit;font-size:14px;cursor:pointer;white-space:nowrap;">حفظ</button></div><div id="evMsg" style="font-size:12px;color:var(--text-muted);min-height:18px;margin-top:6px;line-height:1.6;"></div><div id="evList"></div><div style="font-size:12px;color:var(--text-muted);margin-top:8px;line-height:1.7;">تُحفظ على جهازك، وتتزامن مع حسابك إن سجّلت دخولك.</div>';
+    var rs = el('hResult'); rs.parentNode.insertBefore(box, rs.nextSibling);
+    render();
+    el('evSave').addEventListener('click', function () {
+      var n = el('evName').value.trim().replace(/\\s+/g, ' '), y = parseInt(el('ey').value, 10), m = parseInt(el('em').value, 10), d = parseInt(el('ed').value, 10);
+      if (!n) { msg('اكتب اسماً للمناسبة أولاً.'); return; }
+      var c = new Date(Date.UTC(y, m - 1, d));
+      if (isNaN(y) || isNaN(m) || isNaN(d) || c.getUTCMonth() !== m - 1 || c.getUTCDate() !== d) { msg('أدخل تاريخاً صحيحاً في الحقول أعلاه.'); return; }
+      if (S.ev.length >= 20) { msg('وصلت إلى الحد الأقصى، 20 مناسبة. احذف مناسبة لتضيف غيرها.'); return; }
+      S.ev.push({ n: n, y: y, m: m, d: d }); put(); el('evName').value = ''; msg('✓ حُفظت المناسبة.'); render();
+    });
+    el('evList').addEventListener('click', function (e) {
+      var ld = e.target.getAttribute('data-ld'), rm = e.target.getAttribute('data-rm');
+      if (rm !== null && rm !== undefined && rm !== '') { S.ev.splice(+rm, 1); put(); render(); return; }
+      if (ld !== null && ld !== undefined && ld !== '') {
+        var v = S.ev[+ld]; if (!v) return;
+        el('ey').value = v.y; el('em').value = v.m; el('ed').value = v.d; calc();
+        el('hResult').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  });
+})();
+`;
+
+function persistCode(slug, s) {
+  if (s.persist === 'events') return PERSIST_EVENTS;
+  return 'var KEY = ' + JSON.stringify('adawati_' + slug.replace(/-/g, '_') + '_v1') + ', IDS = ' + JSON.stringify(s.fields.map(x => x[0])) + ';' + PERSIST_HIST;
+}
+
 function build(slug) {
   const s = SPECS[slug];
   const html = head(s, slug) + card(s, slug) + lower(s) + '</div></main>\n\n' + footer.replace(/^<\/main>\s*/, '') +
-    '<script>' + common + '\n\nfunction hInit() {}\nfunction hJ(n) { return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }\n\nfunction hCompute() {' + s.compute + '\n}\n</script>\n' + tail;
+    '<script>' + common + '\n\nfunction hInit() {}\nfunction hJ(n) { return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }\n\nfunction hCompute() {' + s.compute + '\n}\n' + (s.persist ? persistCode(slug, s) : '') + '</script>\n' + (s.persist ? '<script src="tool-sync.js?v=2"></script>\n' : '') + tail;
   out(slug, s, html);
 }
 
@@ -338,6 +434,7 @@ function buildPomo() {
       <button type="button" id="pReset" style="flex:1;padding:13px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);font-weight:700;font-family:inherit;cursor:pointer;">↺ إعادة</button>
     </div>
     <div style="text-align:center;margin-top:14px;font-size:14px;">🍅 فترات التركيز المنجزة اليوم: <strong id="pCount">0</strong></div>
+    <div id="pHist" style="margin-top:16px;border-top:1px solid var(--border);padding-top:12px;"></div>
     <details style="margin-top:14px;">
       <summary style="font-weight:700;cursor:pointer;font-size:14px;">⚙️ تغيير المدد</summary>
       <div class="row" style="margin-top:10px;">
@@ -349,8 +446,11 @@ function buildPomo() {
   const script = `<script>
 (function () {
   var $ = function (i) { return document.getElementById(i); };
-  var mode = 'f', left = 25 * 60, timer = null, endAt = 0, count = 0, lastKey = 'adawati_pomo_' + new Date().toISOString().slice(0, 10);
-  try { count = parseInt(localStorage.getItem(lastKey)) || 0; } catch (e) {}
+  var mode = 'f', left = 25 * 60, timer = null, endAt = 0, count = 0, today = new Date().toISOString().slice(0, 10), lastKey = 'adawati_pomo_' + today, KEY = 'adawati_pomo_v1', P = { d: {} };
+  function loadP() { try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.d) P = r; } catch (e) {} }
+  function saveP() { try { localStorage.setItem(KEY, JSON.stringify(P)); } catch (e) {} if (window.__syncPush) window.__syncPush(); }
+  loadP();
+  try { count = P.d[today] || parseInt(localStorage.getItem(lastKey)) || 0; } catch (e) {}
   $('pCount').textContent = count;
   function mins(m) { var v = parseFloat($({ f: 'pf', s: 'ps', l: 'pl' }[m]).value); return v > 0 && v <= 180 ? v : { f: 25, s: 5, l: 15 }[m]; }
   function show() { var m = Math.floor(left / 60), s = left % 60; var t = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s; $('pTime').textContent = t; document.title = (timer ? t + ' · ' : '') + 'مؤقّت بومودورو | Adawati'; }
@@ -361,7 +461,7 @@ function buildPomo() {
     left = Math.max(0, Math.round((endAt - Date.now()) / 1000)); show();
     if (left === 0) {
       stop(); beep(); $('pStart').textContent = '▶ ابدأ';
-      if (mode === 'f') { count++; $('pCount').textContent = count; try { localStorage.setItem(lastKey, count); } catch (e) {} $('pLbl').textContent = 'أحسنت! خذ استراحة'; setMode(count % 4 === 0 ? 'l' : 's'); $('pLbl').textContent = 'أحسنت! خذ استراحة'; }
+      if (mode === 'f') { count++; $('pCount').textContent = count; try { localStorage.setItem(lastKey, count); } catch (e) {} P.d[today] = count; saveP(); renderHist(); $('pLbl').textContent = 'أحسنت! خذ استراحة'; setMode(count % 4 === 0 ? 'l' : 's'); $('pLbl').textContent = 'أحسنت! خذ استراحة'; }
       else { setMode('f'); $('pLbl').textContent = 'انتهت الراحة، هيّا للتركيز'; }
     }
   }
@@ -371,10 +471,36 @@ function buildPomo() {
   });
   $('pReset').addEventListener('click', function () { setMode(mode); });
   document.querySelectorAll('#pModes .option-btn').forEach(function (b) { b.addEventListener('click', function () { setMode(b.getAttribute('data-m')); }); });
-  ['pf', 'ps', 'pl'].forEach(function (i) { $(i).addEventListener('change', function () { if (!timer) setMode(mode); }); });
+  ['pf', 'ps', 'pl'].forEach(function (i) { $(i).addEventListener('change', function () { P[i] = $(i).value; saveP(); if (!timer) setMode(mode); }); });
+  function renderHist() {
+    var o = '', tot = 0, days = [], mx = 1;
+    for (var i = 6; i >= 0; i--) days.push(new Date(Date.now() - i * 864e5).toISOString().slice(0, 10));
+    days.forEach(function (d) { mx = Math.max(mx, P.d[d] || 0); });
+    days.forEach(function (d) {
+      var c = P.d[d] || 0; tot += c;
+      o += '<div style="display:flex;align-items:center;gap:8px;font-size:13px;margin-top:6px;"><span style="width:56px;color:var(--text-muted);direction:ltr;text-align:start;">' + d.slice(5) + '</span><div style="flex:1;background:var(--surface-2);border-radius:6px;height:14px;overflow:hidden;"><div style="width:' + Math.round(c / mx * 100) + '%;height:100%;background:linear-gradient(135deg,#2563eb,#7c3aed);"></div></div><strong style="width:28px;text-align:start;">' + c + '</strong></div>';
+    });
+    $('pHist').innerHTML = '<div style="font-size:15px;font-weight:800;">📊 تركيزك في آخر 7 أيام</div>' + o + '<div style="font-size:12px;color:var(--text-muted);margin-top:8px;line-height:1.7;">المجموع ' + tot + ' فترة. تُحفظ على جهازك، وتتزامن مع حسابك إن سجّلت دخولك.</div>';
+  }
+  window.__sync = {
+    key: KEY,
+    merge: function (l, r) {
+      var a = {}, b = {}, o = { d: {} };
+      try { a = JSON.parse(l) || {}; } catch (e) {}
+      try { b = JSON.parse(r) || {}; } catch (e) {}
+      [b, a].forEach(function (x) { Object.keys(x.d || {}).forEach(function (k) { o.d[k] = Math.max(o.d[k] || 0, x.d[k] || 0); }); });
+      ['pf', 'ps', 'pl'].forEach(function (k) { var v = a[k] || b[k]; if (v) o[k] = v; });
+      return JSON.stringify(o);
+    },
+    reload: function () { loadP(); count = P.d[today] || 0; $('pCount').textContent = count; ['pf', 'ps', 'pl'].forEach(function (i) { if (P[i]) $(i).value = P[i]; }); if (!timer) setMode(mode); renderHist(); }
+  };
+  ['pf', 'ps', 'pl'].forEach(function (i) { if (P[i]) $(i).value = P[i]; });
+  left = Math.round(mins('f') * 60);
+  renderHist();
   show();
 })();
 </script>
+<script src="tool-sync.js?v=2"></script>
 `;
   const html = head(s, slug) + mainHtml + lower(s) + '</div></main>\n\n' + footer.replace(/^<\/main>\s*/, '') + script + tail;
   out(slug, s, html);
@@ -983,7 +1109,7 @@ function buildGame(slug) {
     <div class="divider"></div>${s.main}
   </div>
 `;
-  const html = head(s, slug) + mainHtml + lower(s) + '</div></main>\n\n' + footer.replace(/^<\/main>\s*/, '') + '<script>' + s.script + '</script>\n' + (s.sync ? tail.replace('</body>', '<script src="tool-sync.js?v=1"></script>\n</body>') : tail);
+  const html = head(s, slug) + mainHtml + lower(s) + '</div></main>\n\n' + footer.replace(/^<\/main>\s*/, '') + '<script>' + s.script + '</script>\n' + (s.sync ? tail.replace('</body>', '<script src="tool-sync.js?v=2"></script>\n</body>') : tail);
   out(slug, s, html);
 }
 

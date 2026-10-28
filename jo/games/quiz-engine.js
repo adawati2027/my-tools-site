@@ -470,8 +470,67 @@ async function submitChallengeScore() {
       submittedAt: firebase.firestore.FieldValue.serverTimestamp()
     });
     savePlayedRecord(challengeId, { name: playerName, score: score, total: activeQuestions.length });
+    addChallengeHistory({ id: challengeId, g: QUIZ_CONFIG.gameId, t: QUIZ_CONFIG.shareTitle || QUIZ_CONFIG.gameId, d: new Date().toISOString().slice(0, 10), s: score, n: activeQuestions.length });
   } catch (e) { /* still render leaderboard best-effort below */ }
   renderLeaderboard();
+  renderChallengeHistory();
+  startChallengeHistorySync();
+}
+
+var CHAL_HIST_KEY = 'adawati_chal_hist_v1';
+
+function readChallengeHistory(s) {
+  try { var a = JSON.parse(s === undefined ? localStorage.getItem(CHAL_HIST_KEY) : s); return Array.isArray(a) ? a : []; } catch (e) { return []; }
+}
+
+function mergeChallengeHistory(l, r) {
+  var seen = {}, all = readChallengeHistory(l).concat(readChallengeHistory(r)).filter(function(x) {
+    if (!x || !x.id || seen[x.id]) return false;
+    seen[x.id] = 1; return true;
+  });
+  all.sort(function(a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
+  return JSON.stringify(all.slice(0, 50));
+}
+
+function addChallengeHistory(e) {
+  try { localStorage.setItem(CHAL_HIST_KEY, mergeChallengeHistory(JSON.stringify([e]), localStorage.getItem(CHAL_HIST_KEY))); } catch (err) {}
+}
+
+function renderChallengeHistory() {
+  var list = readChallengeHistory();
+  var box = document.getElementById('chalHistBox');
+  if (!list.length) { if (box) box.style.display = 'none'; return; }
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'chalHistBox';
+    box.style.cssText = 'margin-top:16px;text-align:right;';
+    var anchor = document.getElementById('leaderboardArea');
+    anchor.parentNode.insertBefore(box, anchor.nextSibling);
+  }
+  var en = quizLang === 'en';
+  var o = '<div style="font-weight:700;margin-bottom:8px;">' + (en ? '📜 My previous results' : '📜 نتائجي السابقة') + '</div><table style="width:100%;border-collapse:collapse;font-size:13px;"><tbody>';
+  list.slice(0, 10).forEach(function(x) {
+    o += '<tr style="border-top:1px solid var(--border);"><td style="padding:6px;">' + escapeHtml(String(x.d)) + '</td><td style="padding:6px;">' + escapeHtml(String(x.t)) + '</td><td style="padding:6px;white-space:nowrap;">' + escapeHtml(x.s + '/' + x.n) + '</td></tr>';
+  });
+  box.innerHTML = o + '</tbody></table><div style="font-size:12px;color:var(--text-muted);margin-top:6px;">' + (en ? 'Scores only, no chat. Saved on this device and synced with your account if you are signed in.' : 'النتائج فقط من دون الدردشة. تُحفظ على جهازك وتتزامن مع حسابك إن سجّلت دخولك.') + '</div>';
+  box.style.display = 'block';
+}
+
+var chalSyncStarted = false;
+function startChallengeHistorySync() {
+  var uid = null;
+  try { uid = localStorage.getItem('adawati_uid'); } catch (e) {}
+  if (!uid || chalSyncStarted) return;
+  chalSyncStarted = true;
+  window.__sync = { key: CHAL_HIST_KEY, merge: mergeChallengeHistory, reload: renderChallengeHistory };
+  var a = document.createElement('script');
+  a.src = 'https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js';
+  a.onload = function() {
+    var s = document.createElement('script');
+    s.src = '/tool-sync.js?v=2';
+    document.body.appendChild(s);
+  };
+  document.body.appendChild(a);
 }
 
 let leaderboardUnsub = null;
