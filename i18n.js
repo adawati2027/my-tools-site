@@ -55,8 +55,10 @@
   function hash(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return String(h); }
   function banner(b) {
     if (!b || b.enabled !== true || !b.text) return;
+    var t0 = new Date(), today = t0.getFullYear() + '-' + ('0' + (t0.getMonth() + 1)).slice(-2) + '-' + ('0' + t0.getDate()).slice(-2);
+    if ((b.from && today < b.from) || (b.until && today > b.until)) return;
     var id = 'adawati_bn_' + hash(b.text);
-    try { if (localStorage.getItem(id)) return; } catch (e) {}
+    try { var ds = localStorage.getItem(id); if (ds && !(b.dismissDays > 0 && Date.now() - Number(ds) > b.dismissDays * 864e5)) return; } catch (e) {}
     var colors = { info: '#2563eb', warn: '#d97706', ok: '#059669' };
     var d = document.createElement('div');
     d.setAttribute('role', 'status');
@@ -70,7 +72,7 @@
     x.style.cssText = 'position:absolute;inset-inline-end:8px;top:calc(50% + env(safe-area-inset-top) / 2);transform:translateY(-50%);background:none;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1;';
     var nav = document.querySelector('.navbar'), io = null;
     if (nav && window.IntersectionObserver) { io = new IntersectionObserver(function(en) { nav.style.paddingTop = en[0].isIntersecting ? '0' : ''; }); io.observe(d); }
-    x.onclick = function() { try { localStorage.setItem(id, '1'); } catch (e) {} if (io) io.disconnect(); if (nav) nav.style.paddingTop = ''; d.remove(); };
+    x.onclick = function() { try { localStorage.setItem(id, String(Date.now())); } catch (e) {} if (io) io.disconnect(); if (nav) nav.style.paddingTop = ''; d.remove(); };
     d.appendChild(x);
     document.body.insertBefore(d, document.body.firstChild);
   }
