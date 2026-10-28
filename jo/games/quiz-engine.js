@@ -197,7 +197,7 @@ let quizStartTime = 0;
 let selectedCategory = 'mix';
 let selectedDifficulty = 'mix';
 const MIN_PLAYERS = 2;
-const MAX_PLAYERS = 20;
+const MAX_PLAYERS = (function() { var n = parseInt((siteCfg().challenge || {}).maxPlayers, 10); return n >= 2 && n <= 100 ? n : 20; })();
 
 function initCategorySelector() {
   const area = document.getElementById('categorySelectArea');
