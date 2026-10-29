@@ -66,6 +66,8 @@ const CV = {
     </div>
     <label class="pt-lbl" for="cvCity">المدينة / الدولة</label><input class="pt-in" id="cvCity" maxlength="60" autocomplete="off">
     <label class="pt-lbl" for="cvSum">نبذة مهنية (٢ إلى ٣ أسطر)</label><textarea class="pt-in" id="cvSum" rows="3" maxlength="500"></textarea>
+    <div class="pt-grid2" style="margin-top:8px;"><input class="pt-in" id="cvAiField" maxlength="80" placeholder="مجال عملك (مثال: محاسبة، تسويق، برمجة)"><input class="pt-in" id="cvAiYears" maxlength="10" inputmode="numeric" placeholder="سنوات الخبرة (اختياري)"></div>
+    <button type="button" class="pt-btn2" id="cvAiBtn" style="margin-top:8px;">✨ اكتب لي النبذة بالذكاء الاصطناعي</button><div class="pt-note" id="cvAiMsg" style="margin-top:6px;" hidden></div>
     <div class="pt-lbl">الخبرات العملية</div><div id="cvExpL"></div><button type="button" class="pt-btn2" id="cvExpAdd">+ إضافة خبرة</button>
     <div class="pt-lbl">التعليم</div><div id="cvEduL"></div><button type="button" class="pt-btn2" id="cvEduAdd">+ إضافة مؤهل</button>
     <label class="pt-lbl" for="cvSk">المهارات (افصل بينها بفاصلة)</label><textarea class="pt-in" id="cvSk" rows="2" maxlength="400"></textarea>
@@ -158,7 +160,55 @@ const CV = {
     document.querySelectorAll('[data-lay]').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-lay') === S.lay); });
     document.querySelectorAll('[data-dir]').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-dir') === S.dir); });
   }
-  $('cvPrint').addEventListener('click', function () { window.print(); });
+    function pdfX(id, name, btn) {
+    var nat = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
+    if (!nat) { window.print(); return; }
+    var old = btn.textContent;
+    function load(u) { return new Promise(function (ok, no) { var s = document.createElement('script'); s.src = u; s.onload = ok; s.onerror = no; document.head.appendChild(s); }); }
+    function done() { btn.textContent = old; btn.disabled = false; }
+    if (btn._blob) {
+      var f0 = new File([btn._blob], name, { type: 'application/pdf' }); btn._blob = null; done();
+      if (navigator.canShare && navigator.canShare({ files: [f0] })) navigator.share({ files: [f0] }).catch(function () {});
+      return;
+    }
+    btn.textContent = '⏳'; btn.disabled = true;
+    (window.html2canvas ? Promise.resolve() : load('vendor/html2canvas-1.4.1.min.js')).then(function () {
+      return window.jspdf ? 0 : load('vendor/jspdf-2.5.1.umd.min.js');
+    }).then(function () {
+      var el = document.getElementById(id);
+      return window.html2canvas(el, { scale: 2, backgroundColor: '#ffffff', useCORS: true });
+    }).then(function (cv) {
+      var pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
+      var pw = 210, ph = 297, ratio = pw / cv.width, sliceH = Math.floor(ph / ratio), y = 0, first = true;
+      while (y < cv.height) {
+        var h = Math.min(sliceH, cv.height - y), c2 = document.createElement('canvas');
+        c2.width = cv.width; c2.height = h;
+        var cx = c2.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0, 0, c2.width, h); cx.drawImage(cv, 0, y, cv.width, h, 0, 0, cv.width, h);
+        if (!first) pdf.addPage();
+        pdf.addImage(c2.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, pw, h * ratio);
+        first = false; y += h;
+      }
+      btn._blob = pdf.output('blob'); btn.disabled = false; btn.textContent = '📤 اضغط لحفظ الملف أو مشاركته';
+    }).catch(function () { done(); alert('تعذّر إنشاء الملف. حاول مرة أخرى.'); });
+  }
+  $('cvPrint').addEventListener('click', function () { pdfX('cvPrev', 'cv.pdf', $('cvPrint')); });
+  function aiLocal(f, y, ar) {
+    var yy = parseInt(y, 10);
+    if (ar) return 'متخصص في مجال ' + f + (yy > 0 ? ' بخبرة تزيد على ' + yy + (yy > 10 ? ' سنة' : yy > 2 ? ' سنوات' : yy === 2 ? ' سنتين' : ' سنة') : '') + '، أتميز بالالتزام والدقة وحسن التواصل مع الزملاء والعملاء. أسعى إلى تطوير مهاراتي باستمرار وتقديم عمل متقن يخدم أهداف المؤسسة.';
+    return 'Dedicated professional in ' + f + (yy > 0 ? ' with ' + yy + '+ years of experience' : '') + ', known for reliability, attention to detail and clear communication. Committed to continuous learning and delivering quality work that supports team goals.';
+  }
+  $('cvAiBtn').addEventListener('click', function () {
+    var f = $('cvAiField').value.trim(), y = $('cvAiYears').value.trim(), m = $('cvAiMsg'), b = $('cvAiBtn'), ar = S.dir !== 'en';
+    y = y.replace(/[٠-٩]/g, function (d) { return d.charCodeAt(0) - 1632; });
+    if (f.length < 2) { m.hidden = false; m.textContent = 'اكتب مجال عملك أولًا.'; return; }
+    var old = b.textContent; b.disabled = true; b.textContent = '⏳ جارٍ الكتابة...'; m.hidden = true;
+    function put(t, note) { $('cvSum').value = t; S.sum = t; upd(); b.disabled = false; b.textContent = old; if (note) { m.hidden = false; m.textContent = note; } }
+    var ctl = new AbortController(), tm = setTimeout(function () { ctl.abort(); }, 20000);
+    fetch('https://adawati.space/api/cv-ai', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl.signal, body: JSON.stringify({ field: f, years: y, title: S.title, skills: S.sk, lang: ar ? 'ar' : 'en' }) })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (j) { clearTimeout(tm); if (!j.text) throw new Error('empty'); put(j.text, 'راجع النص وعدّله بما يناسبك قبل الحفظ.'); })
+      .catch(function () { clearTimeout(tm); put(aiLocal(f, y, ar), 'الكتابة الذكية غير متاحة الآن، فكتبنا لك نبذة جاهزة. عدّلها بما يناسبك.'); });
+  });
   $('cvClear').addEventListener('click', function () {
     if (!window.confirm('هل تريد مسح كل البيانات؟')) return;
     S = { lay: S.lay, dir: S.dir, col: S.col, name: '', title: '', phone: '', email: '', city: '', sum: '', sk: '', lg: '', exp: [], edu: [] };
@@ -416,7 +466,38 @@ const INVOICE = {
   $('ivAdd').addEventListener('click', function () { if (S.items.length >= 30) return; S.items.push({ d: '', q: '1', p: '' }); upd(); rows(); });
   document.querySelectorAll('[data-dir]').forEach(function (b) { b.addEventListener('click', function () { S.dir = b.getAttribute('data-dir'); sync(); upd(); }); });
   function sync() { document.querySelectorAll('[data-dir]').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-dir') === S.dir); }); }
-  $('ivPrint').addEventListener('click', function () { window.print(); });
+    function pdfX(id, name, btn) {
+    var nat = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
+    if (!nat) { window.print(); return; }
+    var old = btn.textContent;
+    function load(u) { return new Promise(function (ok, no) { var s = document.createElement('script'); s.src = u; s.onload = ok; s.onerror = no; document.head.appendChild(s); }); }
+    function done() { btn.textContent = old; btn.disabled = false; }
+    if (btn._blob) {
+      var f0 = new File([btn._blob], name, { type: 'application/pdf' }); btn._blob = null; done();
+      if (navigator.canShare && navigator.canShare({ files: [f0] })) navigator.share({ files: [f0] }).catch(function () {});
+      return;
+    }
+    btn.textContent = '⏳'; btn.disabled = true;
+    (window.html2canvas ? Promise.resolve() : load('vendor/html2canvas-1.4.1.min.js')).then(function () {
+      return window.jspdf ? 0 : load('vendor/jspdf-2.5.1.umd.min.js');
+    }).then(function () {
+      var el = document.getElementById(id);
+      return window.html2canvas(el, { scale: 2, backgroundColor: '#ffffff', useCORS: true });
+    }).then(function (cv) {
+      var pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
+      var pw = 210, ph = 297, ratio = pw / cv.width, sliceH = Math.floor(ph / ratio), y = 0, first = true;
+      while (y < cv.height) {
+        var h = Math.min(sliceH, cv.height - y), c2 = document.createElement('canvas');
+        c2.width = cv.width; c2.height = h;
+        var cx = c2.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0, 0, c2.width, h); cx.drawImage(cv, 0, y, cv.width, h, 0, 0, cv.width, h);
+        if (!first) pdf.addPage();
+        pdf.addImage(c2.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, pw, h * ratio);
+        first = false; y += h;
+      }
+      btn._blob = pdf.output('blob'); btn.disabled = false; btn.textContent = '📤 اضغط لحفظ الملف أو مشاركته';
+    }).catch(function () { done(); alert('تعذّر إنشاء الملف. حاول مرة أخرى.'); });
+  }
+  $('ivPrint').addEventListener('click', function () { pdfX('ivPrev', 'invoice.pdf', $('ivPrint')); });
   $('ivNew').addEventListener('click', function () {
     S.n = (S.n || 1) + 1; S.no = 'INV-' + ('000' + S.n).slice(-4); S.date = today(); S.client = ''; S.disc = ''; S.note = ''; S.items = [{ d: '', q: '1', p: '' }];
     fill(); upd();

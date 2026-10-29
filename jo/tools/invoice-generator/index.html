@@ -227,7 +227,38 @@
   $('ivAdd').addEventListener('click', function () { if (S.items.length >= 30) return; S.items.push({ d: '', q: '1', p: '' }); upd(); rows(); });
   document.querySelectorAll('[data-dir]').forEach(function (b) { b.addEventListener('click', function () { S.dir = b.getAttribute('data-dir'); sync(); upd(); }); });
   function sync() { document.querySelectorAll('[data-dir]').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-dir') === S.dir); }); }
-  $('ivPrint').addEventListener('click', function () { window.print(); });
+    function pdfX(id, name, btn) {
+    var nat = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
+    if (!nat) { window.print(); return; }
+    var old = btn.textContent;
+    function load(u) { return new Promise(function (ok, no) { var s = document.createElement('script'); s.src = u; s.onload = ok; s.onerror = no; document.head.appendChild(s); }); }
+    function done() { btn.textContent = old; btn.disabled = false; }
+    if (btn._blob) {
+      var f0 = new File([btn._blob], name, { type: 'application/pdf' }); btn._blob = null; done();
+      if (navigator.canShare && navigator.canShare({ files: [f0] })) navigator.share({ files: [f0] }).catch(function () {});
+      return;
+    }
+    btn.textContent = '⏳'; btn.disabled = true;
+    (window.html2canvas ? Promise.resolve() : load('vendor/html2canvas-1.4.1.min.js')).then(function () {
+      return window.jspdf ? 0 : load('vendor/jspdf-2.5.1.umd.min.js');
+    }).then(function () {
+      var el = document.getElementById(id);
+      return window.html2canvas(el, { scale: 2, backgroundColor: '#ffffff', useCORS: true });
+    }).then(function (cv) {
+      var pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
+      var pw = 210, ph = 297, ratio = pw / cv.width, sliceH = Math.floor(ph / ratio), y = 0, first = true;
+      while (y < cv.height) {
+        var h = Math.min(sliceH, cv.height - y), c2 = document.createElement('canvas');
+        c2.width = cv.width; c2.height = h;
+        var cx = c2.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0, 0, c2.width, h); cx.drawImage(cv, 0, y, cv.width, h, 0, 0, cv.width, h);
+        if (!first) pdf.addPage();
+        pdf.addImage(c2.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, pw, h * ratio);
+        first = false; y += h;
+      }
+      btn._blob = pdf.output('blob'); btn.disabled = false; btn.textContent = '📤 اضغط لحفظ الملف أو مشاركته';
+    }).catch(function () { done(); alert('تعذّر إنشاء الملف. حاول مرة أخرى.'); });
+  }
+  $('ivPrint').addEventListener('click', function () { pdfX('ivPrev', 'invoice.pdf', $('ivPrint')); });
   $('ivNew').addEventListener('click', function () {
     S.n = (S.n || 1) + 1; S.no = 'INV-' + ('000' + S.n).slice(-4); S.date = today(); S.client = ''; S.disc = ''; S.note = ''; S.items = [{ d: '', q: '1', p: '' }];
     fill(); upd();

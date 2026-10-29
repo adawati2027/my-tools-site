@@ -1,0 +1,16 @@
+name = "adawati-cv-ai"
+main = "worker.js"
+compatibility_date = "2026-09-14"
+
+routes = [
+  { pattern = "adawati.space/api/cv-ai", zone_name = "adawati.space" }
+]
+
+[ai]
+binding = "AI"
+
+[[unsafe.bindings]]
+name = "LIMIT"
+type = "ratelimit"
+namespace_id = "1001"
+simple = { limit = 6, period = 60 }
