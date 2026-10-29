@@ -1109,7 +1109,7 @@ function buildGame(slug) {
     <div class="divider"></div>${s.main}
   </div>
 `;
-  const html = head(s, slug) + mainHtml + lower(s) + '</div></main>\n\n' + footer.replace(/^<\/main>\s*/, '') + (s.room ? '<script src="jo/tools/jo-room.js?v=5"></script>\n' : '') + '<script>' + s.script + '</script>\n' + (s.sync ? tail.replace('</body>', '<script src="tool-sync.js?v=3"></script>\n</body>') : tail);
+  const html = head(s, slug) + mainHtml + lower(s) + '</div></main>\n\n' + footer.replace(/^<\/main>\s*/, '') + (s.room ? '<script src="jo/tools/jo-room.js?v=6"></script>\n' : '') + '<script>' + s.script + '</script>\n' + (s.sync ? tail.replace('</body>', '<script src="tool-sync.js?v=3"></script>\n</body>') : tail);
   out(slug, s, html);
 }
 

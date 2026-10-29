@@ -23,8 +23,7 @@
     '.jr-b{padding:10px 14px;border:0;border-radius:10px;background:#2563eb;color:#fff;font-weight:800;font-family:inherit;font-size:15px;cursor:pointer;margin:3px}.jr-b.s{background:var(--surface,#fff);color:var(--text,#0f172a);border:1px solid var(--border,#cbd5e1)}.jr-b:disabled{opacity:.5}' +
     '.jr-code{font-size:30px;font-weight:900;letter-spacing:6px;text-align:center;direction:ltr;padding:8px;background:var(--surface,#fff);border-radius:12px;margin:8px 0}' +
     '.jr-pl{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.jr-pl span{padding:5px 11px;border-radius:99px;background:var(--surface,#fff);border:1px solid var(--border,#cbd5e1);font-size:14px;font-weight:700}' +
-    '.jr-chat{margin-top:10px;padding:12px;border:1px solid var(--border,#cbd5e1);border-radius:14px;background:var(--surface,#fff)}.jr-cl{max-height:170px;overflow-y:auto;margin:6px 0;display:flex;flex-direction:column;gap:5px}.jr-cm{font-size:14px;line-height:1.6;padding:5px 10px;border-radius:10px;background:var(--surface-2,#f1f5f9);max-width:90%;word-break:break-word;align-self:flex-start}.jr-cm.me{background:#dbeafe;color:#1e3a8a;align-self:flex-end}.jr-cm b{font-size:12px;display:block;opacity:.75}.jr-cf{display:flex;gap:6px}.jr-cf .jr-in{flex:1}.jr-cf .jr-b{margin:0}' +
-    '.jr-m{font-size:13px;color:#b91c1c;min-height:18px;margin:4px 0}.jr-n{font-size:13px;color:var(--text-muted,#64748b);line-height:1.7}';
+    '.jr-chat{margin-top:10px;padding:12px;border:1px solid var(--border,#cbd5e1);border-radius:14px;background:var(--surface,#fff)}.jr-cl{height:230px;overflow-y:auto;margin:8px 0;padding:8px;border:1px solid var(--border,#cbd5e1);border-radius:10px;background:var(--surface-2,#f1f5f9);display:flex;flex-direction:column;gap:6px}.jr-ce0{text-align:center;color:var(--text-muted,#64748b);font-size:13px;padding:30px 0}.jr-cm{font-size:14px;line-height:1.6;padding:6px 10px;border-radius:12px;background:var(--surface,#fff);border:1px solid var(--border,#cbd5e1);max-width:85%;word-break:break-word;align-self:flex-start}.jr-cm.me{background:var(--primary,#2563eb);color:#fff;border-color:transparent;align-self:flex-end}.jr-cm b{font-size:11px;display:block;opacity:.75}.jr-cp{border:none;background:none;color:inherit;font-family:inherit;font-size:14px;cursor:pointer;padding:0}.jr-cq{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}.jr-cqb{white-space:nowrap;padding:6px 10px;border-radius:99px;border:1px solid var(--border,#cbd5e1);background:var(--surface,#fff);color:inherit;font-family:inherit;font-size:13px;cursor:pointer}.jr-ce{grid-template-columns:repeat(8,1fr);gap:4px;margin-top:6px}.jr-ceb{font-size:22px;border:none;background:none;cursor:pointer}.jr-cf{display:flex;gap:6px;margin-top:8px}.jr-cf .jr-in{flex:1;min-width:0}.jr-cf .jr-b{margin:0}.jr-cb{font-size:20px;border:1px solid var(--border,#cbd5e1);border-radius:10px;background:var(--surface,#fff);cursor:pointer;padding:0 10px}.jr-m{font-size:13px;color:#b91c1c;min-height:18px;margin:4px 0}.jr-n{font-size:13px;color:var(--text-muted,#64748b);line-height:1.7}';
   (function () { var s = document.createElement('style'); s.textContent = CSS; document.head.appendChild(s); })();
 
   var G = {};
@@ -122,16 +121,29 @@
         });
       }
 
+      var EMO = ['😂','🤣','😅','😎','🔥','👏','💪','🤔','😮','😭','😡','🥳','❤️','👍','👎','🙏','🎯','🏆','🥇','🤯','😴','🫡','✅','❌'];
+      var QK = ['😂 ما توقعتها!', '🔥 جاوبت صح', '🤔 السؤال صعب', '🏆 مين الأول؟', '💪 جاي أغلبكم', '👏 برافو عليك'];
+      var BAD = ['كلب','حمار','حيوان','زبالة','وسخ','قذر','تافه','غبي','حقير','واطي','fuck','shit','bitch','asshole','bastard','dick','idiot','stupid'];
+      function cclean(t) {
+        BAD.forEach(function (w) { t = t.replace(new RegExp('(^|[\\s.,!?؟،])(' + w + ')(?=$|[\\s.,!?؟،])', 'gi'), function (m, x, y) { return x + '*'.repeat(y.length); }); });
+        return t;
+      }
       function chatOpen(rref) {
         chatClose();
         cbox = el('div', 'jr-chat'); box.parentNode.insertBefore(cbox, box.nextSibling);
-        cbox.appendChild(el('div', 'jr-t', '💬 دردشة الغرفة'));
-        var cl = el('div', 'jr-cl'), cf = el('div', 'jr-cf'), ci = el('input', 'jr-in'), cs = el('button', 'jr-b', 'إرسال'); cs.type = 'button';
-        var lg = el('div', 'jr-n'), cu = null;
-        ci.placeholder = 'اكتب رسالة…'; ci.maxLength = 200;
-        cf.appendChild(ci); cf.appendChild(cs); cbox.appendChild(cl); cbox.appendChild(cf); cbox.appendChild(lg);
+        var head = el('div', 'jr-t', '💬 دردشة الغرفة'), cl = el('div', 'jr-cl'), ctl = el('div', 'jr-cc'), lg = el('div', 'jr-n'), er = el('div', 'jr-m');
+        var qk = el('div', 'jr-cq'), ep = el('div', 'jr-ce'), cf = el('div', 'jr-cf');
+        var eb = el('button', 'jr-cb', '😊'), mb = el('button', 'jr-cb', '🎤'), ci = el('input', 'jr-in'), cs = el('button', 'jr-b', 'إرسال');
+        eb.type = mb.type = cs.type = 'button'; ci.placeholder = 'اكتب رسالة…'; ci.maxLength = 200; ep.style.display = 'none';
+        eb.setAttribute('aria-label', 'إيموجي'); mb.setAttribute('aria-label', 'رسالة صوتية');
+        QK.forEach(function (q) { var b = el('button', 'jr-cqb', q); b.type = 'button'; b.addEventListener('click', function () { send(q); }); qk.appendChild(b); });
+        EMO.forEach(function (e) { var b = el('button', 'jr-ceb', e); b.type = 'button'; b.addEventListener('click', function () { ci.value += e; ci.focus(); }); ep.appendChild(b); });
+        cf.appendChild(eb); cf.appendChild(mb); cf.appendChild(ci); cf.appendChild(cs);
+        ctl.appendChild(qk); ctl.appendChild(ep); ctl.appendChild(cf);
+        [head, cl, ctl, lg, er].forEach(function (x) { cbox.appendChild(x); });
+        var cu = null, msgs = [], playing = null, rec = null, recChunks = [], recStart = 0, recTimer = null, recStream = null;
         function gate(u) {
-          cu = u; cf.hidden = !u; lg.hidden = !!u; lg.innerHTML = '';
+          cu = u; ctl.style.display = u ? '' : 'none'; lg.style.display = u ? 'none' : ''; lg.innerHTML = '';
           if (u) return;
           lg.appendChild(document.createTextNode('يمكن للجميع قراءة الدردشة، لكن الكتابة للمسجّلين فقط. '));
           var lb = el('button', 'jr-b', '🔑 سجّل الدخول'); lb.type = 'button'; lb.style.margin = '6px 0 0';
@@ -143,24 +155,107 @@
           if (typeof firebase.auth !== 'function' || !cbox) return;
           un.push(firebase.auth().onAuthStateChanged(function (u) { gate(u || null); }));
         }).catch(function () {});
-        function send() {
-          var t = ci.value.trim().slice(0, 200), now = Date.now();
-          if (!cu || !t || now - clast < 800) return;
-          clast = now; ci.value = '';
-          rref.collection('chat').doc(now.toString(36) + rid(4)).set({ p: PID, u: cu.uid, n: name, t: t, ts: now }).catch(function () {});
+        function fail(e) { er.textContent = e && e.code === 'permission-denied' ? 'ما انبعتت الرسالة — يمكن حسابك موقوف عن الدردشة.' : 'ما انبعتت الرسالة، جرّب مرة ثانية.'; }
+        function send(text) {
+          var t = String(text || '').trim().slice(0, 200), now = Date.now();
+          if (!cu) { er.textContent = 'سجّل الدخول أولاً لتكتب.'; return; }
+          if (!t) return;
+          if (now - clast < 1500) { er.textContent = '⏳ انتظر ثانية قبل الرسالة التالية.'; return; }
+          clast = now; er.textContent = ''; ci.value = ''; ep.style.display = 'none';
+          rref.collection('chat').doc(now.toString(36) + rid(4)).set({ p: PID, u: cu.uid, n: name, t: t, ts: now }).catch(function (e) { ci.value = t; fail(e); });
         }
-        cs.addEventListener('click', send);
-        ci.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); send(); } });
+        cs.addEventListener('click', function () { send(ci.value); });
+        ci.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); send(ci.value); } });
+        eb.addEventListener('click', function () { ep.style.display = ep.style.display === 'none' ? 'grid' : 'none'; });
+        mb.addEventListener('click', function () {
+          if (rec && rec.state === 'recording') { rec.stop(); return; }
+          if (!window.MediaRecorder || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { er.textContent = 'جهازك لا يدعم التسجيل الصوتي.'; return; }
+          if (Date.now() - clast < 1500) { er.textContent = '⏳ انتظر ثانية قبل الرسالة التالية.'; return; }
+          navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+            recStream = stream; recChunks = [];
+            var mime = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus'].filter(function (c) { return MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(c); })[0] || '';
+            rec = new MediaRecorder(stream, mime ? { mimeType: mime, audioBitsPerSecond: 24000 } : { audioBitsPerSecond: 24000 });
+            rec.ondataavailable = function (e) { if (e.data && e.data.size) recChunks.push(e.data); };
+            rec.onstop = function () {
+              clearInterval(recTimer); mb.textContent = '🎤'; recStream.getTracks().forEach(function (x) { x.stop(); });
+              var dur = Math.min(20, (Date.now() - recStart) / 1000);
+              if (dur < 1) { er.textContent = 'التسجيل قصير جداً.'; return; }
+              sendVoice(new Blob(recChunks, { type: rec.mimeType || mime || 'audio/webm' }), dur);
+            };
+            rec.start(); recStart = Date.now(); er.textContent = '';
+            recTimer = setInterval(function () { var n = Math.floor((Date.now() - recStart) / 1000); mb.textContent = '⏹️ ' + n; if (n >= 20) rec.stop(); }, 250);
+          }).catch(function (e) { er.textContent = e && e.name === 'NotAllowedError' ? 'اسمح للموقع باستخدام المايكروفون.' : 'تعذّر تشغيل المايكروفون.'; });
+        });
+        function shrink(blob, maxSec) {
+          var AC = window.AudioContext || window.webkitAudioContext, OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+          if (!AC || !OAC) return Promise.reject(new Error('no audio'));
+          return blob.arrayBuffer().then(function (buf) {
+            var ctx = new AC();
+            return new Promise(function (res, rej) { ctx.decodeAudioData(buf, res, rej); }).then(function (audio) {
+              ctx.close && ctx.close();
+              var rate = 11025, len = Math.min(audio.duration, maxSec), off = new OAC(1, Math.ceil(len * rate), rate), src = off.createBufferSource();
+              src.buffer = audio; src.connect(off.destination); src.start(0);
+              return off.startRendering().then(function (out) {
+                var d = out.getChannelData(0), n = d.length, view = new DataView(new ArrayBuffer(44 + n));
+                var w = function (o, t) { for (var i = 0; i < t.length; i++) view.setUint8(o + i, t.charCodeAt(i)); };
+                w(0, 'RIFF'); view.setUint32(4, 36 + n, true); w(8, 'WAVE'); w(12, 'fmt '); view.setUint32(16, 16, true);
+                view.setUint16(20, 1, true); view.setUint16(22, 1, true); view.setUint32(24, rate, true); view.setUint32(28, rate, true);
+                view.setUint16(32, 1, true); view.setUint16(34, 8, true); w(36, 'data'); view.setUint32(40, n, true);
+                for (var i = 0; i < n; i++) view.setUint8(44 + i, Math.round((Math.max(-1, Math.min(1, d[i])) + 1) * 127.5));
+                return { blob: new Blob([view], { type: 'audio/wav' }), dur: len };
+              });
+            });
+          });
+        }
+        function sendVoice(blob, dur) {
+          if (!cu) return;
+          if (blob.size > 380000) {
+            er.textContent = '⏳ جاري تجهيز الرسالة الصوتية…';
+            shrink(blob, 20).then(function (r) { sendVoice(r.blob, r.dur); }).catch(function () { er.textContent = 'تعذّر تجهيز الرسالة الصوتية، جرّب رسالة أقصر.'; });
+            return;
+          }
+          var fr = new FileReader();
+          fr.onload = function () {
+            var now = Date.now(), id = now.toString(36) + rid(4), bt = db.batch();
+            clast = now; er.textContent = '⏳ جاري الإرسال…';
+            bt.set(rref.collection('chat').doc(id), { p: PID, u: cu.uid, n: name, t: '🎤', ts: now, v: true, d: Math.round(dur * 10) / 10 });
+            bt.set(rref.collection('voices').doc(id), { u: cu.uid, a: fr.result, ts: now });
+            bt.commit().then(function () { er.textContent = ''; }).catch(fail);
+          };
+          fr.readAsDataURL(blob);
+        }
+        function play(btn, id) {
+          if (playing) { playing.a.pause(); var was = playing.id; playing.b.textContent = playing.label; playing = null; if (was === id) return; }
+          var label = btn.textContent; btn.textContent = '⏳';
+          rref.collection('voices').doc(id).get().then(function (d) {
+            var src = d.exists ? String(d.data().a || '') : '', comma = src.indexOf(','), hd = src.slice(0, comma);
+            if (comma < 0 || !/^data:/i.test(hd) || !/;base64$/i.test(hd)) { btn.textContent = 'لا يوجد صوت'; return; }
+            var type = (hd.slice(5).split(';')[0] || '').trim().toLowerCase(); if (!/^audio\/|^video\//.test(type)) type = 'audio/mp4';
+            var bin = atob(src.slice(comma + 1)), arr = new Uint8Array(bin.length);
+            for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+            var a = new Audio(URL.createObjectURL(new Blob([arr], { type: type })));
+            playing = { a: a, b: btn, id: id, label: label };
+            a.onended = function () { btn.textContent = label; playing = null; };
+            btn.textContent = '⏸️ إيقاف';
+            a.play().catch(function () { btn.textContent = '⚠️ تعذّر التشغيل'; playing = null; });
+          }).catch(function () { btn.textContent = label; });
+        }
+        un.push(function () { if (playing) playing.a.pause(); if (rec && rec.state === 'recording') { rec.onstop = null; rec.stop(); if (recStream) recStream.getTracks().forEach(function (x) { x.stop(); }); } clearInterval(recTimer); });
         un.push(rref.collection('chat').orderBy('ts').limitToLast(50).onSnapshot(function (q) {
-          var a = []; q.forEach(function (x) { a.push(x.data()); });
-          a.sort(function (p, z) { return p.ts - z.ts; });
-          var atEnd = cl.scrollHeight - cl.scrollTop - cl.clientHeight < 40;
+          msgs = []; q.forEach(function (x) { var m = x.data(); m.id = x.id; msgs.push(m); });
+          msgs.sort(function (p, z) { return p.ts - z.ts; });
+          var atEnd = cl.scrollHeight - cl.scrollTop - cl.clientHeight < 60 || (msgs.length && msgs[msgs.length - 1].p === PID);
           cl.innerHTML = '';
-          a.forEach(function (m) {
-            var d = el('div', 'jr-cm' + (m.p === PID ? ' me' : '')); d.appendChild(el('b', '', m.n)); d.appendChild(document.createTextNode(m.t)); cl.appendChild(d);
+          if (!msgs.length) { cl.appendChild(el('div', 'jr-ce0', 'لا توجد رسائل بعد — ابدأ الحديث 👋')); return; }
+          msgs.forEach(function (m) {
+            var d = el('div', 'jr-cm' + (m.p === PID ? ' me' : ''));
+            if (m.p !== PID) d.appendChild(el('b', '', m.n));
+            if (m.v) { var pb = el('button', 'jr-cp', '▶️ رسالة صوتية · ' + Math.round(m.d || 0) + ' ث'); pb.type = 'button'; pb.addEventListener('click', function () { play(pb, m.id); }); d.appendChild(pb); }
+            else d.appendChild(document.createTextNode(cclean(String(m.t))));
+            cl.appendChild(d);
           });
           if (atEnd) cl.scrollTop = cl.scrollHeight;
-        }, function () {}));
+        }, function () { er.textContent = 'تعذّر تحميل الدردشة.'; }));
       }
       function chatClose() { if (cbox && cbox.parentNode) cbox.parentNode.removeChild(cbox); cbox = null; }
 
