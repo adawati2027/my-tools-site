@@ -286,4 +286,94 @@ const CROSSWORD = {
 `
 };
 
-module.exports = { 'crossword': CROSSWORD };
+const CHINESE_GENDER = {
+  icon: '👶', bg: '#fce7f3', grad: '#db2777,#831843', title: 'الجدول الصيني لتوقّع جنس المولود', h1: 'الجدول الصيني لتوقّع جنس المولود 👶',
+  sub: 'اكتب تاريخ ميلاد الأم وتاريخ الحمل، وانظر ماذا يتوقّع الجدول الصيني الشهير: ولد أم بنت',
+  desc: 'الجدول الصيني لمعرفة جنس المولود (ولد أو بنت) حسب عمر الأم القمري وشهر الحمل القمري. للتسلية فقط وليس فحصاً طبياً، ويتم تحويل التاريخ إلى التقويم الصيني تلقائياً.',
+  kw: 'الجدول الصيني, الجدول الصيني لمعرفة جنس الجنين, التقويم الصيني ولد أو بنت, معرفة جنس المولود, Chinese gender chart',
+  search: 'الجدول الصيني جنس الجنين ولد بنت حمل توقع الجنس تقويم صيني chinese gender calendar chart',
+  cardDesc: 'توقّع ولد أم بنت بالجدول الصيني الشهير (للتسلية فقط)', cat: 'health',
+  faq: [
+    ['ما الجدول الصيني لمعرفة جنس المولود؟', 'جدول شعبي قديم يُنسب إلى الصين، يربط بين عمر الأم القمري وشهر الحمل في التقويم الصيني، ويعطي توقعاً بولد أو بنت.'],
+    ['هل الجدول الصيني دقيق؟', 'لا. لا يوجد دليل علمي عليه، ونسبة صحته قريبة من الصدفة (نحو النصف). استخدمه للتسلية فقط، ولا تبنِ عليه أي قرار.'],
+    ['كيف أعرف جنس المولود فعلاً؟', 'بفحص السونار عند الطبيب، وفي حالات خاصة بالفحوص الجينية التي يطلبها الطبيب.'],
+    ['ما العمر القمري؟', 'يُحسب بالسنوات الصينية: يولد الإنسان في سنته الأولى، ويزيد عمره سنة مع كل رأس سنة صينية جديدة. لذلك قد يزيد عمرك القمري سنة أو سنتين عن عمرك الميلادي. تحسب الأداة ذلك تلقائياً.'],
+    ['لماذا تختلف نتيجة الجدول بين المواقع؟', 'تنتشر عدة نسخ من الجدول، وتختلف بعض خلاياه قليلاً. اعتمدنا النسخة التي تتطابق في عدة مواقع، لكنها تبقى للتسلية.'],
+    ['ماذا لو كان الشهر القمري مكرراً (كبيساً)؟', 'إذا وقع الحمل في شهر قمري مكرر نستخدم رقم الشهر نفسه، وهو المعتاد في هذه الجداول.']
+  ],
+  how: ['اكتب تاريخ ميلاد الأم.', 'اكتب تاريخ الحمل، أو أول يوم من آخر دورة شهرية وسنضيف 14 يوماً.', 'تحوّل الأداة التواريخ إلى التقويم الصيني وتحسب العمر القمري وشهر الحمل القمري.', 'تقرأ الخلية المناسبة من الجدول: B ولد، G بنت.'],
+  rel: [['jo/health/pregnancy-due-date/', '🤰 موعد الولادة المتوقع'], ['jo/tools/crossword/', '🧩 الكلمات المتقاطعة'], ['jo/tools/word-search/', '🔍 البحث عن الكلمات']],
+  main: CSS + String.raw`
+    <style>
+      .cg-w{overflow-x:auto;margin-top:10px;}
+      .cg-t{border-collapse:collapse;font-size:12px;text-align:center;margin:0 auto;}
+      .cg-t th,.cg-t td{border:1px solid var(--border);padding:4px 6px;min-width:26px;}
+      .cg-t th{background:var(--surface-2);}
+      .cg-t td.b{background:rgba(37,99,235,.14);} .cg-t td.g{background:rgba(219,39,119,.14);}
+      .cg-t td.hit{outline:3px solid #f59e0b;font-weight:800;}
+      .cg-r{display:flex;gap:10px;margin-top:12px;} .cg-r div{flex:1;text-align:center;padding:10px;border-radius:10px;background:var(--surface-2);font-size:12px;color:var(--text-muted);} .cg-r b{display:block;font-size:20px;color:var(--text);}
+    </style>
+    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:#92400e;line-height:1.7;margin-bottom:14px;">
+      ⚠️ للتسلية فقط. لا يوجد دليل علمي على الجدول الصيني، ونسبة صحته قريبة من الصدفة. جنس المولود يُعرف بفحص السونار عند الطبيب.
+    </div>
+    <div class="row">
+      <div><label>تاريخ ميلاد الأم</label><input type="date" id="cgB"></div>
+      <div><label>التاريخ الذي تعرفه</label><select id="cgK"><option value="c">تاريخ الحمل</option><option value="l">أول يوم من آخر دورة (نضيف 14 يوماً)</option></select></div>
+    </div>
+    <div class="row" style="margin-top:10px;">
+      <div><label>التاريخ</label><input type="date" id="cgC"></div>
+    </div>
+    <button type="button" class="pt-btn" id="cgGo" style="width:100%;margin-top:14px;">👶 اعرف التوقع</button>
+    <div id="cgErr" style="display:none;margin-top:14px;padding:10px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-sm);font-size:13px;color:#991b1b;line-height:1.7;"></div>
+    <div id="cgRes" style="display:none;margin-top:18px;">
+      <div class="result-box show" style="margin-top:0;"><div class="result-value" id="cgMain"></div><div class="result-label">حسب الجدول الصيني (للتسلية)</div></div>
+      <div class="cg-r"><div><b id="cgAge">-</b>العمر القمري للأم</div><div><b id="cgMon">-</b>شهر الحمل القمري</div></div>
+      <button type="button" class="pt-btn2" id="cgCopy" style="width:100%;margin-top:10px;">📋 انسخ النتيجة</button>
+    </div>
+    <details style="margin-top:16px;"><summary style="cursor:pointer;font-weight:700;">عرض الجدول كاملاً</summary>
+      <div class="cg-w"><table class="cg-t" id="cgT"></table></div>
+      <p class="pt-note">B ولد، G بنت. الصفوف: العمر القمري للأم، والأعمدة: شهر الحمل القمري.</p>
+    </details>`,
+  script: String.raw`
+(function () {
+  var $ = function (i) { return document.getElementById(i); };
+  var T = ["GBGBBBBBBBBB","BGBGGBBBBBGG","GBGBBBBBBGBB","BGGGGGGGGGGG","GBBGBGGBGGGG","BBGBBGBGBBBG","BGBBGBBGGGGG","GBBGGBGBBBBB","BGBGGBGBGGGG","GBGBGGBBBBGB","BGBGGGBBBBGG","GBGGBBBBBGGG","BGGGGGGGGGBB","BGBGGGGGGGGB","BGBGGGGGGGGB","GBGBGGGBGGGB","BGBGGGGGGGBB","BBGBGGGBGGBB","GBBGBGGGBBBB","BGBBGBGBGBGB","GBGBBGBGBGBG","BGBBBGGBGBGG","GBGBGBBGBGBG","BGBGBGBBGBGB","GBGBGBGBBGBG","BGBGBGBGBBBB","BBGBBBGBGBGG","GBBGGGBGBGBB"];
+  var cf = null;
+  try { cf = new Intl.DateTimeFormat('en-u-ca-chinese', { year: 'numeric', month: 'numeric', day: 'numeric', timeZone: 'UTC' }); } catch (e) {}
+  function lun(ds) {
+    var o = {}; cf.formatToParts(new Date(ds + 'T12:00:00Z')).forEach(function (p) { o[p.type] = p.value; });
+    return { m: parseInt(o.month, 10), y: parseInt(o.relatedYear, 10) };
+  }
+  function addDays(ds, n) { var d = new Date(ds + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
+  var tb = $('cgT'), h = '<tr><th></th>', a, m;
+  for (m = 1; m <= 12; m++) h += '<th>' + m + '</th>';
+  h += '</tr>';
+  for (a = 18; a <= 45; a++) { h += '<tr><th>' + a + '</th>'; for (m = 1; m <= 12; m++) { var ch = T[a - 18].charAt(m - 1); h += '<td class="' + ch.toLowerCase() + '" data-k="' + a + '-' + m + '">' + ch + '</td>'; } h += '</tr>'; }
+  tb.innerHTML = h;
+  function err(t) { var e = $('cgErr'); e.textContent = t; e.style.display = t ? 'block' : 'none'; $('cgRes').style.display = 'none'; }
+  var last = '';
+  $('cgGo').addEventListener('click', function () {
+    var b = $('cgB').value, c = $('cgC').value;
+    if (!cf) { err('متصفحك لا يدعم التقويم الصيني، جرّب متصفحاً أحدث.'); return; }
+    if (!b || !c) { err('اكتب تاريخ ميلاد الأم والتاريخ المطلوب.'); return; }
+    if ($('cgK').value === 'l') c = addDays(c, 14);
+    if (c <= b) { err('تاريخ الحمل يجب أن يكون بعد تاريخ ميلاد الأم.'); return; }
+    var lb = lun(b), lc = lun(c), age = lc.y - lb.y + 1;
+    if (isNaN(age) || isNaN(lc.m)) { err('تعذّر تحويل التاريخ إلى التقويم الصيني.'); return; }
+    if (age < 18 || age > 45) { err('الجدول يغطي الأعمار القمرية من 18 إلى 45 فقط، وعمرها القمري هنا ' + age + '.'); return; }
+    var g = T[age - 18].charAt(lc.m - 1), boy = g === 'B';
+    err('');
+    $('cgMain').textContent = boy ? '👦 ولد' : '👧 بنت';
+    $('cgAge').textContent = age; $('cgMon').textContent = lc.m; $('cgRes').style.display = 'block';
+    tb.querySelectorAll('td.hit').forEach(function (x) { x.classList.remove('hit'); });
+    var cell = tb.querySelector('td[data-k="' + age + '-' + lc.m + '"]'); if (cell) cell.classList.add('hit');
+    last = 'الجدول الصيني (للتسلية) يتوقّع: ' + (boy ? 'ولد' : 'بنت') + ' — العمر القمري ' + age + '، شهر الحمل القمري ' + lc.m + '. https://adawati.space/jo/tools/chinese-gender-chart/';
+  });
+  $('cgCopy').addEventListener('click', function () {
+    var bt = this; try { navigator.clipboard.writeText(last).then(function () { bt.textContent = '✅ تم النسخ'; setTimeout(function () { bt.textContent = '📋 انسخ النتيجة'; }, 1500); }); } catch (e) {}
+  });
+})();
+`
+};
+
+module.exports = { 'crossword': CROSSWORD, 'chinese-gender-chart': CHINESE_GENDER };

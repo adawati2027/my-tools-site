@@ -81,6 +81,7 @@ const countryTools = [
   `${BASE}/jo/tools/sudoku/`,
   `${BASE}/jo/tools/word-search/`,
   `${BASE}/jo/tools/crossword/`,
+  `${BASE}/jo/tools/chinese-gender-chart/`,
   `${BASE}/jo/tools/tafqeet/`,
   `${BASE}/jo/tools/whatsapp-link/`,
   `${BASE}/jo/tools/name-decorator/`,
