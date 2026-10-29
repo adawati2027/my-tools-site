@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <base href="https://adawati.space/">
+<script>(function(){var B='https://www.gstatic.com/firebasejs/10.13.2/firebase-';window.__fbp=Promise.all(['app','auth','firestore'].map(function(n){return new Promise(function(ok,no){var s=document.createElement('script');s.src=B+n+'-compat.js';s.async=false;s.onload=ok;s.onerror=no;document.head.appendChild(s);});})).then(function(){if(!firebase.apps.length)firebase.initializeApp({apiKey:"AIzaSyAO8ZKfiaKlqTIw8xUfEp5xHFy0ilBztKQ",authDomain:"adawati-challenges.firebaseapp.com",projectId:"adawati-challenges",storageBucket:"adawati-challenges.firebasestorage.app",messagingSenderId:"360902823980",appId:"1:360902823980:web:bd85f87de77dcfc315c189"});return firebase.firestore();});window.__fbp.catch(function(){});var _id=new URLSearchParams(location.search).get("id");if(_id){window.__adp=window.__fbp.then(function(db){return db.collection("ads").doc(_id).get();}).catch(function(){return null;});window.__rvp=window.__fbp.then(function(db){return db.collection("ads").doc(_id).collection("reviews").orderBy("updatedAt","desc").limit(100).get();}).catch(function(){return null;});}})();</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -90,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var revBox = document.getElementById('adReviews');
   function loadReviews() {
     revBox.hidden = false;
-    fbRef.db.collection('ads').doc(id).collection('reviews').orderBy('updatedAt', 'desc').limit(100).get().then(function(s) {
+    var rp = window.__rvp; window.__rvp = null; (rp || Promise.resolve(null)).then(function(p) { return p || fbRef.db.collection('ads').doc(id).collection('reviews').orderBy('updatedAt', 'desc').limit(100).get(); }).then(function(s) {
       reviews = s.docs.map(function(d) { return { uid: d.id, d: d.data() }; });
       drawReviews();
     }).catch(function() { revBox.innerHTML = 'لم نستطع تحميل التقييمات.'; });
@@ -179,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
   adsOnUser(function(user, fb) {
     fbRef = fb;
     if (!fb) { box.innerHTML = 'حدث خطأ أثناء التحميل.'; return; }
-    fb.db.collection('ads').doc(id).get().then(function(doc) {
+    (window.__adp || Promise.resolve(null)).then(function(p) { return p && p.exists ? p : fb.db.collection('ads').doc(id).get(); }).then(function(doc) {
       if (!doc.exists) { box.innerHTML = 'الإعلان غير موجود أو ما زال قيد المراجعة. <a href="jo/ads/">ارجع للإعلانات</a>'; return null; }
       ad = doc.data();
       return adsIsAdmin(fb, user).then(function(a) {

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <base href="https://adawati.space/">
+<script>(function(){var B='https://www.gstatic.com/firebasejs/10.13.2/firebase-';window.__fbp=Promise.all(['app','auth','firestore'].map(function(n){return new Promise(function(ok,no){var s=document.createElement('script');s.src=B+n+'-compat.js';s.async=false;s.onload=ok;s.onerror=no;document.head.appendChild(s);});})).then(function(){if(!firebase.apps.length)firebase.initializeApp({apiKey:"AIzaSyAO8ZKfiaKlqTIw8xUfEp5xHFy0ilBztKQ",authDomain:"adawati-challenges.firebaseapp.com",projectId:"adawati-challenges",storageBucket:"adawati-challenges.firebasestorage.app",messagingSenderId:"360902823980",appId:"1:360902823980:web:bd85f87de77dcfc315c189"});return firebase.firestore();});window.__fbp.catch(function(){});})();</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
 <script>try{(window.adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=(localStorage.getItem("adawati_ad_consent")==="personalized")?0:1;}catch(e){}</script>
@@ -85,14 +86,29 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('adsList').innerHTML = list.length ? list.map(function(x){ return adsCardHtml(x.id, x.d); }).join('')
       : '<div class="card" style="margin:0;text-align:center;">' + (all.length ? 'لا توجد نتائج لبحثك.' : 'لا توجد إعلانات بعد — كن أول المعلنين! <a href="jo/ads/submit/">أضف إعلانك</a>') + '</div>';
   }
-  adsFb().then(function(fb) {
-    return fb.db.collection('ads').where('status', '==', 'approved').get();
-  }).then(function(snap) {
-    all = snap.docs.map(function(d){ return { id: d.id, d: d.data() }; }).filter(function(x){ return !adsExpired(x.d); });
-    all.sort(function(a, b){ return (b.d.likeCount || 0) - (a.d.likeCount || 0) || ((b.d.createdAt && b.d.createdAt.seconds) || 0) - ((a.d.createdAt && a.d.createdAt.seconds) || 0); });
+  var CK = 'adawati_ads_cache_v1';
+  function slim(id, a) {
+    return { id: id, d: { category: a.category, city: a.city, title: a.title, description: (a.description || '').slice(0, 200), likeCount: a.likeCount || 0, ratingCount: a.ratingCount || 0, ratingSum: a.ratingSum || 0, createdAt: a.createdAt ? { seconds: a.createdAt.seconds } : null, expMs: a.expiresAt && a.expiresAt.toMillis ? a.expiresAt.toMillis() : 0 } };
+  }
+  function live(x) { return !x.d.expMs || x.d.expMs > Date.now(); }
+  var cached = false;
+  try {
+    var c = JSON.parse(localStorage.getItem(CK) || 'null');
+    if (c && c.items && c.items.length) { all = c.items.filter(live); cached = true; render(); }
+  } catch (e) {}
+  var list = document.getElementById('adsList');
+  if (!cached) list.innerHTML = '<div class="card ads-sk" style="margin:0 0 10px;height:104px;opacity:.5;"></div><div class="card ads-sk" style="margin:0 0 10px;height:104px;opacity:.5;"></div><div class="card ads-sk" style="margin:0;height:104px;opacity:.5;"></div>';
+  var q = (window.__fbp || Promise.reject()).catch(function() { return adsFb().then(function(fb) { return fb.db; }); })
+    .then(function(db) { return db.collection('ads').where('status', '==', 'approved').get(); });
+  q.then(function(snap) {
+    var fresh = snap.docs.map(function(d) { return { id: d.id, a: d.data() }; }).filter(function(x) { return !adsExpired(x.a); });
+    fresh.sort(function(a, b) { return (b.a.likeCount || 0) - (a.a.likeCount || 0) || ((b.a.createdAt && b.a.createdAt.seconds) || 0) - ((a.a.createdAt && a.a.createdAt.seconds) || 0); });
+    var slimmed = fresh.map(function(x) { return slim(x.id, x.a); });
+    try { localStorage.setItem(CK, JSON.stringify({ t: Date.now(), items: slimmed })); } catch (e) {}
+    all = fresh.map(function(x) { return { id: x.id, d: x.a }; });
     render();
   }).catch(function() {
-    document.getElementById('adsList').innerHTML = '<div class="card" style="margin:0;">حدث خطأ أثناء التحميل — جرّب تحديث الصفحة.</div>';
+    if (!cached) list.innerHTML = '<div class="card" style="margin:0;">حدث خطأ أثناء التحميل — جرّب تحديث الصفحة.</div>';
   });
 });
 </script>
