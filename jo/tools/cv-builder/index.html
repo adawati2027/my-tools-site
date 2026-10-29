@@ -97,10 +97,10 @@
       @media (max-width:560px){.cvp{padding:16px;} .cvp.mod{flex-direction:column;} .cvp.mod .sd{width:100%;}}
     </style>
     <div class="pt-row">
-      <span style="font-size:13px;font-weight:700;">القالب:</span>
+      <span id="cvLblLay" style="font-size:13px;font-weight:700;">القالب:</span>
       <button type="button" class="pt-btn2 on" data-lay="classic">كلاسيكي</button>
       <button type="button" class="pt-btn2" data-lay="mod">عصري</button>
-      <span style="font-size:13px;font-weight:700;margin-inline-start:8px;">اللغة:</span>
+      <span id="cvLblLang" style="font-size:13px;font-weight:700;margin-inline-start:8px;">اللغة:</span>
       <button type="button" class="pt-btn2 on" data-dir="ar">العربية</button>
       <button type="button" class="pt-btn2" data-dir="en">English</button>
       <input type="color" id="cvCol" value="#1d4ed8" aria-label="اللون" style="width:38px;height:34px;border:none;background:none;cursor:pointer;">
@@ -115,15 +115,16 @@
     <label class="pt-lbl" for="cvSum">نبذة مهنية (٢ إلى ٣ أسطر)</label><textarea class="pt-in" id="cvSum" rows="3" maxlength="500"></textarea>
     <div class="pt-grid2" style="margin-top:8px;"><input class="pt-in" id="cvAiField" maxlength="80" placeholder="مجال عملك (مثال: محاسبة، تسويق، برمجة)"><input class="pt-in" id="cvAiYears" maxlength="10" inputmode="numeric" placeholder="سنوات الخبرة (اختياري)"></div>
     <button type="button" class="pt-btn2" id="cvAiBtn" style="margin-top:8px;">✨ اكتب لي النبذة بالذكاء الاصطناعي</button><div class="pt-note" id="cvAiMsg" style="margin-top:6px;" hidden></div>
-    <div class="pt-lbl">الخبرات العملية</div><div id="cvExpL"></div><button type="button" class="pt-btn2" id="cvExpAdd">+ إضافة خبرة</button>
-    <div class="pt-lbl">التعليم</div><div id="cvEduL"></div><button type="button" class="pt-btn2" id="cvEduAdd">+ إضافة مؤهل</button>
+    <div class="pt-lbl" id="cvLblExp">الخبرات العملية</div><div id="cvExpL"></div><button type="button" class="pt-btn2" id="cvExpAdd">+ إضافة خبرة</button>
+    <div class="pt-lbl" id="cvLblEdu">التعليم</div><div id="cvEduL"></div><button type="button" class="pt-btn2" id="cvEduAdd">+ إضافة مؤهل</button>
     <label class="pt-lbl" for="cvSk">المهارات (افصل بينها بفاصلة)</label><textarea class="pt-in" id="cvSk" rows="2" maxlength="400"></textarea>
-    <label class="pt-lbl" for="cvLg">اللغات (افصل بينها بفاصلة)</label><input class="pt-in" id="cvLg" maxlength="120" autocomplete="off">
+    <div class="pt-lbl" id="cvLblLg">اللغات</div><div id="cvLgBox"></div>
     <div class="pt-row" style="margin-top:16px;">
       <button type="button" class="pt-btn" id="cvPrint">📄 حفظ PDF / طباعة</button>
       <button type="button" class="pt-btn2" id="cvClear">🗑 مسح كل شيء</button>
     </div>
     <div class="pt-note" id="cvMsg">🔒 بياناتك تبقى في متصفحك ولا تُرسل إلى أي خادم.</div>
+    <datalist id="cvUni"></datalist>
     <div class="cvp" id="cvPrev"></div>
   </div>
 
@@ -188,6 +189,68 @@
   try { var r = JSON.parse(localStorage.getItem(KEY)); if (r && r.exp) S = Object.assign(S, r); } catch (e) {}
   function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   var LB = { ar: { sum: 'نبذة مهنية', exp: 'الخبرات العملية', edu: 'التعليم', sk: 'المهارات', lg: 'اللغات', ct: 'التواصل' }, en: { sum: 'Summary', exp: 'Experience', edu: 'Education', sk: 'Skills', lg: 'Languages', ct: 'Contact' } };
+
+  var LV = {
+    ar: { tj: 'التوجيهي (الثانوية العامة)', dip: 'دبلوم', bach: 'بكالوريوس', hd: 'دبلوم عالٍ', mast: 'ماجستير', phd: 'دكتوراه' },
+    en: { tj: 'Tawjihi (General Secondary Certificate)', dip: 'Diploma', bach: "Bachelor's Degree", hd: 'Higher Diploma', mast: "Master's Degree", phd: 'PhD' }
+  };
+  var UNI = {
+    ar: ['الجامعة الأردنية', 'جامعة العلوم والتكنولوجيا الأردنية', 'جامعة اليرموك', 'جامعة مؤتة', 'الجامعة الهاشمية', 'جامعة آل البيت', 'جامعة الحسين بن طلال', 'جامعة البلقاء التطبيقية', 'جامعة الطفيلة التقنية', 'الجامعة الألمانية الأردنية', 'جامعة الأميرة سمية للتكنولوجيا', 'جامعة فيلادلفيا', 'جامعة الزيتونة الأردنية', 'جامعة عمّان الأهلية', 'جامعة عمّان العربية', 'جامعة الإسراء', 'جامعة جرش', 'جامعة جدارا', 'جامعة الشرق الأوسط', 'جامعة العلوم التطبيقية الخاصة', 'جامعة البترا', 'جامعة الزرقاء', 'جامعة إربد الأهلية', 'جامعة عجلون الوطنية', 'الجامعة الأمريكية في مادبا', 'جامعة الحسين التقنية'],
+    en: ['The University of Jordan', 'Jordan University of Science and Technology', 'Yarmouk University', 'Mutah University', 'The Hashemite University', 'Al al-Bayt University', 'Al-Hussein Bin Talal University', 'Al-Balqa Applied University', 'Tafila Technical University', 'German Jordanian University', 'Princess Sumaya University for Technology', 'Philadelphia University', 'Al-Zaytoonah University of Jordan', 'Al-Ahliyya Amman University', 'Amman Arab University', 'Isra University', 'Jerash University', 'Jadara University', 'Middle East University', 'Applied Science Private University', 'Petra University', 'Zarqa University', 'Irbid National University', 'Ajloun National University', 'American University of Madaba', 'Al-Hussein Technical University']
+  };
+  var UI = {
+    ar: {
+      t: { '#cvLblLay': 'القالب:', '[data-lay=classic]': 'كلاسيكي', '[data-lay=mod]': 'عصري', '#cvLblLang': 'اللغة:', 'label[for=cvName]': 'الاسم الكامل', 'label[for=cvTitle]': 'المسمى الوظيفي', 'label[for=cvPhone]': 'الهاتف', 'label[for=cvEmail]': 'البريد الإلكتروني', 'label[for=cvCity]': 'المدينة / الدولة', 'label[for=cvSum]': 'نبذة مهنية (٢ إلى ٣ أسطر)', '#cvLblExp': 'الخبرات العملية', '#cvLblEdu': 'التعليم', 'label[for=cvSk]': 'المهارات (افصل بينها بفاصلة)', '#cvLblLg': 'اللغات', '#cvExpAdd': '+ إضافة خبرة', '#cvEduAdd': '+ إضافة مؤهل', '#cvAiBtn': '✨ اكتب لي النبذة بالذكاء الاصطناعي', '#cvPrint': '📄 حفظ PDF / طباعة', '#cvClear': '🗑 مسح كل شيء', '#cvMsg': '🔒 بياناتك تبقى في متصفحك ولا تُرسل إلى أي خادم.' },
+      p: { '#cvAiField': 'مجال عملك (مثال: محاسبة، تسويق، برمجة)', '#cvAiYears': 'سنوات الخبرة (اختياري)' },
+      pe: ['المسمى الوظيفي', 'الشركة', 'الفترة (مثال: 2022 - 2024)'], pd: ['التخصص (مثال: هندسة حاسوب)', 'الجامعة أو المدرسة', 'السنة'],
+      lgo: 'لغة أخرى (اكتبها)', lga: 'إضافة', desc: 'وصف مختصر (اختياري)', del: 'حذف', lvl: '— المستوى الدراسي —', clr: 'هل تريد مسح كل البيانات؟'
+    },
+    en: {
+      t: { '#cvLblLay': 'Template:', '[data-lay=classic]': 'Classic', '[data-lay=mod]': 'Modern', '#cvLblLang': 'Language:', 'label[for=cvName]': 'Full name', 'label[for=cvTitle]': 'Job title', 'label[for=cvPhone]': 'Phone', 'label[for=cvEmail]': 'Email', 'label[for=cvCity]': 'City / Country', 'label[for=cvSum]': 'Professional summary (2-3 lines)', '#cvLblExp': 'Work experience', '#cvLblEdu': 'Education', 'label[for=cvSk]': 'Skills (separate with commas)', '#cvLblLg': 'Languages', '#cvExpAdd': '+ Add experience', '#cvEduAdd': '+ Add education', '#cvAiBtn': '✨ Write my summary with AI', '#cvPrint': '📄 Save PDF / Print', '#cvClear': '🗑 Clear everything', '#cvMsg': '🔒 Your data stays in your browser and is never sent to any server.' },
+      p: { '#cvAiField': 'Your field (e.g. accounting, marketing, software)', '#cvAiYears': 'Years of experience (optional)' },
+      pe: ['Job title', 'Company', 'Period (e.g. 2022 - 2024)'], pd: ['Major / Field (e.g. Computer Engineering)', 'University or school', 'Year'],
+      lgo: 'Other language (type it)', lga: 'Add', desc: 'Short description (optional)', del: 'Delete', lvl: '- Education level -', clr: 'Clear all data?'
+    }
+  };
+  function ui() {
+    var u = UI[S.dir];
+    Object.keys(u.t).forEach(function (q) {
+      var e = document.querySelector(q); if (!e) return;
+      if ((q === '#cvPrint' && (e._blob || e.disabled)) || (q === '#cvAiBtn' && e.disabled)) return;
+      e.textContent = u.t[q];
+    });
+    Object.keys(u.p).forEach(function (q) { var e = document.querySelector(q); if (e) e.placeholder = u.p[q]; });
+    var dl = $('cvUni'); dl.innerHTML = '';
+    UNI[S.dir].forEach(function (n) { var o = document.createElement('option'); o.value = n; dl.appendChild(o); });
+    refreshRows();
+  }
+  var LGS = [['ar', 'العربية', 'Arabic'], ['en', 'الإنجليزية', 'English'], ['fr', 'الفرنسية', 'French'], ['de', 'الألمانية', 'German'], ['es', 'الإسبانية', 'Spanish'], ['tr', 'التركية', 'Turkish'], ['ru', 'الروسية', 'Russian'], ['it', 'الإيطالية', 'Italian'], ['zh', 'الصينية', 'Chinese']];
+  function lgToks() { return String(S.lg || '').split(/[,،\n]/).map(function (x) { return x.trim(); }).filter(Boolean); }
+  function lgName(t) { if (t.charAt(0) === '#') { for (var i = 0; i < LGS.length; i++) if (LGS[i][0] === t.slice(1)) return LGS[i][S.dir === 'en' ? 2 : 1]; } return t; }
+  function lgSet(a) { S.lg = a.join(','); upd(); lgPaint(); }
+  function lgPaint() {
+    var b = $('cvLgBox'), U = UI[S.dir], t = lgToks(); b.innerHTML = '';
+    var row = el('div', 'pt-row');
+    LGS.forEach(function (l) {
+      var k = '#' + l[0], on = t.indexOf(k) >= 0, btn = el('button', 'pt-btn2' + (on ? ' on' : ''), l[S.dir === 'en' ? 2 : 1]); btn.type = 'button';
+      btn.addEventListener('click', function () { lgSet(on ? t.filter(function (x) { return x !== k; }) : t.concat([k])); });
+      row.appendChild(btn);
+    });
+    t.forEach(function (x) {
+      if (x.charAt(0) === '#') return;
+      var btn = el('button', 'pt-btn2 on', x + ' ✕'); btn.type = 'button';
+      btn.addEventListener('click', function () { lgSet(t.filter(function (y) { return y !== x; })); });
+      row.appendChild(btn);
+    });
+    b.appendChild(row);
+    var r2 = el('div', 'pt-row'); r2.style.marginTop = '8px';
+    var inp = el('input', 'pt-in'); inp.maxLength = 30; inp.placeholder = U.lgo; inp.style.flex = '1'; inp.style.width = 'auto';
+    var ad = el('button', 'pt-btn2', U.lga); ad.type = 'button';
+    function add() { var v = inp.value.replace(/[,،#]/g, ' ').trim(); if (!v || t.length >= 12) return; lgSet(t.concat([v])); }
+    ad.addEventListener('click', add); inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); add(); } });
+    r2.appendChild(inp); r2.appendChild(ad); b.appendChild(r2);
+  }
+  function refreshRows() { lgPaint(); rows('exp', 'cvExpL', UI[S.dir].pe); rows('edu', 'cvEduL', UI[S.dir].pd); }
   function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
   function list(s) { return String(s || '').split(/[,،\n]/).map(function (x) { return x.trim(); }).filter(Boolean); }
   function items(arr, a, b, c) {
@@ -212,8 +275,8 @@
     if (S.title) head.appendChild(el('div', 'jt', S.title));
     var contact = [S.phone, S.email, S.city].filter(Boolean);
     var sums = S.sum ? [sec(L.sum), el('div', '', S.sum)] : [];
-    var exp = items(S.exp, 't', 'c', 'p'), edu = items(S.edu, 't', 'c', 'p');
-    var sk = list(S.sk), lg = list(S.lg);
+    var exp = items(S.exp, 't', 'c', 'p'), edu = items(S.edu.map(function (x) { return Object.assign({}, x, { t: [LV[S.dir][x.lv], x.t].filter(Boolean).join(' — ') }); }), 't', 'c', 'p');
+    var sk = list(S.sk), lg = lgToks().map(lgName);
     function chips(a) { var w = document.createElement('div'); a.forEach(function (x) { w.appendChild(el('span', 'sk', x)); }); return w; }
     if (S.lay === 'mod') {
       var sd = el('div', 'sd'), mn = el('div', 'mn');
@@ -235,29 +298,35 @@
     }
   }
   function upd() { save(); render(); }
-  var simple = { cvName: 'name', cvTitle: 'title', cvPhone: 'phone', cvEmail: 'email', cvCity: 'city', cvSum: 'sum', cvSk: 'sk', cvLg: 'lg' };
+  var simple = { cvName: 'name', cvTitle: 'title', cvPhone: 'phone', cvEmail: 'email', cvCity: 'city', cvSum: 'sum', cvSk: 'sk' };
   Object.keys(simple).forEach(function (id) { $(id).addEventListener('input', function () { S[simple[id]] = $(id).value; upd(); }); });
   $('cvCol').addEventListener('input', function () { S.col = $('cvCol').value; upd(); });
   function rows(arrKey, boxId, ph) {
     var box = $(boxId); box.innerHTML = '';
     S[arrKey].forEach(function (x, i) {
-      var d = el('div', 'pt-box'), g = el('div', 'pt-grid2');
+      var d = el('div', 'pt-box'), g = el('div', 'pt-grid2'), U = UI[S.dir];
+      if (arrKey === 'edu') {
+        var sl = el('select', 'pt-in'); sl.style.marginBottom = '6px'; sl.setAttribute('aria-label', U.lvl);
+        var o0 = el('option', '', U.lvl); o0.value = ''; sl.appendChild(o0);
+        Object.keys(LV[S.dir]).forEach(function (k) { var o = el('option', '', LV[S.dir][k]); o.value = k; sl.appendChild(o); });
+        sl.value = x.lv || ''; sl.addEventListener('change', function () { x.lv = sl.value; upd(); }); d.appendChild(sl);
+      }
       [['t', ph[0]], ['c', ph[1]], ['p', ph[2]]].forEach(function (f) {
         var inp = el('input', 'pt-in'); inp.placeholder = f[1]; inp.value = x[f[0]] || ''; inp.maxLength = 80; inp.setAttribute('aria-label', f[1]);
+        if (arrKey === 'edu' && f[0] === 'c') inp.setAttribute('list', 'cvUni');
         inp.addEventListener('input', function () { x[f[0]] = inp.value; upd(); }); g.appendChild(inp);
       });
-      var ta = el('textarea', 'pt-in'); ta.rows = 2; ta.maxLength = 400; ta.placeholder = 'وصف مختصر (اختياري)'; ta.value = x.d || '';
+      var ta = el('textarea', 'pt-in'); ta.rows = 2; ta.maxLength = 400; ta.placeholder = U.desc; ta.value = x.d || '';
       ta.addEventListener('input', function () { x.d = ta.value; upd(); });
-      var rm = el('button', 'pt-btn2', 'حذف'); rm.type = 'button'; rm.style.marginTop = '6px';
+      var rm = el('button', 'pt-btn2', U.del); rm.type = 'button'; rm.style.marginTop = '6px';
       rm.addEventListener('click', function () { S[arrKey].splice(i, 1); upd(); rows(arrKey, boxId, ph); });
       d.appendChild(g); d.appendChild(ta); d.appendChild(rm); box.appendChild(d);
     });
   }
-  var PE = ['المسمى الوظيفي', 'الشركة', 'الفترة (مثال: 2022 - 2024)'], PD = ['الشهادة / التخصص', 'الجامعة أو المدرسة', 'السنة'];
-  $('cvExpAdd').addEventListener('click', function () { if (S.exp.length >= 8) return; S.exp.push({}); upd(); rows('exp', 'cvExpL', PE); });
-  $('cvEduAdd').addEventListener('click', function () { if (S.edu.length >= 6) return; S.edu.push({}); upd(); rows('edu', 'cvEduL', PD); });
+  $('cvExpAdd').addEventListener('click', function () { if (S.exp.length >= 8) return; S.exp.push({}); upd(); refreshRows(); });
+  $('cvEduAdd').addEventListener('click', function () { if (S.edu.length >= 6) return; S.edu.push({}); upd(); refreshRows(); });
   document.querySelectorAll('[data-lay]').forEach(function (b) { b.addEventListener('click', function () { S.lay = b.getAttribute('data-lay'); sync(); upd(); }); });
-  document.querySelectorAll('[data-dir]').forEach(function (b) { b.addEventListener('click', function () { S.dir = b.getAttribute('data-dir'); sync(); upd(); }); });
+  document.querySelectorAll('[data-dir]').forEach(function (b) { b.addEventListener('click', function () { S.dir = b.getAttribute('data-dir'); sync(); ui(); upd(); }); });
   function sync() {
     document.querySelectorAll('[data-lay]').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-lay') === S.lay); });
     document.querySelectorAll('[data-dir]').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-dir') === S.dir); });
@@ -302,23 +371,23 @@
   $('cvAiBtn').addEventListener('click', function () {
     var f = $('cvAiField').value.trim(), y = $('cvAiYears').value.trim(), m = $('cvAiMsg'), b = $('cvAiBtn'), ar = S.dir !== 'en';
     y = y.replace(/[٠-٩]/g, function (d) { return d.charCodeAt(0) - 1632; });
-    if (f.length < 2) { m.hidden = false; m.textContent = 'اكتب مجال عملك أولًا.'; return; }
-    var old = b.textContent; b.disabled = true; b.textContent = '⏳ جارٍ الكتابة...'; m.hidden = true;
+    if (f.length < 2) { m.hidden = false; m.textContent = ar ? 'اكتب مجال عملك أولًا.' : 'Please enter your field first.'; return; }
+    var old = b.textContent; b.disabled = true; b.textContent = ar ? '⏳ جارٍ الكتابة...' : '⏳ Writing...'; m.hidden = true;
     function put(t, note) { $('cvSum').value = t; S.sum = t; upd(); b.disabled = false; b.textContent = old; if (note) { m.hidden = false; m.textContent = note; } }
     var ctl = new AbortController(), tm = setTimeout(function () { ctl.abort(); }, 20000);
     fetch('https://adawati.space/api/cv-ai', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl.signal, body: JSON.stringify({ field: f, years: y, title: S.title, skills: S.sk, lang: ar ? 'ar' : 'en' }) })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (j) { clearTimeout(tm); if (!j.text) throw new Error('empty'); put(j.text, 'راجع النص وعدّله بما يناسبك قبل الحفظ.'); })
-      .catch(function () { clearTimeout(tm); put(aiLocal(f, y, ar), 'الكتابة الذكية غير متاحة الآن، فكتبنا لك نبذة جاهزة. عدّلها بما يناسبك.'); });
+      .then(function (j) { clearTimeout(tm); if (!j.text) throw new Error('empty'); put(j.text, ar ? 'راجع النص وعدّله بما يناسبك قبل الحفظ.' : 'Review the text and edit it before saving.'); })
+      .catch(function () { clearTimeout(tm); put(aiLocal(f, y, ar), ar ? 'الكتابة الذكية غير متاحة الآن، فكتبنا لك نبذة جاهزة. عدّلها بما يناسبك.' : 'AI writing is unavailable right now, so we drafted a ready summary. Edit it to fit you.'); });
   });
   $('cvClear').addEventListener('click', function () {
-    if (!window.confirm('هل تريد مسح كل البيانات؟')) return;
+    if (!window.confirm(UI[S.dir].clr)) return;
     S = { lay: S.lay, dir: S.dir, col: S.col, name: '', title: '', phone: '', email: '', city: '', sum: '', sk: '', lg: '', exp: [], edu: [] };
     fill(); upd();
   });
   function fill() {
     Object.keys(simple).forEach(function (id) { $(id).value = S[simple[id]] || ''; });
-    $('cvCol').value = S.col; rows('exp', 'cvExpL', PE); rows('edu', 'cvEduL', PD); sync();
+    $('cvCol').value = S.col; sync(); ui();
   }
   fill(); render();
 })();

@@ -14,7 +14,7 @@ const CSS = String.raw`
 
 const MORE = {
   icon: '🤔', bg: '#e0e7ff', grad: '#4f46e5,#1e1b4b', title: 'لعبة أيهما أكثر؟', h1: 'لعبة أيهما أكثر؟ 🤔',
-  sub: 'اختر الأكبر أو الأعلى أو الأبعد بين خيارين، وكم تستطيع أن تحقق من الإجابات الصحيحة المتتالية؟',
+  sub: 'اختر الأكبر أو الأعلى أو الأبعد بين خيارين، وكم تستطيع أن تحقق من الإجابات الصحيحة المتتالية؟ أو تسابق أصدقاءك أونلاين.',
   desc: 'لعبة أيهما أكثر؟ قارن بين جبال ودول وكواكب وأنهار وخمّن الأكبر أو الأعلى. سلسلة إجابات متتالية ورقم قياسي يحفظه متصفحك.',
   kw: 'لعبة أيهما أكثر, لعبة معلومات عامة, لعبة تخمين, اسئلة ثقافية, لعبة المقارنة',
   search: 'ايهما اكثر لعبة تخمين معلومات عامة مقارنة اكبر اعلى دول جبال كواكب',
@@ -24,7 +24,8 @@ const MORE = {
     ['هل الأرقام دقيقة؟', 'هي أرقام تقريبية مقرّبة من المصادر العامة المعروفة، وقد تختلف قليلاً بين مرجع وآخر. وتختار اللعبة عنصرين بينهما فرق واضح.'],
     ['هل يُحفظ رقمي القياسي؟', 'نعم، يُحفظ في متصفحك لكل فئة.'],
     ['ما الفئات المتوفرة؟', 'ارتفاع الجبال والمعالم، مساحة الدول، عدد السكان، أقطار الشمس والكواكب والقمر، وأطوال الأنهار.'],
-    ['هل أحتاج إنترنت؟', 'بعد تحميل الصفحة تعمل دون اتصال.']
+    ['كيف ألعب مع أصدقائي؟', 'أنشئ غرفة أونلاين وأرسل الرابط (حتى ٤ لاعبين). تظهر الأسئلة نفسها للجميع وهي عشرة أسئلة؛ الفائز صاحب أكثر إجابات صحيحة، وعند التعادل الأسرع.'],
+    ['هل أحتاج إنترنت؟', 'اللعب الفردي يعمل دون اتصال بعد تحميل الصفحة، أما السباق مع الأصدقاء فيحتاج إنترنت.']
   ],
   how: ['اختر الفئة.', 'اضغط على الخيار الذي تظنه الأكبر.', 'تظهر القيم الحقيقية بعد الإجابة.', 'استمر ما دامت إجاباتك صحيحة.'],
   rel: [['jo/tools/outsider-game/', '🕵️ برّا السالفة'], ['jo/games/', '🎯 مسابقات الأردن'], ['jo/tools/lucky-wheel/', '🎡 عجلة الحظ']],
@@ -40,7 +41,10 @@ const MORE = {
     <div class="pt-big" id="wmQ"></div>
     <div class="wm-pair"><button type="button" class="wm-card" id="wmA"></button><button type="button" class="wm-card" id="wmBt"></button></div>
     <div class="pt-note" id="wmMsg"></div>
-    <div class="pt-row" style="justify-content:center;"><button type="button" class="pt-btn" id="wmNext" hidden>التالي ←</button></div>`,
+    <div class="pt-row" style="justify-content:center;"><button type="button" class="pt-btn" id="wmNext" hidden>التالي ←</button></div>
+    <div class="pt-note" id="wmRank" style="white-space:pre-line;font-weight:700;"></div>
+    <div id="wmRoom"></div>`,
+  room: true,
   script: String.raw`
 (function () {
   var $ = function (i) { return document.getElementById(i); };
@@ -51,16 +55,23 @@ const MORE = {
     s: { n: 'الأجرام', q: 'أيهما أكبر قطراً؟', u: ' كم', it: [['الشمس', 1391000], ['المشتري', 139820], ['زحل', 116460], ['أورانوس', 50724], ['نبتون', 49244], ['الأرض', 12742], ['الزهرة', 12104], ['المريخ', 6779], ['عطارد', 4879], ['القمر', 3474]] },
     r: { n: 'الأنهار', q: 'أيهما أطول؟', u: ' كم تقريباً', it: [['نهر النيل', 6650], ['نهر الدانوب', 2850], ['نهر الفرات', 2800], ['نهر دجلة', 1900], ['نهر الراين', 1230], ['نهر التايمز', 346], ['نهر الأردن', 251]] }
   };
-  var KEY = 'adawati_whichmore_v1', BEST = {}, cur = 'h', streak = 0, pair = null, locked = false;
+  var wmc = null, wmR = null, wmLast = 0, wmQs = [], wmI = 0, wmScore = 0, wmT0 = 0, wmCatSel = null, wmDone = false, QN = 10, KEY = 'adawati_whichmore_v1', BEST = {}, cur = 'h', streak = 0, pair = null, locked = false;
   try { BEST = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
   function fmt(v) { return v.toLocaleString('en-US'); }
+  function pickIdx(k) {
+    var it = D[k].it, a, b, t = 0, ia, ib;
+    do { ia = Math.floor(Math.random() * it.length); ib = Math.floor(Math.random() * it.length); a = it[ia]; b = it[ib]; t++; }
+    while ((ia === ib || Math.max(a[1], b[1]) / Math.min(a[1], b[1]) < 1.12) && t < 200);
+    return [ia, ib];
+  }
   function pick() {
-    var it = D[cur].it, a, b, t = 0;
-    do { a = it[Math.floor(Math.random() * it.length)]; b = it[Math.floor(Math.random() * it.length)]; t++; }
-    while ((a === b || Math.max(a[1], b[1]) / Math.min(a[1], b[1]) < 1.12) && t < 200);
-    pair = [a, b]; locked = false;
+    var ix = pickIdx(cur);
+    pair = [D[cur].it[ix[0]], D[cur].it[ix[1]]]; draw();
+  }
+  function draw() {
+    locked = false;
     $('wmQ').textContent = D[cur].q;
-    [['wmA', a], ['wmBt', b]].forEach(function (x) { var e = $(x[0]); e.className = 'wm-card'; e.textContent = x[1][0]; var s = document.createElement('small'); e.appendChild(s); });
+    [['wmA', pair[0]], ['wmBt', pair[1]]].forEach(function (x) { var e = $(x[0]); e.className = 'wm-card'; e.textContent = x[1][0]; var s = document.createElement('small'); e.appendChild(s); });
     $('wmMsg').textContent = 'اضغط على إجابتك'; $('wmNext').hidden = true;
   }
   function stat() { $('wmS').textContent = streak; $('wmB').textContent = BEST[cur] || 0; }
@@ -68,6 +79,7 @@ const MORE = {
     if (locked) return; locked = true;
     var win = pair[0][1] > pair[1][1] ? 0 : 1, ok = i === win;
     ['wmA', 'wmBt'].forEach(function (id, k) { var e = $(id); e.querySelector('small').textContent = fmt(pair[k][1]) + D[cur].u; if (k === win) e.classList.add('ok'); else if (k === i) e.classList.add('no'); });
+    if (wmc) { wmOnAns(ok); return; }
     if (ok) {
       streak++; if (streak > (BEST[cur] || 0)) { BEST[cur] = streak; try { localStorage.setItem(KEY, JSON.stringify(BEST)); } catch (e) {} }
       $('wmMsg').textContent = '✓ إجابة صحيحة!'; $('wmNext').textContent = 'التالي ←';
@@ -81,8 +93,74 @@ const MORE = {
     box.appendChild(b);
   });
   $('wmA').addEventListener('click', function () { ans(0); }); $('wmBt').addEventListener('click', function () { ans(1); });
-  $('wmNext').addEventListener('click', pick);
+  $('wmNext').addEventListener('click', function () { if (wmc) wmNextOn(); else pick(); });
   stat(); pick();
+  function wmOnAns(ok) {
+    if (ok) wmScore++;
+    var n = wmI + 1;
+    wmc.setMine({ sc: wmScore, pg: n, sr: wmLast, ft: Math.floor((Date.now() - wmT0) / 1000) });
+    $('wmMsg').textContent = ok ? '✓ إجابة صحيحة!' : '✗ إجابة خاطئة.';
+    $('wmNext').textContent = n >= wmQs.length ? '🏁 انتهيت' : 'التالي ←'; $('wmNext').hidden = false;
+  }
+  function wmNextOn() {
+    wmI++;
+    if (wmI >= wmQs.length) { wmDone = true; $('wmNext').hidden = true; $('wmMsg').textContent = 'أنهيت الأسئلة: ' + wmScore + ' من ' + wmQs.length + '.'; wmRank(); return; }
+    wmShow();
+  }
+  function wmShow() {
+    var q = wmQs[wmI]; cur = q[0];
+    pair = [D[cur].it[q[1]], D[cur].it[q[2]]]; draw();
+    $('wmMsg').textContent = 'سؤال ' + (wmI + 1) + ' من ' + wmQs.length;
+  }
+  function wmRank() {
+    var r = $('wmRank'); if (!wmc || !wmLast) { r.textContent = ''; return; }
+    var pl = wmc.players.filter(function (p) { return p.sr === wmLast; });
+    pl.sort(function (a, b) { return (b.sc || 0) - (a.sc || 0) || (a.ft || 0) - (b.ft || 0); });
+    var all = pl.length === wmc.players.length && pl.every(function (p) { return (p.pg || 0) >= wmQs.length; });
+    var t = pl.map(function (p, i) { return (all && i === 0 ? '🏆 ' : '') + p.name + (p.id === wmc.pid ? ' (أنت)' : '') + ': ' + (p.sc || 0) + ' صحيحة — ' + (p.pg || 0) + '/' + wmQs.length; }).join('\n');
+    if (all) t += '\n' + (pl.length > 1 && pl[0].sc === pl[1].sc && pl[0].ft === pl[1].ft ? '🤝 تعادل!' : 'انتهى السباق! الفائز: ' + pl[0].name);
+    r.textContent = t; wmAgain.hidden = !(all && wmc.isHost());
+  }
+  var wmAgain = document.createElement('button'); wmAgain.type = 'button'; wmAgain.className = 'pt-btn'; wmAgain.hidden = true; wmAgain.textContent = '🔄 سباق جديد';
+  $('wmNext').parentNode.appendChild(wmAgain);
+  wmAgain.addEventListener('click', function () { wmStart(wmc); });
+  function wmStart(c) {
+    var keys = (wmCatSel && wmCatSel.value) ? [wmCatSel.value] : Object.keys(D), q = [], i, k;
+    for (i = 0; i < QN; i++) { k = keys[Math.floor(Math.random() * keys.length)]; var ix = pickIdx(k); q.push([k, ix[0], ix[1]]); }
+    c.setState({ r: ((c.room && c.room.s && c.room.s.r) || 0) + 1, q: q }, 'playing');
+  }
+  function wmSync() {
+    if (!wmc || !wmR) return;
+    var s = wmR.s;
+    if (wmR.status === 'playing' && s.r && s.r !== wmLast && s.q) {
+      wmLast = s.r; wmQs = s.q; wmI = 0; wmScore = 0; wmDone = false; wmT0 = Date.now(); wmAgain.hidden = true;
+      $('wmQ').hidden = false; document.querySelector('.wm-pair').hidden = false;
+      wmc.setMine({ sc: 0, pg: 0, sr: wmLast, ft: 0 }); wmShow();
+    }
+  }
+  if (window.JoRoom) JoRoom.mount($('wmRoom'), {
+    game: 'wm', min: 2, max: 4, shareText: 'تعال نتسابق في لعبة أيهما أكثر؟ (١٠ أسئلة)',
+    hostExtra: function () {
+      var w = document.createElement('div');
+      if (!wmCatSel) {
+        wmCatSel = document.createElement('select'); wmCatSel.className = 'jr-in';
+        var o0 = document.createElement('option'); o0.value = ''; o0.textContent = 'الفئة: منوّعة'; wmCatSel.appendChild(o0);
+        Object.keys(D).forEach(function (n) { var o = document.createElement('option'); o.value = n; o.textContent = 'الفئة: ' + D[n].n; wmCatSel.appendChild(o); });
+      }
+      w.appendChild(wmCatSel); return w;
+    },
+    onHostStart: function (c) { wmStart(c); },
+    onJoin: function (c) {
+      wmc = c; wmR = null; wmLast = 0; locked = true; $('wmCats').hidden = true; document.querySelector('.pt-stat').hidden = true;
+      $('wmQ').hidden = true; document.querySelector('.wm-pair').hidden = true; $('wmNext').hidden = true; $('wmMsg').textContent = 'بانتظار بدء السباق…';
+    },
+    onPlayers: function () { wmRank(); },
+    onRoom: function (r) { wmR = r; wmSync(); },
+    onLeave: function () {
+      wmc = null; wmR = null; wmLast = 0; wmAgain.hidden = true; $('wmRank').textContent = '';
+      $('wmCats').hidden = false; document.querySelector('.pt-stat').hidden = false; $('wmQ').hidden = false; document.querySelector('.wm-pair').hidden = false; streak = 0; stat(); pick();
+    }
+  });
 })();
 `
 };
@@ -173,15 +251,16 @@ const HANG = {
 
 const XO = {
   icon: '❌', bg: '#dbeafe', grad: '#1d4ed8,#172554', title: 'لعبة إكس أو XO', h1: 'لعبة إكس أو (XO) ❌⭕',
-  sub: 'العب ضد الجوال بثلاث مستويات، أو مع صديق على الجهاز نفسه',
+  sub: 'العب ضد الجوال، أو مع صديق على الجهاز نفسه، أو أونلاين كل واحد من جواله',
   desc: 'لعبة XO (إكس أو) مجانية: العب ضد الكمبيوتر بمستوى سهل أو متوسط أو صعب لا يُهزم، أو مع صديق على نفس الجهاز، مع عدّاد للنقاط.',
   kw: 'لعبة XO, لعبة اكس او, لعبة إكس أو, tic tac toe عربي, لعبة التيك تاك تو',
-  search: 'xo اكس او لعبة تيك تاك تو tic tac toe ضد الكمبيوتر لاعبين',
+  search: 'xo اكس او لعبة تيك تاك تو tic tac toe ضد الكمبيوتر لاعبين اونلاين مع صديق',
   cardDesc: 'العب XO ضد الجوال أو مع صديق', cat: 'games',
   faq: [
     ['كيف أفوز في XO؟', 'اجعل ثلاث علامات متتالية، أفقياً أو عمودياً أو قطرياً، قبل خصمك.'],
     ['هل المستوى الصعب لا يُهزم؟', 'نعم، يلعب بأفضل حركة ممكنة دائماً، وأفضل ما تحققه ضده هو التعادل.'],
-    ['هل يمكن اللعب مع صديق؟', 'نعم، اختر وضع لاعبين وتناوبا اللعب على الشاشة نفسها.'],
+    ['هل يمكن اللعب مع صديق؟', 'نعم، إما على الشاشة نفسها بوضع لاعبين، أو أونلاين: أنشئ غرفة وأرسل الرابط لصديقك فيلعب كل منكما من جواله.'],
+    ['كيف ألعب أونلاين؟', 'اضغط إنشاء غرفة تحت اللوحة، أرسل الرابط أو الرمز لصديقك، وتبدأ المباراة فور انضمامه.'],
     ['من يبدأ؟', 'يبدأ اللاعب X، وتتناوب البداية بين الجولات.'],
     ['هل تُحفظ النقاط؟', 'تُعدّ النقاط خلال زيارتك فقط وتُصفَّر بإعادة تحميل الصفحة.']
   ],
@@ -193,13 +272,15 @@ const XO = {
       .xo-b button{aspect-ratio:1;border:2px solid var(--border);border-radius:14px;background:var(--surface);font-size:clamp(36px,12vw,56px);font-weight:800;font-family:inherit;cursor:pointer;color:var(--text);line-height:1;}
       .xo-b button.x{color:#2563eb;} .xo-b button.o{color:#dc2626;} .xo-b button.w{background:#fef9c3;border-color:#eab308;}
     </style>
-    <div class="pt-row">
+    <div class="pt-row" id="xoModes">
       <button type="button" class="pt-btn2" data-m="easy">سهل</button><button type="button" class="pt-btn2 on" data-m="mid">متوسط</button><button type="button" class="pt-btn2" data-m="hard">صعب</button><button type="button" class="pt-btn2" data-m="two">لاعبان</button>
     </div>
     <div class="pt-stat"><div><b id="xoX">0</b>X</div><div><b id="xoD">0</b>تعادل</div><div><b id="xoO">0</b>O</div></div>
     <div class="pt-big" id="xoMsg" aria-live="polite" style="font-size:17px;"></div>
     <div class="xo-b" id="xoB"></div>
-    <div class="pt-row" style="justify-content:center;margin-top:12px;"><button type="button" class="pt-btn" id="xoNew">🔄 جولة جديدة</button></div>`,
+    <div class="pt-row" style="justify-content:center;margin-top:12px;"><button type="button" class="pt-btn" id="xoNew">🔄 جولة جديدة</button></div>
+    <div id="xoRoom"></div>`,
+  room: true,
   script: String.raw`
 (function () {
   var $ = function (i) { return document.getElementById(i); };
@@ -235,6 +316,7 @@ const XO = {
     return over;
   }
   function play(i) {
+    if (on) { onlinePlay(i); return; }
     if (over || b[i] || (mode !== 'two' && turn === 'O')) return;
     b[i] = turn; render(); if (end()) return;
     turn = turn === 'X' ? 'O' : 'X'; msg();
@@ -247,8 +329,44 @@ const XO = {
   var box = $('xoB');
   for (var k = 0; k < 9; k++) (function (i) { var e = document.createElement('button'); e.type = 'button'; e.setAttribute('aria-label', 'مربع ' + (i + 1)); e.addEventListener('click', function () { play(i); }); box.appendChild(e); btns.push(e); })(k);
   document.querySelectorAll('[data-m]').forEach(function (e) { e.addEventListener('click', function () { mode = e.getAttribute('data-m'); document.querySelectorAll('[data-m]').forEach(function (x) { x.classList.toggle('on', x === e); }); sc = { X: 0, O: 0, D: 0 }; first = 'X'; fresh(); end(); $('xoMsg').textContent = ''; msg(); }); });
-  $('xoNew').addEventListener('click', fresh);
+  $('xoNew').addEventListener('click', function () { if (on) { if (R && R.s.o) newRound(); } else fresh(); });
   fresh();
+  var on = null, R = null, my = '';
+  function pname(m) { var p = on.players[m === 'X' ? 0 : 1]; return p ? p.name : (m === 'X' ? 'X' : 'O'); }
+  function sync() {
+    if (!on || !R) return;
+    if (R.status !== 'playing' || !R.s.b) { $('xoMsg').textContent = 'بانتظار اللاعب الثاني…'; return; }
+    var s = R.s, ids = on.players.map(function (p) { return p.id; }), ix = ids.indexOf(on.pid);
+    my = ix === 0 ? 'X' : ix === 1 ? 'O' : '';
+    b = s.b.split('').map(function (c) { return c === '.' ? '' : c; }); turn = s.t; over = !!s.o; sc = s.sc; render();
+    var wl = win(b); if (over && wl) wl.forEach(function (i) { btns[i].classList.add('w'); });
+    $('xoX').textContent = sc.X; $('xoO').textContent = sc.O; $('xoD').textContent = sc.D;
+    var m;
+    if (on.players.length < 2) m = 'غادر اللاعب الآخر. بانتظار لاعب جديد…';
+    else if (over) m = s.w === 'D' ? '🤝 تعادل' : s.w === my ? '🎉 فزت!' : '😅 فاز ' + pname(s.w);
+    else m = turn === my ? 'دورك (' + my + ')' : 'دور ' + pname(turn) + ' (' + turn + ')';
+    $('xoMsg').textContent = m;
+  }
+  function onlinePlay(i) {
+    if (!R || !R.s.b || over || b[i] || turn !== my || on.players.length < 2) return;
+    var nb = b.slice(); nb[i] = my; var w = win(nb), s = R.s;
+    var ns = { b: nb.map(function (c) { return c || '.'; }).join(''), t: my === 'X' ? 'O' : 'X', f: s.f, sc: { X: s.sc.X, O: s.sc.O, D: s.sc.D }, n: s.n, o: 0 };
+    if (w) { ns.o = 1; ns.w = my; ns.sc[my]++; } else if (nb.every(Boolean)) { ns.o = 1; ns.w = 'D'; ns.sc.D++; }
+    on.setState(ns, 'playing');
+  }
+  function newRound() {
+    var s = R.s, f = s.f === 'X' ? 'O' : 'X';
+    on.setState({ b: '.........', t: f, f: f, sc: s.sc, n: s.n + 1, o: 0 }, 'playing');
+  }
+  if (window.JoRoom) JoRoom.mount($('xoRoom'), {
+    game: 'xo', min: 2, max: 2, shareText: 'تعال نلعب XO أونلاين',
+    onHostStart: function (c) { c.setState({ b: '.........', t: 'X', f: 'X', sc: { X: 0, O: 0, D: 0 }, n: 1, o: 0 }, 'playing'); },
+    onJoin: function (c) { on = c; R = null; $('xoModes').hidden = true; mode = 'online'; sc = { X: 0, O: 0, D: 0 }; b = ['', '', '', '', '', '', '', '', '']; over = true; render(); $('xoMsg').textContent = 'بانتظار اللاعب الثاني…'; },
+    onPlayers: function (pl, c) { if (c.isHost() && c.room && c.room.status === 'lobby' && pl.length >= 2) c.setState({ b: '.........', t: 'X', f: 'X', sc: { X: 0, O: 0, D: 0 }, n: 1, o: 0 }, 'playing'); sync(); },
+    onRoom: function (r) { R = r; sync(); },
+    onLeave: function (forced) { on = null; R = null; mode = 'mid'; $('xoModes').hidden = false; sc = { X: 0, O: 0, D: 0 }; first = 'X'; fresh(); end(); $('xoMsg').textContent = forced ? 'أغلق المضيف الغرفة.' : ''; $('xoX').textContent = 0; $('xoO').textContent = 0; $('xoD').textContent = 0; }
+  });
+
 })();
 `
 };

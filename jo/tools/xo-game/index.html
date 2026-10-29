@@ -44,7 +44,8 @@
 {"@type":"FAQPage","mainEntity":[
   {"@type":"Question","name":"كيف أفوز في XO؟","acceptedAnswer":{"@type":"Answer","text":"اجعل ثلاث علامات متتالية، أفقياً أو عمودياً أو قطرياً، قبل خصمك."}},
   {"@type":"Question","name":"هل المستوى الصعب لا يُهزم؟","acceptedAnswer":{"@type":"Answer","text":"نعم، يلعب بأفضل حركة ممكنة دائماً، وأفضل ما تحققه ضده هو التعادل."}},
-  {"@type":"Question","name":"هل يمكن اللعب مع صديق؟","acceptedAnswer":{"@type":"Answer","text":"نعم، اختر وضع لاعبين وتناوبا اللعب على الشاشة نفسها."}},
+  {"@type":"Question","name":"هل يمكن اللعب مع صديق؟","acceptedAnswer":{"@type":"Answer","text":"نعم، إما على الشاشة نفسها بوضع لاعبين، أو أونلاين: أنشئ غرفة وأرسل الرابط لصديقك فيلعب كل منكما من جواله."}},
+  {"@type":"Question","name":"كيف ألعب أونلاين؟","acceptedAnswer":{"@type":"Answer","text":"اضغط إنشاء غرفة تحت اللوحة، أرسل الرابط أو الرمز لصديقك، وتبدأ المباراة فور انضمامه."}},
   {"@type":"Question","name":"من يبدأ؟","acceptedAnswer":{"@type":"Answer","text":"يبدأ اللاعب X، وتتناوب البداية بين الجولات."}},
   {"@type":"Question","name":"هل تُحفظ النقاط؟","acceptedAnswer":{"@type":"Answer","text":"تُعدّ النقاط خلال زيارتك فقط وتُصفَّر بإعادة تحميل الصفحة."}}
 ]}
@@ -67,7 +68,7 @@
   <div class="card">
     <div class="card-icon" style="background:#dbeafe;">❌</div>
     <h1 class="card-title">لعبة إكس أو (XO) ❌⭕</h1>
-    <div class="card-subtitle">العب ضد الجوال بثلاث مستويات، أو مع صديق على الجهاز نفسه</div>
+    <div class="card-subtitle">العب ضد الجوال، أو مع صديق على الجهاز نفسه، أو أونلاين كل واحد من جواله</div>
     <div class="divider"></div>
     <style>
       .pt-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
@@ -86,13 +87,14 @@
       .xo-b button{aspect-ratio:1;border:2px solid var(--border);border-radius:14px;background:var(--surface);font-size:clamp(36px,12vw,56px);font-weight:800;font-family:inherit;cursor:pointer;color:var(--text);line-height:1;}
       .xo-b button.x{color:#2563eb;} .xo-b button.o{color:#dc2626;} .xo-b button.w{background:#fef9c3;border-color:#eab308;}
     </style>
-    <div class="pt-row">
+    <div class="pt-row" id="xoModes">
       <button type="button" class="pt-btn2" data-m="easy">سهل</button><button type="button" class="pt-btn2 on" data-m="mid">متوسط</button><button type="button" class="pt-btn2" data-m="hard">صعب</button><button type="button" class="pt-btn2" data-m="two">لاعبان</button>
     </div>
     <div class="pt-stat"><div><b id="xoX">0</b>X</div><div><b id="xoD">0</b>تعادل</div><div><b id="xoO">0</b>O</div></div>
     <div class="pt-big" id="xoMsg" aria-live="polite" style="font-size:17px;"></div>
     <div class="xo-b" id="xoB"></div>
     <div class="pt-row" style="justify-content:center;margin-top:12px;"><button type="button" class="pt-btn" id="xoNew">🔄 جولة جديدة</button></div>
+    <div id="xoRoom"></div>
   </div>
 
   <div class="card" style="margin-top:16px;">
@@ -117,7 +119,11 @@
     </details>
     <details style="margin-top:10px;">
       <summary style="font-weight:700;cursor:pointer;font-size:14px;">هل يمكن اللعب مع صديق؟</summary>
-      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">نعم، اختر وضع لاعبين وتناوبا اللعب على الشاشة نفسها.</p>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">نعم، إما على الشاشة نفسها بوضع لاعبين، أو أونلاين: أنشئ غرفة وأرسل الرابط لصديقك فيلعب كل منكما من جواله.</p>
+    </details>
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700;cursor:pointer;font-size:14px;">كيف ألعب أونلاين؟</summary>
+      <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">اضغط إنشاء غرفة تحت اللوحة، أرسل الرابط أو الرمز لصديقك، وتبدأ المباراة فور انضمامه.</p>
     </details>
     <details style="margin-top:10px;">
       <summary style="font-weight:700;cursor:pointer;font-size:14px;">من يبدأ؟</summary>
@@ -148,6 +154,7 @@
   </div>
 </footer>
 
+<script src="jo/tools/jo-room.js?v=1"></script>
 <script>
 (function () {
   var $ = function (i) { return document.getElementById(i); };
@@ -183,6 +190,7 @@
     return over;
   }
   function play(i) {
+    if (on) { onlinePlay(i); return; }
     if (over || b[i] || (mode !== 'two' && turn === 'O')) return;
     b[i] = turn; render(); if (end()) return;
     turn = turn === 'X' ? 'O' : 'X'; msg();
@@ -195,8 +203,44 @@
   var box = $('xoB');
   for (var k = 0; k < 9; k++) (function (i) { var e = document.createElement('button'); e.type = 'button'; e.setAttribute('aria-label', 'مربع ' + (i + 1)); e.addEventListener('click', function () { play(i); }); box.appendChild(e); btns.push(e); })(k);
   document.querySelectorAll('[data-m]').forEach(function (e) { e.addEventListener('click', function () { mode = e.getAttribute('data-m'); document.querySelectorAll('[data-m]').forEach(function (x) { x.classList.toggle('on', x === e); }); sc = { X: 0, O: 0, D: 0 }; first = 'X'; fresh(); end(); $('xoMsg').textContent = ''; msg(); }); });
-  $('xoNew').addEventListener('click', fresh);
+  $('xoNew').addEventListener('click', function () { if (on) { if (R && R.s.o) newRound(); } else fresh(); });
   fresh();
+  var on = null, R = null, my = '';
+  function pname(m) { var p = on.players[m === 'X' ? 0 : 1]; return p ? p.name : (m === 'X' ? 'X' : 'O'); }
+  function sync() {
+    if (!on || !R) return;
+    if (R.status !== 'playing' || !R.s.b) { $('xoMsg').textContent = 'بانتظار اللاعب الثاني…'; return; }
+    var s = R.s, ids = on.players.map(function (p) { return p.id; }), ix = ids.indexOf(on.pid);
+    my = ix === 0 ? 'X' : ix === 1 ? 'O' : '';
+    b = s.b.split('').map(function (c) { return c === '.' ? '' : c; }); turn = s.t; over = !!s.o; sc = s.sc; render();
+    var wl = win(b); if (over && wl) wl.forEach(function (i) { btns[i].classList.add('w'); });
+    $('xoX').textContent = sc.X; $('xoO').textContent = sc.O; $('xoD').textContent = sc.D;
+    var m;
+    if (on.players.length < 2) m = 'غادر اللاعب الآخر. بانتظار لاعب جديد…';
+    else if (over) m = s.w === 'D' ? '🤝 تعادل' : s.w === my ? '🎉 فزت!' : '😅 فاز ' + pname(s.w);
+    else m = turn === my ? 'دورك (' + my + ')' : 'دور ' + pname(turn) + ' (' + turn + ')';
+    $('xoMsg').textContent = m;
+  }
+  function onlinePlay(i) {
+    if (!R || !R.s.b || over || b[i] || turn !== my || on.players.length < 2) return;
+    var nb = b.slice(); nb[i] = my; var w = win(nb), s = R.s;
+    var ns = { b: nb.map(function (c) { return c || '.'; }).join(''), t: my === 'X' ? 'O' : 'X', f: s.f, sc: { X: s.sc.X, O: s.sc.O, D: s.sc.D }, n: s.n, o: 0 };
+    if (w) { ns.o = 1; ns.w = my; ns.sc[my]++; } else if (nb.every(Boolean)) { ns.o = 1; ns.w = 'D'; ns.sc.D++; }
+    on.setState(ns, 'playing');
+  }
+  function newRound() {
+    var s = R.s, f = s.f === 'X' ? 'O' : 'X';
+    on.setState({ b: '.........', t: f, f: f, sc: s.sc, n: s.n + 1, o: 0 }, 'playing');
+  }
+  if (window.JoRoom) JoRoom.mount($('xoRoom'), {
+    game: 'xo', min: 2, max: 2, shareText: 'تعال نلعب XO أونلاين',
+    onHostStart: function (c) { c.setState({ b: '.........', t: 'X', f: 'X', sc: { X: 0, O: 0, D: 0 }, n: 1, o: 0 }, 'playing'); },
+    onJoin: function (c) { on = c; R = null; $('xoModes').hidden = true; mode = 'online'; sc = { X: 0, O: 0, D: 0 }; b = ['', '', '', '', '', '', '', '', '']; over = true; render(); $('xoMsg').textContent = 'بانتظار اللاعب الثاني…'; },
+    onPlayers: function (pl, c) { if (c.isHost() && c.room && c.room.status === 'lobby' && pl.length >= 2) c.setState({ b: '.........', t: 'X', f: 'X', sc: { X: 0, O: 0, D: 0 }, n: 1, o: 0 }, 'playing'); sync(); },
+    onRoom: function (r) { R = r; sync(); },
+    onLeave: function (forced) { on = null; R = null; mode = 'mid'; $('xoModes').hidden = false; sc = { X: 0, O: 0, D: 0 }; first = 'X'; fresh(); end(); $('xoMsg').textContent = forced ? 'أغلق المضيف الغرفة.' : ''; $('xoX').textContent = 0; $('xoO').textContent = 0; $('xoD').textContent = 0; }
+  });
+
 })();
 </script>
 <script src="i18n-lang-ar.js?v=4" defer></script>

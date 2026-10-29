@@ -120,7 +120,7 @@ const SUDOKU = {
 
 const WSEARCH = {
   icon: '🔍', bg: '#dcfce7', grad: '#15803d,#052e16', title: 'لعبة البحث عن الكلمات', h1: 'لعبة البحث عن الكلمات 🔍',
-  sub: 'ابحث عن الكلمات العربية المخفية بين الحروف أفقياً وعمودياً وقطرياً قبل أن يمضي الوقت',
+  sub: 'ابحث عن الكلمات العربية المخفية بين الحروف، أو تسابق مع صديق أونلاين لدقيقتين',
   desc: 'لعبة البحث عن الكلمات (حروف متشابكة) بالعربية: شبكة جديدة في كل مرة بفئات متنوعة، اضغط أول حرف ثم آخر حرف لتحديد الكلمة. مؤقت وأفضل وقت.',
   kw: 'البحث عن الكلمات, لعبة الكلمات المتقاطعة, حروف متشابكة, لعبة كلمات عربي, word search arabic',
   search: 'البحث عن الكلمات كلمات متقاطعة حروف متشابكة لعبة كلمات عربي word search تسلية',
@@ -130,7 +130,8 @@ const WSEARCH = {
     ['بأي اتجاهات تختبئ الكلمات؟', 'أفقياً من اليمين إلى اليسار، وعمودياً من الأعلى إلى الأسفل، وقطرياً بالاتجاهين نحو الأسفل.'],
     ['هل الشبكة تتغير كل مرة؟', 'نعم، تُولَّد شبكة جديدة وكلمات مختلفة في كل مرة.'],
     ['ما الفئات؟', 'حيوانات، فواكه، دول، مهن.'],
-    ['هل أحتاج إنترنت؟', 'لا، تعمل بعد تحميل الصفحة.']
+    ['كيف أتسابق مع صديق؟', 'أنشئ غرفة أونلاين وأرسل الرابط لصديقك. تظهر الشبكة نفسها لكليكما، ومدة السباق دقيقتان؛ من وجد كلمات أكثر يفوز، وعند التعادل يفوز الأسرع.'],
+    ['هل أحتاج إنترنت؟', 'اللعب الفردي يعمل دون اتصال، أما السباق مع صديق فيحتاج إنترنت.']
   ],
   how: ['اختر فئة.', 'ابحث عن كلمات القائمة داخل الشبكة.', 'اضغط على أول حرف ثم آخر حرف.', 'أكمل كل الكلمات لتسجّل وقتك.'],
   rel: [['jo/tools/hangman-ar/', '🔤 لعبة المشنقة'], ['jo/games/wordle/', '🟩 ووردل بالعربي'], ['jo/tools/sudoku/', '🔢 سودوكو']],
@@ -147,7 +148,9 @@ const WSEARCH = {
     <div class="ws-g" id="wsG"></div>
     <div class="ws-l" id="wsL"></div>
     <div class="pt-row" style="justify-content:center;margin-top:12px;"><button type="button" class="pt-btn" id="wsNew">🔄 شبكة جديدة</button></div>
-    <div class="pt-note" id="wsMsg" aria-live="polite"></div>`,
+    <div class="pt-note" id="wsMsg" aria-live="polite"></div>
+    <div id="wsRoom"></div>`,
+  room: true,
   script: String.raw`
 (function () {
   var $ = function (i) { return document.getElementById(i); };
@@ -157,7 +160,7 @@ const WSEARCH = {
     'دول': ['الأردن', 'مصر', 'سوريا', 'لبنان', 'العراق', 'السعودية', 'الكويت', 'قطر', 'عمان', 'اليمن', 'ليبيا', 'تونس', 'المغرب', 'السودان', 'تركيا', 'فرنسا'],
     'مهن': ['طبيب', 'معلم', 'مهندس', 'طيار', 'شرطي', 'طباخ', 'نجار', 'محامي', 'صحفي', 'مزارع', 'ممرض', 'رسام', 'مصور', 'حلاق', 'محاسب', 'خياط']
   };
-  var N = 10, KEY = 'adawati_wsearch_best', BEST = {}, cat = 'حيوانات', grid, words, found, cells = [], first = -1, t0, tm, done = false;
+  var N = 10, KEY = 'adawati_wsearch_best', BEST = {}, cat = 'حيوانات', grid, words, found, cells = [], first = -1, t0, tm, done = false, wc = null, wR = null, wLast = 0, wCatSel = null, LIMIT = 120;
   var LET = 'ابتثجحخدذرزسشصضطظعغفقكلمنهوي'.split('');
   try { BEST = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
   function shuf(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
@@ -172,18 +175,26 @@ const WSEARCH = {
     }
     return false;
   }
-  function build() {
+  function gen(c) {
     var ok = false, pool;
     while (!ok) {
-      grid = new Array(N * N).fill(''); pool = shuf(W[cat].slice()).slice(0, 8); words = [];
+      grid = new Array(N * N).fill(''); pool = shuf(W[c].slice()).slice(0, 8); words = [];
       pool.forEach(function (w) { var n = nz(w).replace(/ /g, ''); if (n.length <= N && place(n.split(''))) words.push({ w: w, n: n }); });
       ok = words.length >= 6;
     }
     grid = grid.map(function (x) { return x || LET[Math.floor(Math.random() * LET.length)]; });
-    found = {}; first = -1; done = false; t0 = Date.now(); $('wsMsg').textContent = '';
+    return { g: grid.join(''), w: words.map(function (x) { return [x.w, x.n]; }), c: c };
+  }
+  function build(p) {
+    p = p || gen(cat);
+    grid = p.g.split(''); words = p.w.map(function (a) { return { w: a[0], n: a[1] }; });
+    fcells = {}; found = {}; first = -1; done = false; t0 = Date.now(); $('wsMsg').textContent = '';
     clearInterval(tm); tm = setInterval(tick, 1000); tick(); paint(); list(); best();
   }
-  function tick() { var s = Math.floor((Date.now() - t0) / 1000); $('wsT').textContent = Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2); }
+  function tick() {
+    var s = Math.floor((Date.now() - t0) / 1000);
+    if (wc) { s = Math.max(0, LIMIT - s); if (s <= 0 && !done) { wsOver(); } }
+    $('wsT').textContent = Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2); }
   function best() { var b = BEST[cat]; $('wsB').textContent = b ? Math.floor(b / 60) + ':' + ('0' + b % 60).slice(-2) : '--'; }
   var fcells = {};
   function paint() { cells.forEach(function (e, i) { e.textContent = grid[i]; e.className = fcells[i] ? 'f' : (i === first ? 's' : ''); }); }
@@ -205,7 +216,11 @@ const WSEARCH = {
     first = -1;
     if (hit) {
       found[hit.n] = true; line.forEach(function (j) { fcells[j] = true; });
-      if (Object.keys(found).length === words.length) {
+      if (wc) {
+        var cnt = Object.keys(found).length;
+        wc.setMine({ sc: cnt, sr: wLast, ft: Math.floor((Date.now() - t0) / 1000) });
+        if (cnt === words.length) wsOver();
+      } else if (Object.keys(found).length === words.length) {
         done = true; clearInterval(tm); var sec = Math.floor((Date.now() - t0) / 1000);
         $('wsMsg').textContent = '🎉 أحسنت! وجدت كل الكلمات في ' + $('wsT').textContent + '.';
         if (!BEST[cat] || sec < BEST[cat]) { BEST[cat] = sec; try { localStorage.setItem(KEY, JSON.stringify(BEST)); } catch (e) {} best(); }
@@ -222,8 +237,57 @@ const WSEARCH = {
     b.addEventListener('click', function () { cat = k2; box.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); }); fcells = {}; build(); });
     box.appendChild(b);
   });
-  $('wsNew').addEventListener('click', function () { fcells = {}; build(); });
+  $('wsNew').addEventListener('click', function () { build(); });
   build();
+  function wsOver() {
+    if (done) return; done = true; clearInterval(tm); tick(); wsRes();
+  }
+  function wsMe() { return wc.players.filter(function (p) { return p.id === wc.pid; })[0] || {}; }
+  function wsOpp() { return wc.players.filter(function (p) { return p.id !== wc.pid; })[0]; }
+  function wsRes() {
+    var me = wsMe(), op = wsOpp(), mc = me.sr === wLast ? (me.sc || 0) : 0, oc2 = op && op.sr === wLast ? (op.sc || 0) : 0, m = $('wsMsg');
+    if (!op) { m.textContent = 'غادر المنافس.'; return; }
+    if (!done) { m.textContent = 'منافسك ' + op.name + ': ' + oc2 + ' من ' + words.length + ' — وأنت: ' + mc + '.'; return; }
+    var mt = me.ft == null || me.sr !== wLast ? 999 : me.ft, ot = op.ft == null || op.sr !== wLast ? 999 : op.ft;
+    var res = mc > oc2 || (mc === oc2 && mt < ot) ? '🏆 فزت!' : (mc === oc2 && mt === ot ? '🤝 تعادل' : '😅 فاز ' + op.name);
+    m.textContent = res + ' — أنت ' + mc + ' وكلمات ' + op.name + ' ' + oc2 + ' من ' + words.length + '.';
+    if (wc.isHost()) wsBtn.hidden = false;
+  }
+  function wsSync() {
+    if (!wc || !wR) return;
+    var s = wR.s;
+    if (wR.status === 'playing' && s.r && s.r !== wLast && s.g) {
+      wLast = s.r; build({ g: s.g, w: s.w, c: s.c });
+      $('wsCats').hidden = true; $('wsNew').hidden = true; $('wsB').parentNode.hidden = true;
+      wsBtn.hidden = true; wc.setMine({ sc: 0, sr: wLast, ft: 0 });
+      $('wsMsg').textContent = '⏱ بدأ السباق! لديك دقيقتان.';
+    }
+  }
+  var wsBtn = document.createElement('button'); wsBtn.type = 'button'; wsBtn.className = 'pt-btn'; wsBtn.hidden = true; wsBtn.textContent = '🔄 سباق جديد';
+  $('wsNew').parentNode.appendChild(wsBtn);
+  wsBtn.addEventListener('click', function () { wsStart(wc); });
+  function wsStart(c) {
+    var p = gen((wCatSel && wCatSel.value) || Object.keys(W)[Math.floor(Math.random() * 4)]);
+    var r = ((c.room && c.room.s && c.room.s.r) || 0) + 1;
+    c.setState({ r: r, g: p.g, w: p.w, c: p.c }, 'playing');
+  }
+  if (window.JoRoom) JoRoom.mount($('wsRoom'), {
+    game: 'ws', min: 2, max: 2, shareText: 'تعال نتسابق في لعبة البحث عن الكلمات (دقيقتان)',
+    hostExtra: function () {
+      var w = document.createElement('div');
+      if (!wCatSel) {
+        wCatSel = document.createElement('select'); wCatSel.className = 'jr-in';
+        var o0 = document.createElement('option'); o0.value = ''; o0.textContent = 'الفئة: عشوائي'; wCatSel.appendChild(o0);
+        Object.keys(W).forEach(function (n) { var o = document.createElement('option'); o.value = n; o.textContent = 'الفئة: ' + n; wCatSel.appendChild(o); });
+      }
+      w.appendChild(wCatSel); return w;
+    },
+    onHostStart: function (c) { wsStart(c); },
+    onJoin: function (c) { wc = c; wR = null; wLast = 0; clearInterval(tm); done = true; $('wsCats').hidden = true; $('wsNew').hidden = true; $('wsMsg').textContent = 'بانتظار بدء السباق…'; },
+    onPlayers: function () { if (!wc || !wLast) return; var op = wsOpp(); if (!done && op && op.sr === wLast && op.sc === words.length && wLast) { wsOver(); } else wsRes(); },
+    onRoom: function (r) { wR = r; wsSync(); },
+    onLeave: function () { wc = null; wR = null; wLast = 0; wsBtn.hidden = true; $('wsCats').hidden = false; $('wsNew').hidden = false; $('wsB').parentNode.hidden = false; build(); }
+  });
 })();
 `
 };

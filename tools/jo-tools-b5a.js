@@ -12,7 +12,7 @@ const CSS = String.raw`
 
 const OUTSIDER = {
   icon: '🕵️', bg: '#fee2e2', grad: '#b91c1c,#450a0a', title: 'لعبة برّا السالفة', h1: 'لعبة برّا السالفة 🕵️',
-  sub: 'لعبة جماعية بجوال واحد: الكل يعرف الكلمة إلا واحد، فمن هو الدخيل؟',
+  sub: 'لعبة جماعية بجوال واحد أو أونلاين مع أصدقائك (كل واحد من جواله): الكل يعرف الكلمة إلا واحد، فمن هو الدخيل؟',
   desc: 'لعبة برّا السالفة أونلاين بجوال واحد: يعرف الجميع الكلمة السرية إلا لاعب واحد، ويحاول الباقون كشفه بالأسئلة. فئات متنوعة ومؤقت نقاش.',
   kw: 'برا السالفة, لعبة برا السالفة, لعبة جماعية, العاب جماعية, لعبة الدخيل, لعبة سهرة',
   search: 'برا السالفة لعبة جماعية الدخيل سهرة اصدقاء عائلة العاب جماعية بدون انترنت',
@@ -21,7 +21,8 @@ const OUTSIDER = {
     ['كيف تُلعب برّا السالفة؟', 'يمرّر اللاعبون الجوال واحداً واحداً، فيرى كل لاعب الكلمة السرية سراً، إلا الدخيل فيرى أنه "برّا السالفة". ثم يتناقش الجميع بأسئلة عن الكلمة دون ذكرها صراحة.'],
     ['كم لاعباً نحتاج؟', 'من ٣ إلى ١٢ لاعباً، والأفضل من ٥ إلى ٨.'],
     ['كيف يفوز الدخيل؟', 'يفوز إذا لم يكتشفه الآخرون، أو إذا خمّن الكلمة السرية بعد كشفه.'],
-    ['هل تحتاج اللعبة إلى إنترنت؟', 'لا، تعمل بعد فتح الصفحة دون أي اتصال ولا يُرسل شيء إلى الخادم.'],
+    ['هل يمكن اللعب من جوالات مختلفة؟', 'نعم، أنشئ غرفة أونلاين وأرسل الرابط لأصدقائك؛ كل لاعب يرى دوره على جواله، ثم تصوّتون على الدخيل.'],
+    ['هل تحتاج اللعبة إلى إنترنت؟', 'اللعب بجوال واحد يعمل دون اتصال. أما الغرفة الأونلاين فتحتاج إنترنت.'],
     ['كيف أغيّر الفئة؟', 'اختر فئة محددة أو "عشوائي" قبل بدء الجولة.']
   ],
   how: ['اختر عدد اللاعبين والفئة وزمن النقاش.', 'مرّروا الجوال؛ كل لاعب يكشف دوره سراً ثم يخفيه.', 'اسألوا بعضكم أسئلة عن الكلمة دون ذكرها.', 'عند انتهاء الوقت صوّتوا ثم اكشفوا الدخيل.'],
@@ -40,7 +41,15 @@ const OUTSIDER = {
       <div class="pt-big" id="osCard"></div>
       <div class="pt-row" style="margin-top:12px;justify-content:center;"><button type="button" class="pt-btn" id="osNext">👁 اكشف دوري</button></div>
       <div class="pt-note" id="osMsg" style="text-align:center;"></div>
-    </div>`,
+    </div>
+    <div id="osOnline" hidden>
+      <div class="pt-big" id="osOCard" style="white-space:pre-line;cursor:pointer;"></div>
+      <div id="osOVote" class="pt-row" style="margin-top:12px;justify-content:center;"></div>
+      <div class="pt-row" style="margin-top:12px;justify-content:center;"><button type="button" class="pt-btn" id="osOBtn" hidden></button></div>
+      <div class="pt-note" id="osOMsg" style="text-align:center;"></div>
+    </div>
+    <div id="osRoom"></div>`,
+  room: true,
   script: String.raw`
 (function () {
   var $ = function (i) { return document.getElementById(i); };
@@ -96,6 +105,96 @@ const OUTSIDER = {
     show();
   });
   $('osStart').addEventListener('click', start);
+
+  var oc = null, oR = null, oLast = 0, oRole = null, oShow = false, oEnd = 0, oTm = null, oCatSel = null, oMinSel = null;
+  function oName(id) { var p = oc.players.filter(function (x) { return x.id === id; })[0]; return p ? p.name : '؟'; }
+  function oRoleTxt() {
+    if (oRole == null) return '…';
+    var a = oRole.split('|');
+    return a[0] === '#OUT' ? '🕵️ أنت برّا السالفة!\nالفئة: ' + a[1] : 'الكلمة: ' + a[1] + '\nالفئة: ' + a[2];
+  }
+  function oPaint() {
+    if (!oc || !oR) return;
+    var s = oR.s, card = $('osOCard'), msg = $('osOMsg'), vote = $('osOVote'), btn = $('osOBtn'), host = oc.isHost();
+    clearInterval(oTm); vote.innerHTML = ''; btn.hidden = true;
+    if (oR.status !== 'playing' || !s.ph) { card.textContent = ''; msg.textContent = ''; return; }
+    if (s.ph === 'play') {
+      card.style.color = oShow && oRole && oRole.indexOf('#OUT') === 0 ? '#dc2626' : '';
+      card.textContent = oShow ? oRoleTxt() : '👁 اضغط هنا لإظهار دورك (أخفِه قبل أن يراه أحد)';
+      var tick = function () { var l = Math.max(0, Math.round((oEnd - Date.now()) / 1000)); msg.textContent = '💬 النقاش ' + Math.floor(l / 60) + ':' + ('0' + (l % 60)).slice(-2) + ' — اسألوا بعضكم عن الكلمة دون ذكرها.'; };
+      tick(); oTm = setInterval(tick, 1000);
+      if (host) { btn.hidden = false; btn.textContent = '🗳 ابدأ التصويت'; }
+    } else if (s.ph === 'vote') {
+      card.style.color = ''; card.textContent = '🗳 من الدخيل برأيك؟';
+      var mine = oc.players.filter(function (p) { return p.id === oc.pid; })[0], mv = mine && mine.vr === s.r ? mine.v : '', n = oc.players.filter(function (p) { return p.vr === s.r && p.v; }).length;
+      oc.players.forEach(function (p) {
+        if (p.id === oc.pid) return;
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'pt-btn2' + (mv === p.id ? ' on' : ''); b.textContent = p.name;
+        b.addEventListener('click', function () { oc.setMine({ v: p.id, vr: s.r }); }); vote.appendChild(b);
+      });
+      msg.textContent = (mv ? 'صوّتَّ لـ ' + oName(mv) + '. ' : '') + 'صوّت ' + n + ' من ' + oc.players.length + '.';
+      if (host) { btn.hidden = false; btn.textContent = '📢 اكشف النتيجة'; }
+    } else {
+      var r = s.res || {}, lines = ['الدخيل: ' + r.outName, 'الكلمة: ' + r.word, '', r.caught ? '✅ كشفتم الدخيل!' : '😈 نجا الدخيل!'];
+      card.style.color = ''; card.textContent = lines.join('\n');
+      msg.textContent = 'الأصوات: ' + (r.tally || []).map(function (t) { return t[0] + ' (' + t[1] + ')'; }).join('، ') + '. إن خمّن الدخيل الكلمة بعد كشفه فهو الفائز.';
+      if (host) { btn.hidden = false; btn.textContent = '🔄 جولة جديدة'; }
+    }
+  }
+  function oSync() {
+    if (!oc || !oR) return;
+    var s = oR.s;
+    if (oR.status === 'playing' && s.r && s.r !== oLast) {
+      oLast = s.r; oRole = null; oShow = false; oEnd = Date.now() + (s.dur || 3) * 60000;
+      oc.getSecret().then(function (t) { oRole = t; oPaint(); });
+    }
+    oPaint();
+  }
+  function oHostRound(c) {
+    var ids = c.players.map(function (p) { return p.id; }), prev = (c.room && c.room.s) || {};
+    var cat = (oCatSel && oCatSel.value) || prev.cf || '', real = cat || names[rnd(names.length)], list = CATS[real], word = list[rnd(list.length)], out = ids[rnd(ids.length)];
+    var dur = oMinSel ? +oMinSel.value : (prev.dur || 3), r = (prev.r || 0) + 1;
+    Promise.all(ids.map(function (id) { return c.setSecret(id, id === out ? '#OUT|' + real : 'W|' + word + '|' + real); }))
+      .then(function () { return c.setState({ ph: 'play', r: r, cat: real, cf: cat, dur: dur }, 'playing'); });
+  }
+  function oResult(c) {
+    var s = c.room.s, ids = c.players.map(function (p) { return p.id; });
+    Promise.all(ids.map(function (id) { return c.getSecret(id).then(function (t) { return [id, t]; }); })).then(function (all) {
+      var out = '', word = '';
+      all.forEach(function (x) { if (x[1] && x[1].indexOf('#OUT') === 0) out = x[0]; else if (x[1] && !word) word = x[1].split('|')[1]; });
+      var cnt = {}; c.players.forEach(function (p) { if (p.vr === s.r && p.v) cnt[p.v] = (cnt[p.v] || 0) + 1; });
+      var top = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a]; });
+      var tally = top.map(function (id) { return [oName(id), cnt[id]]; });
+      var caught = top.length > 0 && top[0] === out && (top.length < 2 || cnt[top[1]] < cnt[top[0]]);
+      c.setState({ ph: 'res', r: s.r, cat: s.cat, cf: s.cf, dur: s.dur, res: { outName: oName(out), word: word, tally: tally, caught: caught } }, 'playing');
+    });
+  }
+  $('osOCard').addEventListener('click', function () { if (oR && oR.s.ph === 'play') { oShow = !oShow; oPaint(); } });
+  $('osOBtn').addEventListener('click', function () {
+    var s = oR.s;
+    if (s.ph === 'play') oc.setState({ ph: 'vote', r: s.r, cat: s.cat, cf: s.cf, dur: s.dur }, 'playing');
+    else if (s.ph === 'vote') oResult(oc);
+    else oHostRound(oc);
+  });
+  if (window.JoRoom) JoRoom.mount($('osRoom'), {
+    game: 'os', min: 3, max: 12, shareText: 'تعال العب برّا السالفة معنا أونلاين',
+    hostExtra: function () {
+      var w = document.createElement('div');
+      if (!oCatSel) {
+        oCatSel = document.createElement('select'); oCatSel.className = 'jr-in';
+        var o0 = document.createElement('option'); o0.value = ''; o0.textContent = 'الفئة: عشوائي'; oCatSel.appendChild(o0);
+        names.forEach(function (n) { var o = document.createElement('option'); o.value = n; o.textContent = 'الفئة: ' + n; oCatSel.appendChild(o); });
+        oMinSel = document.createElement('select'); oMinSel.className = 'jr-in';
+        [2, 3, 5, 8].forEach(function (m) { var o = document.createElement('option'); o.value = m; o.textContent = 'زمن النقاش: ' + m + ' دقائق'; if (m === 3) o.selected = true; oMinSel.appendChild(o); });
+      }
+      w.appendChild(oCatSel); w.appendChild(oMinSel); return w;
+    },
+    onHostStart: function (c) { oHostRound(c); },
+    onJoin: function (c) { oc = c; oR = null; oLast = 0; $('osSetup').hidden = true; $('osPlay').hidden = true; $('osOnline').hidden = false; $('osOCard').textContent = ''; $('osOMsg').textContent = ''; },
+    onPlayers: function () { oPaint(); },
+    onRoom: function (r) { oR = r; oSync(); },
+    onLeave: function () { oc = null; oR = null; clearInterval(oTm); $('osOnline').hidden = true; $('osSetup').hidden = false; }
+  });
 })();
 `
 };
