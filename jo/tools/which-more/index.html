@@ -255,11 +255,12 @@
   }
   function wmRank() {
     var r = $('wmRank'); if (!wmc || !wmLast) { r.textContent = ''; return; }
-    var pl = wmc.players.filter(function (p) { return p.sr === wmLast; });
+    var N = wmQs.length, pl = wmc.players.map(function (p) { var cur = p.sr === wmLast; return { id: p.id, name: p.name, sc: cur ? (p.sc || 0) : 0, pg: cur ? (p.pg || 0) : 0, ft: cur ? (p.ft || 0) : 0 }; });
     pl.sort(function (a, b) { return (b.sc || 0) - (a.sc || 0) || (a.ft || 0) - (b.ft || 0); });
-    var all = pl.length === wmc.players.length && pl.every(function (p) { return (p.pg || 0) >= wmQs.length; });
-    var t = pl.map(function (p, i) { return (all && i === 0 ? '🏆 ' : '') + p.name + (p.id === wmc.pid ? ' (أنت)' : '') + ': ' + (p.sc || 0) + ' صحيحة — ' + (p.pg || 0) + '/' + wmQs.length; }).join('\n');
+    var all = pl.every(function (p) { return p.pg >= N; });
+    var t = pl.map(function (p, i) { return (all && i === 0 ? '🏆 ' : '') + p.name + (p.id === wmc.pid ? ' (أنت)' : '') + ': ' + p.sc + ' صحيحة — ' + p.pg + '/' + N + (p.pg < N ? ' ⏳' : ' ✓'); }).join('\n');
     if (all) t += '\n' + (pl.length > 1 && pl[0].sc === pl[1].sc && pl[0].ft === pl[1].ft ? '🤝 تعادل!' : 'انتهى السباق! الفائز: ' + pl[0].name);
+    else if (wmDone) t += '\n⏳ بانتظار بقية اللاعبين ليكملوا أسئلتهم…';
     r.textContent = t; wmAgain.hidden = !(all && wmc.isHost());
   }
   var wmAgain = document.createElement('button'); wmAgain.type = 'button'; wmAgain.className = 'pt-btn'; wmAgain.hidden = true; wmAgain.textContent = '🔄 سباق جديد';
