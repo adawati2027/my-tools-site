@@ -3,6 +3,7 @@
 Multi-tool Arabic site (calculators/converters/games). Owner: Ahmed Amawi. Static, no npm/bundler/local-git.
 
 ## Token-saving rules (owner's standing request — apply every task)
+- **Priority #1 always.** Log every new/old token-saving trick in memory `token_usage_discipline.md` (browser: one `browser_batch` per post/flow; JS/`find` checks before screenshots).
 
 - **API/script > browser.** Browser only when no API exists (e.g. GCP console, Cloudflare dashboard).
 - **Reuse `tools/`**; save one-offs there if reusable later.
