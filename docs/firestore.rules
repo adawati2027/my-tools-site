@@ -226,7 +226,7 @@ service cloud.firestore {
       allow get: if true;
       allow list: if false;
       allow create: if request.resource.data.keys().hasOnly(['game','hostId','hostName','status','state','createdAt','updatedAt'])
-        && request.resource.data.game in ['xo','os','ws','wm']
+        && request.resource.data.game in ['xo','os','ws','wm','cw']
         && request.resource.data.status == 'lobby'
         && request.resource.data.hostId is string && request.resource.data.hostId.size() <= 40
         && request.resource.data.hostName is string && request.resource.data.hostName.size() <= 40

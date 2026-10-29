@@ -13,7 +13,7 @@ const CSS = String.raw`
 const CROSSWORD = {
   icon: '🧩', bg: '#ede9fe', grad: '#6d28d9,#2e1065', title: 'لعبة الكلمات المتقاطعة', h1: 'لعبة الكلمات المتقاطعة 🧩',
   sub: 'حلّ الكلمات المتقاطعة بالعربية: تعريفات أفقية وعمودية، وشبكة جديدة في كل مرة',
-  desc: 'لعبة كلمات متقاطعة بالعربية مجانية: شبكة جديدة في كل مرة بتعريفات أفقية وعمودية وفئات متنوعة، مع لوحة حروف عربية وتحقق وتلميحات ومؤقت وأفضل وقت.',
+  desc: 'لعبة كلمات متقاطعة بالعربية مجانية: شبكة جديدة في كل مرة بتعريفات أفقية وعمودية وفئات متنوعة، مع لوحة حروف عربية وتحقق وتلميحات ومؤقت وأفضل وقت، أو تسابق مع صديق أونلاين والأسرع يفوز.',
   kw: 'كلمات متقاطعة, لعبة الكلمات المتقاطعة, كلمات متقاطعة عربي, حل الكلمات المتقاطعة, crossword arabic',
   search: 'كلمات متقاطعة لعبة كلمات متقاطعة عربي تعريفات افقي عمودي crossword الغاز تسلية',
   cardDesc: 'كلمات متقاطعة بتعريفات أفقية وعمودية وشبكة جديدة كل مرة', cat: 'games',
@@ -23,9 +23,10 @@ const CROSSWORD = {
     ['هل يجب كتابة الهمزة والتاء المربوطة؟', 'لا، تعدّ اللعبة الألف والهمزة حرفاً واحداً، والهاء والتاء المربوطة حرفاً واحداً، والياء والألف المقصورة حرفاً واحداً.'],
     ['كيف تعمل المساعدة؟', 'زر «تحقق» يلوّن الحروف الخاطئة بالأحمر، و«كشف حرف» يكتب لك حرف الخانة المحددة، و«كشف الكلمة» يكتب الكلمة كاملة. لا يُحفظ أفضل وقت إن استخدمت الكشف.'],
     ['هل الشبكة تتغير كل مرة؟', 'نعم، تُختار كلمات مختلفة وتُرتَّب بشكل جديد في كل مرة، ويمكنك اختيار فئة محددة أو منوّعة.'],
-    ['هل أحتاج إنترنت؟', 'لا، تعمل اللعبة بعد تحميل الصفحة دون اتصال.']
+    ['كيف ألعب مع صديق؟', 'أنشئ غرفة وأرسل الرابط أو الرمز لصديقك. يحصل الاثنان على اللغز نفسه، ومن يكمل كل الكلمات أولاً هو الفائز. يُمنع الكشف أثناء السباق.'],
+    ['هل أحتاج إنترنت؟', 'للعب الفردي لا، تعمل اللعبة بعد تحميل الصفحة دون اتصال. أما السباق مع صديق فيحتاج إنترنت.']
   ],
-  how: ['اختر فئة.', 'اضغط خانة واقرأ التعريف في الأعلى.', 'اكتب الجواب بلوحة الحروف.', 'أكمل كل الخانات لتسجّل وقتك.'],
+  how: ['اختر فئة.', 'اضغط خانة واقرأ التعريف في الأعلى.', 'اكتب الجواب بلوحة الحروف.', 'أكمل كل الخانات لتسجّل وقتك، أو أنشئ غرفة وتسابق مع صديق.'],
   rel: [['jo/tools/word-search/', '🔍 البحث عن الكلمات'], ['jo/tools/hangman-ar/', '🔤 لعبة المشنقة'], ['jo/games/wordle/', '🟩 ووردل بالعربي']],
   main: CSS + String.raw`
     <style>
@@ -46,6 +47,8 @@ const CROSSWORD = {
     </style>
     <div class="pt-row" id="cwCats"></div>
     <div class="pt-stat"><div><b id="cwT">0:00</b>الوقت</div><div><b id="cwF">0/0</b>الكلمات</div><div><b id="cwB">--</b>أفضل وقت</div></div>
+    <div class="pt-note" id="cwMsg" aria-live="polite"></div>
+    <div id="cwPlay">
     <div class="cw-clue" id="cwClue"></div>
     <div class="cw-g" id="cwG"></div>
     <div class="cw-kb" id="cwKb"></div>
@@ -55,8 +58,10 @@ const CROSSWORD = {
       <button type="button" class="pt-btn2" id="cwWd">💡 كشف الكلمة</button>
       <button type="button" class="pt-btn" id="cwNew">🔄 لغز جديد</button>
     </div>
-    <div class="pt-note" id="cwMsg" aria-live="polite"></div>
-    <div class="cw-lists"><div><h3>أفقياً ⬅</h3><div id="cwA"></div></div><div><h3>عمودياً ⬇</h3><div id="cwD"></div></div></div>`,
+    <div class="cw-lists"><div><h3>أفقياً ⬅</h3><div id="cwA"></div></div><div><h3>عمودياً ⬇</h3><div id="cwD"></div></div></div>
+    </div>
+    <div id="cwRoom"></div>`,
+  room: true,
   script: String.raw`
 (function () {
   var $ = function (i) { return document.getElementById(i); };
@@ -66,7 +71,7 @@ const CROSSWORD = {
     'فواكه وخضار': [['تفاح', 'فاكهة حمراء أو خضراء مشهورة'], ['موز', 'فاكهة صفراء مقوّسة'], ['عنب', 'فاكهة نصنع منها الزبيب'], ['برتقال', 'فاكهة حمضية غنية بفيتامين سي'], ['ليمون', 'فاكهة حامضة صفراء'], ['رمان', 'فاكهة حبّاتها حمراء متراصّة'], ['بطيخ', 'فاكهة صيفية خضراء من الخارج وحمراء من الداخل'], ['مشمش', 'فاكهة صغيرة صفراء برتقالية'], ['خوخ', 'فاكهة صيفية ناعمة القشرة'], ['تين', 'فاكهة حلوة تؤكل طازجة أو مجففة'], ['فراولة', 'فاكهة حمراء صغيرة تغطي سطحها حبوب'], ['كرز', 'فاكهة حمراء صغيرة بنواة'], ['شمام', 'فاكهة صيفية برتقالية اللب'], ['جزر', 'خضار برتقالي يحبه الأرنب'], ['بصل', 'خضار يُبكينا عند تقطيعه'], ['طماطم', 'خضار حمراء نصنع منها الصلصة'], ['خيار', 'خضار خضراء منعشة في السلطة'], ['بطاطا', 'درنة تُقلى فتصبح رقائق'], ['ثوم', 'خضار برائحة قوية يُستخدم في الطبخ'], ['فلفل', 'خضار حار أو حلو بألوان متعددة'], ['باذنجان', 'خضار بنفسجية اللون'], ['زيتون', 'ثمرة نأخذ منها الزيت'], ['تمر', 'ثمرة النخيل'], ['نعناع', 'عشب عطري يوضع في الشاي']],
     'مهن': [['طبيب', 'يعالج المرضى'], ['معلم', 'يعلّم الطلاب في المدرسة'], ['مهندس', 'يصمّم المباني والآلات'], ['طيار', 'يقود الطائرة'], ['شرطي', 'يحفظ الأمن'], ['نجار', 'يصنع الأثاث من الخشب'], ['خباز', 'يصنع الخبز'], ['طباخ', 'يعدّ الطعام'], ['ممرض', 'يساعد الطبيب في رعاية المرضى'], ['محامي', 'يدافع عن موكّله أمام القضاء'], ['مزارع', 'يزرع الأرض'], ['حداد', 'يطرق الحديد ليشكّله'], ['خياط', 'يخيط الملابس'], ['رسام', 'يرسم اللوحات'], ['صحفي', 'يكتب الأخبار'], ['سائق', 'يقود السيارة'], ['حلاق', 'يقصّ الشعر'], ['قاضي', 'يحكم بين الناس في المحكمة'], ['صيدلي', 'يبيع الأدوية'], ['مصور', 'يلتقط الصور'], ['جندي', 'يحمي الوطن'], ['تاجر', 'يبيع ويشتري'], ['كاتب', 'يؤلّف الكتب والقصص']]
   };
-  var MIX = 'منوّعة', N = 13, KEY = 'adawati_crossword_best', BEST = {}, cat = MIX, R, C, words, sol, nn, user, num, cw, bad, sel, dir, t0, tm, done, hints, cells = [], KEYS = 'ابتثجحخدذرزسشصضطظعغفقكلمنهويأةىئءؤ'.split('');
+  var MIX = 'منوّعة', N = 13, KEY = 'adawati_crossword_best', BEST = {}, cat = MIX, R, C, words, sol, nn, user, num, cw, bad, sel, dir, t0, tm, done, hints, rc = null, rR = null, cLast = 0, LIMIT = 600, cCatSel = null, sent = -1, myFt = 0, cells = [], KEYS = 'ابتثجحخدذرزسشصضطظعغفقكلمنهويأةىئءؤ'.split('');
   try { BEST = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
   function shuf(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function nz(s) { return s.replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي'); }
@@ -164,16 +169,22 @@ const CROSSWORD = {
     words.forEach(function (w, wi) { if (wordDone(wi)) fin++; });
     $('cwF').textContent = fin + '/' + words.length;
     document.querySelectorAll('.cw-lists button').forEach(function (b) { var wi = +b.dataset.w; b.className = (wi === aw ? 'a ' : '') + (wordDone(wi) ? 'f' : ''); });
+    if (rc && cLast && !done && fin !== sent) { sent = fin; myFt = Math.floor((Date.now() - t0) / 1000); rc.setMine({ sc: fin, sr: cLast, ft: myFt }); }
     $('cwClue').textContent = aw >= 0 ? words[aw].num + ' ' + (dir ? 'عمودي' : 'أفقي') + ': ' + words[aw].clue + ' (' + words[aw].ch.length + ' حروف)' : '';
   }
-  function tick() { if (!done) $('cwT').textContent = fmt(Math.floor((Date.now() - t0) / 1000)); }
+  function tick() {
+    if (done) return;
+    var s = Math.floor((Date.now() - t0) / 1000);
+    if (rc) { s = Math.max(0, LIMIT - s); if (s <= 0 && cLast) { $('cwT').textContent = fmt(0); cwOver(); return; } }
+    $('cwT').textContent = fmt(s);
+  }
   function best() { var b = BEST[cat]; $('cwB').textContent = b ? fmt(b) : '--'; }
   function pick(i) { if (done) return; if (i === sel) { if (cw[i][1 - dir] >= 0) dir = 1 - dir; } else { sel = i; if (cw[i][dir] < 0) dir = 1 - dir; } paint(); }
   function cur() { var w = cw[sel][dir], cs = w >= 0 ? wc(w) : []; return { cs: cs, p: cs.indexOf(sel) }; }
   function typ(ch) {
     if (done || sel < 0) return;
     user[sel] = ch; delete bad[sel]; var c = cur(); if (c.p >= 0 && c.p < c.cs.length - 1) sel = c.cs[c.p + 1];
-    paint(); if (allDone()) win();
+    paint(); if (allDone()) { if (rc) cwOver(); else win(); }
   }
   function back() {
     if (done || sel < 0) return;
@@ -212,6 +223,63 @@ const CROSSWORD = {
     var b = document.createElement('button'); b.type = 'button'; b.className = 'pt-btn2' + (k === cat ? ' on' : ''); b.textContent = k;
     b.addEventListener('click', function () { cat = k; box.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); }); build(); });
     box.appendChild(b);
+  });
+  var cwBtn = document.createElement('button'); cwBtn.type = 'button'; cwBtn.className = 'pt-btn'; cwBtn.hidden = true; cwBtn.textContent = '🔄 سباق جديد';
+  $('cwNew').parentNode.appendChild(cwBtn);
+  var soloEls = ['cwCats', 'cwNew', 'cwHint', 'cwWd'];
+  function cwMe() { return rc.players.filter(function (p) { return p.id === rc.pid; })[0] || {}; }
+  function cwOpp() { return rc.players.filter(function (p) { return p.id !== rc.pid; })[0]; }
+  function myFin() { var n = 0; words.forEach(function (w, wi) { if (wordDone(wi)) n++; }); return n; }
+  function cwOver() {
+    if (done) return; done = true; clearInterval(tm); cwRes();
+  }
+  function cwRes() {
+    var op = cwOpp(), m = $('cwMsg'), tot = words.length, mc = myFin(), oc = op && op.sr === cLast ? (op.sc || 0) : 0;
+    if (!op) { m.textContent = 'غادر المنافس.'; return; }
+    if (!done) { m.textContent = 'منافسك ' + op.name + ': ' + oc + ' من ' + tot + ' — وأنت: ' + mc + '.'; return; }
+    var mt = mc ? myFt : 999999, ot = op.sr === cLast && oc && op.ft != null ? op.ft : 999999;
+    var res = mc > oc || (mc === oc && mt < ot) ? '🏆 فزت!' : (mc === oc && mt === ot ? '🤝 تعادل' : '😅 فاز ' + op.name);
+    m.textContent = res + ' — أنت ' + mc + ' وكلمات ' + op.name + ' ' + oc + ' من ' + tot + '.';
+    if (rc.isHost()) cwBtn.hidden = false;
+  }
+  function cwSync() {
+    if (!rc || !rR) return;
+    var s = rR.s;
+    if (rR.status === 'playing' && s.r && s.r !== cLast && s.p) {
+      cLast = s.r; LIMIT = JoRoom.num(s.t, 60, 1800, 600); sent = -1; myFt = 0;
+      build({ R: s.p.R, C: s.p.C, words: s.p.w.map(function (a) { return { ch: a[0].split(''), clue: a[1], r: a[2], c: a[3], d: a[4] }; }) });
+      $('cwPlay').hidden = false; cwBtn.hidden = true;
+      $('cwMsg').textContent = '⏱ بدأ السباق! أكمل كل الكلمات قبل منافسك. المهلة ' + Math.round(LIMIT / 60) + ' دقائق.';
+    }
+  }
+  function cwStart(c) {
+    var p = gen((cCatSel && cCatSel.value) || MIX);
+    var r = ((c.room && c.room.s && c.room.s.r) || 0) + 1;
+    c.setState({ r: r, p: { R: p.R, C: p.C, w: p.words.map(function (w) { return [w.ch.join(''), w.clue, w.r, w.c, w.d]; }) }, t: JoRoom.num(JoRoom.cfg('cw').seconds, 60, 1800, 600) }, 'playing');
+  }
+  cwBtn.addEventListener('click', function () { cwBtn.hidden = true; cwStart(rc); });
+  if (window.JoRoom) JoRoom.mount($('cwRoom'), {
+    game: 'cw', min: 2, max: 2, shareText: 'تعال نتسابق في لعبة الكلمات المتقاطعة',
+    hostExtra: function () {
+      var w = document.createElement('div');
+      if (!cCatSel) {
+        cCatSel = document.createElement('select'); cCatSel.className = 'jr-in';
+        [MIX].concat(Object.keys(B)).forEach(function (n) { var o = document.createElement('option'); o.value = n; o.textContent = 'الفئة: ' + n; cCatSel.appendChild(o); });
+      }
+      w.appendChild(cCatSel); return w;
+    },
+    onHostStart: function (c) { cwStart(c); },
+    onJoin: function (c) {
+      rc = c; rR = null; cLast = 0; clearInterval(tm); done = true;
+      soloEls.forEach(function (id) { $(id).hidden = true; }); $('cwB').parentNode.hidden = true; $('cwPlay').hidden = true;
+      $('cwMsg').textContent = 'بانتظار بدء السباق…';
+    },
+    onPlayers: function () { if (!rc || !cLast) return; var op = cwOpp(); if (!done && op && op.sr === cLast && op.sc === words.length) cwOver(); else cwRes(); },
+    onRoom: function (r) { rR = r; cwSync(); },
+    onLeave: function () {
+      rc = null; rR = null; cLast = 0; cwBtn.hidden = true;
+      soloEls.forEach(function (id) { $(id).hidden = false; }); $('cwB').parentNode.hidden = false; $('cwPlay').hidden = false; build();
+    }
   });
   build();
 })();
