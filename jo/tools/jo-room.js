@@ -47,7 +47,7 @@
       function idle() {
         box.innerHTML = '';
         box.appendChild(el('div', 'jr-t', '🌐 العب أونلاين مع صديق'));
-        box.appendChild(el('div', 'jr-n', 'كل لاعب يلعب من جواله. أنشئ غرفة وأرسل الرابط، أو أدخل رمز غرفة صديقك.'));
+        box.appendChild(el('div', 'jr-n', urlCode ? 'تمت دعوتك إلى غرفة. اكتب اسمك ثم اضغط انضمام.' : 'كل لاعب يلعب من جواله. أنشئ غرفة وأرسل الرابط، أو أدخل رمز غرفة صديقك.'));
         var nm = el('input', 'jr-in'); nm.placeholder = 'اسمك'; nm.maxLength = 20; nm.value = name; nm.style.marginTop = '10px'; box.appendChild(nm);
         var msg = el('div', 'jr-m');
         var cr = el('button', 'jr-b', '➕ إنشاء غرفة'); cr.type = 'button';
@@ -57,7 +57,7 @@
         function busy(b) { cr.disabled = jn.disabled = b; }
         cr.addEventListener('click', function () { if (!nmOk()) return; msg.textContent = ''; busy(true); create().catch(function (e) { msg.textContent = 'تعذّر إنشاء الغرفة. حاول لاحقًا.'; busy(false); }); });
         jn.addEventListener('click', function () { if (!nmOk()) return; var c = norm(cd.value); if (c.length < 4) { msg.textContent = 'اكتب رمز الغرفة.'; return; } msg.textContent = ''; busy(true); join(c).catch(function (e) { msg.textContent = (e && e.m) || 'تعذّر الانضمام. تأكد من الرمز.'; busy(false); }); });
-        box.appendChild(cr); box.appendChild(el('div', 'jr-n', 'أو')); box.appendChild(cd); box.appendChild(jn); box.appendChild(msg);
+        if (!urlCode) { box.appendChild(cr); box.appendChild(el('div', 'jr-n', 'أو')); } box.appendChild(cd); box.appendChild(jn); box.appendChild(msg);
         if (urlCode) { box.scrollIntoView && box.scrollIntoView({ block: 'center' }); }
       }
 
