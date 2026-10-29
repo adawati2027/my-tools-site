@@ -22,6 +22,7 @@
     '.jr-b{padding:10px 14px;border:0;border-radius:10px;background:#2563eb;color:#fff;font-weight:800;font-family:inherit;font-size:15px;cursor:pointer;margin:3px}.jr-b.s{background:var(--surface,#fff);color:var(--text,#0f172a);border:1px solid var(--border,#cbd5e1)}.jr-b:disabled{opacity:.5}' +
     '.jr-code{font-size:30px;font-weight:900;letter-spacing:6px;text-align:center;direction:ltr;padding:8px;background:var(--surface,#fff);border-radius:12px;margin:8px 0}' +
     '.jr-pl{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.jr-pl span{padding:5px 11px;border-radius:99px;background:var(--surface,#fff);border:1px solid var(--border,#cbd5e1);font-size:14px;font-weight:700}' +
+    '.jr-chat{margin-top:10px;padding:12px;border:1px solid var(--border,#cbd5e1);border-radius:14px;background:var(--surface,#fff)}.jr-cl{max-height:170px;overflow-y:auto;margin:6px 0;display:flex;flex-direction:column;gap:5px}.jr-cm{font-size:14px;line-height:1.6;padding:5px 10px;border-radius:10px;background:var(--surface-2,#f1f5f9);max-width:90%;word-break:break-word;align-self:flex-start}.jr-cm.me{background:#dbeafe;color:#1e3a8a;align-self:flex-end}.jr-cm b{font-size:12px;display:block;opacity:.75}.jr-cf{display:flex;gap:6px}.jr-cf .jr-in{flex:1}.jr-cf .jr-b{margin:0}' +
     '.jr-m{font-size:13px;color:#b91c1c;min-height:18px;margin:4px 0}.jr-n{font-size:13px;color:var(--text-muted,#64748b);line-height:1.7}';
   (function () { var s = document.createElement('style'); s.textContent = CSS; document.head.appendChild(s); })();
 
@@ -40,7 +41,7 @@
     mount: function (host, o) {
       var box = el('div', 'jr-box'); host.appendChild(box);
       gload().then(function () { var c = G[o.game]; if (c && c.max) o.max = num(c.max, o.min, o.max, o.max); });
-      var ctx = null, un = [];
+      var ctx = null, un = [], cbox = null, clast = 0;
       var name = ls('adawati_pname') || '';
       var urlCode = ''; try { urlCode = norm(new URLSearchParams(location.search).get('room') || ''); } catch (e) {}
 
@@ -114,10 +115,39 @@
             a.sort(function (p, z) { return p.jt - z.jt || (p.id < z.id ? -1 : 1); });
             ctx.players = a; paint(); if (o.onPlayers) o.onPlayers(a, ctx);
           }));
+          chatOpen(rref);
           if (o.onJoin) o.onJoin(ctx);
           try { history.replaceState(null, '', location.pathname + '?room=' + code); } catch (e) {}
         });
       }
+
+      function chatOpen(rref) {
+        chatClose();
+        cbox = el('div', 'jr-chat'); box.parentNode.insertBefore(cbox, box.nextSibling);
+        cbox.appendChild(el('div', 'jr-t', '💬 دردشة الغرفة'));
+        var cl = el('div', 'jr-cl'), cf = el('div', 'jr-cf'), ci = el('input', 'jr-in'), cs = el('button', 'jr-b', 'إرسال'); cs.type = 'button';
+        ci.placeholder = 'اكتب رسالة…'; ci.maxLength = 200;
+        cf.appendChild(ci); cf.appendChild(cs); cbox.appendChild(cl); cbox.appendChild(cf);
+        function send() {
+          var t = ci.value.trim().slice(0, 200), now = Date.now();
+          if (!t || now - clast < 800) return;
+          clast = now; ci.value = '';
+          rref.collection('chat').doc(now.toString(36) + rid(4)).set({ p: PID, n: name, t: t, ts: now }).catch(function () {});
+        }
+        cs.addEventListener('click', send);
+        ci.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); send(); } });
+        un.push(rref.collection('chat').orderBy('ts').limitToLast(50).onSnapshot(function (q) {
+          var a = []; q.forEach(function (x) { a.push(x.data()); });
+          a.sort(function (p, z) { return p.ts - z.ts; });
+          var atEnd = cl.scrollHeight - cl.scrollTop - cl.clientHeight < 40;
+          cl.innerHTML = '';
+          a.forEach(function (m) {
+            var d = el('div', 'jr-cm' + (m.p === PID ? ' me' : '')); d.appendChild(el('b', '', m.n)); d.appendChild(document.createTextNode(m.t)); cl.appendChild(d);
+          });
+          if (atEnd) cl.scrollTop = cl.scrollHeight;
+        }, function () {}));
+      }
+      function chatClose() { if (cbox && cbox.parentNode) cbox.parentNode.removeChild(cbox); cbox = null; }
 
       function link() { return location.origin + location.pathname + '?room=' + ctx.code; }
       function paint() {
@@ -149,7 +179,7 @@
       }
 
       function leave(forced) {
-        un.forEach(function (f) { try { f(); } catch (e) {} }); un = [];
+        un.forEach(function (f) { try { f(); } catch (e) {} }); un = []; chatClose();
         var c = ctx; ctx = null;
         var done = function () { try { history.replaceState(null, '', location.pathname); } catch (e) {} urlCode = ''; idle(); if (o.onLeave) o.onLeave(forced); };
         if (!c) { done(); return; }
