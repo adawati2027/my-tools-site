@@ -131,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
       '<div class="cf-row"><div><label for="gOs">أقصى عدد لاعبين في «برّا السالفة»</label><div class="cf-h">من 3 إلى 12. الافتراضي 12.</div></div><input type="number" id="gOs" min="3" max="12" value="' + gv(gm.os, 'max', 3, 12, 12) + '"></div>' +
       '<div class="cf-row"><div><label for="gWm">أقصى عدد لاعبين في «أيهما أكثر»</label><div class="cf-h">من 2 إلى 4. الافتراضي 4.</div></div><input type="number" id="gWm" min="2" max="4" value="' + gv(gm.wm, 'max', 2, 4, 4) + '"></div>' +
       '<div class="cf-row"><div><label for="gWmQ">عدد أسئلة سباق «أيهما أكثر»</label><div class="cf-h">من 5 إلى 20. الافتراضي 10.</div></div><input type="number" id="gWmQ" min="5" max="20" value="' + gv(gm.wm, 'questions', 5, 20, 10) + '"></div>' +
+      '<div class="cf-row"><div><label for="gWmT">وقت كل سؤال في «أيهما أكثر» (بالثواني)</label><div class="cf-h">من 5 إلى 30. الافتراضي 10.</div></div><input type="number" id="gWmT" min="5" max="30" value="' + gv(gm.wm, 'qsec', 5, 30, 10) + '"></div>' +
       '<div class="cf-row"><div><label for="gWsS">مدة سباق «البحث عن كلمات» (ثانية)</label><div class="cf-h">من 30 إلى 300. الافتراضي 120.</div></div><input type="number" id="gWsS" min="30" max="300" value="' + gv(gm.ws, 'seconds', 30, 300, 120) + '"></div>' +
       '<div class="cf-row"><div><label for="cChat">دردشة التحديات</label><div class="cf-h">أوقفها مؤقتاً عند وجود إساءة، ويصل الأمر للمستخدمين خلال 30 دقيقة.</div></div><input type="checkbox" id="cChat"' + (ch.enabled === false ? '' : ' checked') + '></div></div>' +
 
@@ -191,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
       sync: { enabled: document.getElementById('cSyncOn').checked, retentionDays: parseInt(document.getElementById('cRet').value, 10) || 0, maxKeyKB: mx, disabledKeys: dis },
       quiz: { questionsPerGame: q, secondsDefault: secAll(), seconds: secMap() },
       challenge: { maxPlayers: Math.max(2, Math.min(100, parseInt(document.getElementById('cMp').value, 10) || 20)) },
-      games: { os: { max: gi('gOs', 3, 12, 12) }, wm: { max: gi('gWm', 2, 4, 4), questions: gi('gWmQ', 5, 20, 10) }, ws: { seconds: gi('gWsS', 30, 300, 120) } },
+      games: { os: { max: gi('gOs', 3, 12, 12) }, wm: { max: gi('gWm', 2, 4, 4), questions: gi('gWmQ', 5, 20, 10), qsec: gi('gWmT', 5, 30, 10) }, ws: { seconds: gi('gWsS', 30, 300, 120) } },
       chat: { enabled: document.getElementById('cChat').checked },
       banner: bnRead(''),
       banners: BN_C.reduce(function (o, c) { o[c[0]] = bnRead('_' + c[0]); return o; }, {}),

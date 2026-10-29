@@ -166,7 +166,7 @@
     s: { n: 'الأجرام', q: 'أيهما أكبر قطراً؟', u: ' كم', it: [['الشمس', 1391000], ['المشتري', 139820], ['زحل', 116460], ['أورانوس', 50724], ['نبتون', 49244], ['الأرض', 12742], ['الزهرة', 12104], ['المريخ', 6779], ['عطارد', 4879], ['القمر', 3474]] },
     r: { n: 'الأنهار', q: 'أيهما أطول؟', u: ' كم تقريباً', it: [['نهر النيل', 6650], ['نهر الدانوب', 2850], ['نهر الفرات', 2800], ['نهر دجلة', 1900], ['نهر الراين', 1230], ['نهر التايمز', 346], ['نهر الأردن', 251]] }
   };
-  var wmc = null, wmR = null, wmLast = 0, wmQs = [], wmI = 0, wmScore = 0, wmT0 = 0, wmCatSel = null, wmDone = false, QN = 10, KEY = 'adawati_whichmore_v1', BEST = {}, cur = 'h', streak = 0, pair = null, locked = false;
+  var wmc = null, wmR = null, wmLast = 0, wmQs = [], wmI = 0, wmScore = 0, wmT0 = 0, wmCatSel = null, wmDone = false, QN = 10, KEY = 'adawati_whichmore_v1', BEST = {}, cur = 'h', streak = 0, pair = null, locked = false, wmTm = null, wmQS = 10;
   try { BEST = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
   function fmt(v) { return v.toLocaleString('en-US'); }
   function pickIdx(k) {
@@ -187,10 +187,10 @@
   }
   function stat() { $('wmS').textContent = streak; $('wmB').textContent = BEST[cur] || 0; }
   function ans(i) {
-    if (locked) return; locked = true;
+    if (locked) return; locked = true; clearInterval(wmTm);
     var win = pair[0][1] > pair[1][1] ? 0 : 1, ok = i === win;
     ['wmA', 'wmBt'].forEach(function (id, k) { var e = $(id); e.querySelector('small').textContent = fmt(pair[k][1]) + D[cur].u; if (k === win) e.classList.add('ok'); else if (k === i) e.classList.add('no'); });
-    if (wmc) { wmOnAns(ok); return; }
+    if (wmc) { wmOnAns(ok); if (i < 0) $('wmMsg').textContent = '⏱ انتهى الوقت.'; return; }
     if (ok) {
       streak++; if (streak > (BEST[cur] || 0)) { BEST[cur] = streak; try { localStorage.setItem(KEY, JSON.stringify(BEST)); } catch (e) {} }
       $('wmMsg').textContent = '✓ إجابة صحيحة!'; $('wmNext').textContent = 'التالي ←';
@@ -215,13 +215,16 @@
   }
   function wmNextOn() {
     wmI++;
-    if (wmI >= wmQs.length) { wmDone = true; $('wmNext').hidden = true; $('wmMsg').textContent = 'أنهيت الأسئلة: ' + wmScore + ' من ' + wmQs.length + '.'; wmRank(); return; }
+    if (wmI >= wmQs.length) { wmDone = true; clearInterval(wmTm); $('wmNext').hidden = true; $('wmMsg').textContent = 'أنهيت الأسئلة: ' + wmScore + ' من ' + wmQs.length + '.'; wmRank(); return; }
     wmShow();
   }
   function wmShow() {
     var q = wmQs[wmI]; cur = q[0];
     pair = [D[cur].it[q[1]], D[cur].it[q[2]]]; draw();
-    $('wmMsg').textContent = 'سؤال ' + (wmI + 1) + ' من ' + wmQs.length;
+    var end = Date.now() + wmQS * 1000, lbl = 'سؤال ' + (wmI + 1) + ' من ' + wmQs.length;
+    clearInterval(wmTm);
+    var tick = function () { var l = Math.max(0, Math.ceil((end - Date.now()) / 1000)); if (locked) { clearInterval(wmTm); return; } $('wmMsg').textContent = lbl + ' — ⏱ ' + l; if (l <= 0) { clearInterval(wmTm); ans(-1); } };
+    tick(); wmTm = setInterval(tick, 250);
   }
   function wmRank() {
     var r = $('wmRank'); if (!wmc || !wmLast) { r.textContent = ''; return; }
@@ -239,13 +242,13 @@
     var keys = (wmCatSel && wmCatSel.value) ? [wmCatSel.value] : Object.keys(D), q = [], i, k;
     var qn = JoRoom.num(JoRoom.cfg('wm').questions, 5, 20, QN);
     for (i = 0; i < qn; i++) { k = keys[Math.floor(Math.random() * keys.length)]; var ix = pickIdx(k); q.push([k, ix[0], ix[1]]); }
-    c.setState({ r: ((c.room && c.room.s && c.room.s.r) || 0) + 1, q: q }, 'playing');
+    c.setState({ r: ((c.room && c.room.s && c.room.s.r) || 0) + 1, q: q, qs: JoRoom.num(JoRoom.cfg('wm').qsec, 5, 30, 10) }, 'playing');
   }
   function wmSync() {
     if (!wmc || !wmR) return;
     var s = wmR.s;
     if (wmR.status === 'playing' && s.r && s.r !== wmLast && s.q) {
-      wmLast = s.r; wmQs = s.q; wmI = 0; wmScore = 0; wmDone = false; wmT0 = Date.now(); wmAgain.hidden = true;
+      wmLast = s.r; wmQs = s.q; wmQS = JoRoom.num(s.qs, 5, 30, 10); wmI = 0; wmScore = 0; wmDone = false; wmT0 = Date.now(); wmAgain.hidden = true;
       $('wmQ').hidden = false; document.querySelector('.wm-pair').hidden = false;
       wmc.setMine({ sc: 0, pg: 0, sr: wmLast, ft: 0 }); wmShow();
     }
@@ -269,7 +272,7 @@
     onPlayers: function () { wmRank(); },
     onRoom: function (r) { wmR = r; wmSync(); },
     onLeave: function () {
-      wmc = null; wmR = null; wmLast = 0; wmAgain.hidden = true; $('wmRank').textContent = '';
+      wmc = null; wmR = null; wmLast = 0; clearInterval(wmTm); wmAgain.hidden = true; $('wmRank').textContent = '';
       $('wmCats').hidden = false; document.querySelector('.pt-stat').hidden = false; $('wmQ').hidden = false; document.querySelector('.wm-pair').hidden = false; streak = 0; stat(); pick();
     }
   });
