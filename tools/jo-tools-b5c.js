@@ -257,10 +257,10 @@ const WSEARCH = {
     if (!wc || !wR) return;
     var s = wR.s;
     if (wR.status === 'playing' && s.r && s.r !== wLast && s.g) {
-      wLast = s.r; build({ g: s.g, w: s.w, c: s.c });
+      wLast = s.r; LIMIT = JoRoom.num(s.t, 30, 300, 120); build({ g: s.g, w: s.w, c: s.c });
       $('wsCats').hidden = true; $('wsNew').hidden = true; $('wsB').parentNode.hidden = true;
       wsBtn.hidden = true; wc.setMine({ sc: 0, sr: wLast, ft: 0 });
-      $('wsMsg').textContent = '⏱ بدأ السباق! لديك دقيقتان.';
+      $('wsMsg').textContent = '⏱ بدأ السباق! لديك ' + (LIMIT === 120 ? 'دقيقتان' : LIMIT % 60 === 0 ? (LIMIT / 60) + ' دقائق' : LIMIT + ' ثانية') + '.';
     }
   }
   var wsBtn = document.createElement('button'); wsBtn.type = 'button'; wsBtn.className = 'pt-btn'; wsBtn.hidden = true; wsBtn.textContent = '🔄 سباق جديد';
@@ -269,10 +269,10 @@ const WSEARCH = {
   function wsStart(c) {
     var p = gen((wCatSel && wCatSel.value) || Object.keys(W)[Math.floor(Math.random() * 4)]);
     var r = ((c.room && c.room.s && c.room.s.r) || 0) + 1;
-    c.setState({ r: r, g: p.g, w: p.w, c: p.c }, 'playing');
+    c.setState({ r: r, g: p.g, w: p.w, c: p.c, t: JoRoom.num(JoRoom.cfg('ws').seconds, 30, 300, 120) }, 'playing');
   }
   if (window.JoRoom) JoRoom.mount($('wsRoom'), {
-    game: 'ws', min: 2, max: 2, shareText: 'تعال نتسابق في لعبة البحث عن الكلمات (دقيقتان)',
+    game: 'ws', min: 2, max: 2, shareText: 'تعال نتسابق في لعبة البحث عن الكلمات',
     hostExtra: function () {
       var w = document.createElement('div');
       if (!wCatSel) {

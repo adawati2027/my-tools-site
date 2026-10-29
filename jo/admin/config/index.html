@@ -107,9 +107,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   function bnRead(x) { return { enabled: document.getElementById('bOn' + x).checked, text: v('bTxt' + x), link: v('bLnk' + x), linkText: v('bLt' + x), style: v('bSt' + x), from: v('bFr' + x), until: v('bUn' + x), dismissDays: parseInt(v('bDd' + x), 10) || 0 }; }
 
+  function gv(o, k, lo, hi, d) { var n = o ? parseInt(o[k], 10) : NaN; return n >= lo && n <= hi ? n : d; }
+  function gi(id, lo, hi, d) { var n = parseInt(document.getElementById(id).value, 10); return n >= lo && n <= hi ? n : d; }
   function build(c) {
     BN_C.forEach(function (k) { k.banners = c.banners; });
-    var s = c.sync || {}, q = c.quiz || {}, ch = c.chat || {}, dis = s.disabledKeys || [], bn = c.banner || {}, ad = c.ads || {}, mt = c.maintenance || {}, pg = c.pages || {};
+    var gm = c.games || {}, s = c.sync || {}, q = c.quiz || {}, ch = c.chat || {}, dis = s.disabledKeys || [], bn = c.banner || {}, ad = c.ads || {}, mt = c.maintenance || {}, pg = c.pages || {};
     var ret = [[0, 'بلا حد (احتفظ بكل شيء)'], [30, '30 يوماً'], [90, '90 يوماً'], [180, '180 يوماً'], [365, 'سنة'], [730, 'سنتان']];
     var h = '<div class="card cf-sec"><h2>🔄 مزامنة بيانات الأدوات مع الحساب</h2><div class="cf-h">تخص المستخدمين المسجّلين فقط.</div>' +
       '<div class="cf-row"><label for="cSyncOn">تفعيل المزامنة</label><input type="checkbox" id="cSyncOn"' + (s.enabled === false ? '' : ' checked') + '></div>' +
@@ -125,6 +127,11 @@ document.addEventListener('DOMContentLoaded', function () {
       '<div class="cf-row"><div><label for="cSecAll">وقت السؤال لكل الاختبارات (ثانية)</label><div class="cf-h">من 5 إلى 60. اتركه فارغاً لاستعمال وقت كل اختبار الافتراضي (15 ثانية). يُطبَّق على التحديات والعب الفردي.</div></div><input type="number" id="cSecAll" min="5" max="60" placeholder="15" value="' + (q.secondsDefault >= 5 && q.secondsDefault <= 60 ? q.secondsDefault : '') + '"></div>' +
       '<div style="margin-top:10px;font-weight:700;font-size:14px;">وقت خاص بكل اختبار (يتفوق على الوقت العام، فارغ = العام)</div><div class="cf-keys">' +
       QUIZZES.map(function (z) { var v = q.seconds && q.seconds[z[0]]; return '<label>' + esc(z[1]) + '<input type="number" data-s="' + esc(z[0]) + '" min="5" max="60" style="width:70px;margin-inline-start:auto;padding:6px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-size:15px;" value="' + (v >= 5 && v <= 60 ? v : '') + '"></label>'; }).join('') + '</div>' +
+      '<div style="margin-top:12px;font-weight:700;font-size:14px;">🌐 ألعاب الغرف الأونلاين (مع صديق)</div>' +
+      '<div class="cf-row"><div><label for="gOs">أقصى عدد لاعبين في «برّا السالفة»</label><div class="cf-h">من 3 إلى 12. الافتراضي 12.</div></div><input type="number" id="gOs" min="3" max="12" value="' + gv(gm.os, 'max', 3, 12, 12) + '"></div>' +
+      '<div class="cf-row"><div><label for="gWm">أقصى عدد لاعبين في «أيهما أكثر»</label><div class="cf-h">من 2 إلى 4. الافتراضي 4.</div></div><input type="number" id="gWm" min="2" max="4" value="' + gv(gm.wm, 'max', 2, 4, 4) + '"></div>' +
+      '<div class="cf-row"><div><label for="gWmQ">عدد أسئلة سباق «أيهما أكثر»</label><div class="cf-h">من 5 إلى 20. الافتراضي 10.</div></div><input type="number" id="gWmQ" min="5" max="20" value="' + gv(gm.wm, 'questions', 5, 20, 10) + '"></div>' +
+      '<div class="cf-row"><div><label for="gWsS">مدة سباق «البحث عن كلمات» (ثانية)</label><div class="cf-h">من 30 إلى 300. الافتراضي 120.</div></div><input type="number" id="gWsS" min="30" max="300" value="' + gv(gm.ws, 'seconds', 30, 300, 120) + '"></div>' +
       '<div class="cf-row"><div><label for="cChat">دردشة التحديات</label><div class="cf-h">أوقفها مؤقتاً عند وجود إساءة، ويصل الأمر للمستخدمين خلال 30 دقيقة.</div></div><input type="checkbox" id="cChat"' + (ch.enabled === false ? '' : ' checked') + '></div></div>' +
 
       '<div class="card cf-sec"><h2>📢 شريط إعلان أعلى الصفحات</h2><div class="cf-h">رسالة تظهر للزوار، ويستطيع الزائر إغلاقها، ولا تعود له إلا إذا غيّرت النص. الشريط العام يظهر في كل الصفحات، وشريط الدولة (إن فعّلته) يحل محله في صفحات تلك الدولة فقط.</div>' +
@@ -184,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
       sync: { enabled: document.getElementById('cSyncOn').checked, retentionDays: parseInt(document.getElementById('cRet').value, 10) || 0, maxKeyKB: mx, disabledKeys: dis },
       quiz: { questionsPerGame: q, secondsDefault: secAll(), seconds: secMap() },
       challenge: { maxPlayers: Math.max(2, Math.min(100, parseInt(document.getElementById('cMp').value, 10) || 20)) },
+      games: { os: { max: gi('gOs', 3, 12, 12) }, wm: { max: gi('gWm', 2, 4, 4), questions: gi('gWmQ', 5, 20, 10) }, ws: { seconds: gi('gWsS', 30, 300, 120) } },
       chat: { enabled: document.getElementById('cChat').checked },
       banner: bnRead(''),
       banners: BN_C.reduce(function (o, c) { o[c[0]] = bnRead('_' + c[0]); return o; }, {}),

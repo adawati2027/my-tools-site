@@ -25,10 +25,21 @@
     '.jr-m{font-size:13px;color:#b91c1c;min-height:18px;margin:4px 0}.jr-n{font-size:13px;color:var(--text-muted,#64748b);line-height:1.7}';
   (function () { var s = document.createElement('style'); s.textContent = CSS; document.head.appendChild(s); })();
 
+  var G = {};
+  function gval(v) { if (!v) return undefined; if (v.integerValue != null) return +v.integerValue; if (v.doubleValue != null) return +v.doubleValue; if (v.mapValue) { var o = {}, f = v.mapValue.fields || {}; Object.keys(f).forEach(function (k) { o[k] = gval(f[k]); }); return o; } return undefined; }
+  var gp = null;
+  function gload() {
+    if (!gp) gp = fetch('https://firestore.googleapis.com/v1/projects/' + CFG.projectId + '/databases/(default)/documents/config/site?mask.fieldPaths=games').then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { var g = j && j.fields && gval(j.fields.games); if (g) G = g; return G; }).catch(function () { return G; });
+    return gp;
+  }
+  function num(v, lo, hi, d) { v = Math.round(+v); return v >= lo && v <= hi ? v : d; }
   var JoRoom = {
     pid: PID,
+    cfg: function (game) { return G[game] || {}; },
+    num: num,
     mount: function (host, o) {
       var box = el('div', 'jr-box'); host.appendChild(box);
+      gload().then(function () { var c = G[o.game]; if (c && c.max) o.max = num(c.max, o.min, o.max, o.max); });
       var ctx = null, un = [];
       var name = ls('adawati_pname') || '';
       var urlCode = ''; try { urlCode = norm(new URLSearchParams(location.search).get('room') || ''); } catch (e) {}

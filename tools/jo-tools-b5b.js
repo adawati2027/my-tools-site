@@ -126,7 +126,8 @@ const MORE = {
   wmAgain.addEventListener('click', function () { wmStart(wmc); });
   function wmStart(c) {
     var keys = (wmCatSel && wmCatSel.value) ? [wmCatSel.value] : Object.keys(D), q = [], i, k;
-    for (i = 0; i < QN; i++) { k = keys[Math.floor(Math.random() * keys.length)]; var ix = pickIdx(k); q.push([k, ix[0], ix[1]]); }
+    var qn = JoRoom.num(JoRoom.cfg('wm').questions, 5, 20, QN);
+    for (i = 0; i < qn; i++) { k = keys[Math.floor(Math.random() * keys.length)]; var ix = pickIdx(k); q.push([k, ix[0], ix[1]]); }
     c.setState({ r: ((c.room && c.room.s && c.room.s.r) || 0) + 1, q: q }, 'playing');
   }
   function wmSync() {
@@ -139,7 +140,7 @@ const MORE = {
     }
   }
   if (window.JoRoom) JoRoom.mount($('wmRoom'), {
-    game: 'wm', min: 2, max: 4, shareText: 'تعال نتسابق في لعبة أيهما أكثر؟ (١٠ أسئلة)',
+    game: 'wm', min: 2, max: 4, shareText: 'تعال نتسابق في لعبة أيهما أكثر؟',
     hostExtra: function () {
       var w = document.createElement('div');
       if (!wmCatSel) {
