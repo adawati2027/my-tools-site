@@ -1114,7 +1114,7 @@ function buildGame(slug) {
 }
 
 Object.assign(GAMES, require('./jo-tools-b4a.js'), require('./jo-tools-b4b.js'));
-for (const f of ['b5a', 'b5b', 'b5c']) { try { Object.assign(GAMES, require('./jo-tools-' + f + '.js')); } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e; } }
+for (const f of ['b5a', 'b5b', 'b5c', 'b6']) { try { Object.assign(GAMES, require('./jo-tools-' + f + '.js')); } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e; } }
 const arg = process.argv[2] || 'all';
 if (arg === 'all') { Object.keys(SPECS).forEach(build); buildPomo(); Object.keys(GAMES).forEach(buildGame); }
 else if (arg === 'pomodoro-timer') buildPomo();
