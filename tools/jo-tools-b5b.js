@@ -35,6 +35,15 @@ const MORE = {
       .wm-card{padding:22px 8px;border:2px solid var(--border);border-radius:14px;background:var(--surface);color:var(--text);font-family:inherit;font-size:19px;font-weight:800;cursor:pointer;text-align:center;line-height:1.6;}
       .wm-card small{display:block;font-size:14px;font-weight:700;margin-top:6px;min-height:20px;}
       .wm-card.ok{border-color:#16a34a;background:#dcfce7;color:#14532d;} .wm-card.no{border-color:#dc2626;background:#fee2e2;color:#7f1d1d;}
+      #wmRank:not(:empty){margin:14px 0 4px;padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--surface);}
+      .wm-h{font-weight:800;font-size:15px;text-align:center;margin-bottom:10px;}
+      .wm-r{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:12px;margin-bottom:8px;}
+      .wm-r.me{border-color:#2563eb;background:rgba(37,99,235,.08);} .wm-r.win{border-color:#f59e0b;background:rgba(245,158,11,.12);}
+      .wm-k{flex:0 0 30px;height:30px;border-radius:50%;background:rgba(127,127,127,.18);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;}
+      .wm-m{flex:1;min-width:0;} .wm-nm{font-weight:800;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;} .wm-nm i{font-style:normal;font-size:11px;font-weight:700;background:#2563eb;color:#fff;border-radius:8px;padding:1px 7px;margin-inline-start:6px;}
+      .wm-bar{height:7px;border-radius:6px;background:rgba(127,127,127,.22);margin-top:6px;overflow:hidden;} .wm-bar u{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#2563eb,#7c3aed);text-decoration:none;transition:width .4s;}
+      .wm-s{flex:0 0 auto;text-align:center;min-width:56px;} .wm-s b{display:block;font-size:17px;} .wm-s small{display:block;font-size:12px;opacity:.7;}
+      .wm-fin{text-align:center;font-weight:800;font-size:17px;margin-top:6px;color:#d97706;} .wm-w{text-align:center;font-size:13px;opacity:.75;margin-top:4px;}
     </style>
     <div class="pt-row" id="wmCats"></div>
     <div class="pt-stat"><div><b id="wmS">0</b>السلسلة</div><div><b id="wmB">0</b>أفضل سلسلة</div></div>
@@ -42,7 +51,7 @@ const MORE = {
     <div class="wm-pair"><button type="button" class="wm-card" id="wmA"></button><button type="button" class="wm-card" id="wmBt"></button></div>
     <div class="pt-note" id="wmMsg"></div>
     <div class="pt-row" style="justify-content:center;"><button type="button" class="pt-btn" id="wmNext" hidden>التالي ←</button></div>
-    <div class="pt-note" id="wmRank" style="white-space:pre-line;font-weight:700;"></div>
+    <div id="wmRank"></div>
     <div id="wmRoom"></div>`,
   room: true,
   script: String.raw`
@@ -143,14 +152,26 @@ const MORE = {
     tick(); wmTm = setInterval(tick, 250);
   }
   function wmRank() {
-    var r = $('wmRank'); if (!wmc || !wmLast) { r.textContent = ''; return; }
+    var r = $('wmRank'); r.textContent = ''; if (!wmc || !wmLast) return;
     var N = wmQs.length, pl = wmc.players.map(function (p) { var cur = p.sr === wmLast; return { id: p.id, name: p.name, sc: cur ? (p.sc || 0) : 0, pg: cur ? (p.pg || 0) : 0, ft: cur ? (p.ft || 0) : 0 }; });
     pl.sort(function (a, b) { return (b.sc || 0) - (a.sc || 0) || (a.ft || 0) - (b.ft || 0); });
     var all = pl.every(function (p) { return p.pg >= N; });
-    var t = pl.map(function (p, i) { return (all && i === 0 ? '🏆 ' : '') + p.name + (p.id === wmc.pid ? ' (أنت)' : '') + ': ' + p.sc + ' صحيحة — ' + p.pg + '/' + N + (p.pg < N ? ' ⏳' : ' ✓'); }).join('\n');
-    if (all) t += '\n' + (pl.length > 1 && pl[0].sc === pl[1].sc && pl[0].ft === pl[1].ft ? '🤝 تعادل!' : 'انتهى السباق! الفائز: ' + pl[0].name);
-    else if (wmDone) t += '\n⏳ بانتظار بقية اللاعبين ليكملوا أسئلتهم…';
-    r.textContent = t; wmAgain.hidden = !(all && wmc.isHost());
+    var tie = all && pl.length > 1 && pl[0].sc === pl[1].sc && pl[0].ft === pl[1].ft;
+    function mk(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+    var h = mk('div', 'wm-h', all ? '🏁 النتيجة النهائية' : '📊 ترتيب اللاعبين'); r.appendChild(h);
+    pl.forEach(function (p, i) {
+      var row = mk('div', 'wm-r' + (p.id === wmc.pid ? ' me' : '') + (all && i === 0 && !tie ? ' win' : ''));
+      row.appendChild(mk('span', 'wm-k', all && i === 0 && !tie ? '🏆' : String(i + 1)));
+      var m = mk('div', 'wm-m'), nm = mk('div', 'wm-nm'), bd = mk('bdi', '', p.name); nm.appendChild(bd);
+      if (p.id === wmc.pid) nm.appendChild(mk('i', '', 'أنت'));
+      var bar = mk('div', 'wm-bar'), u = mk('u'); u.style.width = Math.min(100, Math.round(p.pg / N * 100)) + '%'; bar.appendChild(u);
+      m.appendChild(nm); m.appendChild(bar); row.appendChild(m);
+      var sc = mk('div', 'wm-s'); sc.appendChild(mk('b', '', p.sc + ' ✓')); sc.appendChild(mk('small', '', p.pg >= N ? 'أنهى' : p.pg + ' من ' + N)); row.appendChild(sc);
+      r.appendChild(row);
+    });
+    if (all) { var f = mk('div', 'wm-fin'); f.appendChild(document.createTextNode(tie ? '🤝 تعادل!' : '🎉 الفائز: ')); if (!tie) f.appendChild(mk('bdi', '', pl[0].name)); r.appendChild(f); }
+    else if (wmDone) r.appendChild(mk('div', 'wm-w', '⏳ بانتظار بقية اللاعبين ليكملوا أسئلتهم…'));
+    wmAgain.hidden = !(all && wmc.isHost());
   }
   var wmAgain = document.createElement('button'); wmAgain.type = 'button'; wmAgain.className = 'pt-btn'; wmAgain.hidden = true; wmAgain.textContent = '🔄 سباق جديد';
   $('wmNext').parentNode.appendChild(wmAgain);
