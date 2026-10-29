@@ -245,7 +245,9 @@ service cloud.firestore {
 
       match /chat/{id} {
         allow read: if true;
-        allow create: if request.resource.data.keys().hasOnly(['p','n','t','ts'])
+        allow create: if request.auth != null && !chatBlocked()
+          && request.resource.data.keys().hasOnly(['p','u','n','t','ts'])
+          && request.resource.data.u == request.auth.uid
           && request.resource.data.p is string && request.resource.data.p.size() <= 40
           && request.resource.data.n is string && request.resource.data.n.size() <= 40
           && request.resource.data.t is string && request.resource.data.t.size() > 0 && request.resource.data.t.size() <= 200

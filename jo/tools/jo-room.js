@@ -11,6 +11,7 @@
   function ready() {
     if (db) return Promise.resolve(db);
     return Promise.resolve(typeof firebase === 'undefined' ? load(FB + 'firebase-app-compat.js') : 0)
+      .then(function () { return typeof firebase.auth === 'function' ? 0 : load(FB + 'firebase-auth-compat.js').catch(function () {}); })
       .then(function () { return typeof firebase.firestore === 'function' ? 0 : load(FB + 'firebase-firestore-compat.js'); })
       .then(function () { if (!firebase.apps.length) firebase.initializeApp(CFG); db = firebase.firestore(); return db; });
   }
@@ -126,13 +127,27 @@
         cbox = el('div', 'jr-chat'); box.parentNode.insertBefore(cbox, box.nextSibling);
         cbox.appendChild(el('div', 'jr-t', '💬 دردشة الغرفة'));
         var cl = el('div', 'jr-cl'), cf = el('div', 'jr-cf'), ci = el('input', 'jr-in'), cs = el('button', 'jr-b', 'إرسال'); cs.type = 'button';
+        var lg = el('div', 'jr-n'), cu = null;
         ci.placeholder = 'اكتب رسالة…'; ci.maxLength = 200;
-        cf.appendChild(ci); cf.appendChild(cs); cbox.appendChild(cl); cbox.appendChild(cf);
+        cf.appendChild(ci); cf.appendChild(cs); cbox.appendChild(cl); cbox.appendChild(cf); cbox.appendChild(lg);
+        function gate(u) {
+          cu = u; cf.hidden = !u; lg.hidden = !!u; lg.innerHTML = '';
+          if (u) return;
+          lg.appendChild(document.createTextNode('يمكن للجميع قراءة الدردشة، لكن الكتابة للمسجّلين فقط. '));
+          var lb = el('button', 'jr-b', '🔑 سجّل الدخول'); lb.type = 'button'; lb.style.margin = '6px 0 0';
+          lb.addEventListener('click', function () { if (typeof window.openAuthModal === 'function') window.openAuthModal(); });
+          lg.appendChild(el('br')); lg.appendChild(lb);
+        }
+        gate(null);
+        ready().then(function () {
+          if (typeof firebase.auth !== 'function' || !cbox) return;
+          un.push(firebase.auth().onAuthStateChanged(function (u) { gate(u || null); }));
+        }).catch(function () {});
         function send() {
           var t = ci.value.trim().slice(0, 200), now = Date.now();
-          if (!t || now - clast < 800) return;
+          if (!cu || !t || now - clast < 800) return;
           clast = now; ci.value = '';
-          rref.collection('chat').doc(now.toString(36) + rid(4)).set({ p: PID, n: name, t: t, ts: now }).catch(function () {});
+          rref.collection('chat').doc(now.toString(36) + rid(4)).set({ p: PID, u: cu.uid, n: name, t: t, ts: now }).catch(function () {});
         }
         cs.addEventListener('click', send);
         ci.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); send(); } });
