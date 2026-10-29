@@ -174,13 +174,32 @@
   var wmc = null, wmR = null, wmLast = 0, wmQs = [], wmI = 0, wmScore = 0, wmT0 = 0, wmCatSel = null, wmDone = false, QN = 10, KEY = 'adawati_whichmore_v1', BEST = {}, cur = 'h', streak = 0, pair = null, locked = false, wmTm = null, wmQS = 10;
   try { BEST = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
   function fmt(v) { return v.toLocaleString('en-US'); }
-  function pickIdx(k) {
-    var it = D[k].it, a, b, t = 0, ia, ib;
-    do { ia = Math.floor(Math.random() * it.length); ib = Math.floor(Math.random() * it.length); a = it[ia]; b = it[ib]; t++; }
-    while ((ia === ib || Math.max(a[1], b[1]) / Math.min(a[1], b[1]) < 1.12) && t < 200);
-    return [ia, ib];
+  var PC = {};
+  function pairsOf(k) {
+    if (PC[k]) return PC[k];
+    var it = D[k].it, r = [], i, j;
+    for (i = 0; i < it.length; i++) for (j = i + 1; j < it.length; j++) if (Math.max(it[i][1], it[j][1]) / Math.min(it[i][1], it[j][1]) >= 1.12) r.push([i, j]);
+    return (PC[k] = r);
   }
+  function nextPair(k, used, recent) {
+    var all = pairsOf(k), c = all.filter(function (p) { return !used[k + ':' + p[0] + '_' + p[1]] && recent.indexOf(k + p[0]) < 0 && recent.indexOf(k + p[1]) < 0; });
+    if (!c.length) c = all.filter(function (p) { return !used[k + ':' + p[0] + '_' + p[1]]; });
+    if (!c.length) { Object.keys(used).forEach(function (x) { if (x.indexOf(k + ':') === 0) delete used[x]; }); c = all; }
+    var p = c[Math.floor(Math.random() * c.length)];
+    used[k + ':' + p[0] + '_' + p[1]] = 1;
+    return Math.random() < 0.5 ? [p[0], p[1]] : [p[1], p[0]];
+  }
+  function catW(k) { return Math.sqrt(pairsOf(k).length); }
+  var soloUsed = {}, soloRecent = [];
+  function pickIdx(k) {
+    var u = soloUsed[k] || (soloUsed[k] = {}), ix = nextPair(k, u, soloRecent);
+    soloRecent.push(k + ix[0], k + ix[1]); if (soloRecent.length > 4) soloRecent.splice(0, soloRecent.length - 4);
+    return ix;
+  }
+  var mix = false;
+  function bk() { return mix ? 'mix' : cur; }
   function pick() {
+    if (mix) { var ks = Object.keys(D), tw = 0, r; ks.forEach(function (x) { tw += catW(x); }); r = Math.random() * tw; for (var n = 0; n < ks.length - 1 && r >= catW(ks[n]); n++) r -= catW(ks[n]); cur = ks[n]; }
     var ix = pickIdx(cur);
     pair = [D[cur].it[ix[0]], D[cur].it[ix[1]]]; draw();
   }
@@ -190,22 +209,25 @@
     [['wmA', pair[0]], ['wmBt', pair[1]]].forEach(function (x) { var e = $(x[0]); e.className = 'wm-card'; e.textContent = x[1][0]; var s = document.createElement('small'); e.appendChild(s); });
     $('wmMsg').textContent = 'اضغط على إجابتك'; $('wmNext').hidden = true;
   }
-  function stat() { $('wmS').textContent = streak; $('wmB').textContent = BEST[cur] || 0; }
+  function stat() { $('wmS').textContent = streak; $('wmB').textContent = BEST[bk()] || 0; }
   function ans(i) {
     if (locked) return; locked = true; clearInterval(wmTm);
     var win = pair[0][1] > pair[1][1] ? 0 : 1, ok = i === win;
     ['wmA', 'wmBt'].forEach(function (id, k) { var e = $(id); e.querySelector('small').textContent = fmt(pair[k][1]) + D[cur].u; if (k === win) e.classList.add('ok'); else if (k === i) e.classList.add('no'); });
     if (wmc) { wmOnAns(ok); if (i < 0) $('wmMsg').textContent = '⏱ انتهى الوقت.'; return; }
     if (ok) {
-      streak++; if (streak > (BEST[cur] || 0)) { BEST[cur] = streak; try { localStorage.setItem(KEY, JSON.stringify(BEST)); } catch (e) {} }
+      streak++; if (streak > (BEST[bk()] || 0)) { BEST[bk()] = streak; try { localStorage.setItem(KEY, JSON.stringify(BEST)); } catch (e) {} }
       $('wmMsg').textContent = '✓ إجابة صحيحة!'; $('wmNext').textContent = 'التالي ←';
     } else { $('wmMsg').textContent = '✗ إجابة خاطئة. وصلت إلى سلسلة ' + streak + '.'; streak = 0; $('wmNext').textContent = '🔄 ابدأ من جديد'; }
     stat(); $('wmNext').hidden = false;
   }
   var box = $('wmCats');
+  var mb = document.createElement('button'); mb.type = 'button'; mb.className = 'pt-btn2'; mb.textContent = '🎲 منوّعة';
+  mb.addEventListener('click', function () { mix = true; streak = 0; box.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === mb); }); pick(); stat(); });
+  box.appendChild(mb);
   Object.keys(D).forEach(function (k) {
     var b = document.createElement('button'); b.type = 'button'; b.className = 'pt-btn2' + (k === cur ? ' on' : ''); b.textContent = D[k].n;
-    b.addEventListener('click', function () { cur = k; streak = 0; box.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); }); stat(); pick(); });
+    b.addEventListener('click', function () { mix = false; cur = k; streak = 0; box.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); }); stat(); pick(); });
     box.appendChild(b);
   });
   $('wmA').addEventListener('click', function () { ans(0); }); $('wmBt').addEventListener('click', function () { ans(1); });
@@ -246,8 +268,12 @@
   function wmStart(c) {
     var keys = (wmCatSel && wmCatSel.value) ? [wmCatSel.value] : Object.keys(D), q = [], i, k;
     var qn = JoRoom.num(JoRoom.cfg('wm').questions, 5, 20, QN);
-    var seen = {}, tries = 0;
-    while (q.length < qn && tries++ < 500) { k = keys[Math.floor(Math.random() * keys.length)]; var ix = pickIdx(k), id = k + Math.min(ix[0], ix[1]) + '_' + Math.max(ix[0], ix[1]); if (seen[id]) continue; seen[id] = 1; q.push([k, ix[0], ix[1]]); }
+    var used = {}, recent = [], w = keys.map(catW), tw = w.reduce(function (x, y) { return x + y; }, 0);
+    while (q.length < qn) {
+      var r = Math.random() * tw, n = 0; while (n < keys.length - 1 && r >= w[n]) { r -= w[n]; n++; } k = keys[n];
+      var ix = nextPair(k, used, recent); q.push([k, ix[0], ix[1]]);
+      recent.push(k + ix[0], k + ix[1]); if (recent.length > 12) recent.splice(0, recent.length - 12);
+    }
     c.setState({ r: ((c.room && c.room.s && c.room.s.r) || 0) + 1, q: q, qs: JoRoom.num(JoRoom.cfg('wm').qsec, 5, 30, 10) }, 'playing');
   }
   function wmSync() {
