@@ -133,22 +133,22 @@ const WSEARCH = {
     ['كيف أتسابق مع صديق؟', 'أنشئ غرفة أونلاين وأرسل الرابط لصديقك. تظهر الشبكة نفسها لكليكما، ومدة السباق دقيقتان؛ من وجد كلمات أكثر يفوز، وعند التعادل يفوز الأسرع.'],
     ['هل أحتاج إنترنت؟', 'اللعب الفردي يعمل دون اتصال، أما السباق مع صديق فيحتاج إنترنت.']
   ],
-  how: ['اختر فئة.', 'ابحث عن كلمات القائمة داخل الشبكة.', 'اضغط على أول حرف ثم آخر حرف.', 'أكمل كل الكلمات لتسجّل وقتك.'],
+  how: ['اختر فئة.', 'ابحث عن كلمات القائمة داخل الشبكة.', 'اسحب بإصبعك من أول حرف إلى آخر حرف، أو اضغط الحرفين بالتتابع.', 'أكمل كل الكلمات لتسجّل وقتك.'],
   rel: [['jo/tools/hangman-ar/', '🔤 لعبة المشنقة'], ['jo/games/wordle/', '🟩 ووردل بالعربي'], ['jo/tools/sudoku/', '🔢 سودوكو']],
   main: CSS + String.raw`
     <style>
-      .ws-g{display:grid;grid-template-columns:repeat(10,1fr);width:min(400px,100%);margin:14px auto 0;direction:rtl;gap:2px;}
+      .ws-g{display:grid;grid-template-columns:repeat(10,1fr);width:min(400px,100%);margin:14px auto 0;direction:rtl;gap:2px;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;}
       .ws-g button{aspect-ratio:1;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);font-family:inherit;font-size:clamp(14px,4.4vw,21px);font-weight:700;padding:0;cursor:pointer;line-height:1;}
-      .ws-g button.s{background:#fde68a;color:#111;} .ws-g button.f{background:#86efac;color:#052e16;}
+      .ws-g button.s,.ws-g button.p{background:#fde68a;color:#111;} .ws-g button.f{background:#86efac;color:#052e16;}
       .ws-l{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px;}
       .ws-l span{padding:5px 10px;border-radius:8px;background:var(--surface-2);font-weight:700;font-size:14px;} .ws-l span.f{text-decoration:line-through;opacity:.5;}
     </style>
     <div class="pt-row" id="wsCats"></div>
     <div class="pt-stat"><div><b id="wsT">0:00</b>الوقت</div><div><b id="wsF">0/0</b>الكلمات</div><div><b id="wsB">--</b>أفضل وقت</div></div>
-    <div class="ws-g" id="wsG"></div>
     <div class="ws-l" id="wsL"></div>
-    <div class="pt-row" style="justify-content:center;margin-top:12px;"><button type="button" class="pt-btn" id="wsNew">🔄 شبكة جديدة</button></div>
     <div class="pt-note" id="wsMsg" aria-live="polite"></div>
+    <div class="ws-g" id="wsG"></div>
+    <div class="pt-row" style="justify-content:center;margin-top:12px;"><button type="button" class="pt-btn" id="wsNew">🔄 شبكة جديدة</button></div>
     <div id="wsRoom"></div>`,
   room: true,
   script: String.raw`
@@ -196,8 +196,8 @@ const WSEARCH = {
     if (wc) { s = Math.max(0, LIMIT - s); if (s <= 0 && !done) { wsOver(); } }
     $('wsT').textContent = Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2); }
   function best() { var b = BEST[cat]; $('wsB').textContent = b ? Math.floor(b / 60) + ':' + ('0' + b % 60).slice(-2) : '--'; }
-  var fcells = {};
-  function paint() { cells.forEach(function (e, i) { e.textContent = grid[i]; e.className = fcells[i] ? 'f' : (i === first ? 's' : ''); }); }
+  var fcells = {}, pv = {};
+  function paint() { cells.forEach(function (e, i) { e.textContent = grid[i]; e.className = fcells[i] ? 'f' : (pv[i] ? 'p' : (i === first ? 's' : '')); }); }
   function list() {
     var l = $('wsL'); l.innerHTML = '';
     words.forEach(function (x) { var s = document.createElement('span'); s.textContent = x.w; if (found[x.n]) s.className = 'f'; l.appendChild(s); });
@@ -230,7 +230,34 @@ const WSEARCH = {
     paint();
   }
   var g = $('wsG');
-  for (var k = 0; k < N * N; k++) (function (i) { var e = document.createElement('button'); e.type = 'button'; e.addEventListener('click', function () { tap(i); }); g.appendChild(e); cells.push(e); })(k);
+  for (var k = 0; k < N * N; k++) (function (i) { var e = document.createElement('button'); e.type = 'button'; e.addEventListener('click', function () { if (skip) { skip = false; return; } tap(i); }); g.appendChild(e); cells.push(e); })(k);
+  var skip = false, dFrom = -1, dTo = -1;
+  function idxAt(e) { var el = document.elementFromPoint(e.clientX, e.clientY); return el ? cells.indexOf(el) : -1; }
+  function lineEnd(f, i) {
+    var dr = Math.floor(i / N) - Math.floor(f / N), dc = i % N - f % N;
+    if (!dr && !dc) return -1;
+    var a = Math.round(Math.atan2(dr, dc) / (Math.PI / 4)) * (Math.PI / 4), sr = Math.round(Math.sin(a)), sc = Math.round(Math.cos(a));
+    var len = Math.round((dr * sr + dc * sc) / (sr * sr + sc * sc)), r0 = Math.floor(f / N), c0 = f % N;
+    while (len > 0 && (r0 + sr * len < 0 || r0 + sr * len >= N || c0 + sc * len < 0 || c0 + sc * len >= N)) len--;
+    return len > 0 ? (r0 + sr * len) * N + c0 + sc * len : -1;
+  }
+  function preview(f, t) {
+    pv = {};
+    if (t >= 0) { var r1 = Math.floor(f / N), c1 = f % N, dr = Math.sign(Math.floor(t / N) - r1), dc = Math.sign(t % N - c1), n = Math.max(Math.abs(Math.floor(t / N) - r1), Math.abs(t % N - c1)); for (var k = 0; k <= n; k++) pv[(r1 + dr * k) * N + c1 + dc * k] = true; }
+    paint();
+  }
+  g.addEventListener('pointerdown', function (e) { skip = false; if (done) return; dFrom = idxAt(e); dTo = -1; });
+  g.addEventListener('pointermove', function (e) {
+    if (dFrom < 0) return;
+    var i = idxAt(e); if (i < 0 || i === dFrom && dTo < 0) return;
+    var t = i === dFrom ? -1 : lineEnd(dFrom, i); if (t !== dTo) { dTo = t; preview(dFrom, t); }
+  });
+  function dEnd() {
+    if (dFrom < 0) return;
+    var f = dFrom, t = dTo; dFrom = -1; dTo = -1; pv = {};
+    if (t >= 0) { skip = true; first = f; tap(t); } else paint();
+  }
+  g.addEventListener('pointerup', dEnd); g.addEventListener('pointercancel', function () { dFrom = -1; dTo = -1; pv = {}; paint(); });
   var box = $('wsCats');
   Object.keys(W).forEach(function (k2) {
     var b = document.createElement('button'); b.type = 'button'; b.className = 'pt-btn2' + (k2 === cat ? ' on' : ''); b.textContent = k2;
