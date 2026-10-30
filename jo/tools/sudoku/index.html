@@ -149,6 +149,7 @@
   </div>
 </footer>
 
+<script src="jo/tools/celebrate.js?v=1"></script>
 <script>
 (function () {
   var $ = function (i) { return document.getElementById(i); };
@@ -203,7 +204,7 @@
     cur[sel] = v; paint();
     if (cur.every(function (x, i) { return x === sol[i]; })) {
       done = true; clearInterval(tm); var s = Math.floor((Date.now() - t0) / 1000), b = BEST[clues];
-      $('sdMsg').textContent = '🎉 أحسنت! أنجزت اللغز في ' + $('sdT').textContent + (hints ? ' باستخدام ' + hints + ' تلميح' : '') + '.';
+      if (window.adCelebrate) adCelebrate(); $('sdMsg').textContent = '🎉 أحسنت! أنجزت اللغز في ' + $('sdT').textContent + (hints ? ' باستخدام ' + hints + ' تلميح' : '') + '.';
       if (!hints && (!b || s < b)) { BEST[clues] = s; try { localStorage.setItem(KEY, JSON.stringify(BEST)); } catch (e) {} best(); }
     }
   }

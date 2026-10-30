@@ -194,7 +194,7 @@ const CROSSWORD = {
   }
   function win() {
     done = true; clearInterval(tm); var sec = Math.floor((Date.now() - t0) / 1000); $('cwT').textContent = fmt(sec);
-    $('cwMsg').textContent = '🎉 أحسنت! حللت اللغز في ' + fmt(sec) + (hints ? ' (استخدمت الكشف ' + hints + ' مرة)' : '') + '.';
+    if (window.adCelebrate) adCelebrate(); $('cwMsg').textContent = '🎉 أحسنت! حللت اللغز في ' + fmt(sec) + (hints ? ' (استخدمت الكشف ' + hints + ' مرة)' : '') + '.';
     if (!hints && (!BEST[cat] || sec < BEST[cat])) { BEST[cat] = sec; try { localStorage.setItem(KEY, JSON.stringify(BEST)); } catch (e) {} best(); }
     paint();
   }
@@ -239,7 +239,7 @@ const CROSSWORD = {
     if (!done) { m.textContent = 'منافسك ' + op.name + ': ' + oc + ' من ' + tot + ' — وأنت: ' + mc + '.'; return; }
     var mt = mc ? myFt : 999999, ot = op.sr === cLast && oc && op.ft != null ? op.ft : 999999;
     var res = mc > oc || (mc === oc && mt < ot) ? '🏆 فزت!' : (mc === oc && mt === ot ? '🤝 تعادل' : '😅 فاز ' + op.name);
-    m.textContent = res + ' — أنت ' + mc + ' وكلمات ' + op.name + ' ' + oc + ' من ' + tot + '.';
+    if (res === '🏆 فزت!' && window.adCelebrate) adCelebrate(); m.textContent = res + ' — أنت ' + mc + ' وكلمات ' + op.name + ' ' + oc + ' من ' + tot + '.';
     if (rc.isHost()) cwBtn.hidden = false;
   }
   function cwSync() {

@@ -152,6 +152,7 @@
   </div>
 </footer>
 
+<script src="jo/tools/celebrate.js?v=1"></script>
 <script>
 (function () {
   var $ = function (i) { return document.getElementById(i); };
@@ -186,7 +187,7 @@
     b.disabled = true;
     if (norm.indexOf(c) >= 0) { got[c] = true; b.classList.add('g'); } else { bad++; b.classList.add('b'); }
     var done = norm.split('').every(function (x) { return got[x]; });
-    if (done) { over = true; wins++; try { localStorage.setItem(KEY, wins); } catch (e) {} $('hgWins').textContent = wins; $('hgMsg').textContent = '🎉 أحسنت! الكلمة: ' + word; }
+    if (done) { over = true; wins++; try { localStorage.setItem(KEY, wins); } catch (e) {} $('hgWins').textContent = wins; if (window.adCelebrate) adCelebrate(); $('hgMsg').textContent = '🎉 أحسنت! الكلمة: ' + word; }
     else if (bad >= 6) { over = true; $('hgMsg').textContent = '😢 خسرت. الكلمة كانت: ' + word; }
     paint();
   }

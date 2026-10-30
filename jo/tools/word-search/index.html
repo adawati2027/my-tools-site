@@ -154,6 +154,7 @@
 </footer>
 
 <script src="jo/tools/jo-room.js?v=6"></script>
+<script src="jo/tools/celebrate.js?v=1"></script>
 <script>
 (function () {
   var $ = function (i) { return document.getElementById(i); };
@@ -225,7 +226,7 @@
         if (cnt === words.length) wsOver();
       } else if (Object.keys(found).length === words.length) {
         done = true; clearInterval(tm); var sec = Math.floor((Date.now() - t0) / 1000);
-        $('wsMsg').textContent = '🎉 أحسنت! وجدت كل الكلمات في ' + $('wsT').textContent + '.';
+        if (window.adCelebrate) adCelebrate(); $('wsMsg').textContent = '🎉 أحسنت! وجدت كل الكلمات في ' + $('wsT').textContent + '.';
         if (!BEST[cat] || sec < BEST[cat]) { BEST[cat] = sec; try { localStorage.setItem(KEY, JSON.stringify(BEST)); } catch (e) {} best(); }
       }
       list();
@@ -280,7 +281,7 @@
     if (!done) { m.textContent = 'منافسك ' + op.name + ': ' + oc2 + ' من ' + words.length + ' — وأنت: ' + mc + '.'; return; }
     var mt = me.ft == null || me.sr !== wLast ? 999 : me.ft, ot = op.ft == null || op.sr !== wLast ? 999 : op.ft;
     var res = mc > oc2 || (mc === oc2 && mt < ot) ? '🏆 فزت!' : (mc === oc2 && mt === ot ? '🤝 تعادل' : '😅 فاز ' + op.name);
-    m.textContent = res + ' — أنت ' + mc + ' وكلمات ' + op.name + ' ' + oc2 + ' من ' + words.length + '.';
+    if (res === '🏆 فزت!' && window.adCelebrate) adCelebrate(); m.textContent = res + ' — أنت ' + mc + ' وكلمات ' + op.name + ' ' + oc2 + ' من ' + words.length + '.';
     if (wc.isHost()) wsBtn.hidden = false;
   }
   function wsSync() {

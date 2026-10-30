@@ -290,7 +290,7 @@ const HANG = {
     b.disabled = true;
     if (norm.indexOf(c) >= 0) { got[c] = true; b.classList.add('g'); } else { bad++; b.classList.add('b'); }
     var done = norm.split('').every(function (x) { return got[x]; });
-    if (done) { over = true; wins++; try { localStorage.setItem(KEY, wins); } catch (e) {} $('hgWins').textContent = wins; $('hgMsg').textContent = '🎉 أحسنت! الكلمة: ' + word; }
+    if (done) { over = true; wins++; try { localStorage.setItem(KEY, wins); } catch (e) {} $('hgWins').textContent = wins; if (window.adCelebrate) adCelebrate(); $('hgMsg').textContent = '🎉 أحسنت! الكلمة: ' + word; }
     else if (bad >= 6) { over = true; $('hgMsg').textContent = '😢 خسرت. الكلمة كانت: ' + word; }
     paint();
   }
@@ -368,7 +368,7 @@ const XO = {
   function render() { btns.forEach(function (e, i) { e.textContent = b[i]; e.className = b[i].toLowerCase(); }); }
   function end() {
     var w = win(b);
-    if (w) { over = true; sc[b[w[0]]]++; w.forEach(function (i) { btns[i].classList.add('w'); }); $('xoMsg').textContent = '🎉 فاز ' + (mode === 'two' ? 'اللاعب ' + b[w[0]] : (b[w[0]] === 'X' ? 'أنت' : 'الجوال')); }
+    if (w) { over = true; sc[b[w[0]]]++; w.forEach(function (i) { btns[i].classList.add('w'); }); if (window.adCelebrate && (mode === 'two' || b[w[0]] === 'X')) adCelebrate(); $('xoMsg').textContent = '🎉 فاز ' + (mode === 'two' ? 'اللاعب ' + b[w[0]] : (b[w[0]] === 'X' ? 'أنت' : 'الجوال')); }
     else if (b.every(Boolean)) { over = true; sc.D++; $('xoMsg').textContent = '🤝 تعادل'; }
     $('xoX').textContent = sc.X; $('xoO').textContent = sc.O; $('xoD').textContent = sc.D;
     return over;
@@ -403,8 +403,10 @@ const XO = {
     if (on.players.length < 2) m = 'غادر اللاعب الآخر. بانتظار لاعب جديد…';
     else if (over) m = s.w === 'D' ? '🤝 تعادل' : s.w === my ? '🎉 فزت!' : '😅 فاز ' + pname(s.w);
     else m = turn === my ? 'دورك (' + my + ')' : 'دور ' + pname(turn) + ' (' + turn + ')';
+    if (over && s.w === my && s.w !== 'D' && !xoCel) { xoCel = true; if (window.adCelebrate) adCelebrate(); } if (!over) xoCel = false;
     $('xoMsg').textContent = m;
   }
+  var xoCel = false;
   function onlinePlay(i) {
     if (!R || !R.s.b || over || b[i] || turn !== my || on.players.length < 2) return;
     var nb = b.slice(); nb[i] = my; var w = win(nb), s = R.s;
