@@ -19,7 +19,8 @@ function bullets(v, max) {
 }
 async function ask(env, sys, usr, tokens, temp) {
   const out = await env.AI.run(MODEL, { messages: [{ role: 'system', content: sys }, { role: 'user', content: usr }], max_tokens: tokens, temperature: temp });
-  return String(out && out.response || '');
+  const r = out && out.response;
+  return r && typeof r === 'object' ? JSON.stringify(r) : String(r || '');
 }
 
 async function summary(b, env, en, origin) {
