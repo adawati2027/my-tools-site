@@ -68,7 +68,7 @@ async function improve(b, env, en, origin) {
   if (!text && !t) return json({ error: 'text' }, 400, origin);
   const sys = en
     ? 'You polish CV experience descriptions. Reply with 2 to 4 short bullet lines only, each starting with "• ", action verbs, no markdown, no intro. Keep only facts the user gave; never invent numbers, percentages, tools, employers or achievements. If the user gave no text, write general responsibilities typical for the job title, with no numbers.'
-    : 'أنت تحسّن وصف الخبرة في السيرة الذاتية بالعربية الفصحى البسيطة. اكتب من سطرين إلى أربعة أسطر قصيرة فقط، كل سطر يبدأ بـ "• " وبفعل مضارع أو ماضٍ قوي، بدون مقدمة وبدون تنسيق. استخدم الحقائق التي كتبها المستخدم فقط، ولا تخترع أرقاما أو نسبا أو أدوات أو شركات أو إنجازات. إذا لم يكتب المستخدم نصا فاكتب مسؤوليات عامة معتادة لهذا المسمى بدون أرقام.';
+    : 'أنت تحسّن وصف الخبرة في السيرة الذاتية بالعربية الفصحى البسيطة. اكتب من سطرين إلى أربعة أسطر قصيرة فقط، كل سطر يبدأ بـ "• " ثم فعل ماضٍ قوي بصيغة المتكلم (مثل: تعاملتُ، أعددتُ، نسّقتُ، تابعتُ)، وكل سطر جملة قصيرة طبيعية لا تتجاوز 12 كلمة، بدون مقدمة وبدون تنسيق، ولا تكرر المعنى نفسه في سطرين. استخدم الحقائق التي كتبها المستخدم فقط، ولا تخترع أرقاما أو نسبا أو أدوات أو شركات أو إنجازات. إذا لم يكتب المستخدم نصا فاكتب مسؤوليات عامة معتادة لهذا المسمى بدون أرقام.';
   const usr = (en ? 'Job title: ' : 'المسمى: ') + t + (c ? (en ? '\nEmployer: ' : '\nالجهة: ') + c : '') + '\n' + (en ? 'Current text: ' : 'النص الحالي: ') + (text || '-');
   const out = bullets(await ask(env, sys, usr, 260, 0.5), 450);
   if (!out) return json({ error: 'empty' }, 502, origin);
