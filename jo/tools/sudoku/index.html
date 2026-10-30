@@ -154,7 +154,23 @@
 (function () {
   var $ = function (i) { return document.getElementById(i); };
   var KEY = 'adawati_sudoku_best', BEST = {}, clues = 32, sol, puz, cur, sel = -1, hints = 0, t0, tm, done = false, cells = [];
+  var GK = 'adawati_sudoku_game_v1';
   try { BEST = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+  function save() {
+    try { localStorage.setItem(GK, JSON.stringify({ clues: clues, puz: puz, sol: sol, cur: cur, hints: hints, el: Math.floor((Date.now() - t0) / 1000), done: done })); } catch (e) {}
+    if (window.__syncPush) window.__syncPush();
+  }
+  function restore() {
+    try {
+      var r = JSON.parse(localStorage.getItem(GK));
+      if (!r || r.done || !r.puz || !r.sol || !r.cur || r.puz.length !== 81 || r.sol.length !== 81 || r.cur.length !== 81) return false;
+      clues = r.clues; puz = r.puz; sol = r.sol; cur = r.cur; hints = r.hints || 0; done = false; sel = -1;
+      t0 = Date.now() - (r.el || 0) * 1000; $('sdH').textContent = hints; $('sdMsg').textContent = '';
+      document.querySelectorAll('[data-d]').forEach(function (x) { x.classList.toggle('on', +x.getAttribute('data-d') === clues); });
+      clearInterval(tm); tm = setInterval(tick, 1000); tick(); best(); paint();
+      return true;
+    } catch (e) { return false; }
+  }
   function shuf(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function makeSolved() {
     var base = [], r, c, g = shuf([0, 1, 2]), rows = [], cols = [], d = shuf([1, 2, 3, 4, 5, 6, 7, 8, 9]);
@@ -184,7 +200,7 @@
       if (count(puz.slice(), 2) !== 1) puz[i] = v; else left--;
     }
     cur = puz.slice(); sel = -1; hints = 0; done = false; t0 = Date.now(); $('sdH').textContent = 0; $('sdMsg').textContent = '';
-    clearInterval(tm); tm = setInterval(tick, 1000); tick(); paint();
+    clearInterval(tm); tm = setInterval(tick, 1000); tick(); paint(); save();
   }
   function tick() { var s = Math.floor((Date.now() - t0) / 1000); $('sdT').textContent = Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2); }
   function paint() {
@@ -201,9 +217,9 @@
   }
   function put(v) {
     if (done || sel < 0 || puz[sel]) return;
-    cur[sel] = v; paint();
+    cur[sel] = v; paint(); save();
     if (cur.every(function (x, i) { return x === sol[i]; })) {
-      done = true; clearInterval(tm); var s = Math.floor((Date.now() - t0) / 1000), b = BEST[clues];
+      done = true; save(); clearInterval(tm); var s = Math.floor((Date.now() - t0) / 1000), b = BEST[clues];
       if (window.adCelebrate) adCelebrate(); $('sdMsg').textContent = '🎉 أحسنت! أنجزت اللغز في ' + $('sdT').textContent + (hints ? ' باستخدام ' + hints + ' تلميح' : '') + '.';
       if (!hints && (!b || s < b)) { BEST[clues] = s; try { localStorage.setItem(KEY, JSON.stringify(BEST)); } catch (e) {} best(); }
     }
@@ -221,9 +237,13 @@
   $('sdHint').addEventListener('click', function () { if (done || sel < 0 || puz[sel] || cur[sel] === sol[sel]) { $('sdMsg').textContent = 'حدّد خلية فارغة أو خاطئة أولاً.'; return; } hints++; $('sdH').textContent = hints; $('sdMsg').textContent = ''; put(sol[sel]); });
   $('sdNew').addEventListener('click', build);
   document.querySelectorAll('[data-d]').forEach(function (e) { e.addEventListener('click', function () { clues = +e.getAttribute('data-d'); document.querySelectorAll('[data-d]').forEach(function (x) { x.classList.toggle('on', x === e); }); best(); build(); }); });
-  best(); build();
+  window.__sync = { key: GK, reload: function () { restore(); } };
+  window.addEventListener('pagehide', function () { if (!done) save(); });
+  document.addEventListener('visibilitychange', function () { if (document.hidden && !done) save(); });
+  best(); if (!restore()) build();
 })();
 </script>
+<script src="tool-sync.js?v=3"></script>
 <script src="i18n-lang-ar.js?v=4" defer></script>
 <script src="i18n.js?v=71" defer></script>
 <script>
