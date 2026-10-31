@@ -467,3 +467,4 @@ See [[feedback_gsc_indexing_self_drive]]-style standing routine note: this group
 **دفعة حادي وعشرون (2026-10-24) و اثنان وعشرون (2026-10-25):** 5/5 و4/4 (جروب واحد متخطى بقاعدة job-only). التفاصيل بـ `comment.md`.
 - 2026-10-29: دفعة 5 بوستات (جروب/موضوع) — التفاصيل في comment.md
 - 2026-10-31 batch 3 (5 group posts, 5/5 sent, no block): details in comment.md "دفعة ثالثة".
+- 2026-10-31 batch 4 (5 group posts, 5/5 sent, no block): details in comment.md "دفعة رابعة".
