@@ -172,7 +172,7 @@
   <div class="card" style="margin-top:16px;">
     <h2 class="card-title" style="font-size:17px;">ℹ️ عن كويز اللغة الإنجليزية</h2>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">اختبر إنجليزيتك: قواعد، أزمنة، حروف جر، إملاء، ومفردات. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، وتحدَّ أصحابك. مفيد لطلاب المدرسة والتوجيهي. مجاني وبدون تسجيل.</p>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>350</b> سؤال، موزّعة على مستويين: <b>280</b> سؤال متوسط و<b>70</b> سؤال صعب. في كل جولة يُختار 12 سؤالاً عشوائياً، فتظهر لك في كل مرة أسئلة مختلفة.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>400</b> سؤال، موزّعة على مستويين: <b>326</b> سؤال متوسط و<b>74</b> سؤال صعب. في كل جولة يُختار 12 سؤالاً عشوائياً، فتظهر لك في كل مرة أسئلة مختلفة.</p>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:10px;">🎮 اختر الصعوبة، ولديك 15 ثانية لكل سؤال — الأسرع والأدق يجمع نقاطاً أكثر.</p>
     <h3 style="font-size:15px;margin-top:14px;">📝 أمثلة من أسئلة الكويز</h3>
     <ol style="font-size:14px;line-height:1.9;padding-right:22px;">
@@ -549,6 +549,56 @@ const QUESTIONS = [
   {q:"معنى كلمة \"Bird\" بالعربية:",opts:["سمكة","حصان","قطة","طائر"],correct:3,difficulty:"medium"},
   {q:"معنى كلمة \"Fish\" بالعربية:",opts:["سمكة","طائر","كلب","أسد"],correct:0,difficulty:"medium"},
   {q:"معنى كلمة \"Happy\" بالعربية:",opts:["حزين","سعيد","غاضب","متعب"],correct:1,difficulty:"medium"},
+  {q:"‎My sister ___ a nurse.‎",opts:["are","am","is","be"],correct:2,difficulty:"medium"},
+  {q:"‎We ___ in Jordan.‎",opts:["lives","live","living","to live"],correct:1,difficulty:"medium"},
+  {q:"‎I ___ coffee every morning.‎",opts:["drink","drinks","drinking","drank"],correct:0,difficulty:"medium"},
+  {q:"‎The cat is sleeping ___ the sofa.‎",opts:["at","to","on","from"],correct:2,difficulty:"medium"},
+  {q:"‎She went to the market ___ foot.‎",opts:["by","in","on","with"],correct:2,difficulty:"medium"},
+  {q:"‎I always travel ___ bus.‎",opts:["by","on","at","in"],correct:0,difficulty:"medium"},
+  {q:"‎The meeting starts ___ 9 o'clock.‎",opts:["at","on","in","by"],correct:0,difficulty:"medium"},
+  {q:"‎We have English class ___ Tuesday.‎",opts:["in","on","at","by"],correct:1,difficulty:"medium"},
+  {q:"‎There ___ three cars in the street.‎",opts:["are","is","be","was"],correct:0,difficulty:"medium"},
+  {q:"‎Look! It ___ now.‎",opts:["rains","is raining","rained","rain"],correct:1,difficulty:"medium"},
+  {q:"‎I have ___ finished my work.‎",opts:["already","yesterday","tomorrow","ago"],correct:0,difficulty:"medium"},
+  {q:"‎She has ___ been to London.‎",opts:["ago","never","yesterday","tomorrow"],correct:1,difficulty:"medium"},
+  {q:"‎They ___ here for ten years.‎",opts:["lived","live","have lived","are living"],correct:2,difficulty:"hard"},
+  {q:"‎I ___ to Aqaba last summer.‎",opts:["have gone","went","go","going"],correct:1,difficulty:"medium"},
+  {q:"‎Tomorrow I ___ my grandmother.‎",opts:["visited","will visit","visit yesterday","visiting"],correct:1,difficulty:"medium"},
+  {q:"‎If I ___ you, I would study more.‎",opts:["am","were","was being","be"],correct:1,difficulty:"hard"},
+  {q:"‎He speaks English ___ than me.‎",opts:["best","better","good","well"],correct:1,difficulty:"medium"},
+  {q:"‎Amman is ___ than Irbid.‎",opts:["big","bigger","biggest","more big"],correct:1,difficulty:"medium"},
+  {q:"‎This is the ___ mountain in Jordan.‎",opts:["higher","highest","high","more high"],correct:1,difficulty:"medium"},
+  {q:"‎She is the ___ girl in the class.‎",opts:["taller","tallest","tall","more tall"],correct:1,difficulty:"medium"},
+  {q:"‎This exam is ___ difficult than the last one.‎",opts:["most","more","much","many"],correct:1,difficulty:"medium"},
+  {q:"‎The plural of \"person\" is usually:‎",opts:["persons only","persones","peoples only","people"],correct:3,difficulty:"hard"},
+  {q:"‎The plural of \"sheep\" is:‎",opts:["sheep","sheeps","sheepes","shepp"],correct:0,difficulty:"hard"},
+  {q:"‎The past tense of \"write\" is:‎",opts:["written","writed","writ","wrote"],correct:3,difficulty:"medium"},
+  {q:"‎The past tense of \"drink\" is:‎",opts:["drank","drunk","drinked","drinks"],correct:0,difficulty:"medium"},
+  {q:"‎The past tense of \"sing\" is:‎",opts:["sung","singed","sing","sang"],correct:3,difficulty:"medium"},
+  {q:"‎The past participle of \"take\" is:‎",opts:["took","taked","takes","taken"],correct:3,difficulty:"medium"},
+  {q:"‎The past participle of \"do\" is:‎",opts:["did","done","doed","does"],correct:1,difficulty:"medium"},
+  {q:"‎The past participle of \"give\" is:‎",opts:["gave","given","gived","giving"],correct:1,difficulty:"medium"},
+  {q:"‎The opposite of \"empty\" is:‎",opts:["low","small","thin","full"],correct:3,difficulty:"medium"},
+  {q:"‎The opposite of \"strong\" is:‎",opts:["short","weak","heavy","tall"],correct:1,difficulty:"medium"},
+  {q:"‎The opposite of \"rich\" is:‎",opts:["big","wide","poor","slow"],correct:2,difficulty:"medium"},
+  {q:"‎The opposite of \"always\" is:‎",opts:["often","usually","sometimes","never"],correct:3,difficulty:"medium"},
+  {q:"‎The opposite of \"arrive\" is:‎",opts:["come","leave","enter","stay"],correct:1,difficulty:"medium"},
+  {q:"‎The opposite of \"buy\" is:‎",opts:["sell","pay","take","get"],correct:0,difficulty:"medium"},
+  {q:"‎The opposite of \"beautiful\" is:‎",opts:["pretty","ugly","nice","kind"],correct:1,difficulty:"medium"},
+  {q:"‎The opposite of \"increase\" is:‎",opts:["decrease","grow","rise","add"],correct:0,difficulty:"medium"},
+  {q:"‎A synonym of \"happy\" is:‎",opts:["sad","angry","glad","tired"],correct:2,difficulty:"medium"},
+  {q:"‎A synonym of \"small\" is:‎",opts:["huge","little","tall","wide"],correct:1,difficulty:"medium"},
+  {q:"‎A synonym of \"fast\" is:‎",opts:["slow","late","quick","heavy"],correct:2,difficulty:"medium"},
+  {q:"‎A synonym of \"begin\" is:‎",opts:["finish","stop","end","start"],correct:3,difficulty:"medium"},
+  {q:"‎A synonym of \"smart\" is:‎",opts:["silly","lazy","weak","clever"],correct:3,difficulty:"medium"},
+  {q:"‎Which word is an adjective?‎",opts:["quickly","run","table","beautiful"],correct:3,difficulty:"medium"},
+  {q:"‎Which word is a preposition?‎",opts:["under","run","blue","happy"],correct:0,difficulty:"medium"},
+  {q:"‎Which word is a pronoun?‎",opts:["table","run","green","they"],correct:3,difficulty:"medium"},
+  {q:"‎Which word is a day of the week?‎",opts:["January","Summer","Friday","Morning"],correct:2,difficulty:"medium"},
+  {q:"‎Which word is a season?‎",opts:["August","Tuesday","Evening","Autumn"],correct:3,difficulty:"medium"},
+  {q:"‎Which word is an animal?‎",opts:["horse","table","tree","pencil"],correct:0,difficulty:"medium"},
+  {q:"‎Which word is a body part?‎",opts:["chair","elbow","window","pencil"],correct:1,difficulty:"medium"},
+  {q:"‎Which word is a family member?‎",opts:["uncle","teacher","doctor","driver"],correct:0,difficulty:"medium"},
 ];
 
 const QUIZ_CONFIG = {
