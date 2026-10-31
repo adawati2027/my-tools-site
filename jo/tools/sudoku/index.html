@@ -94,6 +94,7 @@
     <div class="sd-p" id="sdP"></div>
     <div class="pt-row" style="justify-content:center;margin-top:12px;"><button type="button" class="pt-btn2" id="sdHint">💡 تلميح</button><button type="button" class="pt-btn" id="sdNew">🔄 لغز جديد</button></div>
     <div class="pt-note" id="sdMsg" aria-live="polite"></div>
+    <button type="button" id="sdExp" style="display:none;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
   </div>
 
   <div class="card" style="margin-top:16px;">
@@ -164,7 +165,7 @@
     try {
       var r = JSON.parse(localStorage.getItem(GK));
       if (!r || r.done || !r.puz || !r.sol || !r.cur || r.puz.length !== 81 || r.sol.length !== 81 || r.cur.length !== 81) return false;
-      clues = r.clues; puz = r.puz; sol = r.sol; cur = r.cur; hints = r.hints || 0; done = false; sel = -1;
+      clues = r.clues; puz = r.puz; sol = r.sol; cur = r.cur; hints = r.hints || 0; done = false; sel = -1; $('sdExp').style.display = 'none';
       t0 = Date.now() - (r.el || 0) * 1000; $('sdH').textContent = hints; $('sdMsg').textContent = '';
       document.querySelectorAll('[data-d]').forEach(function (x) { x.classList.toggle('on', +x.getAttribute('data-d') === clues); });
       clearInterval(tm); tm = setInterval(tick, 1000); tick(); best(); paint();
@@ -199,7 +200,7 @@
       var i = order[k], v = puz[i]; puz[i] = 0;
       if (count(puz.slice(), 2) !== 1) puz[i] = v; else left--;
     }
-    cur = puz.slice(); sel = -1; hints = 0; done = false; t0 = Date.now(); $('sdH').textContent = 0; $('sdMsg').textContent = '';
+    cur = puz.slice(); sel = -1; hints = 0; done = false; $('sdExp').style.display = 'none'; t0 = Date.now(); $('sdH').textContent = 0; $('sdMsg').textContent = '';
     clearInterval(tm); tm = setInterval(tick, 1000); tick(); paint(); save();
   }
   function tick() { var s = Math.floor((Date.now() - t0) / 1000); $('sdT').textContent = Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2); }
@@ -219,7 +220,7 @@
     if (done || sel < 0 || puz[sel]) return;
     cur[sel] = v; paint(); save();
     if (cur.every(function (x, i) { return x === sol[i]; })) {
-      done = true; save(); clearInterval(tm); var s = Math.floor((Date.now() - t0) / 1000), b = BEST[clues];
+      done = true; save(); clearInterval(tm); var s = Math.floor((Date.now() - t0) / 1000), b = BEST[clues]; $('sdExp').style.display = 'flex';
       if (window.adCelebrate) adCelebrate(); $('sdMsg').textContent = '🎉 أحسنت! أنجزت اللغز في ' + $('sdT').textContent + (hints ? ' باستخدام ' + hints + ' تلميح' : '') + '.';
       if (!hints && (!b || s < b)) { BEST[clues] = s; try { localStorage.setItem(KEY, JSON.stringify(BEST)); } catch (e) {} best(); }
     }
@@ -236,6 +237,15 @@
   });
   $('sdHint').addEventListener('click', function () { if (done || sel < 0 || puz[sel] || cur[sel] === sol[sel]) { $('sdMsg').textContent = 'حدّد خلية فارغة أو خاطئة أولاً.'; return; } hints++; $('sdH').textContent = hints; $('sdMsg').textContent = ''; put(sol[sel]); });
   $('sdNew').addEventListener('click', build);
+  $('sdExp').addEventListener('click', function () {
+    if (typeof exportResultImage !== 'function') return;
+    var lv = document.querySelector('[data-d].on');
+    exportResultImage('سودوكو', [
+      { label: 'المستوى', value: lv ? lv.textContent.trim() : '' },
+      { label: 'عدد التلميحات', value: String(hints) },
+      { label: 'الوقت', value: $('sdT').textContent, highlight: true }
+    ]);
+  });
   document.querySelectorAll('[data-d]').forEach(function (e) { e.addEventListener('click', function () { clues = +e.getAttribute('data-d'); document.querySelectorAll('[data-d]').forEach(function (x) { x.classList.toggle('on', x === e); }); best(); build(); }); });
   window.__sync = { key: GK, reload: function () { restore(); } };
   window.addEventListener('pagehide', function () { if (!done) save(); });

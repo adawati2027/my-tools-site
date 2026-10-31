@@ -100,6 +100,7 @@
     <div class="pt-row" id="cwCats"></div>
     <div class="pt-stat"><div><b id="cwT">0:00</b>الوقت</div><div><b id="cwF">0/0</b>الكلمات</div><div><b id="cwB">--</b>أفضل وقت</div></div>
     <div class="pt-note" id="cwMsg" aria-live="polite"></div>
+    <button type="button" id="cwExp" style="display:none;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 صدّر النتيجة كصورة</button>
     <div id="cwPlay">
     <div class="cw-clue" id="cwClue"></div>
     <div class="cw-g" id="cwG"></div>
@@ -244,7 +245,7 @@
   function build(p) {
     p = p || gen(cat); R = p.R; C = p.C; words = p.words;
     var n = R * C, i, g = $('cwG');
-    sol = new Array(n).fill(''); nn = new Array(n).fill(''); user = new Array(n).fill(''); num = new Array(n).fill(0); cw = []; bad = {}; hints = 0; done = false;
+    sol = new Array(n).fill(''); nn = new Array(n).fill(''); user = new Array(n).fill(''); num = new Array(n).fill(0); cw = []; bad = {}; hints = 0; done = false; $('cwExp').style.display = 'none';
     for (i = 0; i < n; i++) cw.push([-1, -1]);
     words.forEach(function (w, wi) { w.ch.forEach(function (ch, k) { var ix = (w.r + (w.d ? k : 0)) * C + w.c + (w.d ? 0 : k); sol[ix] = ch; nn[ix] = nz(ch); cw[ix][w.d] = wi; }); });
     var cnt = 0;
@@ -309,7 +310,7 @@
     paint();
   }
   function win() {
-    done = true; clearInterval(tm); var sec = Math.floor((Date.now() - t0) / 1000); $('cwT').textContent = fmt(sec);
+    done = true; clearInterval(tm); var sec = Math.floor((Date.now() - t0) / 1000); $('cwT').textContent = fmt(sec); $('cwExp').style.display = 'flex';
     if (window.adCelebrate) adCelebrate(); $('cwMsg').textContent = '🎉 أحسنت! حللت اللغز في ' + fmt(sec) + (hints ? ' (استخدمت الكشف ' + hints + ' مرة)' : '') + '.';
     if (!hints && (!BEST[cat] || sec < BEST[cat])) { BEST[cat] = sec; try { localStorage.setItem(KEY, JSON.stringify(BEST)); } catch (e) {} best(); }
     paint();
@@ -334,6 +335,15 @@
     wc(w).forEach(function (i) { user[i] = sol[i]; delete bad[i]; }); hints++; paint(); if (allDone()) win();
   });
   $('cwNew').addEventListener('click', function () { build(); });
+  $('cwExp').addEventListener('click', function () {
+    if (typeof exportResultImage !== 'function') return;
+    exportResultImage('الكلمات المتقاطعة', [
+      { label: 'القسم', value: cat },
+      { label: 'عدد الكلمات', value: String(words.length) },
+      { label: 'عدد مرات الكشف', value: String(hints) },
+      { label: 'الوقت', value: $('cwT').textContent, highlight: true }
+    ]);
+  });
   var box = $('cwCats');
   [MIX].concat(Object.keys(B)).forEach(function (k) {
     var b = document.createElement('button'); b.type = 'button'; b.className = 'pt-btn2' + (k === cat ? ' on' : ''); b.textContent = k;
