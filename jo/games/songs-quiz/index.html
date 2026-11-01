@@ -171,7 +171,7 @@
   <div class="card" style="margin-top:16px;">
     <h2 class="card-title" style="font-size:17px;">ℹ️ عن من غنّى الأغنية؟</h2>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">اختبر معلوماتك بالأغاني العربية والأجنبية: خمّن من غنّى كل أغنية من اسمها. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ أصحابك. مجاني وبدون تسجيل.</p>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>400</b> سؤالاً، موزّعة على مستويين: <b>181</b> سؤال متوسط و<b>219</b> سؤال صعب. تختار كل جولة 12 سؤالاً عشوائياً، فتظهر لك أسئلة مختلفة في كل مرة تلعب فيها.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>500</b> سؤالاً، موزّعة على مستويين: <b>271</b> سؤال متوسط و<b>229</b> سؤال صعب. تختار كل جولة 12 سؤالاً عشوائياً، فتظهر لك أسئلة مختلفة في كل مرة تلعب فيها.</p>
     <h3 style="font-size:15px;margin-top:14px;">🎮 كيف تلعب؟</h3>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;">
       <li>اختر المستوى (متوسط أو صعب أو مشكّل) ثم اضغط «ابدأ».</li>
@@ -181,14 +181,14 @@
     </ul>
     <h3 style="font-size:15px;margin-top:14px;">📝 أمثلة من أسئلة الكويز</h3>
     <ol style="font-size:14px;line-height:1.9;padding-right:22px;">
-      <li>من غنّى أغنية "ميال"؟<br><span style="color:var(--text-muted);">الجواب: <b>عمرو دياب</b></span></li>
-      <li>من غنّى أغنية "The Way You Make Me Feel"؟<br><span style="color:var(--text-muted);">الجواب: <b>Michael Jackson</b></span></li>
-      <li>من غنّى أغنية "Run to You"؟<br><span style="color:var(--text-muted);">الجواب: <b>Whitney Houston</b></span></li>
-      <li>من غنّى أغنية "Redemption Song"؟<br><span style="color:var(--text-muted);">الجواب: <b>Bob Marley</b></span></li>
-      <li>من غنّى أغنية "Check on It"؟<br><span style="color:var(--text-muted);">الجواب: <b>Beyoncé</b></span></li>
-      <li>من غنّى أغنية "Underneath Your Clothes"؟<br><span style="color:var(--text-muted);">الجواب: <b>Shakira</b></span></li>
-      <li>من غنّى أغنية "Sunflower" (Spider-Verse)؟<br><span style="color:var(--text-muted);">الجواب: <b>بوست مالون</b></span></li>
-      <li>من غنّت أغنية "Bad Guy"؟<br><span style="color:var(--text-muted);">الجواب: <b>بيلي أيليش</b></span></li>
+      <li>من غنّى أغنية "كثر الحديث"؟<br><span style="color:var(--text-muted);">الجواب: <b>كاظم الساهر</b></span></li>
+      <li>من غنّى أغنية "Chiquitita"؟<br><span style="color:var(--text-muted);">الجواب: <b>ABBA</b></span></li>
+      <li>من غنّى أغنية "Viva la Vida"؟<br><span style="color:var(--text-muted);">الجواب: <b>Coldplay</b></span></li>
+      <li>من غنّى أغنية "Baby Boy"؟<br><span style="color:var(--text-muted);">الجواب: <b>Beyoncé</b></span></li>
+      <li>من غنّى أغنية "She Wolf"؟<br><span style="color:var(--text-muted);">الجواب: <b>Shakira</b></span></li>
+      <li>من غنّى أغنية "Hey Ya!"؟<br><span style="color:var(--text-muted);">الجواب: <b>أوتكاست</b></span></li>
+      <li>من غنّى أغنية "ست الحبايب"؟<br><span style="color:var(--text-muted);">الجواب: <b>فايزة أحمد</b></span></li>
+      <li>أغنية "Macarena" من أغاني أي فنان؟<br><span style="color:var(--text-muted);">الجواب: <b>لوس ديل ريو</b></span></li>
     </ol>
   </div>
 <!--/quiz-about-->
@@ -521,8 +521,6 @@ const QUESTIONS = [
   {q:'من غنّى أغنية "يا بنت الإيه"؟', opts:['تامر حسني','فيروز','نانسي عجرم','عمرو دياب'], correct:0, cat:'ar', difficulty:'hard'},
   {q:'من غنّى أغنية "عمري ابتدا"؟', opts:['كاظم الساهر','محمد عبده','تامر حسني','فريد الأطرش'], correct:2, cat:'ar', difficulty:'medium'},
   {q:'من غنّى أغنية "عيش بشوقك"؟', opts:['محمد عبده','أم كلثوم','عبدالحليم حافظ','تامر حسني'], correct:3, cat:'ar', difficulty:'hard'},
-  {q:'من غنّى أغنية "Hello" الشهيرة عام 2015؟', opts:['أديل','بيونسيه','ريهانا','تايلور سويفت'], correct:0, difficulty:'medium'},
-  {q:'من غنّى أغنية "Perfect" (Ed Sheeran)؟', opts:['هاري ستايلز','إد شيران','جاستن بيبر','تشارلي بوث'], correct:1, difficulty:'medium'},
   {q:'من غنّى أغنية "Hey Jude"؟', opts:['كوين','ليد زيبلين','البيتلز','ذا دورز'], correct:2, difficulty:'medium'},
   {q:'من غنّى أغنية "Let It Be"؟', opts:['رولينج ستونز','كوين','أبّا','البيتلز'], correct:3, difficulty:'medium'},
   {q:'من غنّت أغنية "Poker Face"؟', opts:['ليدي غاغا','ريهانا','أديل','بينك'], correct:0, difficulty:'medium'},
@@ -533,7 +531,6 @@ const QUESTIONS = [
   {q:'من غنّى أغنية "Blinding Lights"؟', opts:['دريك','ذا ويكند','بوست مالون','برونو مارس'], correct:1, difficulty:'medium'},
   {q:'من غنّى أغنية "Sunflower" (Spider-Verse)؟', opts:['دريك','ترافيس سكوت','بوست مالون','ذا ويكند'], correct:2, difficulty:'medium'},
   {q:'من غنّت أغنية "My Heart Will Go On" من فيلم تايتانيك؟', opts:['ماريا كاري','ويتني هيوستن','أديل','سيلين ديون'], correct:3, difficulty:'medium'},
-  {q:'من غنّت أغنية "I Will Always Love You" في فيلم "The Bodyguard"؟', opts:['ويتني هيوستن','ماريا كاري','سيلين ديون','بيونسيه'], correct:0, difficulty:'medium'},
   {q:'من غنّى أغنية "Smells Like Teen Spirit"؟', opts:['بيرل جام','نيرفانا','كولدبلاي','غرين داي'], correct:1, difficulty:'medium'},
   {q:'من غنّى أغنية "Hotel California"؟', opts:['ليد زيبلين','بينك فلويد','إيغلز','ذا دورز'], correct:2, difficulty:'medium'},
   {q:'من غنّى أغنية "In the End"؟', opts:['نيرفانا','ليمب بيزكيت','لايف','لينكن بارك'], correct:3, difficulty:'medium'},
@@ -548,7 +545,6 @@ const QUESTIONS = [
   {q:'من غنّى أغنية "Shallow" مع برادلي كوبر؟', opts:['ليدي غاغا','أديل','بيونسيه','بينك'], correct:0, difficulty:'medium'},
   {q:'من غنّى أغنية "Stay" مع ذا كيد لاروي؟', opts:['دريك','جاستن بيبر','ذا ويكند','شون مينديز'], correct:1, difficulty:'medium'},
   {q:'من غنّى أغنية "Dance Monkey"؟', opts:['دوا ليبا','بيلي أيليش','تونز آند آي','سيا'], correct:2, difficulty:'medium'},
-  {q:'من غنّت أغنية "Skyfall" من فيلم جيمس بوند؟', opts:['بيونسيه','سيا','ليدي غاغا','أديل'], correct:3, difficulty:'medium'},
   {q:'من غنّى أغنية "Total Eclipse of the Heart"؟', opts:['بوني تايلر','سيلين ديون','ستيفي نيكس','تينا تيرنر'], correct:0, difficulty:'medium'},
   {q:'من غنّى أغنية "Mr. Brightside"؟', opts:['كولدبلاي','ذا كيلرز','أركتيك مونكيز','كينغز أوف ليون'], correct:1, difficulty:'medium'},
   {q:'من غنّى أغنية "Hey Ya!"؟', opts:['كاني ويست','جاي زي','أوتكاست','ويل سميث'], correct:2, difficulty:'medium'},
@@ -606,6 +602,110 @@ const QUESTIONS = [
   {q:'من غنّى أغنية "As It Was"؟', opts:['Shawn Mendes','Harry Styles','Ed Sheeran','Justin Bieber'], correct:1, cat:'foreign', difficulty:'medium'},
   {q:'من غنّى أغنية "Rockstar"؟', opts:['Post Malone','Drake','The Weeknd','Eminem'], correct:0, cat:'foreign', difficulty:'hard'},
   {q:'من غنّى أغنية "Stressed Out"؟', opts:['Twenty One Pilots','Imagine Dragons','Coldplay','Linkin Park'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من صاحب أغنية "نسم علينا الهوى"؟', opts:['محمد عبده','حسين الجسمي','وردة','فيروز'], correct:3, cat:'ar', difficulty:'hard'},
+  {q:'أغنية "لبيروت" من أغاني أي فنان؟', opts:['وردة','فيروز','نجاة الصغيرة','أم كلثوم'], correct:1, cat:'ar', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "سألوني الناس"؟', opts:['محمد عبده','عمرو دياب','إليسا','فيروز'], correct:3, cat:'ar', difficulty:'medium'},
+  {q:'من صاحب أغنية "بحبك يا لبنان"؟', opts:['عمرو دياب','محمد عساف','فيروز','حسين الجسمي'], correct:2, cat:'ar', difficulty:'medium'},
+  {q:'من صاحب أغنية "صافيني مرة"؟', opts:['عبد الحليم حافظ','فايزة أحمد','حسين الجسمي','الشاب خالد'], correct:0, cat:'ar', difficulty:'medium'},
+  {q:'من غنّى أغنية "نبتدي منين الحكاية"؟', opts:['عبد الحليم حافظ','محمد عساف','فريد الأطرش','أم كلثوم'], correct:0, cat:'ar', difficulty:'medium'},
+  {q:'من صاحب أغنية "توبة"؟', opts:['فريد الأطرش','كاظم الساهر','فيروز','عبد الحليم حافظ'], correct:3, cat:'ar', difficulty:'medium'},
+  {q:'من غنّى أغنية "ست الحبايب"؟', opts:['نانسي عجرم','فايزة أحمد','كاظم الساهر','نجاة الصغيرة'], correct:1, cat:'ar', difficulty:'hard'},
+  {q:'من صاحب أغنية "كل ده كان ليه"؟', opts:['أم كلثوم','نجاة الصغيرة','محمد عساف','ماجدة الرومي'], correct:0, cat:'ar', difficulty:'medium'},
+  {q:'من غنّى أغنية "للصبر حدود"؟', opts:['أم كلثوم','إليسا','عمرو دياب','فايزة أحمد'], correct:0, cat:'ar', difficulty:'medium'},
+  {q:'من صاحب أغنية "دارت الأيام"؟', opts:['إليسا','أم كلثوم','الشاب خالد','حسين الجسمي'], correct:1, cat:'ar', difficulty:'hard'},
+  {q:'أغنية "هو صحيح الهوى غلاب" من أغاني أي فنان؟', opts:['وردة','محمد عساف','أم كلثوم','نانسي عجرم'], correct:2, cat:'ar', difficulty:'medium'},
+  {q:'من صاحب أغنية "ليالي الأنس في فيينا"؟', opts:['نجاة الصغيرة','إليسا','وردة','أسمهان'], correct:3, cat:'ar', difficulty:'medium'},
+  {q:'أغنية "ماذا أقول له" من أغاني أي فنان؟', opts:['الشاب خالد','نجاة الصغيرة','ماجدة الرومي','فيروز'], correct:1, cat:'ar', difficulty:'hard'},
+  {q:'من الفنان الذي اشتهر بأغنية "أيظن"؟', opts:['محمد عبده','إليسا','كاظم الساهر','نجاة الصغيرة'], correct:3, cat:'ar', difficulty:'medium'},
+  {q:'من غنّى أغنية "أول همسة"؟', opts:['عمرو دياب','إليسا','فريد الأطرش','فيروز'], correct:2, cat:'ar', difficulty:'medium'},
+  {q:'أغنية "هل عندك شك" من أغاني أي فنان؟', opts:['حسين الجسمي','ماجدة الرومي','فايزة أحمد','كاظم الساهر'], correct:3, cat:'ar', difficulty:'medium'},
+  {q:'من صاحب أغنية "عودوني"؟', opts:['عمرو دياب','وردة','حسين الجسمي','ماجدة الرومي'], correct:0, cat:'ar', difficulty:'medium'},
+  {q:'أغنية "عيشالك" من أغاني أي فنان؟', opts:['نجاة الصغيرة','إليسا','أم كلثوم','الشاب خالد'], correct:1, cat:'ar', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "حب كل حياتي"؟', opts:['عبد الحليم حافظ','فريد الأطرش','إليسا','محمد عساف'], correct:2, cat:'ar', difficulty:'medium'},
+  {q:'من غنّى أغنية "على بالي"؟', opts:['نانسي عجرم','ماجدة الرومي','إليسا','فريد الأطرش'], correct:2, cat:'ar', difficulty:'medium'},
+  {q:'أغنية "علّي الكوفية" من أغاني أي فنان؟', opts:['محمد عساف','فايزة أحمد','نجاة الصغيرة','داليدا'], correct:0, cat:'ar', difficulty:'hard'},
+  {q:'من الفنان الذي اشتهر بأغنية "بشرة خير"؟', opts:['محمد عبده','حسين الجسمي','الشاب خالد','فيروز'], correct:1, cat:'ar', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "حلوة يا بلدي"؟', opts:['ماجدة الرومي','الشاب خالد','داليدا','عبد الحليم حافظ'], correct:2, cat:'ar', difficulty:'hard'},
+  {q:'من غنّى أغنية "عائشة (Aïcha)"؟', opts:['فريد الأطرش','الشاب خالد','نانسي عجرم','إليسا'], correct:1, cat:'ar', difficulty:'medium'},
+  {q:'من صاحب أغنية "ديدي (Didi)"؟', opts:['وردة','فايزة أحمد','محمد عبده','الشاب خالد'], correct:3, cat:'ar', difficulty:'medium'},
+  {q:'أغنية "Just Dance" من أغاني أي فنان؟', opts:['جاي زي وأليشيا كيز','جيسون مراز','ريهانا','ليدي غاغا'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "Photograph"؟', opts:['فرقة جورني','كريستينا أغيليرا','إد شيران','أفيتشي'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Happier Than Ever"؟', opts:['لوس ديل ريو','بيلي إيليش','فرقة ريد هوت تشيلي بيبرز','باسنجر'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "Ocean Eyes"؟', opts:['فرقة لينكين بارك','باسنجر','بيلي إيليش','ليونارد كوهين'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Starboy"؟', opts:['ذا ويكند','برنس','فرقة ذا كرانبيريز','باسنجر'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Save Your Tears"؟', opts:['ذا ويكند','سيلين ديون','مايلي سايرس','بوست مالون وسواي لي'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "Peaches"؟', opts:['فرقة ذا تيمبتيشنز','جاستن بيبر','شون مينديز','فرقة ميتاليكا'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Roar"؟', opts:['كاتي بيري','فرقة لينكين بارك','ديفيد غيتا وسيا','أليشيا كيز'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Dark Horse"؟', opts:['كاتي بيري','فرقة سيرفايفر','ستيفي وندر','فرقة ليد زيبلين'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "Hot n Cold"؟', opts:['سيا','بروس سبرينغستين','شون مينديز وكاميلا كابيلو','كاتي بيري'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Butter"؟', opts:['فرقة بينك فلويد','غوتيه','فرقة BTS','إد شيران'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'أغنية "Stitches" من أغاني أي فنان؟', opts:['ميجر ليزر','أول سيتي','ماريا كاري','شون مينديز'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Radioactive"؟', opts:['فرقة إيماجين دراغونز','مادونا','بريتني سبيرز','إد شيران'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "Thunder"؟', opts:['ويتني هيوستن','فرقة بون جوفي','فرقة إيماجين دراغونز','تاركان'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'أغنية "Demons" من أغاني أي فنان؟', opts:['فرقة إيماجين دراغونز','فرقة إل إم إف إيه أو','فرقة بيرلين','فرقة غنز آند روزز'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Hallelujah"؟', opts:['ويتني هيوستن','ليونارد كوهين','جاستن تيمبرليك','بيلي إيليش'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Welcome to the Jungle"؟', opts:['فانس جوي','فرقة غنز آند روزز','أليشيا كيز','كريستينا أغيليرا'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "November Rain"؟', opts:['شون مينديز','فرقة غنز آند روزز','تايلور سويفت','دوا ليبا'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Highway to Hell"؟', opts:['فرقة ذا تيمبتيشنز','فرقة سبايس غيرلز','فرقة إيه سي دي سي','فرقة ليد زيبلين'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "Don\'t Look Back in Anger"؟', opts:['كاتي بيري','فرقة ليد زيبلين','فرقة أويسيس','مادونا'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Losing My Religion"؟', opts:['سايْ (PSY)','فرقة غرين داي','ستيفي وندر','فرقة آر إي إم'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "Sweet Dreams (Are Made of This)"؟', opts:['فرقة إل إم إف إيه أو','مادونا','فرقة أوتكاست','فرقة يوريثمكس'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Time After Time"؟', opts:['أديل','دون عمر','سيندي لوبر','مايلي سايرس'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Africa"؟', opts:['باسنجر','فرقة مارون 5','بوست مالون','فرقة توتو'], correct:3, cat:'foreign', difficulty:'hard'},
+  {q:'من الفنان الذي اشتهر بأغنية "جانا الهوا"؟', opts:['داليدا','محمد عساف','فايزة أحمد','عبد الحليم حافظ'], correct:3, cat:'ar', difficulty:'hard'},
+  {q:'أغنية "سواح" من أغاني أي فنان؟', opts:['فيروز','عبد الحليم حافظ','داليدا','أسمهان'], correct:1, cat:'ar', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "يا مسهرني"؟', opts:['كاظم الساهر','نجاة الصغيرة','عبد الحليم حافظ','أم كلثوم'], correct:3, cat:'ar', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Heal the World"؟', opts:['ويتني هيوستن','مايكل جاكسون','ستيفي وندر','فرقة باكستريت بويز'], correct:1, cat:'foreign', difficulty:'hard'},
+  {q:'من صاحب أغنية "Stayin\' Alive"؟', opts:['كاتي بيري','لويس أرمسترونغ','فرقة بي جيز','ميجر ليزر'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Stan"؟', opts:['هوزير','إمينيم','تشاك بيري','فرقة جيبسي كينغز'], correct:1, cat:'foreign', difficulty:'hard'},
+  {q:'من صاحب أغنية "In da Club"؟', opts:['فيفتي سنت','آلان ووكر','فرقة إن سينك','فرقة بينك فلويد'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'أغنية "Fallin\'" من أغاني أي فنان؟', opts:['بيونسيه','ليل ناس إكس','سيندي لوبر','أليشيا كيز'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "No One"؟', opts:['برنس','فرقة إن سينك','فرقة نيرفانا','أليشيا كيز'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "The Power of Love"؟', opts:['ريهانا','سيلين ديون','سايْ (PSY)','كريستينا أغيليرا'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'أغنية "Because You Loved Me" من أغاني أي فنان؟', opts:['تاركان','سيلين ديون','جون لينون','ذا ويكند'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "All I Want for Christmas Is You"؟', opts:['أريانا غراندي','ماريا كاري','فرقة كاوما','برنس'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "Genie in a Bottle"؟', opts:['كريستينا أغيليرا','شون مينديز وكاميلا كابيلو','فرقة ذا تيمبتيشنز','فرقة ديب بيربل'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'أغنية "Beautiful" من أغاني أي فنان؟', opts:['فرقة كولدبلاي','ذا ويكند','فرقة إل إم إف إيه أو','كريستينا أغيليرا'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "I Want It That Way"؟', opts:['فرقة باكستريت بويز','مايلي سايرس','فرقة سيرفايفر','بوست مالون وسواي لي'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'أغنية "Everybody (Backstreet\'s Back)" من أغاني أي فنان؟', opts:['لوس ديل ريو','ريهانا','أفيتشي','فرقة باكستريت بويز'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Bye Bye Bye"؟', opts:['شون مينديز وكاميلا كابيلو','ريهانا','فرقة إن سينك','إلفيس بريسلي'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Bailando"؟', opts:['إمينيم','أ غريت بيغ وورلد','فرقة غنز آند روزز','إنريكي إغليسياس'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "Livin\' la Vida Loca"؟', opts:['بريتني سبيرز','لويس أرمسترونغ','فرقة إيماجين دراغونز','ريكي مارتن'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'أغنية "Macarena" من أغاني أي فنان؟', opts:['أوليفيا رودريغو','فرقة سيرفايفر','لوس ديل ريو','ليونارد كوهين'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Gasolina"؟', opts:['دادي يانكي','كارلي راي جيبسن','فرقة باكستريت بويز','جيسون مراز'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Danza Kuduro"؟', opts:['ليونارد كوهين','دوا ليبا','فرقة إيه سي دي سي','دون عمر'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Get Lucky"؟', opts:['فرقة جورني','فرقة دافت بانك','فرقة ديب بيربل','بوب ديلان'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'أغنية "New Rules" من أغاني أي فنان؟', opts:['سيلين ديون','دوا ليبا','شاكيرا','فرقة BTS'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Don\'t Start Now"؟', opts:['دوا ليبا','فرقة بي جيز','لويس كابالدي','فيفتي سنت'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Watermelon Sugar"؟', opts:['باسنجر','هاري ستايلز','ليونارد كوهين','فاريل ويليامز'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "good 4 u"؟', opts:['فرقة بون جوفي','بروس سبرينغستين','أوليفيا رودريغو','فرقة دافت بانك'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Flowers"؟', opts:['فانس جوي','مايلي سايرس','جاستن بيبر','إلفيس بريسلي'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "Wrecking Ball"؟', opts:['هاري ستايلز','ريهانا','فرقة باكستريت بويز','مايلي سايرس'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Circles"؟', opts:['فرقة كوين','فاريل ويليامز','فرقة إن سينك','بوست مالون'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Thank U, Next"؟', opts:['أول سيتي','تشارلي بوث','ستيفي وندر','أريانا غراندي'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "7 rings"؟', opts:['فرانك سيناترا','أوليفيا رودريغو','أريانا غراندي','تايلور سويفت'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Wake Me Up"؟', opts:['أديل','فرقة بون جوفي','فاريل ويليامز','أفيتشي'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Levels"؟', opts:['تاركان','شاكيرا','أفيتشي','دادي يانكي'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "Closer"؟', opts:['ذا تشين سموكرز','ذا ويكند','ميجر ليزر','هوزير'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'أغنية "Lean On" من أغاني أي فنان؟', opts:['مارفن غاي','ميجر ليزر','بروس سبرينغستين','دوا ليبا'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Sugar"؟', opts:['فرقة مارون 5','فرقة نيرفانا','فرقة أوتكاست','تونز آند آي'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Moves Like Jagger"؟', opts:['فيفتي سنت','فرقة ريد هوت تشيلي بيبرز','فرقة مارون 5','فرقة سيرفايفر'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "Girls Like You"؟', opts:['سيندي لوبر','هاري ستايلز','فرقة ديب بيربل','فرقة مارون 5'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'أغنية "Attention" من أغاني أي فنان؟', opts:['تشارلي بوث','هاري ستايلز','دادي يانكي','غوتيه'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Let Her Go"؟', opts:['باسنجر','فرقة بي جيز','لويس أرمسترونغ','فرقة لينكين بارك'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Riptide"؟', opts:['فرقة نيرفانا','ديفيد غيتا وسيا','فانس جوي','إلفيس بريسلي'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'أغنية "Stay with Me" من أغاني أي فنان؟', opts:['شون مينديز','سام سميث','سيلين ديون','فرقة كاوما'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Call Me Maybe"؟', opts:['كارلي راي جيبسن','فرقة آر إي إم','ديفيد بوي','ليدي غاغا'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Somebody That I Used to Know"؟', opts:['ليل ناس إكس','فرقة إل إم إف إيه أو','غوتيه','بوست مالون'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "Party Rock Anthem"؟', opts:['فرقة سبايس غيرلز','أريانا غراندي','فرقة إل إم إف إيه أو','فيفتي سنت'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'أغنية "Numb" من أغاني أي فنان؟', opts:['فرقة ميتاليكا','غوتيه','فرقة لينكين بارك','فرقة بينك فلويد'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Californication"؟', opts:['فرقة ريد هوت تشيلي بيبرز','سام سميث','فاريل ويليامز','جي بالفين'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'أغنية "Basket Case" من أغاني أي فنان؟', opts:['فرقة غرين داي','فرقة ميتاليكا','تايلور سويفت','ديفيد غيتا وسيا'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Boulevard of Broken Dreams"؟', opts:['فرقة غرين داي','دوا ليبا','فرقة آبا','فاريل ويليامز'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Enter Sandman"؟', opts:['فرقة أوتكاست','فرقة ميتاليكا','فرقة ليد زيبلين','كاتي بيري'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'أغنية "Smoke on the Water" من أغاني أي فنان؟', opts:['كارلي راي جيبسن','فرقة بينك فلويد','فرقة ديب بيربل','جاي زي وأليشيا كيز'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من الفنان الذي اشتهر بأغنية "Wish You Were Here"؟', opts:['فرقة البيتلز','فرقة بينك فلويد','إد شيران','فرقة كولدبلاي'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من صاحب أغنية "Paint It Black"؟', opts:['فرقة رولينغ ستونز','سيلين ديون','آلان ووكر','فرقة إن سينك'], correct:0, cat:'foreign', difficulty:'medium'},
 ];
 
 const QUIZ_CONFIG = {
