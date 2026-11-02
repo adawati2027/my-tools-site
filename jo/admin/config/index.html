@@ -149,6 +149,8 @@ document.addEventListener('DOMContentLoaded', function () {
       '<div style="margin-top:14px;"><label style="font-weight:700;font-size:14px;" for="pList">إيقاف صفحات أو أدوات مؤقتاً</label><div class="cf-h">مسار في كل سطر. المسار الذي ينتهي بـ / يشمل كل ما تحته. مثال: jo/games/jordan-quiz/ أو jo/calculators/tawjihi-average/. تُخفى بطاقتها من القوائم وتظهر رسالة بدل الصفحة.</div><textarea id="pList" dir="ltr" rows="4" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;">' + esc((pg.disabled || []).join('\n')) + '</textarea></div>' +
       '<div style="margin-top:6px;"><label class="cf-h" for="pMsg">رسالة الصفحات الموقوفة (اختيارية)</label><input type="text" id="pMsg" maxlength="200" style="width:100%;box-sizing:border-box;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-family:inherit;font-size:15px;" value="' + esc(pg.message || '') + '"></div></div>' +
 
+      '<div class="card cf-sec"><h2>🔥 محرر العروض لكل المطاعم</h2><div class="cf-h">البريد الذي تضيفه هنا (بعد تسجيله الدخول بحساب Google) يستطيع إضافة العروض وحذفها لأي مطعم في دليل المطاعم. يعمل فور الإضافة ولا يحتاج زر الحفظ أدناه.</div>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;"><input type="email" id="edEmail" dir="ltr" placeholder="name@gmail.com" style="' + INP + 'flex:1;min-width:200px;"><button type="button" class="ads-btn" id="edAdd">➕ إضافة</button></div><div id="edList" class="cf-h" style="margin-top:8px;"></div><div id="edMsg"></div></div>' +
       '<div class="card cf-sec"><button type="button" class="ads-btn" id="cSave">💾 حفظ الإعدادات</button> <button type="button" class="ads-btn secondary" id="cReset">↩️ الافتراضي</button><div class="cf-h" style="margin-top:8px;">' + (c.updatedAt && c.updatedAt.toDate ? 'آخر حفظ: ' + esc(c.updatedAt.toDate().toLocaleString('ar')) : 'لم تُحفظ إعدادات بعد.') + '</div><div id="cMsg"></div></div>' +
       '<div class="card cf-sec"><h2>💾 نسخة احتياطية</h2><div class="cf-h">انسخ الإعدادات الحالية كنص، أو الصق نصاً محفوظاً واضغط استيراد ثم احفظ.</div><textarea id="bkTxt" dir="ltr" rows="4" style="' + INP + 'margin-top:8px;"></textarea><div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;"><button type="button" class="ads-btn secondary" id="bkExp">📋 تصدير الحالي</button><button type="button" class="ads-btn secondary" id="bkImp">📥 استيراد</button></div></div>' +
 
@@ -156,6 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
       SERVICES.map(function (x) { return '<a href="' + esc(x[2]) + '" target="_blank" rel="noopener"><b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span></a>'; }).join('') + '</div></div>';
     body.innerHTML = h;
     document.getElementById('cSave').addEventListener('click', save);
+    editors();
     var bk = document.getElementById('bkTxt');
     document.getElementById('bkExp').addEventListener('click', function () { bk.value = JSON.stringify(collect(), null, 1); bk.select(); try { navigator.clipboard.writeText(bk.value); msg('ok', 'تم التصدير ونُسخ النص.'); } catch (e) { msg('ok', 'تم التصدير، انسخ النص يدوياً.'); } });
     document.getElementById('bkImp').addEventListener('click', function () {
@@ -175,6 +178,27 @@ document.addEventListener('DOMContentLoaded', function () {
       dl.innerHTML = a.map(function (x) { var p = String(x.u).replace(/^https?:\/\/adawati\.space\//, ''); return p ? '<option value="' + esc(p) + '">' + esc(String(x.t).slice(0, 60)) + '</option>' : ''; }).join('');
     }).catch(function () {});
     document.getElementById('cReset').addEventListener('click', function () { build({}); msg('ok', 'عُبّئت القيم الافتراضية. اضغط حفظ لتثبيتها.'); });
+  }
+
+  function editors() {
+    var col = function () { return fbRef.db.collection('restOwners').doc('_all').collection('members'); }, list = document.getElementById('edList'), em = document.getElementById('edMsg');
+    function note(t, m) { em.innerHTML = '<div class="ads-msg ' + t + '">' + esc(m) + '</div>'; }
+    function load() {
+      col().get().then(function (s) {
+        var a = []; s.forEach(function (d) { a.push(d.id); });
+        list.innerHTML = a.length ? a.map(function (x) { return '<div style="display:flex;gap:8px;align-items:center;margin-top:4px;"><span dir="ltr">' + esc(x) + '</span><button type="button" class="ads-btn danger" style="padding:3px 9px;font-size:12px;" data-ed="' + esc(x) + '">🗑️</button></div>'; }).join('') : 'لا يوجد محرر حالياً.';
+      }).catch(function () { list.textContent = 'تعذّر تحميل القائمة. انشر قواعد Firestore الجديدة أولاً.'; });
+    }
+    document.getElementById('edAdd').addEventListener('click', function () {
+      var e = document.getElementById('edEmail').value.trim().toLowerCase();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) { note('err', 'اكتب بريداً صحيحاً.'); return; }
+      col().doc(e).set({ email: e, at: firebase.firestore.FieldValue.serverTimestamp() }).then(function () { document.getElementById('edEmail').value = ''; note('ok', '✓ أُضيف المحرر.'); load(); }).catch(function () { note('err', 'تعذّرت الإضافة.'); });
+    });
+    list.addEventListener('click', function (ev) {
+      var b = ev.target.closest && ev.target.closest('[data-ed]'); if (!b) return;
+      col().doc(b.getAttribute('data-ed')).delete().then(function () { note('ok', 'حُذف.'); load(); }).catch(function () { note('err', 'تعذّر الحذف.'); });
+    });
+    load();
   }
 
   function msg(t, m) { var e = document.getElementById('cMsg'); if (e) e.innerHTML = '<div class="ads-msg ' + t + '">' + esc(m) + '</div>'; }

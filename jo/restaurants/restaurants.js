@@ -164,7 +164,8 @@
   function loadMgr() {
     if (!cur || !curUser || !curUser.email || isAdmin || !fbRef || isMgr[cur.id] !== undefined) return;
     var id = cur.id;
-    fbRef.db.collection('restOwners').doc(id).collection('members').doc(curUser.email.toLowerCase()).get().then(function (d) { isMgr[id] = d.exists; if (cur && cur.id === id && d.exists) drawSheet(false); }).catch(function () { isMgr[id] = false; });
+    var em = curUser.email.toLowerCase(), mem = function (r) { return fbRef.db.collection('restOwners').doc(r).collection('members').doc(em).get().catch(function () { return { exists: false }; }); };
+    Promise.all([mem(id), mem('_all')]).then(function (a) { var ok = a[0].exists || a[1].exists; isMgr[id] = ok; if (cur && cur.id === id && ok) drawSheet(false); }).catch(function () { isMgr[id] = false; });
   }
   function offerCard(o, mgr) {
     return '<div style="border:1px solid #fecaca;background:var(--surface-2);border-radius:10px;padding:10px;margin-top:8px;"><div style="display:flex;justify-content:space-between;gap:8px;"><strong>' + (KIND[o.kind] || '') + ' — ' + esc(o.title) + '</strong>' + (o.price ? '<span style="color:#b91c1c;font-weight:700;">' + esc(o.price) + '</span>' : '') + '</div>' +

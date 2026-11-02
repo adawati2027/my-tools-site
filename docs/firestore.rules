@@ -274,7 +274,8 @@ service cloud.firestore {
     // Restaurant offers: public read; written only by admins or by owners an admin added under restOwners/{rid}/members/{email}.
     function restManager(rid) {
       return isAdmin() || (request.auth != null && request.auth.token.email_verified == true
-        && exists(/databases/$(database)/documents/restOwners/$(rid)/members/$(request.auth.token.email.lower())));
+        && (exists(/databases/$(database)/documents/restOwners/$(rid)/members/$(request.auth.token.email.lower()))
+          || exists(/databases/$(database)/documents/restOwners/_all/members/$(request.auth.token.email.lower()))));
     }
     match /restOffers/{oid} {
       allow read: if true;
