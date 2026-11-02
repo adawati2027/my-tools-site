@@ -482,7 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
   window.setLang = function(lang) {
     if (_origEosSetLang) _origEosSetLang(lang);
     eosLang = lang;
-    updateEosText();
+    if (EOS_T[lang] || document.documentElement.lang === 'en') updateEosText();
   };
   eosLang = (document.documentElement.lang!=='en'?document.documentElement.lang:null)||localStorage.getItem('lang')||document.documentElement.lang||'en';
   if (!EOS_T[eosLang]) { eosLang = 'en'; } else { updateEosText(); }
