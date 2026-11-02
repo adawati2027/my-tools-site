@@ -5,6 +5,8 @@ const files = process.argv.slice(2);
 if (!files.length) { console.error('usage: node tools/build-restaurants.js a.json [b.json ...]'); process.exit(1); }
 
 const AREA_FIX = { 'أخرى': 'جبل النزهة', 'الجبيهه': 'الجبيهة', 'الجبيهة': 'الجبيهة', 'داخلية': 'الداخلية', 'الداخليه': 'الداخلية', 'الدوار السابع': 'الدوار السابع' };
+const CUISINE_FIX = { 'برجر ووجبات سريعة': 'برغر ووجبات سريعة' };
+AREA_FIX['شارع المدينة'] = 'شارع المدينة المنورة';
 const normKey = s => String(s || '').toLowerCase().replace(/[^a-z0-9؀-ۿ]+/g, '');
 const slug = s => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
@@ -20,7 +22,7 @@ all.forEach(r => {
   const key = normKey(r.en || r.name) + '|' + normKey(area);
   if (seen.has(key)) return;
   seen.set(key, 1);
-  out.push({ n: r.name.trim(), e: (r.en || '').trim(), a: area, c: (r.cuisine || 'متنوع').trim(), w: okUrl(r.website), i: okUrl(r.instagram, 'instagram.com'), f: okUrl(r.facebook, 'facebook.com'), p: okPhone(r.phone) });
+  out.push({ n: r.name.trim(), e: (r.en || '').trim(), a: area, c: CUISINE_FIX[(r.cuisine || '').trim()] || (r.cuisine || 'عالمي').trim(), w: okUrl(r.website), i: okUrl(r.instagram, 'instagram.com'), f: okUrl(r.facebook, 'facebook.com'), p: okPhone(r.phone) });
 });
 
 const ids = new Set();

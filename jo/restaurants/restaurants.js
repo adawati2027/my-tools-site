@@ -65,11 +65,18 @@
     var forAreas = R.filter(function (r) { return (!st.cuisine || r.c === st.cuisine) && (!q || r._k.indexOf(q) !== -1); });
     var ac = countBy('a', forAreas);
     var areas = Object.keys(countBy('a', R)).sort(function (a, b) { return countBy('a', R)[b] - countBy('a', R)[a] || a.localeCompare(b, 'ar'); });
+    var tot = countBy('a', R), top = areas.slice(0, 12);
+    if (st.area && top.indexOf(st.area) < 0) top.push(st.area);
     var h = '<button type="button" class="rs-chip' + (st.area ? '' : ' on') + '" data-area="">الكل<small>' + forAreas.length + '</small></button>';
-    areas.forEach(function (a) {
+    top.forEach(function (a) {
       if (!ac[a] && st.area !== a) return;
       h += '<button type="button" class="rs-chip' + (st.area === a ? ' on' : '') + '" data-area="' + esc(a) + '">' + esc(a) + '<small>' + (ac[a] || 0) + '</small></button>';
     });
+    var so = '<option value="">📍 كل المناطق (' + areas.length + ')</option>';
+    areas.slice().sort(function (a, b) { return a.localeCompare(b, 'ar'); }).forEach(function (a) {
+      so += '<option value="' + esc(a) + '"' + (st.area === a ? ' selected' : '') + '>' + esc(a) + ' (' + (ac[a] || 0) + ')</option>';
+    });
+    $('rsAreaSel').innerHTML = so;
     $('rsAreas').innerHTML = h;
 
     var forCu = R.filter(function (r) { return (!st.area || r.a === st.area) && (!q || r._k.indexOf(q) !== -1); });
@@ -236,6 +243,7 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('rsModal').hidden) closeModal(); });
   var timer;
   $('rsSearch').addEventListener('input', function () { clearTimeout(timer); var v = this.value; timer = setTimeout(function () { st.q = v; st.shown = PAGE; draw(); }, 120); });
+  $('rsAreaSel').addEventListener('change', function () { st.area = this.value; st.shown = PAGE; draw(); });
   $('rsCuisine').addEventListener('change', function () { st.cuisine = this.value; st.shown = PAGE; draw(); });
   $('rsSort').addEventListener('change', function () { st.sort = this.value; st.shown = PAGE; draw(); });
   $('rsMore').addEventListener('click', function () { st.shown += PAGE; draw(); });
