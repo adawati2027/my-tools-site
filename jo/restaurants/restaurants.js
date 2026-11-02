@@ -3,7 +3,7 @@
   var PAGE = 30;
   var st = { area: '', cuisine: '', q: '', sort: 'top', shown: PAGE, offers: false };
   var RAT = {}, OFF = {}, OFFLIST = [], BYID = {};
-  var fbRef = null, curUser = null, isAdmin = false;
+  var fbRef = null, curUser = null, isAdmin = false, isMgr = {};
   var cur = null, reviews = [], myStars = 0;
 
   var $ = function (id) { return document.getElementById(id); };
@@ -142,7 +142,7 @@
     document.body.style.overflow = 'hidden';
     drawSheet(true);
     adsFb().then(function (fb) {
-      fbRef = fb;
+      fbRef = fb; loadMgr();
       return fb.db.collection('restRatings').doc(cur.id).collection('reviews').orderBy('updatedAt', 'desc').limit(60).get();
     }).then(function (s) {
       reviews = s.docs.map(function (d) { return { uid: d.id, d: d.data() }; });
@@ -160,42 +160,64 @@
     if (!r.p && !r.w && !r.i && !r.f) h += '<p class="ads-meta" style="margin-top:6px;">لا تتوفر بيانات تواصل لهذا المطعم بعد — افتح الخريطة لمعرفة رقمه وموقعه.</p>';
     return h + '<div class="ads-row" style="margin-top:8px;"><button type="button" class="ads-btn secondary" id="rsCopy">🔗 نسخ رابط هذا المطعم</button></div>';
   }
-  function offerCard(o, mine) {
+  function canManage(rid) { return isAdmin || !!isMgr[rid]; }
+  function loadMgr() {
+    if (!cur || !curUser || !curUser.email || isAdmin || !fbRef || isMgr[cur.id] !== undefined) return;
+    var id = cur.id;
+    fbRef.db.collection('restOwners').doc(id).collection('members').doc(curUser.email.toLowerCase()).get().then(function (d) { isMgr[id] = d.exists; if (cur && cur.id === id && d.exists) drawSheet(false); }).catch(function () { isMgr[id] = false; });
+  }
+  function offerCard(o, mgr) {
     return '<div style="border:1px solid #fecaca;background:var(--surface-2);border-radius:10px;padding:10px;margin-top:8px;"><div style="display:flex;justify-content:space-between;gap:8px;"><strong>' + (KIND[o.kind] || '') + ' — ' + esc(o.title) + '</strong>' + (o.price ? '<span style="color:#b91c1c;font-weight:700;">' + esc(o.price) + '</span>' : '') + '</div>' +
       (o.details ? '<p style="margin:6px 0;white-space:pre-line;font-size:14px;line-height:1.8;">' + esc(o.details) + '</p>' : '') +
-      '<div class="ads-meta">حتى ' + esc(o.until) + ' · نشره ' + esc(o.name || 'مستخدم') + '</div>' +
+      '<div class="ads-meta">حتى ' + esc(o.until) + '</div>' +
       '<div class="ads-row" style="margin-top:6px;">' + (o.link && /^https:\/\//.test(o.link) ? '<a class="ads-btn secondary" style="padding:4px 10px;font-size:12px;" href="' + esc(o.link) + '" target="_blank" rel="noopener noreferrer nofollow">🔗 مصدر العرض</a>' : '') +
-      (mine || isAdmin ? '<button type="button" class="ads-btn danger" style="padding:4px 10px;font-size:12px;" data-odel="' + esc(o._id) + '">🗑️ احذف' + (mine ? '' : ' (أدمن)') + '</button>' : '') + '</div></div>';
+      (mgr ? '<button type="button" class="ads-btn danger" style="padding:4px 10px;font-size:12px;" data-odel="' + esc(o._id) + '">🗑️ احذف</button>' : '') + '</div></div>';
   }
   function offersSection() {
-    var list = OFF[cur.id] || [], mine = curUser && list.filter(function (o) { return o.uid === curUser.uid; })[0];
+    var list = OFF[cur.id] || [], mgr = canManage(cur.id);
+    if (!list.length && !mgr) return '';
     var h = '<div class="card-title" style="font-size:16px;margin-top:14px;">🔥 العروض' + (list.length ? ' (' + list.length + ')' : '') + '</div>';
-    h += list.length ? list.map(function (o) { return offerCard(o, curUser && o.uid === curUser.uid); }).join('') : '<p class="ads-meta" style="margin-top:6px;">لا توجد عروض حالية مسجّلة لهذا المطعم.</p>';
-    h += '<p class="ads-meta" style="margin-top:6px;">العروض يضيفها المستخدمون وأصحاب المطاعم بتاريخ انتهاء، ولا نتحقق منها — تأكد من المطعم قبل الذهاب.</p>';
-    if (!curUser) return h + '<div style="margin-top:8px;"><button type="button" class="ads-btn secondary" id="ofLogin">🔐 سجّل الدخول لتضيف عرضاً</button></div>';
-    var m = mine || {}, mxd = new Date(Date.now() + 90 * 864e5), mx = mxd.getFullYear() + '-' + ('0' + (mxd.getMonth() + 1)).slice(-2) + '-' + ('0' + mxd.getDate()).slice(-2);
-    return h + '<details style="margin-top:8px;"' + (mine ? ' open' : '') + '><summary style="cursor:pointer;font-weight:700;">' + (mine ? '✏️ عدّل عرضك' : '➕ أضف عرضاً (منيو أو بوفيه)') + '</summary><div class="ads-form" style="margin-top:8px;">' +
-      '<select id="ofKind"><option value="menu"' + (m.kind === 'menu' ? ' selected' : '') + '>🍽️ عرض على المنيو</option><option value="buffet"' + (m.kind === 'buffet' ? ' selected' : '') + '>🍛 عرض بوفيه</option></select>' +
-      '<input id="ofTitle" maxlength="80" placeholder="عنوان العرض (مثال: بوفيه مفتوح الجمعة)" value="' + esc(m.title || '') + '">' +
-      '<textarea id="ofDetails" maxlength="300" placeholder="التفاصيل (الوجبات، الأيام، الشروط)" style="min-height:60px;">' + esc(m.details || '') + '</textarea>' +
-      '<input id="ofPrice" maxlength="40" placeholder="السعر (اختياري، مثال: 9.5 د.أ للشخص)" value="' + esc(m.price || '') + '">' +
-      '<label class="ads-meta">ينتهي العرض في:</label><input id="ofUntil" type="date" min="' + today() + '" max="' + mx + '" value="' + esc(m.until || '') + '">' +
-      '<input id="ofLink" maxlength="200" placeholder="رابط المنشور أو المصدر (اختياري، https)" value="' + esc(m.link || '') + '">' +
-      '<div class="ads-row"><button type="button" class="ads-btn" id="ofSave">' + (mine ? '💾 حفظ' : '🔥 انشر العرض') + '</button></div><div id="ofMsg"></div></div></details>';
+    h += list.length ? list.map(function (o) { return offerCard(o, mgr); }).join('') : '<p class="ads-meta" style="margin-top:6px;">لا توجد عروض حالية لهذا المطعم.</p>';
+    h += '<p class="ads-meta" style="margin-top:6px;">العروض ينشرها المطعم أو إدارة الموقع بتاريخ انتهاء — تأكد من المطعم قبل الذهاب.</p>';
+    if (!mgr) return h;
+    var mxd = new Date(Date.now() + 90 * 864e5), mx = mxd.getFullYear() + '-' + ('0' + (mxd.getMonth() + 1)).slice(-2) + '-' + ('0' + mxd.getDate()).slice(-2);
+    h += '<details style="margin-top:8px;"><summary style="cursor:pointer;font-weight:700;">➕ أضف عرضاً (منيو أو بوفيه)</summary><div class="ads-form" style="margin-top:8px;">' +
+      '<select id="ofKind"><option value="menu">🍽️ عرض على المنيو</option><option value="buffet">🍛 عرض بوفيه</option></select>' +
+      '<input id="ofTitle" maxlength="80" placeholder="عنوان العرض (مثال: بوفيه مفتوح الجمعة)">' +
+      '<textarea id="ofDetails" maxlength="300" placeholder="التفاصيل (الوجبات، الأيام، الشروط)" style="min-height:60px;"></textarea>' +
+      '<input id="ofPrice" maxlength="40" placeholder="السعر (اختياري، مثال: 9.5 د.أ للشخص)">' +
+      '<label class="ads-meta">ينتهي العرض في:</label><input id="ofUntil" type="date" min="' + today() + '" max="' + mx + '">' +
+      '<input id="ofLink" maxlength="200" placeholder="رابط المنشور أو المصدر (اختياري، https)">' +
+      '<div class="ads-row"><button type="button" class="ads-btn" id="ofSave">🔥 انشر العرض</button></div><div id="ofMsg"></div></div></details>';
+    if (isAdmin) h += '<details style="margin-top:8px;"><summary style="cursor:pointer;font-weight:700;" id="owSum">👤 أصحاب صلاحية العروض لهذا المطعم</summary><div class="ads-form" style="margin-top:8px;"><div id="owList" class="ads-meta">اضغط لتحميل القائمة…</div>' +
+      '<input id="owEmail" type="email" dir="ltr" placeholder="بريد حساب صاحب المطعم (Gmail)"><div class="ads-row"><button type="button" class="ads-btn secondary" id="owAdd">منح الصلاحية</button></div></div></details>';
+    return h;
   }
   function ofMsg(t) { var m = $('ofMsg'); if (m) m.innerHTML = '<div class="ads-msg err">' + esc(t) + '</div>'; }
   function saveOffer() {
-    if (!curUser) return openAuthModal();
+    if (!curUser || !canManage(cur.id)) return;
     var title = $('ofTitle').value.trim(), until = $('ofUntil').value, link = $('ofLink').value.trim();
     if (title.length < 3) return ofMsg('اكتب عنواناً للعرض.');
     if (!until || until < today()) return ofMsg('اختر تاريخ انتهاء لم يمرّ بعد.');
     if (link && !/^https:\/\//.test(link)) return ofMsg('الرابط يجب أن يبدأ بـ https://');
+    if ((OFF[cur.id] || []).length >= 5) return ofMsg('الحد الأقصى 5 عروض فعّالة لكل مطعم — احذف عرضاً أولاً.');
     $('ofSave').disabled = true;
     var data = { rid: cur.id, uid: curUser.uid, kind: $('ofKind').value, title: title.slice(0, 80), details: $('ofDetails').value.trim().slice(0, 300), price: $('ofPrice').value.trim().slice(0, 40), until: until, link: link.slice(0, 200), name: (curUser.displayName || (curUser.email || '').split('@')[0] || 'مستخدم').slice(0, 40), updatedAt: firebase.firestore.FieldValue.serverTimestamp() };
-    fbRef.db.collection('restOffers').doc(curUser.uid + '_' + cur.id).set(data).then(function () {
-      if (typeof gtag === 'function') gtag('event', 'rest_offer_added', { kind: data.kind });
+    fbRef.db.collection('restOffers').doc(cur.id + '_' + Date.now()).set(data).then(function () {
       loadOffers(function () { drawSheet(false); });
-    }).catch(function () { ofMsg('تعذّر النشر — حدّث الصفحة وحاول مجدداً.'); $('ofSave').disabled = false; });
+    }).catch(function () { ofMsg('تعذّر النشر — تأكد من الصلاحية وحاول مجدداً.'); $('ofSave').disabled = false; });
+  }
+  function loadOwners() {
+    var box = $('owList'); if (!box || !cur || !isAdmin) return;
+    fbRef.db.collection('restOwners').doc(cur.id).collection('members').get().then(function (s) {
+      var h = ''; s.forEach(function (d) { h += '<div style="display:flex;gap:8px;align-items:center;direction:ltr;"><span>' + esc(d.id) + '</span><button type="button" class="ads-btn danger" style="padding:2px 8px;font-size:12px;" data-owdel="' + esc(d.id) + '">✕</button></div>'; });
+      box.innerHTML = h || 'لا يوجد أصحاب صلاحية بعد.';
+    }).catch(function () { box.textContent = 'تعذّر التحميل.'; });
+  }
+  function addOwner() {
+    var em = ($('owEmail').value || '').trim().toLowerCase();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) return;
+    fbRef.db.collection('restOwners').doc(cur.id).collection('members').doc(em).set({ email: em, at: firebase.firestore.FieldValue.serverTimestamp() }).then(function () { $('owEmail').value = ''; loadOwners(); }).catch(function () {});
   }
   function loadOffers(cb) {
     adsFb().then(function (fb) { fbRef = fb; return fb.db.collection('restOffers').where('until', '>=', today()).get(); }).then(function (s) {
@@ -207,16 +229,16 @@
   }
   function drawOffersTop() {
     var box = $('rsOffers'), btn = $('rsOffBtn'); if (!box) return;
+    btn.hidden = !OFFLIST.length;
     btn.textContent = '🔥 مطاعم عليها عروض' + (OFFLIST.length ? ' (' + Object.keys(OFF).length + ')' : '');
     btn.className = 'rs-chip' + (st.offers ? ' on' : '');
     if (!OFFLIST.length) { box.hidden = true; return; }
     box.hidden = false;
     box.innerHTML = '<div class="card-title" style="font-size:17px;">🔥 أحدث العروض</div>' + OFFLIST.slice(0, 6).map(function (o) {
       var r = BYID[o.rid];
-      return '<div style="border-top:1px solid var(--border);padding:8px 0;cursor:pointer;" data-open="' + esc(o.rid) + '"><strong>' + esc(r.n) + '</strong> <span class="ads-meta">(' + esc(r.a) + ')</span><div>' + (KIND[o.kind] || '') + ' — ' + esc(o.title) + (o.price ? ' · <span style="color:#b91c1c;">' + esc(o.price) + '</span>' : '') + '</div><div class="ads-meta">حتى ' + esc(o.until) + ' · نشره ' + esc(o.name || 'مستخدم') + '</div></div>';
+      return '<div style="border-top:1px solid var(--border);padding:8px 0;cursor:pointer;" data-open="' + esc(o.rid) + '"><strong>' + esc(r.n) + '</strong> <span class="ads-meta">(' + esc(r.a) + ')</span><div>' + (KIND[o.kind] || '') + ' — ' + esc(o.title) + (o.price ? ' · <span style="color:#b91c1c;">' + esc(o.price) + '</span>' : '') + '</div><div class="ads-meta">حتى ' + esc(o.until) + '</div></div>';
     }).join('');
   }
-
   function drawSheet(loading, failed) {
     if (!cur) return;
     var user = curUser, mine = user && reviews.filter(function (r) { return r.uid === user.uid; })[0];
@@ -286,7 +308,9 @@
     var ch = t.closest && t.closest('[data-area]');
     if (ch && $('rsAreas').contains(ch)) { st.area = ch.getAttribute('data-area'); st.shown = PAGE; draw(); return; }
     if (t.closest && t.closest('#rsOffBtn')) { st.offers = !st.offers; st.shown = PAGE; drawOffersTop(); draw(); return; }
-    if (t.closest && t.closest('#ofLogin')) { openAuthModal(); return; }
+    if (t.closest && t.closest('#owSum')) { setTimeout(loadOwners, 0); return; }
+    if (t.closest && t.closest('#owAdd')) { addOwner(); return; }
+    var ow = t.closest && t.closest('[data-owdel]'); if (ow && isAdmin) { fbRef.db.collection('restOwners').doc(cur.id).collection('members').doc(ow.getAttribute('data-owdel')).delete().then(loadOwners).catch(function () {}); return; }
     if (t.closest && t.closest('#ofSave')) { saveOffer(); return; }
     var od = t.closest && t.closest('[data-odel]');
     if (od) { od.disabled = true; fbRef.db.collection('restOffers').doc(od.getAttribute('data-odel')).delete().then(function () { loadOffers(function () { drawSheet(false); }); }).catch(function () { od.disabled = false; }); return; }
@@ -344,8 +368,8 @@
   loadOffers();
   openFromHash();
   adsOnUser(function (user, fb) {
-    curUser = user; if (fb) fbRef = fb;
-    adsIsAdmin(fb, user).then(function (a) { isAdmin = a; if (cur) drawSheet(false); });
+    curUser = user; isMgr = {}; if (fb) fbRef = fb;
+    adsIsAdmin(fb, user).then(function (a) { isAdmin = a; if (cur) { drawSheet(false); loadMgr(); } });
     if (cur) drawSheet(false);
   });
 })();
