@@ -1,0 +1,1 @@
+window.RESTOFFERS_AUTO=[];

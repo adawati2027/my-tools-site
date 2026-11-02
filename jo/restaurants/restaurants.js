@@ -169,9 +169,9 @@
   function offerCard(o, mgr) {
     return '<div style="border:1px solid #fecaca;background:var(--surface-2);border-radius:10px;padding:10px;margin-top:8px;"><div style="display:flex;justify-content:space-between;gap:8px;"><strong>' + (KIND[o.kind] || '') + ' — ' + esc(o.title) + '</strong>' + (o.price ? '<span style="color:#b91c1c;font-weight:700;">' + esc(o.price) + '</span>' : '') + '</div>' +
       (o.details ? '<p style="margin:6px 0;white-space:pre-line;font-size:14px;line-height:1.8;">' + esc(o.details) + '</p>' : '') +
-      '<div class="ads-meta">حتى ' + esc(o.until) + '</div>' +
+      '<div class="ads-meta">حتى ' + esc(o.until) + (o.auto ? ' · 🔎 جُمع من مصادر عامة، تأكد من المطعم' : '') + '</div>' +
       '<div class="ads-row" style="margin-top:6px;">' + (o.link && /^https:\/\//.test(o.link) ? '<a class="ads-btn secondary" style="padding:4px 10px;font-size:12px;" href="' + esc(o.link) + '" target="_blank" rel="noopener noreferrer nofollow">🔗 مصدر العرض</a>' : '') +
-      (mgr ? '<button type="button" class="ads-btn danger" style="padding:4px 10px;font-size:12px;" data-odel="' + esc(o._id) + '">🗑️ احذف</button>' : '') + '</div></div>';
+      (mgr && o._id ? '<button type="button" class="ads-btn danger" style="padding:4px 10px;font-size:12px;" data-odel="' + esc(o._id) + '">🗑️ احذف</button>' : '') + '</div></div>';
   }
   function offersSection() {
     var list = OFF[cur.id] || [], mgr = canManage(cur.id);
@@ -219,20 +219,24 @@
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) return;
     fbRef.db.collection('restOwners').doc(cur.id).collection('members').doc(em).set({ email: em, at: firebase.firestore.FieldValue.serverTimestamp() }).then(function () { $('owEmail').value = ''; loadOwners(); }).catch(function () {});
   }
+  var FSOFF = [];
+  function mergeOffers() {
+    OFF = {}; OFFLIST = [];
+    var t = today(), all = FSOFF.concat((window.RESTOFFERS_AUTO || []).map(function (o) { var c = {}; for (var k in o) c[k] = o[k]; c.auto = true; return c; }));
+    all.forEach(function (v) { if (!v.rid || !BYID[v.rid] || !v.until || v.until < t) return; (OFF[v.rid] = OFF[v.rid] || []).push(v); OFFLIST.push(v); });
+    OFFLIST.sort(function (a, b) { return ((b.updatedAt && b.updatedAt.seconds) || 0) - ((a.updatedAt && a.updatedAt.seconds) || 0); });
+  }
   function loadOffers(cb) {
     adsFb().then(function (fb) { fbRef = fb; return fb.db.collection('restOffers').where('until', '>=', today()).get(); }).then(function (s) {
-      OFF = {}; OFFLIST = [];
-      s.forEach(function (d) { var v = d.data(); v._id = d.id; if (!v.rid || !BYID[v.rid]) return; (OFF[v.rid] = OFF[v.rid] || []).push(v); OFFLIST.push(v); });
-      OFFLIST.sort(function (a, b) { return ((b.updatedAt && b.updatedAt.seconds) || 0) - ((a.updatedAt && a.updatedAt.seconds) || 0); });
-      drawOffersTop(); draw(); if (cb) cb();
+      FSOFF = []; s.forEach(function (d) { var v = d.data(); v._id = d.id; FSOFF.push(v); });
+      mergeOffers(); drawOffersTop(); draw(); if (cb) cb();
     }).catch(function () {});
   }
   function drawOffersTop() {
     var box = $('rsOffers'), btn = $('rsOffBtn'); if (!box) return;
-    btn.hidden = !OFFLIST.length;
-    btn.textContent = '🔥 مطاعم عليها عروض' + (OFFLIST.length ? ' (' + Object.keys(OFF).length + ')' : '');
+    btn.textContent = '🔥 العروض والتنزيلات' + (OFFLIST.length ? ' (' + Object.keys(OFF).length + ')' : '');
     btn.className = 'rs-chip' + (st.offers ? ' on' : '');
-    if (!OFFLIST.length) { box.hidden = true; return; }
+    if (!OFFLIST.length) { box.hidden = !st.offers; if (st.offers) box.innerHTML = '<div class="ads-meta">لا توجد عروض أو تنزيلات مسجّلة حالياً. نراجع المصادر العامة مرتين يومياً.</div>'; return; }
     box.hidden = false;
     box.innerHTML = '<div class="card-title" style="font-size:17px;">🔥 أحدث العروض</div>' + OFFLIST.slice(0, 6).map(function (o) {
       var r = BYID[o.rid];
@@ -365,6 +369,7 @@
   window.addEventListener('hashchange', openFromHash);
   draw();
   loadRatings();
+  mergeOffers(); drawOffersTop();
   loadOffers();
   openFromHash();
   adsOnUser(function (user, fb) {

@@ -1,0 +1,16 @@
+You maintain the "offers and discounts" list of the Amman restaurants directory (adawati.space/jo/restaurants/). Work in C:\Users\96896\Downloads\my-tools-site. Run once, then stop.
+
+Goal: find CURRENT public offers/discounts/buffet deals from restaurants that are in jo/restaurants/data.js (window.RESTS = [{id,n,e,a,c,w,i,f,p}]), and write them to tools/offers-auto.json as a JSON array. Do NOT edit any other file and do NOT push anything (a separate script validates and publishes).
+
+Entry format (all strings): {"rid":"<exact id from data.js>","kind":"menu"|"buffet","title":"<=80 chars Arabic","details":"<=300 chars Arabic","price":"<=40 chars or empty","until":"YYYY-MM-DD","link":"https://... source page"}
+
+How to search (use WebSearch and WebFetch):
+- Queries such as: "عروض مطاعم عمان اليوم", "عرض بوفيه مفتوح عمان", "خصم مطعم عمان", "restaurant offer Amman Jordan", "buffet Amman offer", "iftar/ramadan/weekend offer Amman" depending on the season, plus offers sections of restaurants' own websites listed in data.js (field w), delivery-app/aggregator offer pages and news/blog posts.
+- Prefer big/known restaurants and buffets (e.g. Jabri) and those with a website. Instagram/Facebook pages cannot be read, so rely on public web pages and search snippets.
+
+Hard rules:
+- Never invent or guess. Every entry needs a real source URL that actually shows the offer, and the offer must be for a restaurant matched with certainty to an id in data.js (same name AND city/area plausible). If unsure about the match, skip it.
+- "until" must be the offer's stated end date. If the source gives none but the offer is clearly current, use today + 3 days. Never later than today + 14 days. Skip offers already expired.
+- Keep entries from the existing tools/offers-auto.json only if you re-confirm them this run; otherwise drop them.
+- Arabic text in simple MSA, factual, no hype. Max 40 entries. If nothing reliable is found, write [].
+- Finish by writing the file with valid JSON, then print one line: how many offers were written.
