@@ -65,13 +65,14 @@
     var forAreas = R.filter(function (r) { return (!st.cuisine || r.c === st.cuisine) && (!q || r._k.indexOf(q) !== -1); });
     var ac = countBy('a', forAreas);
     var areas = Object.keys(countBy('a', R)).sort(function (a, b) { return countBy('a', R)[b] - countBy('a', R)[a] || a.localeCompare(b, 'ar'); });
-    var tot = countBy('a', R), top = areas.slice(0, 12);
+    var tot = countBy('a', R), top = st.allChips ? areas.slice().sort(function (a, b) { return a.localeCompare(b, 'ar'); }) : areas.slice(0, 14);
     if (st.area && top.indexOf(st.area) < 0) top.push(st.area);
     var h = '<button type="button" class="rs-chip' + (st.area ? '' : ' on') + '" data-area="">الكل<small>' + forAreas.length + '</small></button>';
     top.forEach(function (a) {
       if (!ac[a] && st.area !== a) return;
       h += '<button type="button" class="rs-chip' + (st.area === a ? ' on' : '') + '" data-area="' + esc(a) + '">' + esc(a) + '<small>' + (ac[a] || 0) + '</small></button>';
     });
+    h += '<button type="button" class="rs-chip" data-more="1">' + (st.allChips ? 'عرض أقل ▲' : 'كل المناطق (' + areas.length + ') ▼') + '</button>';
     var so = '<option value="">📍 كل المناطق (' + areas.length + ')</option>';
     areas.slice().sort(function (a, b) { return a.localeCompare(b, 'ar'); }).forEach(function (a) {
       so += '<option value="' + esc(a) + '"' + (st.area === a ? ' selected' : '') + '>' + esc(a) + ' (' + (ac[a] || 0) + ')</option>';
@@ -206,6 +207,8 @@
   /* ---------- events ---------- */
   document.addEventListener('click', function (e) {
     var t = e.target;
+    var mo = t.closest && t.closest('[data-more]');
+    if (mo && $('rsAreas').contains(mo)) { st.allChips = !st.allChips; drawFilters(); return; }
     var ch = t.closest && t.closest('[data-area]');
     if (ch && $('rsAreas').contains(ch)) { st.area = ch.getAttribute('data-area'); st.shown = PAGE; draw(); return; }
     var op = t.closest && t.closest('[data-open]'); if (op) { openModal(op.getAttribute('data-open')); return; }
