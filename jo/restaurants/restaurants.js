@@ -1,8 +1,8 @@
 (function () {
   var R = window.RESTS || [];
   var PAGE = 30;
-  var st = { area: '', cuisine: '', q: '', sort: 'top', shown: PAGE };
-  var RAT = {};
+  var st = { area: '', cuisine: '', q: '', sort: 'top', shown: PAGE, offers: false };
+  var RAT = {}, OFF = {}, OFFLIST = [], BYID = {};
   var fbRef = null, curUser = null, isAdmin = false;
   var cur = null, reviews = [], myStars = 0;
 
@@ -12,6 +12,7 @@
   function norm(s) {
     return String(s || '').toLowerCase().replace(/[ً-ْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').replace(/\s+/g, ' ').trim();
   }
+  R.forEach(function (r) { BYID[r.id] = r; });
   R.forEach(function (r) { r._k = norm(r.n + ' ' + (r.e || '') + ' ' + r.a + ' ' + r.c); });
 
   function avg(id) { var x = RAT[id]; return x && x.c > 0 ? x.s / x.c : 0; }
@@ -39,17 +40,23 @@
     return h;
   }
 
+  function today() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function digits(p) { var d = String(p || '').replace(/\D/g, ''); if (d.indexOf('00962') === 0) d = d.slice(2); if (/^07\d{8}$/.test(d)) d = '962' + d.slice(1); return d; }
+  function phoneShow(p) { var d = digits(p); return /^962\d{8,9}$/.test(d) ? '0' + d.slice(3) : String(p); }
+
+  function contactScore(r) { return (OFF[r.id] ? 8 : 0) + (r.p ? 2 : 0) + (r.f || r.i ? 2 : 0) + (r.w ? 1 : 0); }
+
   function filtered() {
     var q = norm(st.q);
     var list = R.filter(function (r) {
-      return (!st.area || r.a === st.area) && (!st.cuisine || r.c === st.cuisine) && (!q || r._k.indexOf(q) !== -1);
+      return (!st.area || r.a === st.area) && (!st.cuisine || r.c === st.cuisine) && (!q || r._k.indexOf(q) !== -1) && (!st.offers || OFF[r.id]);
     });
     list.sort(function (a, b) {
       if (st.sort === 'name') return a.n.localeCompare(b.n, 'ar');
       if (st.sort === 'most') return ((RAT[b.id] || {}).c || 0) - ((RAT[a.id] || {}).c || 0) || a.n.localeCompare(b.n, 'ar');
       var d = avg(b.id) - avg(a.id);
       if (d) { var ca = (RAT[a.id] || {}).c || 0, cb = (RAT[b.id] || {}).c || 0; if (!ca !== !cb) return ca ? -1 : 1; return d; }
-      return a.n.localeCompare(b.n, 'ar');
+      return contactScore(b) - contactScore(a) || a.n.localeCompare(b.n, 'ar');
     });
     return list;
   }
@@ -94,10 +101,10 @@
   function cardHtml(r) {
     return '<div class="ads-card rs-card" data-id="' + esc(r.id) + '">' +
       '<div class="rs-name">' + esc(r.n) + '</div>' +
-      (r.e ? '<div class="rs-en">' + esc(r.e) + '</div>' : '') +
-      '<div class="rs-tags"><span>📍 ' + esc(r.a) + '</span><span>🍴 ' + esc(r.c) + '</span></div>' +
+      (r.e && r.e !== r.n ? '<div class="rs-en">' + esc(r.e) + '</div>' : '') +
+      '<div class="rs-tags"><span>📍 ' + esc(r.a) + '</span><span>🍴 ' + esc(r.c) + '</span>' + (OFF[r.id] ? '<span style="background:#fee2e2;color:#b91c1c;">🔥 ' + OFF[r.id].length + ' عرض</span>' : '') + '</div>' +
       '<div data-rl>' + ratingLine(r.id) + '</div>' +
-      '<div class="ads-row" style="margin-top:6px;"><button type="button" class="ads-btn" data-open="' + esc(r.id) + '">⭐ قيّم وعلّق</button>' +
+      '<div class="ads-row" style="margin-top:6px;"><button type="button" class="ads-btn" data-open="' + esc(r.id) + '">📞 التواصل والتقييم</button>' +
       '<a class="ads-btn secondary" href="' + esc(mapUrl(r)) + '" target="_blank" rel="noopener noreferrer">📍 الخريطة</a></div>' + (r.w || r.i || r.f ? '<div class="ads-row" style="margin-top:2px;">' + linksHtml(r, true) + '</div>' : '') + '</div>';
   }
 
@@ -130,6 +137,7 @@
     cur = R.filter(function (r) { return r.id === id; })[0];
     if (!cur) return;
     reviews = []; myStars = 0;
+    try { history.replaceState(null, '', location.pathname + location.search + '#' + cur.id); } catch (e) {}
     $('rsModal').hidden = false;
     document.body.style.overflow = 'hidden';
     drawSheet(true);
@@ -141,7 +149,73 @@
       drawSheet(false);
     }).catch(function () { drawSheet(false, true); });
   }
-  function closeModal() { $('rsModal').hidden = true; document.body.style.overflow = ''; cur = null; }
+  function closeModal() { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} $('rsModal').hidden = true; document.body.style.overflow = ''; cur = null; }
+
+  var KIND = { menu: '🍽️ منيو', buffet: '🍛 بوفيه' };
+  function contactHtml(r) {
+    var d = digits(r.p), h = '<div class="card-title" style="font-size:16px;margin-top:14px;">📞 طرق التواصل</div><div class="ads-row" style="margin-top:8px;">';
+    if (r.p) h += '<a class="ads-btn" href="tel:' + esc(r.p) + '">📞 ' + esc(phoneShow(r.p)) + '</a>';
+    if (/^9627[789]\d{7}$/.test(d)) h += '<a class="ads-btn secondary" href="https://wa.me/' + d + '" target="_blank" rel="noopener noreferrer">💬 واتساب</a>';
+    h += linksHtml({ w: r.w, i: r.i, f: r.f }, false) + '<a class="ads-btn secondary" href="' + esc(mapUrl(r)) + '" target="_blank" rel="noopener noreferrer">📍 الخريطة</a></div>';
+    if (!r.p && !r.w && !r.i && !r.f) h += '<p class="ads-meta" style="margin-top:6px;">لا تتوفر بيانات تواصل لهذا المطعم بعد — افتح الخريطة لمعرفة رقمه وموقعه.</p>';
+    return h + '<div class="ads-row" style="margin-top:8px;"><button type="button" class="ads-btn secondary" id="rsCopy">🔗 نسخ رابط هذا المطعم</button></div>';
+  }
+  function offerCard(o, mine) {
+    return '<div style="border:1px solid #fecaca;background:var(--surface-2);border-radius:10px;padding:10px;margin-top:8px;"><div style="display:flex;justify-content:space-between;gap:8px;"><strong>' + (KIND[o.kind] || '') + ' — ' + esc(o.title) + '</strong>' + (o.price ? '<span style="color:#b91c1c;font-weight:700;">' + esc(o.price) + '</span>' : '') + '</div>' +
+      (o.details ? '<p style="margin:6px 0;white-space:pre-line;font-size:14px;line-height:1.8;">' + esc(o.details) + '</p>' : '') +
+      '<div class="ads-meta">حتى ' + esc(o.until) + ' · نشره ' + esc(o.name || 'مستخدم') + '</div>' +
+      '<div class="ads-row" style="margin-top:6px;">' + (o.link && /^https:\/\//.test(o.link) ? '<a class="ads-btn secondary" style="padding:4px 10px;font-size:12px;" href="' + esc(o.link) + '" target="_blank" rel="noopener noreferrer nofollow">🔗 مصدر العرض</a>' : '') +
+      (mine || isAdmin ? '<button type="button" class="ads-btn danger" style="padding:4px 10px;font-size:12px;" data-odel="' + esc(o._id) + '">🗑️ احذف' + (mine ? '' : ' (أدمن)') + '</button>' : '') + '</div></div>';
+  }
+  function offersSection() {
+    var list = OFF[cur.id] || [], mine = curUser && list.filter(function (o) { return o.uid === curUser.uid; })[0];
+    var h = '<div class="card-title" style="font-size:16px;margin-top:14px;">🔥 العروض' + (list.length ? ' (' + list.length + ')' : '') + '</div>';
+    h += list.length ? list.map(function (o) { return offerCard(o, curUser && o.uid === curUser.uid); }).join('') : '<p class="ads-meta" style="margin-top:6px;">لا توجد عروض حالية مسجّلة لهذا المطعم.</p>';
+    h += '<p class="ads-meta" style="margin-top:6px;">العروض يضيفها المستخدمون وأصحاب المطاعم بتاريخ انتهاء، ولا نتحقق منها — تأكد من المطعم قبل الذهاب.</p>';
+    if (!curUser) return h + '<div style="margin-top:8px;"><button type="button" class="ads-btn secondary" id="ofLogin">🔐 سجّل الدخول لتضيف عرضاً</button></div>';
+    var m = mine || {}, mxd = new Date(Date.now() + 90 * 864e5), mx = mxd.getFullYear() + '-' + ('0' + (mxd.getMonth() + 1)).slice(-2) + '-' + ('0' + mxd.getDate()).slice(-2);
+    return h + '<details style="margin-top:8px;"' + (mine ? ' open' : '') + '><summary style="cursor:pointer;font-weight:700;">' + (mine ? '✏️ عدّل عرضك' : '➕ أضف عرضاً (منيو أو بوفيه)') + '</summary><div class="ads-form" style="margin-top:8px;">' +
+      '<select id="ofKind"><option value="menu"' + (m.kind === 'menu' ? ' selected' : '') + '>🍽️ عرض على المنيو</option><option value="buffet"' + (m.kind === 'buffet' ? ' selected' : '') + '>🍛 عرض بوفيه</option></select>' +
+      '<input id="ofTitle" maxlength="80" placeholder="عنوان العرض (مثال: بوفيه مفتوح الجمعة)" value="' + esc(m.title || '') + '">' +
+      '<textarea id="ofDetails" maxlength="300" placeholder="التفاصيل (الوجبات، الأيام، الشروط)" style="min-height:60px;">' + esc(m.details || '') + '</textarea>' +
+      '<input id="ofPrice" maxlength="40" placeholder="السعر (اختياري، مثال: 9.5 د.أ للشخص)" value="' + esc(m.price || '') + '">' +
+      '<label class="ads-meta">ينتهي العرض في:</label><input id="ofUntil" type="date" min="' + today() + '" max="' + mx + '" value="' + esc(m.until || '') + '">' +
+      '<input id="ofLink" maxlength="200" placeholder="رابط المنشور أو المصدر (اختياري، https)" value="' + esc(m.link || '') + '">' +
+      '<div class="ads-row"><button type="button" class="ads-btn" id="ofSave">' + (mine ? '💾 حفظ' : '🔥 انشر العرض') + '</button></div><div id="ofMsg"></div></div></details>';
+  }
+  function ofMsg(t) { var m = $('ofMsg'); if (m) m.innerHTML = '<div class="ads-msg err">' + esc(t) + '</div>'; }
+  function saveOffer() {
+    if (!curUser) return openAuthModal();
+    var title = $('ofTitle').value.trim(), until = $('ofUntil').value, link = $('ofLink').value.trim();
+    if (title.length < 3) return ofMsg('اكتب عنواناً للعرض.');
+    if (!until || until < today()) return ofMsg('اختر تاريخ انتهاء لم يمرّ بعد.');
+    if (link && !/^https:\/\//.test(link)) return ofMsg('الرابط يجب أن يبدأ بـ https://');
+    $('ofSave').disabled = true;
+    var data = { rid: cur.id, uid: curUser.uid, kind: $('ofKind').value, title: title.slice(0, 80), details: $('ofDetails').value.trim().slice(0, 300), price: $('ofPrice').value.trim().slice(0, 40), until: until, link: link.slice(0, 200), name: (curUser.displayName || (curUser.email || '').split('@')[0] || 'مستخدم').slice(0, 40), updatedAt: firebase.firestore.FieldValue.serverTimestamp() };
+    fbRef.db.collection('restOffers').doc(curUser.uid + '_' + cur.id).set(data).then(function () {
+      if (typeof gtag === 'function') gtag('event', 'rest_offer_added', { kind: data.kind });
+      loadOffers(function () { drawSheet(false); });
+    }).catch(function () { ofMsg('تعذّر النشر — حدّث الصفحة وحاول مجدداً.'); $('ofSave').disabled = false; });
+  }
+  function loadOffers(cb) {
+    adsFb().then(function (fb) { fbRef = fb; return fb.db.collection('restOffers').where('until', '>=', today()).get(); }).then(function (s) {
+      OFF = {}; OFFLIST = [];
+      s.forEach(function (d) { var v = d.data(); v._id = d.id; if (!v.rid || !BYID[v.rid]) return; (OFF[v.rid] = OFF[v.rid] || []).push(v); OFFLIST.push(v); });
+      OFFLIST.sort(function (a, b) { return ((b.updatedAt && b.updatedAt.seconds) || 0) - ((a.updatedAt && a.updatedAt.seconds) || 0); });
+      drawOffersTop(); draw(); if (cb) cb();
+    }).catch(function () {});
+  }
+  function drawOffersTop() {
+    var box = $('rsOffers'), btn = $('rsOffBtn'); if (!box) return;
+    btn.textContent = '🔥 مطاعم عليها عروض' + (OFFLIST.length ? ' (' + Object.keys(OFF).length + ')' : '');
+    btn.className = 'rs-chip' + (st.offers ? ' on' : '');
+    if (!OFFLIST.length) { box.hidden = true; return; }
+    box.hidden = false;
+    box.innerHTML = '<div class="card-title" style="font-size:17px;">🔥 أحدث العروض</div>' + OFFLIST.slice(0, 6).map(function (o) {
+      var r = BYID[o.rid];
+      return '<div style="border-top:1px solid var(--border);padding:8px 0;cursor:pointer;" data-open="' + esc(o.rid) + '"><strong>' + esc(r.n) + '</strong> <span class="ads-meta">(' + esc(r.a) + ')</span><div>' + (KIND[o.kind] || '') + ' — ' + esc(o.title) + (o.price ? ' · <span style="color:#b91c1c;">' + esc(o.price) + '</span>' : '') + '</div><div class="ads-meta">حتى ' + esc(o.until) + ' · نشره ' + esc(o.name || 'مستخدم') + '</div></div>';
+    }).join('');
+  }
 
   function drawSheet(loading, failed) {
     if (!cur) return;
@@ -164,10 +238,10 @@
     }).join('') || '<p class="ads-meta" style="margin-top:10px;">كن أول من يقيّم هذا المطعم.</p>';
 
     $('rsSheet').innerHTML = '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;"><div><div class="rs-name">' + esc(cur.n) + '</div>' +
-      (cur.e ? '<div class="rs-en">' + esc(cur.e) + '</div>' : '') + '</div><button type="button" class="ads-btn secondary" id="rsClose" aria-label="إغلاق">✕</button></div>' +
+      (cur.e && cur.e !== cur.n ? '<div class="rs-en">' + esc(cur.e) + '</div>' : '') + '</div><button type="button" class="ads-btn secondary" id="rsClose" aria-label="إغلاق">✕</button></div>' +
       '<div class="rs-tags" style="margin-top:8px;"><span>📍 ' + esc(cur.a) + '</span><span>🍴 ' + esc(cur.c) + '</span></div>' +
       '<div style="margin-top:8px;">' + ratingLine(cur.id) + '</div>' +
-      '<div class="ads-row" style="margin-top:10px;"><a class="ads-btn secondary" href="' + esc(mapUrl(cur)) + '" target="_blank" rel="noopener noreferrer">📍 الخريطة</a>' + linksHtml(cur, false) + '</div>' +
+      contactHtml(cur) + offersSection() +
       '<div class="card-title" style="font-size:16px;margin-top:14px;">⭐ التقييمات والتعليقات' + (loading || failed ? '' : ' (' + reviews.length + ')') + '</div>' + form + list;
   }
 
@@ -211,6 +285,18 @@
     if (mo && $('rsAreas').contains(mo)) { st.allChips = !st.allChips; drawFilters(); return; }
     var ch = t.closest && t.closest('[data-area]');
     if (ch && $('rsAreas').contains(ch)) { st.area = ch.getAttribute('data-area'); st.shown = PAGE; draw(); return; }
+    if (t.closest && t.closest('#rsOffBtn')) { st.offers = !st.offers; st.shown = PAGE; drawOffersTop(); draw(); return; }
+    if (t.closest && t.closest('#ofLogin')) { openAuthModal(); return; }
+    if (t.closest && t.closest('#ofSave')) { saveOffer(); return; }
+    var od = t.closest && t.closest('[data-odel]');
+    if (od) { od.disabled = true; fbRef.db.collection('restOffers').doc(od.getAttribute('data-odel')).delete().then(function () { loadOffers(function () { drawSheet(false); }); }).catch(function () { od.disabled = false; }); return; }
+    var cp = t.closest && t.closest('#rsCopy');
+    if (cp) {
+      var url = location.origin + location.pathname + '#' + cur.id;
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function () { cp.textContent = '✅ تم نسخ الرابط'; }, function () { window.prompt('انسخ الرابط:', url); });
+      else window.prompt('انسخ الرابط:', url);
+      return;
+    }
     var op = t.closest && t.closest('[data-open]'); if (op) { openModal(op.getAttribute('data-open')); return; }
     var cd = t.closest && t.closest('.rs-card'); if (cd && !t.closest('a,button')) { openModal(cd.getAttribute('data-id')); return; }
     if (t === $('rsModal') || (t.closest && t.closest('#rsClose'))) { closeModal(); return; }
@@ -251,8 +337,12 @@
   $('rsSort').addEventListener('change', function () { st.sort = this.value; st.shown = PAGE; draw(); });
   $('rsMore').addEventListener('click', function () { st.shown += PAGE; draw(); });
 
+  function openFromHash() { var h = decodeURIComponent((location.hash || '').slice(1)); if (h && BYID[h] && (!cur || cur.id !== h)) openModal(h); }
+  window.addEventListener('hashchange', openFromHash);
   draw();
   loadRatings();
+  loadOffers();
+  openFromHash();
   adsOnUser(function (user, fb) {
     curUser = user; if (fb) fbRef = fb;
     adsIsAdmin(fb, user).then(function (a) { isAdmin = a; if (cur) drawSheet(false); });

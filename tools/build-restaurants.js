@@ -25,6 +25,8 @@ all.forEach(r => {
   out.push({ n: r.name.trim(), e: (r.en || '').trim(), a: area, c: CUISINE_FIX[(r.cuisine || '').trim()] || (r.cuisine || 'عالمي').trim(), w: okUrl(r.website), i: okUrl(r.instagram, 'instagram.com'), f: okUrl(r.facebook, 'facebook.com'), p: okPhone(r.phone) });
 });
 
+out.forEach(r => { if (/buffet|بوفيه|بوفية|جبري|jabri|spice garden|32.? north/i.test(r.n + ' ' + r.e)) r.c = 'بوفيه مفتوح'; });
+
 const ids = new Set();
 out.forEach(r => {
   let base = slug(r.e) || 'r';
@@ -52,7 +54,7 @@ let stat = '';
 areas.forEach(a => {
   const rs = out.filter(r => r.a === a);
   stat += `<section class="card" style="grid-column:1/-1;"><h2 class="card-title" style="font-size:17px;">مطاعم ${esc(a)} (${rs.length})</h2><ul class="rs-static">` +
-    rs.map(r => `<li>${esc(r.n)}${r.e ? ' — ' + esc(r.e) : ''} <span class="ads-meta">(${esc(r.c)})</span></li>`).join('') + '</ul></section>';
+    rs.map(r => `<li>${esc(r.n)}${r.e && r.e !== r.n ? ' — ' + esc(r.e) : ''} <span class="ads-meta">(${esc(r.c)})</span></li>`).join('') + '</ul></section>';
 });
 
 let tpl = fs.readFileSync(path.join(root, 'jo/restaurants/index.template.html'), 'utf8');
