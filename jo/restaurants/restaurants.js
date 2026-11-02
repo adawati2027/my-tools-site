@@ -29,6 +29,16 @@
     return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent((r.e || r.n) + ' ' + r.a + ' Amman Jordan');
   }
 
+  function linksHtml(r, small) {
+    var st2 = small ? ' style="padding:5px 10px;font-size:12px;"' : '';
+    var h = '';
+    if (r.w) h += '<a class="ads-btn secondary"' + st2 + ' href="' + esc(r.w) + '" target="_blank" rel="noopener noreferrer nofollow">🌐 الموقع</a>';
+    if (r.i) h += '<a class="ads-btn secondary"' + st2 + ' href="' + esc(r.i) + '" target="_blank" rel="noopener noreferrer nofollow">📸 إنستغرام</a>';
+    if (r.f) h += '<a class="ads-btn secondary"' + st2 + ' href="' + esc(r.f) + '" target="_blank" rel="noopener noreferrer nofollow">👍 فيسبوك</a>';
+    if (r.p) h += '<a class="ads-btn secondary"' + st2 + ' href="tel:' + esc(r.p) + '">📞 اتصال</a>';
+    return h;
+  }
+
   function filtered() {
     var q = norm(st.q);
     var list = R.filter(function (r) {
@@ -80,7 +90,7 @@
       '<div class="rs-tags"><span>📍 ' + esc(r.a) + '</span><span>🍴 ' + esc(r.c) + '</span></div>' +
       '<div data-rl>' + ratingLine(r.id) + '</div>' +
       '<div class="ads-row" style="margin-top:6px;"><button type="button" class="ads-btn" data-open="' + esc(r.id) + '">⭐ قيّم وعلّق</button>' +
-      '<a class="ads-btn secondary" href="' + esc(mapUrl(r)) + '" target="_blank" rel="noopener noreferrer">📍 الخريطة</a></div></div>';
+      '<a class="ads-btn secondary" href="' + esc(mapUrl(r)) + '" target="_blank" rel="noopener noreferrer">📍 الخريطة</a></div>' + (r.w || r.i || r.f ? '<div class="ads-row" style="margin-top:2px;">' + linksHtml(r, true) + '</div>' : '') + '</div>';
   }
 
   function draw() {
@@ -148,7 +158,8 @@
     $('rsSheet').innerHTML = '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;"><div><div class="rs-name">' + esc(cur.n) + '</div>' +
       (cur.e ? '<div class="rs-en">' + esc(cur.e) + '</div>' : '') + '</div><button type="button" class="ads-btn secondary" id="rsClose" aria-label="إغلاق">✕</button></div>' +
       '<div class="rs-tags" style="margin-top:8px;"><span>📍 ' + esc(cur.a) + '</span><span>🍴 ' + esc(cur.c) + '</span></div>' +
-      '<div style="margin-top:8px;">' + ratingLine(cur.id) + ' &nbsp; <a href="' + esc(mapUrl(cur)) + '" target="_blank" rel="noopener noreferrer" style="font-size:13px;">📍 افتح في الخريطة</a></div>' +
+      '<div style="margin-top:8px;">' + ratingLine(cur.id) + '</div>' +
+      '<div class="ads-row" style="margin-top:10px;"><a class="ads-btn secondary" href="' + esc(mapUrl(cur)) + '" target="_blank" rel="noopener noreferrer">📍 الخريطة</a>' + linksHtml(cur, false) + '</div>' +
       '<div class="card-title" style="font-size:16px;margin-top:14px;">⭐ التقييمات والتعليقات' + (loading || failed ? '' : ' (' + reviews.length + ')') + '</div>' + form + list;
   }
 
@@ -191,6 +202,7 @@
     var ch = t.closest && t.closest('[data-area]');
     if (ch && $('rsAreas').contains(ch)) { st.area = ch.getAttribute('data-area'); st.shown = PAGE; draw(); return; }
     var op = t.closest && t.closest('[data-open]'); if (op) { openModal(op.getAttribute('data-open')); return; }
+    var cd = t.closest && t.closest('.rs-card'); if (cd && !t.closest('a,button')) { openModal(cd.getAttribute('data-id')); return; }
     if (t === $('rsModal') || (t.closest && t.closest('#rsClose'))) { closeModal(); return; }
     if (t.closest && t.closest('#rvLogin')) { openAuthModal(); return; }
     if (t.closest && t.closest('#rvSave')) { save(); return; }
