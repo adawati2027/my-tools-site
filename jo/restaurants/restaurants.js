@@ -156,7 +156,7 @@
     var d = digits(r.p), h = '<div class="card-title" style="font-size:16px;margin-top:14px;">📞 طرق التواصل</div><div class="ads-row" style="margin-top:8px;">';
     if (r.p) h += '<a class="ads-btn" href="tel:' + esc(r.p) + '">📞 ' + esc(phoneShow(r.p)) + '</a>';
     if (/^9627[789]\d{7}$/.test(d)) h += '<a class="ads-btn secondary" href="https://wa.me/' + d + '" target="_blank" rel="noopener noreferrer">💬 واتساب</a>';
-    h += linksHtml({ w: r.w, i: r.i, f: r.f }, false) + '<a class="ads-btn secondary" href="' + esc(mapUrl(r)) + '" target="_blank" rel="noopener noreferrer">📍 الخريطة</a></div>';
+    h += linksHtml({ w: r.w, i: r.i, f: r.f }, false) + (r.i ? '' : '<a class="ads-btn secondary" href="https://www.google.com/search?q=' + encodeURIComponent('site:instagram.com ' + (r.e || r.n) + ' عمان') + '" target="_blank" rel="noopener noreferrer nofollow">🔎 ابحث عن إنستغرام</a>') + '<a class="ads-btn secondary" href="' + esc(mapUrl(r)) + '" target="_blank" rel="noopener noreferrer">📍 الخريطة</a></div>';
     if (!r.p && !r.w && !r.i && !r.f) h += '<p class="ads-meta" style="margin-top:6px;">لا تتوفر بيانات تواصل لهذا المطعم بعد — افتح الخريطة لمعرفة رقمه وموقعه.</p>';
     return h + '<div class="ads-row" style="margin-top:8px;"><button type="button" class="ads-btn secondary" id="rsCopy">🔗 نسخ رابط هذا المطعم</button></div>';
   }

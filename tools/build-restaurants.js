@@ -27,6 +27,9 @@ all.forEach(r => {
 
 out.forEach(r => { if (/buffet|بوفيه|بوفية|جبري|jabri|spice garden|32.? north/i.test(r.n + ' ' + r.e)) r.c = 'بوفيه مفتوح'; });
 
+const OFFAL = /كرشات|كرش(?![؀-ۿ])|كوارع|فوارغ|كرشنجي|(?:^|[\s\-ل])(?:ال)?روس(?![؀-ۿ])/;
+out.forEach(r => { if (OFFAL.test(r.n)) r.c = 'روس وكرشات'; });
+
 const ids = new Set();
 out.forEach(r => {
   let base = slug(r.e) || 'r';
