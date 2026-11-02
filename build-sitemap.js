@@ -141,6 +141,7 @@ const countryTools = [
   `${BASE}/jo/tools/what-to-cook/`,
   `${BASE}/jo/students/parallel-results/`,
   `${BASE}/jo/ads/`,
+  `${BASE}/jo/restaurants/`,
   `${BASE}/quran/`,
   `${BASE}/quran/mushaf/`,
   `${BASE}/quran/hadith/`,

@@ -221,6 +221,56 @@ service cloud.firestore {
       }
     }
 
+    // Restaurants directory (jo/restaurants): aggregate doc per restaurant + one review per account.
+    function restDeltaOk(rid) {
+      let aggPath = /databases/$(database)/documents/restRatings/$(rid);
+      let revPath = /databases/$(database)/documents/restRatings/$(rid)/reviews/$(request.auth.uid);
+      let beforeCount = exists(aggPath) ? get(aggPath).data.get('ratingCount', 0) : 0;
+      let beforeSum = exists(aggPath) ? get(aggPath).data.get('ratingSum', 0) : 0;
+      let after = getAfter(aggPath).data;
+      let had = exists(revPath);
+      let has = existsAfter(revPath);
+      let oldR = had ? get(revPath).data.rating : 0;
+      let newR = has ? getAfter(revPath).data.rating : 0;
+      return after.ratingCount == beforeCount + (has ? 1 : 0) - (had ? 1 : 0)
+        && after.ratingSum == beforeSum + newR - oldR
+        && after.ratingCount >= 0 && after.ratingSum >= after.ratingCount && after.ratingSum <= 5 * after.ratingCount;
+    }
+
+    match /restRatings/{rid} {
+      allow read: if true;
+      allow create, update: if request.auth != null
+        && rid.matches('^[a-z0-9-]{1,80}$')
+        && request.resource.data.keys().hasOnly(['ratingSum','ratingCount'])
+        && request.resource.data.ratingSum is int && request.resource.data.ratingCount is int
+        && (isAdmin() || restDeltaOk(rid));
+      allow delete: if false;
+
+      match /reviews/{uid} {
+        allow read: if true;
+        allow create, update: if request.auth != null && request.auth.uid == uid
+          && request.resource.data.keys().hasOnly(['rating','text','name','createdAt','updatedAt'])
+          && request.resource.data.rating is int && request.resource.data.rating >= 1 && request.resource.data.rating <= 5
+          && request.resource.data.text is string && request.resource.data.text.size() <= 500
+          && request.resource.data.name is string && request.resource.data.name.size() <= 40
+          && request.resource.data.updatedAt == request.time
+          && restDeltaOk(rid);
+        allow delete: if isAdmin() || (request.auth != null && request.auth.uid == uid && restDeltaOk(rid));
+      }
+    }
+
+    match /restReports/{reportId} {
+      allow read, delete: if isAdmin();
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['rid','reviewUid','reason','reporterUid','createdAt'])
+        && request.resource.data.reporterUid == request.auth.uid
+        && request.resource.data.rid is string && request.resource.data.rid.size() <= 80
+        && request.resource.data.reviewUid is string && request.resource.data.reviewUid.size() <= 128
+        && request.resource.data.reason is string && request.resource.data.reason.size() <= 100
+        && request.resource.data.createdAt == request.time;
+      allow update: if false;
+    }
+
     // Online multiplayer rooms (jo/tools/jo-room.js): no auth, 5-char codes; get-only so rooms cannot be listed.
     match /rooms/{code} {
       allow get: if true;
