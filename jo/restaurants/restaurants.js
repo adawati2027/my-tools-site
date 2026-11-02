@@ -27,6 +27,7 @@
     return starsHtml(avg(id)) + ' <strong>' + avg(id).toFixed(1) + '</strong> <span class="ads-meta">(' + x.c + ')</span>';
   }
   function mapUrl(r) {
+    if (r.m && /^https?:\/\//i.test(r.m)) return r.m;
     return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent((r.e || r.n) + ' ' + r.a + ' Amman Jordan');
   }
 
@@ -305,9 +306,96 @@
     }).catch(function () { msg('تعذّر الحذف.'); });
   }
 
+  /* ---------- add-restaurant requests ---------- */
+  var isEd = false, PEND = [];
+  function addApproved(list) {
+    var have = {}; R.forEach(function (r) { have[r.id] = 1; });
+    var n = 0;
+    list.forEach(function (x) {
+      var id = 's-' + x.id; if (have[id]) return;
+      var r = { id: id, n: x.n, e: '', a: x.a, c: x.c || 'عالمي', w: x.w || '', f: x.f || '', i: x.i || '', p: x.p || '', m: x.m || '' };
+      r._k = norm(r.n + ' ' + r.a + ' ' + r.c); R.push(r); BYID[id] = r; n++;
+    });
+    if (n) draw();
+  }
+  function loadApproved() {
+    adsFb().then(function (fb) { fbRef = fb; return fb.db.collection('restSubmissions').where('status', '==', 'approved').get(); }).then(function (s) {
+      var a = []; s.forEach(function (d) { var v = d.data(); v.id = d.id; a.push(v); }); addApproved(a);
+    }).catch(function () {});
+  }
+  function cleanUrl(v, host) {
+    v = String(v || '').trim(); if (!v) return '';
+    if (host && /^@?[\w.]+$/.test(v) && v.indexOf('.') === -1) return 'https://' + host + '/' + v.replace(/^@/, '');
+    if (!/^https?:\/\//i.test(v)) v = 'https://' + v;
+    try { var u = new URL(v); return /^https?:$/.test(u.protocol) && u.hostname.indexOf('.') > 0 ? u.href.slice(0, 200) : ''; } catch (e) { return ''; }
+  }
+  function openAdd() {
+    if (!curUser) return openAuthModal();
+    cur = null;
+    var areas = Object.keys(countBy('a', R)).sort(function (a, b) { return a.localeCompare(b, 'ar'); });
+    var cus = Object.keys(countBy('c', R)).sort(function (a, b) { return a.localeCompare(b, 'ar'); });
+    var inp = 'style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font-size:15px;font-family:inherit;box-sizing:border-box;background:var(--surface);color:var(--text);"';
+    $('rsSheet').innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;"><div class="rs-name">➕ أضف مطعمك</div><button type="button" class="ads-btn secondary" id="rsClose" style="padding:4px 10px;">✕</button></div>' +
+      '<p class="ads-meta" style="margin:6px 0 10px;">يُراجَع الطلب من إدارة الموقع قبل ظهوره في الدليل. أدخل اسم المطعم ومكانه، ورابطاً واحداً على الأقل (موقع أو فيسبوك أو إنستغرام).</p>' +
+      '<div class="ads-form">' +
+      '<label>اسم المطعم *</label><input id="adN" maxlength="80" ' + inp + '>' +
+      '<label>المنطقة *</label><select id="adA" ' + inp + '><option value="">اختر المنطقة</option>' + areas.map(function (a) { return '<option>' + esc(a) + '</option>'; }).join('') + '</select>' +
+      '<label>نوع المطبخ</label><select id="adC" ' + inp + '>' + cus.map(function (c) { return '<option>' + esc(c) + '</option>'; }).join('') + '</select>' +
+      '<label>مكان المطعم بالتفصيل أو رابط خرائط جوجل</label><input id="adM" maxlength="300" placeholder="مثال: شارع الجاردنز بجانب ..." ' + inp + '>' +
+      '<label>الموقع الإلكتروني</label><input id="adW" dir="ltr" placeholder="example.com" ' + inp + '>' +
+      '<label>صفحة فيسبوك</label><input id="adF" dir="ltr" placeholder="facebook.com/اسم-الصفحة" ' + inp + '>' +
+      '<label>حساب إنستغرام</label><input id="adI" dir="ltr" placeholder="@username" ' + inp + '>' +
+      '<label>رقم الهاتف (اختياري)</label><input id="adP" dir="ltr" maxlength="30" placeholder="07xxxxxxxx" ' + inp + '>' +
+      '<div id="adMsg" style="margin-top:8px;"></div>' +
+      '<div class="ads-row" style="margin-top:8px;"><button type="button" class="ads-btn" id="adSend">إرسال الطلب</button></div></div>';
+    $('rsModal').hidden = false; document.body.style.overflow = 'hidden';
+  }
+  function adMsg(t, ok) { var m = $('adMsg'); if (m) m.innerHTML = '<div class="ads-msg ' + (ok ? 'ok' : 'err') + '">' + esc(t) + '</div>'; }
+  function sendAdd() {
+    var n = $('adN').value.trim(), a = $('adA').value, w = cleanUrl($('adW').value), f = cleanUrl($('adF').value, 'facebook.com'), i = cleanUrl($('adI').value, 'instagram.com');
+    if (n.length < 2) return adMsg('اكتب اسم المطعم.');
+    if (!a) return adMsg('اختر المنطقة.');
+    if (!w && !f && !i) return adMsg('أضف رابط الموقع أو فيسبوك أو إنستغرام (رابط صحيح).');
+    var k = norm(n), dup = R.filter(function (r) { return r.a === a && (norm(r.n) === k || (r.e && norm(r.e) === k)); })[0];
+    if (dup) return adMsg('هذا المطعم موجود في الدليل أصلاً (' + dup.n + ').');
+    var p = $('adP').value.trim().replace(/[^\d+]/g, '').slice(0, 30);
+    $('adSend').disabled = true;
+    fbRef.db.collection('restSubmissions').add({ n: n.slice(0, 80), a: a, c: $('adC').value || 'عالمي', w: w, f: f, i: i, p: p, m: $('adM').value.trim().slice(0, 300), uid: curUser.uid, by: (curUser.email || curUser.displayName || '').slice(0, 80), status: 'pending', at: firebase.firestore.FieldValue.serverTimestamp() })
+      .then(function () { $('rsSheet').innerHTML = '<div class="ads-msg ok" style="margin:10px 0;">✅ وصلنا طلبك، وسيظهر المطعم في الدليل بعد موافقة الإدارة.</div><div class="ads-row"><button type="button" class="ads-btn secondary" id="rsClose">إغلاق</button></div>'; if (typeof gtag === 'function') gtag('event', 'rest_submit'); })
+      .catch(function () { adMsg('تعذّر الإرسال — تأكد من تسجيل الدخول بحساب بريده موثّق وحاول مجدداً.'); $('adSend').disabled = false; });
+  }
+  function drawPending() {
+    var box = $('rsPending'); if (!box) return;
+    if (!isEd || !PEND.length) { box.hidden = true; return; }
+    box.hidden = false;
+    box.innerHTML = '<div class="card-title" style="font-size:17px;">📥 طلبات إضافة مطاعم (' + PEND.length + ')</div>' + PEND.map(function (x) {
+      var lk = [['w', 'الموقع'], ['f', 'فيسبوك'], ['i', 'إنستغرام']].filter(function (q) { return x[q[0]]; }).map(function (q) { return '<a href="' + esc(x[q[0]]) + '" target="_blank" rel="noopener noreferrer nofollow">' + q[1] + '</a>'; }).join(' · ');
+      return '<div class="ads-card" style="margin-top:8px;"><strong>' + esc(x.n) + '</strong> — 📍 ' + esc(x.a) + ' · 🍴 ' + esc(x.c) + (x.p ? ' · 📞 ' + esc(x.p) : '') +
+        (x.m ? '<div class="ads-meta">' + esc(x.m) + '</div>' : '') + '<div class="ads-meta">' + lk + ' · من: <span dir="ltr">' + esc(x.by) + '</span></div>' +
+        '<div class="ads-row" style="margin-top:6px;"><button type="button" class="ads-btn" data-sub-ok="' + esc(x.id) + '">✅ قبول</button><button type="button" class="ads-btn danger" data-sub-no="' + esc(x.id) + '">رفض</button></div></div>';
+    }).join('');
+  }
+  function loadPending() {
+    if (!isEd || !fbRef) return;
+    fbRef.db.collection('restSubmissions').where('status', '==', 'pending').get().then(function (s) {
+      PEND = []; s.forEach(function (d) { var v = d.data(); v.id = d.id; PEND.push(v); }); drawPending();
+    }).catch(function () {});
+  }
+  function reviewSub(id, ok, btn) {
+    btn.disabled = true;
+    fbRef.db.collection('restSubmissions').doc(id).update({ status: ok ? 'approved' : 'rejected' }).then(function () {
+      var x = PEND.filter(function (q) { return q.id === id; })[0]; PEND = PEND.filter(function (q) { return q.id !== id; });
+      if (ok && x) addApproved([x]); drawPending();
+    }).catch(function () { btn.disabled = false; });
+  }
+
   /* ---------- events ---------- */
   document.addEventListener('click', function (e) {
     var t = e.target;
+    if (t.closest && t.closest('#rsAddBtn')) { openAdd(); return; }
+    if (t.closest && t.closest('#adSend')) { sendAdd(); return; }
+    var so = t.closest && t.closest('[data-sub-ok]'); if (so) { reviewSub(so.getAttribute('data-sub-ok'), true, so); return; }
+    var sn = t.closest && t.closest('[data-sub-no]'); if (sn) { reviewSub(sn.getAttribute('data-sub-no'), false, sn); return; }
     var mo = t.closest && t.closest('[data-more]');
     if (mo && $('rsAreas').contains(mo)) { st.allChips = !st.allChips; drawFilters(); return; }
     var ch = t.closest && t.closest('[data-area]');
@@ -372,10 +460,14 @@
   loadRatings();
   mergeOffers(); drawOffersTop();
   loadOffers();
+  loadApproved();
   openFromHash();
   adsOnUser(function (user, fb) {
-    curUser = user; isMgr = {}; if (fb) fbRef = fb;
-    adsIsAdmin(fb, user).then(function (a) { isAdmin = a; if (cur) { drawSheet(false); loadMgr(); } });
+    curUser = user; isMgr = {}; isEd = false; PEND = []; drawPending(); if (fb) fbRef = fb;
+    adsIsAdmin(fb, user).then(function (a) {
+      isAdmin = a; if (cur) { drawSheet(false); loadMgr(); }
+      if (a) { isEd = true; loadPending(); } else if (user && user.email && fbRef) fbRef.db.collection('restOwners').doc('_all').collection('members').doc(user.email.toLowerCase()).get().then(function (d) { if (d.exists) { isEd = true; loadPending(); } }).catch(function () {});
+    });
     if (cur) drawSheet(false);
   });
 })();

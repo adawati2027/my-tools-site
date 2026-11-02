@@ -292,6 +292,31 @@ service cloud.firestore {
         && request.resource.data.link is string && request.resource.data.link.size() <= 200;
       allow delete: if request.auth != null && restManager(resource.data.rid);
     }
+
+    // Restaurant submissions: any verified signed-in user can request to add a restaurant (pending); approved ones are public; admins/global editors review.
+    match /restSubmissions/{sid} {
+      allow read: if resource.data.status == 'approved'
+        || (request.auth != null && (resource.data.uid == request.auth.uid || restManager('_all')));
+      allow create: if request.auth != null && request.auth.token.email_verified == true
+        && request.resource.data.keys().hasOnly(['n','a','c','w','f','i','p','m','uid','by','status','at'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.status == 'pending'
+        && request.resource.data.at == request.time
+        && request.resource.data.n is string && request.resource.data.n.size() >= 2 && request.resource.data.n.size() <= 80
+        && request.resource.data.a is string && request.resource.data.a.size() >= 2 && request.resource.data.a.size() <= 40
+        && request.resource.data.c is string && request.resource.data.c.size() <= 40
+        && request.resource.data.w is string && request.resource.data.w.size() <= 200
+        && request.resource.data.f is string && request.resource.data.f.size() <= 200
+        && request.resource.data.i is string && request.resource.data.i.size() <= 200
+        && request.resource.data.p is string && request.resource.data.p.size() <= 30
+        && request.resource.data.m is string && request.resource.data.m.size() <= 300
+        && request.resource.data.by is string && request.resource.data.by.size() <= 80;
+      allow update: if restManager('_all')
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+        && request.resource.data.status in ['approved','rejected'];
+      allow delete: if restManager('_all') || (request.auth != null && resource.data.uid == request.auth.uid && resource.data.status == 'pending');
+    }
+
     match /restOwners/{rid}/members/{email} {
       allow get: if request.auth != null && (isAdmin() || request.auth.token.email.lower() == email);
       allow list: if isAdmin();
