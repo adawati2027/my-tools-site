@@ -8,7 +8,9 @@ const today = iso(new Date()), max = iso(new Date(Date.now() + 14 * 864e5));
 const cut = (v, n) => String(v == null ? '' : v).replace(/\s+/g, ' ').trim().slice(0, n);
 let raw = []; try { raw = JSON.parse(fs.readFileSync(path.join(__dirname, 'offers-auto.json'), 'utf8')); } catch (e) { console.log('no/invalid offers-auto.json'); process.exit(0); }
 const out = [], seen = new Set();
-(Array.isArray(raw) ? raw : []).forEach(o => {
+const expand = [];
+(Array.isArray(raw) ? raw : []).forEach(o => { if (o && o.match && !o.rid) { let re; try { re = new RegExp(o.match, 'i'); } catch (e) { return; } window.RESTS.filter(r => re.test(r.n + ' ' + r.e)).slice(0, 80).forEach(r => expand.push(Object.assign({}, o, { rid: r.id }))); } else expand.push(o); });
+expand.forEach(o => {
   if (!o || !ids.has(o.rid) || !/^\d{4}-\d{2}-\d{2}$/.test(o.until || '') || o.until < today || o.until > max) return;
   if (!/^https:\/\//.test(o.link || '')) return;
   const title = cut(o.title, 80); if (title.length < 3) return;

@@ -13,6 +13,6 @@ Then, only after exhausting the scan, optionally use WebSearch and WebFetch:
 Hard rules:
 - Never invent or guess. Every entry needs a real source URL that actually shows the offer, and the offer must be for a restaurant matched with certainty to an id in data.js (same name AND city/area plausible). If unsure about the match, skip it.
 - "until" must be the offer's stated end date. If the source gives none but the offer is clearly current, use today + 3 days. Never later than today + 14 days. Skip offers already expired.
-- Keep entries from the existing tools/offers-auto.json only if you re-confirm them this run; otherwise drop them.
+- Entries already in tools/offers-auto.json that came from Facebook/Instagram (read manually in a browser, which you cannot do) must be KEPT unchanged until their own until date passes. Drop only non-social entries you cannot re-confirm, or expired ones. An entry may use "match":"<regex on restaurant name>" instead of "rid" for a chain offer valid at all branches; keep such entries as they are.
 - Arabic text in simple MSA, factual, no hype. Max 40 entries. If nothing reliable is found, write [].
 - Finish by writing the file with valid JSON, then print one line: how many offers were written.
