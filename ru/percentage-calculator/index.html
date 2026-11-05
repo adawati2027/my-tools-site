@@ -62,19 +62,19 @@
 </div></nav>
 
 <main><div class="tool-page">
-  <div class="page-header"><a href="/" data-i18n="back">← Back to Home</a></div>
+  <div class="page-header"><a href="/" data-i18n="back">← Назад на главную</a></div>
 
   <div class="card">
     <div class="card-icon" style="background:#fef2f2;">💯</div>
-    <h1 class="card-title" data-i18n="pct_card_title">Percentage & Discount</h1>
-    <div class="card-subtitle" data-i18n="pct_sub">Three types of calculations in one tool</div>
+    <h1 class="card-title" data-i18n="pct_card_title">Процент и скидки</h1>
+    <div class="card-subtitle" data-i18n="pct_sub">Три типа вычислений в одном инструменте</div>
     <div class="divider"></div>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;" data-i18n="pct_intro">Three types of percentage calculations in one tool: find X% of a number (e.g. 20% of 500), find what percentage one number is of another, and calculate percentage increase or decrease. Useful for discounts, VAT, statistics and financial comparisons.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;" data-i18n="pct_intro">Три типа расчётов в одном инструменте: найдите X% от числа (например, 20% от 500), вычислите, какой процент одно число составляет от другого, и рассчитайте процентное изменение. Удобно для скидок, НДС, статистики и финансовых сравнений.</p>
 
     <div class="tab-nav" style="display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;">
-      <button class="tab active" id="tab1" data-i18n="pct_tab1">X % от числа</button>
-      <button class="tab" id="tab2" data-i18n="pct_tab2">What percentage?</button>
-      <button class="tab" id="tab3" data-i18n="pct_tab3">% change</button>
+      <button class="tab active" id="tab1" data-i18n="pct_tab1">X% от числа</button>
+      <button class="tab" id="tab2" data-i18n="pct_tab2">Какой процент?</button>
+      <button class="tab" id="tab3" data-i18n="pct_tab3">% изменение</button>
     </div>
 
     <!-- Tab 1: X% of Y — bidirectional, solve for any of the 3 -->
@@ -87,12 +87,12 @@
       </div>
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
         <div style="flex:1;min-width:100px;" id="p1pctWrap">
-          <label for="p1pct" data-i18n="pct_pct">Percentage %</label>
+          <label for="p1pct" data-i18n="pct_pct">Процент %</label>
           <input type="number" inputmode="decimal" id="p1pct" placeholder="e.g. 15" min="0" step="any" >
         </div>
-        <div style="padding-top:20px;font-size:18px;font-weight:700;color:var(--text-muted);" data-i18n="pct_of">of</div>
+        <div style="padding-top:20px;font-size:18px;font-weight:700;color:var(--text-muted);" data-i18n="pct_of">от</div>
         <div style="flex:1;min-width:100px;" id="p1numWrap">
-          <label for="p1num" data-i18n="pct_num">Number</label>
+          <label for="p1num" data-i18n="pct_num">Число</label>
           <input type="number" inputmode="decimal" id="p1num" placeholder="e.g. 200" min="0" step="any" >
         </div>
       </div>
@@ -104,19 +104,19 @@
         <div class="result-value" id="res1val"></div>
         <div class="result-label" id="res1lbl"></div>
       </div>
-      <button class="pctExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+      <button class="pctExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Экспорт как изображение</button>
     </div>
 
     <!-- Tab 2: X is what % of Y -->
     <div id="panel2" style="display:none;">
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
         <div style="flex:1;min-width:100px;">
-          <label for="p2a" data-i18n="pct_first">First number</label>
+          <label for="p2a" data-i18n="pct_first">Первое число</label>
           <input type="number" inputmode="decimal" id="p2a" placeholder="e.g. 30" step="any" >
         </div>
-        <div style="padding-top:20px;font-size:18px;font-weight:700;color:var(--text-muted);" data-i18n="pct_of">of</div>
+        <div style="padding-top:20px;font-size:18px;font-weight:700;color:var(--text-muted);" data-i18n="pct_of">от</div>
         <div style="flex:1;min-width:100px;">
-          <label for="p2b" data-i18n="pct_second">Second number</label>
+          <label for="p2b" data-i18n="pct_second">Второе число</label>
           <input type="number" inputmode="decimal" id="p2b" placeholder="e.g. 150" step="any" >
         </div>
       </div>
@@ -124,19 +124,19 @@
         <div class="result-value" id="res2val"></div>
         <div class="result-label" id="res2lbl"></div>
       </div>
-      <button class="pctExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+      <button class="pctExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Экспорт как изображение</button>
     </div>
 
     <!-- Tab 3: % change from X to Y -->
     <div id="panel3" style="display:none;">
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
         <div style="flex:1;min-width:100px;">
-          <label for="p3a" data-i18n="pct_from_val">From value</label>
+          <label for="p3a" data-i18n="pct_from_val">Исходное значение</label>
           <input type="number" inputmode="decimal" id="p3a" placeholder="e.g. 100" step="any" >
         </div>
         <div style="padding-top:20px;font-size:18px;font-weight:700;color:var(--text-muted);">→</div>
         <div style="flex:1;min-width:100px;">
-          <label for="p3b" data-i18n="pct_to_val">To value</label>
+          <label for="p3b" data-i18n="pct_to_val">Конечное значение</label>
           <input type="number" inputmode="decimal" id="p3b" placeholder="e.g. 130" step="any" >
         </div>
       </div>
@@ -144,26 +144,26 @@
         <div class="result-value" id="res3val"></div>
         <div class="result-label" id="res3lbl"></div>
       </div>
-      <button class="pctExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+      <button class="pctExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Экспорт как изображение</button>
     </div>
   </div>
 
   <!-- Quick reference -->
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;" data-i18n="pct_quick_ref_title">🧮 Quick Reference — Common Rates</div>
+    <div class="card-title" style="font-size:15px;" data-i18n="pct_quick_ref_title">🧮 Краткий справочник</div>
     <div style="overflow-x:auto;margin-top:12px;" data-i18n-html="pct_ref_table_html"><table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr style="background:var(--primary);color:#fff;"><th style="padding:9px 12px;text-align:start;">Тип расчёта</th><th style="padding:9px 12px;text-align:start;">Формула</th><th style="padding:9px 12px;text-align:start;">Пример</th></tr></thead><tbody><tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:700;">X % от числа</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-family:monospace;">Число × процент ÷ 100</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text-muted);">20% of 500 = <strong>100</strong></td></tr><tr style="background:var(--surface-2);"><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:700;">Сколько % составляет X от Y?</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-family:monospace;">(X ÷ Y) × 100</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text-muted);">30 of 150 = <strong>20%</strong></td></tr><tr><td style="padding:8px 12px;font-weight:700;">Изменение в %</td><td style="padding:8px 12px;font-family:monospace;">((Новое − Старое) ÷ Старое) × 100</td><td style="padding:8px 12px;color:var(--text-muted);">со 100 до 130 = <strong>+30%</strong></td></tr></tbody></table></div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;font-size:13px;text-align:center;">
-      <div class="quick-pct-item" data-pct="5" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>5%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_vat5_lbl">VAT Oman/UAE</span></div>
-      <div class="quick-pct-item" data-pct="10" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>10%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_tenth_lbl">One tenth</span></div>
-      <div class="quick-pct-item" data-pct="15" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>15%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_vat15_lbl">VAT Saudi Arabia</span></div>
-      <div class="quick-pct-item" data-pct="20" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>20%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_fifth_lbl">One fifth</span></div>
-      <div class="quick-pct-item" data-pct="25" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>25%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_quarter_lbl">One quarter</span></div>
-      <div class="quick-pct-item" data-pct="50" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>50%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_half_lbl">Half</span></div>
+      <div class="quick-pct-item" data-pct="5" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>5%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_vat5_lbl">НДС Оман/ОАЭ</span></div>
+      <div class="quick-pct-item" data-pct="10" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>10%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_tenth_lbl">Одна десятая</span></div>
+      <div class="quick-pct-item" data-pct="15" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>15%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_vat15_lbl">НДС Саудовская Аравия</span></div>
+      <div class="quick-pct-item" data-pct="20" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>20%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_fifth_lbl">Одна пятая</span></div>
+      <div class="quick-pct-item" data-pct="25" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>25%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_quarter_lbl">Одна четвёртая</span></div>
+      <div class="quick-pct-item" data-pct="50" style="padding:10px;background:var(--surface-2);border-radius:8px;cursor:pointer;transition:background 0.15s;"><strong>50%</strong><br><span style="color:var(--text-muted);font-size:11px;" data-i18n="pct_half_lbl">Половина</span></div>
     </div>
   </div>
 
   <div id="faqCard" class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;" data-i18n="faq_title">❓ FAQ</div>
+    <div class="card-title" style="font-size:15px;" data-i18n="faq_title">❓ Часто задаваемые вопросы</div>
     <details style="margin-top:12px;border:1px solid var(--border);border-radius:8px;padding:12px;">
       <summary style="font-weight:700;cursor:pointer;font-size:14px;">Как посчитать 20 % от 500?</summary>
       <p style="margin-top:8px;font-size:14px;color:var(--text-muted);line-height:1.7;">Умножьте число на процент и разделите на 100: 500 × 20 ÷ 100 = 100. Или просто 500 × 0,20 = 100. Воспользуйтесь первой вкладкой калькулятора выше, чтобы сразу получить результат.</p>

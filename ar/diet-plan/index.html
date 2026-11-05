@@ -59,56 +59,56 @@
   </div>
 </div></nav>
 <main><div class="tool-page">
-  <div class="page-header"><a href="/" data-i18n="back">← Back to Home</a></div>
+  <div class="page-header"><a href="/" data-i18n="back">← العودة للرئيسية</a></div>
   <div class="card">
     <div class="card-icon" style="background:#f0fdf4;">🥗</div>
-    <h1 class="card-title" data-i18n="diet_title">Calorie Calculator &amp; Diet Plan</h1>
-    <div class="card-subtitle" data-i18n="diet_sub">Calculate your daily needs with scientific precision</div>
+    <h1 class="card-title" data-i18n="diet_title">حاسبة السعرات والخطة الغذائية</h1>
+    <div class="card-subtitle" data-i18n="diet_sub">احسب احتياجك اليومي من السعرات والبروتين والكربوهيدرات</div>
     <div class="divider"></div>
-    <label data-i18n="diet_gender">Gender</label>
+    <label data-i18n="diet_gender">الجنس</label>
     <div class="option-toggle">
-      <button class="option-btn active" data-gender="male" data-i18n="diet_male">Male</button>
-      <button class="option-btn" data-gender="female" data-i18n="diet_female">Female</button>
+      <button class="option-btn active" data-gender="male" data-i18n="diet_male">ذكر</button>
+      <button class="option-btn" data-gender="female" data-i18n="diet_female">أنثى</button>
     </div>
     <div class="row">
-      <div><label for="age" data-i18n="diet_age">Age</label><input type="number" inputmode="decimal" id="age" placeholder="25"></div>
-      <div><label for="weight" data-i18n="diet_weight">Weight (kg)</label><input type="number" inputmode="decimal" id="weight" placeholder="70"></div>
+      <div><label for="age" data-i18n="diet_age">العمر</label><input type="number" inputmode="decimal" id="age" placeholder="25"></div>
+      <div><label for="weight" data-i18n="diet_weight">الوزن (كغم)</label><input type="number" inputmode="decimal" id="weight" placeholder="70"></div>
     </div>
-    <label for="height" data-i18n="diet_height">Height (cm)</label>
+    <label for="height" data-i18n="diet_height">الطول (سم)</label>
     <input type="number" inputmode="decimal" id="height" placeholder="175">
-    <label for="activity" data-i18n="diet_activity">Activity level</label>
+    <label for="activity" data-i18n="diet_activity">مستوى النشاط</label>
     <select id="activity">
-      <option value="1.2" data-i18n="diet_act1">Sedentary (desk job)</option>
-      <option value="1.375" data-i18n="diet_act2">Light activity (1–3 days/week)</option>
-      <option value="1.55" selected data-i18n="diet_act3">Moderate activity (3–5 days/week)</option>
-      <option value="1.725" data-i18n="diet_act4">High activity (6–7 days/week)</option>
-      <option value="1.9" data-i18n="diet_act5">Very high activity (athlete / manual labour)</option>
+      <option value="1.2" data-i18n="diet_act1">قليل الحركة (مكتبي)</option>
+      <option value="1.375" data-i18n="diet_act2">نشاط خفيف (1–3 أيام رياضة)</option>
+      <option value="1.55" selected data-i18n="diet_act3">نشاط متوسط (3–5 أيام رياضة)</option>
+      <option value="1.725" data-i18n="diet_act4">نشاط عالي (6–7 أيام رياضة)</option>
+      <option value="1.9" data-i18n="diet_act5">نشاط عالي جداً (رياضي / عمل بدني)</option>
     </select>
-    <label for="goal" data-i18n="diet_goal">Goal</label>
+    <label for="goal" data-i18n="diet_goal">الهدف</label>
     <select id="goal">
-      <option value="lose" data-i18n="diet_goal1">Weight loss</option>
-      <option value="maintain" selected data-i18n="diet_goal2">Maintain weight</option>
-      <option value="gain" data-i18n="diet_goal3">Weight gain</option>
-      <option value="cut" data-i18n="diet_goal4">Body shredding (cut)</option>
-      <option value="tone" data-i18n="diet_goal5">Body toning</option>
-      <option value="muscle" data-i18n="diet_goal6">Build muscle</option>
+      <option value="lose" data-i18n="diet_goal1">نزول وزن</option>
+      <option value="maintain" selected data-i18n="diet_goal2">ثبات الوزن</option>
+      <option value="gain" data-i18n="diet_goal3">زيادة وزن</option>
+      <option value="cut" data-i18n="diet_goal4">تنشيف الجسم</option>
+      <option value="tone" data-i18n="diet_goal5">شد الجسم</option>
+      <option value="muscle" data-i18n="diet_goal6">زيادة كتلة العضلات</option>
     </select>
-    <button class="btn btn-primary" id="dietCalcBtn" data-i18n="diet_btn">Calculate my daily needs</button>
+    <button class="btn btn-primary" id="dietCalcBtn" data-i18n="diet_btn">احسب احتياجي اليومي</button>
     <div id="freeResult" style="display:none;margin-top:20px;">
       <div class="result-box show success" style="margin-top:0;">
         <div class="result-value" id="calorieResult"></div>
-        <div class="result-label" data-i18n="diet_calories">calories per day</div>
+        <div class="result-label" data-i18n="diet_calories">سعرة حرارية يومياً</div>
       </div>
       <div class="stat-grid" style="margin-top:12px;">
-        <div class="stat-box"><div class="stat-val" id="proteinResult"></div><div class="stat-lbl" data-i18n="diet_protein">Protein (g)</div></div>
-        <div class="stat-box"><div class="stat-val" id="carbResult"></div><div class="stat-lbl" data-i18n="diet_carb">Carbs (g)</div></div>
-        <div class="stat-box"><div class="stat-val" id="fatResult"></div><div class="stat-lbl" data-i18n="diet_fat">Fat (g)</div></div>
+        <div class="stat-box"><div class="stat-val" id="proteinResult"></div><div class="stat-lbl" data-i18n="diet_protein">بروتين (غ)</div></div>
+        <div class="stat-box"><div class="stat-val" id="carbResult"></div><div class="stat-lbl" data-i18n="diet_carb">كارب (غ)</div></div>
+        <div class="stat-box"><div class="stat-val" id="fatResult"></div><div class="stat-lbl" data-i18n="diet_fat">دهون (غ)</div></div>
       </div>
       <div id="goalTip" style="margin-top:12px;padding:10px 14px;background:#f0fdf4;border-radius:var(--radius);font-size:14px;color:#166534;"></div>
       <div style="margin-top:12px;padding:10px 14px;background:#fef9c3;border-radius:8px;font-size:13px;color:#854d0e;">
         ⚠️ الأرقام تقديرية. استشر أخصائي تغذية قبل اتباع أي حمية.
       </div>
-      <button class="btn btn-primary" id="dietExportBtn" data-i18n="export_img_btn" style="margin-top:12px;width:100%;">📸 Export Result as Image</button>
+      <button class="btn btn-primary" id="dietExportBtn" data-i18n="export_img_btn" style="margin-top:12px;width:100%;">📸 صدّر النتيجة كصورة</button>
     </div>
   </div>
 
@@ -212,6 +212,6 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('dietExportBtn')?.addEventListener('click', exportDietResult);
 });
 </script>
-<script src="i18n-lang-ar.js?v=4" defer></script>
+<script src="i18n-lang-ar.js?v=3" defer></script>
 <script src="i18n.js?v=71" defer></script>
 </body></html>

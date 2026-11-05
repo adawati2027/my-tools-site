@@ -59,56 +59,56 @@
   </div>
 </div></nav>
 <main><div class="tool-page">
-  <div class="page-header"><a href="/" data-i18n="back">← Back to Home</a></div>
+  <div class="page-header"><a href="/" data-i18n="back">← Volver al inicio</a></div>
   <div class="card">
     <div class="card-icon" style="background:#f0fdf4;">🥗</div>
-    <h1 class="card-title" data-i18n="diet_title">Calorie Calculator &amp; Diet Plan</h1>
-    <div class="card-subtitle" data-i18n="diet_sub">Calculate your daily needs with scientific precision</div>
+    <h1 class="card-title" data-i18n="diet_title">Calculadora de calorías</h1>
+    <div class="card-subtitle" data-i18n="diet_sub">Calcula tus necesidades diarias con precisión</div>
     <div class="divider"></div>
-    <label data-i18n="diet_gender">Gender</label>
+    <label data-i18n="diet_gender">Género</label>
     <div class="option-toggle">
-      <button class="option-btn active" data-gender="male" data-i18n="diet_male">Male</button>
-      <button class="option-btn" data-gender="female" data-i18n="diet_female">Female</button>
+      <button class="option-btn active" data-gender="male" data-i18n="diet_male">Masculino</button>
+      <button class="option-btn" data-gender="female" data-i18n="diet_female">Femenino</button>
     </div>
     <div class="row">
-      <div><label for="age" data-i18n="diet_age">Age</label><input type="number" inputmode="decimal" id="age" placeholder="25"></div>
-      <div><label for="weight" data-i18n="diet_weight">Weight (kg)</label><input type="number" inputmode="decimal" id="weight" placeholder="70"></div>
+      <div><label for="age" data-i18n="diet_age">Edad</label><input type="number" inputmode="decimal" id="age" placeholder="25"></div>
+      <div><label for="weight" data-i18n="diet_weight">Peso (kg)</label><input type="number" inputmode="decimal" id="weight" placeholder="70"></div>
     </div>
-    <label for="height" data-i18n="diet_height">Height (cm)</label>
+    <label for="height" data-i18n="diet_height">Altura (cm)</label>
     <input type="number" inputmode="decimal" id="height" placeholder="175">
-    <label for="activity" data-i18n="diet_activity">Activity level</label>
+    <label for="activity" data-i18n="diet_activity">Nivel de actividad</label>
     <select id="activity">
-      <option value="1.2" data-i18n="diet_act1">Sedentary (desk job)</option>
-      <option value="1.375" data-i18n="diet_act2">Light activity (1–3 days/week)</option>
-      <option value="1.55" selected data-i18n="diet_act3">Moderate activity (3–5 days/week)</option>
-      <option value="1.725" data-i18n="diet_act4">High activity (6–7 days/week)</option>
-      <option value="1.9" data-i18n="diet_act5">Very high activity (athlete / manual labour)</option>
+      <option value="1.2" data-i18n="diet_act1">Sedentario (oficina)</option>
+      <option value="1.375" data-i18n="diet_act2">Actividad ligera (1–3 días/semana)</option>
+      <option value="1.55" selected data-i18n="diet_act3">Actividad moderada (3–5 días/semana)</option>
+      <option value="1.725" data-i18n="diet_act4">Actividad alta (6–7 días/semana)</option>
+      <option value="1.9" data-i18n="diet_act5">Muy activo (atleta / trabajo físico)</option>
     </select>
-    <label for="goal" data-i18n="diet_goal">Goal</label>
+    <label for="goal" data-i18n="diet_goal">Objetivo</label>
     <select id="goal">
-      <option value="lose" data-i18n="diet_goal1">Weight loss</option>
-      <option value="maintain" selected data-i18n="diet_goal2">Maintain weight</option>
-      <option value="gain" data-i18n="diet_goal3">Weight gain</option>
-      <option value="cut" data-i18n="diet_goal4">Body shredding (cut)</option>
-      <option value="tone" data-i18n="diet_goal5">Body toning</option>
-      <option value="muscle" data-i18n="diet_goal6">Build muscle</option>
+      <option value="lose" data-i18n="diet_goal1">Perder peso</option>
+      <option value="maintain" selected data-i18n="diet_goal2">Mantener peso</option>
+      <option value="gain" data-i18n="diet_goal3">Ganar peso</option>
+      <option value="cut" data-i18n="diet_goal4">Definición muscular</option>
+      <option value="tone" data-i18n="diet_goal5">Tonificación corporal</option>
+      <option value="muscle" data-i18n="diet_goal6">Aumento de masa muscular</option>
     </select>
-    <button class="btn btn-primary" id="dietCalcBtn" data-i18n="diet_btn">Calculate my daily needs</button>
+    <button class="btn btn-primary" id="dietCalcBtn" data-i18n="diet_btn">Calcular mis necesidades diarias</button>
     <div id="freeResult" style="display:none;margin-top:20px;">
       <div class="result-box show success" style="margin-top:0;">
         <div class="result-value" id="calorieResult"></div>
-        <div class="result-label" data-i18n="diet_calories">calories per day</div>
+        <div class="result-label" data-i18n="diet_calories">Calorías por día</div>
       </div>
       <div class="stat-grid" style="margin-top:12px;">
-        <div class="stat-box"><div class="stat-val" id="proteinResult"></div><div class="stat-lbl" data-i18n="diet_protein">Protein (g)</div></div>
-        <div class="stat-box"><div class="stat-val" id="carbResult"></div><div class="stat-lbl" data-i18n="diet_carb">Carbs (g)</div></div>
-        <div class="stat-box"><div class="stat-val" id="fatResult"></div><div class="stat-lbl" data-i18n="diet_fat">Fat (g)</div></div>
+        <div class="stat-box"><div class="stat-val" id="proteinResult"></div><div class="stat-lbl" data-i18n="diet_protein">Proteínas (g)</div></div>
+        <div class="stat-box"><div class="stat-val" id="carbResult"></div><div class="stat-lbl" data-i18n="diet_carb">Carbohidratos (g)</div></div>
+        <div class="stat-box"><div class="stat-val" id="fatResult"></div><div class="stat-lbl" data-i18n="diet_fat">Grasas (g)</div></div>
       </div>
       <div id="goalTip" style="margin-top:12px;padding:10px 14px;background:#f0fdf4;border-radius:var(--radius);font-size:14px;color:#166534;"></div>
       <div style="margin-top:12px;padding:10px 14px;background:#fef9c3;border-radius:8px;font-size:13px;color:#854d0e;">
         ⚠️ Las cifras son estimaciones. Consulta a un nutricionista antes de seguir cualquier dieta.
       </div>
-      <button class="btn btn-primary" id="dietExportBtn" data-i18n="export_img_btn" style="margin-top:12px;width:100%;">📸 Export Result as Image</button>
+      <button class="btn btn-primary" id="dietExportBtn" data-i18n="export_img_btn" style="margin-top:12px;width:100%;">📸 Exportar como imagen</button>
     </div>
   </div>
 

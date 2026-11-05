@@ -59,40 +59,40 @@
   </div>
 </div></nav>
 <main><div class="tool-page">
-  <div class="page-header"><a href="/" data-i18n="back">← Back to Home</a></div>
+  <div class="page-header"><a href="/" data-i18n="back">← Zurück zur Startseite</a></div>
   <div class="card">
     <div class="card-icon" style="background:#fdf4ff;">🤝</div>
-    <h1 class="card-title" data-i18n="tip_title">Tip Calculator</h1>
-    <div class="card-subtitle" data-i18n="tip_sub">Calculate the tip and split the bill easily</div>
+    <h1 class="card-title" data-i18n="tip_title">Trinkgeldrechner</h1>
+    <div class="card-subtitle" data-i18n="tip_sub">Berechnen Sie Trinkgeld einfach</div>
     <div class="divider"></div>
-    <p data-i18n="tip_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Calculate the appropriate tip and split the bill equally among any number of people. Move the slider to choose a tip percentage (0% to 30%) and enter the number of people to instantly get each person's share.</p>
-    <label for="bill" data-i18n="tip_bill">Total bill</label>
+    <p data-i18n="tip_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Berechnen Sie das passende Trinkgeld und teilen Sie die Rechnung gleichmäßig unter einer beliebigen Anzahl von Personen auf. Bewegen Sie den Schieberegler, um einen Trinkgeldprozentsatz (0 % bis 30 %) zu wählen, und geben Sie die Personenzahl ein, um sofort den Anteil jeder Person zu erhalten.</p>
+    <label for="bill" data-i18n="tip_bill">Gesamtrechnung</label>
     <input type="number" inputmode="decimal" id="bill" placeholder="0.00" >
     <div class="option-toggle">
-      <button class="option-btn active" data-mode="pct" data-i18n="tip_mode_pct">Percentage</button>
-      <button class="option-btn" data-mode="fixed" data-i18n="tip_mode_fixed">Fixed Amount</button>
+      <button class="option-btn active" data-mode="pct" data-i18n="tip_mode_pct">Prozentsatz</button>
+      <button class="option-btn" data-mode="fixed" data-i18n="tip_mode_fixed">Fester Betrag</button>
     </div>
     <div id="tipPctSection" style="margin-top:6px;">
-      <label for="tipSlider"><span data-i18n="tip_pct">Tip percentage:</span> <span id="tipPctLabel">15</span>%</label>
+      <label for="tipSlider"><span data-i18n="tip_pct">Trinkgeld %:</span> <span id="tipPctLabel">15</span>%</label>
       <input type="range" id="tipSlider" min="0" max="30" value="15" aria-label="Tip percentage"  style="width:100%;accent-color:var(--primary);margin:8px 0 4px;">
       <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:4px;"><span>0%</span><span>10%</span><span>15%</span><span>20%</span><span>30%</span></div>
     </div>
     <div id="tipFixedSection" style="display:none;margin-top:6px;">
-      <label for="tipFixed" data-i18n="tip_fixed_lbl">Fixed Tip Amount</label>
+      <label for="tipFixed" data-i18n="tip_fixed_lbl">Fester Trinkgeldbetrag</label>
       <input type="number" inputmode="decimal" id="tipFixed" placeholder="0.00" min="0" step="any" >
     </div>
-    <label for="people" data-i18n="tip_people">Number of people</label>
+    <label for="people" data-i18n="tip_people">Anzahl Personen</label>
     <input type="number" inputmode="decimal" id="people" value="1" min="1" >
     <div id="results" style="display:none;margin-top:20px;">
       <div class="stat-grid">
-        <div class="stat-box"><div class="stat-val" id="tipAmt"></div><div class="stat-lbl" data-i18n="tip_amount">Tip amount</div></div>
-        <div class="stat-box"><div class="stat-val" id="totalAmt"></div><div class="stat-lbl" data-i18n="tip_total">Total</div></div>
+        <div class="stat-box"><div class="stat-val" id="tipAmt"></div><div class="stat-lbl" data-i18n="tip_amount">Trinkgeld</div></div>
+        <div class="stat-box"><div class="stat-val" id="totalAmt"></div><div class="stat-lbl" data-i18n="tip_total">Gesamt</div></div>
       </div>
       <div class="result-box show success" style="margin-top:14px;">
         <div class="result-value" id="perPerson"></div>
-        <div class="result-label" data-i18n="tip_per_person">Per person</div>
+        <div class="result-label" data-i18n="tip_per_person">Pro Person</div>
       </div>
-      <button id="tipExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+      <button id="tipExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Als Bild exportieren</button>
     </div>
   </div>
 

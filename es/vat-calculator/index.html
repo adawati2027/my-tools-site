@@ -62,13 +62,13 @@
 </div></nav>
 
 <main><div class="tool-page">
-  <div class="page-header"><a href="/" data-i18n="back">← Back to Home</a></div>
+  <div class="page-header"><a href="/" data-i18n="back">← Volver al inicio</a></div>
   <div class="card">
     <div class="card-icon" style="background:#fefce8;">🧾</div>
-    <h1 class="card-title" data-i18n="vat_card_title">VAT Calculator — Gulf Countries</h1>
+    <h1 class="card-title" data-i18n="vat_card_title">Calculadora IVA Golfo</h1>
     <div class="card-subtitle">Omán • Arabia Saudí • EAU • Baréin • Catar • Kuwait</div>
     <div class="divider"></div>
-    <p data-i18n="vat_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">VAT (Value Added Tax) is applied across Gulf countries. Oman implemented 5% VAT in April 2021 on most goods and services. This calculator supports 6 GCC countries and lets you add VAT to or extract it from any amount.</p>
+    <p data-i18n="vat_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">El IVA (Impuesto sobre el Valor Añadido) se aplica en los países del Golfo. Omán implementó un IVA del 5% en abril de 2021 sobre la mayoría de bienes y servicios. Esta calculadora admite 6 países del CCG y te permite añadir el IVA a cualquier importe o extraerlo de él.</p>
 
     <label for="vatCountry" data-i18n="vat_country_lbl">País</label>
     <select id="vatCountry" >
@@ -80,37 +80,37 @@
       <option value="0" data-currency="د.ك" data-name="الكويت 🇰🇼">Kuwait — no se aplica</option>
     </select>
 
-    <label for="vatMode" data-i18n="vat_mode_lbl">Calculation type</label>
+    <label for="vatMode" data-i18n="vat_mode_lbl">Tipo de cálculo</label>
     <div class="option-toggle">
-      <button class="option-btn active" id="modeAdd" data-mode="add" data-i18n="vat_add_mode">Add tax</button>
-      <button class="option-btn" id="modeEx" data-mode="extract" data-i18n="vat_extract_mode">Extract tax</button>
+      <button class="option-btn active" id="modeAdd" data-mode="add" data-i18n="vat_add_mode">Añadir impuesto</button>
+      <button class="option-btn" id="modeEx" data-mode="extract" data-i18n="vat_extract_mode">Extraer impuesto</button>
     </div>
 
-    <label for="vatAmount" id="vatAmountLabel" data-i18n="vat_amount_before">Amount before tax</label>
+    <label for="vatAmount" id="vatAmountLabel" data-i18n="vat_amount_before">Monto antes de impuesto</label>
     <input type="number" inputmode="decimal" id="vatAmount" placeholder="0.000" min="0" step="any" >
 
     <div id="vatResult" style="display:none;margin-top:20px;">
       <div class="stat-grid">
         <div class="stat-box">
           <div class="stat-val" id="rateDisplay">5%</div>
-          <div class="stat-lbl" data-i18n="vat_rate_lbl">Tax rate</div>
+          <div class="stat-lbl" data-i18n="vat_rate_lbl">Tasa de impuesto</div>
         </div>
         <div class="stat-box" style="background:#fefce8;">
           <div class="stat-val" id="taxDisplay" style="color:#ca8a04;">0.000</div>
-          <div class="stat-lbl" data-i18n="vat_tax_lbl">Tax amount</div>
+          <div class="stat-lbl" data-i18n="vat_tax_lbl">Monto del impuesto</div>
         </div>
         <div class="stat-box" style="background:#f0fdf4;">
           <div class="stat-val" id="totalDisplay" style="color:#16a34a;">0.000</div>
-          <div class="stat-lbl" id="totalLabel" data-i18n="vat_total_lbl">Total including tax</div>
+          <div class="stat-lbl" id="totalLabel" data-i18n="vat_total_lbl">Total con impuesto</div>
         </div>
       </div>
       <div id="vatBreakdown" style="margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2;"></div>
-      <button id="vatExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+      <button id="vatExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Exportar como imagen</button>
     </div>
   </div>
 
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;" data-i18n="vat_table_title">Gulf VAT Rates</div>
+    <div class="card-title" style="font-size:15px;" data-i18n="vat_table_title">IVA en el Golfo</div>
     <div style="overflow-x:auto;">
       <table style="width:100%;border-collapse:collapse;font-size:14px;margin-top:8px;">
         <thead>

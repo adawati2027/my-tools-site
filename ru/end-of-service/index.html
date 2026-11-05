@@ -59,10 +59,10 @@
 </div></nav>
 
 <main><div class="tool-page">
-  <div class="page-header"><a href="/" data-i18n="back">← Back to Home</a></div>
+  <div class="page-header"><a href="/" data-i18n="back">← Назад на главную</a></div>
   <div class="card">
     <div class="card-icon" style="background:#f0f9ff;">📋</div>
-    <h1 class="card-title" data-i18n="eos_title">End of Service Calculator — Sultanate of Oman 🇴🇲</h1>
+    <h1 class="card-title" data-i18n="eos_title">Калькулятор выходного пособия — Оман 🇴🇲</h1>
     <div class="card-subtitle" id="eosCardSub">Результаты ориентировочные — зависят от гражданства, применимой системы и условий договора</div>
     <p id="eosIntro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 4px;"><!--i18n-block:intro-->Выходное пособие в Омане зависит от <strong>гражданства</strong> (гражданин Омана или экспат), <strong>применимой системы</strong> (Трудовой кодекс или SPF), <strong>стажа</strong>и условий трудового договора. Калькулятор даёт предварительную оценку и не является окончательным юридическим расчётом.<!--/i18n-block:intro--></p>
     <div class="divider"></div>
@@ -81,34 +81,34 @@
         <input type="date" id="startDate" >
       </div>
       <div>
-        <label for="endDate" data-i18n="eos_end">End Date</label>
+        <label for="endDate" data-i18n="eos_end">Дата окончания</label>
         <input type="date" id="endDate" >
       </div>
     </div>
 
-    <label for="basicSalaryEos" data-i18n="eos_salary">Last Basic Salary (OMR)</label>
+    <label for="basicSalaryEos" data-i18n="eos_salary">Последний базовый оклад (OMR)</label>
     <input type="number" inputmode="decimal" id="basicSalaryEos" placeholder="0.000" min="0" step="any" >
 
-    <label data-i18n="eos_reason">Reason for Termination</label>
+    <label data-i18n="eos_reason">Причина увольнения</label>
     <div class="option-toggle" style="flex-wrap:wrap;gap:6px;">
-      <button class="option-btn active" id="reasonRes" data-reason="resignation" data-i18n="eos_resignation">Resignation</button>
-      <button class="option-btn" id="reasonTerm" data-reason="termination" data-i18n="eos_termination">Termination</button>
-      <button class="option-btn" id="reasonRet" data-reason="retirement" data-i18n="eos_retirement">Retirement</button>
+      <button class="option-btn active" id="reasonRes" data-reason="resignation" data-i18n="eos_resignation">Увольнение по собственному желанию</button>
+      <button class="option-btn" id="reasonTerm" data-reason="termination" data-i18n="eos_termination">Увольнение</button>
+      <button class="option-btn" id="reasonRet" data-reason="retirement" data-i18n="eos_retirement">Выход на пенсию</button>
     </div>
 
     <div id="eosResult" style="display:none;margin-top:20px;">
       <div class="result-box show success" style="margin-top:0;">
         <div class="result-value" id="gratuityDisplay"></div>
-        <div class="result-label" data-i18n="eos_result_lbl">End of Service Gratuity (OMR)</div>
+        <div class="result-label" data-i18n="eos_result_lbl">Выходное пособие (OMR)</div>
       </div>
       <div class="stat-grid" style="margin-top:12px;">
         <div class="stat-box">
           <div class="stat-val" id="yearsDisplay">0</div>
-          <div class="stat-lbl" data-i18n="eos_years_lbl">Years of Service</div>
+          <div class="stat-lbl" data-i18n="eos_years_lbl">Лет службы</div>
         </div>
         <div class="stat-box">
           <div class="stat-val" id="monthsDisplay">0</div>
-          <div class="stat-lbl" data-i18n="eos_months_lbl">Extra Months</div>
+          <div class="stat-lbl" data-i18n="eos_months_lbl">Дополнительные месяцы</div>
         </div>
         <div class="stat-box">
           <div class="stat-val" id="dailyDisplay">0.000</div>
@@ -116,7 +116,7 @@
         </div>
       </div>
       <div id="eosBreakdown" style="margin-top:12px;padding:14px;background:var(--surface-2);border-radius:var(--radius-sm);font-size:14px;line-height:2.2;"></div>
-      <button id="eosExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+      <button id="eosExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Экспорт как изображение</button>
     </div>
   </div>
 
@@ -189,13 +189,13 @@
   </div>
 
   <div style="margin-top:16px;text-align:center;">
-    <strong data-i18n="related_tools">Related Tools:</strong>
+    <strong data-i18n="related_tools">Связанные инструменты:</strong>
     <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
-      <a href="salary-calculator.html" class="btn" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💼 <span data-i18n="sal_card_title">Калькулятор зарплаты</span></a>
+      <a href="salary-calculator.html" class="btn" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💼 <span data-i18n="sal_card_title">Калькулятор зарплаты — Оман</span></a>
       <a href="om/salary-calculator/" class="btn" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🇴🇲 Зарплата в Омане (EN)</a>
-      <a href="loan-calculator.html" class="btn" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧮 <span data-i18n="loan_card_title">Кредитный калькулятор</span></a>
-      <a href="vat-calculator.html" class="btn" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧾 <span data-i18n="vat_card_title">VAT Calculator</span></a>
-      <a href="currency-converter.html" class="btn" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💱 <span data-i18n="currency_card_title">Currency Converter</span></a>
+      <a href="loan-calculator.html" class="btn" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧮 <span data-i18n="loan_card_title">Калькулятор платежей</span></a>
+      <a href="vat-calculator.html" class="btn" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧾 <span data-i18n="vat_card_title">Калькулятор НДС Залив</span></a>
+      <a href="currency-converter.html" class="btn" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">💱 <span data-i18n="currency_card_title">Конвертер валют</span></a>
       <a href="oman-labour-law-guide.html" class="btn" style="font-size:13px;padding:8px 14px;background:linear-gradient(135deg,#f0fdf4,#bbf7d0);color:var(--text);text-decoration:none;border-radius:8px;">📖 Гид по Трудовому кодексу</a>
       <a href="oman-working-hours-guide.html" class="btn" style="font-size:13px;padding:8px 14px;background:linear-gradient(135deg,#fef9c3,#fde68a);color:var(--text);text-decoration:none;border-radius:8px;">⏱️ Гид по рабочему времени</a>
       <a href="oman-visa-guide.html" class="btn" style="font-size:13px;padding:8px 14px;background:linear-gradient(135deg,#eff6ff,#bfdbfe);color:var(--text);text-decoration:none;border-radius:8px;">🛂 Гид по визам и ВНЖ</a>

@@ -60,13 +60,13 @@
 </div></nav>
 
 <main><div class="tool-page">
-  <div class="page-header"><a href="/" data-i18n="back">← Back to Home</a></div>
+  <div class="page-header"><a href="/" data-i18n="back">← Zurück zur Startseite</a></div>
   <div class="card">
     <div class="card-icon" style="background:#f0fdf4;">💼</div>
-    <h1 class="card-title" data-i18n="sal_card_title">Salary Calculator — Sultanate of Oman 🇴🇲</h1>
+    <h1 class="card-title" data-i18n="sal_card_title">Gehaltsrechner — Oman</h1>
     <div class="card-subtitle" id="salCardSub">Berechne dein Nettogehalt nach dem System des omanischen Sozialschutzfonds</div>
     <div class="divider"></div>
-    <p data-i18n="sal_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Calculate your net salary in Oman instantly — enter your basic salary and allowances, and SPF contributions are calculated automatically. In 2026 no personal income tax applies to salaries (PIT law issued 2025, implementation from 2028) — the only deduction for Omanis is 8% SPF.</p>
+    <p data-i18n="sal_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Berechnen Sie sofort Ihr Nettogehalt in Oman — geben Sie Ihr Grundgehalt und Ihre Zulagen ein, die SPF-Beiträge werden automatisch berechnet. Im Jahr 2026 gilt keine Einkommensteuer auf Gehälter (PIT-Gesetz 2025 verabschiedet, Umsetzung ab 2028) — der einzige Abzug für Omaner ist 8% SPF.</p>
 
     <label id="salNatLbl">Staatsangehörigkeit</label>
     <div class="option-toggle">
@@ -76,22 +76,22 @@
 
     <div class="row">
       <div>
-        <label for="basicSalary" data-i18n="sal_basic_lbl">Basic Salary (OMR)</label>
+        <label for="basicSalary" data-i18n="sal_basic_lbl">Grundgehalt (OMR)</label>
         <input type="number" inputmode="decimal" id="basicSalary" placeholder="0.000" min="0" step="any" >
       </div>
       <div>
-        <label for="housingAllowance" data-i18n="sal_housing_lbl">Housing Allowance (OMR)</label>
+        <label for="housingAllowance" data-i18n="sal_housing_lbl">Wohnungszulage (OMR)</label>
         <input type="number" inputmode="decimal" id="housingAllowance" placeholder="0.000" min="0" step="any" >
       </div>
     </div>
 
     <div class="row">
       <div>
-        <label for="transportAllowance" data-i18n="sal_transport_lbl">Transport Allowance (OMR)</label>
+        <label for="transportAllowance" data-i18n="sal_transport_lbl">Transportzulage (OMR)</label>
         <input type="number" inputmode="decimal" id="transportAllowance" placeholder="0.000" min="0" step="any" >
       </div>
       <div>
-        <label for="otherAllowance" data-i18n="sal_other_lbl">Other Allowances (OMR)</label>
+        <label for="otherAllowance" data-i18n="sal_other_lbl">Andere Zulagen (OMR)</label>
         <input type="number" inputmode="decimal" id="otherAllowance" placeholder="0.000" min="0" step="any" >
       </div>
     </div>
@@ -104,7 +104,7 @@
       <div class="stat-grid" style="margin-top:12px;">
         <div class="stat-box">
           <div class="stat-val" id="grossDisplay">0.000</div>
-          <div class="stat-lbl" data-i18n="sal_gross_lbl">Gross (before deduction)</div>
+          <div class="stat-lbl" data-i18n="sal_gross_lbl">Brutto vor Abzug</div>
         </div>
         <div class="stat-box" style="background:#fef2f2;">
           <div class="stat-val" id="pasiDisplay" style="color:#dc2626;">0.000</div>
@@ -112,7 +112,7 @@
         </div>
         <div class="stat-box" style="background:#fefce8;">
           <div class="stat-val" id="annualDisplay" style="color:#ca8a04;">0.000</div>
-          <div class="stat-lbl" data-i18n="sal_annual_lbl">Annual Salary</div>
+          <div class="stat-lbl" data-i18n="sal_annual_lbl">Jahresgehalt</div>
         </div>
       </div>
       <div id="salDonut"></div>
@@ -187,7 +187,7 @@
   </div>
 
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;" data-i18n="faq_title">❓ FAQ</div>
+    <div class="card-title" style="font-size:15px;" data-i18n="faq_title">❓ Häufige Fragen</div>
     <div id="faqItems">
       <details style="margin-top:12px;border:1px solid var(--border);border-radius:8px;padding:12px;">
         <summary style="font-weight:700;cursor:pointer;font-size:14px;">Was ist der Unterschied zwischen Grund- und Bruttogehalt?</summary>
@@ -233,7 +233,7 @@
   </div>
 
   <div style="margin-top:16px;text-align:center;">
-    <strong data-i18n="related_tools">Related Tools:</strong>
+    <strong data-i18n="related_tools">Verwandte Tools:</strong>
     <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
       <a id="relEOS" href="end-of-service.html" class="btn" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">📋 Abfindungsrechner (Dienstende)</a>
       <a id="relVAT" href="vat-calculator.html" class="btn" style="font-size:13px;padding:8px 14px;background:var(--surface-2);color:var(--text);text-decoration:none;border-radius:8px;">🧾 Mehrwertsteuer-Rechner</a>

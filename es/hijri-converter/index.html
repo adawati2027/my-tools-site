@@ -69,23 +69,23 @@
 </div></nav>
 
 <main><div class="tool-page">
-  <div class="page-header"><a href="/" data-i18n="back">← Back to Home</a></div>
+  <div class="page-header"><a href="/" data-i18n="back">← Volver al inicio</a></div>
 
   <div class="card">
     <div class="card-icon" style="background:#fdf4ff;">🌙</div>
-    <h1 class="card-title" data-i18n="hijri_card_title">Hijri ↔ Gregorian Date Converter</h1>
-    <div class="card-subtitle" data-i18n="hij_sub">Instant tabular Hijri calendar conversion in both directions</div>
+    <h1 class="card-title" data-i18n="hijri_card_title">Convertidor de fecha Hijri</h1>
+    <div class="card-subtitle" data-i18n="hij_sub">Conversión instantánea y precisa en ambas direcciones</div>
     <div class="divider"></div>
-    <p data-i18n="hijri_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">This converter converts between the Islamic (Hijri) lunar calendar and the Gregorian solar calendar using a tabular Hijri calendar algorithm. Commonly used to find dates for Islamic occasions such as Ramadan and Eid al-Adha, and widely referenced in Gulf states. Results may differ by 1–2 days from official moon-sighting calendars.</p>
+    <p data-i18n="hijri_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Este conversor permite pasar del calendario islámico (hijri) lunar al calendario gregoriano solar y viceversa, mediante un algoritmo tabular del calendario hijri. Se usa habitualmente para encontrar fechas de ocasiones islámicas como el Ramadán y el Eid al-Adha, y es ampliamente utilizado en los estados del Golfo. Los resultados pueden diferir en 1-2 días respecto a los calendarios oficiales basados en la observación lunar.</p>
 
     <div class="option-toggle">
-      <button class="option-btn active" id="modeGH" data-mode="g2h" data-i18n="hij_mode_gh">🗓️ Gregorian → Hijri</button>
-      <button class="option-btn" id="modeHG" data-mode="h2g" data-i18n="hij_mode_hg">🌙 Hijri → Gregorian</button>
+      <button class="option-btn active" id="modeGH" data-mode="g2h" data-i18n="hij_mode_gh">🗓️ Gregoriano → Hijri</button>
+      <button class="option-btn" id="modeHG" data-mode="h2g" data-i18n="hij_mode_hg">🌙 Hijri → Gregoriano</button>
     </div>
 
     <!-- Gregorian to Hijri -->
     <div id="gregSection">
-      <label for="gregDate" data-i18n="hij_greg_date_lbl">Select Gregorian Date</label>
+      <label for="gregDate" data-i18n="hij_greg_date_lbl">Seleccionar fecha gregoriana</label>
       <input type="date" id="gregDate" >
       <div id="ghResult" style="display:none;" class="hijri-result-box" style="background:var(--surface-2);">
         <div class="hijri-date-display" id="ghDateDisplay"></div>
@@ -97,15 +97,15 @@
     <div id="hijriSection" style="display:none;">
       <div class="row">
         <div>
-          <label for="hijriDay" data-i18n="hij_day_lbl">Day</label>
+          <label for="hijriDay" data-i18n="hij_day_lbl">Día</label>
           <input type="number" inputmode="decimal" id="hijriDay" min="1" max="30" placeholder="1-30" >
         </div>
         <div>
-          <label for="hijriYear" data-i18n="hij_year_lbl">Hijri Year</label>
+          <label for="hijriYear" data-i18n="hij_year_lbl">Año Hijri</label>
           <input type="number" inputmode="decimal" id="hijriYear" min="1300" max="1600" placeholder="1446" >
         </div>
       </div>
-      <label data-i18n="hij_month_lbl">Hijri Month</label>
+      <label data-i18n="hij_month_lbl">Mes Hijri</label>
       <div class="month-grid" id="monthGrid"></div>
       <div id="hgResult" style="display:none;margin-top:16px;" class="hijri-result-box">
         <div class="hijri-date-display" id="hgDateDisplay"></div>
@@ -116,18 +116,18 @@
       Nota: este conversor usa un calendario hégira tabular. Las fechas pueden diferir 1-2 días de los calendarios locales basados en el avistamiento de la luna.<br>
       ملاحظة: يستخدم هذا المحوّل تقويماً هجرياً حسابياً (Tabular Hijri). قد يختلف التاريخ بيوم أو يومين عن التقويم المعتمد على رؤية الهلال المحلية.
     </p>
-    <button id="hijExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+    <button id="hijExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Exportar como imagen</button>
   </div>
 
   <!-- Today's date panel -->
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;" data-i18n="hij_today_title">📅 Today's Hijri Date</div>
+    <div class="card-title" style="font-size:15px;" data-i18n="hij_today_title">📅 Fecha Hijri de hoy</div>
     <div id="todayHijri" style="font-size:20px;font-weight:700;margin-top:10px;text-align:center;"></div>
     <div id="todayGreg" style="font-size:14px;color:var(--text-muted);text-align:center;margin-top:4px;"></div>
   </div>
 
   <div class="card" style="margin-top:16px;">
-    <div class="card-title" style="font-size:15px;" data-i18n="hij_months_title">🌙 Hijri Months</div>
+    <div class="card-title" style="font-size:15px;" data-i18n="hij_months_title">🌙 Meses Hijri</div>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:10px;font-size:13px;">
       <div style="padding:6px 10px;background:var(--surface-2);border-radius:6px;">1 — Muharram</div>
       <div style="padding:6px 10px;background:var(--surface-2);border-radius:6px;">2 — Safar</div>

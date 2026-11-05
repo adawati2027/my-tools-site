@@ -58,26 +58,26 @@
   </div>
 </div></nav>
 <main><div class="tool-page" style="max-width:560px;">
-  <div class="page-header"><a href="/" data-i18n="back">← Back to Home</a></div>
+  <div class="page-header"><a href="/" data-i18n="back">← Volver al inicio</a></div>
   <div class="card">
     <div class="card-icon" style="background:#fff7ed;">🕐</div>
-    <h1 class="card-title" data-i18n="tz_title">Time Zone Converter</h1>
-    <div class="card-subtitle" data-i18n="tz_sub">Find the time in any city around the world</div>
+    <h1 class="card-title" data-i18n="tz_title">Conversor de zonas horarias</h1>
+    <div class="card-subtitle" data-i18n="tz_sub">Hora actual en el mundo</div>
     <div class="divider"></div>
-    <p data-i18n="tz_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">See the current time live in 6 major cities (Riyadh, Dubai, London, New York, Tokyo, Sydney) or convert any time between any two zones from a list of 20 world cities.</p>
+    <p data-i18n="tz_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Consulta la hora actual en directo en 6 ciudades principales (Riad, Dubái, Londres, Nueva York, Tokio, Sídney) o convierte cualquier hora entre dos zonas de una lista de 20 ciudades del mundo.</p>
     <div id="clockGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;"></div>
     <div class="divider"></div>
-    <label data-i18n="tz_convert">Convert a specific time</label>
+    <label data-i18n="tz_convert">Convertir una hora</label>
     <input type="datetime-local" id="inputTime">
-    <label data-i18n="tz_from">From zone</label>
+    <label data-i18n="tz_from">Desde</label>
     <select id="tzFrom" ></select>
-    <label data-i18n="tz_to">To zone</label>
+    <label data-i18n="tz_to">Hacia</label>
     <select id="tzTo" ></select>
     <div id="tzResult" class="result-box success" style="margin-top:16px;">
       <div class="result-value" id="tzResultVal" style="font-size:28px;"></div>
       <div class="result-label" id="tzResultLabel"></div>
     </div>
-    <button id="tzExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Export Result as Image</button>
+    <button id="tzExportBtn" data-i18n="export_img_btn" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:14px;padding:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.28);">📸 Exportar como imagen</button>
   </div>
 
   <div class="card" style="margin-top:16px;">

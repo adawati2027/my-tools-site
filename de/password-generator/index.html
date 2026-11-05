@@ -58,25 +58,25 @@
   </div>
 </div></nav>
 <main><div class="tool-page">
-  <div class="page-header"><a href="/" data-i18n="back">← Back to Home</a></div>
+  <div class="page-header"><a href="/" data-i18n="back">← Zurück zur Startseite</a></div>
   <div class="card">
     <div class="card-icon" style="background:#f8fafc;">🔑</div>
-    <h1 class="card-title" data-i18n="pass_title">Password Generator</h1>
-    <div class="card-subtitle" data-i18n="pass_sub">Strong, secure passwords with one click</div>
+    <h1 class="card-title" data-i18n="pass_title">Passwort-Generator</h1>
+    <div class="card-subtitle" data-i18n="pass_sub">Starke und sichere Passwörter mit einem Klick</div>
     <div class="divider"></div>
-    <p data-i18n="pass_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">This tool uses the browser-built-in Web Crypto API to generate true cryptographic randomness — passwords are never stored or sent to any server. Choose the length and character types, then click to copy instantly.</p>
-    <label for="lengthSlider"><span data-i18n="pass_length">Length:</span> <span id="lenDisplay">16</span></label>
+    <p data-i18n="pass_intro" style="font-size:14px;color:var(--text-muted);line-height:1.8;margin:12px 0 16px;">Dieses Tool nutzt die im Browser integrierte Web-Crypto-API, um echte kryptografische Zufälligkeit zu erzeugen — Passwörter werden niemals gespeichert oder an einen Server gesendet. Wählen Sie die Länge und die Zeichentypen und klicken Sie zum sofortigen Kopieren.</p>
+    <label for="lengthSlider"><span data-i18n="pass_length">Länge:</span> <span id="lenDisplay">16</span></label>
     <input type="range" id="lengthSlider" aria-label="Password length" min="8" max="64" value="16"  style="width:100%;accent-color:var(--primary);margin:8px 0;">
-    <div class="switch-row"><label data-i18n="pass_numbers">Numbers (0–9)</label><label class="toggle"><input type="checkbox" id="useNumbers" checked ><span class="slider"></span></label></div>
-    <div class="switch-row"><label data-i18n="pass_symbols">Symbols (!@#$)</label><label class="toggle"><input type="checkbox" id="useSymbols" checked ><span class="slider"></span></label></div>
-    <div class="switch-row"><label data-i18n="pass_upper">Uppercase letters</label><label class="toggle"><input type="checkbox" id="useUpper" checked ><span class="slider"></span></label></div>
+    <div class="switch-row"><label data-i18n="pass_numbers">Zahlen (0–9)</label><label class="toggle"><input type="checkbox" id="useNumbers" checked ><span class="slider"></span></label></div>
+    <div class="switch-row"><label data-i18n="pass_symbols">Symbole (!@#$)</label><label class="toggle"><input type="checkbox" id="useSymbols" checked ><span class="slider"></span></label></div>
+    <div class="switch-row"><label data-i18n="pass_upper">Großbuchstaben</label><label class="toggle"><input type="checkbox" id="useUpper" checked ><span class="slider"></span></label></div>
     <div class="pass-output-wrap" id="passWrap" style="cursor:pointer;margin:16px 0 4px;padding:14px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);display:flex;justify-content:space-between;align-items:center;gap:12px;">
       <span class="pass-output" id="passOutput" style="font-family:monospace;font-size:16px;word-break:break-all;"></span>
       <span style="font-size:18px;flex-shrink:0;">📋</span>
     </div>
-    <div id="copyMsg" style="display:none;text-align:center;color:#16a34a;font-size:13px;font-weight:700;margin-bottom:8px;" data-i18n="pass_copied">Copied ✓</div>
-    <button class="btn btn-primary" id="genPassBtn" data-i18n="pass_btn">Generate new password</button>
-    <div style="margin-top:12px;padding:12px 14px;background:var(--surface-2);border-radius:var(--radius);font-size:13px;color:var(--text-muted);line-height:1.7;" data-i18n="pass_save_advice">💡 If you'll use this password somewhere important, save it now in a password manager or a secure note on your phone or device — this exact password won't be shown again once you leave the page.</div>
+    <div id="copyMsg" style="display:none;text-align:center;color:#16a34a;font-size:13px;font-weight:700;margin-bottom:8px;" data-i18n="pass_copied">Kopiert ✓</div>
+    <button class="btn btn-primary" id="genPassBtn" data-i18n="pass_btn">Neues Passwort generieren</button>
+    <div style="margin-top:12px;padding:12px 14px;background:var(--surface-2);border-radius:var(--radius);font-size:13px;color:var(--text-muted);line-height:1.7;" data-i18n="pass_save_advice">💡 Wenn Sie dieses Passwort für etwas Wichtiges verwenden, speichern Sie es jetzt in einem Passwort-Manager oder einer sicheren Notiz auf Ihrem Telefon oder Gerät — dieses genaue Passwort wird nicht erneut angezeigt, sobald Sie die Seite verlassen.</div>
   </div>
 
   <div class="card" style="margin-top:16px;">

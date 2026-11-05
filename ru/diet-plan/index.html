@@ -59,56 +59,56 @@
   </div>
 </div></nav>
 <main><div class="tool-page">
-  <div class="page-header"><a href="/" data-i18n="back">← Back to Home</a></div>
+  <div class="page-header"><a href="/" data-i18n="back">← Назад на главную</a></div>
   <div class="card">
     <div class="card-icon" style="background:#f0fdf4;">🥗</div>
-    <h1 class="card-title" data-i18n="diet_title">Calorie Calculator &amp; Diet Plan</h1>
-    <div class="card-subtitle" data-i18n="diet_sub">Calculate your daily needs with scientific precision</div>
+    <h1 class="card-title" data-i18n="diet_title">Калькулятор калорий</h1>
+    <div class="card-subtitle" data-i18n="diet_sub">Рассчитайте ежедневные потребности</div>
     <div class="divider"></div>
-    <label data-i18n="diet_gender">Gender</label>
+    <label data-i18n="diet_gender">Пол</label>
     <div class="option-toggle">
-      <button class="option-btn active" data-gender="male" data-i18n="diet_male">Male</button>
-      <button class="option-btn" data-gender="female" data-i18n="diet_female">Female</button>
+      <button class="option-btn active" data-gender="male" data-i18n="diet_male">Мужской</button>
+      <button class="option-btn" data-gender="female" data-i18n="diet_female">Женский</button>
     </div>
     <div class="row">
-      <div><label for="age" data-i18n="diet_age">Age</label><input type="number" inputmode="decimal" id="age" placeholder="25"></div>
-      <div><label for="weight" data-i18n="diet_weight">Weight (kg)</label><input type="number" inputmode="decimal" id="weight" placeholder="70"></div>
+      <div><label for="age" data-i18n="diet_age">Возраст</label><input type="number" inputmode="decimal" id="age" placeholder="25"></div>
+      <div><label for="weight" data-i18n="diet_weight">Вес (кг)</label><input type="number" inputmode="decimal" id="weight" placeholder="70"></div>
     </div>
-    <label for="height" data-i18n="diet_height">Height (cm)</label>
+    <label for="height" data-i18n="diet_height">Рост (см)</label>
     <input type="number" inputmode="decimal" id="height" placeholder="175">
-    <label for="activity" data-i18n="diet_activity">Activity level</label>
+    <label for="activity" data-i18n="diet_activity">Уровень активности</label>
     <select id="activity">
-      <option value="1.2" data-i18n="diet_act1">Sedentary (desk job)</option>
-      <option value="1.375" data-i18n="diet_act2">Light activity (1–3 days/week)</option>
-      <option value="1.55" selected data-i18n="diet_act3">Moderate activity (3–5 days/week)</option>
-      <option value="1.725" data-i18n="diet_act4">High activity (6–7 days/week)</option>
-      <option value="1.9" data-i18n="diet_act5">Very high activity (athlete / manual labour)</option>
+      <option value="1.2" data-i18n="diet_act1">Сидячий образ жизни</option>
+      <option value="1.375" data-i18n="diet_act2">Лёгкая активность (1–3 дня/неделю)</option>
+      <option value="1.55" selected data-i18n="diet_act3">Умеренная активность (3–5 дней/неделю)</option>
+      <option value="1.725" data-i18n="diet_act4">Высокая активность (6–7 дней/неделю)</option>
+      <option value="1.9" data-i18n="diet_act5">Очень активный (спортсмен / физический труд)</option>
     </select>
-    <label for="goal" data-i18n="diet_goal">Goal</label>
+    <label for="goal" data-i18n="diet_goal">Цель</label>
     <select id="goal">
-      <option value="lose" data-i18n="diet_goal1">Weight loss</option>
-      <option value="maintain" selected data-i18n="diet_goal2">Maintain weight</option>
-      <option value="gain" data-i18n="diet_goal3">Weight gain</option>
-      <option value="cut" data-i18n="diet_goal4">Body shredding (cut)</option>
-      <option value="tone" data-i18n="diet_goal5">Body toning</option>
-      <option value="muscle" data-i18n="diet_goal6">Build muscle</option>
+      <option value="lose" data-i18n="diet_goal1">Похудеть</option>
+      <option value="maintain" selected data-i18n="diet_goal2">Сохранить вес</option>
+      <option value="gain" data-i18n="diet_goal3">Набрать вес</option>
+      <option value="cut" data-i18n="diet_goal4">Сушка тела</option>
+      <option value="tone" data-i18n="diet_goal5">Тонус тела</option>
+      <option value="muscle" data-i18n="diet_goal6">Набор мышечной массы</option>
     </select>
-    <button class="btn btn-primary" id="dietCalcBtn" data-i18n="diet_btn">Calculate my daily needs</button>
+    <button class="btn btn-primary" id="dietCalcBtn" data-i18n="diet_btn">Рассчитать мои потребности</button>
     <div id="freeResult" style="display:none;margin-top:20px;">
       <div class="result-box show success" style="margin-top:0;">
         <div class="result-value" id="calorieResult"></div>
-        <div class="result-label" data-i18n="diet_calories">calories per day</div>
+        <div class="result-label" data-i18n="diet_calories">Калорий в день</div>
       </div>
       <div class="stat-grid" style="margin-top:12px;">
-        <div class="stat-box"><div class="stat-val" id="proteinResult"></div><div class="stat-lbl" data-i18n="diet_protein">Protein (g)</div></div>
-        <div class="stat-box"><div class="stat-val" id="carbResult"></div><div class="stat-lbl" data-i18n="diet_carb">Carbs (g)</div></div>
-        <div class="stat-box"><div class="stat-val" id="fatResult"></div><div class="stat-lbl" data-i18n="diet_fat">Fat (g)</div></div>
+        <div class="stat-box"><div class="stat-val" id="proteinResult"></div><div class="stat-lbl" data-i18n="diet_protein">Белки (г)</div></div>
+        <div class="stat-box"><div class="stat-val" id="carbResult"></div><div class="stat-lbl" data-i18n="diet_carb">Углеводы (г)</div></div>
+        <div class="stat-box"><div class="stat-val" id="fatResult"></div><div class="stat-lbl" data-i18n="diet_fat">Жиры (г)</div></div>
       </div>
       <div id="goalTip" style="margin-top:12px;padding:10px 14px;background:#f0fdf4;border-radius:var(--radius);font-size:14px;color:#166534;"></div>
       <div style="margin-top:12px;padding:10px 14px;background:#fef9c3;border-radius:8px;font-size:13px;color:#854d0e;">
         ⚠️ Цифры приблизительные. Перед любой диетой проконсультируйтесь с диетологом.
       </div>
-      <button class="btn btn-primary" id="dietExportBtn" data-i18n="export_img_btn" style="margin-top:12px;width:100%;">📸 Export Result as Image</button>
+      <button class="btn btn-primary" id="dietExportBtn" data-i18n="export_img_btn" style="margin-top:12px;width:100%;">📸 Экспорт как изображение</button>
     </div>
   </div>
 
