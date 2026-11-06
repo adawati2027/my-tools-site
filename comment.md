@@ -803,3 +803,27 @@
 - استفسارات مؤتة 921564672580514 — jo/students/credit-hours-planner — utm `921564672580514-1`
 - إربد الأهلية 1933133947040632 — jo/calculators/university-gpa — utm `1933133947040632-1`
 - تخطي: مؤتة 164738902148257 (ما في صندوق كومنت)، إربد الأهلية 993092836090387 (ما في زر كومنت)
+
+## دفعة 20 كومنت جامعات (2026-11-06)
+كومنت على آخر بوست (لأي شخص)، 20 جروب جامعي. utm `<id>-1`.
+- 807372309275453 — scholarships-loans
+- 772225569506654 — parallel-results
+- 5651680488211978 — calculators/university-cost
+- 166445727038752 — absence-calculator
+- 352391098135621 — credit-hours-planner
+- 390882814395016 — target-gpa
+- 1750362251906337 — what-can-i-study
+- 3598856453743162 — final-exam-grade
+- 5540468426047867 — best-tools
+- 1514684719231477 (TTU) — bachelor-guide، وبعدها بالغلط target-gpa على نفس البوست (كومنتين من عندنا، مش مكرر الموضوع)
+- 1336093796819854 — masters-guide
+- 605519807335796 (الإسراء) — final-exam-grade
+- 478664345575569 — target-gpa
+- 381004245347221 — absence-calculator
+- 866652982188970 — best-tools
+- 894370552327994 (AUH إسأل) — credit-hours-planner
+- 8000898136660808 (MEU) — scholarships-loans
+- 777570039000484 (اليرموك) — what-can-i-study
+- ammanuniverstiy (عمان الأهلية) — absence-calculator
+- zpuuni (الزرقاء) — parallel-results
+- تخطي (التعليق مقفل/ما في زر): الأهل بيت 3547497015269731، البلقاء 1734868496860512، UJ 929375517119250، JUST 407971403127104
