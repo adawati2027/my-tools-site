@@ -171,7 +171,7 @@
   <div class="card" style="margin-top:16px;">
     <h2 class="card-title" style="font-size:17px;">ℹ️ عن من غنّى الأغنية؟</h2>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">اختبر معلوماتك بالأغاني العربية والأجنبية: خمّن من غنّى كل أغنية من اسمها. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ أصحابك. مجاني وبدون تسجيل.</p>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>600</b> سؤالاً، موزّعة على مستويين: <b>319</b> سؤال متوسط و<b>281</b> سؤال صعب. تختار كل جولة 12 سؤالاً عشوائياً، فتظهر لك أسئلة مختلفة في كل مرة تلعب فيها.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>700</b> سؤالاً، موزّعة على مستويين: <b>363</b> سؤال متوسط و<b>337</b> سؤال صعب. تختار كل جولة 12 سؤالاً عشوائياً، فتظهر لك أسئلة مختلفة في كل مرة تلعب فيها.</p>
     <h3 style="font-size:15px;margin-top:14px;">🎮 كيف تلعب؟</h3>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;">
       <li>اختر المستوى (متوسط أو صعب أو مشكّل) ثم اضغط «ابدأ».</li>
@@ -181,14 +181,14 @@
     </ul>
     <h3 style="font-size:15px;margin-top:14px;">📝 أمثلة من أسئلة الكويز</h3>
     <ol style="font-size:14px;line-height:1.9;padding-right:22px;">
-      <li>من غنّى أغنية "مركب الهند"؟<br><span style="color:var(--text-muted);">الجواب: <b>محمد عبده</b></span></li>
-      <li>من غنّى أغنية "I Wanna Dance with Somebody (Who Loves Me)"؟<br><span style="color:var(--text-muted);">الجواب: <b>Whitney Houston</b></span></li>
-      <li>من غنّى أغنية "Island Girl"؟<br><span style="color:var(--text-muted);">الجواب: <b>Elton John</b></span></li>
-      <li>من غنّى أغنية "I Was Made to Love Her"؟<br><span style="color:var(--text-muted);">الجواب: <b>Stevie Wonder</b></span></li>
-      <li>من غنّى أغنية "Stay" مع ذا كيد لاروي؟<br><span style="color:var(--text-muted);">الجواب: <b>جاستن بيبر</b></span></li>
-      <li>أغنية "هل عندك شك" من أغاني أي فنان؟<br><span style="color:var(--text-muted);">الجواب: <b>كاظم الساهر</b></span></li>
-      <li>من غنّى أغنية "Riptide"؟<br><span style="color:var(--text-muted);">الجواب: <b>فانس جوي</b></span></li>
-      <li>من غنّت أغنية "Respect"؟<br><span style="color:var(--text-muted);">الجواب: <b>Aretha Franklin</b></span></li>
+      <li>من غنّى أغنية "الهوى الغايب"؟<br><span style="color:var(--text-muted);">الجواب: <b>محمد عبده</b></span></li>
+      <li>من غنّى أغنية "I Believe in You and Me"؟<br><span style="color:var(--text-muted);">الجواب: <b>Whitney Houston</b></span></li>
+      <li>من غنّى أغنية "Baby Boy"؟<br><span style="color:var(--text-muted);">الجواب: <b>Beyoncé</b></span></li>
+      <li>من غنّى أغنية "متى أشوفك"؟<br><span style="color:var(--text-muted);">الجواب: <b>أصالة نصري</b></span></li>
+      <li>من غنّى أغنية "Old Town Road"؟<br><span style="color:var(--text-muted);">الجواب: <b>Lil Nas X</b></span></li>
+      <li>من الفنان الذي اشتهر بأغنية "Wake Me Up"؟<br><span style="color:var(--text-muted);">الجواب: <b>أفيتشي</b></span></li>
+      <li>من غنّت أغنية "Waka Waka" في كأس العالم 2010؟<br><span style="color:var(--text-muted);">الجواب: <b>Shakira</b></span></li>
+      <li>من غنّى أغنية "حرمت أحبك"؟<br><span style="color:var(--text-muted);">الجواب: <b>وردة</b></span></li>
     </ol>
   </div>
 <!--/quiz-about-->
@@ -806,6 +806,106 @@ const QUESTIONS = [
   {q:'من غنّت أغنية "أحلى دنيا"؟', opts:['نانسي عجرم','إليسا','أصالة','هيفاء وهبي'], correct:1, cat:'ar', difficulty:'hard'},
   {q:'من غنّت أغنية "جرح تاني"؟', opts:['إليسا','شيرين عبد الوهاب','نانسي عجرم','أصالة'], correct:1, cat:'ar', difficulty:'hard'},
   {q:'من غنّت أغنية "مشاعر"؟', opts:['إليسا','أنغام','شيرين عبد الوهاب','أصالة'], correct:2, cat:'ar', difficulty:'medium'},
+  {q:'من غنّى أغنية "سمراء"؟', opts:['محمد عبده','عبد المجيد عبد الله','طلال مداح','راشد الماجد'], correct:2, cat:'ar', difficulty:'hard'},
+  {q:'من غنّى أغنية "موعود"؟', opts:['عبد الحليم حافظ','فريد الأطرش','محمد عبد الوهاب','كاظم الساهر'], correct:0, cat:'ar', difficulty:'hard'},
+  {q:'من غنّى أغنية "في يوم في شهر في سنة"؟', opts:['فريد الأطرش','عبد الحليم حافظ','محمد منير','عمرو دياب'], correct:1, cat:'ar', difficulty:'hard'},
+  {q:'من غنّت أغنية "بتونس بيك"؟', opts:['وردة','فيروز','نجاة','أصالة'], correct:0, cat:'ar', difficulty:'hard'},
+  {q:'من غنّت أغنية "أيظن"؟', opts:['وردة','فيروز','ميادة','نجاة الصغيرة'], correct:3, cat:'ar', difficulty:'hard'},
+  {q:'من غنّى أغنية "Butter"؟', opts:['Aqua','Black Sabbath','Rihanna','BTS'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Scar Tissue"؟', opts:['Bob Dylan','Red Hot Chili Peppers','Luis Fonsi','Donna Summer'], correct:1, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "كل ده كان ليه"؟', opts:['طلال مداح','محمد عبد الوهاب','فيروز','أم كلثوم'], correct:1, cat:'ar', difficulty:'hard'},
+  {q:'من غنّى أغنية "Sultans of Swing"؟', opts:['Nena','Wham!','Dire Straits','Coldplay'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Adore You"؟', opts:['Led Zeppelin','Harry Styles','Green Day','The Killers'], correct:1, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Più bella cosa"؟', opts:['Vengaboys','Eros Ramazzotti','David Bowie','Queen'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Gasolina"؟', opts:['David Bowie','Daddy Yankee','Usher','Enya'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Hysteria"؟', opts:['Muse','Maroon 5','Bad Bunny','Don McLean'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Everything I Wanted"؟', opts:['Billie Eilish','a-ha','Rammstein','Dido'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Tonight"؟', opts:['Enrique Iglesias','Ariana Grande','Akon','The Beach Boys'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Against All Odds"؟', opts:['Tina Turner','Stromae','Avril Lavigne','Phil Collins'], correct:3, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Losing My Religion"؟', opts:['Avicii','Coldplay','R.E.M.','Bob Marley'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Starman"؟', opts:['Rod Stewart','David Bowie','AC/DC','Ed Sheeran'], correct:1, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Without Me"؟', opts:['Kool & the Gang','Leonard Cohen','Ace of Base','Eminem'], correct:3, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Supermassive Black Hole"؟', opts:['Maroon 5','Lewis Capaldi','Billy Joel','Muse'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Hot Stuff"؟', opts:['Donna Summer','John Lennon','Celine Dion','Katy Perry'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Helena"؟', opts:['My Chemical Romance','Daddy Yankee','Aqua','Tina Turner'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Volare (Nel blu dipinto di blu)"؟', opts:['Toto','Don McLean','Domenico Modugno','Imagine Dragons'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Tourner dans le vide"؟', opts:['Lewis Capaldi','George Michael','OneRepublic','Indila'], correct:3, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Lucky"؟', opts:['Frank Sinatra','Britney Spears','Coldplay','Sinéad O\'Connor'], correct:1, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Rock You Like a Hurricane"؟', opts:['Scorpions','Aerosmith','Zaz','Elvis Presley'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "بحبك وايد"؟', opts:['أم كلثوم','حسين الجسمي','وردة','نجاة الصغيرة'], correct:1, cat:'ar', difficulty:'medium'},
+  {q:'من غنّى أغنية "About Damn Time"؟', opts:['Joe Dassin','Lizzo','Leonard Cohen','Bob Marley'], correct:1, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Get Down on It"؟', opts:['Eminem','Doja Cat','Bob Marley','Kool & the Gang'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Swimming Pools (Drank)"؟', opts:['Taylor Swift','Frank Sinatra','Kendrick Lamar','Don McLean'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "She Will Be Loved"؟', opts:['Indila','Maluma','Maroon 5','Modern Talking'], correct:2, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Sign of the Times"؟', opts:['Édith Piaf','Adele','Harry Styles','Michael Jackson'], correct:2, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Wiggle"؟', opts:['Jason Derulo','Alicia Keys','OneRepublic','Eros Ramazzotti'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Girls Just Want to Have Fun"؟', opts:['Dire Straits','John Lennon','Cyndi Lauper','Phil Collins'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "The Greatest"؟', opts:['Green Day','Daft Punk','Billy Joel','Sia'], correct:3, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "A Hard Day\'s Night"؟', opts:['Louis Armstrong','AC/DC','Billy Joel','The Beatles'], correct:3, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "حديث الروح"؟', opts:['وردة','محمد منير','حسين الجسمي','أم كلثوم'], correct:3, cat:'ar', difficulty:'hard'},
+  {q:'من غنّى أغنية "Yesterday Once More"؟', opts:['Ricky Martin','a-ha','Don McLean','Carpenters'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Surfin\' USA"؟', opts:['Depeche Mode','Charlie Puth','The Beach Boys','Oasis'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Boys Don\'t Cry"؟', opts:['The Cure','Vengaboys','Jason Derulo','Aerosmith'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Apologize"؟', opts:['Boney M.','Selena Gomez','Billie Eilish','OneRepublic'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Around the World"؟', opts:['John Lennon','The Beach Boys','Eminem','Daft Punk'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Ocean Eyes"؟', opts:['Kelly Clarkson','Billie Eilish','Adele','Calvin Harris'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Get Back"؟', opts:['Stromae','Imagine Dragons','The Beatles','Prince'], correct:2, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Brothers in Arms"؟', opts:['Dire Straits','Alanis Morissette','Spice Girls','Enrique Iglesias'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "فاتت جنبنا"؟', opts:['عبد الحليم حافظ','محمد عساف','فيروز','خالد'], correct:0, cat:'ar', difficulty:'hard'},
+  {q:'من غنّى أغنية "علي صوتك بالغنا"؟', opts:['محمد عساف','سعد لمجرد','محمد منير','أسمهان'], correct:2, cat:'ar', difficulty:'medium'},
+  {q:'من غنّى أغنية "يا جارة الوادي"؟', opts:['محمد عبد الوهاب','خالد','هيفاء وهبي','أم كلثوم'], correct:0, cat:'ar', difficulty:'hard'},
+  {q:'من غنّى أغنية "Tití Me Preguntó"؟', opts:['Carpenters','Bob Marley','Alan Walker','Bad Bunny'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Larger than Life"؟', opts:['Britney Spears','Backstreet Boys','Joe Dassin','Lewis Capaldi'], correct:1, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Lovesick Girls"؟', opts:['BLACKPINK','Boney M.','Toto','Guns N\' Roses'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Let\'s Dance"؟', opts:['Akon','David Bowie','Village People','Boney M.'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "حرمت أحبك"؟', opts:['فيروز','طلال مداح','أسمهان','وردة'], correct:3, cat:'ar', difficulty:'medium'},
+  {q:'من غنّى أغنية "Treat You Better"؟', opts:['Queen','Dua Lipa','Shawn Mendes','Ricky Martin2'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Numb"؟', opts:['Mariah Carey','Leonard Cohen','Duran Duran','Linkin Park'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Immigrant Song"؟', opts:['Michael Jackson','Ace of Base','Led Zeppelin','Kool & the Gang'], correct:2, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "If I Ain\'t Got You"؟', opts:['The Cure','George Michael','Metallica','Alicia Keys'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Good for You"؟', opts:['Selena Gomez','AC/DC','Rammstein','My Chemical Romance'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Start Me Up"؟', opts:['David Bowie','Charlie Puth','The Rolling Stones','Maroon 5'], correct:2, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Learn to Fly"؟', opts:['Whitney Houston','Ricky Martin2','Bob Dylan','Foo Fighters'], correct:3, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Desperado"؟', opts:['Maluma','Olivia Rodrigo','Eagles','2Pac'], correct:2, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "We Didn\'t Start the Fire"؟', opts:['Kendrick Lamar','Modern Talking','Billy Joel','Eminem'], correct:2, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Se bastasse una canzone"؟', opts:['The Weeknd','Eros Ramazzotti','Tarkan','Stromae'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "I Gotta Feeling"؟', opts:['Donna Summer','a-ha','Survivor','The Black Eyed Peas'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Hands to Myself"؟', opts:['Selena Gomez','Survivor','Aerosmith','Britney Spears'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "نورا نورا"؟', opts:['محمد عبده','فريد الأطرش','هيفاء وهبي','نجاة الصغيرة'], correct:1, cat:'ar', difficulty:'hard'},
+  {q:'من غنّى أغنية "ديدي"؟', opts:['وردة','خالد','أسمهان','نانسي عجرم'], correct:1, cat:'ar', difficulty:'medium'},
+  {q:'من غنّى أغنية "You Give Love a Bad Name"؟', opts:['Charlie Puth','Kool & the Gang','Bon Jovi','The Beach Boys'], correct:2, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "American Idiot"؟', opts:['Green Day','Doja Cat','Hadise','Simon & Garfunkel'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Bad Liar"؟', opts:['Imagine Dragons','Nelly','R.E.M.','Avicii'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Hot n Cold"؟', opts:['Katy Perry','Stevie Wonder','Mariah Carey','Linkin Park'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Zitti e buoni"؟', opts:['The Beach Boys','Måneskin','Taylor Swift','Daft Punk'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Positions"؟', opts:['Bob Dylan','Ariana Grande','Whitney Houston','Billy Joel'], correct:1, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Live Forever"؟', opts:['Oasis','Taylor Swift','Modern Talking','Gloria Gaynor'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Everybody Hurts"؟', opts:['R.E.M.','Alanis Morissette','Måneskin','The Weeknd'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Celebration"؟', opts:['Flo Rida','Kool & the Gang','No Doubt','Elton John'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "I Want It That Way"؟', opts:['Sam Smith','Village People','Nena','Backstreet Boys'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Poker Face"؟', opts:['Sia','Måneskin','The Black Eyed Peas','Lady Gaga'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "She"؟', opts:['Kygo','Coolio','Joe Dassin','Charles Aznavour'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "يا مسافر وحدك"؟', opts:['محمد عبد الوهاب','محمد منير','محمد عساف','محمد عبده'], correct:0, cat:'ar', difficulty:'hard'},
+  {q:'من غنّى أغنية "Orinoco Flow"؟', opts:['Måneskin','Usher','Enya','Panic! at the Disco'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Shape of My Heart"؟', opts:['Louis Armstrong','Backstreet Boys','Sting','50 Cent'], correct:1, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "جانا الهوا"؟', opts:['أم كلثوم','أسمهان','عبد الحليم حافظ','حسين الجسمي'], correct:2, cat:'ar', difficulty:'hard'},
+  {q:'من غنّى أغنية "Layla"؟', opts:['Eric Clapton','BTS','Andrea Bocelli','U2'], correct:0, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "أنا وانت وبس"؟', opts:['عمرو دياب','خالد','محمد منير','فريد الأطرش'], correct:3, cat:'ar', difficulty:'hard'},
+  {q:'من غنّى أغنية "Paranoid Android"؟', opts:['Luis Fonsi','Stromae','Radiohead','Don McLean'], correct:2, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Oops!... I Did It Again"؟', opts:['Avril Lavigne','Bad Bunny','Britney Spears','Sting'], correct:2, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Sunday Bloody Sunday"؟', opts:['U2','Celine Dion','Indila','Domenico Modugno'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Whatcha Say"؟', opts:['Simon & Garfunkel','Enrique Iglesias','Jason Derulo','Kelly Clarkson'], correct:2, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Tragedy"؟', opts:['George Michael','Post Malone','Linkin Park','Bee Gees'], correct:3, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "الليلة يا سمرة"؟', opts:['محمد منير','أم كلثوم','محمد عبد الوهاب','محمد عبده'], correct:0, cat:'ar', difficulty:'hard'},
+  {q:'من غنّى أغنية "Paranoid"؟', opts:['Travis Scott','Black Sabbath','Stromae','The Weeknd'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "A Sky Full of Stars"؟', opts:['Coldplay','No Doubt','Passenger','Oasis'], correct:0, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Brown Sugar"؟', opts:['The Beach Boys','Sting','Muse','The Rolling Stones'], correct:3, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "نسيانك صعب"؟', opts:['هاني شاكر','محمد عبد الوهاب','شيرين عبد الوهاب','أم كلثوم'], correct:0, cat:'ar', difficulty:'medium'},
+  {q:'من غنّى أغنية "Welcome to the Jungle"؟', opts:['Mariah Carey','Rihanna','Guns N\' Roses','Louis Armstrong'], correct:2, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Paradise City"؟', opts:['Coolio','Guns N\' Roses','Lil Nas X','Dido'], correct:1, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Waiting for Love"؟', opts:['Aqua','Avicii','Louis Armstrong','OneRepublic'], correct:1, cat:'foreign', difficulty:'hard'},
+  {q:'من غنّى أغنية "Juicy"؟', opts:['Katy Perry','The Notorious B.I.G.','Lizzo','Oasis'], correct:1, cat:'foreign', difficulty:'medium'},
+  {q:'من غنّى أغنية "Hot in Herre"؟', opts:['Alan Walker','Nelly','Cyndi Lauper','Kygo'], correct:1, cat:'foreign', difficulty:'medium'},
 ];
 
 const QUIZ_CONFIG = {

@@ -170,7 +170,7 @@
   <div class="card" style="margin-top:16px;">
     <h2 class="card-title" style="font-size:17px;">ℹ️ عن حقائق وتاريخ الرياضيات</h2>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">اختبر معلوماتك بتاريخ وحقائق الرياضيات: علماء، نظريات، وأرقام مشهورة. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ أصحابك. مجاني وبدون تسجيل.</p>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>600</b> سؤالاً، موزّعة على مستويين: <b>381</b> سؤال متوسط و<b>219</b> سؤال صعب. تختار كل جولة 12 سؤالاً عشوائياً، فتظهر لك أسئلة مختلفة في كل مرة تلعب فيها.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>700</b> سؤالاً، موزّعة على مستويين: <b>466</b> سؤال متوسط و<b>234</b> سؤال صعب. تختار كل جولة 12 سؤالاً عشوائياً، فتظهر لك أسئلة مختلفة في كل مرة تلعب فيها.</p>
     <h3 style="font-size:15px;margin-top:14px;">🎮 كيف تلعب؟</h3>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;">
       <li>اختر المستوى (متوسط أو صعب أو مشكّل) ثم اضغط «ابدأ».</li>
@@ -180,14 +180,14 @@
     </ul>
     <h3 style="font-size:15px;margin-top:14px;">📝 أمثلة من أسئلة الكويز</h3>
     <ol style="font-size:14px;line-height:1.9;padding-right:22px;">
-      <li>إقليدس أثبت أنه عدد الأعداد الأولية:<br><span style="color:var(--text-muted);">الجواب: <b>لا نهائي</b></span></li>
-      <li>كم عدد الأوجه المثلثة عند "رباعي الأوجه المنتظم" (Tetrahedron)؟<br><span style="color:var(--text-muted);">الجواب: <b>4</b></span></li>
-      <li>"نصف القطر" (Radius) للدائرة يساوي كم من "القطر" (Diameter)؟<br><span style="color:var(--text-muted);">الجواب: <b>نصف القطر (Diameter) بالضبط</b></span></li>
-      <li>ما ضعف العدد 15؟<br><span style="color:var(--text-muted);">الجواب: <b>30</b></span></li>
-      <li>ما ناتج 5 تكعيب (5³)؟<br><span style="color:var(--text-muted);">الجواب: <b>125</b></span></li>
-      <li>ما القاسم المشترك الأكبر للعددين 24 و36؟<br><span style="color:var(--text-muted);">الجواب: <b>12</b></span></li>
-      <li>ما الرمز الروماني للعدد 1000؟<br><span style="color:var(--text-muted);">الجواب: <b>M</b></span></li>
-      <li>ما ناتج 154 ÷ 7؟<br><span style="color:var(--text-muted);">الجواب: <b>22</b></span></li>
+      <li>لماذا تحديداً تاريخ 14 آذار (3/14) اختير كيوم للـ π؟<br><span style="color:var(--text-muted);">الجواب: <b>لأنه يطابق أول 3 أرقام مهمة من π (3.14)</b></span></li>
+      <li>ما اسم المشروع الذي يستخدم حوسبة موزّعة (متطوعين حول العالم) للبحث عن أعداد ميرسين الأولية؟<br><span style="color:var(--text-muted);">الجواب: <b>GIMPS</b></span></li>
+      <li>جيرولامو كاردانو، عالم الرياضيات الإيطالي، نشر كتابه "آرس ماغنا" (Ars Magna) الذي فيه حل المعادلات التكعيبية (الدرجة الثالثة)، بأي سنة؟<br><span style="color:var(--text-muted);">الجواب: <b>1545</b></span></li>
+      <li>كم يساوي 5 تربيع؟<br><span style="color:var(--text-muted);">الجواب: <b>25</b></span></li>
+      <li>كم يساوي 5% من 400؟<br><span style="color:var(--text-muted);">الجواب: <b>20</b></span></li>
+      <li>ما مجموع زوايا الشكل الرباعي؟<br><span style="color:var(--text-muted);">الجواب: <b>360 درجة</b></span></li>
+      <li>ما ناتج 455 ÷ 13؟<br><span style="color:var(--text-muted);">الجواب: <b>35</b></span></li>
+      <li>ما متوسط الأعداد 90 و63 و84؟<br><span style="color:var(--text-muted);">الجواب: <b>79</b></span></li>
     </ol>
   </div>
 <!--/quiz-about-->
@@ -806,6 +806,106 @@ const QUESTIONS = [
   {q:'مستطيل طوله 11 سم وعرضه 7 سم، ما محيطه بالسنتيمتر؟', opts:['77','18','38','36'], correct:3, difficulty:'medium'},
   {q:'مستطيل طوله 23 سم وعرضه 15 سم، ما محيطه بالسنتيمتر؟', opts:['345','38','78','76'], correct:3, difficulty:'medium'},
   {q:'مستطيل طوله 14 سم وعرضه 10 سم، ما محيطه بالسنتيمتر؟', opts:['48','140','24','50'], correct:0, difficulty:'medium'},
+  {q:'مستطيل طوله 9 سم وعرضه 7 سم، ما محيطه بالسنتيمتر؟', opts:['63','16','32','34'], correct:2, difficulty:'medium'},
+  {q:'ما مربع العدد 24؟', opts:['600','576','552','48'], correct:1, difficulty:'medium'},
+  {q:'ما مربع العدد 29؟', opts:['841','870','812','58'], correct:0, difficulty:'medium'},
+  {q:'ما مربع العدد 16؟', opts:['272','240','256','32'], correct:2, difficulty:'medium'},
+  {q:'ما مربع العدد 23؟', opts:['552','506','529','46'], correct:2, difficulty:'medium'},
+  {q:'ما الجذر التربيعي للعدد 256؟', opts:['17','15','18','16'], correct:3, difficulty:'medium'},
+  {q:'ما الجذر التربيعي للعدد 289؟', opts:['18','16','19','17'], correct:3, difficulty:'medium'},
+  {q:'ما الجذر التربيعي للعدد 324؟', opts:['19','18','17','20'], correct:1, difficulty:'medium'},
+  {q:'ما الجذر التربيعي للعدد 361؟', opts:['19','20','18','21'], correct:0, difficulty:'medium'},
+  {q:'ما الجذر التربيعي للعدد 441؟', opts:['22','21','20','23'], correct:1, difficulty:'medium'},
+  {q:'ما الجذر التربيعي للعدد 484؟', opts:['22','23','21','24'], correct:0, difficulty:'medium'},
+  {q:'ما الجذر التربيعي للعدد 576؟', opts:['25','23','24','26'], correct:2, difficulty:'medium'},
+  {q:'ما الجذر التربيعي للعدد 900؟', opts:['31','30','29','32'], correct:1, difficulty:'medium'},
+  {q:'ما الجذر التربيعي للعدد 1225؟', opts:['35','36','34','37'], correct:0, difficulty:'medium'},
+  {q:'ما الجذر التربيعي للعدد 1600؟', opts:['41','39','42','40'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 40% من 140؟', opts:['61','56','51','112'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 60% من 160؟', opts:['101','96','91','192'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 40% من 300؟', opts:['125','115','240','120'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 60% من 100؟', opts:['65','55','120','60'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 50% من 260؟', opts:['135','125','260','130'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 30% من 240؟', opts:['77','67','144','72'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 50% من 280؟', opts:['145','140','135','280'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 10% من 120؟', opts:['12','17','7','24'], correct:0, difficulty:'medium'},
+  {q:'كم يساوي 40% من 120؟', opts:['53','43','96','48'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 20% من 120؟', opts:['29','24','19','48'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 25% من 60؟', opts:['20','15','10','30'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 25% من 140؟', opts:['40','30','35','70'], correct:2, difficulty:'medium'},
+  {q:'إذا كان س + 15 = 45، فكم قيمة س؟', opts:['30','31','29','45'], correct:0, difficulty:'medium'},
+  {q:'إذا كان س + 21 = 47، فكم قيمة س؟', opts:['27','26','25','47'], correct:1, difficulty:'medium'},
+  {q:'إذا كان س + 31 = 45، فكم قيمة س؟', opts:['15','13','14','45'], correct:2, difficulty:'medium'},
+  {q:'إذا كان س + 32 = 43، فكم قيمة س؟', opts:['12','11','10','43'], correct:1, difficulty:'medium'},
+  {q:'إذا كان س + 24 = 36، فكم قيمة س؟', opts:['13','11','12','36'], correct:2, difficulty:'medium'},
+  {q:'إذا كان س + 21 = 27، فكم قيمة س؟', opts:['7','5','27','6'], correct:3, difficulty:'medium'},
+  {q:'إذا كان س + 33 = 49، فكم قيمة س؟', opts:['16','17','15','49'], correct:0, difficulty:'medium'},
+  {q:'إذا كان 6س = 30، فكم قيمة س؟', opts:['6','5','4','11'], correct:1, difficulty:'medium'},
+  {q:'إذا كان 3س = 27، فكم قيمة س؟', opts:['9','10','8','3'], correct:0, difficulty:'medium'},
+  {q:'إذا كان 8س = 120، فكم قيمة س؟', opts:['16','14','8','15'], correct:3, difficulty:'medium'},
+  {q:'إذا كان 3س = 30، فكم قيمة س؟', opts:['10','11','9','3'], correct:0, difficulty:'medium'},
+  {q:'إذا كان 7س = 49، فكم قيمة س؟', opts:['7','8','6','14'], correct:0, difficulty:'medium'},
+  {q:'إذا كان 6س = 78، فكم قيمة س؟', opts:['14','13','12','6'], correct:1, difficulty:'medium'},
+  {q:'حل المعادلة: 3س + 10 = 37', opts:['10','9','8','11'], correct:1, difficulty:'hard'},
+  {q:'حل المعادلة: 5س + 20 = 70', opts:['11','9','12','10'], correct:3, difficulty:'hard'},
+  {q:'حل المعادلة: 2س + 12 = 18', opts:['4','3','2','5'], correct:1, difficulty:'hard'},
+  {q:'حل المعادلة: 4س + 5 = 25', opts:['6','4','7','5'], correct:3, difficulty:'hard'},
+  {q:'حل المعادلة: 4س + 4 = 60', opts:['15','14','13','16'], correct:1, difficulty:'hard'},
+  {q:'حل المعادلة: 3س + 8 = 44', opts:['13','11','12','14'], correct:2, difficulty:'hard'},
+  {q:'حل المعادلة: 3س + 10 = 25', opts:['6','4','5','7'], correct:2, difficulty:'hard'},
+  {q:'حل المعادلة: 5س + 6 = 76', opts:['15','13','16','14'], correct:3, difficulty:'hard'},
+  {q:'ما متوسط الأعداد 75 و63 و78؟', opts:['73','72','71','75'], correct:1, difficulty:'medium'},
+  {q:'ما متوسط الأعداد 86 و80 و62؟', opts:['77','75','79','76'], correct:3, difficulty:'medium'},
+  {q:'ما متوسط الأعداد 77 و70 و69؟', opts:['73','72','71','75'], correct:1, difficulty:'medium'},
+  {q:'ما متوسط الأعداد 74 و76 و75؟', opts:['76','74','78','75'], correct:3, difficulty:'medium'},
+  {q:'ما متوسط الأعداد 90 و63 و84؟', opts:['80','78','82','79'], correct:3, difficulty:'medium'},
+  {q:'ما متوسط الأعداد 66 و78 و75؟', opts:['73','74','72','76'], correct:0, difficulty:'medium'},
+  {q:'كم دقيقة في 5 ساعات؟', opts:['300','500','150','120'], correct:0, difficulty:'medium'},
+  {q:'كم دقيقة في 9 ساعات؟', opts:['540','900','270','216'], correct:0, difficulty:'medium'},
+  {q:'كم دقيقة في 7 ساعات؟', opts:['700','210','420','168'], correct:2, difficulty:'medium'},
+  {q:'كم دقيقة في 3 ساعات؟', opts:['300','90','180','72'], correct:2, difficulty:'medium'},
+  {q:'كم دقيقة في 2 ساعات؟', opts:['200','60','48','120'], correct:3, difficulty:'medium'},
+  {q:'كم ملمتراً في 40 سنتيمتراً؟', opts:['40','400','4000','200'], correct:1, difficulty:'medium'},
+  {q:'كم ملمتراً في 20 سنتيمتراً؟', opts:['20','2000','100','200'], correct:3, difficulty:'medium'},
+  {q:'كم ملمتراً في 30 سنتيمتراً؟', opts:['300','30','3000','150'], correct:0, difficulty:'medium'},
+  {q:'كم ملمتراً في 25 سنتيمتراً؟', opts:['25','2500','250','125'], correct:2, difficulty:'medium'},
+  {q:'كم غراماً في 7 كيلوغرام؟', opts:['700','70','70000','7000'], correct:3, difficulty:'medium'},
+  {q:'كم غراماً في 4 كيلوغرام؟', opts:['400','40','4000','40000'], correct:2, difficulty:'medium'},
+  {q:'كم غراماً في 3 كيلوغرام؟', opts:['300','30','30000','3000'], correct:3, difficulty:'medium'},
+  {q:'ما قيمة 2 أس 9؟', opts:['514','512','510','1024'], correct:1, difficulty:'medium'},
+  {q:'ما قيمة 4 أس 4؟', opts:['260','252','256','1024'], correct:2, difficulty:'medium'},
+  {q:'ما قيمة 5 أس 3؟', opts:['130','120','125','625'], correct:2, difficulty:'medium'},
+  {q:'ما قيمة 5 أس 4؟', opts:['630','625','620','3125'], correct:1, difficulty:'medium'},
+  {q:'ما قيمة 7 أس 3؟', opts:['343','350','336','2401'], correct:0, difficulty:'medium'},
+  {q:'ما قيمة 9 أس 3؟', opts:['738','720','729','6561'], correct:2, difficulty:'medium'},
+  {q:'ما قيمة 10 أس 5؟', opts:['100000','100010','99990','1000000'], correct:0, difficulty:'medium'},
+  {q:'كم يساوي 3/4 من العدد 48؟', opts:['40','36','32','12'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 2/5 من العدد 60؟', opts:['28','20','12','24'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 5/6 من العدد 54؟', opts:['49','41','45','9'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 3/8 من العدد 64؟', opts:['28','20','8','24'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 7/10 من العدد 90؟', opts:['67','59','9','63'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 2/3 من العدد 72؟', opts:['48','52','44','24'], correct:0, difficulty:'medium'},
+  {q:'كم يساوي 4/9 من العدد 81؟', opts:['40','32','36','9'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 5/8 من العدد 96؟', opts:['64','56','60','12'], correct:2, difficulty:'medium'},
+  {q:'ما العدد التالي في المتتالية: 3، 6، 9، 12، ...؟', opts:['16','14','15','18'], correct:2, difficulty:'medium'},
+  {q:'ما العدد التالي في المتتالية: 15، 23، 31، 39، ...؟', opts:['47','48','46','55'], correct:0, difficulty:'medium'},
+  {q:'ما العدد التالي في المتتالية: 19، 27، 35، 43، ...؟', opts:['52','51','50','59'], correct:1, difficulty:'medium'},
+  {q:'ما العدد التالي في المتتالية: 15، 22، 29، 36، ...؟', opts:['44','42','50','43'], correct:3, difficulty:'medium'},
+  {q:'ما العدد التالي في المتتالية: 5، 14، 23، 32، ...؟', opts:['42','41','40','50'], correct:1, difficulty:'medium'},
+  {q:'ما العدد التالي في المتتالية: 13، 20، 27، 34، ...؟', opts:['42','40','48','41'], correct:3, difficulty:'medium'},
+  {q:'مثلث قاعدته 20 سم وارتفاعه 6 سم، ما مساحته بالسنتيمتر المربع؟', opts:['60','120','26','66'], correct:0, difficulty:'medium'},
+  {q:'مثلث قاعدته 36 سم وارتفاعه 14 سم، ما مساحته بالسنتيمتر المربع؟', opts:['504','50','252','266'], correct:2, difficulty:'medium'},
+  {q:'مثلث قاعدته 40 سم وارتفاعه 7 سم، ما مساحته بالسنتيمتر المربع؟', opts:['280','47','147','140'], correct:3, difficulty:'medium'},
+  {q:'مثلث قاعدته 34 سم وارتفاعه 9 سم، ما مساحته بالسنتيمتر المربع؟', opts:['153','306','43','162'], correct:0, difficulty:'medium'},
+  {q:'مثلث قاعدته 12 سم وارتفاعه 13 سم، ما مساحته بالسنتيمتر المربع؟', opts:['156','25','91','78'], correct:3, difficulty:'medium'},
+  {q:'مثلث قاعدته 16 سم وارتفاعه 6 سم، ما مساحته بالسنتيمتر المربع؟', opts:['96','22','54','48'], correct:3, difficulty:'medium'},
+  {q:'ما مساحة دائرة نصف قطرها 2 سم (π ≈ 3.14)؟', opts:['6.28','25.12','12.56','4'], correct:2, difficulty:'hard'},
+  {q:'ما مساحة دائرة نصف قطرها 4 سم (π ≈ 3.14)؟', opts:['50.24','25.12','12.56','100.48'], correct:0, difficulty:'hard'},
+  {q:'ما مساحة دائرة نصف قطرها 5 سم (π ≈ 3.14)؟', opts:['31.4','78.5','15.7','157'], correct:1, difficulty:'hard'},
+  {q:'ما مساحة دائرة نصف قطرها 6 سم (π ≈ 3.14)؟', opts:['37.68','18.84','113.04','226.08'], correct:2, difficulty:'hard'},
+  {q:'ما مساحة دائرة نصف قطرها 7 سم (π ≈ 3.14)؟', opts:['43.96','21.98','307.72','153.86'], correct:3, difficulty:'hard'},
+  {q:'ما مساحة دائرة نصف قطرها 10 سم (π ≈ 3.14)؟', opts:['62.8','31.4','628','314'], correct:3, difficulty:'hard'},
+  {q:'ما حجم متوازي مستطيلات أبعاده 8 و9 و2 سم؟', opts:['74','212','144','19'], correct:2, difficulty:'hard'},
 ];
 
 const QUIZ_CONFIG = {
