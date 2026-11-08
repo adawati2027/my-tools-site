@@ -170,7 +170,7 @@
   <div class="card" style="margin-top:16px;">
     <h2 class="card-title" style="font-size:17px;">ℹ️ عن حقائق وتاريخ الرياضيات</h2>
     <p style="font-size:14px;color:var(--text-muted);line-height:1.9;margin-top:8px;">اختبر معلوماتك بتاريخ وحقائق الرياضيات: علماء، نظريات، وأرقام مشهورة. 12 سؤال عشوائي من بنك أسئلة أوسع في كل مرة، تحدَّ أصحابك. مجاني وبدون تسجيل.</p>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>500</b> سؤالاً، موزّعة على مستويين: <b>289</b> سؤال متوسط و<b>211</b> سؤال صعب. تختار كل جولة 12 سؤالاً عشوائياً، فتظهر لك أسئلة مختلفة في كل مرة تلعب فيها.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.9;">يضم بنك الأسئلة <b>600</b> سؤالاً، موزّعة على مستويين: <b>381</b> سؤال متوسط و<b>219</b> سؤال صعب. تختار كل جولة 12 سؤالاً عشوائياً، فتظهر لك أسئلة مختلفة في كل مرة تلعب فيها.</p>
     <h3 style="font-size:15px;margin-top:14px;">🎮 كيف تلعب؟</h3>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;">
       <li>اختر المستوى (متوسط أو صعب أو مشكّل) ثم اضغط «ابدأ».</li>
@@ -180,14 +180,14 @@
     </ul>
     <h3 style="font-size:15px;margin-top:14px;">📝 أمثلة من أسئلة الكويز</h3>
     <ol style="font-size:14px;line-height:1.9;padding-right:22px;">
-      <li>"مبرهنة فيثاغورس" تنص أنه بالمثلث القائم: مربع الوتر = ؟<br><span style="color:var(--text-muted);">الجواب: <b>مجموع مربعي الضلعين الآخرين</b></span></li>
-      <li>ما اسم الشكل الرباعي الذي كل أضلاعه متساوية الطول، وليست زواياه قائمة بالضرورة؟<br><span style="color:var(--text-muted);">الجواب: <b>المعين (Rhombus)</b></span></li>
-      <li>كاثرين جونسون، عالمة الرياضيات الأمريكية التي اشتغلت بوكالة ناسا، اشتهرت بحساب مسارات أي مهمات فضائية؟<br><span style="color:var(--text-muted);">الجواب: <b>مهمات مشروع ميركوري وبرنامج أبولو (منها أول هبوط على القمر)</b></span></li>
-      <li>جيرولامو كاردانو، عالم الرياضيات الإيطالي، نشر كتابه "آرس ماغنا" (Ars Magna) الذي فيه حل المعادلات التكعيبية (الدرجة الثالثة)، بأي سنة؟<br><span style="color:var(--text-muted);">الجواب: <b>1545</b></span></li>
-      <li>كم عدد أضلاع السداسي؟<br><span style="color:var(--text-muted);">الجواب: <b>6</b></span></li>
-      <li>ما قيمة 20% من 150؟<br><span style="color:var(--text-muted);">الجواب: <b>30</b></span></li>
-      <li>كم يساوي 345 + 278؟<br><span style="color:var(--text-muted);">الجواب: <b>623</b></span></li>
-      <li>كم احتمال ظهور العدد 6 عند رمي حجر نرد عادل؟<br><span style="color:var(--text-muted);">الجواب: <b>1/6</b></span></li>
+      <li>إقليدس أثبت أنه عدد الأعداد الأولية:<br><span style="color:var(--text-muted);">الجواب: <b>لا نهائي</b></span></li>
+      <li>كم عدد الأوجه المثلثة عند "رباعي الأوجه المنتظم" (Tetrahedron)؟<br><span style="color:var(--text-muted);">الجواب: <b>4</b></span></li>
+      <li>"نصف القطر" (Radius) للدائرة يساوي كم من "القطر" (Diameter)؟<br><span style="color:var(--text-muted);">الجواب: <b>نصف القطر (Diameter) بالضبط</b></span></li>
+      <li>ما ضعف العدد 15؟<br><span style="color:var(--text-muted);">الجواب: <b>30</b></span></li>
+      <li>ما ناتج 5 تكعيب (5³)؟<br><span style="color:var(--text-muted);">الجواب: <b>125</b></span></li>
+      <li>ما القاسم المشترك الأكبر للعددين 24 و36؟<br><span style="color:var(--text-muted);">الجواب: <b>12</b></span></li>
+      <li>ما الرمز الروماني للعدد 1000؟<br><span style="color:var(--text-muted);">الجواب: <b>M</b></span></li>
+      <li>ما ناتج 154 ÷ 7؟<br><span style="color:var(--text-muted);">الجواب: <b>22</b></span></li>
     </ol>
   </div>
 <!--/quiz-about-->
@@ -706,6 +706,106 @@ const QUESTIONS = [
   {q:'كم يساوي الكسر 2/5 بصورة نسبة مئوية؟', opts:['25%','52%','20%','40%'], correct:3, difficulty:'medium'},
   {q:'كم يساوي الرقم 10 في النظام الروماني؟', opts:['V','L','X','C'], correct:2, difficulty:'medium'},
   {q:'كم عدد الأرقام العشرية لعدد π؟', opts:['10','لا نهائية','100','1000'], correct:1, difficulty:'hard'},
+  {q:'ما ناتج 15 × 4؟', opts:['45','54','60','64'], correct:2, difficulty:'medium'},
+  {q:'ما ناتج 9 × 9؟', opts:['81','72','91','99'], correct:0, difficulty:'medium'},
+  {q:'كم يساوي 2 أس 8؟', opts:['128','512','256','64'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 2 أس 10؟', opts:['1000','512','2048','1024'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 75% من 80؟', opts:['55','65','60','70'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي الكسر 1 على 8 بالنسبة المئوية؟', opts:['8%','18%','10%','12.5%'], correct:3, difficulty:'hard'},
+  {q:'كم يساوي 16 × 5؟', opts:['40','80','85','82'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 18 × 7؟', opts:['121','126','136','128'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 16 × 4؟', opts:['64','66','67','63'], correct:0, difficulty:'medium'},
+  {q:'كم يساوي 15 × 8؟', opts:['130','123','110','120'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 18 × 4؟', opts:['71','82','72','69'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 13 × 6؟', opts:['81','76','77','78'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 16 × 3؟', opts:['53','58','38','48'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 19 × 6؟', opts:['115','114','113','112'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 14 × 4؟', opts:['51','112','56','28'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 17 × 3؟', opts:['102','49','51','48'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 12 × 6؟', opts:['75','73','72','36'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 14 × 8؟', opts:['117','107','112','102'], correct:2, difficulty:'medium'},
+  {q:'ما الجذر التربيعي للعدد 49؟', opts:['17','4','8','7'], correct:3, difficulty:'medium'},
+  {q:'ما الجذر التربيعي للعدد 64؟', opts:['8','18','10','6'], correct:0, difficulty:'medium'},
+  {q:'ما الجذر التربيعي للعدد 81؟', opts:['6','12','4','9'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 2 أس 6؟', opts:['64','65','67','62'], correct:0, difficulty:'medium'},
+  {q:'كم يساوي 2 أس 7؟', opts:['129','128','125','64'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 3 أس 4؟', opts:['80','81','78','71'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 3 أس 5؟', opts:['243','244','233','240'], correct:0, difficulty:'medium'},
+  {q:'كم يساوي 4 أس 4؟', opts:['256','257','274','266'], correct:0, difficulty:'medium'},
+  {q:'كم يساوي 10 أس 4؟', opts:['10003','9998','9999','10000'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 6 أس 3؟', opts:['108','216','214','215'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 30% من 90؟', opts:['32','14','27','17'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 20% من 35؟', opts:['7','5','17','14'], correct:0, difficulty:'medium'},
+  {q:'كم يساوي 12% من 50؟', opts:['7','9','6','12'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 90% من 70؟', opts:['58','53','63','126'], correct:2, difficulty:'medium'},
+  {q:'ما ناتج 3 + 4 × 2؟', opts:['9','21','11','6'], correct:2, difficulty:'hard'},
+  {q:'ما ناتج 20 − 6 ÷ 2؟', opts:['17','12','14','9'], correct:0, difficulty:'hard'},
+  {q:'ما ناتج 18 ÷ 3 + 2²؟', opts:['5','20','11','10'], correct:3, difficulty:'hard'},
+  {q:'ما ناتج 5 + 3 × (8 − 2)؟', opts:['23','25','46','12'], correct:0, difficulty:'hard'},
+  {q:'كم يساوي 1/3 + 1/3؟', opts:['1/6','2/6','1/9','2/3'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 1/2 + 1/4؟', opts:['2/6','3/4','1/6','2/4'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 2/3 × 3/4؟', opts:['5/7','1/2','6/7','1/4'], correct:1, difficulty:'hard'},
+  {q:'كم يساوي 3/4 ÷ 3/8؟', opts:['1/2','9/32','4','2'], correct:3, difficulty:'hard'},
+  {q:'كم يساوي 125 × 8؟', opts:['800','1000','1250','900'], correct:1, difficulty:'hard'},
+  {q:'كم يساوي 15 × 15؟', opts:['215','225','250','200'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 6 × 7 + 8؟', opts:['56','50','42','48'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 9 × 9؟', opts:['72','99','90','81'], correct:3, difficulty:'medium'},
+  {q:'ما قيمة 10 أس 3؟', opts:['100','10000','1000','30'], correct:2, difficulty:'medium'},
+  {q:'ما قيمة 10 أس 6؟', opts:['عشرة آلاف','مئة ألف','مليار','مليون'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 13 × 8؟', opts:['124','104','84','144'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 16 × 15؟', opts:['240','260','220','280'], correct:0, difficulty:'medium'},
+  {q:'كم يساوي 26 × 7؟', opts:['202','162','182','222'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 28 × 11؟', opts:['338','308','278','368'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 15 × 18؟', opts:['270','300','240','330'], correct:0, difficulty:'medium'},
+  {q:'كم يساوي 19 × 8؟', opts:['182','122','212','152'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 29 × 15؟', opts:['455','415','435','475'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 27 × 18؟', opts:['516','486','456','546'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 23 × 16؟', opts:['388','348','408','368'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 28 × 16؟', opts:['478','418','448','508'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 26 × 13؟', opts:['358','338','318','378'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 22 × 19؟', opts:['448','388','478','418'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 14 × 18؟', opts:['282','222','312','252'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 26 × 8؟', opts:['228','208','188','248'], correct:1, difficulty:'medium'},
+  {q:'ما ناتج 187 ÷ 11؟', opts:['18','16','17','19'], correct:2, difficulty:'medium'},
+  {q:'ما ناتج 416 ÷ 13؟', opts:['33','32','31','34'], correct:1, difficulty:'medium'},
+  {q:'ما ناتج 154 ÷ 7؟', opts:['23','22','21','24'], correct:1, difficulty:'medium'},
+  {q:'ما ناتج 595 ÷ 17؟', opts:['36','34','37','35'], correct:3, difficulty:'medium'},
+  {q:'ما ناتج 264 ÷ 8؟', opts:['33','34','32','35'], correct:0, difficulty:'medium'},
+  {q:'ما ناتج 455 ÷ 13؟', opts:['35','36','34','37'], correct:0, difficulty:'medium'},
+  {q:'ما ناتج 374 ÷ 11؟', opts:['35','33','34','36'], correct:2, difficulty:'medium'},
+  {q:'ما ناتج 480 ÷ 16؟', opts:['31','29','32','30'], correct:3, difficulty:'medium'},
+  {q:'ما ناتج 242 ÷ 11؟', opts:['22','23','21','24'], correct:0, difficulty:'medium'},
+  {q:'ما ناتج 336 ÷ 12؟', opts:['29','27','30','28'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 242 + 435؟', opts:['687','667','777','677'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 772 + 706؟', opts:['1488','1468','1478','1578'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 834 + 231؟', opts:['1065','1075','1055','1165'], correct:0, difficulty:'medium'},
+  {q:'كم يساوي 523 + 248؟', opts:['781','771','761','871'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 501 + 165؟', opts:['676','666','656','766'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 360 + 497؟', opts:['867','847','857','957'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 756 + 301؟', opts:['1067','1047','1157','1057'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 710 + 202؟', opts:['922','902','1012','912'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 944 − 260؟', opts:['694','674','784','684'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 975 − 465؟', opts:['510','520','500','610'], correct:0, difficulty:'medium'},
+  {q:'كم يساوي 539 − 131؟', opts:['418','398','408','508'], correct:2, difficulty:'medium'},
+  {q:'كم يساوي 779 − 314؟', opts:['475','465','455','565'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 941 − 423؟', opts:['528','508','618','518'], correct:3, difficulty:'medium'},
+  {q:'كم يساوي 660 − 447؟', opts:['223','213','203','313'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 722 − 435؟', opts:['297','287','277','387'], correct:1, difficulty:'medium'},
+  {q:'كم يساوي 706 − 384؟', opts:['322','332','312','422'], correct:0, difficulty:'medium'},
+  {q:'مستطيل طوله 14 سم وعرضه 11 سم، ما مساحته بالسنتيمتر المربع؟', opts:['154','50','25','165'], correct:0, difficulty:'medium'},
+  {q:'مستطيل طوله 14 سم وعرضه 10 سم، ما مساحته بالسنتيمتر المربع؟', opts:['48','140','24','150'], correct:1, difficulty:'medium'},
+  {q:'مستطيل طوله 24 سم وعرضه 17 سم، ما مساحته بالسنتيمتر المربع؟', opts:['82','41','425','408'], correct:3, difficulty:'medium'},
+  {q:'مستطيل طوله 25 سم وعرضه 3 سم، ما مساحته بالسنتيمتر المربع؟', opts:['56','75','28','78'], correct:1, difficulty:'medium'},
+  {q:'مستطيل طوله 6 سم وعرضه 4 سم، ما مساحته بالسنتيمتر المربع؟', opts:['20','24','10','28'], correct:1, difficulty:'medium'},
+  {q:'مستطيل طوله 21 سم وعرضه 5 سم، ما مساحته بالسنتيمتر المربع؟', opts:['52','26','110','105'], correct:3, difficulty:'medium'},
+  {q:'مستطيل طوله 11 سم وعرضه 8 سم، ما مساحته بالسنتيمتر المربع؟', opts:['38','88','19','96'], correct:1, difficulty:'medium'},
+  {q:'مستطيل طوله 14 سم وعرضه 3 سم، ما مساحته بالسنتيمتر المربع؟', opts:['34','42','17','45'], correct:1, difficulty:'medium'},
+  {q:'مستطيل طوله 25 سم وعرضه 16 سم، ما محيطه بالسنتيمتر؟', opts:['400','41','82','84'], correct:2, difficulty:'medium'},
+  {q:'مستطيل طوله 17 سم وعرضه 14 سم، ما محيطه بالسنتيمتر؟', opts:['238','31','64','62'], correct:3, difficulty:'medium'},
+  {q:'مستطيل طوله 25 سم وعرضه 21 سم، ما محيطه بالسنتيمتر؟', opts:['92','525','46','94'], correct:0, difficulty:'medium'},
+  {q:'مستطيل طوله 11 سم وعرضه 7 سم، ما محيطه بالسنتيمتر؟', opts:['77','18','38','36'], correct:3, difficulty:'medium'},
+  {q:'مستطيل طوله 23 سم وعرضه 15 سم، ما محيطه بالسنتيمتر؟', opts:['345','38','78','76'], correct:3, difficulty:'medium'},
+  {q:'مستطيل طوله 14 سم وعرضه 10 سم، ما محيطه بالسنتيمتر؟', opts:['48','140','24','50'], correct:0, difficulty:'medium'},
 ];
 
 const QUIZ_CONFIG = {
