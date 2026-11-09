@@ -2618,11 +2618,19 @@ window.addEventListener('offline', initOfflineBanner);
     a.style.cssText = 'display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:12px;background:#111;border:1px solid #555;color:#fff;text-decoration:none;font:600 14px/1.3 system-ui,sans-serif;margin:10px 0;';
     a.innerHTML = '<span style="font-size:22px">▶</span><span><small style="display:block;font-weight:400;font-size:11px;opacity:.8">' +
       (ar ? 'حمّل التطبيق مجاناً من' : 'Get the free app on') + '</small>' + (ar ? 'جوجل بلاي' : 'Google Play') + '</span>';
+    if (where === 'top') {
+      a.style.cssText = 'display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:10px;background:#111;border:1px solid #555;color:#fff;text-decoration:none;font:700 12px/1.2 system-ui,sans-serif;margin:0;white-space:nowrap;';
+      a.innerHTML = '<span style="font-size:15px">▶</span><span>' + (ar ? 'حمّل التطبيق' : 'Get the app') + '</span>';
+    }
     return a;
   }
   document.addEventListener('DOMContentLoaded', function() {
     if (isNative()) return;
-    var ft = document.querySelector('.footer-brand-block');
+    var ph = document.querySelector('.page-header');
+    if (ph && ph.firstElementChild && !ph.querySelector('[data-app-badge]')) {
+      ph.insertBefore(build('top'), ph.firstElementChild.nextSibling);
+    }
+    var ft =document.querySelector('.footer-brand-block');
     if (ft) ft.appendChild(build('footer'));
     else {
       var sf = document.querySelector('footer.footer');
