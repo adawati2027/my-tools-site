@@ -2602,3 +2602,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
 window.addEventListener('online', initOfflineBanner);
 window.addEventListener('offline', initOfflineBanner);
+
+(function() {
+  var PLAY = 'https://play.google.com/store/apps/details?id=space.adawati.app&utm_source=site&utm_medium=';
+  function isNative() {
+    return window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
+  }
+  function build(where) {
+    var ar = /^ar/.test(document.documentElement.lang || '') || document.documentElement.dir === 'rtl';
+    var a = document.createElement('a');
+    a.href = PLAY + where;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.setAttribute('data-app-badge', where);
+    a.style.cssText = 'display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:12px;background:#111;color:#fff;text-decoration:none;font:600 14px/1.3 system-ui,sans-serif;margin:10px 0;';
+    a.innerHTML = '<span style="font-size:22px">▶</span><span><small style="display:block;font-weight:400;font-size:11px;opacity:.8">' +
+      (ar ? 'حمّل التطبيق مجاناً من' : 'Get the free app on') + '</small>' + (ar ? 'جوجل بلاي' : 'Google Play') + '</span>';
+    return a;
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    if (isNative()) return;
+    var ft = document.querySelector('.footer-brand-block');
+    if (ft) ft.appendChild(build('footer'));
+    var p = location.pathname.replace(/index\.html$/, '');
+    if (p === '/' || p === '/jo/') {
+      var f = document.querySelector('footer.footer');
+      if (f && f.parentNode) {
+        var box = document.createElement('div');
+        box.style.cssText = 'max-width:900px;margin:24px auto;padding:0 16px;text-align:center;';
+        var ar = /^ar/.test(document.documentElement.lang || '') || document.documentElement.dir === 'rtl';
+        box.innerHTML = '<div style="padding:18px;border:1px solid var(--border,#ddd);border-radius:14px"><div style="font-weight:700;margin-bottom:4px">' +
+          (ar ? '📲 أدواتي صار تطبيقاً على أندرويد' : '📲 Adawati is now an Android app') + '</div></div>';
+        box.firstChild.appendChild(build('home'));
+        f.parentNode.insertBefore(box, f);
+      }
+    }
+  });
+})();
