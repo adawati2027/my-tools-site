@@ -906,3 +906,8 @@ Held: 478664345575569 (Philadelphia forum), zpuuni (Zarqa Private), 164738902148
 Visible: 381004245347221, 100274563398696, 894370552327994, 1373000483543322, 1545961965899184, 3598856453743162, 8000898136660808, 112900525425801, 196396454189635, 456718349748166, 5651680488211978, 369551215196675.
 Skipped (no comment box): 443992715722340, 352391098135621, 993092836090387, 330849909617173.
 Unused joined-uni candidates left: 160093914051414, 5748362345, ammanuniverstiy, 206334168505458, 230674883343058, 271279131698433, 901751319841688, 172793807880, 270255373064588, philaeng, 894..., 866652982188970, 2739428716365444(test-used).
+
+## 2026-11-09 — 6 group posts "حمّل التطبيق" as Page Adawati2027 (Play link, utm `<id>-app`)
+Link: https://play.google.com/store/apps/details?id=space.adawati.app&utm_source=fb&utm_medium=groups&utm_campaign=<id>-app (Play live v1.0.4; iOS not live). Each post: 3 lines + link (preview card "Adawati - Apps on Google Play").
+Visible: ammanuniverstiy (Amman Ahliyya 18.3K), 206334168505458 (Ajloun). Held "submitted to admins": 160093914051414 (Isra), 5748362345 (Ahliyya), 230674883343058 (Islamic Sciences), 271279131698433 (Irbid Ahliyya edu).
+Method: JS finds "Write something" button + click, guard role=textbox, type lines w/ shift+Return, JS-click [role=dialog] [aria-label=Post]. 1 group per ~15 actions.
