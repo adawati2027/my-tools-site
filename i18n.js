@@ -2615,7 +2615,7 @@ window.addEventListener('offline', initOfflineBanner);
     a.target = '_blank';
     a.rel = 'noopener';
     a.setAttribute('data-app-badge', where);
-    a.style.cssText = 'display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:12px;background:#111;color:#fff;text-decoration:none;font:600 14px/1.3 system-ui,sans-serif;margin:10px 0;';
+    a.style.cssText = 'display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:12px;background:#111;border:1px solid #555;color:#fff;text-decoration:none;font:600 14px/1.3 system-ui,sans-serif;margin:10px 0;';
     a.innerHTML = '<span style="font-size:22px">▶</span><span><small style="display:block;font-weight:400;font-size:11px;opacity:.8">' +
       (ar ? 'حمّل التطبيق مجاناً من' : 'Get the free app on') + '</small>' + (ar ? 'جوجل بلاي' : 'Google Play') + '</span>';
     return a;
@@ -2624,6 +2624,15 @@ window.addEventListener('offline', initOfflineBanner);
     if (isNative()) return;
     var ft = document.querySelector('.footer-brand-block');
     if (ft) ft.appendChild(build('footer'));
+    else {
+      var sf = document.querySelector('footer.footer');
+      if (sf) {
+        var w = document.createElement('div');
+        w.style.cssText = 'text-align:center';
+        w.appendChild(build('footer'));
+        sf.insertBefore(w, sf.firstChild);
+      }
+    }
     var p = location.pathname.replace(/index\.html$/, '');
     if (p === '/' || p === '/jo/') {
       var f = document.querySelector('footer.footer');
