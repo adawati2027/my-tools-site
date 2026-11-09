@@ -911,3 +911,7 @@ Unused joined-uni candidates left: 160093914051414, 5748362345, ammanuniverstiy,
 Link: https://play.google.com/store/apps/details?id=space.adawati.app&utm_source=fb&utm_medium=groups&utm_campaign=<id>-app (Play live v1.0.4; iOS not live). Each post: 3 lines + link (preview card "Adawati - Apps on Google Play").
 Visible: ammanuniverstiy (Amman Ahliyya 18.3K), 206334168505458 (Ajloun). Held "submitted to admins": 160093914051414 (Isra), 5748362345 (Ahliyya), 230674883343058 (Islamic Sciences), 271279131698433 (Irbid Ahliyya edu).
 Method: JS finds "Write something" button + click, guard role=textbox, type lines w/ shift+Return, JS-click [role=dialog] [aria-label=Post]. 1 group per ~15 actions.
+
+## 2026-11-09 — 5 more app-download group posts as Page Adawati2027 (utm `<id>-app`)
+Visible: 901751319841688 (Yarmouk education), 172793807880 (Isra students), philaeng (Philadelphia eng). Held: 866652982188970 (Mu'tah), 1484078391982518 (Jerash).
+Skipped (no write box): 270255373064588. Unused candidates left: 5748362345-type dups avoided; see earlier lists.
