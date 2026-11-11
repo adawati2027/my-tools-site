@@ -344,14 +344,29 @@ function startCompression() {
   video.play();
 }
 
+function saveBlobOrShare(blob, name, type) {
+  var file;
+  try { file = new File([blob], name, { type: type || blob.type }); } catch (e) {}
+  if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+    navigator.share({ files: [file] }).catch(function (e) {
+      if (!e || e.name !== 'AbortError') fallbackSave(blob, name);
+    });
+    return;
+  }
+  fallbackSave(blob, name);
+}
+function fallbackSave(blob, name) {
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
 function downloadCompressed() {
   if (!outputBlob) return;
   const ext = outputMime.indexOf('mp4') !== -1 ? 'mp4' : 'webm';
   const name = (originalFile.name.replace(/\.[^.]+$/, '') || 'video') + '_compressed.' + ext;
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(outputBlob);
-  a.download = name;
-  a.click();
+  saveBlobOrShare(outputBlob, name, outputMime.split(';')[0]);
 }
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -359,12 +359,27 @@ function onQualityChange(val) {
   compress(parseInt(val));
 }
 
+function saveBlobOrShare(blob, name, type) {
+  var file;
+  try { file = new File([blob], name, { type: type || blob.type }); } catch (e) {}
+  if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+    navigator.share({ files: [file] }).catch(function (e) {
+      if (!e || e.name !== 'AbortError') fallbackSave(blob, name);
+    });
+    return;
+  }
+  fallbackSave(blob, name);
+}
+function fallbackSave(blob, name) {
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
 function downloadCompressed() {
   if (!compressedBlob) return;
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(compressedBlob);
-  a.download = originalFileName;
-  a.click();
+  saveBlobOrShare(compressedBlob, originalFileName, compressedBlob.type);
 }
 
 // Drag and drop
