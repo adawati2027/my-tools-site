@@ -291,7 +291,8 @@ function init(){
     document.body.classList.toggle('mb-full', on);
     nativeFs(on); syncFs(); resize(); window.scrollTo(0, 0);
   });
-  document.addEventListener('pointerdown', function once(){
+  document.addEventListener('pointerdown', function once(ev){
+    if (ev.target && ev.target.closest && ev.target.closest('#mbFs')) return;
     document.removeEventListener('pointerdown', once);
     if (document.body.classList.contains('mb-full')) nativeFs(true);
   });

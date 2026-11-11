@@ -50,12 +50,12 @@
 .mb-card h2{font-size:20px;margin:0 0 8px;}
 .mb-card p{font-size:14px;color:var(--text-muted);line-height:1.7;margin:0 0 14px;}
 .mb-card .mb-btn{margin:4px;}
-#mbFs{position:absolute;top:6px;inset-inline-start:8px;width:36px;height:36px;border:none;border-radius:50%;background:rgba(30,35,80,.55);color:#fff;font-size:18px;line-height:36px;cursor:pointer;z-index:5;padding:0;}
+#mbFs{position:absolute;top:calc(env(safe-area-inset-top) + 14px);inset-inline-start:10px;width:46px;height:46px;border:none;border-radius:50%;background:rgba(30,35,80,.8);color:#fff;font-size:22px;line-height:46px;cursor:pointer;z-index:50;padding:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 #mbStage{position:relative;}
 body:not(.mb-full) #mbFs{position:static;display:block;width:auto;height:auto;margin:0 auto 10px;padding:8px 16px;border-radius:12px;background:var(--primary);font-size:14px;font-family:inherit;font-weight:700;line-height:1.4;}
 body.mb-full{overflow:hidden;}
 body.mb-full #mbStage{position:fixed;inset:0;z-index:9999;background:var(--bg,#eef0fb);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);}
-body.mb-full .mb-top{width:100%;padding:0 52px;box-sizing:border-box;}
+body.mb-full .mb-top{width:100%;padding:0 66px;box-sizing:border-box;}
 body.mb-full .mb-wrap{border-radius:14px;}
 </style>
 </head>
@@ -127,5 +127,5 @@ body.mb-full .mb-wrap{border-radius:14px;}
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://adawati.space/jo/"},{"@type":"ListItem","position":2,"name":"الألعاب","item":"https://adawati.space/jo/games/"},{"@type":"ListItem","position":3,"name":"لعبة فرز الكرات","item":"https://adawati.space/jo/games/marble-sort/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"هل لعبة فرز الكرات مجانية؟","acceptedAnswer":{"@type":"Answer","text":"نعم، مجانية بالكامل وتعمل في المتصفح بدون تحميل."}},{"@type":"Question","name":"هل يُحفظ تقدّمي في اللعبة؟","acceptedAnswer":{"@type":"Answer","text":"نعم، يُحفظ آخر مستوى وصلت إليه على جهازك."}},{"@type":"Question","name":"هل هناك نهاية للمستويات؟","acceptedAnswer":{"@type":"Answer","text":"لا، المستويات تستمر وتصبح أصعب تدريجياً."}}]},{"@type":"VideoGame","name":"لعبة فرز الكرات","inLanguage":"ar","genre":"Puzzle","url":"https://adawati.space/jo/games/marble-sort/","isAccessibleForFree":true,"gamePlatform":"Web browser"}]}</script>
 <script src="jo/games/marble-sort/marble-levels.js?v=1"></script>
 <script src="jo/games/marble-sort/marble-engine.js?v=2"></script>
-<script src="jo/games/marble-sort/marble-ui.js?v=4"></script>
+<script src="jo/games/marble-sort/marble-ui.js?v=5"></script>
 </body></html>

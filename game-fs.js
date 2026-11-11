@@ -9,8 +9,8 @@
    +'body.gfs{overflow:hidden}'
    +'body.gfs .navbar,body.gfs .footer,body.gfs .bottom-nav,body.gfs .pwa-banner,body.gfs ins.adsbygoogle,body.gfs .page-header>*:not(#gfsBtn){display:none!important}'
    +'body.gfs main{position:fixed;inset:0;z-index:9999;overflow:auto;-webkit-overflow-scrolling:touch;background:var(--bg,#f0f4ff);padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}'
-   +'body.gfs .tool-page{max-width:720px;padding:52px 10px 24px}'
-   +'body.gfs #gfsBtn{position:fixed;top:calc(env(safe-area-inset-top) + 8px);inset-inline-start:8px;z-index:10000;width:38px;height:38px;padding:0;justify-content:center;border-radius:50%;font-size:17px;background:var(--surface,#fff);box-shadow:0 2px 8px rgba(0,0,0,.2)}'
+   +'body.gfs .tool-page{max-width:720px;padding:70px 10px 24px}'
+   +'body.gfs #gfsBtn{position:fixed;top:calc(env(safe-area-inset-top) + 14px);inset-inline-start:10px;z-index:10000;width:46px;height:46px;padding:0;justify-content:center;border-radius:50%;font-size:22px;touch-action:manipulation;background:var(--surface,#fff);box-shadow:0 2px 8px rgba(0,0,0,.2)}'
    +'body.gfs #gfsBtn .gfs-t{display:none}';
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
   var btn=document.createElement('button');
