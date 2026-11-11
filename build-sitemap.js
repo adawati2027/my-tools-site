@@ -128,6 +128,7 @@ const countryTools = [
   `${BASE}/jo/games/culture-quiz/`,
   `${BASE}/jo/games/logo-quiz/`,
   `${BASE}/jo/games/wordle/`,
+  `${BASE}/jo/games/marble-sort/`,
   `${BASE}/jo/gold-price/`,
   `${BASE}/jo/students/scholarships-loans/`,
   `${BASE}/jo/students/masters-guide/`,
