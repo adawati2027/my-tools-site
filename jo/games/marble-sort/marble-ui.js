@@ -304,12 +304,6 @@ function init(){
   el('mbRetry').addEventListener('click', function(){ startLevel(level, true); });
   el('mbNext').addEventListener('click', function(){ startLevel(level + 1); });
   el('mbRestart').addEventListener('click', function(){ startLevel(level, true); });
-  el('mbHint').addEventListener('click', function(){
-    if (!game || game.status !== 'play') return;
-    var h = game.hint();
-    if (h < 0){ el('mbMsg').textContent = 'ما في ترتيب ينجح من هذي النقطة — أعد المستوى.'; }
-    else { hintPipe = h; hintT = 3; el('mbMsg').textContent = ''; }
-  });
   el('mbMute').addEventListener('click', function(){
     muted = !muted; el('mbMute').textContent = muted ? '🔇' : '🔊';
     try { localStorage.setItem('adawati_marble_mute', muted ? '1' : '0'); } catch (e) {}
