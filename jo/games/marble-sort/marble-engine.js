@@ -273,11 +273,7 @@ Game.prototype.checkEnd = function(dt){
   if (!onBelt && !this.flying.length && !pouring){
     if (this.belt.length >= BELT_CAP - 4 || (this.entryWait || 0) > 6.5) stuck = true;
     else if (this.marbles.length) stuck = false;
-    else {
-      this.probe = (this.probe || 0) - dt;
-      if (this.probe <= 0){ this.probe = 0.4; this.noMove = self.hint() < 0; }
-      stuck = !!this.noMove;
-    }
+    else stuck = !this.pipes.some(function(p){ return p.queue.length; });
   } else { this.probe = 0; this.noMove = false; if (onBelt || this.flying.length) this.entryWait = 0; }
   if (stuck) this.idle += dt; else this.idle = 0;
   if (this.idle > 0.8){ this.status = "lose"; this.emit("lose", {}); }
