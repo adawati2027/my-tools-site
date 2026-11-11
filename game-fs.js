@@ -42,5 +42,7 @@
     if(document.webkitFullscreenElement){btn.dataset.native='1';}
     else if(btn.dataset.native==='1'){btn.dataset.native='';if(document.body.classList.contains('gfs'))set(false);}
   });
-  label();
+  set0();
+  function set0(){document.body.classList.add('gfs');label();setTimeout(function(){window.dispatchEvent(new Event('resize'));},60);
+    document.addEventListener('pointerdown',function once(ev){if(ev.target&&ev.target.closest&&ev.target.closest('#gfsBtn'))return;document.removeEventListener('pointerdown',once);if(document.body.classList.contains('gfs'))nativeFs(true);});}
 })();

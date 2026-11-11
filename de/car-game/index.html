@@ -37,7 +37,7 @@
 <link rel="stylesheet" href="style.css?v=4">
 <style>
 .game-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;}
-#gameCanvas{border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.18);display:block;max-width:100%;touch-action:none;}
+#gameCanvas{filter:brightness(1.06) saturate(1.12) contrast(1.03);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.18);display:block;max-width:100%;touch-action:none;}
 .hud{display:flex;gap:20px;justify-content:center;font-size:15px;font-weight:800;flex-wrap:wrap;}
 .hud-item{text-align:center;}
 .hud-val{font-size:26px;font-weight:900;color:var(--primary);}
@@ -172,6 +172,7 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const W = 450, H = 720;
+const HQ=Math.min(3,Math.max(2,Math.ceil(window.devicePixelRatio||1)));canvas.width=W*HQ;canvas.height=H*HQ;ctx.setTransform(HQ,0,0,HQ,0,0);ctx.imageSmoothingQuality="high";
 const ROAD_X = 60, ROAD_W = 330;
 const LANE_W = ROAD_W / 3;
 const LANES = [ROAD_X + LANE_W*0.5, ROAD_X + LANE_W*1.5, ROAD_X + LANE_W*2.5];
@@ -222,7 +223,8 @@ function updateText(){
   renderLb();
 }
 function resizeCanvas(){
-  const w=Math.min(W,canvas.parentElement.offsetWidth||W);
+  const pw=canvas.parentElement.offsetWidth||W;
+  const w=document.body.classList.contains("gfs")?Math.max(220,Math.floor(Math.min(pw,(window.innerHeight-90)*W/H,W*1.6))):Math.min(W,pw);
   canvas.style.width=w+'px';
   canvas.style.height=Math.round(w*H/W)+'px';
 }
@@ -472,5 +474,5 @@ document.addEventListener('DOMContentLoaded', function(){
 <script src="i18n-lang-de.js?v=3" defer></script>
 <script src="i18n.js?v=74" defer></script>
 <script src="/games-sync.js?v=2" defer></script>
-<script src="/game-fs.js?v=2" defer></script>
+<script src="/game-fs.js?v=3" defer></script>
 </body></html>
