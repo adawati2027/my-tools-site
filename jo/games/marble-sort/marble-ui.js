@@ -35,8 +35,9 @@ function makeSprites(){
 }
 
 function resize(){
-  var w = Math.min(wrap.parentNode.clientWidth, 440);
-  var maxH = Math.max(420, window.innerHeight - 150);
+  var full = document.body.classList.contains('mb-full');
+  var w = full ? window.innerWidth - 8 : Math.min(wrap.parentNode.clientWidth, 440);
+  var maxH = full ? Math.max(300, window.innerHeight - 130) : Math.max(420, window.innerHeight - 150);
   scale = Math.min(w / W, maxH / H);
   dpr = Math.min(Math.max(window.devicePixelRatio || 1, 3), 4);
   var cw = Math.round(W * scale), ch = Math.round(H * scale);
@@ -276,6 +277,28 @@ function pointer(e){
 function init(){
   resize();
   window.addEventListener('resize', resize);
+  var fsBtn = el('mbFs');
+  function syncFs(){ fsBtn.textContent = document.body.classList.contains('mb-full') ? '✕' : '⛶ ملء الشاشة'; fsBtn.setAttribute('aria-label', document.body.classList.contains('mb-full') ? 'خروج من ملء الشاشة' : 'ملء الشاشة'); }
+  function nativeFs(on){
+    var d = document, e = d.documentElement;
+    try {
+      if (on && !d.fullscreenElement && e.requestFullscreen) e.requestFullscreen({ navigationUI: 'hide' }).catch(function(){});
+      if (!on && d.fullscreenElement && d.exitFullscreen) d.exitFullscreen().catch(function(){});
+    } catch (er) {}
+  }
+  fsBtn.addEventListener('click', function(){
+    var on = !document.body.classList.contains('mb-full');
+    document.body.classList.toggle('mb-full', on);
+    nativeFs(on); syncFs(); resize(); window.scrollTo(0, 0);
+  });
+  document.addEventListener('pointerdown', function once(){
+    document.removeEventListener('pointerdown', once);
+    if (document.body.classList.contains('mb-full')) nativeFs(true);
+  });
+  document.addEventListener('fullscreenchange', function(){
+    if (!document.fullscreenElement && document.body.classList.contains('mb-full')){ document.body.classList.remove('mb-full'); syncFs(); resize(); }
+  });
+  syncFs();
   canvas.addEventListener('pointerdown', pointer);
   el('mbRetry').addEventListener('click', function(){ startLevel(level, true); });
   el('mbNext').addEventListener('click', function(){ startLevel(level + 1); });
