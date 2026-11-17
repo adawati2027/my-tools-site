@@ -168,6 +168,21 @@
   } catch (e) {}
 })();
 
+// Native app only: a universal link (e.g. a home-widget tile) opens the app but Capacitor doesn't navigate the WebView, so go to the tapped adawati.space URL.
+(function() {
+  try {
+    var C = window.Capacitor, A = C && C.isNativePlatform && C.isNativePlatform() && C.Plugins && C.Plugins.App;
+    if (!A) return;
+    var go = function(s) {
+      try {
+        var u = new URL(s);
+        if (u.protocol === 'https:' && u.hostname === 'adawati.space' && u.href !== location.href) location.href = u.href;
+      } catch (e) {}
+    };
+    A.addListener('appUrlOpen', function(e) { go(e && e.url); });
+  } catch (e) {}
+})();
+
 // AdSense is web-only per Google's policy — never serve/render it inside the
 // native app's WebView (that's AdMob's job instead). Disable push() so any
 // adsbygoogle.push({}) call on the page becomes a no-op, and hide the ad slots.
