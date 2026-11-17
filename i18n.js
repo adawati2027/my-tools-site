@@ -140,6 +140,34 @@
   } catch (e) {}
 })();
 
+// Native app only: mirror saved countdown events (adawati_events_v1) into iOS/Android local notifications (3 days before + on the day, 09:00). No-op on the web or when the plugin is absent.
+(function() {
+  try {
+    var C = window.Capacitor, LN = C && C.isNativePlatform && C.isNativePlatform() && C.Plugins && C.Plugins.LocalNotifications;
+    if (!LN) return;
+    var S = JSON.parse(localStorage.getItem('adawati_events_v1') || 'null'), ev = (S && S.ev) || [];
+    var onTool = location.pathname.indexOf('/event-countdown') >= 0;
+    var sync = function() {
+      var now = Date.now(), list = [];
+      ev.forEach(function(e, i) {
+        [[3, 0], [0, 1]].forEach(function(p) {
+          var at = new Date(e.y, e.m - 1, e.d - p[0], 9, 0, 0);
+          if (at.getTime() <= now) return;
+          list.push({ id: 1000 + i * 2 + p[1], title: 'أدواتي', body: '🔔 ' + e.n + (p[0] ? ': بعد ' + p[0] + ' أيام' : ': اليوم!'), schedule: { at: at }, extra: { k: 'adawati_native_rem' } });
+        });
+      });
+      LN.getPending().then(function(r) {
+        var old = ((r && r.notifications) || []).filter(function(n) { return n.id >= 1000; }).map(function(n) { return { id: n.id }; });
+        return old.length ? LN.cancel({ notifications: old }) : null;
+      }).then(function() { if (list.length) return LN.schedule({ notifications: list }); }).catch(function() {});
+    };
+    LN.checkPermissions().then(function(p) {
+      if (p.display === 'granted') return sync();
+      if (p.display === 'prompt' && onTool && ev.length) return LN.requestPermissions().then(function(q) { if (q.display === 'granted') sync(); });
+    }).catch(function() {});
+  } catch (e) {}
+})();
+
 // AdSense is web-only per Google's policy — never serve/render it inside the
 // native app's WebView (that's AdMob's job instead). Disable push() so any
 // adsbygoogle.push({}) call on the page becomes a no-op, and hide the ad slots.
