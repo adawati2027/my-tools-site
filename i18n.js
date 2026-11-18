@@ -1,3 +1,49 @@
+/* Shared UI strings for widgets built in JS (cookie bar, app badge, toasts) — all 6 languages */
+window.__UI = {
+  cookie_text: {
+    ar: 'نستخدم ملفات تعريف الارتباط (الكوكيز) لعرض الإعلانات، وبعضها مخصص حسب اهتماماتك. يمكنك الموافقة أو الاكتفاء بإعلانات غير مخصصة.',
+    en: 'We use cookies to show ads, some personalized to your interests. You can accept, or stick to non-personalized ads only.',
+    fr: "Nous utilisons des cookies pour afficher des annonces, dont certaines personnalisées selon vos centres d'intérêt. Vous pouvez accepter ou vous limiter aux annonces non personnalisées.",
+    es: 'Usamos cookies para mostrar anuncios, algunos personalizados según tus intereses. Puedes aceptar o limitarte a los anuncios no personalizados.',
+    de: 'Wir verwenden Cookies, um Werbung anzuzeigen, teils auf Ihre Interessen zugeschnitten. Sie können zustimmen oder nur nicht personalisierte Werbung zulassen.',
+    ru: 'Мы используем файлы cookie для показа рекламы, часть которой подбирается по вашим интересам. Вы можете согласиться или оставить только неперсонализированную рекламу.'
+  },
+  cookie_accept: { ar: 'موافق', en: 'Accept', fr: 'Accepter', es: 'Aceptar', de: 'Zustimmen', ru: 'Принять' },
+  cookie_reject: { ar: 'إعلانات غير مخصصة فقط', en: 'Non-personalized only', fr: 'Annonces non personnalisées uniquement', es: 'Solo anuncios no personalizados', de: 'Nur nicht personalisierte Werbung', ru: 'Только неперсонализированная реклама' },
+  app_get_on: { ar: 'حمّل التطبيق مجاناً من', en: 'Get the free app on', fr: "Téléchargez l'appli gratuite sur", es: 'Descarga la app gratis en', de: 'Gratis-App herunterladen bei', ru: 'Скачайте бесплатное приложение в' },
+  app_play: { ar: 'جوجل بلاي', en: 'Google Play', fr: 'Google Play', es: 'Google Play', de: 'Google Play', ru: 'Google Play' },
+  app_get: { ar: 'حمّل التطبيق', en: 'Get the app', fr: "Obtenir l'appli", es: 'Obtener la app', de: 'App holen', ru: 'Скачать приложение' },
+  app_notice: { ar: '📲 أدواتي صار تطبيقاً على أندرويد', en: '📲 Adawati is now an Android app', fr: '📲 Adawati est maintenant une appli Android', es: '📲 Adawati ya es una app para Android', de: '📲 Adawati gibt es jetzt als Android-App', ru: '📲 Adawati теперь — приложение для Android' },
+  dark: { ar: 'الوضع الداكن', en: 'Dark mode', fr: 'Mode sombre', es: 'Modo oscuro', de: 'Dunkler Modus', ru: 'Тёмная тема' },
+  light: { ar: 'الوضع الفاتح', en: 'Light mode', fr: 'Mode clair', es: 'Modo claro', de: 'Heller Modus', ru: 'Светлая тема' },
+  loading: { ar: '⏳ جاري التحميل…', en: '⏳ Loading…', fr: '⏳ Chargement…', es: '⏳ Cargando…', de: '⏳ Lädt…', ru: '⏳ Загрузка…' },
+  close: { ar: 'إغلاق', en: 'Close', fr: 'Fermer', es: 'Cerrar', de: 'Schließen', ru: 'Закрыть' },
+  back_home: { ar: 'العودة إلى الرئيسية', en: 'Back to home', fr: "Retour à l'accueil", es: 'Volver al inicio', de: 'Zurück zur Startseite', ru: 'На главную' },
+  details: { ar: 'التفاصيل', en: 'Details', fr: 'Détails', es: 'Detalles', de: 'Details', ru: 'Подробнее' },
+  rem_today: { ar: 'اليوم!', en: 'today!', fr: "aujourd'hui !", es: '¡hoy!', de: 'heute!', ru: 'сегодня!' },
+  rem_tomorrow: { ar: 'غداً', en: 'tomorrow', fr: 'demain', es: 'mañana', de: 'morgen', ru: 'завтра' },
+  rem_in: { ar: 'بعد {n} أيام', en: 'in {n} days', fr: 'dans {n} jours', es: 'en {n} días', de: 'in {n} Tagen', ru: 'через {n} дн.' },
+  shot_hint: { ar: '📸 خذ لقطة شاشة للصورة (زر الصوت + زر التشغيل) لحفظها', en: '📸 Take a screenshot (volume + power button) to save this image', fr: "📸 Faites une capture d'écran (volume + marche) pour enregistrer l'image", es: '📸 Haz una captura de pantalla (volumen + encendido) para guardar la imagen', de: '📸 Mach einen Screenshot (Lautstärke + Ein/Aus), um das Bild zu speichern', ru: '📸 Сделайте скриншот (громкость + питание), чтобы сохранить изображение' },
+  close_btn: { ar: '✕ إغلاق', en: '✕ Close', fr: '✕ Fermer', es: '✕ Cerrar', de: '✕ Schließen', ru: '✕ Закрыть' },
+  g_popup: { ar: 'المتصفح منع نافذة Google — انقر الزر مرة أخرى، أو اسمح بالنوافذ المنبثقة.', en: 'The browser blocked the Google window — tap again or allow pop-ups.', fr: 'Le navigateur a bloqué la fenêtre Google — appuyez à nouveau ou autorisez les pop-ups.', es: 'El navegador bloqueó la ventana de Google: vuelve a tocar o permite las ventanas emergentes.', de: 'Der Browser hat das Google-Fenster blockiert – tippe erneut oder erlaube Pop-ups.', ru: 'Браузер заблокировал окно Google — нажмите ещё раз или разрешите всплывающие окна.' },
+  g_network: { ar: 'مشكلة في الاتصال — تأكد من الإنترنت وجرّب مرة أخرى.', en: 'Network problem — check your connection and try again.', fr: 'Problème de réseau — vérifiez votre connexion et réessayez.', es: 'Problema de red: revisa tu conexión e inténtalo de nuevo.', de: 'Netzwerkproblem – prüfe deine Verbindung und versuche es erneut.', ru: 'Проблема с сетью — проверьте подключение и повторите попытку.' },
+  g_fail: { ar: 'تعذّر الدخول عبر Google — جرّب مرة أخرى أو سجّل بالبريد الإلكتروني.', en: 'Google sign-in failed — try again or use email.', fr: "Échec de la connexion Google — réessayez ou utilisez l'e-mail.", es: 'No se pudo iniciar sesión con Google: inténtalo de nuevo o usa el correo.', de: 'Google-Anmeldung fehlgeschlagen – versuche es erneut oder nutze E-Mail.', ru: 'Не удалось войти через Google — повторите попытку или используйте почту.' }
+};
+window.__uiLang = function() {
+  var ok = /^(ar|en|fr|es|de|ru)$/, m = location.pathname.match(/^\/(ar|fr|es|de|ru)\//);
+  if (m) return m[1];
+  var l = '';
+  try { l = localStorage.getItem('lang') || ''; } catch (e) {}
+  if (ok.test(l)) return l;
+  l = (document.documentElement.lang || 'en').slice(0, 2);
+  return ok.test(l) ? l : 'en';
+};
+window.__ui = function(k, n) {
+  var m = window.__UI[k]; if (!m) return '';
+  var v = m[window.__uiLang()] || m.en;
+  return n === undefined ? v : v.replace('{n}', n);
+};
+
 (function() {
   try {
     var capApp = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App;
@@ -47,9 +93,9 @@
     d.setAttribute('style', 'position:fixed;inset:0;z-index:2147483000;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;direction:rtl;font-family:system-ui,sans-serif;');
     var b = document.createElement('div'); b.style.maxWidth = '460px';
     var h = document.createElement('div'); h.style.cssText = 'font-size:22px;font-weight:800;margin-bottom:10px;'; h.textContent = title;
-    var p = document.createElement('div'); p.style.cssText = 'font-size:15px;line-height:1.9;opacity:.9;'; p.textContent = text;
+    var p = document.createElement('div'); p.style.cssText = 'font-size:15px;line-height:1.9;opacity:.9;'; p.textContent = __ui('cookie_text');
     b.appendChild(h); b.appendChild(p);
-    if (home) { var a = document.createElement('a'); a.href = '/'; a.textContent = 'العودة إلى الرئيسية'; a.style.cssText = 'display:inline-block;margin-top:16px;padding:10px 18px;border-radius:10px;background:#2563eb;color:#fff;text-decoration:none;font-weight:700;'; b.appendChild(a); }
+    if (home) { var a = document.createElement('a'); a.href = '/'; a.textContent = __ui('back_home'); a.style.cssText = 'display:inline-block;margin-top:16px;padding:10px 18px;border-radius:10px;background:#2563eb;color:#fff;text-decoration:none;font-weight:700;'; b.appendChild(a); }
     d.appendChild(b); document.body.appendChild(d); document.documentElement.style.overflow = 'hidden';
   }
   function hash(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return String(h); }
@@ -65,10 +111,10 @@
     d.style.cssText = 'background:' + (colors[b.style] || colors.info) + ';color:#fff;padding:calc(10px + env(safe-area-inset-top)) 40px 10px 14px;text-align:center;font-size:14px;line-height:1.7;position:relative;font-weight:600;';
     d.appendChild(document.createTextNode(b.text + ' '));
     if (b.link && /^(https?:\/\/|\/)/.test(b.link)) {
-      var a = document.createElement('a'); a.href = b.link; a.textContent = b.linkText || 'التفاصيل';
+      var a = document.createElement('a'); a.href = b.link; a.textContent = b.linkText || __ui('details');
       a.style.cssText = 'color:#fff;text-decoration:underline;font-weight:800;'; d.appendChild(a);
     }
-    var x = document.createElement('button'); x.type = 'button'; x.textContent = '×'; x.setAttribute('aria-label', 'إغلاق');
+    var x = document.createElement('button'); x.type = 'button'; x.textContent = '×'; x.setAttribute('aria-label', __ui('close'));
     x.style.cssText = 'position:absolute;inset-inline-end:8px;top:calc(50% + env(safe-area-inset-top) / 2);transform:translateY(-50%);background:none;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1;';
     var nav = document.querySelector('.navbar'), io = null;
     if (nav && window.IntersectionObserver) { io = new IntersectionObserver(function(en) { nav.style.paddingTop = en[0].isIntersecting ? '0' : ''; }); io.observe(d); }
@@ -122,7 +168,7 @@
       var k = Math.round((Date.UTC(e.y, e.m - 1, e.d) - today) / 864e5);
       if (k < 0 || k > 3 || done.indexOf(i) >= 0) return;
       done.push(i);
-      msgs.push('🔔 ' + e.n + (k === 0 ? ': اليوم!' : k === 1 ? ': غداً' : ': بعد ' + k + ' أيام'));
+      msgs.push('🔔 ' + e.n + ': ' + (k === 0 ? __ui('rem_today') : k === 1 ? __ui('rem_tomorrow') : __ui('rem_in', k)));
     });
     if (!msgs.length) return;
     localStorage.setItem(key, JSON.stringify(done));
@@ -131,7 +177,7 @@
       d.setAttribute('role', 'status');
       d.style.cssText = 'position:fixed;bottom:76px;inset-inline:12px;z-index:9999;max-width:420px;margin:0 auto;background:#1e293b;color:#fff;border-radius:12px;padding:12px 40px 12px 14px;font-size:14px;line-height:1.8;font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.3);direction:rtl;';
       d.textContent = msgs.join(' · ');
-      var x = document.createElement('button'); x.type = 'button'; x.textContent = '×'; x.setAttribute('aria-label', 'إغلاق');
+      var x = document.createElement('button'); x.type = 'button'; x.textContent = '×'; x.setAttribute('aria-label', __ui('close'));
       x.style.cssText = 'position:absolute;inset-inline-end:8px;top:6px;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;';
       x.onclick = function() { d.remove(); }; d.appendChild(x);
       document.body.appendChild(d); setTimeout(function() { d.remove(); }, 12000);
@@ -153,7 +199,7 @@
         [[3, 0], [0, 1]].forEach(function(p) {
           var at = new Date(e.y, e.m - 1, e.d - p[0], 9, 0, 0);
           if (at.getTime() <= now) return;
-          list.push({ id: 1000 + i * 2 + p[1], title: 'أدواتي', body: '🔔 ' + e.n + (p[0] ? ': بعد ' + p[0] + ' أيام' : ': اليوم!'), schedule: { at: at }, extra: { k: 'adawati_native_rem' } });
+          list.push({ id: 1000 + i * 2 + p[1], title: 'أدواتي', body: '🔔 ' + e.n + ': ' + (p[0] ? __ui('rem_in', p[0]) : __ui('rem_today')), schedule: { at: at }, extra: { k: 'adawati_native_rem' } });
         });
       });
       LN.getPending().then(function(r) {
@@ -242,16 +288,9 @@
     window.adsbygoogle.requestNonPersonalizedAds = (choice === 'personalized') ? 0 : 1;
     if (choice) return; // already decided, don't show the banner again
 
-    var isAr = (document.documentElement.lang || '').indexOf('ar') === 0;
-    var text = isAr
-      ? 'نستخدم ملفات تعريف الارتباط (الكوكيز) لعرض الإعلانات، وبعضها مخصص حسب اهتماماتك. يمكنك الموافقة أو الاكتفاء بإعلانات غير مخصصة.'
-      : "We use cookies to show ads, some personalized to your interests. You can accept, or stick to non-personalized ads only.";
-    var acceptLabel = isAr ? 'موافق' : 'Accept';
-    var rejectLabel = isAr ? 'إعلانات غير مخصصة فقط' : 'Non-personalized only';
-
     var render = function() {
       var bar = document.createElement('div');
-      bar.setAttribute('dir', isAr ? 'rtl' : 'ltr');
+      bar.setAttribute('dir', __uiLang() === 'ar' ? 'rtl' : 'ltr');
       bar.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:99999;background:var(--surface,#fff);border-top:1px solid var(--border,#e5e7eb);box-shadow:0 -2px 10px rgba(0,0,0,.08);padding:14px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;font-size:13px;line-height:1.6;color:var(--text,#111);';
       var p = document.createElement('span');
       p.style.cssText = 'flex:1;min-width:220px;';
@@ -264,8 +303,12 @@
         b.style.cssText = 'padding:9px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid ' + (primary ? 'transparent' : 'var(--border,#e5e7eb)') + ';background:' + (primary ? 'var(--primary,#2563eb)' : 'var(--surface-2,#f3f4f6)') + ';color:' + (primary ? '#fff' : 'var(--text,#111)') + ';';
         return b;
       };
-      var acceptBtn = mkBtn(acceptLabel, true);
-      var rejectBtn = mkBtn(rejectLabel, false);
+      var acceptBtn = mkBtn(__ui('cookie_accept'), true);
+      var rejectBtn = mkBtn(__ui('cookie_reject'), false);
+      window.addEventListener('adawati-lang', function() {
+        bar.setAttribute('dir', __uiLang() === 'ar' ? 'rtl' : 'ltr');
+        p.textContent = __ui('cookie_text'); acceptBtn.textContent = __ui('cookie_accept'); rejectBtn.textContent = __ui('cookie_reject');
+      });
       var decide = function(value) {
         try { localStorage.setItem(KEY, value); } catch (e) {}
         window.adsbygoogle.requestNonPersonalizedAds = (value === 'personalized') ? 0 : 1;
@@ -388,6 +431,103 @@ function setLang(lang) {
   // Hide English-only static sections for non-English
   document.querySelectorAll('[lang="en"]:not(html)').forEach(function(el) {
     el.style.display = lang === 'en' ? '' : 'none';
+  });
+  updateDarkBtn();
+  window.dispatchEvent(new CustomEvent('adawati-lang', { detail: lang }));
+  _ddApply(lang);
+}
+
+
+/* ── DOM dictionary: translates leftover page text (per-page + common) from i18n-dict/*.json ── */
+var _dd = { c: null, p: null, lang: '', loading: {}, tn: [], ta: [], obs: null, look: null, busy: false };
+var _DD_SKIP = /^(SCRIPT|STYLE|NOSCRIPT|TEMPLATE|TEXTAREA|CODE|PRE)$/;
+var _DD_ATTRS = ['placeholder', 'title', 'aria-label', 'alt'];
+function _ddSlug() {
+  var p = location.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '').replace(/^\/+|\/+$/g, '');
+  return p ? p.replace(/\//g, '__') : 'index';
+}
+function _ddFetch(u) { return fetch(u).then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; }); }
+function _ddLoad(lang) {
+  if (!_dd.loading[lang]) _dd.loading[lang] = Promise.all([_ddFetch(I18N_BASE + 'i18n-dict/' + lang + '/_common.json'), _ddFetch(I18N_BASE + 'i18n-dict/' + lang + '/' + _ddSlug() + '.json')]);
+  return _dd.loading[lang];
+}
+function _ddNorm(s) { return s.replace(/\s+/g, ' ').trim(); }
+function _ddWest(t) { return t.replace(/[٠-٩]/g, function(d) { return d.charCodeAt(0) - 1632; }).replace(/ م$/, ' PM').replace(/ ص$/, ' AM'); }
+var _DD_UPD = { ar: 'آخر تحديث', en: 'Last updated', fr: 'Dernière mise à jour', es: 'Última actualización', de: 'Zuletzt aktualisiert', ru: 'Обновлено' };
+function _ddLook(C, P) {
+  if (!P && !C) return null;
+  var has = Object.prototype.hasOwnProperty;
+  return function(k) {
+    if (P && has.call(P, k)) return P[k];
+    if (C && has.call(C, k)) return C[k];
+    if (_dd.lang === 'ar') return undefined;
+    var m = /^(Last updated|آخر تحديث): (.+)$/.exec(k);
+    if (m) { var L = _DD_UPD[_dd.lang]; if (L) return L + ': ' + _ddWest(m[2]); }
+    m = /^([\d٠-٩][\d٠-٩.,]*) د\.أ$/.exec(k);
+    if (m) return _ddWest(m[1]) + ' JOD';
+    return undefined;
+  };
+}
+function _ddNode(n) {
+  var raw = n.nodeValue; if (!raw || raw.length < 2) return;
+  var k = _ddNorm(raw); if (k.length < 2) return;
+  var v = _dd.look(k);
+  if (v === undefined || v === k) return;
+  var m = raw.match(/^(\s*)[\s\S]*?(\s*)$/);
+  _dd.tn.push([n, raw]);
+  n.nodeValue = m[1] + v + m[2];
+}
+function _ddAttrs(el) {
+  for (var i = 0; i < _DD_ATTRS.length; i++) {
+    var a = _DD_ATTRS[i], raw = el.getAttribute && el.getAttribute(a);
+    if (!raw || raw.length < 2) continue;
+    var v = _dd.look(_ddNorm(raw));
+    if (v === undefined) continue;
+    _dd.ta.push([el, a, raw]); el.setAttribute(a, v);
+  }
+}
+function _ddWalk(root) {
+  if (root.nodeType === 3) { if (root.parentNode && !_DD_SKIP.test(root.parentNode.nodeName)) _ddNode(root); return; }
+  if (root.nodeType !== 1 || _DD_SKIP.test(root.nodeName)) return;
+  var w = document.createTreeWalker(root, 4, null), n, list = [];
+  while ((n = w.nextNode())) { if (n.parentNode && !_DD_SKIP.test(n.parentNode.nodeName)) list.push(n); }
+  for (var i = 0; i < list.length; i++) _ddNode(list[i]);
+  _ddAttrs(root);
+  var els = root.querySelectorAll('[placeholder],[title],[aria-label],[alt]');
+  for (var j = 0; j < els.length; j++) _ddAttrs(els[j]);
+}
+function _ddRestore() {
+  _dd.tn.forEach(function(x) { if (x[0].isConnected) x[0].nodeValue = x[1]; });
+  _dd.ta.forEach(function(x) { if (x[0].isConnected) x[0].setAttribute(x[1], x[2]); });
+  _dd.tn = []; _dd.ta = [];
+}
+function _ddApply(lang) {
+  _ddLoad(lang).then(function(a) {
+    if (!document.body || (document.documentElement.lang || '') !== lang) return;
+    _ddRestore();
+    _dd.lang = lang; _dd.look = _ddLook(a[0], a[1]);
+    if (!_dd.look) return;
+    _dd.busy = true;
+    _ddWalk(document.body);
+    var tk = _dd.look(_ddNorm(document.title || ''));
+    if (tk !== undefined) document.title = tk;
+    var md = document.querySelector('meta[name="description"]');
+    if (md) { var mv = _dd.look(_ddNorm(md.getAttribute('content') || '')); if (mv !== undefined) md.setAttribute('content', mv); }
+    if (_dd.obs) _dd.obs.takeRecords();
+    _dd.busy = false;
+    if (!_dd.obs && window.MutationObserver) {
+      _dd.obs = new MutationObserver(function(recs) {
+        if (_dd.busy || !_dd.look) return;
+        _dd.busy = true;
+        recs.forEach(function(r) {
+          if (r.type === 'characterData') _ddWalk(r.target);
+          else r.addedNodes.forEach(function(nd) { _ddWalk(nd); });
+        });
+        _dd.obs.takeRecords();
+        _dd.busy = false;
+      });
+      _dd.obs.observe(document.body, { childList: true, subtree: true, characterData: true });
+    }
   });
 }
 
@@ -698,7 +838,7 @@ function openAuthModal() {
     if (!(window.firebase && firebase.apps && firebase.apps.length)) {
       const gLabel = googleBtn.innerHTML;
       googleBtn.disabled = true; googleBtn.style.opacity = '0.6';
-      googleBtn.textContent = lang === 'ar' ? '⏳ جاري التحميل…' : '⏳ Loading…';
+      googleBtn.textContent = __ui('loading');
       loadFirebaseAuth().then(function() { googleBtn.innerHTML = gLabel; googleBtn.disabled = false; googleBtn.style.opacity = '1'; }).catch(function() { googleBtn.innerHTML = gLabel; googleBtn.disabled = false; googleBtn.style.opacity = '1'; });
     }
 
@@ -839,10 +979,9 @@ function submitAuthForm(mode, lang) {
 
 function googleErrText(lang, err) {
   const code = (err && err.code) || 'unknown';
-  const ar = lang === 'ar';
-  if (code === 'auth/popup-blocked') return ar ? 'المتصفح منع نافذة Google — انقر الزر مرة أخرى، أو اسمح بالنوافذ المنبثقة. (' + code + ')' : 'The browser blocked the Google window — tap again or allow pop-ups. (' + code + ')';
-  if (code === 'auth/network-request-failed') return ar ? 'مشكلة في الاتصال — تأكد من الإنترنت وجرّب مرة أخرى. (' + code + ')' : 'Network problem — check your connection and try again. (' + code + ')';
-  return ar ? 'تعذّر الدخول عبر Google — جرّب مرة أخرى أو سجّل بالبريد الإلكتروني. (' + code + ')' : 'Google sign-in failed — try again or use email. (' + code + ')';
+  const key = code === 'auth/popup-blocked' ? 'g_popup' : code === 'auth/network-request-failed' ? 'g_network' : 'g_fail';
+  const m = window.__UI[key];
+  return (m[lang] || m.en) + ' (' + code + ')';
 }
 
 function signInGoogle(lang) {
@@ -1464,7 +1603,7 @@ function updateDarkBtn() {
   if (!btn) return;
   const isDark = document.documentElement.classList.contains('dark');
   btn.textContent = isDark ? '☀️' : '🌙';
-  btn.title = isDark ? 'Light mode' : 'Dark mode';
+  btn.title = isDark ? __ui('light') : __ui('dark');
 }
 function injectDarkToggle() {
   const nav = document.querySelector('.nav-links');
@@ -1475,7 +1614,7 @@ function injectDarkToggle() {
   btn.onclick = toggleDark;
   const isDark = document.documentElement.classList.contains('dark');
   btn.textContent = isDark ? '☀️' : '🌙';
-  btn.title = isDark ? 'Light mode' : 'Dark mode';
+  btn.title = isDark ? __ui('light') : __ui('dark');
   const langSwitcher = nav.querySelector('.lang-switcher');
   if (langSwitcher) nav.insertBefore(btn, langSwitcher);
   else nav.appendChild(btn);
@@ -1845,17 +1984,16 @@ function _dataURLtoBlob(dataUrl) {
 }
 
 function _showImagePreviewOverlay(dataUrl) {
-  const isAr = (localStorage.getItem('lang') || 'ar') !== 'en';
   const overlay = document.createElement('div');
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;';
   const img = document.createElement('img');
   img.src = dataUrl;
   img.style.cssText = 'max-width:100%;max-height:70vh;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.5);';
   const hint = document.createElement('div');
-  hint.textContent = isAr ? '📸 خذ لقطة شاشة للصورة (زر الصوت + زر التشغيل) لحفظها' : '📸 Take a screenshot (volume + power button) to save this image';
+  hint.textContent = __ui('shot_hint');
   hint.style.cssText = 'color:#fff;margin-top:18px;font-size:15px;text-align:center;max-width:320px;line-height:1.6;';
   const closeBtn = document.createElement('button');
-  closeBtn.textContent = isAr ? '✕ إغلاق' : '✕ Close';
+  closeBtn.textContent = __ui('close_btn');
   closeBtn.style.cssText = 'margin-top:22px;padding:10px 28px;background:#fff;color:#111;border:none;border-radius:999px;font-weight:700;font-size:14px;cursor:pointer;';
   closeBtn.onclick = function() { overlay.remove(); };
   overlay.appendChild(img);
@@ -2651,19 +2789,25 @@ window.addEventListener('offline', initOfflineBanner);
   function isNative() {
     return window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
   }
+  function badgeHTML(where) {
+    if (where === 'top') return '<span style="font-size:15px">▶</span><span>' + __ui('app_get') + '</span>';
+    return '<span style="font-size:22px">▶</span><span><small style="display:block;font-weight:400;font-size:11px;opacity:.8">' + __ui('app_get_on') + '</small>' + __ui('app_play') + '</span>';
+  }
+  window.addEventListener('adawati-lang', function() {
+    document.querySelectorAll('[data-app-badge]').forEach(function(a) { a.innerHTML = badgeHTML(a.getAttribute('data-app-badge')); });
+    document.querySelectorAll('[data-app-notice]').forEach(function(d) { d.textContent = __ui('app_notice'); });
+  });
   function build(where) {
-    var ar = /^ar/.test(document.documentElement.lang || '') || document.documentElement.dir === 'rtl';
     var a = document.createElement('a');
     a.href = PLAY + where;
     a.target = '_blank';
     a.rel = 'noopener';
     a.setAttribute('data-app-badge', where);
     a.style.cssText = 'display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:12px;background:#111;border:1px solid #555;color:#fff;text-decoration:none;font:600 14px/1.3 system-ui,sans-serif;margin:10px 0;';
-    a.innerHTML = '<span style="font-size:22px">▶</span><span><small style="display:block;font-weight:400;font-size:11px;opacity:.8">' +
-      (ar ? 'حمّل التطبيق مجاناً من' : 'Get the free app on') + '</small>' + (ar ? 'جوجل بلاي' : 'Google Play') + '</span>';
+    a.innerHTML = badgeHTML('home');
     if (where === 'top') {
       a.style.cssText = 'display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:10px;background:#111;border:1px solid #555;color:#fff;text-decoration:none;font:700 12px/1.2 system-ui,sans-serif;margin:0;white-space:nowrap;';
-      a.innerHTML = '<span style="font-size:15px">▶</span><span>' + (ar ? 'حمّل التطبيق' : 'Get the app') + '</span>';
+      a.innerHTML = badgeHTML('top');
     }
     return a;
   }
@@ -2690,9 +2834,7 @@ window.addEventListener('offline', initOfflineBanner);
       if (f && f.parentNode) {
         var box = document.createElement('div');
         box.style.cssText = 'max-width:900px;margin:24px auto;padding:0 16px;text-align:center;';
-        var ar = /^ar/.test(document.documentElement.lang || '') || document.documentElement.dir === 'rtl';
-        box.innerHTML = '<div style="padding:18px;border:1px solid var(--border,#ddd);border-radius:14px"><div style="font-weight:700;margin-bottom:4px">' +
-          (ar ? '📲 أدواتي صار تطبيقاً على أندرويد' : '📲 Adawati is now an Android app') + '</div></div>';
+        box.innerHTML = '<div style="padding:18px;border:1px solid var(--border,#ddd);border-radius:14px"><div data-app-notice style="font-weight:700;margin-bottom:4px">' + __ui('app_notice') + '</div></div>';
         box.firstChild.appendChild(build('home'));
         f.parentNode.insertBefore(box, f);
       }
