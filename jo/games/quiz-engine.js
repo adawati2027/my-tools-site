@@ -27,6 +27,9 @@ const quizLang = (function() {
   try { return localStorage.getItem('lang') === 'en' ? 'en' : 'ar'; } catch (e) { return 'ar'; }
 })();
 
+const quizStored = (function() { try { return localStorage.getItem('lang') || ''; } catch (e) { return ''; } })();
+const QUIZ_NOTE = { fr: '(questions en arabe)', es: '(preguntas en árabe)', de: '(Fragen auf Arabisch)', ru: '(вопросы на арабском)' };
+
 const QT = {
   ar: {
     enter_name: 'اكتب اسمك الأول 🙂',
@@ -168,7 +171,7 @@ function applyQuizTranslations() {
     backLink.textContent = quizLang === 'en' ? '← Back to Home' : '← العودة للرئيسية';
   }
   var arNote = document.getElementById('quizArabicNote');
-  if (arNote) arNote.textContent = quizLang === 'en' ? qt('arabic_note') : '';
+  if (arNote) arNote.textContent = quizLang === 'en' ? qt('arabic_note') : (QUIZ_NOTE[quizStored] || '');
 }
 
 let currentQ = 0;
