@@ -1572,6 +1572,7 @@ function detectDefaultLang() {
     if (savedLang && LABELS[savedLang]) return savedLang;
   } catch(e) {}
   // 3. Country-specific pages — /om/ → ar, /sa/ → ar, /ae/ /us/ /uk/ → en
+  if (/\/games\/[^/]+\/(index\.html)?$/.test(location.pathname)) return 'ar';
   var cmap = {om:'ar', sa:'ar', jo:'ar', ae:'en', us:'en', uk:'en'};
   for (var j = 0; j < pathParts.length; j++) {
     if (cmap[pathParts[j]] !== undefined) return cmap[pathParts[j]];
