@@ -238,9 +238,11 @@ function showOverlay(kind){
   el('mbNext').hidden = kind !== 'win';
   el('mbRetry').textContent = kind === 'win' ? 'أعد المستوى' : 'حاول مرة أخرى';
   o.hidden = false;
+  if (window.MarbleBoard && kind !== 'win') window.MarbleBoard.onLose();
   if (kind === 'win'){
     try { localStorage.setItem('adawati_marble_level', String(level + 1)); } catch (e) {}
     if (window.gtag) gtag('event', 'marble_level_win', { level: level });
+    if (window.MarbleBoard) window.MarbleBoard.onWin();
   }
 }
 

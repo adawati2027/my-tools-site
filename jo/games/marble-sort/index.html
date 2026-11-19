@@ -50,6 +50,15 @@
 .mb-card h2{font-size:20px;margin:0 0 8px;}
 .mb-card p{font-size:14px;color:var(--text-muted);line-height:1.7;margin:0 0 14px;}
 .mb-card .mb-btn{margin:4px;}
+.mb-name{width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid var(--border,#ccd);border-radius:10px;font-family:inherit;font-size:15px;margin:0 0 8px;text-align:center;background:var(--surface,#fff);color:var(--text);}
+#mbBoardList{list-style:none;margin:8px 0;padding:0;max-height:46vh;overflow:auto;text-align:right;font-size:14px;}
+.mb-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;}
+.mb-row:nth-child(odd){background:var(--surface-2,#f2f3fb);}
+.mb-row.me{outline:2px solid var(--primary,#4a5bd6);}
+.mb-rank{width:28px;text-align:center;font-weight:800;}
+.mb-nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.mb-lv{font-weight:800;color:var(--primary,#4a5bd6);}
+.mb-small{font-size:13px;min-height:18px;margin:4px 0 0;}
 #mbFs{position:absolute;top:calc(env(safe-area-inset-top) + 14px);inset-inline-start:10px;width:46px;height:46px;border:none;border-radius:50%;background:rgba(30,35,80,.8);color:#fff;font-size:22px;line-height:46px;cursor:pointer;z-index:50;padding:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
 #mbStage{position:relative;}
 body:not(.mb-full) #mbFs{position:static;display:block;width:auto;height:auto;margin:0 auto 10px;padding:8px 16px;border-radius:12px;background:var(--primary);font-size:14px;font-family:inherit;font-weight:700;line-height:1.4;}
@@ -84,11 +93,16 @@ body.mb-full .mb-wrap{border-radius:14px;}
         <p id="mbOvText"></p>
         <button class="mb-btn primary" id="mbNext" type="button">المستوى التالي</button>
         <button class="mb-btn" id="mbRetry" type="button">حاول مرة أخرى</button>
+        <div id="mbNameRow" hidden style="margin-top:10px"><input class="mb-name" id="mbWinName" maxlength="20" placeholder="اكتب اسمك للترتيب" autocomplete="nickname"><button class="mb-btn primary" id="mbWinSave" type="button">سجّل اسمي</button></div>
+        <p class="mb-small" id="mbWinMsg"></p>
+        <button class="mb-btn" id="mbWinBoard" type="button">🏆 الترتيب</button>
       </div>
     </div>
   </div>
+  <div class="mb-overlay" id="mbBoard" hidden style="position:fixed;z-index:10000"><div class="mb-card" style="width:100%;max-width:340px;box-sizing:border-box"><h2>🏆 أفضل ٢٠ لاعباً</h2><input class="mb-name" id="mbBoardName" maxlength="20" placeholder="اسمك" autocomplete="nickname"><button class="mb-btn primary" id="mbBoardSave" type="button">حفظ الاسم</button><p class="mb-small" id="mbBoardMsg"></p><ol id="mbBoardList"></ol><button class="mb-btn" id="mbBoardClose" type="button">إغلاق</button></div></div>
   <div class="mb-bar">
     <button class="mb-btn" id="mbRestart" type="button">↻ إعادة</button>
+    <button class="mb-btn" id="mbBoardBtn" type="button">🏆 الترتيب</button>
     <button class="mb-btn" id="mbMute" type="button" aria-label="الصوت">🔊</button>
   </div>
   <div class="mb-msg" id="mbMsg"></div>
@@ -126,7 +140,10 @@ body.mb-full .mb-wrap{border-radius:14px;}
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://adawati.space/jo/"},{"@type":"ListItem","position":2,"name":"الألعاب","item":"https://adawati.space/jo/games/"},{"@type":"ListItem","position":3,"name":"لعبة فرز الكرات","item":"https://adawati.space/jo/games/marble-sort/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"هل لعبة فرز الكرات مجانية؟","acceptedAnswer":{"@type":"Answer","text":"نعم، مجانية بالكامل وتعمل في المتصفح بدون تحميل."}},{"@type":"Question","name":"هل يُحفظ تقدّمي في اللعبة؟","acceptedAnswer":{"@type":"Answer","text":"نعم، يُحفظ آخر مستوى وصلت إليه على جهازك."}},{"@type":"Question","name":"هل هناك نهاية للمستويات؟","acceptedAnswer":{"@type":"Answer","text":"لا، المستويات تستمر وتصبح أصعب تدريجياً."}}]},{"@type":"VideoGame","name":"لعبة فرز الكرات","inLanguage":"ar","genre":"Puzzle","url":"https://adawati.space/jo/games/marble-sort/","isAccessibleForFree":true,"gamePlatform":"Web browser"}]}</script>
 <script src="jo/games/marble-sort/marble-levels.js?v=1"></script>
 <script src="jo/games/marble-sort/marble-engine.js?v=2"></script>
-<script src="jo/games/marble-sort/marble-ui.js?v=6"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" integrity="sha384-+65NgAKqXr1Nb7sBmV6O09pL8ASqZsi29OE718meKinGAWaa70VE5V6LNjXVBjIA" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" integrity="sha384-YHSscHG455M7b+d6r5ibTMznxrZxV272bMjXT9ndTgmx05fLR7HsdmcVklhpBSyt" crossorigin="anonymous"></script>
+<script src="jo/games/marble-sort/marble-board.js?v=1"></script>
+<script src="jo/games/marble-sort/marble-ui.js?v=7"></script>
 <script src="i18n-lang-ar.js?v=4" defer></script>
 <script src="i18n.js?v=77" defer></script>
 </body></html>

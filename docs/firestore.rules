@@ -51,6 +51,348 @@ service cloud.firestore {
       }
     }
 
+    match /marbleBoard/{pid} {
+      allow read: if true;
+      allow create: if pid.matches('^[a-z0-9]{16,40}
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /users/{userId} {
+      allow read: if isAdmin() || (request.auth != null && request.auth.uid == userId);
+      allow create, update: if request.auth != null && request.auth.uid == userId
+        && request.resource.data.favorites is list && request.resource.data.favorites.size() <= 200
+        && request.resource.data.recent is list && request.resource.data.recent.size() <= 6;
+      allow delete: if request.auth != null && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return request.auth != null && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    match /chatMeta/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['lastAt']) && request.resource.data.lastAt == request.time;
+    }
+
+    function banLive(p) {
+      return exists(p) && (!('until' in get(p).data) || get(p).data.until == 0 || get(p).data.until > request.time.toMillis());
+    }
+
+    function chatBlocked() {
+      return banLive(/databases/$(database)/documents/chatBans/$(request.auth.uid))
+        || ('email' in request.auth.token && banLive(/databases/$(database)/documents/emailBans/$(request.auth.token.email.lower())));
+    }
+
+    match /chatBans/{uid} {
+      allow read: if request.auth != null && (request.auth.uid == uid || isAdmin());
+      allow write: if isAdmin();
+    }
+
+    match /emailBans/{emailKey} {
+      allow read: if request.auth != null && (isAdmin() || ('email' in request.auth.token && request.auth.token.email.lower() == emailKey));
+      allow write: if isAdmin();
+    }
+
+    match /chatReports/{reportId} {
+      allow read, delete: if isAdmin();
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['challengeId','msgId','text','offenderUid','offenderName','reason','reporterUid','createdAt'])
+        && request.resource.data.reporterUid == request.auth.uid
+        && request.resource.data.text is string && request.resource.data.text.size() <= 300
+        && request.resource.data.reason is string && request.resource.data.reason.size() <= 100
+        && request.resource.data.createdAt == request.time;
+      allow update: if false;
+    }
+
+    match /admins/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    function validAd(d) {
+      return d.title is string && d.title.size() >= 2 && d.title.size() <= 80
+        && d.category in ['shop','project','service','page','other']
+        && d.city is string && d.city.size() <= 30
+        && d.description is string && d.description.size() >= 20 && d.description.size() <= 800
+        && d.links is list && d.links.size() >= 1 && d.links.size() <= 4
+        && d.shareProof is string && d.shareProof.size() <= 300 && (d.shareProof.size() == 0 || d.shareProof.matches('https?://.+'))
+        && d.hasProofImage is bool && (d.shareProof.size() > 0 || d.hasProofImage)
+        && d.igHandle is string && d.igHandle.size() >= 2 && d.igHandle.size() <= 40
+        && d.phone is string && d.phone.size() <= 20
+        && d.ownerName is string && d.ownerName.size() <= 40;
+    }
+
+    function ratingDeltaOk(adId) {
+      let adPath = /databases/$(database)/documents/ads/$(adId);
+      let revPath = /databases/$(database)/documents/ads/$(adId)/reviews/$(request.auth.uid);
+      let before = get(adPath).data;
+      let after = getAfter(adPath).data;
+      let had = exists(revPath);
+      let has = existsAfter(revPath);
+      let oldR = had ? get(revPath).data.rating : 0;
+      let newR = has ? getAfter(revPath).data.rating : 0;
+      return after.get('ratingCount', 0) == before.get('ratingCount', 0) + (has ? 1 : 0) - (had ? 1 : 0)
+        && after.get('ratingSum', 0) == before.get('ratingSum', 0) + newR - oldR;
+    }
+
+    match /adReports/{reportId} {
+      allow read, delete: if isAdmin();
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['adId','reviewUid','reason','reporterUid','createdAt'])
+        && request.resource.data.reporterUid == request.auth.uid
+        && request.resource.data.adId is string && request.resource.data.adId.size() <= 40
+        && request.resource.data.reviewUid is string && request.resource.data.reviewUid.size() <= 128
+        && request.resource.data.reason is string && request.resource.data.reason.size() >= 2 && request.resource.data.reason.size() <= 300
+        && request.resource.data.createdAt == request.time;
+      allow update: if false;
+    }
+
+    match /adProofs/{adId} {
+      allow read: if request.auth != null && (resource.data.ownerUid == request.auth.uid || isAdmin());
+      allow create, update: if request.auth != null
+        && request.resource.data.keys().hasOnly(['image','ownerUid','updatedAt'])
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.image is string && request.resource.data.image.size() < 600000
+        && get(/databases/$(database)/documents/ads/$(adId)).data.ownerUid == request.auth.uid
+        && get(/databases/$(database)/documents/ads/$(adId)).data.status in ['pending','changes'];
+      allow delete: if isAdmin() || (request.auth != null && resource.data.ownerUid == request.auth.uid);
+    }
+
+    match /ads/{adId} {
+      allow read: if resource.data.status == 'approved'
+        || (request.auth != null && (resource.data.ownerUid == request.auth.uid || isAdmin()));
+
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['title','category','city','description','links','shareProof','hasProofImage','igHandle','phone','ownerName','ownerUid','status','adminNote','likeCount','createdAt','updatedAt'])
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.status == 'pending'
+        && request.resource.data.adminNote == ''
+        && request.resource.data.likeCount == 0
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time
+        && validAd(request.resource.data);
+
+      allow update: if isAdmin()
+        || (request.auth != null
+            && resource.data.ownerUid == request.auth.uid
+            && resource.data.status in ['pending','changes']
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['title','category','city','description','links','shareProof','hasProofImage','igHandle','phone','ownerName','status','updatedAt'])
+            && request.resource.data.status == 'pending'
+            && request.resource.data.updatedAt == request.time
+            && validAd(request.resource.data))
+        || (request.auth != null
+            && resource.data.status == 'approved'
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likeCount'])
+            && ((request.resource.data.likeCount == resource.data.likeCount + 1
+                 && !exists(/databases/$(database)/documents/ads/$(adId)/likes/$(request.auth.uid))
+                 && existsAfter(/databases/$(database)/documents/ads/$(adId)/likes/$(request.auth.uid)))
+             || (request.resource.data.likeCount == resource.data.likeCount - 1
+                 && exists(/databases/$(database)/documents/ads/$(adId)/likes/$(request.auth.uid))
+                 && !existsAfter(/databases/$(database)/documents/ads/$(adId)/likes/$(request.auth.uid)))));
+
+      allow update: if request.auth != null
+        && resource.data.status == 'approved'
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['ratingSum','ratingCount'])
+        && ratingDeltaOk(adId);
+
+      allow delete: if isAdmin()
+        || (request.auth != null && resource.data.ownerUid == request.auth.uid && resource.data.status != 'approved');
+
+      match /reviews/{uid} {
+        allow read: if true;
+        allow create, update: if request.auth != null && request.auth.uid == uid
+          && request.resource.data.keys().hasOnly(['rating','text','name','createdAt','updatedAt'])
+          && request.resource.data.rating is int && request.resource.data.rating >= 1 && request.resource.data.rating <= 5
+          && request.resource.data.text is string && request.resource.data.text.size() <= 500
+          && request.resource.data.name is string && request.resource.data.name.size() <= 40
+          && request.resource.data.updatedAt == request.time
+          && ratingDeltaOk(adId);
+        allow delete: if isAdmin() || (request.auth != null && request.auth.uid == uid && ratingDeltaOk(adId));
+      }
+
+      match /likes/{uid} {
+        allow read: if true;
+        allow create: if request.auth != null && request.auth.uid == uid
+          && request.resource.data.keys().hasOnly(['createdAt'])
+          && getAfter(/databases/$(database)/documents/ads/$(adId)).data.likeCount == get(/databases/$(database)/documents/ads/$(adId)).data.likeCount + 1;
+        allow delete: if request.auth != null && request.auth.uid == uid
+          && getAfter(/databases/$(database)/documents/ads/$(adId)).data.likeCount == get(/databases/$(database)/documents/ads/$(adId)).data.likeCount - 1;
+        allow update: if false;
+      }
+    }
+
+    // Restaurants directory (jo/restaurants): aggregate doc per restaurant + one review per account.
+    function restDeltaOk(rid) {
+      let aggPath = /databases/$(database)/documents/restRatings/$(rid);
+      let revPath = /databases/$(database)/documents/restRatings/$(rid)/reviews/$(request.auth.uid);
+      let beforeCount = exists(aggPath) ? get(aggPath).data.get('ratingCount', 0) : 0;
+      let beforeSum = exists(aggPath) ? get(aggPath).data.get('ratingSum', 0) : 0;
+      let after = getAfter(aggPath).data;
+      let had = exists(revPath);
+      let has = existsAfter(revPath);
+      let oldR = had ? get(revPath).data.rating : 0;
+      let newR = has ? getAfter(revPath).data.rating : 0;
+      return after.ratingCount == beforeCount + (has ? 1 : 0) - (had ? 1 : 0)
+        && after.ratingSum == beforeSum + newR - oldR
+        && after.ratingCount >= 0 && after.ratingSum >= after.ratingCount && after.ratingSum <= 5 * after.ratingCount;
+    }
+
+    match /restRatings/{rid} {
+      allow read: if true;
+      allow create, update: if request.auth != null
+        && rid.matches('^[a-z0-9-]{1,80}$')
+        && request.resource.data.keys().hasOnly(['ratingSum','ratingCount'])
+        && request.resource.data.ratingSum is int && request.resource.data.ratingCount is int
+        && (isAdmin() || restDeltaOk(rid));
+      allow delete: if false;
+
+      match /reviews/{uid} {
+        allow read: if true;
+        allow create, update: if request.auth != null && request.auth.uid == uid
+          && request.resource.data.keys().hasOnly(['rating','text','name','createdAt','updatedAt'])
+          && request.resource.data.rating is int && request.resource.data.rating >= 1 && request.resource.data.rating <= 5
+          && request.resource.data.text is string && request.resource.data.text.size() <= 500
+          && request.resource.data.name is string && request.resource.data.name.size() <= 40
+          && request.resource.data.updatedAt == request.time
+          && restDeltaOk(rid);
+        allow delete: if isAdmin() || (request.auth != null && request.auth.uid == uid && restDeltaOk(rid));
+      }
+    }
+
+    match /restReports/{reportId} {
+      allow read, delete: if isAdmin();
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly(['rid','reviewUid','reason','reporterUid','createdAt'])
+        && request.resource.data.reporterUid == request.auth.uid
+        && request.resource.data.rid is string && request.resource.data.rid.size() <= 80
+        && request.resource.data.reviewUid is string && request.resource.data.reviewUid.size() <= 128
+        && request.resource.data.reason is string && request.resource.data.reason.size() <= 100
+        && request.resource.data.createdAt == request.time;
+      allow update: if false;
+    }
+
+    // Restaurant offers: public read; written only by admins or by owners an admin added under restOwners/{rid}/members/{email}.
+    function restManager(rid) {
+      return isAdmin() || (request.auth != null && request.auth.token.email_verified == true
+        && (exists(/databases/$(database)/documents/restOwners/$(rid)/members/$(request.auth.token.email.lower()))
+          || exists(/databases/$(database)/documents/restOwners/_all/members/$(request.auth.token.email.lower()))));
+    }
+    match /restOffers/{oid} {
+      allow read: if true;
+      allow create, update: if request.auth != null
+        && request.resource.data.keys().hasOnly(['rid','uid','kind','title','details','price','until','link','name','updatedAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.rid is string && request.resource.data.rid.size() <= 80
+        && restManager(request.resource.data.rid)
+        && request.resource.data.kind in ['menu','buffet']
+        && request.resource.data.title is string && request.resource.data.title.size() >= 3 && request.resource.data.title.size() <= 80
+        && request.resource.data.details is string && request.resource.data.details.size() <= 300
+        && request.resource.data.price is string && request.resource.data.price.size() <= 40
+        && request.resource.data.until is string && request.resource.data.until.size() == 10
+        && request.resource.data.link is string && request.resource.data.link.size() <= 200;
+      allow delete: if request.auth != null && restManager(resource.data.rid);
+    }
+
+    // Restaurant submissions: any verified signed-in user can request to add a restaurant (pending); approved ones are public; admins/global editors review.
+    match /restSubmissions/{sid} {
+      allow read: if resource.data.status == 'approved'
+        || (request.auth != null && (resource.data.uid == request.auth.uid || restManager('_all')));
+      allow create: if request.auth != null && request.auth.token.email_verified == true
+        && request.resource.data.keys().hasOnly(['n','a','c','w','f','i','p','m','uid','by','status','at'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.status == 'pending'
+        && request.resource.data.at == request.time
+        && request.resource.data.n is string && request.resource.data.n.size() >= 2 && request.resource.data.n.size() <= 80
+        && request.resource.data.a is string && request.resource.data.a.size() >= 2 && request.resource.data.a.size() <= 40
+        && request.resource.data.c is string && request.resource.data.c.size() <= 40
+        && request.resource.data.w is string && request.resource.data.w.size() <= 200
+        && request.resource.data.f is string && request.resource.data.f.size() <= 200
+        && request.resource.data.i is string && request.resource.data.i.size() <= 200
+        && request.resource.data.p is string && request.resource.data.p.size() <= 30
+        && request.resource.data.m is string && request.resource.data.m.size() <= 300
+        && request.resource.data.by is string && request.resource.data.by.size() <= 80;
+      allow update: if restManager('_all')
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+        && request.resource.data.status in ['approved','rejected'];
+      allow delete: if restManager('_all') || (request.auth != null && resource.data.uid == request.auth.uid && resource.data.status == 'pending');
+    }
+
+    match /restOwners/{rid}/members/{email} {
+      allow get: if request.auth != null && (isAdmin() || request.auth.token.email.lower() == email);
+      allow list: if isAdmin();
+      allow create, update: if isAdmin() && request.resource.data.keys().hasOnly(['email','at']);
+      allow delete: if isAdmin();
+    }
+
+    // Online multiplayer rooms (jo/tools/jo-room.js): no auth, 5-char codes; get-only so rooms cannot be listed.
+    match /rooms/{code} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if request.resource.data.keys().hasOnly(['game','hostId','hostName','status','state','createdAt','updatedAt'])
+        && request.resource.data.game in ['xo','os','ws','wm','cw']
+        && request.resource.data.status == 'lobby'
+        && request.resource.data.hostId is string && request.resource.data.hostId.size() <= 40
+        && request.resource.data.hostName is string && request.resource.data.hostName.size() <= 40
+        && request.resource.data.state is string && request.resource.data.state.size() <= 4000;
+      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','state','updatedAt'])
+        && request.resource.data.status in ['lobby','playing','closed']
+        && request.resource.data.state is string && request.resource.data.state.size() <= 4000;
+      allow delete: if false;
+
+      match /players/{pid} {
+        allow read: if true;
+        allow create, update: if request.resource.data.keys().hasOnly(['name','jt','v','vr','sc','sr','ft','pg'])
+          && request.resource.data.name is string && request.resource.data.name.size() <= 40;
+        allow delete: if true;
+      }
+
+      match /chat/{id} {
+        allow read: if true;
+        allow create: if request.auth != null && !chatBlocked()
+          && request.resource.data.keys().hasOnly(['p','u','n','t','ts','v','d'])
+          && request.resource.data.u == request.auth.uid
+          && request.resource.data.p is string && request.resource.data.p.size() <= 40
+          && request.resource.data.n is string && request.resource.data.n.size() <= 40
+          && request.resource.data.t is string && request.resource.data.t.size() > 0 && request.resource.data.t.size() <= 200
+          && request.resource.data.ts is number
+          && (!('v' in request.resource.data) || (request.resource.data.v == true && request.resource.data.d is number && request.resource.data.d <= 21));
+        allow update, delete: if false;
+      }
+
+      match /voices/{id} {
+        allow read: if true;
+        allow create: if request.auth != null && !chatBlocked()
+          && request.resource.data.keys().hasOnly(['u','a','ts'])
+          && request.resource.data.u == request.auth.uid
+          && request.resource.data.a is string && request.resource.data.a.size() < 600000
+          && request.resource.data.ts is number;
+        allow update, delete: if false;
+      }
+
+      match /secret/{pid} {
+        allow get: if true;
+        allow list: if false;
+        allow create, update: if request.resource.data.keys().hasOnly(['d'])
+          && request.resource.data.d is string && request.resource.data.d.size() <= 300;
+        allow delete: if false;
+      }
+    }
+  }
+}
+)
+        && request.resource.data.keys().hasOnly(['name','level','updatedAt'])
+        && request.resource.data.name is string && request.resource.data.name.size() >= 2 && request.resource.data.name.size() <= 20
+        && request.resource.data.level is int && request.resource.data.level >= 1 && request.resource.data.level <= 5000
+        && request.resource.data.updatedAt == request.time;
+      allow update: if request.resource.data.keys().hasOnly(['name','level','updatedAt'])
+        && request.resource.data.name is string && request.resource.data.name.size() >= 2 && request.resource.data.name.size() <= 20
+        && request.resource.data.level is int && request.resource.data.level >= resource.data.level && request.resource.data.level <= resource.data.level + 50
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if isAdmin();
+    }
+
     match /config/{docId} {
       allow read: if true;
       allow write: if isAdmin();
