@@ -1573,7 +1573,7 @@ function detectDefaultLang() {
   } catch(e) {}
   // 3. Country-specific pages — /om/ → ar, /sa/ → ar, /ae/ /us/ /uk/ → en
   if (/\/games\/[^/]+\/(index\.html)?$/.test(location.pathname)) return 'ar';
-  var cmap = {om:'ar', sa:'ar', jo:'ar', ae:'en', us:'en', uk:'en'};
+  var cmap = {om:'ar', sa:'ar', jo:'ar', ae:'ar', eg:'ar', us:'en', uk:'en'};
   for (var j = 0; j < pathParts.length; j++) {
     if (cmap[pathParts[j]] !== undefined) return cmap[pathParts[j]];
   }
@@ -1582,7 +1582,7 @@ function detectDefaultLang() {
   //    visited a country hub like /jo/) rather than blindly forcing English.
   try {
     var sessCountry = sessionStorage.getItem('adawati_country');
-    var countryLangMap = {OM:'ar', SA:'ar', JO:'ar', AE:'en', US:'en', GB:'en'};
+    var countryLangMap = {OM:'ar', SA:'ar', JO:'ar', AE:'ar', EG:'ar', KW:'ar', QA:'ar', BH:'ar', IQ:'ar', LB:'ar', SY:'ar', PS:'ar', YE:'ar', LY:'ar', DZ:'ar', MA:'ar', TN:'ar', SD:'ar', US:'en', GB:'en'};
     if (sessCountry && countryLangMap[sessCountry]) return countryLangMap[sessCountry];
   } catch(e) {}
   // No saved preference and no session country detected: default to English.
