@@ -2584,6 +2584,9 @@ function getHomeHref() {
   try {
     var country = sessionStorage.getItem('adawati_country');
     var countryHubMap = {OM:'om/', SA:'sa/', JO:'jo/', AE:'ae/', US:'us/', GB:'uk/'};
+    var pathHub = {om:'om/', sa:'sa/', jo:'jo/', ae:'ae/', us:'us/', uk:'uk/'};
+    var seg = location.pathname.replace(base, '').split('/').filter(Boolean)[0];
+    if (seg && pathHub[seg]) return base + '/' + pathHub[seg];
     if (country && countryHubMap[country]) return base + '/' + countryHubMap[country];
   } catch(e) {}
   return base + '/index.html';
@@ -2763,7 +2766,7 @@ function _initAfterLangReady() {
     renderFavSection();
     renderRecentSection();
     injectStarBtns();
-    initCountryDetect();
+    initCountryDetect().then(function(){ initBottomNav(); fixBackLink(); });
   }
 }
 
