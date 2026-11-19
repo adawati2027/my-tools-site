@@ -32,7 +32,7 @@ Before and after every group post/comment:
 Cron jobs are session-only (gone on /clear, exit, or after 7 days). Run `/start-social-jobs` (`.claude/commands/start-social-jobs.md`) to re-create them from `tools/social-templates/cron-jobs.json` (cron set to :40 to offset the scheduler's up-to-15-min jitter). Keep the session open and idle.
 
 ## Instagram + X (owner 2026-11-19)
-- Accounts open and logged in in the owner's Chrome. IG: link in bio, feed posts/reels only (no web stories). X: handle @adawati20270, ≤280 chars, ONE Play link with `referrer=utm_source%3Dx%26utm_medium%3Dsocial%26utm_campaign%3D<topic>`.
+- Accounts open and logged in in the owner's Chrome. IG: link in bio, feed posts/reels only (no web stories). X: handle @adawati20270, ≤280 chars, ONE Play link (package space.adawati.app, NOT space.adawati.web = TWA test app) with `referrer=utm_source%3Dx%26utm_medium%3Dsocial%26utm_campaign%3D<topic>`.
 - Daily: reuse the 13:00 / 17:00 promo (same video/image + short Arabic text with install line) on both.
 - X: navigate via twitter.com (x.com blocked); composer → `find` file input → `file_upload` → Post. IG: Create → Post → file input → upload → OK → Next ×3 → caption → Share (~30 s).
 - Done 2026-11-19: IG profile + first Reel; X profile + first post (marble video).
