@@ -61,19 +61,26 @@ function load(){
   var ol = el('mbBoardList');
   if (!init()){ ol.textContent = 'تعذر تحميل الترتيب الآن.'; return; }
   ol.textContent = 'جارٍ التحميل...';
+  var stale = setTimeout(function(){ if (ol.textContent === 'جارٍ التحميل...') ol.textContent = 'تعذر تحميل الترتيب الآن.'; }, 8000);
   boardCol.orderBy('level', 'desc').limit(20).get().then(function(snap){
     var arr = []; snap.forEach(function(doc){ var d = doc.data(); arr.push({ id: doc.id, name: String(d.name || ''), level: d.level }); });
-    render(arr, pid());
+    clearTimeout(stale); render(arr, pid());
   }).catch(function(){ ol.textContent = 'تعذر تحميل الترتيب الآن.'; });
 }
+var reopen = false;
 function open(){
-  el('mbOverlay').hidden = true;
+  var ov = el('mbOverlay');
+  if (!ov.hidden) reopen = true;
+  ov.hidden = true;
   var inp = el('mbBoardName'); inp.value = name();
   el('mbBoard').hidden = false;
   submit().then(load);
   load();
 }
-function close(){ el('mbBoard').hidden = true; }
+function close(){
+  el('mbBoard').hidden = true;
+  if (reopen){ reopen = false; el('mbOverlay').hidden = false; }
+}
 function winRow(show){
   var row = el('mbNameRow'); if (!row) return;
   row.hidden = !show || !!name();
