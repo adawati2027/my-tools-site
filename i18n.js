@@ -751,12 +751,21 @@ function updateAuthBtn() {
 
 let _authMode = 'signup';
 
-function openAuthModal() {
+function injectAuthCss() {
+  if (document.getElementById('adwAuthCss')) return;
+  const st = document.createElement('style');
+  st.id = 'adwAuthCss';
+  st.textContent = '@keyframes adwFade{from{opacity:0}to{opacity:1}}@keyframes adwPop{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}@keyframes adwSheet{from{transform:translateY(100%)}to{transform:none}}#signupModal{overscroll-behavior:contain;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}#signupModal.adw-in-anim{animation:adwFade .2s ease-out}#signupModal.adw-in-anim .adw-box{animation:adwPop .28s cubic-bezier(.2,.8,.2,1)}.adw-box{max-height:92vh;overflow-y:auto}.adw-fld{transition:border-color .15s,box-shadow .15s}.adw-fld:focus{outline:none;border-color:#2563eb!important;box-shadow:0 0 0 3px rgba(37,99,235,.18)}.adw-pw{position:relative}.adw-pw .adw-fld{padding-inline-end:46px!important}.adw-eye{position:absolute;inset-inline-end:6px;top:0;height:42px;width:40px;background:none;border:none;cursor:pointer;font-size:17px;color:#64748b;padding:0}.adw-btn{transition:transform .12s,filter .15s}.adw-btn:active{transform:scale(.98)}.adw-btn:disabled{opacity:.7;cursor:default}@media(hover:hover){.adw-btn:hover:not(:disabled){filter:brightness(1.06)}}@media(max-width:480px){#signupModal{align-items:flex-end!important;padding:0!important}#signupModal .adw-box{max-width:none!important;border-radius:20px 20px 0 0!important;padding:26px 22px calc(26px + env(safe-area-inset-bottom))!important}#signupModal.adw-in-anim .adw-box{animation:adwSheet .3s cubic-bezier(.2,.8,.2,1)}}@media(prefers-reduced-motion:reduce){#signupModal.adw-in-anim,#signupModal.adw-in-anim .adw-box{animation:none!important}}';
+  document.head.appendChild(st);
+}
+
+function openAuthModal(noAnim) {
+  injectAuthCss();
   const lang = localStorage.getItem('lang') || 'en';
   const t = T[lang] || T.ar;
   const user = getCurrentAuthUser();
   const existing = document.getElementById('signupModal');
-  if (existing) existing.remove();
+  if (existing) { existing.remove(); noAnim = true; }
   // Kick off the Firebase SDK fetch now, while the modal is just opening —
   // not lazily inside the Google button's own click handler. On a cold
   // load, loadFirebaseAuth() has to fetch 3 external scripts over the
@@ -772,9 +781,13 @@ function openAuthModal() {
 
   const modal = document.createElement('div');
   modal.id = 'signupModal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  if (noAnim !== true) modal.className = 'adw-in-anim';
   modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
 
   const box = document.createElement('div');
+  box.className = 'adw-box';
   // color-scheme:light is required here, not just background:#fff — without
   // it, a phone set to system dark mode makes the browser auto-dark-style
   // native <input> elements (dark fill, washed-out text) even though this
@@ -818,6 +831,8 @@ function openAuthModal() {
     const xBtn = document.createElement('button');
     xBtn.style.cssText = 'background:none;border:none;font-size:20px;cursor:pointer;color:#94a3b8;';
     xBtn.textContent = '✕';
+    xBtn.setAttribute('aria-label', 'close');
+    xBtn.style.cssText += 'width:36px;height:36px;border-radius:50%;';
     xBtn.onclick = () => document.getElementById('signupModal').remove();
     header.append(title, xBtn);
     const note = document.createElement('div');
@@ -834,6 +849,7 @@ function openAuthModal() {
     const googleBtn = document.createElement('button');
     googleBtn.style.cssText = 'width:100%;padding:13px;background:#fff;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;color:#334155;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px;';
     googleBtn.innerHTML = '<svg width="19" height="19" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.5 5.1 29.5 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.3-.1-2.5-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 16 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34.5 5.1 29.5 3 24 3 16.3 3 9.7 7.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 45c5.4 0 10.3-1.8 14.1-5l-6.5-5.5c-2.1 1.5-4.8 2.4-7.6 2.4-5.2 0-9.7-3.3-11.3-8l-6.5 5C9.6 40.5 16.3 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.5 5.5C41.4 36.4 44 30.8 44 24c0-1.3-.1-2.5-.4-3.5z"/></svg><span>' + (t.auth_google_btn || 'Sign in with Google') + '</span>';
+    googleBtn.className = 'adw-btn';
     googleBtn.onclick = () => signInGoogle(lang);
     if (!(window.firebase && firebase.apps && firebase.apps.length)) {
       const gLabel = googleBtn.innerHTML;
@@ -852,7 +868,7 @@ function openAuthModal() {
       lbl1.style.cssText = 'display:block;font-size:13px;font-weight:700;margin-bottom:6px;';
       lbl1.textContent = t.signup_name || 'Name';
       const inp1 = document.createElement('input');
-      inp1.id = 'su_name'; inp1.type = 'text'; inp1.maxLength = 60;
+      inp1.id = 'su_name'; inp1.type = 'text'; inp1.maxLength = 60; inp1.autocomplete = 'name'; inp1.className = 'adw-fld';
       inp1.style.cssText = 'width:100%;padding:11px 16px;background:#fff;color:#0f172a;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-family:inherit;margin-bottom:14px;box-sizing:border-box;';
       fields.push(lbl1, inp1);
     }
@@ -860,18 +876,25 @@ function openAuthModal() {
     lbl2.style.cssText = 'display:block;font-size:13px;font-weight:700;margin-bottom:6px;';
     lbl2.textContent = t.signup_email || 'Email';
     const inp2 = document.createElement('input');
-    inp2.id = 'su_email'; inp2.type = 'email'; inp2.dir = 'ltr'; inp2.maxLength = 120;
+    inp2.id = 'su_email'; inp2.type = 'email'; inp2.dir = 'ltr'; inp2.maxLength = 120; inp2.autocomplete = 'email'; inp2.className = 'adw-fld';
     inp2.style.cssText = 'width:100%;padding:11px 16px;background:#fff;color:#0f172a;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-family:inherit;margin-bottom:14px;box-sizing:border-box;';
     const lbl3 = document.createElement('label');
     lbl3.style.cssText = 'display:block;font-size:13px;font-weight:700;margin-bottom:6px;';
     lbl3.textContent = t.auth_password || 'Password';
     const inp3 = document.createElement('input');
-    inp3.id = 'su_pass'; inp3.type = 'password'; inp3.dir = 'ltr'; inp3.maxLength = 100;
+    inp3.id = 'su_pass'; inp3.type = 'password'; inp3.dir = 'ltr'; inp3.maxLength = 100; inp3.autocomplete = isSignup ? 'new-password' : 'current-password'; inp3.className = 'adw-fld';
     inp3.style.cssText = 'width:100%;padding:11px 16px;background:#fff;color:#0f172a;border:1.5px solid #e2e8f0;border-radius:999px;font-size:15px;font-family:inherit;margin-bottom:20px;box-sizing:border-box;';
-    fields.push(lbl2, inp2, lbl3, inp3);
+    const pwWrap = document.createElement('div');
+    pwWrap.className = 'adw-pw';
+    const eye = document.createElement('button');
+    eye.type = 'button'; eye.className = 'adw-eye'; eye.textContent = '👁'; eye.setAttribute('aria-label', 'show password');
+    eye.onclick = function() { const show = inp3.type === 'password'; inp3.type = show ? 'text' : 'password'; eye.style.opacity = show ? '.5' : '1'; };
+    pwWrap.append(inp3, eye);
+    fields.push(lbl2, inp2, lbl3, pwWrap);
 
     const submitBtn = document.createElement('button');
     submitBtn.id = 'authSubmitBtn';
+    submitBtn.className = 'adw-btn';
     submitBtn.style.cssText = 'width:100%;padding:13px;background:#2563eb;color:#fff;border:none;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:10px;';
     submitBtn.textContent = isSignup ? (t.signup_submit || 'Create Account') : (t.auth_signin_title || 'Sign In');
     submitBtn.onclick = () => submitAuthForm(_authMode, lang);
@@ -879,7 +902,7 @@ function openAuthModal() {
     const switchLink = document.createElement('div');
     switchLink.style.cssText = 'text-align:center;font-size:13px;color:#2563eb;cursor:pointer;';
     switchLink.textContent = isSignup ? (t.auth_switch_to_login || 'Already have an account? Sign in') : (t.auth_switch_to_signup || "Don't have an account? Sign up");
-    switchLink.onclick = () => { _authMode = isSignup ? 'signin' : 'signup'; openAuthModal(); };
+    switchLink.onclick = () => { _authMode = isSignup ? 'signin' : 'signup'; openAuthModal(true); };
 
     const forgotLink = document.createElement('div');
     forgotLink.style.cssText = 'text-align:center;font-size:13px;color:#64748b;cursor:pointer;text-decoration:underline;margin-bottom:10px;';
@@ -893,9 +916,13 @@ function openAuthModal() {
   modal.appendChild(box);
 
   modal.addEventListener('click', function(e) { if (e.target === modal) modal.remove(); });
+  modal.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { modal.remove(); return; }
+    if (e.key === 'Enter' && e.target && e.target.tagName === 'INPUT') { const sb = document.getElementById('authSubmitBtn'); if (sb && !sb.disabled) { e.preventDefault(); sb.click(); } }
+  });
   document.body.appendChild(modal);
   const firstInput = document.getElementById('su_name') || document.getElementById('su_email');
-  if (firstInput) firstInput.focus();
+  if (firstInput && !(window.matchMedia && matchMedia('(pointer:coarse)').matches)) firstInput.focus();
 }
 
 function showToast(msg, type) {
