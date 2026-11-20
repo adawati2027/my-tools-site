@@ -839,9 +839,13 @@ function shareResult() {
   const pct = Math.round((score / activeQuestions.length) * 100);
   let text = qResultText(score, activeQuestions.length, pct);
   if (challengeMode && challengeId) text += buildLeaderboardShareText();
+  const gid = encodeURIComponent(QUIZ_CONFIG.gameId || 'quiz');
+  const utm = 'utm_source=share&utm_medium=result&utm_campaign=' + gid;
   const url = (challengeMode && challengeId)
-    ? (location.origin + location.pathname + '?challenge=' + challengeId)
-    : (location.origin + location.pathname);
+    ? (location.origin + location.pathname + '?challenge=' + challengeId + '&' + utm)
+    : (location.origin + location.pathname + '?' + utm);
+  const appLine = (quizLang === 'en' ? '\n📱 Get the Adawati app: ' : '\n📱 حمّل تطبيق أدواتي: ') + 'https://play.google.com/store/apps/details?id=space.adawati.app&referrer=utm_source%3Dshare%26utm_medium%3Dresult%26utm_campaign%3D' + gid;
+  text += appLine;
 
   try {
     const canvas = buildResultShareCanvas();

@@ -296,7 +296,8 @@ function shareResult() {
   attempts.forEach(function(a) {
     text += a.result.map(function(r) { return emojiMap[r]; }).join('') + '\n';
   });
-  text += '\nجرّب أنت أيضاً: ' + location.href;
+  text += '\nجرّب أنت أيضاً: ' + location.origin + location.pathname + '?utm_source=share&utm_medium=result&utm_campaign=wordle';
+  text += '\n📱 حمّل تطبيق أدواتي: https://play.google.com/store/apps/details?id=space.adawati.app&referrer=utm_source%3Dshare%26utm_medium%3Dresult%26utm_campaign%3Dwordle';
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(function() { showMessage('📋 انسخت! الصقها بواتساب'); });
   }
