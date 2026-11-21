@@ -146,6 +146,7 @@ const countryTools = [
   `${BASE}/quran/`,
   `${BASE}/quran/mushaf/`,
   `${BASE}/quran/hadith/`,
+  `${BASE}/quran/nasiha/`,
   `${BASE}/quran/tajweed/`,
   `${BASE}/quran/tajweed/test/`,
   `${BASE}/jo/students/best-tools/`,
