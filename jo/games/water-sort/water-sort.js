@@ -135,13 +135,13 @@ function sndWin(){ [523, 659, 784, 1047].forEach(function(f, i){ tone(f, 0.25, '
 function sizeBoard(){
   var n = tubes.length, area = board.parentNode;
   var availW = Math.min(area.clientWidth || 360, 560) - 28, availH = (area.clientHeight || 560) - 30;
-  var best = null, per, gapX = 12, gapY = 30;
-  for (per = 3; per <= 8; per++){
-    var rows = Math.ceil(n / per);
+  var best = null, rows, gapX = 12, gapY = 30;
+  for (rows = 1; rows <= 4; rows++){
+    var per = Math.ceil(n / rows);
     var twW = (availW - gapX * (per - 1)) / per;
     var twH = ((availH - gapY * (rows - 1)) / rows - 24) / 3.7;
-    var tw = Math.min(twW, twH, 96);
-    if (!best || tw >= best.tw - 0.5) best = { tw: tw, per: per };
+    var tw = Math.min(twW, twH, 84);
+    if (!best || tw > best.tw + 0.5) best = { tw: tw, per: per };
   }
   board.style.setProperty('--tw', Math.max(26, Math.floor(best.tw)) + 'px');
   board.style.setProperty('--per', best.per);

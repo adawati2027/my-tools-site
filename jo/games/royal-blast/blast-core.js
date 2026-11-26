@@ -11,7 +11,7 @@
   }
 
   function params(L) {
-    var types = L < 8 ? 4 : 5;
+    var types = L < 10 ? 3 : (L < 25 ? 4 : 5);
     var rocks = L < 3 ? 0 : Math.min(12, 2 + Math.floor(L * 0.35));
     var hp2 = L < 12 ? 0 : Math.min(rocks, Math.floor((L - 12) / 5));
     var ncol = L < 14 ? 2 : 3;

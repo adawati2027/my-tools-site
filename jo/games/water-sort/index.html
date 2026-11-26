@@ -40,13 +40,13 @@
 #wsFs{border:none;border-radius:50%;width:40px;height:40px;background:#fff;color:#233057;font-size:19px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(40,60,120,.2);padding:0;font-family:inherit;}
 body:not(.ws-full) #wsFs{border-radius:12px;width:auto;height:auto;padding:8px 12px;font-size:13px;}
 .ws-area{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;min-height:0;padding:6px 12px;}
-.ws-board{--tw:60px;--per:5;display:grid;grid-template-columns:repeat(var(--per),var(--tw));gap:30px 12px;direction:ltr;justify-content:center;align-items:end;}
+.ws-board{--tw:60px;--per:5;display:flex;flex-wrap:wrap;gap:30px 12px;direction:ltr;justify-content:center;align-items:flex-end;width:calc(var(--per)*var(--tw) + (var(--per) - 1)*12px);max-width:100%;}
 .tube{position:relative;width:var(--tw);height:calc(var(--tw)*0.92*4 + 22px);cursor:pointer;transition:transform .36s cubic-bezier(.3,.8,.3,1),filter .2s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 .tube.sel{transform:translateY(-16px);filter:drop-shadow(0 10px 8px rgba(40,70,140,.28));}
 .glass{position:absolute;inset:0;border:3px solid rgba(110,135,190,.55);border-top:none;border-radius:0 0 calc(var(--tw)/2) calc(var(--tw)/2);background:linear-gradient(90deg,rgba(255,255,255,.75),rgba(255,255,255,.35) 40%,rgba(235,245,255,.5));box-shadow:inset 0 -6px 10px rgba(130,160,220,.25),0 6px 10px rgba(60,90,160,.14);overflow:hidden;}
 .tube::before{content:"";position:absolute;left:-4px;right:-4px;top:-5px;height:9px;border-radius:6px;background:linear-gradient(#ffffff,#dbe8fb);border:2px solid rgba(110,135,190,.55);z-index:3;}
 .liq{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column-reverse;}
-.seg{height:calc(var(--tw)*0.92);flex:none;background:linear-gradient(90deg,var(--cl) 0%,var(--c) 28%,var(--c) 62%,var(--cd) 100%);position:relative;transition:height .34s ease;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -1px 0 rgba(0,0,0,.12);}
+.seg{height:calc(var(--tw)*0.92);flex:none;background:radial-gradient(circle at 72% 28%,rgba(255,255,255,.4) 0 2.5px,transparent 3.5px),radial-gradient(circle at 40% 72%,rgba(255,255,255,.28) 0 2px,transparent 3px),radial-gradient(circle at 60% 55%,rgba(255,255,255,.22) 0 1.5px,transparent 2.5px),linear-gradient(90deg,var(--cl) 0%,var(--c) 28%,var(--c) 62%,var(--cd) 100%);position:relative;transition:height .34s ease;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -1px 0 rgba(0,0,0,.12);}
 .seg:first-child{border-radius:0 0 calc(var(--tw)/2 - 2px) calc(var(--tw)/2 - 2px);}
 .seg::after{content:"";position:absolute;left:12%;top:8%;width:18%;height:84%;border-radius:6px;background:rgba(255,255,255,.38);}
 .shine{position:absolute;left:14%;top:6px;width:11%;bottom:14px;border-radius:8px;background:linear-gradient(rgba(255,255,255,.85),rgba(255,255,255,.15));z-index:2;pointer-events:none;}
@@ -144,7 +144,7 @@ body.ws-full .ws-top{padding:calc(env(safe-area-inset-top) + 10px) 14px 4px;}
 </footer>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://adawati.space/jo/"},{"@type":"ListItem","position":2,"name":"الألعاب","item":"https://adawati.space/jo/games/"},{"@type":"ListItem","position":3,"name":"لعبة فرز السوائل","item":"https://adawati.space/jo/games/water-sort/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"هل لعبة فرز السوائل مجانية؟","acceptedAnswer":{"@type":"Answer","text":"نعم، مجانية بالكامل وتعمل في المتصفح بدون تحميل."}},{"@type":"Question","name":"هل يُحفظ تقدّمي في اللعبة؟","acceptedAnswer":{"@type":"Answer","text":"نعم، يُحفظ آخر مستوى وصلت إليه على جهازك."}}]},{"@type":"VideoGame","name":"لعبة فرز السوائل","inLanguage":"ar","genre":"Puzzle","url":"https://adawati.space/jo/games/water-sort/","isAccessibleForFree":true,"gamePlatform":"Web browser"}]}</script>
-<script src="jo/games/water-sort/water-sort.js?v=2"></script>
+<script src="jo/games/water-sort/water-sort.js?v=3"></script>
 <script src="i18n-lang-ar.js?v=4" defer></script>
 <script src="i18n.js?v=79" defer></script>
 </body></html>

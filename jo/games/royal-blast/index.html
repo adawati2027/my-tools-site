@@ -95,6 +95,16 @@ body.rb-full #rbStage{position:fixed;inset:0;z-index:9999;max-width:none;height:
 @keyframes flame{from{transform:scale(.8,.9)}to{transform:scale(1.1,1.05)}}
 .cloud{animation:cloudMove 24s linear infinite;}
 @keyframes cloudMove{from{transform:translateX(-60px)}to{transform:translateX(460px)}}
+.rb-frame.shk1{animation:rbShk1 .28s}
+.rb-frame.shk2{animation:rbShk2 .5s}
+@keyframes rbShk1{20%{transform:translate(-3px,2px)}40%{transform:translate(3px,-2px)}60%{transform:translate(-2px,1px)}80%{transform:translate(1px,-1px)}}
+@keyframes rbShk2{10%{transform:translate(-8px,5px) rotate(-.5deg)}25%{transform:translate(7px,-5px) rotate(.4deg)}40%{transform:translate(-6px,3px)}55%{transform:translate(5px,-3px)}70%{transform:translate(-3px,2px)}85%{transform:translate(2px,-1px)}}
+.rb-goal.pop{animation:rbPop .4s cubic-bezier(.3,1.6,.5,1)}
+.king.sad{filter:grayscale(.7)}
+.dragon .flame{transform-box:fill-box;transform-origin:100% 50%;}
+.eyes{transform-box:fill-box;transform-origin:50% 55%;animation:rbBlink 4.2s infinite}
+.dragon .eyes{animation-delay:-1.7s}
+@keyframes rbBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
 </style>
 </head>
 <body class="rb-full">
@@ -119,6 +129,14 @@ body.rb-full #rbStage{position:fixed;inset:0;z-index:9999;max-width:none;height:
 <linearGradient id="rbGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe680"/><stop offset="1" stop-color="#f0a000"/></linearGradient>
 <linearGradient id="rbGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#72ec86"/><stop offset="1" stop-color="#1c9a45"/></linearGradient>
 <radialGradient id="rbSun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fffbe0"/><stop offset=".5" stop-color="#ffec9a"/><stop offset="1" stop-color="#ffec9a" stop-opacity="0"/></radialGradient>
+<linearGradient id="rbSkin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe3c4"/><stop offset="1" stop-color="#f0ab7c"/></linearGradient>
+<linearGradient id="rbBeard" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f09a45"/><stop offset="1" stop-color="#b25a1c"/></linearGradient>
+<linearGradient id="rbCrownG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff0a0"/><stop offset=".5" stop-color="#ffc928"/><stop offset="1" stop-color="#d98a00"/></linearGradient>
+<linearGradient id="rbDrg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b6f075"/><stop offset=".55" stop-color="#5fc23a"/><stop offset="1" stop-color="#2f9027"/></linearGradient>
+<linearGradient id="rbBelly" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6cc"/><stop offset="1" stop-color="#ffd25e"/></linearGradient>
+<pattern id="rbScale" width="9" height="7" patternUnits="userSpaceOnUse"><path d="M0 5.5Q4.5 9 9 5.5M-4.5 2Q0 5.5 4.5 2M4.5 2Q9 5.5 13.5 2" fill="none" stroke="#1f6a1c" stroke-width="1" opacity=".38"/></pattern>
+<clipPath id="rbBodyClip"><ellipse cx="14" cy="-22" rx="50" ry="20.5"/></clipPath>
+<clipPath id="rbTun"><path d="M-17-52H17L20-16Q0-11-20-16Z"/></clipPath>
 </defs>
 <rect y="-14" width="400" height="164" fill="url(#rbSky)"/>
 <circle cx="330" cy="30" r="46" fill="url(#rbSun)"/>
@@ -137,44 +155,70 @@ body.rb-full #rbStage{position:fixed;inset:0;z-index:9999;max-width:none;height:
 <path d="M0 112h400v38H0z" fill="url(#rbWall)"/>
 <path d="M0 112h14v-8h14v8h14v-8h14v8h14v-8h14v8h14v-8h14v8h14v-8h14v8h14v-8h14v8h14v-8h14v8h14v-8h14v8h14v-8h14v8h14v-8h14v8h14v-8h14v8h14v-8h14v8h14v-8h14v8h14v-8h14v8h14v-8h14v8h14v-8h14v8H400V112z" fill="#c4bbee"/>
 <g stroke="#8f84c8" stroke-width="1.2" opacity=".6"><path d="M0 126h400M0 140h400M30 112v14M90 112v14M150 112v14M210 112v14M270 112v14M330 112v14M60 126v14M120 126v14M180 126v14M240 126v14M300 126v14M360 126v14"/></g>
-<g transform="translate(96 112)"><g id="rbKing" class="king">
-<path d="M-27-54Q-36-12-32 0H32Q36-12 27-54Z" fill="#a50d28"/>
-<path d="M-21-54Q-27-12-25 0H25Q27-12 21-54Q0-46-21-54Z" fill="url(#rbRobe)"/>
-<ellipse cx="0" cy="-52" rx="23" ry="7.5" fill="#fff"/><g fill="#2b2b3a"><circle cx="-12" cy="-52" r="1.3"/><circle cx="-3" cy="-50.5" r="1.3"/><circle cx="7" cy="-52" r="1.3"/><circle cx="15" cy="-50" r="1.3"/></g>
-<rect x="-24" y="-28" width="48" height="6" fill="url(#rbGold)" stroke="#b87a00" stroke-width=".8"/><rect x="-4" y="-29" width="8" height="8" rx="1.5" fill="#ffd84d" stroke="#b87a00" stroke-width=".8"/>
-<circle cx="-24" cy="-33" r="5.5" fill="#ffd3a8" stroke="#d99a6c" stroke-width=".8"/>
-<g class="arm"><path d="M24-48Q36-52 36-38" fill="none" stroke="#c8102e" stroke-width="9" stroke-linecap="round"/><circle cx="36" cy="-36" r="5.5" fill="#ffd3a8" stroke="#d99a6c" stroke-width=".8"/></g>
-<rect x="-12" y="-4" width="9" height="6" rx="3" fill="#6b3b1b"/><rect x="3" y="-4" width="9" height="6" rx="3" fill="#6b3b1b"/>
-<circle cx="0" cy="-74" r="19.5" fill="#ffd3a8" stroke="#d99a6c" stroke-width=".9"/>
-<path d="M-19-70Q-22-44 0-40Q22-44 19-70Q11-58 0-61Q-11-58-19-70Z" fill="#f6f6f8" stroke="#cfcfd8" stroke-width=".9"/>
-<g class="m-smile"><path d="M-6-57Q0-52 6-57" fill="none" stroke="#a5453a" stroke-width="2" stroke-linecap="round"/></g>
-<g class="m-open"><ellipse cx="0" cy="-55" rx="5" ry="4.5" fill="#7a1f2a"/><ellipse cx="0" cy="-53" rx="3" ry="1.8" fill="#ff7b88"/></g>
-<g class="m-sad"><path d="M-6-53Q0-58 6-53" fill="none" stroke="#a5453a" stroke-width="2" stroke-linecap="round"/></g>
-<ellipse cx="-6" cy="-63" rx="6" ry="3.2" fill="#fff" stroke="#d6d6de" stroke-width=".7"/><ellipse cx="6" cy="-63" rx="6" ry="3.2" fill="#fff" stroke="#d6d6de" stroke-width=".7"/>
-<circle cx="0" cy="-68" r="3.4" fill="#f2a97e"/>
-<circle cx="-7.5" cy="-76" r="2.5" fill="#2a1f3a"/><circle cx="7.5" cy="-76" r="2.5" fill="#2a1f3a"/><circle cx="-6.6" cy="-77" r=".9" fill="#fff"/><circle cx="8.4" cy="-77" r=".9" fill="#fff"/>
-<path d="M-12-82Q-7-85-3-82M3-82Q7-85 12-82" fill="none" stroke="#f0f0f4" stroke-width="2" stroke-linecap="round"/>
-<circle cx="-13" cy="-68" r="3.2" fill="#ff9aa5" opacity=".6"/><circle cx="13" cy="-68" r="3.2" fill="#ff9aa5" opacity=".6"/>
-<path d="M-18-88L-19-106L-9-97L0-110L9-97L19-106L18-88Z" fill="url(#rbGold)" stroke="#b87a00" stroke-width="1.2" stroke-linejoin="round"/>
-<rect x="-18" y="-91" width="36" height="5" rx="1.5" fill="#ffc83d" stroke="#b87a00" stroke-width="1"/>
-<circle cx="0" cy="-95" r="2.8" fill="#ff3b5c" stroke="#8f0b1f" stroke-width=".6"/><circle cx="-11" cy="-93" r="2.2" fill="#3f8cff" stroke="#12449a" stroke-width=".6"/><circle cx="11" cy="-93" r="2.2" fill="#3f8cff" stroke="#12449a" stroke-width=".6"/>
-<circle cx="-19" cy="-106" r="2" fill="#fff4b0"/><circle cx="0" cy="-110" r="2" fill="#fff4b0"/><circle cx="19" cy="-106" r="2" fill="#fff4b0"/>
+<g transform="translate(96 114)"><g id="rbKing" class="king">
+<ellipse cx="0" cy="1" rx="28" ry="4.5" fill="#000" opacity=".2"/>
+<path d="M-22-52C-36-36-36-20-31-11H31C36-20 36-36 22-52Z" fill="#9c0b25" stroke="#5e0415" stroke-width="1.4" stroke-linejoin="round"/>
+<rect x="-14" y="-17" width="11" height="13" rx="3" fill="#3159d6" stroke="#1b3590" stroke-width="1.2"/>
+<rect x="3" y="-17" width="11" height="13" rx="3" fill="#3159d6" stroke="#1b3590" stroke-width="1.2"/>
+<ellipse cx="-9" cy="-3.5" rx="9.5" ry="4.4" fill="#8a5428" stroke="#4a2a10" stroke-width="1.2"/>
+<ellipse cx="9" cy="-3.5" rx="9.5" ry="4.4" fill="#8a5428" stroke="#4a2a10" stroke-width="1.2"/>
+<g clip-path="url(#rbTun)"><rect x="-22" y="-54" width="44" height="44" fill="#fff"/><g fill="#e32744"><rect x="-17" y="-54" width="5" height="44"/><rect x="-7" y="-54" width="5" height="44"/><rect x="3" y="-54" width="5" height="44"/><rect x="13" y="-54" width="5" height="44"/></g></g>
+<path d="M-17-52H17L20-16Q0-11-20-16Z" fill="none" stroke="#8f0b1f" stroke-width="1.3" stroke-linejoin="round"/>
+<rect x="-19.5" y="-31" width="39" height="6" rx="2" fill="url(#rbCrownG)" stroke="#a35f00" stroke-width="1"/>
+<rect x="-4.5" y="-32" width="9" height="8" rx="1.6" fill="#ffd84d" stroke="#a35f00" stroke-width="1"/><circle cx="0" cy="-28" r="1.8" fill="#e32744"/>
+<path d="M-22-52C-30-40-32-26-30-14" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".92"/>
+<path d="M22-52C30-40 32-26 30-14" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".92"/>
+<g fill="#1d1d2b"><circle cx="-29.5" cy="-40" r="1"/><circle cx="-30.5" cy="-28" r="1"/><circle cx="29.5" cy="-40" r="1"/><circle cx="30.5" cy="-28" r="1"/></g>
+<path d="M17-47Q25-40 25-30" fill="none" stroke="#d51b38" stroke-width="9" stroke-linecap="round"/><circle cx="25" cy="-26" r="4.6" fill="#f6b88c" stroke="#a8643a" stroke-width="1"/>
+<g class="arm"><path d="M-17-47L-29-62" stroke="#d51b38" stroke-width="9.5" stroke-linecap="round" fill="none"/><path d="M-27-60L-30-64" stroke="#fff" stroke-width="10" stroke-linecap="round" opacity=".95"/><circle cx="-31" cy="-68" r="5.2" fill="#f6b88c" stroke="#a8643a" stroke-width="1"/></g>
+<ellipse cx="0" cy="-52" rx="21" ry="6.2" fill="#fff" stroke="#b9b3d6" stroke-width="1"/>
+<g fill="#1d1d2b"><ellipse cx="-12" cy="-50.5" rx="1.1" ry="2"/><ellipse cx="-4" cy="-48.5" rx="1.1" ry="2"/><ellipse cx="5" cy="-48.5" rx="1.1" ry="2"/><ellipse cx="13" cy="-50.5" rx="1.1" ry="2"/></g>
+<circle cx="-16" cy="-66" r="3.6" fill="#f6b88c" stroke="#a8643a" stroke-width="1"/><circle cx="16" cy="-66" r="3.6" fill="#f6b88c" stroke="#a8643a" stroke-width="1"/>
+<circle cx="0" cy="-66" r="16" fill="url(#rbSkin)" stroke="#a8643a" stroke-width="1.3"/>
+<path d="M-16-67C-18-52-9-41 0-40C9-41 18-52 16-67C12-59 7-57 0-57C-7-57-12-59-16-67Z" fill="url(#rbBeard)" stroke="#8a420f" stroke-width="1.2" stroke-linejoin="round"/>
+<ellipse cx="-5.6" cy="-59.5" rx="6.6" ry="3.6" transform="rotate(14 -5.6 -59.5)" fill="#f2a050" stroke="#8a420f" stroke-width="1"/>
+<ellipse cx="5.6" cy="-59.5" rx="6.6" ry="3.6" transform="rotate(-14 5.6 -59.5)" fill="#f2a050" stroke="#8a420f" stroke-width="1"/>
+<g class="m-smile"><path d="M-5-54Q0-48.5 5-54Q0-52.2-5-54Z" fill="#6e0e1c"/></g>
+<g class="m-open"><ellipse cx="0" cy="-52.2" rx="4.8" ry="4.2" fill="#6e0e1c"/><ellipse cx="0" cy="-50.6" rx="2.8" ry="1.7" fill="#ff6b7d"/></g>
+<g class="m-sad"><path d="M-5-50.5Q0-55 5-50.5" fill="none" stroke="#5a0f1a" stroke-width="1.8" stroke-linecap="round"/></g>
+<ellipse cx="0" cy="-63.2" rx="4.4" ry="3.6" fill="#f3a07a" stroke="#c9704a" stroke-width=".7"/><ellipse cx="-1.2" cy="-64.4" rx="1.4" ry=".9" fill="#fff" opacity=".7"/>
+<circle cx="-11" cy="-62.5" r="2.8" fill="#ff7a8a" opacity=".45"/><circle cx="11" cy="-62.5" r="2.8" fill="#ff7a8a" opacity=".45"/>
+<g class="eyes"><ellipse cx="-6.4" cy="-70" rx="4" ry="4.7" fill="#fff" stroke="#8a5a3a" stroke-width=".7"/><ellipse cx="6.4" cy="-70" rx="4" ry="4.7" fill="#fff" stroke="#8a5a3a" stroke-width=".7"/><circle cx="-6.2" cy="-69.6" r="2.5" fill="#3a2418"/><circle cx="6.6" cy="-69.6" r="2.5" fill="#3a2418"/><circle cx="-6.2" cy="-69.6" r="1.2" fill="#0e0705"/><circle cx="6.6" cy="-69.6" r="1.2" fill="#0e0705"/><circle cx="-5.3" cy="-70.8" r=".95" fill="#fff"/><circle cx="7.5" cy="-70.8" r=".95" fill="#fff"/></g>
+<path d="M-10.8-75.4Q-6.6-78.2-2.4-76M10.8-75.4Q6.6-78.2 2.4-76" fill="none" stroke="#8a420f" stroke-width="2" stroke-linecap="round"/>
+<path d="M-12-78L-14-93L-7-86L0-96L7-86L14-93L12-78Q0-75-12-78Z" fill="url(#rbCrownG)" stroke="#a35f00" stroke-width="1.3" stroke-linejoin="round"/>
+<path d="M-12.4-79.6Q0-76.4 12.4-79.6L12-76.4Q0-73.2-12-76.4Z" fill="#d51b38" stroke="#8f0b1f" stroke-width="1"/>
+<circle cx="-14" cy="-93.6" r="2.3" fill="#ff4a60" stroke="#a35f00" stroke-width=".8"/><circle cx="0" cy="-97" r="2.5" fill="#6ec5ff" stroke="#a35f00" stroke-width=".8"/><circle cx="14" cy="-93.6" r="2.3" fill="#ff4a60" stroke="#a35f00" stroke-width=".8"/>
+<circle cx="0" cy="-80.6" r="2" fill="#fff" opacity=".9"/>
 </g></g>
-<g transform="translate(330 114)"><g id="rbDragon" class="dragon">
-<path d="M18-38Q58-70 72-30Q58-48 36-34Z" fill="#17803a"/><path d="M22-38Q54-64 66-34" fill="none" stroke="#ffb347" stroke-width="3" opacity=".8"/>
-<path d="M-14 6Q-26-30-10-58L24-58Q34-30 30 6Z" fill="url(#rbGreen)"/>
-<path d="M-4 6Q-8-30 0-54L14-54Q18-30 16 6Z" fill="#c8f7a2" opacity=".85"/>
-<g fill="#17803a"><path d="M26-52l9-6 0 11z"/><path d="M28-38l10-4-2 11z"/><path d="M27-24l10-2-4 10z"/></g>
-<ellipse cx="4" cy="-70" rx="30" ry="24" fill="url(#rbGreen)" stroke="#146b30" stroke-width="1.2"/>
-<ellipse cx="-26" cy="-64" rx="19" ry="13" fill="url(#rbGreen)" stroke="#146b30" stroke-width="1.2"/>
-<ellipse cx="-34" cy="-70" rx="3" ry="2.2" fill="#0d4a20"/>
-<path d="M-40-58Q-26-52-12-58" fill="none" stroke="#0d4a20" stroke-width="2" stroke-linecap="round"/>
-<path d="M-36-57l3 5 3-4zM-28-55l3 5 3-4zM-20-55l3 4 3-4z" fill="#fff"/>
-<path d="M-6-90L-12-112L4-94Z" fill="#ffe08a" stroke="#c28a00" stroke-width="1"/><path d="M12-92L16-114L22-90Z" fill="#ffe08a" stroke="#c28a00" stroke-width="1"/>
-<circle cx="-8" cy="-76" r="8" fill="#fff" stroke="#146b30" stroke-width="1"/><ellipse cx="-9" cy="-76" rx="2.6" ry="6" fill="#1b1030"/><circle cx="-10.5" cy="-79" r="1.4" fill="#fff"/>
-<path d="M-17-86Q-8-92 0-86" fill="none" stroke="#146b30" stroke-width="2.4" stroke-linecap="round"/>
-<ellipse cx="14" cy="-62" rx="6" ry="3.5" fill="#ff9aa5" opacity=".55"/>
-<g class="flame"><path d="M-44-64Q-62-76-84-62Q-70-60-88-52Q-66-44-44-52Q-48-58-44-64Z" fill="#ff7a1a"/><path d="M-46-61Q-60-68-74-61Q-64-58-76-54Q-60-50-46-55Z" fill="#ffd23a"/></g>
+<g transform="translate(304 116)"><g id="rbDragon" class="dragon">
+<ellipse cx="14" cy="1" rx="58" ry="4.5" fill="#000" opacity=".2"/>
+<path d="M52-14C70-12 82-24 78-38C76-44 69-43 71-37" fill="none" stroke="#256f1f" stroke-width="13" stroke-linecap="round"/>
+<path d="M52-14C70-12 82-24 78-38C76-44 69-43 71-37" fill="none" stroke="url(#rbDrg)" stroke-width="10" stroke-linecap="round"/>
+<path d="M66-42L74-56L80-42Z" fill="#ffb02e" stroke="#c77700" stroke-width="1.2" stroke-linejoin="round"/>
+<path d="M28-40C32-62 50-80 66-86C62-76 64-68 58-60C56-64 50-62 48-56C46-54 40-52 36-46Z" fill="#ff9d3a" stroke="#a85200" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M66-86L58-60M66-86L48-56" stroke="#a85200" stroke-width="1" fill="none" opacity=".6"/>
+<ellipse cx="-8" cy="-3.5" rx="10" ry="5.2" fill="#56b837" stroke="#256f1f" stroke-width="1.4"/><ellipse cx="34" cy="-3.5" rx="10" ry="5.2" fill="#56b837" stroke="#256f1f" stroke-width="1.4"/>
+<ellipse cx="14" cy="-22" rx="52" ry="22.5" fill="#256f1f"/>
+<ellipse cx="14" cy="-22" rx="50" ry="20.5" fill="url(#rbDrg)"/>
+<g clip-path="url(#rbBodyClip)"><ellipse cx="14" cy="-5" rx="46" ry="12" fill="url(#rbBelly)"/><path d="M-30-12Q14-8 58-12M-26-7Q14-3 54-7M-20-2Q14 1 48-2" fill="none" stroke="#c99a30" stroke-width="1" opacity=".6"/><ellipse cx="14" cy="-22" rx="50" ry="20.5" fill="url(#rbScale)"/><ellipse cx="2" cy="-36" rx="30" ry="5" fill="#fff" opacity=".22"/></g>
+<g fill="#ffb02e" stroke="#c77700" stroke-width="1.1" stroke-linejoin="round"><path d="M20-42L26-53L32-41Z"/><path d="M36-38L43-48L47-35Z"/><path d="M-2-46L2-56L8-46Z" transform="rotate(10 2 -46)"/><path d="M5-37L11-46L16-37Z" transform="rotate(14 8 -37)"/></g>
+<path d="M-4-32C-12-46-14-56-24-62" fill="none" stroke="#256f1f" stroke-width="25" stroke-linecap="round"/>
+<path d="M-4-32C-12-46-14-56-24-62" fill="none" stroke="url(#rbDrg)" stroke-width="22" stroke-linecap="round"/>
+<path d="M-4-32C-12-46-14-56-24-62" fill="none" stroke="url(#rbScale)" stroke-width="22" stroke-linecap="round"/>
+<path d="M-12-30C-20-42-24-52-33-56" fill="none" stroke="url(#rbBelly)" stroke-width="7" stroke-linecap="round" opacity=".9"/>
+<path d="M-24-82C-20-94-12-96-8-93C-14-89-16-85-18-79Z" fill="#fff0c4" stroke="#b88a2a" stroke-width="1.2" stroke-linejoin="round"/>
+<path d="M-33-82C-35-91-31-95-27-93C-29-89-29-86-28-81Z" fill="#fff0c4" stroke="#b88a2a" stroke-width="1.2" stroke-linejoin="round"/>
+<ellipse cx="-30" cy="-68" rx="19.5" ry="15.5" fill="url(#rbDrg)" stroke="#256f1f" stroke-width="1.6"/>
+<ellipse cx="-47" cy="-64" rx="14.5" ry="10" fill="url(#rbDrg)" stroke="#256f1f" stroke-width="1.6"/>
+<path d="M-61-61Q-47-52-36-60Q-40-55-48-54Q-56-54-61-61Z" fill="#7a1a24" stroke="#256f1f" stroke-width="1.4" stroke-linejoin="round"/>
+<ellipse cx="-47" cy="-56.5" rx="9" ry="2.6" fill="#ff7b8e"/>
+<path d="M-57-60L-55-56.5L-53-60M-50-59L-48-55.5L-46-59M-43-59.5L-41.5-56.5L-40-60" fill="#fff" stroke="#b9b3a0" stroke-width=".6"/>
+<path d="M-62-63Q-47-57-36-62" fill="none" stroke="#256f1f" stroke-width="1.6" stroke-linecap="round"/>
+<ellipse cx="-57" cy="-70" rx="2.4" ry="1.7" fill="#17481a"/><ellipse cx="-47" cy="-72" rx="9" ry="2.6" fill="#fff" opacity=".28"/>
+<circle cx="-30" cy="-60" r="3.2" fill="#ff8a8a" opacity=".4"/>
+<g class="eyes"><ellipse cx="-34" cy="-74" rx="7.2" ry="8.2" fill="#fff" stroke="#256f1f" stroke-width="1.3"/><circle cx="-35.4" cy="-73.4" r="5.2" fill="#ffb81a" stroke="#c97a00" stroke-width=".8"/><ellipse cx="-35.6" cy="-73.4" rx="2.1" ry="4.3" fill="#1a1208"/><circle cx="-37.4" cy="-76.2" r="1.7" fill="#fff"/><circle cx="-33.4" cy="-71" r=".8" fill="#fff"/></g>
+<path d="M-42-83Q-34-87-27-80" fill="none" stroke="#256f1f" stroke-width="3.2" stroke-linecap="round"/>
+<g class="flame"><path d="M-60-62C-72-76-86-72-100-62C-86-56-72-50-60-59Z" fill="#ff6a12"/><path d="M-62-62C-72-71-84-68-94-62C-84-57-72-54-62-60Z" fill="#ffb81f"/><path d="M-64-61C-72-66-80-65-86-62C-80-59-72-58-64-60Z" fill="#fff4a8"/><path d="M-66-72C-72-84-80-84-86-78C-80-76-74-74-66-72Z" fill="#ff8a1f"/></g>
 </g></g>
 <path d="M0 138h400v12H0z" fill="#8f84c8" opacity=".25"/>
 </svg>
@@ -239,8 +283,8 @@ body.rb-full #rbStage{position:fixed;inset:0;z-index:9999;max-width:none;height:
 </footer>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://adawati.space/jo/"},{"@type":"ListItem","position":2,"name":"الألعاب","item":"https://adawati.space/jo/games/"},{"@type":"ListItem","position":3,"name":"لعبة الملك والجواهر","item":"https://adawati.space/jo/games/royal-blast/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"هل لعبة الملك والجواهر مجانية؟","acceptedAnswer":{"@type":"Answer","text":"نعم، مجانية بالكامل وتعمل في المتصفح بدون تحميل."}},{"@type":"Question","name":"كيف أصنع قنبلة في اللعبة؟","acceptedAnswer":{"@type":"Answer","text":"فجّر مجموعة من 5 قطع متطابقة أو أكثر فتتحول القطعة التي ضغطت عليها إلى قنبلة. وإذا كانت المجموعة 7 قطع أو أكثر تصبح صاروخاً."}}]},{"@type":"VideoGame","name":"لعبة الملك والجواهر","inLanguage":"ar","genre":"Puzzle","url":"https://adawati.space/jo/games/royal-blast/","isAccessibleForFree":true,"gamePlatform":"Web browser"}]}</script>
-<script src="jo/games/royal-blast/blast-core.js?v=1"></script>
-<script src="jo/games/royal-blast/royal-blast.js?v=1"></script>
+<script src="jo/games/royal-blast/blast-core.js?v=2"></script>
+<script src="jo/games/royal-blast/royal-blast.js?v=3"></script>
 <script src="i18n-lang-ar.js?v=4" defer></script>
 <script src="i18n.js?v=79" defer></script>
 </body></html>
