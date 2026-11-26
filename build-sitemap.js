@@ -131,6 +131,7 @@ const countryTools = [
   `${BASE}/jo/games/marble-sort/`,
   `${BASE}/jo/games/water-sort/`,
   `${BASE}/jo/games/royal-blast/`,
+  `${BASE}/app/`,
   `${BASE}/jo/gold-price/`,
   `${BASE}/jo/students/scholarships-loans/`,
   `${BASE}/jo/students/masters-guide/`,
