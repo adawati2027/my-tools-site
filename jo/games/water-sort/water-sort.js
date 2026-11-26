@@ -140,7 +140,7 @@ function sizeBoard(){
     var rows = Math.ceil(n / per);
     var twW = (availW - gapX * (per - 1)) / per;
     var twH = ((availH - gapY * (rows - 1)) / rows - 24) / 3.7;
-    var tw = Math.min(twW, twH, 74);
+    var tw = Math.min(twW, twH, 96);
     if (!best || tw >= best.tw - 0.5) best = { tw: tw, per: per };
   }
   board.style.setProperty('--tw', Math.max(26, Math.floor(best.tw)) + 'px');
