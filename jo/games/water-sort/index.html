@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link rel="preload" as="font" type="font/woff2" href="../../../fonts/cairo-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../../../fonts/cairo-arabic.woff2" crossorigin>
+<base href="https://adawati.space/">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-97DQT5FHPF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-97DQT5FHPF');</script>
+<script>try{(window.adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=(localStorage.getItem("adawati_ad_consent")==="personalized")?0:1;}catch(e){}</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3337905412116301" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2563eb">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>لعبة فرز السوائل الملوّنة — رتّب الألوان في الأنابيب | Adawati</title>
+<meta name="description" content="لعبة ألغاز مجانية: اسكب السوائل الملوّنة بين الأنابيب حتى يمتلئ كل أنبوب بلون واحد. مئات المستويات المتصاعدة في الصعوبة، بألوان ساطعة وتحكم باللمس.">
+<meta name="keywords" content="لعبة فرز السوائل, لعبة ترتيب الألوان, Water Sort Puzzle, لعبة ألغاز, ألعاب جوال مجانية">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://adawati.space/jo/games/water-sort/">
+<link rel="alternate" hreflang="x-default" href="https://adawati.space/">
+<link rel="alternate" hreflang="ar" href="https://adawati.space/jo/games/water-sort/">
+<link rel="alternate" hreflang="ar-JO" href="https://adawati.space/jo/games/water-sort/">
+<meta property="og:title" content="لعبة فرز السوائل الملوّنة | Adawati">
+<meta property="og:description" content="اسكب الألوان بين الأنابيب حتى يصير كل أنبوب بلون واحد. لعبة ألغاز مجانية بمستويات لا تنتهي.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adawati.space/jo/games/water-sort/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="لعبة فرز السوائل الملوّنة | Adawati">
+<link rel="stylesheet" href="../../../style.css?v=5">
+<style>
+#wsStage{position:relative;max-width:560px;margin:0 auto;border-radius:22px;overflow:hidden;background:radial-gradient(circle at 20% 12%,#ffffff 0,rgba(255,255,255,0) 40%),radial-gradient(circle at 85% 85%,#ffe1f0 0,rgba(255,225,240,0) 45%),linear-gradient(165deg,#b9e6ff 0%,#d9f1ff 35%,#fff0f7 70%,#fff4c9 100%);box-shadow:0 10px 30px rgba(60,90,160,.18);user-select:none;-webkit-user-select:none;display:flex;flex-direction:column;height:min(78vh,640px);direction:rtl;}
+#wsStage::before,#wsStage::after{content:"";position:absolute;border-radius:50%;pointer-events:none;}
+#wsStage::before{width:260px;height:260px;right:-90px;top:-80px;background:radial-gradient(circle,rgba(255,255,255,.95),rgba(255,255,255,0) 70%);}
+#wsStage::after{width:300px;height:300px;left:-110px;bottom:-110px;background:radial-gradient(circle,rgba(190,225,255,.7),rgba(190,225,255,0) 70%);}
+.ws-top{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px 4px;}
+.ws-level{font-size:20px;font-weight:800;color:#1f2d5c;background:rgba(255,255,255,.85);padding:6px 18px;border-radius:999px;box-shadow:0 3px 10px rgba(40,70,140,.18);}
+.ws-moves{font-size:13px;font-weight:700;color:#5b6a94;min-width:84px;text-align:left;}
+#wsFs{border:none;border-radius:50%;width:40px;height:40px;background:#fff;color:#233057;font-size:19px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(40,60,120,.2);padding:0;font-family:inherit;}
+body:not(.ws-full) #wsFs{border-radius:12px;width:auto;height:auto;padding:8px 12px;font-size:13px;}
+.ws-area{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;min-height:0;padding:6px 12px;}
+.ws-board{--tw:60px;--per:5;display:grid;grid-template-columns:repeat(var(--per),var(--tw));gap:30px 12px;direction:ltr;justify-content:center;align-items:end;}
+.tube{position:relative;width:var(--tw);height:calc(var(--tw)*0.92*4 + 22px);cursor:pointer;transition:transform .36s cubic-bezier(.3,.8,.3,1),filter .2s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+.tube.sel{transform:translateY(-16px);filter:drop-shadow(0 10px 8px rgba(40,70,140,.28));}
+.glass{position:absolute;inset:0;border:3px solid rgba(110,135,190,.55);border-top:none;border-radius:0 0 calc(var(--tw)/2) calc(var(--tw)/2);background:linear-gradient(90deg,rgba(255,255,255,.75),rgba(255,255,255,.35) 40%,rgba(235,245,255,.5));box-shadow:inset 0 -6px 10px rgba(130,160,220,.25),0 6px 10px rgba(60,90,160,.14);overflow:hidden;}
+.tube::before{content:"";position:absolute;left:-4px;right:-4px;top:-5px;height:9px;border-radius:6px;background:linear-gradient(#ffffff,#dbe8fb);border:2px solid rgba(110,135,190,.55);z-index:3;}
+.liq{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column-reverse;}
+.seg{height:calc(var(--tw)*0.92);flex:none;background:linear-gradient(90deg,var(--cl) 0%,var(--c) 28%,var(--c) 62%,var(--cd) 100%);position:relative;transition:height .34s ease;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -1px 0 rgba(0,0,0,.12);}
+.seg:first-child{border-radius:0 0 calc(var(--tw)/2 - 2px) calc(var(--tw)/2 - 2px);}
+.seg::after{content:"";position:absolute;left:12%;top:8%;width:18%;height:84%;border-radius:6px;background:rgba(255,255,255,.38);}
+.shine{position:absolute;left:14%;top:6px;width:11%;bottom:14px;border-radius:8px;background:linear-gradient(rgba(255,255,255,.85),rgba(255,255,255,.15));z-index:2;pointer-events:none;}
+.tube.done .glass{border-color:#ffc400;box-shadow:inset 0 -6px 10px rgba(255,200,0,.28),0 0 0 2px rgba(255,214,10,.45),0 0 16px rgba(255,200,0,.6);}
+.tube.done::before{border-color:#ffc400;background:linear-gradient(#fff6c8,#ffd84d);}
+.stream{position:absolute;width:6px;border-radius:3px;z-index:30;pointer-events:none;transform-origin:top;animation:wsStream .42s ease-out;opacity:.95;box-shadow:inset 1px 0 0 rgba(255,255,255,.5);}
+@keyframes wsStream{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.ws-bar{position:relative;z-index:2;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:8px 12px 14px;}
+.ws-btn{padding:10px 16px;border:none;border-radius:14px;background:#fff;color:#233057;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 3px 0 #cfd8ee,0 6px 12px rgba(40,60,120,.14);touch-action:manipulation;}
+.ws-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #cfd8ee;}
+.ws-btn:disabled{opacity:.45;cursor:default;}
+.ws-btn.primary{background:linear-gradient(#34d27b,#12b45d);color:#fff;box-shadow:0 3px 0 #0b8a44,0 6px 12px rgba(18,180,93,.35);}
+.ws-icon{padding:10px 14px;}
+.ws-overlay{position:absolute;inset:0;z-index:40;background:rgba(255,255,255,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:20px;}
+.ws-overlay[hidden]{display:none;}
+.ws-card{position:relative;z-index:2;background:#fff;border-radius:24px;padding:22px 26px;text-align:center;box-shadow:0 14px 40px rgba(40,60,120,.28);animation:wsPop .4s cubic-bezier(.3,1.4,.5,1);max-width:300px;}
+@keyframes wsPop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.ws-stars{font-size:30px;letter-spacing:4px;margin-bottom:4px;}
+.ws-card h2{font-size:21px;margin:0 0 6px;color:#233057;}
+.ws-card p{font-size:14px;color:#5b6a94;margin:0 0 14px;}
+.ws-confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.ws-confetti i{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;animation:wsFall linear forwards;}
+@keyframes wsFall{to{transform:translateY(700px) rotate(540deg);opacity:.9}}
+body.ws-full{overflow:hidden;}
+body.ws-full #wsStage{position:fixed;inset:0;z-index:9999;max-width:none;height:auto;border-radius:0;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);}
+body.ws-full .ws-top{padding:calc(env(safe-area-inset-top) + 10px) 14px 4px;}
+.tube::after{content:"";position:absolute;left:8%;right:8%;bottom:-10px;height:12px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(30,50,110,.32),rgba(30,50,110,0) 70%);z-index:-1;}
+.seg:last-child::before{content:"";position:absolute;left:7%;right:7%;top:3px;height:8px;border-radius:50%;background:linear-gradient(var(--cl),var(--c));opacity:.95;box-shadow:0 1px 0 rgba(255,255,255,.5) inset;}
+.tube.done{animation:wsPulse .6s ease;}
+@keyframes wsPulse{0%{transform:scale(1)}40%{transform:scale(1.12) translateY(-4px)}100%{transform:scale(1)}}
+.tube.sel .glass{border-color:#2d6bff;box-shadow:inset 0 -6px 10px rgba(130,160,220,.25),0 0 0 3px rgba(45,107,255,.28),0 0 18px rgba(45,107,255,.55);}
+</style>
+</head>
+<body class="ws-full">
+<nav class="navbar"><div class="nav-container">
+  <a href="jo/" class="nav-brand">Adawati 🇯🇴</a>
+  <div class="nav-links"><a href="jo/">أدوات الأردن</a><a href="/">عالمي</a></div>
+</div></nav>
+
+<main><div class="tool-page">
+  <div class="page-header"><a href="jo/games/">← العودة للألعاب</a></div>
+  <h1 style="text-align:center;font-size:24px;margin:6px 0 12px;">🧪 لعبة فرز السوائل</h1>
+  <p style="text-align:center;font-size:14px;color:var(--text-muted);max-width:440px;margin:0 auto 12px;line-height:1.7;">اضغط على أنبوب ثم اضغط على أنبوب آخر لتسكب اللون العلوي فيه. اجمع كل لون في أنبوب واحد.</p>
+
+  <div id="wsStage">
+    <div class="ws-top">
+      <button id="wsFs" type="button" aria-label="ملء الشاشة">✕</button>
+      <span class="ws-level" id="wsLevel">المستوى 1</span>
+      <span class="ws-moves" id="wsMoves"></span>
+    </div>
+    <div class="ws-area"><div id="wsBoard" class="ws-board"></div></div>
+    <div class="ws-bar">
+      <button class="ws-btn" id="wsUndo" type="button">↩ تراجع</button>
+      <button class="ws-btn" id="wsRestart" type="button">↻ إعادة</button>
+      <button class="ws-btn" id="wsAdd" type="button">➕ أنبوب</button>
+      <button class="ws-btn ws-icon" id="wsMute" type="button" aria-label="الصوت">🔊</button>
+    </div>
+    <div class="ws-overlay" id="wsOverlay" hidden>
+      <div class="ws-confetti" id="wsConfetti"></div>
+      <div class="ws-card">
+        <div class="ws-stars">⭐⭐⭐</div>
+        <h2 id="wsOvTitle"></h2>
+        <p id="wsOvText"></p>
+        <button class="ws-btn primary" id="wsRetry" type="button">المستوى التالي ←</button>
+      </div>
+    </div>
+  </div>
+
+<!--seo-about-->
+  <div class="card" style="margin-top:20px;">
+    <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">🎮 كيف تلعب</h2>
+    <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;">
+      <li>اضغط على أنبوب لتختاره، ثم اضغط على الأنبوب الذي تريد السكب فيه.</li>
+      <li>يمكنك السكب فوق لون مطابق، أو في أنبوب فارغ، بشرط أن يكون فيه مكان.</li>
+      <li>يُسكب اللون العلوي كله معاً إذا كان المكان يكفي.</li>
+      <li>تفوز عندما يصبح كل أنبوب ممتلئاً بلون واحد.</li>
+    </ul>
+    <h3 style="font-size:15px;margin-top:12px;">💡 نصائح</h3>
+    <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;">
+      <li>حاول أولاً تفريغ أنبوب كامل حتى تستفيد منه كمساحة للحركة.</li>
+      <li>لا تملأ الأنبوب الفارغ بلون واحد إلا إذا كان ذلك يساعدك فعلاً.</li>
+      <li>زر «تراجع» مجاني، وزر «أنبوب» يضيف أنبوباً فارغاً مرة واحدة في المستوى.</li>
+    </ul>
+    <h3 style="font-size:15px;margin-top:12px;">❓ أسئلة شائعة</h3>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;"><b>هل اللعبة مجانية؟</b> نعم، مجانية بالكامل وتعمل في المتصفح بدون تحميل.<br><b>هل يُحفظ تقدّمي؟</b> نعم، يُحفظ آخر مستوى وصلت إليه على جهازك.</p>
+  </div>
+<!--/seo-about-->
+</div></main>
+
+<footer class="footer" style="padding:28px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div class="footer-links"><a href="about.html">من نحن</a><a href="contact.html">تواصل</a><a href="jo/">أدوات الأردن</a></div>
+    <div class="footer-copy-simple">© 2026 أدواتي</div>
+  </div>
+</footer>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://adawati.space/jo/"},{"@type":"ListItem","position":2,"name":"الألعاب","item":"https://adawati.space/jo/games/"},{"@type":"ListItem","position":3,"name":"لعبة فرز السوائل","item":"https://adawati.space/jo/games/water-sort/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"هل لعبة فرز السوائل مجانية؟","acceptedAnswer":{"@type":"Answer","text":"نعم، مجانية بالكامل وتعمل في المتصفح بدون تحميل."}},{"@type":"Question","name":"هل يُحفظ تقدّمي في اللعبة؟","acceptedAnswer":{"@type":"Answer","text":"نعم، يُحفظ آخر مستوى وصلت إليه على جهازك."}}]},{"@type":"VideoGame","name":"لعبة فرز السوائل","inLanguage":"ar","genre":"Puzzle","url":"https://adawati.space/jo/games/water-sort/","isAccessibleForFree":true,"gamePlatform":"Web browser"}]}</script>
+<script src="jo/games/water-sort/water-sort.js?v=1"></script>
+<script src="i18n-lang-ar.js?v=4" defer></script>
+<script src="i18n.js?v=79" defer></script>
+</body></html>
