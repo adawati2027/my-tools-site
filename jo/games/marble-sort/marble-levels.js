@@ -24,7 +24,7 @@ function params(L){
     colors: Math.min(6, 2 + Math.floor((L - 1) / 2)),
     pipes: L <= 2 ? 2 : (L <= 6 ? 3 : 4),
     cols: L <= 2 ? 3 : 4,
-    tpc: L <= 2 ? 2 : (L <= 4 ? 3 : (L <= 11 ? 4 : (L <= 24 ? 5 : 6)))
+    tpc: L <= 2 ? 2 : (L <= 4 ? 3 : (L <= 11 ? 4 : (L <= 24 ? 5 : Math.min(12, 6 + Math.floor((L - 25) / 4)))))
   };
 }
 
@@ -124,17 +124,49 @@ function toState(def){
   };
 }
 
+function smartWinRate(def, runs, seed){
+  var r = rng(seed), win = 0, n, p, k;
+  for (n = 0; n < runs; n++){
+    var st = toState(def), ok = true;
+    while (!st.cols.every(function(c){ return !c.length; })){
+      var heads = st.cols.map(function(c){ return c[0]; }).filter(Boolean), best = -1, bs = -1e9;
+      for (p = 0; p < st.pipes.length; p++){
+        if (st.qi[p] >= st.pipes[p].length) continue;
+        var b = st.pipes[p][st.qi[p]], m = 0;
+        for (k = 0; k < heads.length; k++) if (heads[k].color === b.color) m++;
+        var sc = m * 10 + (m ? 0 : -b.units) + r() * 3;
+        if (sc > bs){ bs = sc; best = p; }
+      }
+      if (best < 0){ ok = false; break; }
+      var blk = st.pipes[best][st.qi[best]++];
+      st.pool[blk.color] += blk.units * UNIT_MULT;
+      settle(st.cols, st.pool);
+      if (st.pool.reduce(function(a, v){ return a + v; }, 0) > 36){ ok = false; break; }
+    }
+    if (ok) win++;
+  }
+  return win / runs;
+}
+
+var cache = {};
 function makeLevel(L){
-  var best = null;
-  for (var seed = 0; seed < 60; seed++){
+  if (cache[L]) return cache[L];
+  var best = null, bestRate = 2, seed;
+  for (seed = 0; seed < 60; seed++){
     var def = build(L, seed);
     var st = toState(def), good = solve(st, true, 60000);
     if (!good.length) continue;
+    if (L > 24){
+      var rate = smartWinRate(def, 90, L * 31 + seed);
+      if (rate < bestRate){ bestRate = rate; best = def; }
+      if (seed >= 29 && best) break;
+      continue;
+    }
     best = def;
     var tricky = good.length < st.pipes.length;
     if (L <= 2 || tricky) break;
   }
-  return best || build(1, 0);
+  return (cache[L] = best || build(1, 0));
 }
 
 window.MarbleLevels = { make: makeLevel, solve: solve, HINT_POOL_MAX: HINT_POOL_MAX, TILE_CAP: TILE_CAP, UNIT_MULT: UNIT_MULT };
