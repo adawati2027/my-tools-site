@@ -15,7 +15,7 @@
 <meta name="theme-color" content="#2563eb">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>لعبة الملك والجواهر — فجّر القطع المتطابقة وأنقذ المملكة | Adawati</title>
-<meta name="description" content="لعبة ألغاز مجانية: اضغط على مجموعات الجواهر المتطابقة لتفجيرها، حطّم الصخور، واجمع الأهداف قبل نفاد الحركات. ألوان ساطعة، قنابل وصواريخ، ومئات المستويات.">
+<meta name="description" content="لعبة ألغاز مجانية: بدّل مكان جوهرتين متجاورتين ليصطف 3 جواهر متطابقة أو أكثر فتنفجر، حطّم الصخور، واجمع الأهداف قبل نفاد الحركات. ألوان ساطعة، قنابل وصواريخ، ومئات المستويات.">
 <meta name="keywords" content="لعبة الملك, لعبة الجواهر, لعبة انفجار الألوان, Royal Match, لعبة ألغاز, ألعاب جوال مجانية, Tap Blast">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://adawati.space/jo/games/royal-blast/">
@@ -116,7 +116,7 @@ body.rb-full #rbStage{position:fixed;inset:0;z-index:9999;max-width:none;height:
 <main><div class="tool-page">
   <div class="page-header"><a href="jo/games/">← العودة للألعاب</a></div>
   <h1 style="text-align:center;font-size:24px;margin:6px 0 12px;">👑 لعبة الملك والجواهر</h1>
-  <p style="text-align:center;font-size:14px;color:var(--text-muted);max-width:440px;margin:0 auto 12px;line-height:1.7;">اضغط على مجموعة من القطع المتطابقة المتجاورة لتفجيرها، وحطّم الصخور، وأنجز أهداف الملك قبل أن تنتهي الحركات.</p>
+  <p style="text-align:center;font-size:14px;color:var(--text-muted);max-width:440px;margin:0 auto 12px;line-height:1.7;">بدّل مكان قطعتين متجاورتين ليصطف 3 قطع متطابقة أو أكثر فتنفجر، وحطّم الصخور، وأنجز أهداف الملك قبل أن تنتهي الحركات.</p>
 
   <div id="rbStage">
     <div class="rb-scene">
@@ -254,21 +254,22 @@ body.rb-full #rbStage{position:fixed;inset:0;z-index:9999;max-width:none;height:
   <div class="card" style="margin-top:20px;">
     <h2 style="font-size:17px;font-weight:700;margin-bottom:10px;">🎮 كيف تلعب</h2>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;">
-      <li>اضغط على أي قطعة لها جارة من اللون نفسه لتفجير المجموعة كلها.</li>
+      <li>اسحب أي قطعة نحو جارتها (أو اضغط قطعة ثم جارتها) لتبديل مكانيهما.</li>
+      <li>عندما يصطف 3 قطع متطابقة أو أكثر جنباً إلى جنب تنفجر كلها.</li>
       <li>أهداف المستوى تظهر فوق اللوحة: اجمع العدد المطلوب من كل قطعة، وحطّم الصخور.</li>
       <li>الصخرة تتحطم عندما تنفجر قطعة بجانبها. بعض الصخور القوية تحتاج إلى ضربتين.</li>
-      <li>مجموعة من 5 قطع تصنع قنبلة تفجّر ما حولها، ومجموعة من 7 قطع تصنع صاروخاً يمسح الصف كله.</li>
+      <li>صف من 4 قطع يصنع صاروخاً يمسح الصف كله. صف من 5 قطع أو شكل حرف L أو T يصنع قنبلة تفجّر ما حولها. اضغط على القنبلة أو الصاروخ لتفجيره.</li>
       <li>تفوز عندما تكتمل كل الأهداف، وتخسر إذا انتهت الحركات قبل ذلك.</li>
     </ul>
     <h3 style="font-size:15px;margin-top:12px;">💡 نصائح</h3>
     <ul style="font-size:14px;color:var(--text-muted);line-height:1.9;padding-right:18px;">
-      <li>لا تفجّر مجموعة صغيرة إذا كان بإمكانك جمع مجموعة أكبر وصنع قنبلة.</li>
+      <li>التبديل الذي لا يصنع صفاً من 3 قطع غير مسموح ولا يستهلك حركة.</li>
       <li>فجّر الألوان المطلوبة في أهداف المستوى أولاً، وتجاهل غيرها.</li>
       <li>ضع القنبلة قرب الصخور فتحطم أكثر من صخرة بحركة واحدة.</li>
-      <li>إذا تأخرت في الحركة تلمع لك أفضل مجموعة كمساعدة.</li>
+      <li>إذا تأخرت في الحركة تلمع لك قطعتان للتبديل كمساعدة.</li>
     </ul>
     <h3 style="font-size:15px;margin-top:12px;">❓ أسئلة شائعة</h3>
-    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;"><b>هل اللعبة مجانية؟</b> نعم، مجانية بالكامل وتعمل في المتصفح بدون تحميل.<br><b>هل يُحفظ تقدّمي؟</b> نعم، يُحفظ آخر مستوى وصلت إليه على جهازك.<br><b>ماذا لو لم تبقَ مجموعات؟</b> تُخلط القطع تلقائياً حتى تجد حركة.</p>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;"><b>هل اللعبة مجانية؟</b> نعم، مجانية بالكامل وتعمل في المتصفح بدون تحميل.<br><b>هل يُحفظ تقدّمي؟</b> نعم، يُحفظ آخر مستوى وصلت إليه على جهازك.<br><b>ماذا لو لم تبقَ تبديلات؟</b> تُخلط القطع تلقائياً حتى تجد حركة.</p>
   </div>
 <!--/seo-about-->
 </div></main>
@@ -280,9 +281,9 @@ body.rb-full #rbStage{position:fixed;inset:0;z-index:9999;max-width:none;height:
   </div>
 </footer>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://adawati.space/jo/"},{"@type":"ListItem","position":2,"name":"الألعاب","item":"https://adawati.space/jo/games/"},{"@type":"ListItem","position":3,"name":"لعبة الملك والجواهر","item":"https://adawati.space/jo/games/royal-blast/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"هل لعبة الملك والجواهر مجانية؟","acceptedAnswer":{"@type":"Answer","text":"نعم، مجانية بالكامل وتعمل في المتصفح بدون تحميل."}},{"@type":"Question","name":"كيف أصنع قنبلة في اللعبة؟","acceptedAnswer":{"@type":"Answer","text":"فجّر مجموعة من 5 قطع متطابقة أو أكثر فتتحول القطعة التي ضغطت عليها إلى قنبلة. وإذا كانت المجموعة 7 قطع أو أكثر تصبح صاروخاً."}}]},{"@type":"VideoGame","name":"لعبة الملك والجواهر","inLanguage":"ar","genre":"Puzzle","url":"https://adawati.space/jo/games/royal-blast/","isAccessibleForFree":true,"gamePlatform":"Web browser"}]}</script>
-<script src="jo/games/royal-blast/blast-core.js?v=2"></script>
-<script src="jo/games/royal-blast/royal-blast.js?v=6"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://adawati.space/jo/"},{"@type":"ListItem","position":2,"name":"الألعاب","item":"https://adawati.space/jo/games/"},{"@type":"ListItem","position":3,"name":"لعبة الملك والجواهر","item":"https://adawati.space/jo/games/royal-blast/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"هل لعبة الملك والجواهر مجانية؟","acceptedAnswer":{"@type":"Answer","text":"نعم، مجانية بالكامل وتعمل في المتصفح بدون تحميل."}},{"@type":"Question","name":"كيف أصنع قنبلة في اللعبة؟","acceptedAnswer":{"@type":"Answer","text":"اصنع صفاً من 5 قطع متطابقة أو شكل L أو T فتتحول إحدى القطع إلى قنبلة. وإذا كان الصف 4 قطع تصبح صاروخاً."}}]},{"@type":"VideoGame","name":"لعبة الملك والجواهر","inLanguage":"ar","genre":"Puzzle","url":"https://adawati.space/jo/games/royal-blast/","isAccessibleForFree":true,"gamePlatform":"Web browser"}]}</script>
+<script src="jo/games/royal-blast/blast-core.js?v=3"></script>
+<script src="jo/games/royal-blast/royal-blast.js?v=7"></script>
 <script src="i18n-lang-ar.js?v=4" defer></script>
 <script src="i18n.js?v=79" defer></script>
 </body></html>

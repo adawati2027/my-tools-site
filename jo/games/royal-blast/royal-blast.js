@@ -6,6 +6,7 @@
   var stage = $('rbStage');
   var PAL = [['#ff7b88', '#d4152f', '#8f0b1f'], ['#78ef78', '#1fae3f', '#0e6b25'], ['#ffdc5c', '#f59a00', '#a35f00'], ['#6fc2ff', '#1f6fe0', '#12449a'], ['#d29aff', '#8a37e0', '#552090']];
   var st, level = 1, attempt = 0, cs = 40, dpr = 1, views = {}, dying = [], parts = [], fxs = [], shake = 0;
+  var sel = null, down = null, chaining = false, gen = 0;
   var pendingEnd = false, hint = null, idleT = 0, last = 0, muted = false, ac = null, gridTop = 0;
 
   try { level = Math.max(1, parseInt(localStorage.getItem('rb_level'), 10) || 1); muted = localStorage.getItem('rb_mute') === '1'; } catch (e) {}
@@ -351,7 +352,7 @@
   function startLevel(retry) {
     if (retry) attempt++; else attempt = 0;
     st = Core.make(level, attempt); st.intro = true;
-    views = {}; dying = []; parts = []; fxs = []; texts = []; pendingEnd = false; hint = null; idleT = 0; hoverKey = null;
+    views = {}; dying = []; parts = []; fxs = []; texts = []; pendingEnd = false; hint = null; idleT = 0; hoverKey = null; sel = null; down = null; chaining = false; gen++;
     $('rbOverlay').hidden = true; $('rbConfetti').innerHTML = '';
     var fr = $('rbStage').querySelectorAll('canvas.rb-fly'); for (var i = 0; i < fr.length; i++) fr[i].remove();
     sync(); st.intro = false;
@@ -362,7 +363,7 @@
 
   function busy() {
     if (dying.length || pendingEnd) return true;
-    for (var id in views) { var v = views[id]; if (v.delay > 0 || v.wait > 0 || v.vy !== 0 || v.y < v.row - .002) return true; }
+    for (var id in views) { var v = views[id]; if (v.delay > 0 || v.wait > 0 || v.vy !== 0 || v.y < v.row - .002 || v.ox || v.oy) return true; }
     return false;
   }
 
@@ -448,10 +449,20 @@
       sync();
       for (var id in views) { var w = views[id]; if (w.y < w.row - .001 && !(w.delay > 0)) { w.wait = hold + w.col * .012; w.bn = 0; } }
       if (ev.made) { var mv = views[ev.made.tile.id]; if (mv) { mv.delay = .22; mv.pop = 1; mv.born = 1; ring(c + .5, r + .5, '#ffd84d', 1, .22); setTimeout(function () { burst(c + .5, r + .5, 0, 12, 'gold'); tone(880, .2, 'triangle', .1, 1500); }, 220); } }
-      if (st.state === 'lose') { pendingEnd = true; setTimeout(endGame, hold * 1000 + 700); }
+      chaining = true; var g0 = gen; setTimeout(function () { afterSettle(g0); }, 80);
     }
     if (shuffled) combo('خلط القطع');
     updateHud();
+  }
+
+  function afterSettle(g0) {
+    if (g0 !== gen || pendingEnd) return;
+    if (busy()) { setTimeout(function () { afterSettle(g0); }, 80); return; }
+    var b = st.score, ev2 = Core.cascade(st);
+    if (ev2) { chaining = false; handle(ev2, ev2.at[0], ev2.at[1], st.score - b); return; }
+    if (Core.ensureMove(st)) { sync(); combo('خلط القطع'); }
+    chaining = false;
+    if (st.moves <= 0 && st.state === 'play') { st.state = 'lose'; pendingEnd = true; setTimeout(endGame, 600); }
   }
 
   function endGame() {
@@ -481,37 +492,57 @@
     var c = Math.floor((e.clientX - rc.left) / (rc.width / W)), r = Math.floor((e.clientY - rc.top) / (rc.height / H));
     return (c < 0 || r < 0 || c >= W || r >= H) ? null : [c, r];
   }
-  canvas.addEventListener('pointermove', function (e) {
-    if (e.pointerType !== 'mouse' || !st || st.state !== 'play' || busy()) { hoverKey = null; return; }
-    var p = cellAt(e); hoverKey = null; if (!p) return;
-    var t = st.g[p[0]][p[1]]; if (!t || t.k > 4) return;
-    var g = Core.group(st, p[0], p[1]); if (g.length < 2) return;
-    hoverKey = {}; g.forEach(function (q) { hoverKey[q[0] * 10 + q[1]] = 1; });
-  });
-  canvas.addEventListener('pointerleave', function () { hoverKey = null; });
+  function trySwap(a, b) {
+    if (b[0] < 0 || b[1] < 0 || b[0] >= W || b[1] >= H) return;
+    var ta = st.g[a[0]][a[1]], tb = st.g[b[0]][b[1]]; if (!ta || !tb) return;
+    var before = st.score, ev = Core.applySwap(st, a[0], a[1], b[0], b[1]);
+    if (!ev) { [ta, tb].forEach(function (t) { var v = views[t.id]; if (v) v.sh = 1; }); tone(150, .1, 'square', .06); return; }
+    var va = views[ta.id], vb = views[tb.id];
+    if (va) { va.ox = a[0] - b[0]; va.oy = a[1] - b[1]; va.col = b[0]; va.y = va.row = b[1]; }
+    if (vb) { vb.ox = b[0] - a[0]; vb.oy = b[1] - a[1]; vb.col = a[0]; vb.y = vb.row = a[1]; }
+    tone(520, .06, 'sine', .05);
+    handle(ev, ev.at[0], ev.at[1], st.score - before);
+  }
   canvas.addEventListener('pointerdown', function (e) {
     e.preventDefault();
     audioOK();
     idleT = 0; hint = null; hoverKey = null;
-    if (busy() || st.state !== 'play') return;
+    if (busy() || chaining || st.state !== 'play') return;
     var p = cellAt(e); if (!p) return;
-    var c = p[0], r = p[1], t = st.g[c][r]; if (!t) return;
-    var before = st.score;
-    var ev = Core.applyTap(st, c, r);
-    if (!ev) { var v = views[t.id]; if (v) v.sh = 1; tone(150, .1, 'square', .06); return; }
-    handle(ev, c, r, st.score - before);
+    down = { p: p, x: e.clientX, y: e.clientY, done: 0 };
+    try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
   });
+  canvas.addEventListener('pointermove', function (e) {
+    if (!down || down.done || busy() || chaining || st.state !== 'play') return;
+    var cell = canvas.getBoundingClientRect().width / W, dx = e.clientX - down.x, dy = e.clientY - down.y;
+    if (Math.hypot(dx, dy) < cell * .35) return;
+    var q = Math.abs(dx) > Math.abs(dy) ? [down.p[0] + (dx > 0 ? 1 : -1), down.p[1]] : [down.p[0], down.p[1] + (dy > 0 ? 1 : -1)];
+    down.done = 1; sel = null;
+    trySwap(down.p, q);
+  });
+  function endPress() {
+    if (!down) return;
+    var d = down; down = null;
+    if (d.done || busy() || chaining || st.state !== 'play') return;
+    var c = d.p[0], r = d.p[1], t = st.g[c][r]; if (!t) return;
+    if (t.k > 5) {
+      sel = null;
+      var before = st.score, ev = Core.applyTap(st, c, r);
+      if (ev) handle(ev, c, r, st.score - before);
+      return;
+    }
+    if (t.k === 5) { var v0 = views[t.id]; if (v0) v0.sh = 1; tone(150, .1, 'square', .06); return; }
+    if (sel && Math.abs(sel[0] - c) + Math.abs(sel[1] - r) === 1) { var s0 = sel; sel = null; trySwap(s0, [c, r]); }
+    else sel = (sel && sel[0] === c && sel[1] === r) ? null : [c, r];
+  }
+  canvas.addEventListener('pointerup', endPress);
+  canvas.addEventListener('pointercancel', function () { down = null; });
 
   function findHint() {
-    var best = null, bn = 0, seen = {};
-    for (var c = 0; c < W; c++) for (var r = 0; r < H; r++) {
-      var t = st.g[c][r]; if (!t || t.k === ROCK || seen[c * 10 + r]) continue;
-      if (t.k > 4) { if (bn < 5) { best = [[c, r]]; bn = 5; } continue; }
-      var g = Core.group(st, c, r);
-      g.forEach(function (q) { seen[q[0] * 10 + q[1]] = 1; });
-      if (g.length >= 2 && g.length > bn) { best = g; bn = g.length; }
-    }
-    return best;
+    var m = Core.findSwap(st, 0);
+    if (m) return [[m[0], m[1]], [m[2], m[3]]];
+    for (var c = 0; c < W; c++) for (var r = 0; r < H; r++) { var t = st.g[c][r]; if (t && t.k > 5) return [[c, r]]; }
+    return null;
   }
 
   function dieFx(d) {
@@ -527,6 +558,7 @@
     var tm = ts / 1000, id, v, i;
     for (id in views) {
       v = views[id];
+      if (v.ox || v.oy) { var kk = Math.min(1, dt * 13); v.ox -= v.ox * kk; v.oy -= v.oy * kk; if (Math.abs(v.ox) < .015) v.ox = 0; if (Math.abs(v.oy) < .015) v.oy = 0; }
       if (v.delay > 0) { v.delay -= dt; continue; }
       if (v.wait > 0) v.wait -= dt;
       else if (v.y < v.row || v.vy < 0) {
@@ -599,17 +631,17 @@
       var sc = 1, sqx = 1, sqy = 1, settled = Math.abs(v.y - v.row) < .01, key = v.col * 10 + v.row, hov = settled && hoverKey && hoverKey[key];
       if (v.sq) { sqx = 1 + .16 * v.sq; sqy = 1 - .16 * v.sq; }
       if (v.born) sc = eob(1 - v.pop);
-      if (hov) sc *= 1.07;
+      if (sel && settled && sel[0] === v.col && sel[1] === v.row) sc *= 1.14 + .04 * Math.sin(tm * 9);
       if (hint && settled && hintKey[key]) sc *= 1 + .07 * Math.sin(tm * 8);
       if (v.k > 5) sc *= 1 + .05 * Math.sin(tm * 6 + v.id);
       var ox = v.sh ? Math.sin(v.sh * 30) * v.sh * .08 : 0;
-      c.save(); c.translate((v.col + .5 + ox) * s, (v.y + .5) * s + (1 - sqy) * s * .45); c.scale(sc * sqx, sc * sqy);
+      c.save(); c.translate((v.col + (v.ox || 0) + .5 + ox) * s, (v.y + (v.oy || 0) + .5) * s + (1 - sqy) * s * .45); c.scale(sc * sqx, sc * sqy);
       spr(c, v.k, v.hp, v.max);
       if (hov) { c.globalCompositeOperation = 'lighter'; c.globalAlpha = .22; spr(c, v.k, v.hp, v.max); }
       c.restore();
     }
     for (i = 0; i < dying.length; i++) {
-      var d = dying[i], dv = d.v, t = d.t, scl = 1, a2 = 1, px = dv.col + .5, py = dv.y + .5, rot = 0, fl = 0;
+      var d = dying[i], dv = d.v, t = d.t, scl = 1, a2 = 1, px = dv.col + (dv.ox || 0) + .5, py = dv.y + (dv.oy || 0) + .5, rot = 0, fl = 0;
       if (t > 0) {
         var q = t / d.dur;
         if (d.fly) { var e = q * q; px = dv.col + (d.fly.c - dv.col) * e + .5; py = dv.y + (d.fly.r - dv.y) * e + .5; scl = 1 - .4 * q; a2 = 1 - q * q * .6; }
