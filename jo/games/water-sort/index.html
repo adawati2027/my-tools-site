@@ -82,6 +82,17 @@ body.ws-full .ws-top{padding:calc(env(safe-area-inset-top) + 10px) 14px 4px;}
 .tube.done{animation:wsPulse .6s ease;}
 @keyframes wsPulse{0%{transform:scale(1)}40%{transform:scale(1.12) translateY(-4px)}100%{transform:scale(1)}}
 .tube.sel .glass{border-color:#2d6bff;box-shadow:inset 0 -6px 10px rgba(130,160,220,.25),0 0 0 3px rgba(45,107,255,.28),0 0 18px rgba(45,107,255,.55);}
+.ws-taunt{position:relative;z-index:2;text-align:center;font-size:14px;font-weight:800;color:#7a3fc9;padding:0 12px 2px;}
+.ws-taunt[hidden],.ws-coll[hidden]{display:none;}
+.ws-coll{align-self:stretch;width:58px;margin:8px 6px 8px 0;display:flex;flex-direction:column;align-items:center;gap:4px;flex:none;}
+.ws-heart{font-size:22px;line-height:1;}
+.ws-collt{flex:1;width:100%;border:3px solid rgba(110,135,190,.55);border-radius:26px 26px 30px 30px;background:linear-gradient(90deg,rgba(255,255,255,.75),rgba(235,245,255,.5));overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:inset 0 -6px 10px rgba(130,160,220,.25);}
+.ws-collf{display:flex;flex-direction:column-reverse;width:100%;}
+.ws-collf .cl{flex:none;width:100%;transition:height .6s ease;background:linear-gradient(90deg,var(--cl),var(--c) 40%,var(--cd));}
+.ws-collc{font-size:12px;font-weight:800;color:#5b6a94;direction:ltr;}
+.seg.hid{background:linear-gradient(90deg,#d3dbec,#a9b8d6 60%,#8e9fc4);}
+.seg.hid::after{left:0;top:0;width:100%;height:100%;border-radius:0;background:none;display:flex;align-items:center;justify-content:center;content:"?";color:#fff;font-weight:900;font-size:calc(var(--tw)*.5);text-shadow:0 1px 2px rgba(40,60,120,.4);}
+.seg.hid:last-child::before{display:none;}
 </style>
 </head>
 <body class="ws-full">
@@ -101,7 +112,8 @@ body.ws-full .ws-top{padding:calc(env(safe-area-inset-top) + 10px) 14px 4px;}
       <span class="ws-level" id="wsLevel">المستوى 1</span>
       <span class="ws-moves" id="wsMoves"></span>
     </div>
-    <div class="ws-area"><div id="wsBoard" class="ws-board"></div></div>
+    <div class="ws-taunt" id="wsTaunt" hidden></div>
+    <div class="ws-area"><div class="ws-coll" id="wsColl" hidden><span class="ws-heart">💖</span><div class="ws-collt"><div class="ws-collf" id="wsCollFill"></div></div><span class="ws-collc" id="wsCollCnt"></span></div><div id="wsBoard" class="ws-board"></div></div>
     <div class="ws-bar">
       <button class="ws-btn" id="wsUndo" type="button">↩ تراجع</button>
       <button class="ws-btn" id="wsRestart" type="button">↻ إعادة</button>
@@ -148,7 +160,7 @@ body.ws-full .ws-top{padding:calc(env(safe-area-inset-top) + 10px) 14px 4px;}
 </footer>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://adawati.space/jo/"},{"@type":"ListItem","position":2,"name":"الألعاب","item":"https://adawati.space/jo/games/"},{"@type":"ListItem","position":3,"name":"لعبة فرز السوائل","item":"https://adawati.space/jo/games/water-sort/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"هل لعبة فرز السوائل مجانية؟","acceptedAnswer":{"@type":"Answer","text":"نعم، مجانية بالكامل وتعمل في المتصفح بدون تحميل."}},{"@type":"Question","name":"هل يُحفظ تقدّمي في اللعبة؟","acceptedAnswer":{"@type":"Answer","text":"نعم، يُحفظ آخر مستوى وصلت إليه على جهازك."}}]},{"@type":"VideoGame","name":"لعبة فرز السوائل","inLanguage":"ar","genre":"Puzzle","url":"https://adawati.space/jo/games/water-sort/","isAccessibleForFree":true,"gamePlatform":"Web browser"}]}</script>
-<script src="jo/games/water-sort/water-sort.js?v=4"></script>
+<script src="jo/games/water-sort/water-sort.js?v=5"></script>
 <script src="i18n-lang-ar.js?v=4" defer></script>
 <script src="i18n.js?v=79" defer></script>
 </body></html>

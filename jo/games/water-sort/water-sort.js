@@ -21,8 +21,18 @@ function rng(seed){
 }
 
 function params(L){
-  var colors = Math.min(12, 3 + Math.floor((L - 1) / 2));
-  return { colors: colors, empty: L < 3 ? 2 : (L <= 30 ? 2 : 1) };
+  if (L > 50) return { colors: 12, empty: 1, hidden: true, deep: 160, noAdd: true };
+  if (L > 25){
+    var hid = (L - 26) % 3 === 1;
+    return { colors: [12, 9, 11, 10][(L - 26) % 4], empty: (L <= 30 || hid) ? 2 : 1, hidden: hid, deep: 70 };
+  }
+  return { colors: Math.min(12, 3 + Math.floor((L - 1) / 2)), empty: 2, hidden: false, deep: 70 };
+}
+var TAUNTS = ['أصعب من دقات قلبك 💓', 'ألوان كثيرة وصبر أكثر 😅', 'هل تقدر؟ جرّب 😎', 'اسكب بحكمة 🧪', 'فكّر قبل أن تسكب 🧠'];
+function tauntFor(L){
+  if (L > 50) return 'مستوى الأساطير! لا مجال للخطأ 🔥';
+  if (params(L).hidden) return 'ألوان مخفية! ركّز وتذكّر 🕵️';
+  return TAUNTS[L % TAUNTS.length];
 }
 
 function key(tubes){ return tubes.map(function(t){ return t.join(''); }).sort().join('|'); }
@@ -75,7 +85,7 @@ function scramble(p, r){
   var t = [], i, c, steps = 0, guard = 0;
   for (c = 0; c < p.colors; c++){ var x = []; for (i = 0; i < CAP; i++) x.push(c); t.push(x); }
   for (i = 0; i < p.empty; i++) t.push([]);
-  var n = t.length, want = p.colors * 70;
+  var n = t.length, want = p.colors * (p.deep || 70);
   while ((steps < want || t.some(function(q){ return q.length === CAP && topRun(q) === CAP; })) && guard++ < 20000){
     var d = Math.floor(r() * n), s = Math.floor(r() * n);
     if (d === s || !t[d].length) continue;
@@ -114,8 +124,8 @@ function makeLevel(L){
 }
 
 var level = Math.max(1, parseInt(ls(KEY), 10) || 1), muted = ls(MUTE) === '1';
-var tubes, hist, sel = -1, busy = false, moveCount = 0, extraUsed = false, ac = null;
-var board = el('wsBoard'), stage = el('wsStage'), els = [];
+var collOrder = [], tubes, hist, sel = -1, busy = false, moveCount = 0, extraUsed = false, ac = null;
+var coll = el('wsColl'), collFill = el('wsCollFill'), board = el('wsBoard'), stage = el('wsStage'), els = [];
 
 function tone(f, d, type, vol, when){
   if (muted) return;
@@ -134,7 +144,7 @@ function sndWin(){ [523, 659, 784, 1047].forEach(function(f, i){ tone(f, 0.25, '
 
 function sizeBoard(){
   var n = tubes.length, area = board.parentNode;
-  var availW = Math.min(area.clientWidth || 360, 560) - 28, availH = (area.clientHeight || 560) - 30;
+  var availW = Math.min(area.clientWidth || 360, 560) - 28 - (level > 25 ? 70 : 0), availH = (area.clientHeight || 560) - 30;
   var best = null, rows, gapX = 12, gapY = 30;
   for (rows = 1; rows <= 4; rows++){
     var per = Math.ceil(n / rows);
@@ -158,6 +168,27 @@ function segEl(c){
   s.className = 'seg';
   segStyle(s, c);
   return s;
+}
+
+function renderColl(P){
+  var on = level > 25;
+  coll.hidden = !on;
+  if (!on) return;
+  var capped = [];
+  tubes.forEach(function(t){ if (t.length === CAP && topRun(t) === CAP) capped.push(t[0]); });
+  var prev = collOrder.length;
+  collOrder = collOrder.filter(function(c){ return capped.indexOf(c) >= 0; });
+  if (collOrder.length !== prev) collFill.textContent = '';
+  capped.forEach(function(c){ if (collOrder.indexOf(c) < 0) collOrder.push(c); });
+  var h = 100 / P.colors;
+  while (collFill.children.length < collOrder.length){
+    var d = document.createElement('div');
+    d.className = 'cl'; segStyle(d, collOrder[collFill.children.length]); d.style.height = '0%';
+    collFill.appendChild(d);
+    (function(x){ requestAnimationFrame(function(){ requestAnimationFrame(function(){ x.style.height = h + '%'; }); }); })(d);
+  }
+  for (var i = 0; i < collFill.children.length; i++){ segStyle(collFill.children[i], collOrder[i]); collFill.children[i].style.height = h + '%'; }
+  el('wsCollCnt').textContent = collOrder.length + '/' + P.colors;
 }
 
 function build(){
@@ -187,14 +218,21 @@ function refresh(){
     els[i].w.classList.toggle('done', full);
     els[i].w.classList.toggle('sel', i === sel);
   });
+  var P = params(level);
+  tubes.forEach(function(t, i){
+    var kids = els[i].liq.children, vis = t.length - topRun(t);
+    for (var k = 0; k < kids.length; k++) kids[k].classList.toggle('hid', P.hidden && k < vis && t.length === kids.length);
+  });
+  renderColl(P);
   el('wsLevel').textContent = 'المستوى ' + level;
   el('wsMoves').textContent = 'الحركات: ' + moveCount;
   el('wsUndo').disabled = !hist.length || busy;
-  el('wsAdd').disabled = extraUsed || busy;
+  el('wsAdd').disabled = extraUsed || busy || !!P.noAdd;
 }
 
 function start(L, same){
-  level = L; ls(KEY, String(L));
+  level = L; ls(KEY, String(L)); collOrder = []; collFill.textContent = '';
+  var tz = el('wsTaunt'); tz.textContent = tauntFor(L); tz.hidden = L <= 25;
   tubes = makeLevel(L).map(function(t){ return t.slice(); });
   hist = []; sel = -1; busy = false; moveCount = 0; extraUsed = false;
   el('wsOverlay').hidden = true;
